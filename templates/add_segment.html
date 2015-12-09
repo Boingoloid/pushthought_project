@@ -1,0 +1,19 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <body>
+        <p> {{ program.title }}</p><br><br>
+        <p> Add a Segment</p><br>
+
+        <form id="segment_form" method="post" action="/pushthought/addsegment/">
+            {{ form.as_p }}
+            {% csrf_token %}
+
+
+            <a href="/pushthought/{{ program.pk }}">Cancel</a><br><br><input type="submit" name="submit" value="Save New" />
+        </form>
+    </body>
+</div>
+{% endblock %}

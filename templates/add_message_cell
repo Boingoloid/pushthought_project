@@ -1,0 +1,15 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+    <body>
+
+        <form id="segment_form" method="post" action="/pushthought/addsegment/">
+            <!--{{ form.as_p }}-->
+            {% csrf_token %}
+
+            <a href="/pushthought/{{ program.pk }}">Cancel</a><br><br><input type="submit" name="submit" value="Save New" />
+        </form>
+    </body>
+
+{% endblock %}

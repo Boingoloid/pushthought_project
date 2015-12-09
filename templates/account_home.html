@@ -1,0 +1,39 @@
+
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+
+<!--{% block static %}<link rel="stylesheet" href="{% static 'pushthought/css/pushthought.css' %}">{% endblock %}-->
+{% block title %} {% endblock %}
+
+
+{% block content %}
+{% csrf_token %}
+    <div class="container">
+        <h3>Dashboard for {{ user.username }}</h3>
+
+        {% if not programs %}
+            <h3>Hi, thank you for logging into Push Thought.</h3>
+            <h3>You have no programs at the moment. </h3>
+            <h3>What is a "Program"? </h3>
+            <h4>Documentary Series,Television of Web Video,Podcast,News Article  Add a
+                segment.</h4>
+        {% else %}
+        {% endif %}
+
+        <p>All Programs</p>
+    </div>
+<div class="container">
+<div class="cards">
+    {% for program in programs %}
+    <div class="card">
+        <header><a href="{% url 'segment_list' user.pk program.pk%}"
+           style="color:blue">{{ program.title }}</a>
+        </header>
+        <div class="card-copy">
+            <b>Description: </b><br>{{ program.description }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

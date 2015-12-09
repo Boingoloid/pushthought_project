@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block static_files %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <a href="{% url 'segment_list' user.pk program.pk%}"><--Back to Segment List</a><br><br>
+        <h3>{{program.title}} - {{segment.title}}</h3>
+        <br>
+        <div>
+            <h4>Current Action Menu:</h4>
+                <div id="savedItems">
+                    <li>
+                    {% for menuItem in menuItems %}
+                        {{ menuItem.category }}
+                        {{ menuItem.isMessage }}
+                        {{ menuItem.messageText }} <br>
+                    {% endfor %}
+                    </li>
+                </div>
+            <br><br>
+            <div>
+                <div id="div1">
+                <p>Add a new Action</p>
+                <select id="category" required="true" class="selector">
+                    <option value disabled selected> -- select an option -- </option>
+                    <option value="ShortMessageRep (Local Representatives autoloaded)">Short Message Local Rep (action targets autoload)</option>
+                    <option value="ShortMessageCustom">Short Message Custom (you select action targets)</option>
+                    <option value="longFormEmail" >Long Form Email</option>
+                </select>
+            </div>
+            </div>
+        </div>
+    </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/click_handlers.js"></script>
+{% endblock %}
