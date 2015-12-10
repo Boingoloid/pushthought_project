@@ -28,13 +28,13 @@ urlpatterns = [
     url(r'^logout', views.user_logout, name='logout'),
     url(r'^about',views.about, name='about'),
     url(r'^$', views.home,name='home'),
-    # url(r'^register', views.register, name='register'),
-    # url(r'^login', views.user_login, name='login'),
+    url(r'^register', views.register, name='register'),
+    url(r'^login', views.user_login, name='login'),
     url(r'^contact',views.contact,name='contact'),
     #url(r'^pushthought/', views.), # ADD THIS NEW TUPLE!
     #url(r'^programs/', include('pushthought.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include('registration.backends.default.urls')),
+    # url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^$', views.home,name='home',),
 ]
 
