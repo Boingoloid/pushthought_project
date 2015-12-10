@@ -3,8 +3,6 @@ from django import forms
 from pushthought.models import Segment, MenuItem, UserProfile
 from django.contrib.auth.models import User
 
-
-
 class SegmentForm(forms.ModelForm):
     # name = forms.CharField(max_length=128, help_text="Please enter the category name.")
     # views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
