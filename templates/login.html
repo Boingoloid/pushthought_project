@@ -1,5 +1,4 @@
-{% extends "base.html" %}
-
+{% extends "layout.html" %}
 
 {% block title %} {% endblock %}
 {% block content %}
@@ -17,5 +16,5 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" />Sign in</button>
 </form>
 
-        <p>Not  a member? <a href="{% url 'registration_register' %}">Register</a>!</p>
+        <p>Not  a member? <a href="{% url 'register' %}">Register</a>!</p>
 {% endblock %}
