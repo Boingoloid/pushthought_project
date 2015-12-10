@@ -26,7 +26,7 @@ def account_home(request,user_pk):
     dataDict['user_pk'] = user_pk
     dataDict['programs'] = programs
 
-    return render(request, 'pushthought/account_home.html',dataDict)
+    return render(request, 'account_home.html',dataDict)
 
 @login_required
 def segment_list(request,user_pk,program_pk):
@@ -41,7 +41,7 @@ def segment_list(request,user_pk,program_pk):
     dataDict['segments'] = segments
     dataDict['program'] = program
 
-    return render(request, 'pushthought/segment_list.html', dataDict)
+    return render(request, 'segment_list.html', dataDict)
 
 @login_required
 def segment_menu(request,user_pk, program_pk,segment_pk):
@@ -54,7 +54,7 @@ def segment_menu(request,user_pk, program_pk,segment_pk):
     dataDict['segment'] = segment
     dataDict['program'] = program
 
-    return render(request, 'pushthought/segment_menu.html', dataDict)
+    return render(request, 'segment_menu.html', dataDict)
 
 @login_required
 def add_segment(request,user_pk,program_pk):
@@ -82,12 +82,12 @@ def add_segment(request,user_pk,program_pk):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render(request,'pushthought/add_segment.html', {'form': form, 'program': program})
+    return render(request,'add_segment.html', {'form': form, 'program': program})
 
 
 
 def contact(request):
-    return render(request,'pushthought/contact.html')
+    return render(request,'contact.html')
 
 def register(request):
 
@@ -143,7 +143,7 @@ def register(request):
 
     # Render the template depending on the context.
     return render(request,
-            'registration/registration_form.html',
+            'registration_form.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
 
 def user_login(request):
@@ -185,7 +185,7 @@ def user_login(request):
     else:
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render(request, 'registration/login.html', {})
+        return render(request, 'login.html', {})
 
 
 from django.contrib.auth import logout
