@@ -58,7 +58,7 @@
                             <li><a href="{% url 'account_home' user.pk %}">Dashboard</a></li>
                             <li><a href="{% url 'auth_logout' %}?next=/pushthought/"> Logout </a></li>
                         {% else %}
-                            <li><a href="{% url 'register' %}"> Register Here </a></li>
+                            <li><a href="{% url 'register' %}"> Register</a></li>
                             <li><a href="{% url 'login' %}">Login</a></li>
                         {% endif %}
                     </ul>
