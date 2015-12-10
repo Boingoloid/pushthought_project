@@ -27,7 +27,6 @@ urlpatterns = [
     url(r'(?P<user_pk>\d+)', views.account_home, name='account_home'),
     url(r'^logout', views.user_logout, name='logout'),
     url(r'^about',views.about, name='about'),
-    url(r'^$', views.home,name='home'),
     url(r'^register', views.register, name='register'),
     url(r'^login', views.user_login, name='login'),
     url(r'^contact',views.contact,name='contact'),
