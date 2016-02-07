@@ -2,10 +2,14 @@
 {% block title%}{% endblock %}
 
 {% block content%}
-<h2>Register Here</h2>
-        <form method="post" action=".">
-                {% csrf_token %}
-                {{ user_form.as_p }}
-                <input type="submit" value="Submit" />
-        </form>
+<div class="container">
+        <div class="jumbotron">
+                <h2>Register Here</h2>
+                <form method="post" action=".">
+                        {% csrf_token %}
+                        {{ user_form.as_p }}
+                        <input type="submit" value="Submit" />
+                </form>
+        </div>
+</div>
 {% endblock %}

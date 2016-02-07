@@ -3,6 +3,7 @@
 {% block title %} {% endblock %}
 {% block content %}
 <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+<div class="jumbotron">
 <h1>Login</h1>
 
 
@@ -17,4 +18,5 @@
 </form>
 
         <p>Not  a member? <a href="{% url 'register' %}">Register</a>!</p>
+        </div>
 {% endblock %}
