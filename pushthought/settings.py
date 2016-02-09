@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import psycopg2
+import urlparse
 
 PROJECT_FOLDER = os.path.realpath(os.path.dirname(__file__))
 BASE_DIR = os.path.join(os.path.dirname(__file__), '..')
@@ -53,6 +55,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'pushthought',
     'registration',
+    'social_auth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,13 +92,34 @@ WSGI_APPLICATION = 'pushthought.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
     }
 }
+
+
+
+DATABASE_URL = 'postgres://hdgnhjpsjylwrv:WONinZmjc9PthqNGYp6mZfg8fF@ec2-54-204-8-224.compute-1.amazonaws.com:5432/d6lt20ja1h9poi'
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -114,7 +138,7 @@ USE_TZ = True
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+DATABASES['default'] = dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -133,3 +157,6 @@ STATICFILES_DIRS = (
 )
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+TWITTER_CONSUMER_KEY = 'wFbOMUhdXSwU7WCGzW4V6a9Rn'
+TWITTER_CONSUMER_SECRET = 'Y4zH1qR55icmp5eiDhZKbgg3sC7TEvxPxrlKpd7y6NSzzsqfP1'
