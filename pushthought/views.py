@@ -16,9 +16,9 @@ from .forms import SegmentForm
 # Create your views here.
 
 def home(request):
-    userDict = dict()
-    userDict['users'] = User.objects.all()
-    return render(request, 'home.html',userDict)
+    # userDict = dict()
+    # userDict['users'] = User.objects.all()
+    return render(request, 'home.html')
 
 def about(request):
 
