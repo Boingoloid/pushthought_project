@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2f524674-a87c-41f6-a886-0bb20d6b2405" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pushthought/settings.py" afterPath="$PROJECT_DIR$/pushthought/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pushthought/views.py" afterPath="$PROJECT_DIR$/pushthought/views.py" />
     </list>
     <ignored path="pushthought_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pushthought/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62801933">
-              <caret line="54" column="18" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.65217394">
+              <caret line="55" column="17" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
               <folding>
                 <element signature="e#384#393#0" expanded="true" />
               </folding>
@@ -960,8 +959,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pushthought/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62801933">
-          <caret line="54" column="18" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.65217394">
+          <caret line="55" column="17" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
           <folding>
             <element signature="e#384#393#0" expanded="true" />
           </folding>
