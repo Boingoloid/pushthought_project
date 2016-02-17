@@ -10,8 +10,8 @@ from .models import Segment
 from .models import MenuItem
 from .forms import SegmentForm
 
-import json
-import jsonpickle
+# import json
+# import jsonpickle
 
 # Create your views here.
 
