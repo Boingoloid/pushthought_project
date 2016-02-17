@@ -27,7 +27,7 @@ def about(request):
 def api(request):
 
     obj = Program.objects.all()
-    frozen = jsonpickle.encode(obj)
+    # frozen = jsonpickle.encode(obj)
     return HttpResponse(obj, content_type='application/json')
 
 
