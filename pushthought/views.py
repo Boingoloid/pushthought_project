@@ -1,8 +1,8 @@
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth import authenticate, login
-from pushthought.forms import UserForm, UserProfileForm
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth import authenticate, login
+# from pushthought.forms import UserForm, UserProfileForm
+# from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from .models import Program
