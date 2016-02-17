@@ -51,7 +51,7 @@ def segment_list(request,user_pk,program_pk):
     dataDict = {}
     dataDict['user_pk'] = user_pk
     dataDict['segments'] = segments
-    dataDict['program'] = program4
+    dataDict['program'] = program
 
     return render(request, 'segment_list.html', dataDict)
 
