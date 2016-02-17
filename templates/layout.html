@@ -28,14 +28,12 @@
 	</head>
 	<body>
 
-        <!--navbar-->
         <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
 
                 <a href="{% url 'home'%}" class="navbar-brand text-muted">Push
                     Thought<small>meaningful action made easy</small></a>
 
-                <!--<a href="{% url 'home'%}" class="navbar-brand text-muted">Meaningful Action Made Easy</a>-->
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse"
                         data-target=".navbar-collapse">
@@ -49,12 +47,7 @@
                         <li><a href="{% url 'home'%}"> Home </a></li>
                         <li><a href="{% url 'about'%}"> About </a></li>
                         <li><a href="{% url 'contact'%}"> Contact </a></li>
-                        <!--{% if user.is_authenticated %}-->
 
-                        <!--{% else %}-->
-                            <!--<li><a href="{% url 'register' %}"> Register</a></li>-->
-                            <!--<li><a href="{% url 'login' %}">Login</a></li>-->
-                        <!--{% endif %}-->
                     </ul>
                 </div>
             </div>
@@ -82,11 +75,7 @@
                     </a>
                     <br>
                     <p>&copy; 2015 Push Thought</p>
-                    <!--{% if user.is_authenticated %}-->
-                        <!--<p>You are logged in as: {{ user.username }}!</p>-->
-                    <!--{% else %}-->
-                        <!--<p>Please login above.</p>-->
-                    <!--{% endif %}-->
+
                 </div>
             </footer>
         </div>
