@@ -19,7 +19,6 @@ PROJECT_FOLDER = os.path.realpath(os.path.dirname(__file__))
 BASE_DIR = os.path.join(os.path.dirname(__file__), '..')
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
-
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
@@ -54,8 +53,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'pushthought',
-    'registration',
-    'social_auth',
+    # 'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -74,9 +72,9 @@ ROOT_URLCONF = 'pushthought.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates',],
+        'DIRS': TEMPLATE_DIRS,
         'APP_DIRS': True,
-        'OPTIONS': {
+        'OPTIONS': {'debug':DEBUG,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -92,34 +90,40 @@ WSGI_APPLICATION = 'pushthought.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd6lt20ja1h9poi',
+#         'HOST': 'ec2-54-204-8-224.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#         'USER': 'hdgnhjpsjylwrv',
+#         'PASSWORD': 'WONinZmjc9PthqNGYp6mZfg8fF',
+#     }
+# }
 
 
 
 # DATABASE_URL = 'postgres://hdgnhjpsjylwrv:WONinZmjc9PthqNGYp6mZfg8fF@ec2-54-204-8-224.compute-1.amazonaws.com:5432/d6lt20ja1h9poi'
-
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
-
-conn = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
-)
+#
+# urlparse.uses_netloc.append("postgres")
+# url = urlparse.urlparse(DATABASE_URL)
+# # url = urlparse.urlparse(os.environ["DATABASE_URL"])
+#
+# conn = psycopg2.connect(
+#     database=url.path[1:],
+#     user=url.username,
+#     password=url.password,
+#     host=url.hostname,
+#     port=url.port
+# )
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -138,7 +142,7 @@ USE_TZ = True
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] = dj_database_url.config()
+# DATABASES['default'] = dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

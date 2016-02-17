@@ -1,8 +1,6 @@
 <!DOCTYPE html PUBLIC>
 {% load static from staticfiles %}
 
-
-
 <html xml:lang="en" lang="en">
 	<head>
         <meta charset="utf-8">
@@ -13,16 +11,13 @@
         <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
 
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <!--<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'css/layout.css' %}">
 
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -54,13 +49,13 @@
                         <li><a href="{% url 'home'%}"> Home </a></li>
                         <li><a href="{% url 'about'%}"> About </a></li>
                         <li><a href="{% url 'contact'%}"> Contact </a></li>
-                        {% if user.is_authenticated %}
-                            <li><a href="{% url 'account_home' user.pk %}">Dashboard</a></li>
-                            <li><a href="{% url 'auth_logout' %}?next=/pushthought/"> Logout </a></li>
-                        {% else %}
-                            <li><a href="{% url 'register' %}"> Register</a></li>
-                            <li><a href="{% url 'login' %}">Login</a></li>
-                        {% endif %}
+                        <!--{% if user.is_authenticated %}-->
+                            <!--<li><a href="{% url 'account_home' user.pk %}">Dashboard</a></li>-->
+                            <!--<li><a href="{% url 'auth_logout' %}?next=/home/"> Logout </a></li>-->
+                        <!--{% else %}-->
+                            <!--<li><a href="{% url 'register' %}"> Register</a></li>-->
+                            <!--<li><a href="{% url 'login' %}">Login</a></li>-->
+                        <!--{% endif %}-->
                     </ul>
                 </div>
             </div>
@@ -88,11 +83,11 @@
                     </a>
                     <br>
                     <p>&copy; 2015 Push Thought</p>
-                    {% if user.is_authenticated %}
-                        <p>You are logged in as: {{ user.username }}!</p>
-                    {% else %}
-                        <p>Please login above.</p>
-                    {% endif %}
+                    <!--{% if user.is_authenticated %}-->
+                        <!--<p>You are logged in as: {{ user.username }}!</p>-->
+                    <!--{% else %}-->
+                        <!--<p>Please login above.</p>-->
+                    <!--{% endif %}-->
                 </div>
             </footer>
         </div>

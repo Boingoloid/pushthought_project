@@ -14,7 +14,6 @@ class SegmentForm(forms.ModelForm):
         model = Segment
         fields = '__all__'
 
-
 class MenuForm(forms.ModelForm):
     title = forms.CharField(max_length=128, help_text="Please enter the title of the page.")
     url = forms.URLField(max_length=200, help_text="Please enter the URL of the page.")
