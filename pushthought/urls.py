@@ -24,8 +24,8 @@ from snippets import urls
 from . import views
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^snippets/', include('snippets.urls')),
+    url(r'^admin', include(admin.site.urls)),
+    url(r'^snippets', include('snippets.urls')),
     url(r'^prime', include('prime.urls')),
     url(r'(?P<user_pk>\d+)/(?P<program_pk>\d+)/addsegment', views.add_segment, name='add_segment'),
     url(r'(?P<user_pk>\d+)/(?P<program_pk>\d+)/(?P<segment_pk>\d+)', views.segment_menu, name='segment_menu'),
