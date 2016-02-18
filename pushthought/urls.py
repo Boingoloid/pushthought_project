@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^home', views.home,name='home',),
-    url(r'^api', views.api,name='api',),
+    # url(r'^api', views.api,name='api',),
     url(r'^', views.home,name='home',),
 ]
 

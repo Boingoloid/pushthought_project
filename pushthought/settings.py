@@ -37,12 +37,21 @@ DEBUG = True
 
 SITE_ID = 1
 
-REGISTRATION_OPEN = True                # If True, users can register
+REGISTRATION_OPEN = True    # If True, users can register
 ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window; you may, of course, use a different value.
 REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
 LOGIN_REDIRECT_URL = '/pushthought/'  # The page you want users to arrive at after they successful log in
 LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
                                                                 # and are trying to access pages requiring authentication
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -53,7 +62,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'pushthought',
-    # 'registration',
+    'rest_framework',
+    'snippets',
+    'prime'
 )
 
 MIDDLEWARE_CLASSES = (

@@ -10,7 +10,7 @@ from .models import Segment
 from .models import MenuItem
 from .forms import SegmentForm
 
-# import json
+import json
 # import jsonpickle
 
 # Create your views here.
@@ -27,8 +27,8 @@ def about(request):
 def api(request):
 
     obj = Program.objects.all()
-    # frozen = jsonpickle.encode(obj)
-    return HttpResponse(obj, content_type='application/json')
+    newObject = json.dumps(obj)
+    return HttpResponse(newObject, content_type='application/json')
 
 
 # @login_required
