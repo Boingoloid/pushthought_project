@@ -26,7 +26,7 @@ from . import views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^snippets/', include('snippets.urls')),
-    url(r'prime', include('prime.urls')),
+    url(r'^prime', include('prime.urls')),
     url(r'(?P<user_pk>\d+)/(?P<program_pk>\d+)/addsegment', views.add_segment, name='add_segment'),
     url(r'(?P<user_pk>\d+)/(?P<program_pk>\d+)/(?P<segment_pk>\d+)', views.segment_menu, name='segment_menu'),
     url(r'(?P<user_pk>\d+)/(?P<program_pk>\d+)', views.segment_list, name='segment_list'),
@@ -42,7 +42,7 @@ urlpatterns = [
     # url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^home', views.home,name='home',),
     # url(r'^api', views.api,name='api',),
-    # url(r'^', views.home,name='home'),
+    url(r'^', views.home,name='home'),
     #potentially comment out line above
 ]
 
