@@ -8,7 +8,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from snippets.models import Snippet
 from snippets.serializers import SnippetSerializer
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 
 
@@ -49,11 +49,10 @@ def snippet_detail(request, pk):
     try:
         snippet = Snippet.objects.get(pk=pk)
     except Snippet.DoesNotExist:
-        # return HttpResponse(status=404)
         return render(request,'not_found.html',status=404)
-
-        # return django.http.HttpResponseNotFound()
         # return HttpResponse(status=204)
+        # return HttpResponse(status=404)
+        # return HttpResponseNotFound('<h1>Page not found</h1>')
 
     if request.method == 'GET':
         serializer = SnippetSerializer(snippet)
