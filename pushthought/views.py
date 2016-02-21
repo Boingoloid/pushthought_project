@@ -20,8 +20,7 @@ def home(request):
     # userDict['users'] = User.objects.all()
     return render(request, 'home.html')
 
-def about(request):
-
+def about(request,year,month,day):
     return render(request,'about.html')
 
 def api(request):
