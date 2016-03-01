@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Boingoloid/pushthought_project/issues"
   },
-  "homepage": "https://github.com/Boingoloid/pushthought_project#readme"
+  "homepage": "https://github.com/Boingoloid/pushthought_project#readme",
+  "dependencies": {
+    "underscore-contrib": "^0.3.0"
+  }
 }

@@ -99,6 +99,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'pushthought.wsgi.application'
 
 
+# DATABASES = {
+#    'default' : {
+#       'ENGINE' : 'django_mongodb_engine',
+#       'NAME': 'mongodb://macalin:ma99723tt@ds037175.mongolab.com:37175/heroku_zcdt9dml',
+#       'USER': 'macalin',
+#       'PASSWORD': 'ma99723tt',
+#       'HOST': '127.0.0.1',
+#       'PORT': '5432',
+#    }
+# }
+
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 

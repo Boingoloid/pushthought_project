@@ -121,17 +121,23 @@ article .steps {
   article .steps h3 + p {
     margin-left: 1em; }
 
-/*
-header {
+
+main-header {
   background-color: #FFFFFF;
   border-color: #599a68;
   align: left;
   margin: 0,0,0px,0;
   width: 100%;
-  padding: 0,0,0px,0;
+  padding: 20px;
 
 }
+/*
+.container-fluid {
+  background-image: url("http://www.placecage.com/1000/800");
+  min-height: 400px;
+}
 */
+
 /*
 body{
   background-color: #FFFFFF;
@@ -422,4 +428,16 @@ max-width:345px;
     min-width: 345px;
 }
 
-/*<img src="{% static 'img/image1.jpg' %}"  height="500" width="400"  alt="hello" >*/
+.main-wrapper{
+    width:90%;
+    margin:auto;
+}
+
+.intro-header {
+    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: center;
+    color: #f8f8f8;
+    background: url('../img/image1.jpg') no-repeat center center;
+    background-size: cover;
+}

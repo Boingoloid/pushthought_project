@@ -20,7 +20,7 @@ def home(request):
     # userDict['users'] = User.objects.all()
     return render(request, 'home.html')
 
-def about(request,year,month,day):
+def about(request):
     return render(request,'about.html')
 
 def api(request):
@@ -99,6 +99,12 @@ def add_segment(request,user_pk,program_pk):
 
 def contact(request):
     return render(request,'contact.html')
+
+
+def action_menu (request,programId,segmentId):
+    program = programId
+    segment = segmentId
+    return render(request, 'action_menu.html',{'programId': program,'segmentId': segment })
 
 # def register(request):
 #

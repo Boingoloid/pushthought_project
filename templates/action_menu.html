@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+<head>
+
+</head>
+
+
+{% block title %} {% endblock %}
+
+{% block content %}
+<!--{% csrf_token %}-->
+
+
+<div class="main-wrapper">
+    <br/>
+    <div>
+        <p hidden id="segmentId">{{segmentId}}</p>
+        <p id="segment-title"></p>
+    </div>
+    <div class="container-purpose-summary col-med-12">
+        <p id="textarea">
+        </p>
+    </div>
+    <div class="col-med-12"  id="action-header-container">
+        <h3 id="action-header">Take Action</h3>
+    </div>
+
+
+
+    <div class="">
+            <ul class="action-container list-unstyled">
+            </ul>
+    </div>
+
+
+
+
+            <!--<ul id="action_list">-->
+            <!--</ul>-->
+    <!--</div>-->
+
+        <!--<div class="">-->
+            <!--<div id="menu_list">-->
+            <!--</div>-->
+
+
+<!--close main wrapper-->
+</div>
+
+
+<!--//Javascript underscore-->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js">
+</script>
+
+{% endblock %}
+
+        <!--{% if not programs %}-->
+            <!--<h3>Dang it!  We are having trouble loading this menu.</h3>-->
+        <!--{% else %}-->
+        <!--{% endif %}-->
+
+<!--<div class="cards">-->
+    <!--{% for program in programs %}-->
+    <!--<div class="card">-->
+        <!--<header><a href="{% url 'segment_list' user.pk program.pk%}"-->
+           <!--style="color:blue">{{ segment.title }}</a>-->
+        <!--</header>-->
+        <!--<div class="card-copy">-->
+            <!--<b>Description: </b><br>{{ segment.purposeSummary }}-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--{% endfor %}-->
+<!--</div>-->
+<!--</div>-->
