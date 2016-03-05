@@ -95,11 +95,13 @@ def add_segment(request,user_pk,program_pk):
     # Render the form with error messages (if any).
     return render(request,'add_segment.html', {'form': form, 'program': program})
 
-
-
 def contact(request):
     return render(request,'contact.html')
 
+def fed_rep_action_menu(request,programId,segmentId):
+    program = programId
+    segment = segmentId
+    return render(request, 'fed_rep_action_menu.html',{'programId': program,'segmentId': segment })
 
 def action_menu (request,programId,segmentId):
     program = programId
