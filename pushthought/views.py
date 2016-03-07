@@ -10,6 +10,7 @@ from .models import Segment
 from .models import MenuItem
 from .forms import SegmentForm
 
+# import tweepy
 import json
 # import jsonpickle
 
@@ -106,7 +107,17 @@ def fed_rep_action_menu(request,programId,segmentId):
 def action_menu (request,programId,segmentId):
     program = programId
     segment = segmentId
+
+
+    # auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    # auth.set_access_token(access_token, access_token_secret)
+
+
     return render(request, 'action_menu.html',{'programId': program,'segmentId': segment })
+
+
+
+
 
 # def register(request):
 #

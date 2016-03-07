@@ -64,7 +64,7 @@ INSTALLED_APPS = (
     'pushthought',
     'rest_framework',
     'snippets',
-    'prime'
+    'prime',
 )
 
 MIDDLEWARE_CLASSES = (

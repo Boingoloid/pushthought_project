@@ -104,8 +104,15 @@
   margin-left: auto;
 }
 
+
+#text-input{
+    min-width: 300px;
+}
+
+
 .rep-container{
   display:flex;
+  flex-wrap: wrap;
   background: #EEEEEE;
 }
 
@@ -115,6 +122,7 @@
   border: 1px solid #642039;
   border-radius: 5px;
   min-width: 150px;
+  background: white;
 }
 
 .repPhoto{

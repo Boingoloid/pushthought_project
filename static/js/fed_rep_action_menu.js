@@ -4,29 +4,14 @@ function createTitle(){
 }
 
 $(document).ready(function(){
-Parse.initialize("lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM", "tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP");
-Parse.serverURL = 'https://ptparse.herokuapp.com/parse';
+    Parse.initialize("lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM", "tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP");
+    Parse.serverURL = 'https://ptparse.herokuapp.com/parse';
 
-var segmentId = "JPGM9mmcKV";
-getCongressData();
-getHashtags(segmentId);
-getTweets(segmentId);
+    var segmentId = "JPGM9mmcKV";
+    getCongressData();
+    getHashtags(segmentId);
+    getTweets(segmentId);
 
-    // CLICK ACTIONS
-    $('.rep-container').on('click','.rep-item',function(event) {
-        alert("rep clicked");
-
-    });
-
-    $('.hashtag-container').on('click','.hashtag-item',function(event) {
-        alert("hashtag clicked");
-
-    });
-
-    $('.tweet-container').on('click','.tweet-item',function(event) {
-        alert("tweet clicked");
-    });
-    
     function getCongressData (){
         var root = "https://congress.api.sunlightfoundation.com/legislators/locate";
         var apiKey = "ed7f6bb54edc4577943dcc588664c89f";
@@ -34,6 +19,7 @@ getTweets(segmentId);
 
         $.getJSON(root + "?zip=" + zipCode + "&apikey=" + apiKey,
             function(data){
+                console.log(data);
                 var bioguideArray = [];
                 var repHTML = '';
                 //$('.rep-container').append(repHTML);
@@ -56,7 +42,8 @@ getTweets(segmentId);
                   defaultRepImage = ""
 
                   // CREATE HTML TO INSERT FOR FED REP FLEXBOX
-                  repHTML += "<div class='rep-item'>";
+                  repHTML += "<div class='rep-item' id='rep-item" + i + "'>";
+                  repHTML += "<p hidden id='tweet-address-item" + i + "'>@" + rep.twitter_id + "</p>";
                   repHTML += "<img class='repPhoto'  id='repPhoto" + i + "' src=\"/static/img/seal-congress.png\"";
                   repHTML +=  "alt='Portrait' width='60px' height='60px'>";
                   repHTML += "<p>" + fullName + "</p>";
@@ -78,15 +65,25 @@ getTweets(segmentId);
                 var query = new Parse.Query(CongressImages);
                 query.containedIn("bioguideID",bioguideArray);
                 query.find({
-
                     success: function(results) {
-                      //INSERT PHOTOS, ORDER MUST BE THE SAME AS BIOGUIDE IDS SUBMITTED
-                      $.each(results,function(i,rep){
-                        var imageFileURL = rep.attributes.imageFile._url;
-                        $('#repPhoto' + i).attr("src",imageFileURL);
+
+                      //INSERT PHOTOS
+                      $.each(results,function(i,repPhoto){
+                        var bioguideID = repPhoto.attributes.bioguideID
+                        console.log(bioguideID);
+                        $.each(bioguideArray, function (i,repItem){
+                            var bid = repItem;
+                            if(bioguideID == bid){
+                            //console.log("yes");
+                                //get photo
+                                var imageFileURL = repPhoto.attributes.imageFile._url;
+                                $('#repPhoto' + i).attr("src",imageFileURL);
+                            } else {
+                            //console.log("no");
+                            }
+                        });
                       });
                     },
-
                     error: function(error) {
                       alert("Error: " + error.code + " " + error.message);
                     }
@@ -97,8 +94,6 @@ getTweets(segmentId);
 
 
     function getHashtags(segmentId){
-
-
           var hashtagList = Parse.Object.extend("Hashtags");
           var query = new Parse.Query(hashtagList);
           query.equalTo("segmentObjectId", "JPGM9mmcKV"); //"JPGM9mmcKV"
@@ -126,7 +121,6 @@ getTweets(segmentId);
     }
 
 
-
     function getTweets(segmentId) {
       var tweetList = Parse.Object.extend("sentMessages");
       var query = new Parse.Query(tweetList);
@@ -145,38 +139,84 @@ getTweets(segmentId);
                   // CREATE HTML TO INSERT FOR FED REP FLEXBOX
                   tweetListHTML += "<div class='tweet-item'>";
                   tweetListHTML += "<p>" + tweet.get('messageText') + "</p>";
-                  tweetListHTML += "<p>" + tweet.get('username') + "</p>"
                   tweetListHTML += "</div>";
                 });
                 $('.tweet-container').append(tweetListHTML);
 
               var uniqueResults = _.unique(results, false, function(item){
               return item.get('messageType');
-            });
-
-
-//            var Program = Parse.Object.extend("Programs");
-//            var queryProgram = new Parse.Query(Program);
-//            queryProgram.equalTo("_id", "JvW9oAYlo8"); //"JvW9oAYlo8"
-//            queryProgram.find({
-//                success: function(programResults) {
-//                  $("#segment-title").text("/ " + programResults[0].get('programTitle') + " / " + results[0].get
-//                  ('segmentTitle'));
-//                },
-//                error: function(error) {
-//                  alert("Error: " + error.code + " " + error.message);
-//                }
-//            })
+              });
             },
         error: function(error) {
           alert("Error: " + error.code + " " + error.message);
         }
-       });
-
-
+      });
 
     }
-    //use parse to get tweets for segment, need segid
-    $("#segmentId").text()
+
+
+    // CLICK ACTIONS
+    $('.rep-container').on('click','.rep-item',function(event) {
+       var idText = $(this).attr('id');
+       var repIndex = idText.replace('rep-item','');
+       var tweetAddressID = "#tweet-address-item" + repIndex;
+       var tweetAddress = $(tweetAddressID).text();
+       var currentText = $('#text-input').val();
+       if($(this).css('background-color') === 'rgb(255, 255, 255)'){
+         $(this).css('background-color','green');
+         currentText += tweetAddress;
+         $('#text-input').val(currentText);
+       } else {
+        $(this).css('background-color','white');
+        var n = currentText.search(tweetAddress);
+        //console.log(n);
+        var re = new RegExp(tweetAddress,"gi");
+        var newText = currentText.replace(re,"");
+        $('#text-input').val(newText)
+
+       }
+    });
+
+    $('.hashtag-container').on('click','.hashtag-item',function(event) {
+       var idText = $(this).attr('id');
+       var hashtagWithCount = $(this).text();
+       var index = hashtagWithCount.search(" ");
+       var hashtagText = hashtagWithCount.substr(0, index);
+       var hashtagFrequency = hashtagWithCount.substr(index + 3, hashtagWithCount.length);
+       var currentText = $('#text-input').val();
+       if($(this).css('background-color') === 'rgb(255, 255, 255)'){
+         $(this).css('background-color','green');
+          currentText += hashtagText;
+          $('#text-input').val(currentText);
+         //currentText += hashtagText;
+         //$('#text-input').val(currentText);
+       } else {
+        $(this).css('background-color','white');
+        var re = new RegExp(hashtagText,"gi");
+        var newText = currentText.replace(re,"");
+        $('#text-input').val(newText)
+       }
+    });
+
+    $('.tweet-container').on('click','.tweet-item',function(event) {
+      var tweetText = $(this).text()
+      console.log("length:" + tweetText.length);
+         if (confirm('This will overwrite your current Tweet')) {
+            $('#text-input').val(tweetText);
+         } else {
+         }
+    });
+
+    $('#clear-button').on('click',function(event) {
+        $('#text-input').val("");
+    });
+twttr.ready(function (twttr) {
+  twttr.widgets.createTimeline();
+      twttr.widgets.createShareButton('https://dev.twitter.com/', document.getElementById('new-button'),{count: 'none',text: 'Sharing a URL using the Tweet Button'}).then(function (el) {console.log("Button created.")});
+});
+    twttr.widgets.load(document.getElementById("twitter-container"));
+
+
+
 
 });

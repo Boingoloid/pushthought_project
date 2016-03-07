@@ -11,14 +11,28 @@
 <!--{% csrf_token %}-->
 
 <div class="main-wrapper">
+
+
+    <div id="twitter-container">
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.pushthought.com" data-via="MattAcalin" data-size="large" data-hashtags="pt">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.pushthought.com" data-size="large" data-hashtags="pt">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+
     <div>
         <p hidden id="segmentId">{{segmentId}}</p>
         <p id="segment-title"></p>
     </div>
     <br/>
-
-    <textarea placeholder="Tweet text here"></textarea>
-    <div id="ajax">
+    <div>
+        <textarea id="text-input" placeholder="Tweet text here"></textarea>
+    </div>
+    <div>
+        <input type="checkbox" id="include-link">Include link?</input>
+        <button id="clear-button">Clear</button>
+        <button id="send-tweet">Send Tweet</button>
     </div>
     <br>
     <div>Federal Representatives</div>
@@ -49,5 +63,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js">
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+
+
+
 <script src="{% static 'js/fed_rep_action_menu.js' %}"></script>
 {% endblock %}
+
