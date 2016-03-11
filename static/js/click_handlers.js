@@ -17,6 +17,9 @@ function addCategory(event) {
 
 
 $(document).ready(function() {
+
+    var window_url =  window.location.href;
+
     Parse.initialize("lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM", "tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP");
     Parse.serverURL = 'https://ptparse.herokuapp.com/parse';
 
@@ -33,16 +36,12 @@ $(document).ready(function() {
         });
 
         if(selectedCategory == "Local Representative"){
-            alert("yes");
             window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/fed_representative.com";
         } else if(selectedCategory == "Petition") {
             window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/fed_representative.com";
-            alert("no");
         } else {
             window.location.href="www.google.com";
         }
-
-
     });
 
       var SegmentIdentifier = $("#segmentId").text()

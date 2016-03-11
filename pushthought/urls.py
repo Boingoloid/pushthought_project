@@ -24,6 +24,10 @@ from snippets import urls
 from . import views
 
 urlpatterns = [
+         # verify_catch?oauth_token=hEFqcQAAAAAAfgRRAAABU1lhkD4&oauth_verifier=HHCHyTCsZq1MMdP44ZUM3SDXeNac7sWG
+    # ?oauth_token=(?P<oauth_token>\d+)&oauth_verifier=(?P<oauth_verifier>\d+)'
+    url(r'^verify_catch', views.verify_catch,name='verify_catch'),
+    url(r'^admin', include(admin.site.urls)),
     url(r'^admin', include(admin.site.urls)),
     url(r'^snippets', include('snippets.urls')),
     url(r'^prime', include('prime.urls')),
@@ -31,8 +35,10 @@ urlpatterns = [
     url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)/(?P<segment_pk>\d+)', views.segment_menu, name='segment_menu'),
     url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)', views.segment_list, name='segment_list'),
     url(r'^account/(?P<user_pk>\d+)', views.account_home, name='account_home'),
+    url(r'^action_menu/verify_twitter',views.verify_twitter),
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/fed_representative',views.fed_rep_action_menu),
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)',views.action_menu),
+    # segment JPGM9mmcKV   program JPGM9mmcKV
     # url(r'^action_menu/(?P<segment_pk>\d+)/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})', views.action_menu,
      # url(r'^action_menu/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})-(<segment_name>)', views.action_menu, name='action_menu'),
     # url(r'^logout', views.user_logout, name='auth_logout'),

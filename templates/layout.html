@@ -16,18 +16,12 @@
         <link rel="stylesheet" href="{% static 'css/layout.css' %}">
         <link rel="stylesheet" href="{% static 'css/action-menu.css' %}">
 
-
-
-		<title>{% block title %}Push Thought | meaningful action made easy{% endblock %}</title>
+		<title>{% block title %}Push Thought{% endblock %}</title>
 	</head>
+
 	<body>
-      <header class='main-header'>
-        <div class="navbar navbar-default navbar-fixed-top">
-            <div class="main-wrapper">
-
-                <a href="{% url 'home'%}" class="navbar-brand text-muted">Push
-                    Thought<small>meaningful action | made easy</small></a>
-
+            <div class="navbar navbar-default navbar-fixed-top">
+                <a href="{% url 'home'%}" class="navbar-brand text-muted">Push Thought<small>meaningful action | made easy</small></a>
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse"
                         data-target=".navbar-collapse">
@@ -41,10 +35,8 @@
                         <li><a href="{% url 'home'%}"> Home </a></li>
                         <li><a href="{% url 'about'%}"> About </a></li>
                         <li><a href="{% url 'contact'%}"> Contact </a></li>
-
                     </ul>
                 </div>
-            </div>
         </div>
       </header>
 		<br><br><br>

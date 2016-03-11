@@ -4,6 +4,9 @@ function createTitle(){
 }
 
 $(document).ready(function(){
+
+    var window_url =  window.location.href;
+
     Parse.initialize("lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM", "tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP");
     Parse.serverURL = 'https://ptparse.herokuapp.com/parse';
 
@@ -40,7 +43,6 @@ $(document).ready(function(){
                     title = "Rep, " + rep.state + " - d:" + rep.district;
                   }
                   defaultRepImage = ""
-
                   // CREATE HTML TO INSERT FOR FED REP FLEXBOX
                   repHTML += "<div class='rep-item' id='rep-item" + i + "'>";
                   repHTML += "<p hidden id='tweet-address-item" + i + "'>@" + rep.twitter_id + "</p>";
@@ -154,7 +156,6 @@ $(document).ready(function(){
 
     }
 
-
     // CLICK ACTIONS
     $('.rep-container').on('click','.rep-item',function(event) {
        var idText = $(this).attr('id');
@@ -210,13 +211,10 @@ $(document).ready(function(){
     $('#clear-button').on('click',function(event) {
         $('#text-input').val("");
     });
-twttr.ready(function (twttr) {
-  twttr.widgets.createTimeline();
-      twttr.widgets.createShareButton('https://dev.twitter.com/', document.getElementById('new-button'),{count: 'none',text: 'Sharing a URL using the Tweet Button'}).then(function (el) {console.log("Button created.")});
-});
-    twttr.widgets.load(document.getElementById("twitter-container"));
 
-
-
-
+    $('#tweet-button').on('click',function(event) {
+       window_url = "http://127.0.0.1:8000/action_menu"
+        window_url += "/verify_twitter"
+        window.location.href = window_url;
+    });
 });

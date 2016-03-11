@@ -1,5 +1,6 @@
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
+from django.conf import settings
 # from django.contrib.auth import authenticate, login
 # from pushthought.forms import UserForm, UserProfileForm
 # from django.contrib.auth.decorators import login_required
@@ -10,8 +11,10 @@ from .models import Segment
 from .models import MenuItem
 from .forms import SegmentForm
 
-# import tweepy
+
 import json
+import tweepy
+import os
 # import jsonpickle
 
 # Create your views here.
@@ -104,19 +107,68 @@ def fed_rep_action_menu(request,programId,segmentId):
     segment = segmentId
     return render(request, 'fed_rep_action_menu.html',{'programId': program,'segmentId': segment })
 
+
+
+def verify_twitter(request):
+
+    CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
+    TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
+    TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
+    # TWITTER_ACCESS_TOKEN = settings.TWITTER_ACCESS_TOKEN
+    # TWITTER_ACCESS_TOKEN_SECRET = settings.TWITTER_ACCESS_TOKEN_SECRET
+
+    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY,TWITTER_CONSUMER_SECRET, CALLBACK_URL)
+    redirect_url= auth.get_authorization_url()
+    print redirect_url
+
+    return HttpResponseRedirect(redirect_url)
+
+def verify_catch(request):
+
+    CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
+    TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
+    TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
+
+    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY,TWITTER_CONSUMER_SECRET, CALLBACK_URL)
+    redirect_url= auth.get_authorization_url()
+
+    verifier = request.GET.get('oauth_verifier')
+    token = request.GET.get('oauth_token')
+
+    auth.set_access_token(token,verifier)
+
+    print verifier + " : " + token
+
+    api = tweepy.API(auth)
+    api.update_status('tweepy + oauth!')
+
+    return HttpResponseRedirect("http://127.0.0.1:8000/home")
+
 def action_menu (request,programId,segmentId):
+
     program = programId
     segment = segmentId
 
+    # try:
+    #     redirect_url = auth.get_authorization_url()
+    #     session['request_token']= (auth.request_token.key,auth.request_token.secret)
+    # except tweepy.TweepError:
+    #     print 'Error! Failed to get request token.'
+    #
+    # auth.get_access_token("verifier_value")
+    # verifier = request.GET.get('oauth_verifier')
+    # print (auth.request_token)
+    #
+    # auth.set_access_token(auth.access_token,auth.access_token_secret)
 
-    # auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    # auth.set_access_token(access_token, access_token_secret)
 
+    # print "split"
+    # api = tweepy.API(auth)
+    # api.update_status('tweepy + oauth!')
+
+    # return HttpResponseRedirect(redirect_url)
 
     return render(request, 'action_menu.html',{'programId': program,'segmentId': segment })
-
-
-
 
 
 # def register(request):
