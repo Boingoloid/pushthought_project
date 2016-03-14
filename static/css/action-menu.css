@@ -3,7 +3,6 @@
 }
 
 .segment-container {
-
   max-width: 68em;
   padding-right: 15px;
   padding-left: 15px;
@@ -115,7 +114,6 @@
   flex-wrap: wrap;
   background: #EEEEEE;
   max-width: 500px;
-
 }
 
 .rep-item{

@@ -15,8 +15,17 @@ function addCategory(event) {
 
 
 
-
 $(document).ready(function() {
+
+//    window.setInterval(function(){
+//      var programType = $('#program-type').text()
+//      if(programType == "documentary"){
+//        $('#program-type').text("video")
+//      } else {
+//        $('#program-type').text("documentary")
+//      }
+//    }, 5000);
+
 
     var window_url =  window.location.href;
 
@@ -110,7 +119,7 @@ $(document).ready(function() {
 
             // BRING REGULATOR TO FRONT
             $.each(uniqueResults,function(i,result){
-                if(result.get('actionCategory') == "Regulators"){
+                if(result.get('actionCategory') == "Regulator"){
                     //move to first
                     uniqueResults.unshift(result);
                     uniqueResults.splice(i+1, 1);
@@ -129,8 +138,8 @@ $(document).ready(function() {
 
             //ADD DIVS FOR ACTIONS
             for (var i = 0; i < uniqueResults.length; i++) {
-              var $listItem = $("<li>" + uniqueResults[i].get('messageCategory') + "</li>");
-              $listItem.attr("id", uniqueResults[i].get('messageCategory'));
+              var $listItem = $("<li>" + uniqueResults[i].get('actionCategory') + "</li>");
+              $listItem.attr("id", uniqueResults[i].get('actionCategory'));
               $listItem.attr("class", "action-item");
               $(".action-row").append($listItem);
             }

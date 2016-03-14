@@ -4,78 +4,6 @@ html {
 *, *::after, *::before {
   box-sizing: inherit; }
 
-
-
-
-/* navbar
-================================*/
-.navbar{
-background: #e6e6e6;
-padding-top:5;
-padding-bottom:10;
-padding-right:20;
-}
-.navbar-brand,
-.navbar-nav li a {
-    line-height: 40px;
-    height: 40px;
-    padding-top: 5;
-    padding-bottom:5;
-}
-
-.navbar-brand{
-line-height: 15px;
-}
-
-.navbar-toggle {top:10px
-padding-bottom:5px;
-}
-
-.navbar-brand small {
-display:block;
-  font-size:12px;
-  padding-top:10;
-}
-
-
-
-
-#screenShotGallery li {
-  float: left;
-  width: 45%;
-  margin: 2.5%;
-  max-width: 300px;
-  color: #000000;
-}
-
-
-#savedItems{
-  display: block;
-}
-
-
-
-
-
-h1{
-    font-weight:200;
-    margin-top:5px;
-
-}
-
-.lead {
-    margin-bottom:75px;
-}
-
-.lead:nth-of-type(2){
-    font-size:initial;
-    margin-bottom:20px;
-}
-
-img {
-    max-width: 100%;
-    max-height: 100%;
-}
 /* Wrappers
 ================================*/
 
@@ -119,11 +47,118 @@ img {
     .jumbotron .h1 {
     font-size: 48px;
     }
+}
+
+
+/* navbar
+================================*/
+
+#logo{
+    height:40px;
+    width:40px;
+}
+
+.navbar{
+background: #e6e6e6;
+padding-top:5;
+padding-bottom:10;
+padding-right:20;
+}
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 40px;
+    height: 40px;
+    padding-top: 5;
+    padding-bottom:5;
+}
+
+.navbar-brand{
+line-height: 15px;
+}
+
+.navbar-toggle {top:10px
+padding-bottom:5px;
+}
+
+.navbar-brand small {
+display:block;
+  font-size:12px;
+  padding-top:10;
+}
 
 
 
+
+/* h1,h2 ...
+=================================*/
+
+#headline{
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color:red;
+    border:red;
+    border-width:2px;
+    border-radius: 3px;
+    border: 2px solid;
+    display:inline-block;
+    background: black;
+    font-weight: 300;
+}
+
+h4{
+    color:#FFFFFF;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border:white;
+    border-width:1px;
+    border-radius: 5px;
+    border: 0px solid;
+    display:inline-block;
+    background: black;
+    font-weight: 300;
+}
+
+h4{
+    font-weight: 200;
 
 }
+
+
+#screenShotGallery li {
+  float: left;
+  width: 45%;
+  margin: 2.5%;
+  max-width: 300px;
+  color: #000000;
+}
+
+
+#savedItems{
+  display: block;
+}
+
+
+
+
+
+
+
+.lead {
+    margin-bottom:75px;
+}
+
+.lead:nth-of-type(2){
+    font-size:initial;
+    margin-bottom:20px;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
 /* Buttons
 ================================*/
 .btn{
@@ -201,10 +236,13 @@ max-width:345px;
 .intro-header {
     padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
-    text-align: center;
+    text-align: left;
     color: #f8f8f8;
     background: url('../img/image1.jpg') no-repeat center center;
     background-size: cover;
+    h3{
+        color: #ffffff;
+    }
 }
 
 
