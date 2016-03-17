@@ -38,11 +38,11 @@ $(document).ready(function(){
                   var chamber = rep.chamber;
                   if(rep.chamber == "senate"){
                    title = "Senator, " + rep.state;
-
                   } else {
                     title = "Rep, " + rep.state + " - d:" + rep.district;
                   }
                   defaultRepImage = ""
+
                   // CREATE HTML TO INSERT FOR FED REP FLEXBOX
                   repHTML += "<div class='rep-item' id='rep-item" + i + "'>";
                   repHTML += "<p hidden id='tweet-address-item" + i + "'>@" + rep.twitter_id + "</p>";
@@ -185,18 +185,11 @@ $(document).ready(function(){
        var hashtagText = hashtagWithCount.substr(0, index);
        var hashtagFrequency = hashtagWithCount.substr(index + 3, hashtagWithCount.length);
        var currentText = $('#text-input').val();
-       if($(this).css('background-color') === 'rgb(255, 255, 255)'){
-         $(this).css('background-color','green');
-          currentText += hashtagText;
-          $('#text-input').val(currentText);
-         //currentText += hashtagText;
-         //$('#text-input').val(currentText);
-       } else {
-        $(this).css('background-color','white');
-        var re = new RegExp(hashtagText,"gi");
-        var newText = currentText.replace(re,"");
-        $('#text-input').val(newText)
-       }
+       //$(this).css('background-color','green');
+       currentText += " " + hashtagText;
+       $('#text-input').val(currentText);
+       $('#text-input').val(newText)
+
     });
 
     $('.tweet-container').on('click','.tweet-item',function(event) {
@@ -213,6 +206,7 @@ $(document).ready(function(){
     });
 
     $('#tweet-button').on('click',function(event) {
+
        window_url = "http://127.0.0.1:8000/action_menu"
         window_url += "/verify_twitter"
         window.location.href = window_url;

@@ -19,6 +19,7 @@
   border-right: 1px solid #642039;
   max-width:600px;
 }
+
 #purpose-summary-text{
   padding-top: 10px;
   padding-left: 10px;
@@ -29,6 +30,7 @@
 #action-header-container{
   max-width:600px;
 }
+
 .action-container{
   align-items: center;
   justify-content: center;
@@ -42,6 +44,7 @@
   border-right: 1px solid #642039;
   max-width:600px;
 }
+
 #action_list{
   display: flex;
   flex-direction: column;
@@ -79,6 +82,9 @@
   align-items: center;
 }
 
+/* Media ---------------------------------------------------------*/
+
+
 
 @media (min-width: 768px) {
   .segment-container {
@@ -96,6 +102,10 @@
     width: 1170px;
   }
 }
+
+/* fed rep menu ---------------------------------------------------------*/
+
+
 .segment-container-fluid {
   padding-right: 15px;
   padding-left: 15px;
@@ -103,9 +113,8 @@
   margin-left: auto;
 }
 
-
 #text-input{
-    min-width: 300px;
+  min-width: 300px;
 }
 
 

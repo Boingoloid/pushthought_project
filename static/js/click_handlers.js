@@ -13,8 +13,6 @@ function addCategory(event) {
 //        addCategory(event);
 //    });
 
-
-
 $(document).ready(function() {
 
 //    window.setInterval(function(){
@@ -134,6 +132,7 @@ $(document).ready(function() {
                     uniqueResults.splice(i+1, 1);
                 }
             });
+            console.log(uniqueResults)
 
 
             //ADD DIVS FOR ACTIONS

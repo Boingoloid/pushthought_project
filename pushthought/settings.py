@@ -116,6 +116,9 @@ WSGI_APPLICATION = 'pushthought.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -191,3 +194,18 @@ TWITTER_CONSUMER_KEY = 'wFbOMUhdXSwU7WCGzW4V6a9Rn'
 TWITTER_CONSUMER_SECRET = 'Y4zH1qR55icmp5eiDhZKbgg3sC7TEvxPxrlKpd7y6NSzzsqfP1'
 TWITTER_ACCESS_TOKEN = '3082438601-f7UpqrzsVb9wfoUrF4pUXxdsqHm7T6Ybd2mFOFO'
 TWITTER_ACCESS_TOKEN_SECRET = '7LqRKtDnG84rfmEvvS0n1cW47Zomg3uWkEjIoQAXuqWnr'
+
+
+# shell script for creating objects - just a note -----------------------------------------
+# >>> from books.models import Publisher
+# >>> p1 = Publisher(name='Apress', address='2855 Telegraph Avenue',
+# ...     city='Berkeley', state_province='CA', country='U.S.A.',
+# ...     website='http://www.apress.com/')
+# >>> p1.save()
+# >>> p2 = Publisher(name="O'Reilly", address='10 Fawcett St.',
+# ...     city='Cambridge', state_province='MA', country='U.S.A.',
+# ...     website='http://www.oreilly.com/')
+# >>> p2.save()
+# >>> publisher_list = Publisher.objects.all()
+# >>> publisher_list
+# [<Publisher: Publisher object>, <Publisher: Publisher object>]
