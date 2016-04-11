@@ -175,6 +175,8 @@ def verify_twitter(request, programId, segmentId, tweetText):
         auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
         redirect_url = auth.get_authorization_url()
 
+        request.session['request_token'] = auth.request_token
+
         return HttpResponseRedirect(redirect_url)
 
     #         send to verify page
