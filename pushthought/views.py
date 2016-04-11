@@ -130,7 +130,7 @@ def fed_rep_action_menu(request, programId, segmentId):
     return render(request, 'fed_rep_action_menu.html', {'programId': programId, 'segmentId': segmentId})
 
 
-def verify_twitter(request, programId, segmentId):
+def verify_twitter(request, programId, segmentId, tweetText):
 
     import json, httplib
     TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
@@ -141,7 +141,7 @@ def verify_twitter(request, programId, segmentId):
     print request.POST
     print "request dumps body"
     print request.body
-    tweetText = request.POST['tweetText'] # if 'user_object_id' in request.session:
+    # tweetText = request.POST['tweetText'] # if 'user_object_id' in request.session:
 
     try:
         user_object_id = request.session['user_object_id']
