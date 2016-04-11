@@ -24,10 +24,10 @@ from snippets import urls
 from . import views
 
 urlpatterns = [
-    url(r'^action_menu/verify_twitter/(?P<program_pk>\d+)/(?P<segment_pk>\d+)/(?P<tweet_text>\w+)',
+    url(r'^action_menu/verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweetText>\w+)',
         views.verify_twitter),
     url(r'^action_menu/verify_twitter/(?P<tweet_text>\w+)',views.verify_twitter_with_tweet),
-    url(r'^action_menu/verify_twitter/',views.verify_twitter, name='verify_twitter'),
+    # url(r'^action_menu/verify_twitter/',views.verify_twitter, name='verify_twitter'),
     url(r'^verify_catch', views.verify_catch,name='verify_catch'),
     url(r'^admin', include(admin.site.urls)),
     url(r'^snippets', include('snippets.urls')),

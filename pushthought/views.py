@@ -132,7 +132,7 @@ def fed_rep_action_menu(request, programId, segmentId):
 
 def verify_twitter(request, programId, segmentId):
 
-    import json,httplib
+    import json, httplib
     TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
     TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
@@ -159,7 +159,6 @@ def verify_twitter(request, programId, segmentId):
         auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
         auth.set_access_token(auth_token, auth_token_secret)
 
-
         api = tweepy.API(auth)
         api.update_status(tweetText)
         print "tweet sent"
@@ -177,8 +176,6 @@ def verify_twitter(request, programId, segmentId):
         redirect_url = auth.get_authorization_url()
 
         return HttpResponseRedirect(redirect_url)
-
-
 
     #         send to verify page
     # else:
