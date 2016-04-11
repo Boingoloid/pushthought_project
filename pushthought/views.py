@@ -1,6 +1,8 @@
 from django.shortcuts import get_list_or_404, get_object_or_404, render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.conf import settings
+from django.contrib import messages
+
 
 # from django.contrib.auth import authenticate, login
 # from pushthought.forms import UserForm, UserProfileForm
@@ -16,8 +18,11 @@ from .forms import SegmentForm
 
 import json
 import tweepy
+
 import os
 
+PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
+PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
 
 # import jsonpickle
 
@@ -112,76 +117,277 @@ def contact(request):
 
 
 def fed_rep_action_menu(request, programId, segmentId):
-    program = programId
-    segment = segmentId
-
-    try:
-      del request.session['last_menu_url']
-    except KeyError:
-      print "there was no session url stored"
 
     source_url = request.build_absolute_uri()
-    request.session['last_menu_url'] = source_url
-    print request.session['last_menu_url']
 
-    return render(request, 'fed_rep_action_menu.html', {'programId': program, 'segmentId': segment})
+    print "source" + source_url
+    request.session['last_menu_url'] = source_url
+    request.session['programId'] = programId
+    request.session['segmentId'] = segmentId
+    print "session:(last url)" + request.session['last_menu_url']
+    print "Fed Action menu end"
+
+    return render(request, 'fed_rep_action_menu.html', {'programId': programId, 'segmentId': segmentId})
 
 
 def verify_twitter(request):
-    CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
+
+    import json,httplib
     TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
     TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
+    print "ajax hitting verify twitter!"
+    print request
+    print request.POST
+    print "request dumps body"
+    print request.body
+    tweetText = request.POST['tweetText'] # if 'user_object_id' in request.session:
+
+    try:
+        user_object_id = request.session['user_object_id']
+
+        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connection.connect()
+        connection.request('GET', '/1/users/' + user_object_id, '', {
+            "X-Parse-Application-Id": PARSE_APP_ID,
+            "X-Parse-REST-API-Key": PARSE_REST_KEY
+        })
+
+        currentUser = json.loads(connection.getresponse().read())
+        auth_token = currentUser.auth_token
+        auth_token_secret = currentUser.auth_token_secret
+        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
+        auth.set_access_token(auth_token, auth_token_secret)
+
+
+        api = tweepy.API(auth)
+        api.update_status(tweetText)
+        print "tweet sent"
+        messages.success(request, 'Tweet sent successfully.')
+        response = JsonResponse({'tweetText': tweetText})
+        print "end of try"
+        return response
+    except:
+        print "exception"
+        CALLBACK_URL = 'http://www.pushthought.com/verify_catch'
+        # CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
+
+        # App level auth
+        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
+        redirect_url = auth.get_authorization_url()
+
+        return HttpResponseRedirect(redirect_url)
+
+
+
+    #         send to verify page
+    # else:
+    #     redirect_url = auth.get_authorization_url()
+    #     return HttpResponseRedirect(redirect_url)
+
+    #get current user (parse) to pull twitter tokens
+
+
+    #is this twitter user already signed in with me
+    #is there sesssion with twitter token?
+    #is there a user for Parse, with token?
+
+    # Check if we have twitter token, if so then send
+    # update the parse user info after send, always
+
+    # print json.dumps(request.POST, indent=4, sort_keys=True)
+
+    # print "verify twitter no message"
+    # CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
+    # TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
+    # TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
+    #
+    # # App level auth
+    # auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
+    # redirect_url = auth.get_authorization_url()
+    # request.session['request_token'] = auth.request_token
+
+
+
+def verify_twitter_with_tweet(request, tweet_text):
+    print "verify twitter with message"
+
+    CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch/'
+    print CALLBACK_URL
+
+    TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
+    TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
     # App level auth
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
     redirect_url = auth.get_authorization_url()
+
+    # store data in session
     request.session['request_token'] = auth.request_token
+    request.session['tweet_text'] = tweet_text
+
     return HttpResponseRedirect(redirect_url)
 
 
 def verify_catch(request):
-    CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
+
     TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
     TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
-    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
+    # Establish auth connection using Ap identification
+    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
 
+    # Get Request Token, then delete from session
     token = request.session['request_token']
     auth.request_token = token
-    del request.session['request_token']
+    try:
+        del request.session['request_token']
+    except request.exceptions.HTTPError as e:
+        print "And you get an HTTPError:", e.message
 
+    # Get Access Key
     verifier = request.GET.get('oauth_verifier')
-    auth.get_access_token(verifier)
+    accessKey = auth.get_access_token(verifier)
+    accessKeyToken = accessKey[0]
+    accessKeyTokenSecret = accessKey[1]
 
+    # Establish API connection
     api = tweepy.API(auth)
-    api.update_status('tweepy + testing2!')
 
-    source_url = request.session['last_menu_url']
-    return HttpResponseRedirect(source_url)
+    # Get Twitter User info
+    twitterUser = api.me()
+
+
+    #sign up/log in user linked to twitter, save access keys
+    import json,httplib
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('POST', '/parse/classes/_User', json.dumps({
+       "authData": {
+         "twitter": {
+           "id": twitterUser.id,
+           "screen_name": twitterUser.screen_name,
+           "consumer_key": TWITTER_CONSUMER_KEY,
+           "consumer_secret": TWITTER_CONSUMER_SECRET,
+           "auth_token": accessKeyToken,
+           "auth_token_secret": accessKeyTokenSecret
+         }
+       }
+     }), {
+       "X-Parse-Application-Id": PARSE_APP_ID,
+       "X-Parse-REST-API-Key": PARSE_REST_KEY,
+       "X-Parse-Revocable-Session": "1",
+       "Content-Type": "application/json"
+    })
+    result = json.loads(connection.getresponse().read())
+    print result
+    print 'session TOKEN:' + str(result['sessionToken'])
+
+    request.session['user_object_id'] = str(result['objectId'])
+
+    currentUser = result
+
+    # Update the user info always, new and old users
+    # update user information with Session token
+    import json,httplib
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('PUT', '/parse/classes/_User/' + str(currentUser['objectId']), json.dumps({
+        "name_tw": twitterUser.name,
+        "id_tw": twitterUser.id_str,
+        "followers_count_tw": twitterUser.followers_count,
+        "friends_count_tw": twitterUser.friends_count,
+        "location_tw": twitterUser.location,
+        "time_zone_tw": twitterUser.time_zone,
+        "url_tw": twitterUser.url,
+        "session_token_parse" : currentUser['sessionToken']
+    }), {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY,
+        "X-Parse-Session-Token": currentUser['sessionToken'],
+        "Content-Type": "application/json"
+    })
+    result2 = json.loads(connection.getresponse().read())
+    print "after SAVE"
+    print result2
+
+    # Send tweet (if available)
+    if 'tweet_text' in request.session:
+        tweetText = request.session['tweet_text']
+        del request.session['tweet_text']
+        api.update_status(tweetText)
+        print "tweet sent"
+        messages.success(request, 'Tweet sent successfully.')
+
+        # CREATE and SAVE the Action
+        connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connectionTweet.connect()
+        connectionTweet.request('POST', '/parse/classes/sentMessages', json.dumps({
+            "messageText": tweetText,
+            "actionCategory": "Local Representative",
+            "messageCategory": "Local Representative",
+            "messageType": "twitter",
+            "userObjectId": currentUser['objectId'],
+            "twitterUserName": twitterUser.name
+            # "segmentObjectId":,
+            # "programObjectId":
+
+            }), {
+            "X-Parse-Application-Id": PARSE_APP_ID,
+            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+            "Content-Type": "application/json"
+        })
+
+        result = json.loads(connection.getresponse().read())
+    else:
+        print "verify catch NO message to send"
+
+
+    if 'last_menu_url' in request.session:
+        source_url = request.session['last_menu_url']
+
+        return HttpResponseRedirect(source_url)
+        # return render(request, 'fed_rep_action_menu.html', {'programId'z: program, 'segmentId': segment})
+    else:
+        return render(request, 'home.html')
+
+
+
+    # #create new user in using parse-server API
+    # import json,httplib
+    # connection = httplib.HTTPSConnection('ptparse.herokuapp.com',443)
+    # connection.connect()
+    # connection.request('POST', '/parse/classes/_User', json.dumps({
+    #    "username": twitterUser.screen_name,
+    #    "password": "twitter"
+    #  }), {
+    #    "X-Parse-Application-Id": "lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM",
+    #    "X-Parse-REST-API-Key": "YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23",
+    #    "X-Parse-Revocable-Session": "1",
+    #    "Content-Type": "application/json"
+    #  }
+    # )
+    # result = connection.getresponse()
+    # theResult = json.loads(result.read().decode())
+    # print result
+    # print theResult
+    #
+    # try:
+    #     print theResult['code']
+    #     print theResult['error']
+    # except KeyError:
+    #     print 'key error exception silenced, user save verify_catch'
+
+    #  Get Tweet Text if exists and Send
+
+
+
+
 
 def action_menu(request, programId, segmentId):
     program = programId
     segment = segmentId
 
-    # try:
-    #     redirect_url = auth.get_authorization_url()
-    #     session['request_token']= (auth.request_token.key,auth.request_token.secret)
-    # except tweepy.TweepError:
-    #     print 'Error! Failed to get request token.'
-    #
-    # auth.get_access_token("verifier_value")
-    # verifier = request.GET.get('oauth_verifier')
-    # print (auth.request_token)
-    #
-    # auth.set_access_token(auth.access_token,auth.access_token_secret)
-
-
-    # print "split"
-    # api = tweepy.API(auth)
-    # api.update_status('tweepy + oauth!')
-
-    # return HttpResponseRedirect(redirect_url)
 
     return render(request, 'action_menu.html', {'programId': program, 'segmentId': segment})
 

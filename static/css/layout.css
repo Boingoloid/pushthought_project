@@ -162,7 +162,7 @@ img {
 /* Buttons
 ================================*/
 .btn{
-max-width:345px;
+    max-width:345px;
 
 }
 .btn-primary {
@@ -245,6 +245,11 @@ max-width:345px;
     }
 }
 
+
+
+.alert {
+    list-unstyled
+}
 
 .cards {
   display: -webkit-box;

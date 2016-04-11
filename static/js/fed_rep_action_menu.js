@@ -5,12 +5,22 @@ function createTitle(){
 
 $(document).ready(function(){
 
+
+    window.setTimeout(function() {
+        $(".alert").fadeTo(3000, 0)
+    }, 3000);
+
     var window_url =  window.location.href;
 
     Parse.initialize("lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM", "tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP");
     Parse.serverURL = 'https://ptparse.herokuapp.com/parse';
 
-    var segmentId = "JPGM9mmcKV";
+    var segmentId = $('#segmentId').text();
+//    "JPGM9mmcKV";
+    var programId = $('#programId').text();
+    alert (segmentId);
+
+
     getCongressData();
     getHashtags(segmentId);
     getTweets(segmentId);
@@ -22,7 +32,7 @@ $(document).ready(function(){
 
         $.getJSON(root + "?zip=" + zipCode + "&apikey=" + apiKey,
             function(data){
-                console.log(data);
+                //console.log(data);
                 var bioguideArray = [];
                 var repHTML = '';
                 //$('.rep-container').append(repHTML);
@@ -72,7 +82,7 @@ $(document).ready(function(){
                       //INSERT PHOTOS
                       $.each(results,function(i,repPhoto){
                         var bioguideID = repPhoto.attributes.bioguideID
-                        console.log(bioguideID);
+                        //console.log(bioguideID);
                         $.each(bioguideArray, function (i,repItem){
                             var bid = repItem;
                             if(bioguideID == bid){
@@ -188,17 +198,12 @@ $(document).ready(function(){
        //$(this).css('background-color','green');
        currentText += " " + hashtagText;
        $('#text-input').val(currentText);
-       $('#text-input').val(newText)
 
     });
 
     $('.tweet-container').on('click','.tweet-item',function(event) {
       var tweetText = $(this).text()
-      console.log("length:" + tweetText.length);
-         if (confirm('This will overwrite your current Tweet')) {
-            $('#text-input').val(tweetText);
-         } else {
-         }
+      $('#text-input').val(tweetText);
     });
 
     $('#clear-button').on('click',function(event) {
@@ -207,8 +212,53 @@ $(document).ready(function(){
 
     $('#tweet-button').on('click',function(event) {
 
-       window_url = "http://127.0.0.1:8000/action_menu"
-        window_url += "/verify_twitter"
-        window.location.href = window_url;
+      var tweetText = $('#text-input').val();
+      alert (tweetText);
+
+      if(tweetText.length < 1){
+        alert ("Please type a message to tweet first");
+      } else {
+        var csrftoken = Cookies.get('csrftoken');
+        alert("CSRF token:" + csrftoken);
+
+
+
+        function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        $.post("http://www.pushthought.com/action_menu/verify_twitter/",
+          {
+            tweetText: tweetText,
+            actionCategory: "Local Representative",
+            messageCategory: "Local Representative",
+            segmentId: segmentId,
+            programId: programId
+          },
+            function(data,status){
+                alert("tweetText: " + data + "\nStatus: " + status);
+                for(var i in data){
+                    alert(i); // alerts key
+                    alert(data[i]); //alerts key's value
+                }
+            });
+
+
+        // Create and encode URL
+        //var res = encodeURI(tweetText);
+        //window_url = "http://127.0.0.1:8000/action_menu"
+        //window_url += "/verify_twitter/" + res
+
+        //window.location.href = window_url;
+      }
+
     });
 });

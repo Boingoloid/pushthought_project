@@ -45,7 +45,22 @@
                 </div>
         </div>
       </header>
+
 		<br><br><br>
+            <div>
+                {% if messages %}
+                    <ul class="messages list-unstyled">
+                        {% for msg in messages %}
+                        <li>
+                            <div class="alert alert-{{msg.level_tag}}" role="alert">
+                                {{msg.message}}
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
 
         {% block content %}{% endblock %}
         <br><br><br>
