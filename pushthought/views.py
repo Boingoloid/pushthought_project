@@ -176,6 +176,7 @@ def verify_twitter(request, programId, segmentId, tweetText):
         redirect_url = auth.get_authorization_url()
 
         request.session['request_token'] = auth.request_token
+        request.session.modified = True
 
         return HttpResponseRedirect(redirect_url)
 
@@ -239,6 +240,7 @@ def verify_catch(request):
     # Get Request Token, then delete from session
     token = request.session['request_token']
     auth.request_token = token
+
     try:
         del request.session['request_token']
     except request.exceptions.HTTPError as e:
