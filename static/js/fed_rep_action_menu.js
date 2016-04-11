@@ -142,12 +142,9 @@ $(document).ready(function(){
       //"email","Email","Long Form Email","phoneCall"
       query.find({
         success: function(results) {
-
                 var tweetListHTML = '';
-
                 $.each(results,function(i,tweet){
                   // CREATE tweet flex item
-
                   // CREATE HTML TO INSERT FOR FED REP FLEXBOX
                   tweetListHTML += "<div class='tweet-item'>";
                   tweetListHTML += "<p>" + tweet.get('messageText') + "</p>";
@@ -184,7 +181,6 @@ $(document).ready(function(){
         var re = new RegExp(tweetAddress,"gi");
         var newText = currentText.replace(re,"");
         $('#text-input').val(newText)
-
        }
     });
 
@@ -218,46 +214,46 @@ $(document).ready(function(){
       if(tweetText.length < 1){
         alert ("Please type a message to tweet first");
       } else {
-        var csrftoken = Cookies.get('csrftoken');
-        alert("CSRF token:" + csrftoken);
 
 
 
-        function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                }
-            }
-        });
-
-        $.post("http://www.pushthought.com/action_menu/verify_twitter/",
-          {
-            tweetText: tweetText,
-            actionCategory: "Local Representative",
-            messageCategory: "Local Representative",
-            segmentId: segmentId,
-            programId: programId
-          },
-            function(data,status){
-                alert("tweetText: " + data + "\nStatus: " + status);
-                for(var i in data){
-                    alert(i); // alerts key
-                    alert(data[i]); //alerts key's value
-                }
-            });
 
 
-        // Create and encode URL
-        //var res = encodeURI(tweetText);
-        //window_url = "http://127.0.0.1:8000/action_menu"
-        //window_url += "/verify_twitter/" + res
+        //Create and encode URL
+        var encodedTweetText = encodeURI(tweetText);
+        window_url = "http://www.pushthought.com/action_menu"
+        window_url += "/verify_twitter/" + programId + "/" + segmentId
+        window_url += "/" + encodedTweetText
 
-        //window.location.href = window_url;
+        window.location.href = window_url;
+
+//        var csrftoken = Cookies.get('csrftoken');
+//        alert("CSRF token:" + csrftoken);
+//
+//        function csrfSafeMethod(method) {
+//        // these HTTP methods do not require CSRF protection
+//            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+//        }
+//        $.ajaxSetup({
+//            beforeSend: function(xhr, settings) {
+//                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+//                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+//                }
+//            }
+//        });
+//
+//        $.post("http://www.pushthought.com/action_menu/verify_twitter/",
+//          {
+//            tweetText: tweetText,
+//            actionCategory: "Local Representative",
+//            messageCategory: "Local Representative",
+//            segmentId: segmentId,
+//            programId: programId
+//          }
+//            );
+
+
+
       }
 
     });

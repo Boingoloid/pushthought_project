@@ -130,7 +130,7 @@ def fed_rep_action_menu(request, programId, segmentId):
     return render(request, 'fed_rep_action_menu.html', {'programId': programId, 'segmentId': segmentId})
 
 
-def verify_twitter(request):
+def verify_twitter(request, programId, segmentId):
 
     import json,httplib
     TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
