@@ -16,9 +16,9 @@ $(document).ready(function(){
     Parse.serverURL = 'https://ptparse.herokuapp.com/parse';
 
     var segmentId = $('#segmentId').text();
-//    "JPGM9mmcKV";
+    //    "JPGM9mmcKV";
     var programId = $('#programId').text();
-    alert (segmentId);
+    //alert (segmentId);
 
 
     getCongressData();
@@ -215,16 +215,14 @@ $(document).ready(function(){
         alert ("Please type a message to tweet first");
       } else {
 
-
-
-
-
         //Create and encode URL
-        var encodedTweetText = encodeURI(tweetText);
-        window_url = "http://www.pushthought.com/action_menu"
-        window_url += "/verify_twitter/" + programId + "/" + segmentId
-        window_url += "/" + encodedTweetText
+        var encodedTweetText = encodeURIComponent(tweetText);
+        // window_url = "http://www.pushthought.com/action_menu"
+        window_url = "http://127.0.0.1:8000";
+        window_url += "/verify_twitter/" + programId + "/" + segmentId;
+        window_url += "/" + encodedTweetText;
 
+        alert(window_url)
         window.location.href = window_url;
 
 //        var csrftoken = Cookies.get('csrftoken');

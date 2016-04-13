@@ -120,7 +120,7 @@ def fed_rep_action_menu(request, programId, segmentId):
 
     source_url = request.build_absolute_uri()
 
-    print "source" + source_url
+    print "source_url saved in session:" + source_url
     request.session['last_menu_url'] = source_url
     request.session['programId'] = programId
     request.session['segmentId'] = segmentId
@@ -130,33 +130,58 @@ def fed_rep_action_menu(request, programId, segmentId):
     return render(request, 'fed_rep_action_menu.html', {'programId': programId, 'segmentId': segmentId})
 
 
-def verify_twitter(request, programId, segmentId, tweetText):
+def verify_twitter(request, programId, segmentId, tweet):
+
 
     import json, httplib
+    import urllib
+    tweetText = urllib.unquote_plus(tweet)
+    print "looking at the text string & user object"
+    print tweetText
+
+
+
+    request.session['user_object_id'] = 'JMSR6hFydj'
+    try:
+        print request.session['user_object_id']
+    except:
+        print "no user object in session"
+
     TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
     TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
     print "ajax hitting verify twitter!"
-    print request
-    print request.POST
-    print "request dumps body"
-    print request.body
-    # tweetText = request.POST['tweetText'] # if 'user_object_id' in request.session:
+    # print request
+    # print "request dumps body"
+    # print request.body
 
     try:
-        user_object_id = request.session['user_object_id']
+        print "TRYING"
+        user_object_id = str(request.session['user_object_id'])
+        user_object_id = 'JMSR6hFydj'
+        print user_object_id
+        print PARSE_APP_ID
+        print PARSE_REST_KEY
 
         connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        params = urllib.urlencode({"keys":"_auth_data_twitter"})
         connection.connect()
-        connection.request('GET', '/1/users/' + user_object_id, '', {
+        connection.request('GET','/parse/classes/_User/'+ user_object_id + '?%s' % params, '', {
             "X-Parse-Application-Id": PARSE_APP_ID,
             "X-Parse-REST-API-Key": PARSE_REST_KEY
         })
+        result = json.loads(connection.getresponse().read())
+        print "TRYING2"
+        print result
 
-        currentUser = json.loads(connection.getresponse().read())
-        auth_token = currentUser.auth_token
-        auth_token_secret = currentUser.auth_token_secret
-        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
+
+        print "TRYING3"
+        auth_token = result['twitter_token']
+        print auth_token
+        auth_token_secret = result['twitter_token_secret']
+        #CALLBACK_URL = 'http://www.pushthought.com/verify_catch'
+        CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
+        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
         auth.set_access_token(auth_token, auth_token_secret)
 
         api = tweepy.API(auth)
@@ -165,32 +190,39 @@ def verify_twitter(request, programId, segmentId, tweetText):
         messages.success(request, 'Tweet sent successfully.')
         response = JsonResponse({'tweetText': tweetText})
         print "end of try"
-        return response
+        print response
+
+
+
+        if 'last_menu_url' in request.session:
+            source_action_menu = request.session['last_menu_url']
+
+            return HttpResponseRedirect(source_action_menu)
+            # return render(request, 'fed_rep_action_menu.html', {'programId'z: program, 'segmentId': segment})
+        else:
+            return render(request, 'home.html')
     except:
         print "exception"
-        CALLBACK_URL = 'http://www.pushthought.com/verify_catch'
-        # CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
+        #CALLBACK_URL = 'http://www.pushthought.com/verify_catch'
+        CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
 
         # App level auth
         auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
         redirect_url = auth.get_authorization_url()
 
         request.session['request_token'] = auth.request_token
+        request.session['tweetText'] = tweetText
+        request.session['programId'] = programId
+        request.session['segmentId'] = segmentId
+
+        print "auth request token in verify twitter"
+        print auth.request_token
+        print "confirm token in session"
+        print request.session
         request.session.modified = True
 
         return HttpResponseRedirect(redirect_url)
 
-    #         send to verify page
-    # else:
-    #     redirect_url = auth.get_authorization_url()
-    #     return HttpResponseRedirect(redirect_url)
-
-    #get current user (parse) to pull twitter tokens
-
-
-    #is this twitter user already signed in with me
-    #is there sesssion with twitter token?
-    #is there a user for Parse, with token?
 
     # Check if we have twitter token, if so then send
     # update the parse user info after send, always
@@ -231,6 +263,8 @@ def verify_twitter_with_tweet(request, tweet_text):
 
 def verify_catch(request):
 
+    print "verify catch starting"
+
     TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
     TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
@@ -239,10 +273,12 @@ def verify_catch(request):
 
     # Get Request Token, then delete from session
     token = request.session['request_token']
+    print "request token being used" + str(token)
     auth.request_token = token
 
     try:
         del request.session['request_token']
+        print "deleting request token"
     except request.exceptions.HTTPError as e:
         print "And you get an HTTPError:", e.message
 
@@ -285,15 +321,16 @@ def verify_catch(request):
     print 'session TOKEN:' + str(result['sessionToken'])
 
     request.session['user_object_id'] = str(result['objectId'])
+    print request.session['user_object_id']
 
     currentUser = result
 
     # Update the user info always, new and old users
     # update user information with Session token
     import json,httplib
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection.connect()
-    connection.request('PUT', '/parse/classes/_User/' + str(currentUser['objectId']), json.dumps({
+    connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection2.connect()
+    connection2.request('PUT', '/parse/classes/_User/' + str(currentUser['objectId']), json.dumps({
         "name_tw": twitterUser.name,
         "id_tw": twitterUser.id_str,
         "followers_count_tw": twitterUser.followers_count,
@@ -301,21 +338,23 @@ def verify_catch(request):
         "location_tw": twitterUser.location,
         "time_zone_tw": twitterUser.time_zone,
         "url_tw": twitterUser.url,
-        "session_token_parse" : currentUser['sessionToken']
+        "session_token_parse" : currentUser['sessionToken'],
+        "twitter_token" : accessKeyToken,
+        "twitter_token_secret" : accessKeyTokenSecret
     }), {
         "X-Parse-Application-Id": PARSE_APP_ID,
         "X-Parse-REST-API-Key": PARSE_REST_KEY,
         "X-Parse-Session-Token": currentUser['sessionToken'],
         "Content-Type": "application/json"
     })
-    result2 = json.loads(connection.getresponse().read())
+    result2 = json.loads(connection2.getresponse().read())
     print "after SAVE"
     print result2
 
     # Send tweet (if available)
-    if 'tweet_text' in request.session:
-        tweetText = request.session['tweet_text']
-        del request.session['tweet_text']
+    if 'tweetText' in request.session:
+        tweetText = request.session['tweetText']
+        del request.session['tweetText']
         api.update_status(tweetText)
         print "tweet sent"
         messages.success(request, 'Tweet sent successfully.')
@@ -339,7 +378,10 @@ def verify_catch(request):
             "Content-Type": "application/json"
         })
 
-        result = json.loads(connection.getresponse().read())
+        result = json.loads(connectionTweet.getresponse().read())
+        print "user object id at end of verify catch"
+        print request.session['user_object_id']
+        request.session.modified = True
     else:
         print "verify catch NO message to send"
 

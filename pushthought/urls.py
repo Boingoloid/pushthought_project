@@ -24,9 +24,9 @@ from snippets import urls
 from . import views
 
 urlpatterns = [
-    url(r'^action_menu/verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweetText>\w+)',
+    url(r'^verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweet>.*)',
         views.verify_twitter),
-    url(r'^action_menu/verify_twitter/(?P<tweet_text>\w+)',views.verify_twitter_with_tweet),
+    url(r'^action_menu/verify_twitter/(?P<tweet>\w+)',views.verify_twitter_with_tweet),
     # url(r'^action_menu/verify_twitter/',views.verify_twitter, name='verify_twitter'),
     url(r'^verify_catch', views.verify_catch,name='verify_catch'),
     url(r'^admin', include(admin.site.urls)),
@@ -48,7 +48,6 @@ urlpatterns = [
     url(r'^contact',views.contact,name='contact'),
     #url(r'^pushthought/', views.), # ADD THIS NEW TUPLE!
     #url(r'^programs/', include('pushthought.urls')),
-
     # url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^home', views.home,name='home',),
     # url(r'^api', views.api,name='api',),
