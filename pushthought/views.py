@@ -16,13 +16,17 @@ from .models import Segment
 from .models import MenuItem
 from .forms import SegmentForm
 
-import json
-import tweepy
-
 import os
+import tweepy
+import json, httplib
+import urllib
+
 
 PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
+
+TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
+TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
 # import jsonpickle
 
@@ -130,75 +134,33 @@ def fed_rep_action_menu(request, programId, segmentId):
     return render(request, 'fed_rep_action_menu.html', {'programId': programId, 'segmentId': segmentId})
 
 
+
 def verify_twitter(request, programId, segmentId, tweet):
-
-
-    import json, httplib
-    import urllib
-    tweetText = urllib.unquote_plus(tweet)
-    print "looking at the text string & user object"
-    print tweetText
-
-
-
-    request.session['user_object_id'] = 'JMSR6hFydj'
+    print "ajax hitting verify twitter!"
+    tweet_text = urllib.unquote_plus(tweet)
+    #request.session['user_object_id'] = 'JMSR6hFydj'
     try:
-        print request.session['user_object_id']
+        print "user has token, user id:" + request.session['user_object_id']
     except:
         print "no user object in session"
-
-    TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
-    TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
-
-    print "ajax hitting verify twitter!"
-    # print request
-    # print "request dumps body"
-    # print request.body
 
     try:
         print "TRYING"
         user_object_id = str(request.session['user_object_id'])
-        user_object_id = 'JMSR6hFydj'
-        print user_object_id
-        print PARSE_APP_ID
-        print PARSE_REST_KEY
+        #user_object_id = 'JMSR6hFydj'
+        result = retrieve_twitter_key(user_object_id)
+        send_tweet_with_tweepy(tweet_text, result)
+        send_tweet_success_message(request, tweet_text)
 
-        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-        params = urllib.urlencode({"keys":"_auth_data_twitter"})
-        connection.connect()
-        connection.request('GET','/parse/classes/_User/'+ user_object_id + '?%s' % params, '', {
-            "X-Parse-Application-Id": PARSE_APP_ID,
-            "X-Parse-REST-API-Key": PARSE_REST_KEY
-        })
-        result = json.loads(connection.getresponse().read())
-        print "TRYING2"
-        print result
+        #save other tables
+        hash_list = set([i[1:] for i in tweet_text.split() if i.startswith("#")])
+        print "Here is the has list:"
+        print hash_list
 
-
-        print "TRYING3"
-        auth_token = result['twitter_token']
-        print auth_token
-        auth_token_secret = result['twitter_token_secret']
-        #CALLBACK_URL = 'http://www.pushthought.com/verify_catch'
-        CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
-        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
-        auth.set_access_token(auth_token, auth_token_secret)
-
-        api = tweepy.API(auth)
-        api.update_status(tweetText)
-        print "tweet sent"
-        messages.success(request, 'Tweet sent successfully.')
-        response = JsonResponse({'tweetText': tweetText})
-        print "end of try"
-        print response
-
-
-
+        # Post tweet navigation
         if 'last_menu_url' in request.session:
             source_action_menu = request.session['last_menu_url']
-
             return HttpResponseRedirect(source_action_menu)
-            # return render(request, 'fed_rep_action_menu.html', {'programId'z: program, 'segmentId': segment})
         else:
             return render(request, 'home.html')
     except:
@@ -211,7 +173,7 @@ def verify_twitter(request, programId, segmentId, tweet):
         redirect_url = auth.get_authorization_url()
 
         request.session['request_token'] = auth.request_token
-        request.session['tweetText'] = tweetText
+        request.session['tweetText'] = tweet_text
         request.session['programId'] = programId
         request.session['segmentId'] = segmentId
 
@@ -241,25 +203,37 @@ def verify_twitter(request, programId, segmentId, tweet):
 
 
 
-def verify_twitter_with_tweet(request, tweet_text):
-    print "verify twitter with message"
+def retrieve_twitter_key(user_object_id):
 
-    CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch/'
-    print CALLBACK_URL
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({"keys":"_auth_data_twitter"})
+    connection.connect()
+    connection.request('GET','/parse/classes/_User/'+ user_object_id + '?%s' % params, '', {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    })
+    result = json.loads(connection.getresponse().read())
+    return result
 
-    TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
-    TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
-
-    # App level auth
+def send_tweet_with_tweepy(tweet_text,result):
+    auth_token = result['twitter_token']
+    auth_token_secret = result['twitter_token_secret']
+    #CALLBACK_URL = 'http://www.pushthought.com/verify_catch'
+    CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
-    redirect_url = auth.get_authorization_url()
+    auth.set_access_token(auth_token, auth_token_secret)
 
-    # store data in session
-    request.session['request_token'] = auth.request_token
-    request.session['tweet_text'] = tweet_text
+    api = tweepy.API(auth)
+    api.update_status(tweet_text)
+    print "tweet sent"
+    return None
 
-    return HttpResponseRedirect(redirect_url)
-
+def send_tweet_success_message(request, tweet_text):
+    #send success message
+    messages.success(request, 'Tweet sent successfully.')
+    response = JsonResponse({'tweet_text': tweet_text})
+    print response
+    return None
 
 def verify_catch(request):
 
