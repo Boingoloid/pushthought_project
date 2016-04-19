@@ -24,6 +24,8 @@ import urllib
 
 PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
+TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
+#TWITTER_CALLBACK_ROOT_URL = 'http://www.pushthought.com/verify_catch'
 
 TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
 TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
@@ -54,7 +56,6 @@ def account_home(request, user_pk):
     dataDict = {}
     dataDict['user_pk'] = user_pk
     dataDict['programs'] = programs
-
     return render(request, 'account_home.html', dataDict)
 
 
@@ -119,11 +120,18 @@ def add_segment(request, user_pk, program_pk):
 def contact(request):
     return render(request, 'contact.html')
 
+def action_menu(request, programId, segmentId):
+    program = programId
+    segment = segmentId
+
+
+
+    return render(request, 'action_menu.html', {'programId': program, 'segmentId': segment})
+
 
 def fed_rep_action_menu(request, programId, segmentId):
 
     source_url = request.build_absolute_uri()
-
     print "source_url saved in session:" + source_url
     request.session['last_menu_url'] = source_url
     request.session['programId'] = programId
@@ -134,7 +142,7 @@ def fed_rep_action_menu(request, programId, segmentId):
     return render(request, 'fed_rep_action_menu.html', {'programId': programId, 'segmentId': segmentId})
 
 
-
+# Twitter Verification and helper methods
 def verify_twitter(request, programId, segmentId, tweet):
     print "ajax hitting verify twitter!"
     tweet_text = urllib.unquote_plus(tweet)
@@ -147,28 +155,39 @@ def verify_twitter(request, programId, segmentId, tweet):
     try:
         print "TRYING"
         user_object_id = str(request.session['user_object_id'])
-        #user_object_id = 'JMSR6hFydj'
-        twitter_key = retrieve_twitter_key(user_object_id)
-        send_tweet_with_tweepy(tweet_text, twitter_key)
+        current_user = get_parse_user_with_twitter_auth(user_object_id)
+
+        # Gather twitter keys -> methods below
+        twitter_keys = { "auth_token" : current_user['authData']['twitter']['auth_token'],
+                         "auth_token_secret" : current_user['authData']['twitter']['auth_token_secret'] }
+        twitter_screen_name = current_user['authData']['twitter']['screen_name']
+
+        # Send tweet and show success
+        send_tweet_with_tweepy(tweet_text, twitter_keys)
         show_tweet_success_message(request, tweet_text)
 
-        #save other tables
-        hash_list = set([i[1:] for i in tweet_text.split() if i.startswith("#")])
-        print "Here is the hash list:"
-        print hash_list
+        # Save tweet action
+        action_object_id = save_tweet_action(request,tweet_text,current_user,twitter_screen_name)
 
-        # Post tweet navigation
+        # Save #'s
+        save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_object_id)
+
+        # Save @'s
+        save_targets(request,tweet_text,current_user,twitter_screen_name, action_object_id)
+
+        # Update SegmentStats
+        update_segment_stats(request)
+
+        # Post-tweet navigation
         if 'last_menu_url' in request.session:
             source_action_menu = request.session['last_menu_url']
             return HttpResponseRedirect(source_action_menu)
         else:
             return render(request, 'home.html')
+
     except:
         print "exception"
-        # get tweepy auth
-
-        #CALLBACK_URL = 'http://www.pushthought.com/verify_catch'
-        CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
+        CALLBACK_URL = TWITTER_CALLBACK_ROOT_URL
 
         # App level auth
         auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
@@ -183,6 +202,20 @@ def verify_twitter(request, programId, segmentId, tweet):
 
         return HttpResponseRedirect(redirect_url)
 
+def get_parse_user_with_twitter_auth(user_object_id):
+
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({"keys":"_auth_data_twitter"})
+    connection.connect()
+    connection.request('GET', '/parse/classes/_User/' + user_object_id + '?%s' % params, '', {
+           "X-Parse-Application-Id": PARSE_APP_ID,
+           "X-Parse-REST-API-Key": PARSE_REST_KEY
+         })
+    current_user = json.loads(connection.getresponse().read())
+    print "parse user info"
+    print current_user
+    return current_user
+
 
 def retrieve_twitter_key(user_object_id): #helper
 
@@ -196,11 +229,10 @@ def retrieve_twitter_key(user_object_id): #helper
     twitter_key = json.loads(connection.getresponse().read())
     return twitter_key
 
-def send_tweet_with_tweepy(tweet_text,twitter_key): #helper
-    auth_token = twitter_key['twitter_token']
-    auth_token_secret = twitter_key['twitter_token_secret']
-    #CALLBACK_URL = 'http://www.pushthought.com/verify_catch'
-    CALLBACK_URL = 'http://127.0.0.1:8000/verify_catch'
+def send_tweet_with_tweepy(tweet_text,twitter_keys): #helper
+    auth_token = twitter_keys['auth_token']
+    auth_token_secret = twitter_keys['auth_token_secret']
+    CALLBACK_URL = TWITTER_CALLBACK_ROOT_URL
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
     auth.set_access_token(auth_token, auth_token_secret)
 
@@ -212,7 +244,7 @@ def send_tweet_with_tweepy(tweet_text,twitter_key): #helper
 def show_tweet_success_message(request, tweet_text): #helper
     #send success message
     messages.success(request, 'Tweet sent successfully.')
-    response = JsonResponse({'tweet_text': tweet_text})
+    # response = JsonResponse({'tweet_text': tweet_text})
     return None
 
 
@@ -244,6 +276,8 @@ def verify_catch(request):
 
     # Get Twitter User info
     twitter_user = api.me()
+    twitter_screen_name = twitter_user.screen_name
+
 
     current_user = log_user_into_parse(twitter_user,accessKeyToken,accessKeyTokenSecret)
     update_user_with_twitter_data (current_user,twitter_user,accessKeyToken,accessKeyTokenSecret)
@@ -256,16 +290,27 @@ def verify_catch(request):
         tweet_text = request.session['tweetText']
         del request.session['tweetText']
         api.update_status(tweet_text)
+        show_tweet_success_message(request, tweet_text)
         print "tweet sent"
-        messages.success(request, 'Tweet sent successfully.')
 
-        save_tweet_action(request,tweet_text,current_user,twitter_user)
-        # save_hastags()
-        # save_message()
-        # save_segment_stats()
+        # Save tweet action
+        action_object_id = save_tweet_action(request,tweet_text,current_user,twitter_screen_name)
 
-        print request.session['user_object_id']
+        # Save #'s
+        save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_object_id)
+
+        # Save @'s
+        save_targets(request,tweet_text,current_user,twitter_screen_name, action_object_id)
+
+        # Save to SegmentStats
+        update_segment_stats(request)
+
+
+
+
+
         request.session.modified = True
+        
     else:
         print "verify catch NO message to send"
 
@@ -279,7 +324,7 @@ def verify_catch(request):
         return render(request, 'home.html')
 
 
-def save_tweet_action(request,tweet_text,current_user,twitter_user): #helper
+def save_tweet_action(request,tweet_text,current_user,twitter_screen_name): #helper
     connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connectionTweet.connect()
     connectionTweet.request('POST', '/parse/classes/sentMessages', json.dumps({
@@ -288,7 +333,7 @@ def save_tweet_action(request,tweet_text,current_user,twitter_user): #helper
         "messageCategory": "Local Representative",
         "messageType": "twitter",
         "userObjectId": current_user['objectId'],
-        "twitterUserName": twitter_user.name,
+        "twitterUserName": twitter_screen_name,
         "programObjectId" : request.session['programId'],
         "segmentObjectId" : request.session['segmentId']
         }), {
@@ -297,7 +342,110 @@ def save_tweet_action(request,tweet_text,current_user,twitter_user): #helper
         "Content-Type": "application/json"
     })
     result = json.loads(connectionTweet.getresponse().read())
-    return None  #resturns status and location https://parse.com/docs/rest/guide#objects-creating-objects
+    action_object_id = result['objectId']
+    return action_object_id
+
+
+def save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_object_id):
+    hashtag_list = set([i[1:] for i in tweet_text.split() if i.startswith("#")])
+
+    for hashtag in hashtag_list:
+        #search result for it
+                #found exit and add one
+                #move on to next
+        connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connectionTweet.connect()
+        connectionTweet.request('POST', '/parse/classes/Hashtags', json.dumps({
+            "hashtag" : hashtag,
+            "frequency" : "1",
+            "messageText": tweet_text,
+            "actionCategory": "Local Representative",
+            "messageCategory": "Local Representative",
+            "messageType": "twitter",
+            "userObjectId": current_user['objectId'],
+            "twitterUserName": twitter_screen_name,
+            "programObjectId" : request.session['programId'],
+            "segmentObjectId" : request.session['segmentId'],
+            'actionObjectId' : action_object_id
+            }), {
+            "X-Parse-Application-Id": PARSE_APP_ID,
+            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+            "Content-Type": "application/json"
+        })
+        result = json.loads(connectionTweet.getresponse().read())
+        print "hashtag save result"
+        print result
+    return None
+
+
+def save_targets(request,tweet_text,current_user,twitter_screen_name,action_object_id):
+    target_list = set([i[1:] for i in tweet_text.split() if i.startswith("@")])
+
+    for target in target_list:
+
+        connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connectionTweet.connect()
+        connectionTweet.request('POST', '/parse/classes/TargetTwitterNames', json.dumps({
+            "targetTwitterName" : target,
+            "frequency" : 1,
+            "messageText": tweet_text,
+            "actionCategory": "Local Representative",
+            "messageCategory": "Local Representative",
+            "messageType": "twitter",
+            "userObjectId": current_user['objectId'],
+            "twitterUserName": twitter_screen_name,
+            "programObjectId" : request.session['programId'],
+            "segmentObjectId" : request.session['segmentId'],
+            'actionObjectId' : action_object_id
+            }), {
+            "X-Parse-Application-Id": PARSE_APP_ID,
+            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+            "Content-Type": "application/json"
+        })
+        result = json.loads(connectionTweet.getresponse().read())
+        print "address save result"
+        print result
+    return None
+
+def update_segment_stats(request):
+    # NEED TO ADD LOGIC TO ADD IF NOT THERE
+
+    #look up value
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({"where":json.dumps({
+       "segmentObjectId": request.session['segmentId']
+     })})
+    connection.connect()
+    connection.request('GET', '/parse/classes/SegmentStats?%s' % params, '', {
+       "X-Parse-Application-Id": PARSE_APP_ID,
+       "X-Parse-REST-API-Key": PARSE_REST_KEY
+     })
+    result = json.loads(connection.getresponse().read())
+    print "downloaded segment stats"
+    print result
+
+    result_dict = result['results']
+    print "result dict"
+    print result_dict
+    action_count = result_dict[0]['actionCount']
+    action_count = action_count + 1
+
+    #update entry
+    connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection2.connect()
+    connection2.request('PUT', '/parse/classes/SegmentStats/' + result_dict[0]['objectId'] , json.dumps({
+           "actionCount": action_count
+         }), {
+           "X-Parse-Application-Id": PARSE_APP_ID,
+           "X-Parse-REST-API-Key": PARSE_REST_KEY,
+           "Content-Type": "application/json"
+         })
+
+    result2 = connection2.getresponse().read()
+    print "uploaded segment stats"
+
+    print result2
+    return None
 
 
 def log_user_into_parse(twitter_user,access_key_token,access_key_token_secret): #helper
@@ -358,12 +506,6 @@ def update_user_with_twitter_data(current_user,twitter_user,access_key_token,acc
     return None
 
 
-def action_menu(request, programId, segmentId):
-    program = programId
-    segment = segmentId
-
-
-    return render(request, 'action_menu.html', {'programId': program, 'segmentId': segment})
 
 
     # def register(request):
