@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f524674-a87c-41f6-a886-0bb20d6b2405" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/action-menu.css" afterPath="$PROJECT_DIR$/static/css/action-menu.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/action_menu.html" afterPath="$PROJECT_DIR$/templates/action_menu.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/action_menu.js" afterPath="$PROJECT_DIR$/static/js/action_menu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/fed_rep_action_menu.js" afterPath="$PROJECT_DIR$/static/js/fed_rep_action_menu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pushthought/views.py" afterPath="$PROJECT_DIR$/pushthought/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="pushthought_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="action_menu.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="action_menu.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/js/action_menu.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.555555">
-              <caret line="39" column="47" selection-start-line="39" selection-start-column="47" selection-end-line="39" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.45454547">
+              <caret line="106" column="38" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -49,11 +47,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="action_menu.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="action_menu.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/action_menu.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.57788944">
+            <state vertical-scroll-proportion="-13.125">
               <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="action-menu.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/action-menu.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="55" column="13" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bootstrap.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/bootstrap.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="811" column="1" selection-start-line="811" selection-start-column="1" selection-end-line="811" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -117,7 +135,6 @@
         <option value="$PROJECT_DIR$/../../IphoneApps/MongoDB/parse-server-example/index.js" />
         <option value="$PROJECT_DIR$/templates/local_rep_menu.html" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/static/css/action-menu.css" />
         <option value="$PROJECT_DIR$/templates/home.html" />
         <option value="$PROJECT_DIR$/static/css/layout.css" />
         <option value="$PROJECT_DIR$/templates/layout.html" />
@@ -128,9 +145,10 @@
         <option value="$USER_HOME$/.virtualenvs/pushthought/lib/python2.7/site-packages/django/conf/__init__.py" />
         <option value="$PROJECT_DIR$/static/js/click_handlers.js" />
         <option value="$PROJECT_DIR$/static/js/fed_rep_action_menu.js" />
-        <option value="$PROJECT_DIR$/static/js/action_menu.js" />
         <option value="$PROJECT_DIR$/pushthought/views.py" />
+        <option value="$PROJECT_DIR$/static/css/action-menu.css" />
         <option value="$PROJECT_DIR$/templates/action_menu.html" />
+        <option value="$PROJECT_DIR$/static/js/action_menu.js" />
       </list>
     </option>
   </component>
@@ -729,13 +747,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/bootstrap.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="811" column="1" selection-start-line="811" selection-start-column="1" selection-end-line="811" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/img/seal-congress.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -759,13 +770,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="3" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/action-menu.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="113" column="1" selection-start-line="113" selection-start-column="1" selection-end-line="113" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -797,13 +801,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="32" column="59" selection-start-line="32" selection-start-column="59" selection-end-line="32" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/layout.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="164" column="4" selection-start-line="164" selection-start-column="4" selection-end-line="164" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -942,14 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/action_menu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.555555">
-          <caret line="39" column="47" selection-start-line="39" selection-start-column="47" selection-end-line="39" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pushthought/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.444445">
@@ -960,10 +949,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/layout.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="164" column="4" selection-start-line="164" selection-start-column="4" selection-end-line="164" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="811" column="1" selection-start-line="811" selection-start-column="1" selection-end-line="811" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/action-menu.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="13" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/action_menu.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57788944">
+        <state vertical-scroll-proportion="-13.125">
           <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/action_menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45454547">
+          <caret line="106" column="38" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
           <folding />
         </state>
       </provider>

@@ -24,86 +24,86 @@ $(document).ready(function() {
     }
 
       // GET SEGMENT & Program info and update HTML
-      getSegmentData(segmentId,programId);
+      //getSegmentData(segmentId,programId);
 
 
-        // GET MENU LIST DATA
-      var MessageList = Parse.Object.extend("Messages");
-      var query = new Parse.Query(MessageList);
-      query.equalTo("segmentId", segmentId);
-      query.find({
-          success: function(results) {
-
-            // SORTING THE MESSAGE RESULTS
-            var SortedResults = results.sort(function(a, b){
-              var nA = a.get('actionCategory');
-              var nB = b.get('actionCategory');
-              if(nA < nB)
-                return -1;
-              else if(nA > nB)
-                return 1;
-              return 0;
-            });
-
-            // ASSIGN SORTED RESULTS TO VARIABLE - ACCESSED ON SELECTION OF CATEGORY
-            menuData = SortedResults;
-
-            // GET UNIQUE VALUES FOR ACTION MENU
-            var uniqueResults = _.unique(SortedResults, false, function(item){
-              return item.get('actionCategory');
-            });
-
-            // BRING LOCAL REP TO FRONT
-            $.each(uniqueResults,function(i,result){
-                if(result.get('actionCategory') == "Petition"){
-                    //move to first
-                    uniqueResults.unshift(result);
-                    uniqueResults.splice(i+1, 1);
-                }
-            });
-
-            // BRING REGULATOR TO FRONT
-            $.each(uniqueResults,function(i,result){
-                if(result.get('actionCategory') == "Regulator"){
-                    //move to first
-                    uniqueResults.unshift(result);
-                    uniqueResults.splice(i+1, 1);
-                }
-            });
-
-            // BRING PETITION TO FRONT
-            $.each(uniqueResults,function(i,result){
-                if(result.get('actionCategory') == "Local Representative"){
-                    //move to first
-                    uniqueResults.unshift(result);
-                    uniqueResults.splice(i+1, 1);
-                }
-            });
-            console.log(uniqueResults)
-
-
-            //ADD DIVS FOR ACTIONS
-            for (var i = 0; i < uniqueResults.length; i++) {
-              var $listItem = $("<li>" + uniqueResults[i].get('actionCategory') + "</li>");
-              $listItem.attr("id", uniqueResults[i].get('actionCategory'));
-              $listItem.attr("class", "action-item");
-              $(".action-row").append($listItem);
-            }
-
-
-            // ADD DIVS FOR MENU
-//            for (var i = 0; i < SortedResults.length; i++) {
-//              $("#menu_list").append("<div><li>" + JSON.stringify(SortedResults[i], null, 4) + "</li></div>").addClass
-//              ("list-unstyled");
+//        // GET MENU LIST DATA
+//      var MessageList = Parse.Object.extend("Messages");
+//      var query = new Parse.Query(MessageList);
+//      query.equalTo("segmentId", segmentId);
+//      query.find({
+//          success: function(results) {
+//
+//            // SORTING THE MESSAGE RESULTS
+//            var SortedResults = results.sort(function(a, b){
+//              var nA = a.get('actionCategory');
+//              var nB = b.get('actionCategory');
+//              if(nA < nB)
+//                return -1;
+//              else if(nA > nB)
+//                return 1;
+//              return 0;
+//            });
+//
+//            // ASSIGN SORTED RESULTS TO VARIABLE - ACCESSED ON SELECTION OF CATEGORY
+//            menuData = SortedResults;
+//
+//            // GET UNIQUE VALUES FOR ACTION MENU
+//            var uniqueResults = _.unique(SortedResults, false, function(item){
+//              return item.get('actionCategory');
+//            });
+//
+//            // BRING LOCAL REP TO FRONT
+//            $.each(uniqueResults,function(i,result){
+//                if(result.get('actionCategory') == "Petition"){
+//                    //move to first
+//                    uniqueResults.unshift(result);
+//                    uniqueResults.splice(i+1, 1);
+//                }
+//            });
+//
+//            // BRING REGULATOR TO FRONT
+//            $.each(uniqueResults,function(i,result){
+//                if(result.get('actionCategory') == "Regulator"){
+//                    //move to first
+//                    uniqueResults.unshift(result);
+//                    uniqueResults.splice(i+1, 1);
+//                }
+//            });
+//
+//            // BRING PETITION TO FRONT
+//            $.each(uniqueResults,function(i,result){
+//                if(result.get('actionCategory') == "Local Representative"){
+//                    //move to first
+//                    uniqueResults.unshift(result);
+//                    uniqueResults.splice(i+1, 1);
+//                }
+//            });
+//            console.log(uniqueResults)
+//
+//
+//            //ADD DIVS FOR ACTIONS
+//            for (var i = 0; i < uniqueResults.length; i++) {
+//              var $listItem = $("<li>" + uniqueResults[i].get('actionCategory') + "</li>");
+//              $listItem.attr("id", uniqueResults[i].get('actionCategory'));
+//              $listItem.attr("class", "action-item");
+//              $(".action-row").append($listItem);
 //            }
-          },
-          error: function(error) {
-            alert("Error: " + error.code + " " + error.message);
-          }
-      });
+//
+//
+//            // ADD DIVS FOR MENU
+////            for (var i = 0; i < SortedResults.length; i++) {
+////              $("#menu_list").append("<div><li>" + JSON.stringify(SortedResults[i], null, 4) + "</li></div>").addClass
+////              ("list-unstyled");
+////            }
+//          },
+//          error: function(error) {
+//            alert("Error: " + error.code + " " + error.message);
+//          }
+//      });
 
     $('.action-container').on('click','.action-item',function(event) {
-        var selectedCategory = $(this).attr('id');
+        var selectedCategory = $(this).html();
         console.log(selectedCategory);
 
         var menuDataFiltered = _.filter(menuData, function(item){

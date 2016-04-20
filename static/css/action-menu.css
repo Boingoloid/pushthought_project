@@ -31,7 +31,7 @@
   max-width:600px;
 }
 
-.action-container{
+.action-container, .other-action-container{
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -53,7 +53,7 @@
   justify-content: space-between;
 }
 
-.action-item{
+.action-item, .other-action-item{
   display: flex-item;
   max-width:500px;
   min-width:300px;
