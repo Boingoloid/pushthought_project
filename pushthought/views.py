@@ -120,27 +120,7 @@ def add_segment(request, user_pk, program_pk):
 def contact(request):
     return render(request, 'contact.html')
 
-def format_action_list(action_list):
-    # extract actionCategory
-    action_category_list = []
-    for actionItem in action_list:
-        action_category_list.append(actionItem['actionCategory'])
 
-    # Make unique and sort
-    unique_action_category_list = set(action_category_list)
-    sorted_unique_action_category_list = sorted(unique_action_category_list)
-
-    # Rearrange
-    formattedList = move_to_front(sorted_unique_action_category_list,"Petition")
-    formattedList = move_to_front(formattedList,"Regulator")
-    formattedList = move_to_front(formattedList,"Local Representative")
-    return formattedList
-
-def move_to_front(list,value):
-    indexNum = list.index(value)
-    poppedItem = list.pop(indexNum)
-    list.insert(0,poppedItem)
-    return list
 
 def action_menu(request, programId, segmentId):
     program_dict = fetch_program_data(programId)
@@ -149,7 +129,7 @@ def action_menu(request, programId, segmentId):
     segment_data = json.dumps(segment_dict)
 
     action_list = fetch_action_list(segmentId)
-    formatted_action_list = format_action_list(action_list)
+    formatted_action_list = format_action_list(action_list)  # make distinct and sort
 
 
     dataDict = {}
@@ -200,18 +180,165 @@ def fetch_program_data(program_id):
     program_dict = json.loads(connection.getresponse().read())
     return program_dict
 
+def format_action_list(action_list):
+    # extract actionCategory
+    action_category_list = []
+    for actionItem in action_list:
+        action_category_list.append(actionItem['actionCategory'])
+
+    # Make unique and sort
+    unique_action_category_list = set(action_category_list)
+    sorted_unique_action_category_list = sorted(unique_action_category_list)
+
+    # Rearrange
+    formattedList = move_to_front(sorted_unique_action_category_list,"Petition")
+    formattedList = move_to_front(formattedList,"Regulator")
+    formattedList = move_to_front(formattedList,"Local Representative")
+    return formattedList
+
+def move_to_front(list,value):
+    indexNum = list.index(value)
+    poppedItem = list.pop(indexNum)
+    list.insert(0,poppedItem)
+    return list
+
+
+def get_congress_data(zipCode):
+    root = "https://congress.api.sunlightfoundation.com/legislators/locate"
+    apiKey = "ed7f6bb54edc4577943dcc588664c89f"
+
+    urlAPI = root + "?zip=" + zipCode + "&apikey=" + apiKey
+
+    import requests
+    r = requests.get(urlAPI)
+    #print r.status_code
+    #print r.headers
+
+    return json.loads(r.content)['results']
+
+def add_congress_photos(congress_data,photo_data):
+    print congress_data
+    print photo_data
+    for personItem in congress_data:
+        for photoItem in photo_data:
+            if str(personItem['bioguide_id']) == str(photoItem['bioguideID']):
+                personItem['imageFileURL'] = photoItem['imageFile']['url']
+    return congress_data
+
+
+def get_congress_photos(congress_data):
+    # create bioguide array from congress data (tells who we need photos for)
+    bioguide_array = []
+    for item in congress_data:
+        bioguide_array.append(item['bioguide_id'])
+
+    # Query for photos
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({"where":json.dumps({
+           "bioguideID": {
+             "$in": bioguide_array
+           }
+         })})
+    connection.connect()
+    connection.request('GET', '/parse/classes/CongressImages?%s' % params, '', {
+           "X-Parse-Application-Id": PARSE_APP_ID,
+           "X-Parse-REST-API-Key": PARSE_REST_KEY
+         })
+    photo_data = json.loads(connection.getresponse().read())
+    return photo_data['results']
+
+def add_title_and_full_name(congress_data_raw):
+    for item in congress_data_raw:
+        # Create full_name
+        item['full_name'] = item['first_name'] + " " + item['last_name']
+        # Create Title
+        if item['title'] == "Rep":
+            item['title'] = "Rep, " + item['state'] + " - d:" + str(item['district'])
+        else:
+            item['title'] = "Senator, " + item['state']
+    return congress_data_raw
+
 
 def fed_rep_action_menu(request, programId, segmentId):
 
+    # Get variables
+    program_dict = fetch_program_data(programId)
+    segment_dict = fetch_segment_data(segmentId)
+    program_data = json.dumps(program_dict)
+    segment_data = json.dumps(segment_dict)
+    action_list = fetch_action_list(segmentId)
+
+    zipCode = "94107"
+    congress_data_raw = get_congress_data(zipCode)
+    congress_data_raw = add_title_and_full_name(congress_data_raw)
+    congress_photos = get_congress_photos(congress_data_raw)
+    congress_data = add_congress_photos(congress_data_raw,congress_photos)
+
+    hashtag_data = get_hashtag_data(segmentId)
+
+    tweet_data = get_tweet_data(segmentId)
+
+    # Store values in session
     source_url = request.build_absolute_uri()
-    print "source_url saved in session:" + source_url
     request.session['last_menu_url'] = source_url
+    print "source_url saved in session:" + source_url
     request.session['programId'] = programId
     request.session['segmentId'] = segmentId
-    print "session:(last url)" + request.session['last_menu_url']
-    print "Fed Action menu end"
 
-    return render(request, 'fed_rep_action_menu.html', {'programId': programId, 'segmentId': segmentId})
+    dataDict = {}
+    dataDict['actionList'] = action_list
+    dataDict['hashtagData'] = hashtag_data
+    dataDict['tweetData'] = tweet_data
+    dataDict['congressData'] = congress_data
+
+    dataDict['programId'] = programId
+    dataDict['programTitle'] = program_dict['programTitle']
+    dataDict['programData'] = program_data
+
+    dataDict['segmentId'] = segmentId
+    dataDict['segmentTitle'] = segment_dict['segmentTitle']
+    dataDict['purposeSummary'] = segment_dict['purposeSummary']
+    dataDict['segmentData'] = segment_data
+
+    return render(request, 'fed_rep_action_menu.html', dataDict)
+
+def get_hashtag_data(segmentId):
+    # Query for hashtags
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({"where":json.dumps({
+           "segmentObjectId":segmentId
+         })})
+    connection.connect()
+    connection.request('GET', '/parse/classes/Hashtags?%s' % params, '', {
+           "X-Parse-Application-Id": PARSE_APP_ID,
+           "X-Parse-REST-API-Key": PARSE_REST_KEY
+         })
+
+    hashtag_data = json.loads(connection.getresponse().read())
+    print "Hashtag data"
+    print hashtag_data
+    return hashtag_data['results']
+
+def get_tweet_data(segmentId):
+
+    # Query for tweets
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({
+        "where":json.dumps({
+            "segmentObjectId":segmentId,
+            "messageType": "twitter"
+        }),
+        "order":"-_created_at"})
+    connection.connect()
+    connection.request('GET', '/parse/classes/sentMessages?%s' % params, '', {
+           "X-Parse-Application-Id": PARSE_APP_ID,
+           "X-Parse-REST-API-Key": PARSE_REST_KEY
+         })
+
+    tweet_data = json.loads(connection.getresponse().read())
+    print "Tweet data"
+    print tweet_data
+    return tweet_data['results']
 
 
 # Twitter Verification and helper methods

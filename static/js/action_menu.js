@@ -10,18 +10,37 @@ $(document).ready(function() {
     var segmentData = JSON.parse($("#segmentData").text());
     var programId = $("#programId").text();    //"JvW9oAYlo8";
     var segmentId = $("#segmentId").text();     // "JPGM9mmcKV";
-
     var segmentTitle = segmentData['segmentTitle'];
 
-    var menuData;
-    var menuDataFiltered = [];
 
-    var SegmentIdentifier = $("#segmentId").text();
-    if(segmentId == SegmentIdentifier){
-        console.log("yes the segmentIds are the same! (top clickhandlers)");
-    } else {
-        console.log("no the segmentIds are NOT the same! (top clickhandlers)");
-    }
+//    var SegmentIdentifier = $("#segmentId").text();
+//    if(segmentId == SegmentIdentifier){
+//        console.log("yes the segmentIds are the same! (top clickhandlers)");
+//    } else {
+//        console.log("no the segmentIds are NOT the same! (top clickhandlers)");
+//    }
+
+
+
+    $('.action-container').on('click','.action-item',function(event) {
+        var selectedCategory = $(this).html();
+        console.log(selectedCategory);
+
+        var menuDataFiltered = _.filter(menuData, function(item){
+           return item.get('actionCategory') == selectedCategory;
+        });
+
+        if(selectedCategory == "Local Representative"){
+            window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/fed_representative.com";
+        } else if(selectedCategory == "Petition") {
+            window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/petition.com";
+        } else {
+            window.location.href="www.google.com";
+        }
+    });
+});
+
+
 
       // GET SEGMENT & Program info and update HTML
       //getSegmentData(segmentId,programId);
@@ -102,54 +121,36 @@ $(document).ready(function() {
 //          }
 //      });
 
-    $('.action-container').on('click','.action-item',function(event) {
-        var selectedCategory = $(this).html();
-        console.log(selectedCategory);
-
-        var menuDataFiltered = _.filter(menuData, function(item){
-           return item.get('actionCategory') == selectedCategory;
-        });
-
-        if(selectedCategory == "Local Representative"){
-            window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/fed_representative.com";
-        } else if(selectedCategory == "Petition") {
-            window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/petition.com";
-        } else {
-            window.location.href="www.google.com";
-        }
-    });
-});
-
-function getSegmentData(segmentId,programId){
-    console.log("segmentID")
-    console.log(segmentId);
-    console.log(programId);
-    // Query Parse for Segment and Program Info & update html (not menu items yet)
-    var Segment = Parse.Object.extend("Segments");
-    var query = new Parse.Query(Segment);
-    query.equalTo("_id", segmentId); //"JPGM9mmcKV"
-    query.find({
-        success: function(results) {
-            //change html
-            //$("#segment-title").text("/ " + results[0].get('segmentTitle'));
-            //$('#purpose-summary-text').text(results[0].get('purposeSummary') + " Share your thoughts below. ");
-
-            // Query program info
-            var Program = Parse.Object.extend("Programs");
-            var queryProgram = new Parse.Query(Program);
-            queryProgram.equalTo("_id", programId); //"JvW9oAYlo8"
-            queryProgram.find({
-                success: function(programResults) {
-                  //$("#segment-title").text("/ " + programResults[0].get('programTitle') + " / " + results[0].get
-                  //('segmentTitle'));
-                },
-                error: function(error) {
-                  alert("Error: " + error.code + " " + error.message);
-                }
-            })
-            },
-        error: function(error) {
-          alert("Error: " + error.code + " " + error.message);
-        }
-    });
-};
+//function getSegmentData(segmentId,programId){
+//    console.log("segmentID")
+//    console.log(segmentId);
+//    console.log(programId);
+//    // Query Parse for Segment and Program Info & update html (not menu items yet)
+//    var Segment = Parse.Object.extend("Segments");
+//    var query = new Parse.Query(Segment);
+//    query.equalTo("_id", segmentId); //"JPGM9mmcKV"
+//    query.find({
+//        success: function(results) {
+//            //change html
+//            //$("#segment-title").text("/ " + results[0].get('segmentTitle'));
+//            //$('#purpose-summary-text').text(results[0].get('purposeSummary') + " Share your thoughts below. ");
+//
+//            // Query program info
+//            var Program = Parse.Object.extend("Programs");
+//            var queryProgram = new Parse.Query(Program);
+//            queryProgram.equalTo("_id", programId); //"JvW9oAYlo8"
+//            queryProgram.find({
+//                success: function(programResults) {
+//                  //$("#segment-title").text("/ " + programResults[0].get('programTitle') + " / " + results[0].get
+//                  //('segmentTitle'));
+//                },
+//                error: function(error) {
+//                  alert("Error: " + error.code + " " + error.message);
+//                }
+//            })
+//            },
+//        error: function(error) {
+//          alert("Error: " + error.code + " " + error.message);
+//        }
+//    });
+//};

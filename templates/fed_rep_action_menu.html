@@ -11,17 +11,17 @@
 <!--{% csrf_token %}-->
 
 <div class="main-wrapper">
-
-
+<br/>
     <div id="twitter-container">
-
-
     </div>
 
     <div>
         <p hidden id="segmentId">{{segmentId}}</p>
         <p hidden id="programId">{{programId}}</p>
-        <p id="segment-title"></p>
+        <div class="container-breadcrumb col-med-12">
+        <p id="segment-title">/ {{programTitle}} / {{segmentTitle}}
+        </p>
+    </div>
     </div>
     <br/>
     <div>
@@ -34,18 +34,45 @@
     </div>
     <br>
     <div>Federal Representatives</div>
-        <div class="rep-container list-unstyled">
-        </div> <!--close rep container-->
-    <br/>
 
+
+    <div class="rep-container list-unstyled">
+        {% for item in congressData %}
+        <div class='rep-item' id="rep-item{{forloop.counter}}">
+            <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
+            <img class='repPhoto'  id='repPhoto{{forloop.counter}}' src={{item.imageFileURL}} alt='Portrait' width='60px'
+                 height='60px'>
+            <p>{{item.full_name}}</p>
+            <p>{{item.title}}</p>
+        </div>
+        {% endfor %}
+    </div> <!--close rep container-->
+    <br>
     <div><p>Recent Hashtags</p></div>
+
+
     <div class="hashtag-container list-unstyled">
+        {% for item in hashtagData %}
+            <div class='hashtag-item'>
+                <p>{{item.hashtag}} | {{item.frequency}}</p>
+            </div>
+        {% endfor %}
     </div> <!--close hashtag container-->
     <br/>
+
+
     <div class="tweet-header">
         <p>Recent Tweets</p>
     </div>
     <div class="tweet-container list-unstyled">
+        {% for item in tweetData %}
+            <div class='tweet-item'>
+                <p>{{item.messageText}}</p>
+            </div>
+        {% endfor %}
+
+
+
     </div> <!--close tweet container-->
 
     <br/>
