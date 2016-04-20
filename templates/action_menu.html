@@ -13,15 +13,34 @@
     <br/>
     <div>
         <p hidden id="segmentId">{{segmentId}}</p>
-        <p id="segment-title"></p>
+        <p hidden id="programId">{{programId}}</p>
+        <p hidden id="programData">{{programData}}</p>
+        <p hidden id="segmentData">{{segmentData}}</p>
     </div>
-    <div class="container-purpose-summary col-med-12">
-        <p id="purpose-summary-text">
+
+    <div class="container-breadcrumb col-med-12">
+        <p id="segment-title">/ {{programTitle}} / {{segmentTitle}}
         </p>
     </div>
+
+    <div class="container-purpose-summary col-med-12">
+        <p id="purpose-summary-text"> {{purposeSummary}}
+        </p>
+    </div>
+
     <div class="col-med-12"  id="action-header-container">
         <h3 id="action-header">Take Action</h3>
     </div>
+    <div class="">
+            <ul class="other-action-container list-unstyled">
+                <div class="other-action-row">
+                    {% for action in actionList %}
+                    <p>{{action}}</p>
+                    {% endfor %}
+                </div>
+            </ul>
+    </div>
+
     <div class="">
             <ul class="action-container list-unstyled">
                 <div class="action-row">
@@ -42,6 +61,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'js/action_menu.js' %}"></script>
 
+<!--Pass Django variable-->
+<div id="pass-django-variables">
+    <script type="text/javascript">
+
+        var programData = jQuery.parseJSON('{{programData}}');
+        var segmentData = jQuery.parseJSON('{{segmentData}}');
+
+    </script>
+</div>
 
 {% endblock %}
 

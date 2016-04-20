@@ -120,13 +120,85 @@ def add_segment(request, user_pk, program_pk):
 def contact(request):
     return render(request, 'contact.html')
 
+def format_action_list(action_list):
+    # extract actionCategory
+    action_category_list = []
+    for actionItem in action_list:
+        action_category_list.append(actionItem['actionCategory'])
+
+    # Make unique and sort
+    unique_action_category_list = set(action_category_list)
+    sorted_unique_action_category_list = sorted(unique_action_category_list)
+
+    # Rearrange
+    formattedList = move_to_front(sorted_unique_action_category_list,"Petition")
+    formattedList = move_to_front(formattedList,"Regulator")
+    formattedList = move_to_front(formattedList,"Local Representative")
+    return formattedList
+
+def move_to_front(list,value):
+    indexNum = list.index(value)
+    poppedItem = list.pop(indexNum)
+    list.insert(0,poppedItem)
+    return list
+
 def action_menu(request, programId, segmentId):
-    program = programId
-    segment = segmentId
+    program_dict = fetch_program_data(programId)
+    segment_dict = fetch_segment_data(segmentId)
+    program_data = json.dumps(program_dict)
+    segment_data = json.dumps(segment_dict)
+
+    action_list = fetch_action_list(segmentId)
+    formatted_action_list = format_action_list(action_list)
 
 
+    dataDict = {}
+    dataDict['actionList'] = formatted_action_list
 
-    return render(request, 'action_menu.html', {'programId': program, 'segmentId': segment})
+    dataDict['programId'] = programId
+    dataDict['programTitle'] = program_dict['programTitle']
+    dataDict['programData'] = program_data
+
+    dataDict['segmentId'] = segmentId
+    dataDict['segmentTitle'] = segment_dict['segmentTitle']
+    dataDict['purposeSummary'] = segment_dict['purposeSummary']
+    dataDict['segmentData'] = segment_data
+
+    return render(request, 'action_menu.html', dataDict)
+
+def fetch_action_list(segment_id):
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({"where":json.dumps({
+       "segmentId":segment_id
+     })})
+    connection.connect()
+    connection.request('GET','/parse/classes/Messages?%s' % params, '', {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    })
+    action_list = json.loads(connection.getresponse().read())
+    return action_list['results']
+
+def fetch_segment_data(segment_id):
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('GET','/parse/classes/Segments/'+ segment_id, '', {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    })
+    segment_dict = json.loads(connection.getresponse().read())
+    return segment_dict
+
+def fetch_program_data(program_id):
+
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('GET','/parse/classes/Programs/'+ program_id, '', {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    })
+    program_dict = json.loads(connection.getresponse().read())
+    return program_dict
 
 
 def fed_rep_action_menu(request, programId, segmentId):

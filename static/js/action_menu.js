@@ -1,25 +1,30 @@
 $(document).ready(function() {
 
-
-
     var window_url =  window.location.href;
 
     Parse.initialize("lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM", "tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP");
     Parse.serverURL = 'https://ptparse.herokuapp.com/parse';
 
     // DECLARING VARIABLES FOR FETCHED DATA
+    var programData = JSON.parse($("#programData").text());
+    var segmentData = JSON.parse($("#segmentData").text());
+    var programId = $("#programId").text();    //"JvW9oAYlo8";
+    var segmentId = $("#segmentId").text();     // "JPGM9mmcKV";
+
+    var segmentTitle = segmentData['segmentTitle'];
+
     var menuData;
     var menuDataFiltered = [];
-    var segmentId = "JPGM9mmcKV"
-    var SegmentIdentifier = $("#segmentId").text()
+
+    var SegmentIdentifier = $("#segmentId").text();
     if(segmentId == SegmentIdentifier){
-        console.log("yes the segmentIds are the same! (top clickhandlers)")
+        console.log("yes the segmentIds are the same! (top clickhandlers)");
     } else {
-        console.log("no the segmentIds are NOT the same! (top clickhandlers)")
+        console.log("no the segmentIds are NOT the same! (top clickhandlers)");
     }
 
       // GET SEGMENT & Program info and update HTML
-      getSegmentData(segmentId)
+      getSegmentData(segmentId,programId);
 
 
         // GET MENU LIST DATA
@@ -108,14 +113,17 @@ $(document).ready(function() {
         if(selectedCategory == "Local Representative"){
             window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/fed_representative.com";
         } else if(selectedCategory == "Petition") {
-            window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/fed_representative.com";
+            window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/petition.com";
         } else {
             window.location.href="www.google.com";
         }
     });
 });
 
-function getSegmentData(segmentId){
+function getSegmentData(segmentId,programId){
+    console.log("segmentID")
+    console.log(segmentId);
+    console.log(programId);
     // Query Parse for Segment and Program Info & update html (not menu items yet)
     var Segment = Parse.Object.extend("Segments");
     var query = new Parse.Query(Segment);
@@ -123,17 +131,17 @@ function getSegmentData(segmentId){
     query.find({
         success: function(results) {
             //change html
-            $("#segment-title").text("/ " + results[0].get('segmentTitle'));
-            $('#purpose-summary-text').text(results[0].get('purposeSummary') + " Share your thoughts below. ");
+            //$("#segment-title").text("/ " + results[0].get('segmentTitle'));
+            //$('#purpose-summary-text').text(results[0].get('purposeSummary') + " Share your thoughts below. ");
 
             // Query program info
             var Program = Parse.Object.extend("Programs");
             var queryProgram = new Parse.Query(Program);
-            queryProgram.equalTo("_id", segmentId); //"JvW9oAYlo8"
+            queryProgram.equalTo("_id", programId); //"JvW9oAYlo8"
             queryProgram.find({
                 success: function(programResults) {
-                  $("#segment-title").text("/ " + programResults[0].get('programTitle') + " / " + results[0].get
-                  ('segmentTitle'));
+                  //$("#segment-title").text("/ " + programResults[0].get('programTitle') + " / " + results[0].get
+                  //('segmentTitle'));
                 },
                 error: function(error) {
                   alert("Error: " + error.code + " " + error.message);

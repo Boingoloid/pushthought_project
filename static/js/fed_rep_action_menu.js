@@ -6,6 +6,7 @@ function createTitle(){
 $(document).ready(function(){
 
 
+
     window.setTimeout(function() {
         $(".alert").fadeTo(3000, 0)
     }, 3000);
