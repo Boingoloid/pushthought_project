@@ -11,7 +11,7 @@ $(document).ready(function() {
     var programId = $("#programId").text();    //"JvW9oAYlo8";
     var segmentId = $("#segmentId").text();     // "JPGM9mmcKV";
     var segmentTitle = segmentData['segmentTitle'];
-
+    var petitionURL = $("#petitionURL").text();
 
 //    var SegmentIdentifier = $("#segmentId").text();
 //    if(segmentId == SegmentIdentifier){
@@ -23,17 +23,17 @@ $(document).ready(function() {
 
 
     $('.action-container').on('click','.action-item',function(event) {
-        var selectedCategory = $(this).html();
+        var selectedCategory = $(this).text();
         console.log(selectedCategory);
 
-        var menuDataFiltered = _.filter(menuData, function(item){
-           return item.get('actionCategory') == selectedCategory;
-        });
+        //var menuDataFiltered = _.filter(menuData, function(item){
+        //   return item.get('actionCategory') == selectedCategory;
+        //});
 
         if(selectedCategory == "Local Representative"){
             window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/fed_representative.com";
         } else if(selectedCategory == "Petition") {
-            window.location.href="http://127.0.0.1:8000/action_menu/JvW9oAYlo8/JPGM9mmcKV/petition.com";
+            window.location.href=petitionURL;
         } else {
             window.location.href="www.google.com";
         }

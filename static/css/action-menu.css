@@ -1,5 +1,41 @@
+
+/* BROWSE */
+
+.program-container{
+  display:flex;
+  flex-wrap:wrap;
+  background: white;
+  border: 5px solid #642039;
+  border-radius: 5px;
+}
+
+.program-item{
+  margin: 10px;
+  padding: 10px;
+  background:#efefef;
+  border: 1px solid #642039;
+  border-radius:5px;
+  transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
+}
+.program-item:hover{
+  transform: scale(1.05);
+}
+
+.program-item-image{
+  height:100px;
+  width:300px;
+}
+
+
+/* END BROWSE */
+
+
 .h1,h2,h3,h4,p{
   color:#000000;
+}
+
+.body{
+  background: black;
 }
 
 .segment-container {
@@ -65,10 +101,15 @@
   border-left: 1px solid #642039;
   border-right: 1px solid #642039;
   border-radius: 5px;
-  background: #dddddd;
+  background: white;
   padding: 20px;
   margin: 10px;
   font-size: 20px;
+  transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
+}
+
+.action-item:hover{
+  transform: scale(1.05);
 }
 
 .flex-item {
@@ -121,22 +162,18 @@
 .rep-container{
   display:flex;
   flex-wrap: wrap;
-  background: #EEEEEE;
+  background: white;/*#75776a;*/
   max-width: 500px;
 }
 
 .rep-item{
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #642039;
+  margin: 7px;
+  padding: 7px;
+  border: 5px solid #642039;
   border-radius: 5px;
   min-width: 100px;
   background: white;
-}
-
-.rep-item p{
-  padding:0;
-  margin:0;
+  transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
 }
 
 .repPhoto{
@@ -149,7 +186,9 @@
 .hashtag-container{
   display:flex;
   flex-wrap:wrap;
-  background: #EEEEEE;
+  background: white;
+  border: 5px solid #642039;
+  border-radius: 5px;
 }
 
 .hashtag-item{
@@ -160,6 +199,16 @@
   border-radius:5px;
   max-width: 300px;
   max-height: 43px;
+  transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
+
+}
+
+.hashtag-item:hover, .tweet-item:hover{
+  transform: scale(1.1);
+}
+
+.rep-item:hover{
+  transform: scale(1.05);
 }
 
 .tweet-header{
@@ -169,7 +218,7 @@
 .tweet-container{
   display:flex;
   flex-wrap:wrap;
-  background: #EEEEEE;
+  background: #75776a;
 }
 
 .tweet-item{
@@ -179,6 +228,7 @@
   border: 1px solid #642039;
   border-radius:5px;
   max-width: 300px;
+  transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
 }
 
 

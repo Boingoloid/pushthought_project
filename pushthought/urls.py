@@ -24,19 +24,30 @@ from snippets import urls
 from . import views
 
 urlpatterns = [
+    # Twitter Verification
     url(r'^verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweet>.*)',
         views.verify_twitter),
-    # url(r'^action_menu/verify_twitter/',views.verify_twitter, name='verify_twitter'),
     url(r'^verify_catch', views.verify_catch,name='verify_catch'),
+
+    # Admin
     url(r'^admin', include(admin.site.urls)),
+
+    # Backburner
     url(r'^snippets', include('snippets.urls')),
     url(r'^prime', include('prime.urls')),
     url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)/addsegment', views.add_segment, name='add_segment'),
     url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)/(?P<segment_pk>\d+)', views.segment_menu, name='segment_menu'),
     url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)', views.segment_list, name='segment_list'),
     url(r'^account/(?P<user_pk>\d+)', views.account_home, name='account_home'),
+
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/fed_representative',views.fed_rep_action_menu),
+    url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/petition',views.petition),
+    url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/communication',views.petition),
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)',views.action_menu),
+
+    url(r'^browse', views.browse, name='browse'),
+    url(r'^program_detail/(?P<programId>\w+)', views.program_detail, name='program_detail'),
+
     # segment JPGM9mmcKV   program JPGM9mmcKV
     # url(r'^action_menu/(?P<segment_pk>\d+)/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})', views.action_menu,
      # url(r'^action_menu/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})-(<segment_name>)', views.action_menu, name='action_menu'),

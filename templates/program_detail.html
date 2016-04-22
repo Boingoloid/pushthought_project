@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+<head>
+   {% block title %}  {% endblock %}
+</head>
+
+{% block content %}
+<h1>Hello</h1>
+<p>{{programId}}</p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="{% static 'js/browse.js' %}"></script>
+
+ {% endblock %}

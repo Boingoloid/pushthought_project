@@ -1,8 +1,3 @@
-
-
-function createTitle(){
-}
-
 $(document).ready(function(){
 
     window.setTimeout(function() {
@@ -20,9 +15,80 @@ $(document).ready(function(){
     //alert (segmentId);
 
 
-    getCongressData();
-    getHashtags(segmentId);
-    getTweets(segmentId);
+
+
+
+        // CLICK ACTIONS
+    $('.rep-container').on('click','.rep-item',function(event) {
+       var idText = $(this).attr('id');
+       var repIndex = idText.replace('rep-item','');
+       var tweetAddressID = "#tweet-address-item" + repIndex;
+       var tweetAddress = $(tweetAddressID).text();
+       var currentText = $('#text-input').val();
+       if($(this).css('background-color') === 'rgb(255, 255, 255)'){
+         $(this).css('background-color','green');
+         currentText += tweetAddress;
+         $('#text-input').val(currentText);
+       } else {
+        $(this).css('background-color','white');
+        var n = currentText.search(tweetAddress);
+        //console.log(n);
+        var re = new RegExp(tweetAddress,"gi");
+        var newText = currentText.replace(re,"");
+        $('#text-input').val(newText);
+       }
+    });
+
+    $('.hashtag-container').on('click','.hashtag-item',function(event) {
+       var hashtagWithCount = $(this).text();
+       var indexNumber = hashtagWithCount.indexOf(" ");
+       var hashtagText = hashtagWithCount.substr(0, indexNumber);
+       var hashtagFrequency = hashtagWithCount.substr(indexNumber + 3, hashtagWithCount.length);
+       var currentText = $('#text-input').val();
+       //$(this).css('background-color','green');
+       currentText += " " + hashtagText;
+       $('#text-input').val(currentText);
+
+    });
+
+    $('.tweet-container').on('click','.tweet-item',function(event) {
+      var tweetText = $(this).text()
+      $('#text-input').val(tweetText);
+    });
+
+    $('#clear-button').on('click',function(event) {
+        $('#text-input').val("");
+    });
+
+    $('#tweet-button').on('click',function(event) {
+
+      var tweetText = $('#text-input').val();
+      alert (tweetText);
+
+      if(tweetText.length < 1){
+        alert ("Please type a message to tweet first");
+      } else {
+
+        //Create and encode URL
+        var encodedTweetText = encodeURIComponent(tweetText);
+        // window_url = "http://www.pushthought.com/action_menu"
+        window_url = "http://127.0.0.1:8000";
+        window_url += "/verify_twitter/" + programId + "/" + segmentId;
+        window_url += "/" + encodedTweetText;
+
+        alert(window_url)
+        window.location.href = window_url;
+
+      }
+
+    });
+});
+
+// OLD CODE, WHEN JS MADE CALLS TO PARSE SERVER
+    //    getCongressData();
+    //    getHashtags(segmentId);
+    //    getTweets(segmentId);
+
 
 //    function getCongressData (){
 //        var root = "https://congress.api.sunlightfoundation.com/legislators/locate";
@@ -162,67 +228,8 @@ $(document).ready(function(){
 //
 //    }
 
-    // CLICK ACTIONS
-    $('.rep-container').on('click','.rep-item',function(event) {
-       var idText = $(this).attr('id');
-       var repIndex = idText.replace('rep-item','');
-       var tweetAddressID = "#tweet-address-item" + repIndex;
-       var tweetAddress = $(tweetAddressID).text();
-       var currentText = $('#text-input').val();
-       if($(this).css('background-color') === 'rgb(255, 255, 255)'){
-         $(this).css('background-color','green');
-         currentText += tweetAddress;
-         $('#text-input').val(currentText);
-       } else {
-        $(this).css('background-color','white');
-        var n = currentText.search(tweetAddress);
-        //console.log(n);
-        var re = new RegExp(tweetAddress,"gi");
-        var newText = currentText.replace(re,"");
-        $('#text-input').val(newText)
-       }
-    });
 
-    $('.hashtag-container').on('click','.hashtag-item',function(event) {
-       var idText = $(this).attr('id');
-       var hashtagWithCount = $(this).text();
-       var index = hashtagWithCount.search(" ");
-       var hashtagText = hashtagWithCount.substr(0, index);
-       var hashtagFrequency = hashtagWithCount.substr(index + 3, hashtagWithCount.length);
-       var currentText = $('#text-input').val();
-       //$(this).css('background-color','green');
-       currentText += " " + hashtagText;
-       $('#text-input').val(currentText);
 
-    });
-
-    $('.tweet-container').on('click','.tweet-item',function(event) {
-      var tweetText = $(this).text()
-      $('#text-input').val(tweetText);
-    });
-
-    $('#clear-button').on('click',function(event) {
-        $('#text-input').val("");
-    });
-
-    $('#tweet-button').on('click',function(event) {
-
-      var tweetText = $('#text-input').val();
-      alert (tweetText);
-
-      if(tweetText.length < 1){
-        alert ("Please type a message to tweet first");
-      } else {
-
-        //Create and encode URL
-        var encodedTweetText = encodeURIComponent(tweetText);
-        // window_url = "http://www.pushthought.com/action_menu"
-        window_url = "http://127.0.0.1:8000";
-        window_url += "/verify_twitter/" + programId + "/" + segmentId;
-        window_url += "/" + encodedTweetText;
-
-        alert(window_url)
-        window.location.href = window_url;
 
 //        var csrftoken = Cookies.get('csrftoken');
 //        alert("CSRF token:" + csrftoken);
@@ -251,7 +258,3 @@ $(document).ready(function(){
 
 
 
-      }
-
-    });
-});

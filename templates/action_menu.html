@@ -1,8 +1,6 @@
 {% extends "layout.html" %}
 {% load static from staticfiles %}
 
-
-
 {% block title %} {% endblock %}
 
 {% block content %}
@@ -16,6 +14,7 @@
         <p hidden id="programId">{{programId}}</p>
         <p hidden id="programData">{{programData}}</p>
         <p hidden id="segmentData">{{segmentData}}</p>
+        <p hidden id="petitionURL">{{petitionURL}}</p>
     </div>
 
     <div class="container-breadcrumb col-med-12">
@@ -35,7 +34,7 @@
             <ul class="action-container list-unstyled">
                 <div class="action-row">
                     {% for action in actionList %}
-                    <li class="action-item">{{action}}</li>
+                        <li class="action-item">{{action}}</li>
                     {% endfor %}
                 </div>
             </ul>

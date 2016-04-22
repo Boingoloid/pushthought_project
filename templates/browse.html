@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+<head>
+   {% block title %}  {% endblock %}
+</head>
+
+{% block content %}
+<div class="main-wrapper">
+<button type="button" aria-haspopup="true" id="browse-btn" class="btn btn-success">browse</button>
+
+    <div>
+        LIST OF PROGRAMS
+    </div>
+
+    <div class="program-container">
+        {% for item in programList %}
+        <div class='program-item' id="program-item{{forloop.counter}}">
+            <p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>
+            <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
+            <img class='program-item-image'  id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}
+                 alt='Program Image'>
+        </div>
+        {% endfor %}
+    </div>  <!--close PROGRAM container-->
+</div>  <!--close main-wrapper-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="{% static 'js/browse.js' %}"></script>
+
+ {% endblock %}

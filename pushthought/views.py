@@ -120,7 +120,45 @@ def add_segment(request, user_pk, program_pk):
 def contact(request):
     return render(request, 'contact.html')
 
+def program_detail(request,programId):
 
+    return render(request, 'program_detail.html',{'programId':programId})
+
+def browse(request):
+    program_list =  get_program_list()
+    segment_list = get_segment_list()
+
+    dataDict = {}
+    dataDict['programList'] = program_list
+    dataDict['segmentList'] = segment_list
+    print (dataDict)
+
+    import pprint
+    pprint.pprint(dataDict)
+    return render(request, 'browse.html', dataDict)
+
+
+def get_segment_list():
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('GET','/parse/classes/Segments', '', {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    })
+    segment_list = json.loads(connection.getresponse().read())
+    return segment_list['results']
+
+def get_program_list():
+
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('GET','/parse/classes/Programs', '', {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    })
+
+    program_list = json.loads(connection.getresponse().read())
+    return program_list['results']
 
 def action_menu(request, programId, segmentId):
     program_dict = fetch_program_data(programId)
@@ -130,11 +168,11 @@ def action_menu(request, programId, segmentId):
 
     action_list = fetch_action_list(segmentId)
     formatted_action_list = format_action_list(action_list)  # make distinct and sort
-
+    petition_url = get_petition_url(action_list)
 
     dataDict = {}
     dataDict['actionList'] = formatted_action_list
-
+    dataDict['petitionURL'] = petition_url
     dataDict['programId'] = programId
     dataDict['programTitle'] = program_dict['programTitle']
     dataDict['programData'] = program_data
@@ -146,18 +184,12 @@ def action_menu(request, programId, segmentId):
 
     return render(request, 'action_menu.html', dataDict)
 
-def fetch_action_list(segment_id):
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    params = urllib.urlencode({"where":json.dumps({
-       "segmentId":segment_id
-     })})
-    connection.connect()
-    connection.request('GET','/parse/classes/Messages?%s' % params, '', {
-        "X-Parse-Application-Id": PARSE_APP_ID,
-        "X-Parse-REST-API-Key": PARSE_REST_KEY
-    })
-    action_list = json.loads(connection.getresponse().read())
-    return action_list['results']
+def get_petition_url(action_list):
+    for item in action_list:
+        if item['actionCategory'] == "Petition":
+            petition_url = item['petitionURL']
+    return petition_url
+
 
 def fetch_segment_data(segment_id):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -179,6 +211,19 @@ def fetch_program_data(program_id):
     })
     program_dict = json.loads(connection.getresponse().read())
     return program_dict
+
+def fetch_action_list(segment_id):
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({"where":json.dumps({
+       "segmentId":segment_id
+     })})
+    connection.connect()
+    connection.request('GET','/parse/classes/Messages?%s' % params, '', {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    })
+    action_list = json.loads(connection.getresponse().read())
+    return action_list['results']
 
 def format_action_list(action_list):
     # extract actionCategory
@@ -339,6 +384,14 @@ def get_tweet_data(segmentId):
     print "Tweet data"
     print tweet_data
     return tweet_data['results']
+
+
+def petition(request, programId, segmentId):
+
+
+
+    redirect_url = "a"
+    return HttpResponseRedirect(redirect_url)
 
 
 # Twitter Verification and helper methods

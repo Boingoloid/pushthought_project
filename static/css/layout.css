@@ -4,8 +4,20 @@ html {
 *, *::after, *::before {
   box-sizing: inherit; }
 
+
+#browse-btn{
+    width: 200px;
+    height: 100px;
+}
+
+
 /* Wrappers
 ================================*/
+
+
+body{
+    background: #d3d3d3;
+}
 
 .container .jumbotron{
     top-padding: 10px;

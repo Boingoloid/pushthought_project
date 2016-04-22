@@ -1,13 +1,16 @@
+$(document).ready(function() {
+  $("#browse-btn").on( "click", function() {
+    window.location.href="http://127.0.0.1:8000/browse.com";
+  });
 
-
-function addCategory(event) {
-  console.log(event);
-  categoryValue = $("#category").val();
-  console.log(categoryValue);
-  //$('#category').append("input");
-  //$('#savedItems').append(categoryValue);
-};
-
+  function addCategory(event) {
+    console.log(event);
+    categoryValue = $("#category").val();
+    console.log(categoryValue);
+    //$('#category').append("input");
+    //$('#savedItems').append(categoryValue);
+  };
+});
 //    $(".selector").on("change", function(event) {
 //        console.log(event);
 //        addCategory(event);
