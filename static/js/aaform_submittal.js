@@ -35,9 +35,7 @@ $(document).ready(function() {
                 }
             },
             submitHandler: function(form) {
-                var csrftoken = Cookies.get('csrftoken');
-
-
+                csrftoken =
                 function csrfSafeMethod(method) {
                     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
                 }

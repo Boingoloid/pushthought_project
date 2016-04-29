@@ -10,11 +10,11 @@
 <!--{% csrf_token %}    -->
 <div class="container">
         {% if not current_user %}
-            <p>You are not logged in.</p>
+            <p>Please login or create an account.</p>
         {% else %}
             <p>You are logged in as: {{current_user.username}}</p>
             <!--<p>{{user_pk}}</p>-->
-            <p>{{programs}}</p>
+            <!--<p>{{programs}}</p>-->
         {% endif %}
 </div>
 

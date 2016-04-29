@@ -47,7 +47,7 @@ urlpatterns = [
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/petition',views.petition),
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/communication',views.petition),
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)',views.action_menu),
-    url(r'^aaform_submittal',views.aaform_submittal),
+    url(r'^aaform_submittal',views.aaform_submittal, name='aaform_submittal'),
 
 
     url(r'^browse', views.browse, name='browse'),

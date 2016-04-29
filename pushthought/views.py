@@ -74,17 +74,25 @@ def get_user_in_parse_only(request, user_pk):
 
 
 def account_home(request, user_pk):
+
+    from django.core.urlresolvers import reverse
+    from django.shortcuts import redirect
     session_token = request.session['sessionToken']
     print "session token top of account home:" + session_token
-    current_user = get_user_in_parse_only(request, user_pk)
 
+    dataDict = {}
+    try:
+        current_user = get_user_in_parse_only(request, user_pk)
+        dataDict['current_user'] = current_user
+    except:
+        print "no current user so redirecting"
+        return redirect(reverse('aaform_submittal'))
 
+    dataDict['user_pk'] = user_pk
     # programs = get_program_list()
     #programs = Program.objects.filter(user=user_pk)
-    dataDict = {}
-    dataDict['user_pk'] = user_pk
     # dataDict['programs'] = programs
-    dataDict['current_user'] = current_user
+
     return render(request, 'account_home.html', dataDict)
 
 
