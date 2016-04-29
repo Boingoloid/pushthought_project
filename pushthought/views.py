@@ -3,11 +3,10 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.conf import settings
 from django.contrib import messages
 
-
 # from django.contrib.auth import authenticate, login
 # from pushthought.forms import UserForm, UserProfileForm
 # from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 from django.contrib.sessions.models import Session
 
@@ -15,6 +14,7 @@ from .models import Program
 from .models import Segment
 from .models import MenuItem
 from .forms import SegmentForm
+from views_parse import *
 
 import os
 import tweepy
@@ -49,13 +49,42 @@ def api(request):
     newObject = json.dumps(obj)
     return HttpResponse(newObject, content_type='application/json')
 
+def get_user_in_parse_only(request, user_pk):
 
-# @login_required
+    try:
+        session_token = request.session['sessionToken']
+        print "session token in parse get user"
+        print session_token
+        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connection.connect()
+        connection.request('GET', '/parse/classes/_User/' + user_pk, '', {
+               "X-Parse-Application-Id": PARSE_APP_ID,
+               "X-Parse-REST-API-Key": PARSE_REST_KEY,
+               "X-Parse-Session-Token": session_token
+             })
+        current_user = json.loads(connection.getresponse().read())
+        print "Retrieved current user - behold:"
+        print current_user
+        return current_user
+    except:
+        print "This guy is not logged in"
+
+
+
+
+
 def account_home(request, user_pk):
-    programs = Program.objects.filter(user=user_pk)
+    session_token = request.session['sessionToken']
+    print "session token top of account home:" + session_token
+    current_user = get_user_in_parse_only(request, user_pk)
+
+
+    # programs = get_program_list()
+    #programs = Program.objects.filter(user=user_pk)
     dataDict = {}
     dataDict['user_pk'] = user_pk
-    dataDict['programs'] = programs
+    # dataDict['programs'] = programs
+    dataDict['current_user'] = current_user
     return render(request, 'account_home.html', dataDict)
 
 
@@ -71,7 +100,6 @@ def segment_list(request, user_pk, program_pk):
     dataDict['user_pk'] = user_pk
     dataDict['segments'] = segments
     dataDict['program'] = program
-
     return render(request, 'segment_list.html', dataDict)
 
 
@@ -120,13 +148,79 @@ def add_segment(request, user_pk, program_pk):
 def contact(request):
     return render(request, 'contact.html')
 
+    #NEW STUFF-----------------------------------------------------------------------------------------------
+
+
+def aaform_submittal(request):
+
+    print "form request"
+    print "currentUser"
+
+    if request.method == 'POST':
+        current_user = create_user(request)
+        try:
+            code = current_user['code']
+            if current_user['code'] == 202:
+                # User already exists, guide to login
+                messages.info(request, 'Account already exists for this username.  Try logging in.')
+                return render(request, 'aaform_submittal.html')
+        except:
+            # User created, take to account_home
+            messages.info(request, 'Success - you now have an account.')
+            user_objectId = current_user['objectId']
+            request.session['sessionToken'] = current_user['sessionToken']
+            print "session token:" + request.session['sessionToken']
+            account_home = "http://127.0.0.1:8000/account/" + user_objectId
+            return HttpResponseRedirect(account_home)
+
+            # return render(request, 'account_home.html',{'user_pk':current_user['objectId']})
+    else:
+        # Get request, send blank page
+        return render(request, 'aaform_submittal.html')
+
+
+
+
+
+
 def program_detail(request,programId):
+    segment_list = get_segment_list(programId)
+    program_dict = fetch_program_data(programId)
 
-    return render(request, 'program_detail.html',{'programId':programId})
+    dataDict = {}
+    dataDict['programDict'] = program_dict
+    dataDict['segmentList'] = segment_list
+    dataDict['programObjectId'] = program_dict['objectId']
 
+    return render(request, 'program_detail.html',dataDict)
+
+def get_segment_list(program_id):
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({"where":json.dumps({
+            "programId":program_id
+        }),
+        "order":"-_created_at"})
+    connection.connect()
+    connection.request('GET','/parse/classes/Segments?%s' % params, '', {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    })
+    segment_list = json.loads(connection.getresponse().read())
+    return segment_list['results']
+
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({"where":json.dumps({
+           "bioguideID": {
+             "$in": bioguide_array
+           }
+         })})
+    connection.connect()
+    connection.request('GET', '/parse/classes/CongressImages?%s' % params, '', {
+           "X-Parse-Application-Id": PARSE_APP_ID,
+           "X-Parse-REST-API-Key": PARSE_REST_KEY
+         })
 def browse(request):
     program_list =  get_program_list()
-    segment_list = get_segment_list()
 
     dataDict = {}
     dataDict['programList'] = program_list
@@ -136,17 +230,6 @@ def browse(request):
     import pprint
     pprint.pprint(dataDict)
     return render(request, 'browse.html', dataDict)
-
-
-def get_segment_list():
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection.connect()
-    connection.request('GET','/parse/classes/Segments', '', {
-        "X-Parse-Application-Id": PARSE_APP_ID,
-        "X-Parse-REST-API-Key": PARSE_REST_KEY
-    })
-    segment_list = json.loads(connection.getresponse().read())
-    return segment_list['results']
 
 def get_program_list():
 

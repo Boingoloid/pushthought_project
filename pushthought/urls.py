@@ -35,15 +35,20 @@ urlpatterns = [
     # Backburner
     url(r'^snippets', include('snippets.urls')),
     url(r'^prime', include('prime.urls')),
-    url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)/addsegment', views.add_segment, name='add_segment'),
-    url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)/(?P<segment_pk>\d+)', views.segment_menu, name='segment_menu'),
-    url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)', views.segment_list, name='segment_list'),
-    url(r'^account/(?P<user_pk>\d+)', views.account_home, name='account_home'),
+    # url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)/addsegment', views.add_segment, name='add_segment'),
+    # url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)/(?P<segment_pk>\d+)', views.segment_menu, name='segment_menu'),
+    # url(r'^account/(?P<user_pk>\d+)/(?P<program_pk>\d+)', views.segment_list, name='segment_list'),
 
+    #account home
+    url(r'^account/(?P<user_pk>\w+)', views.account_home, name='account_home'),
+
+    # Action Menu
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/fed_representative',views.fed_rep_action_menu),
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/petition',views.petition),
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/communication',views.petition),
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)',views.action_menu),
+    url(r'^aaform_submittal',views.aaform_submittal),
+
 
     url(r'^browse', views.browse, name='browse'),
     url(r'^program_detail/(?P<programId>\w+)', views.program_detail, name='program_detail'),

@@ -38,6 +38,15 @@ $(document).ready(function() {
             window.location.href="www.google.com";
         }
     });
+
+
+        // Back button on program_detail page
+    $("#back-btn-programs").on( "click", function() {
+        alert("button");
+        window.location.href="http://127.0.0.1:8000/program_detail/" + programId;
+    });
+
+
 });
 
 
