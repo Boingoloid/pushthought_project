@@ -24,6 +24,18 @@ body{
     top-margin:10px;
 }
 
+.user-container{
+    width:90%;
+    margin:auto;
+    float: right;
+}
+
+.user-container p{
+    margin:auto;
+    float: right;
+    padding:10px;
+}
+
 .main-wrapper{
     width:90%;
     margin:auto;

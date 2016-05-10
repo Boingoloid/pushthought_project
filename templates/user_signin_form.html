@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+
+
+<div class="main-wrapper">
+
+
+
+    <form class="col-sm-4" id="create-form" name="create-form"  action="http://127.0.0.1:8000/user_signin_form"
+          method="post"
+          autocomplete="on">
+         {% csrf_token %}
+        <fieldset>
+            <legend>Step 1 of 2:</legend>
+            <div>Create Account</div>
+            <div>
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="user_email"/>
+            </div>
+            <div>
+                <label for="password">password:</label>
+                <input type="password" id="password" name="password"/>
+            </div>
+            <div>
+                <label for="confirm_password">confirm password:</label>
+                <input type="password" id="confirm_password" name="confirm_password"/>
+            </div>
+        </fieldset>
+        <br>
+        <div>
+
+            <button type="submit" id="create-account-btn">Create Account ajax</button>
+        </div>
+    </form>
+</div>
+        <br><br><br>
+
+
+        <!--<fieldset>-->
+                <!--<legend>Step 2 of 2:</legend>-->
+    <!-- -->
+    <!-- -->
+            <!--<div>-->
+                <!--<label for="name">Organization or Program Name:</label>-->
+                <!--<input type="text" id="name" name="user_name" required />-->
+            <!--</div>-->
+    <!-- -->
+    <!-- -->
+            <!--<p>-->
+                <!--<label for="type" required >Org / program type:</label>-->
+                <!--<select id="type" name="type">-->
+                    <!--<option>Documentary</option>-->
+                    <!--<option></option>-->
+                    <!--<option>Podcast</option>-->
+                    <!--<option></option>-->
+                    <!--<option>Organization</option>-->
+                <!--</select>-->
+             <!--</p>-->
+    <!-- -->
+            <!--<div>-->
+                <!--<label for="check">Checkbox:</label>-->
+                <!--<input type="checkbox" id="check" name="checkbox" required />-->
+            <!--</div>-->
+    <!-- -->
+            <!--<div>-->
+                <!--<label for="file">Load Image:</label>-->
+                <!--<input type="file" id="file" name="file" required />-->
+            <!--</div>-->
+    <!-- -->
+            <!--<p>-->
+                <!--<label for="text_1">description:</label><br>-->
+                <!--<textarea id="text_1" name="regular"></textarea>-->
+            <!--</p>-->
+
+        <!--</fieldset>-->
+
+        <!--<div class="button">-->
+            <!--<button type="submit">Submit</button>-->
+        <!--</div>-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/additional-methods.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="{% static 'js/user_signin_form.js' %}"></script>
+
+    <!--<script>$("#create-form").validate();</script>-->
+
+{% endblock %}
+
+
+

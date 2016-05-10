@@ -15,6 +15,7 @@ from .models import Segment
 from .models import MenuItem
 from .forms import SegmentForm
 from views_parse import *
+# from django.contrib.auth import logout
 
 import os
 import tweepy
@@ -44,6 +45,30 @@ def about(request):
     return render(request, 'about.html')
 
 
+# Use the login_required() decorator to ensure only those logged in can access the view.
+# @login_required
+def user_logout(request):
+    # logout(request)
+
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('POST', '/parse/logout', '', {
+           "X-Parse-Application-Id": PARSE_APP_ID,
+           "X-Parse-REST-API-Key": PARSE_REST_KEY,
+           "X-Parse-Session-Token": request.session['sessionToken']
+         })
+    result = json.loads(connection.getresponse().read())
+    try:
+        del request.session['sessionToken']
+    except:
+        print "logout - no session token was available to delete"
+    print "user is logged out"
+    print result
+
+    # Take the user back to the homepage.
+    # return HttpResponseRedirect(reverse('my-named-url'))
+    return HttpResponseRedirect('/home')
+
 def api(request):
     obj = Program.objects.all()
     newObject = json.dumps(obj)
@@ -71,22 +96,20 @@ def get_user_in_parse_only(request, user_pk):
 
 
 
-
-
 def account_home(request, user_pk):
 
     from django.core.urlresolvers import reverse
     from django.shortcuts import redirect
-    session_token = request.session['sessionToken']
-    print "session token top of account home:" + session_token
-
     dataDict = {}
     try:
+        session_token = request.session['sessionToken']
+        print "session token top of account home:" + session_token
         current_user = get_user_in_parse_only(request, user_pk)
         dataDict['current_user'] = current_user
     except:
-        print "no current user so redirecting"
-        return redirect(reverse('aaform_submittal'))
+        print "no session token available on account home"
+        print "no current user so redirecting to Sign In"
+        return redirect(reverse('user_signin_form'))
 
     dataDict['user_pk'] = user_pk
     # programs = get_program_list()
@@ -159,7 +182,10 @@ def contact(request):
     #NEW STUFF-----------------------------------------------------------------------------------------------
 
 
-def aaform_submittal(request):
+
+
+
+def user_signin_form(request):
 
     print "form request"
     print "currentUser"
@@ -171,7 +197,7 @@ def aaform_submittal(request):
             if current_user['code'] == 202:
                 # User already exists, guide to login
                 messages.info(request, 'Account already exists for this username.  Try logging in.')
-                return render(request, 'aaform_submittal.html')
+                return render(request, 'user_signin_form.html')
         except:
             # User created, take to account_home
             messages.info(request, 'Success - you now have an account.')
@@ -184,10 +210,34 @@ def aaform_submittal(request):
             # return render(request, 'account_home.html',{'user_pk':current_user['objectId']})
     else:
         # Get request, send blank page
-        return render(request, 'aaform_submittal.html')
+        return render(request, 'user_signin_form.html')
 
 
+def login_form(request):
 
+    print "login form request"
+
+    if request.method == 'POST':
+        current_user = login_user(request)
+        try:
+            code = current_user['code']
+            if current_user['code'] == 101:
+                messages.info(request, 'Invalid username/password')
+                # User not found w email
+                return render(request, 'login_form.html')
+        except:
+            # User created, take to account_home
+            messages.info(request, 'Success: Logged In')
+            user_objectId = current_user['objectId']
+            request.session['sessionToken'] = current_user['sessionToken']
+            print "session token:" + request.session['sessionToken']
+            account_home = "http://127.0.0.1:8000/account/" + user_objectId
+            return HttpResponseRedirect(account_home)
+
+            # return render(request, 'account_home.html',{'user_pk':current_user['objectId']})
+    else:
+        # Get request, send blank page
+        return render(request, 'login_form.html')
 
 
 
@@ -950,13 +1000,4 @@ def update_user_with_twitter_data(current_user,twitter_user,access_key_token,acc
     #         return render(request, 'login.html', {})
 
 
-    # from django.contrib.auth import logout
-    #
-    # # Use the login_required() decorator to ensure only those logged in can access the view.
-    # # @login_required
-    # def user_logout(request):
-    #     # Since we know the user is logged in, we can now just log them out.
-    #     logout(request)
-    #
-    #     # Take the user back to the homepage.
-    #     return HttpResponseRedirect('/home/')
+

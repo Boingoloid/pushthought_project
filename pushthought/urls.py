@@ -47,8 +47,9 @@ urlpatterns = [
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/petition',views.petition),
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)/communication',views.petition),
     url(r'^action_menu/(?P<programId>\w+)/(?P<segmentId>\w+)',views.action_menu),
-    url(r'^aaform_submittal',views.aaform_submittal, name='aaform_submittal'),
-
+    url(r'^user_signin_form',views.user_signin_form, name='user_signin_form'),
+    url(r'^login_form',views.login_form, name='login_form'),
+    url(r'^logout', views.user_logout, name='user_logout'),
 
     url(r'^browse', views.browse, name='browse'),
     url(r'^program_detail/(?P<programId>\w+)', views.program_detail, name='program_detail'),
@@ -56,7 +57,7 @@ urlpatterns = [
     # segment JPGM9mmcKV   program JPGM9mmcKV
     # url(r'^action_menu/(?P<segment_pk>\d+)/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})', views.action_menu,
      # url(r'^action_menu/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})-(<segment_name>)', views.action_menu, name='action_menu'),
-    # url(r'^logout', views.user_logout, name='auth_logout'),
+
     url(r'^about',views.about, name='about'),
     # url(r'^register', views.register, name='register'),
     # url(r'^login', views.user_login, name='login'),

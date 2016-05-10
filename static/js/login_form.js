@@ -14,11 +14,7 @@ $(document).ready(function() {
                     required: true,
                     minlength: 5
                 },
-                confirm_password: {
-                    required: true,
-                    minlength: 5,
-                    equalTo: "#password"
-                }
+
             },
             messages: {
                 user_email: {
@@ -28,14 +24,11 @@ $(document).ready(function() {
                     required: "Please enter a password",
                     minlength: "must be at least 5 characters long"
                 },
-                confirm_password: {
-                    required: "Please confirm password",
-                    minlength: "must be at least 5 characters long",
-                    equalTo: "Passwords must match"
-                }
+
             },
             submitHandler: function(form) {
-                csrftoken =
+                var csrftoken = Cookies.get('csrftoken');
+
                 function csrfSafeMethod(method) {
                     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
                 }
@@ -48,7 +41,7 @@ $(document).ready(function() {
                     }
                 });
 
-                $.post("http://127.0.0.1:8000/aaform_submittal/", $("#create-form").serialize());
+                $.post("http://127.0.0.1:8000/login_form/", $("#create-form").serialize());
                  console.log("Do some stuff...");
                  //submit via ajax
                   return false;  //This doesn't prevent the form from submitting.
@@ -96,25 +89,4 @@ $(document).ready(function() {
 
 //            validationFunc();
 
-
-
-
 });
-
-
-
-
-
-//var password = document.getElementById("password")
-//  , confirm_password = document.getElementById("confirm_password");
-//
-//function validatePassword() {
-//  if (password.value != confirm_password.value) {
-//    confirm_password.setCustomValidity("Passwords Don't Match");
-//  } else {
-//    confirm_password.setCustomValidity('');
-//  }
-//}
-//
-//password.onchange = validatePassword;
-//confirm_password.onkeyup = validatePassword;
