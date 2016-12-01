@@ -32,11 +32,11 @@ TEMPLATE_DIRS = (
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
 
-
+DEBUG = True
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 SITE_ID = 1
 
@@ -47,6 +47,9 @@ LOGIN_REDIRECT_URL = '/pushthought/'  # The page you want users to arrive at aft
 LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
                                                                 # and are trying to access pages requiring authentication
 
+LOCAL_SERVER = 'http://127.0.0.1:8000/'
+PUSH_THOUGHT_URL = 'www.pushthought.com/'
+CURRENT_SERVER = PUSH_THOUGHT_URL
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -70,6 +73,7 @@ INSTALLED_APPS = (
     'prime',
 )
 
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -83,7 +87,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'pushthought.urls'
 
-TEMPLATES = [
+DJANGO_SETTINGS_MODULE = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': TEMPLATE_DIRS,

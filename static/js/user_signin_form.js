@@ -3,6 +3,11 @@ $(document).ready(function() {
         $(".alert").fadeTo(3000, 0)
     }, 3000);
 
+     $('#login-btn').on('click',function() {
+        window.location.href="http://127.0.0.1:8000/login_form";
+     });
+
+
     //function validationFunc(){
         $('#create-form').validate({ // initialize the plugin
             rules: {

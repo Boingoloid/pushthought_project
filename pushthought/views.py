@@ -94,8 +94,6 @@ def get_user_in_parse_only(request, user_pk):
     except:
         print "This guy is not logged in"
 
-
-
 def account_home(request, user_pk):
 
     from django.core.urlresolvers import reverse
@@ -106,17 +104,38 @@ def account_home(request, user_pk):
         print "session token top of account home:" + session_token
         current_user = get_user_in_parse_only(request, user_pk)
         dataDict['current_user'] = current_user
+
+        programs = get_program_list_for_user(user_pk)
+        dataDict['programs'] = programs
+        print programs
+
     except:
         print "no session token available on account home"
         print "no current user so redirecting to Sign In"
         return redirect(reverse('user_signin_form'))
 
     dataDict['user_pk'] = user_pk
-    # programs = get_program_list()
+
     #programs = Program.objects.filter(user=user_pk)
     # dataDict['programs'] = programs
 
     return render(request, 'account_home.html', dataDict)
+
+def get_program_list_for_user(user_pk):
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({"where":json.dumps({
+           "userObjectId": user_pk
+         })})
+    connection.connect()
+    connection.request('GET','/parse/classes/Programs?%s' % params, '', {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    })
+
+    program_list = json.loads(connection.getresponse().read())
+    print "Printing program list for user"
+    print program_list['results']
+    return program_list['results']
 
 
 # @login_required
@@ -180,9 +199,6 @@ def contact(request):
     return render(request, 'contact.html')
 
     #NEW STUFF-----------------------------------------------------------------------------------------------
-
-
-
 
 
 def user_signin_form(request):
@@ -277,6 +293,7 @@ def get_segment_list(program_id):
            "X-Parse-Application-Id": PARSE_APP_ID,
            "X-Parse-REST-API-Key": PARSE_REST_KEY
          })
+
 def browse(request):
     program_list =  get_program_list()
 
@@ -289,6 +306,7 @@ def browse(request):
     pprint.pprint(dataDict)
     return render(request, 'browse.html', dataDict)
 
+#helper
 def get_program_list():
 
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -325,13 +343,14 @@ def action_menu(request, programId, segmentId):
 
     return render(request, 'action_menu.html', dataDict)
 
+#helper
 def get_petition_url(action_list):
     for item in action_list:
         if item['actionCategory'] == "Petition":
             petition_url = item['petitionURL']
     return petition_url
 
-
+#helper
 def fetch_segment_data(segment_id):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection.connect()
@@ -342,6 +361,7 @@ def fetch_segment_data(segment_id):
     segment_dict = json.loads(connection.getresponse().read())
     return segment_dict
 
+#helper
 def fetch_program_data(program_id):
 
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -353,6 +373,7 @@ def fetch_program_data(program_id):
     program_dict = json.loads(connection.getresponse().read())
     return program_dict
 
+#helper
 def fetch_action_list(segment_id):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     params = urllib.urlencode({"where":json.dumps({
@@ -366,6 +387,7 @@ def fetch_action_list(segment_id):
     action_list = json.loads(connection.getresponse().read())
     return action_list['results']
 
+#helper
 def format_action_list(action_list):
     # extract actionCategory
     action_category_list = []
@@ -382,13 +404,14 @@ def format_action_list(action_list):
     formattedList = move_to_front(formattedList,"Local Representative")
     return formattedList
 
+#helper
 def move_to_front(list,value):
     indexNum = list.index(value)
     poppedItem = list.pop(indexNum)
     list.insert(0,poppedItem)
     return list
 
-
+#helper
 def get_congress_data(zipCode):
     root = "https://congress.api.sunlightfoundation.com/legislators/locate"
     apiKey = "ed7f6bb54edc4577943dcc588664c89f"
@@ -402,6 +425,7 @@ def get_congress_data(zipCode):
 
     return json.loads(r.content)['results']
 
+#helper
 def add_congress_photos(congress_data,photo_data):
     print congress_data
     print photo_data
@@ -411,7 +435,7 @@ def add_congress_photos(congress_data,photo_data):
                 personItem['imageFileURL'] = photoItem['imageFile']['url']
     return congress_data
 
-
+#helper
 def get_congress_photos(congress_data):
     # create bioguide array from congress data (tells who we need photos for)
     bioguide_array = []
@@ -433,6 +457,7 @@ def get_congress_photos(congress_data):
     photo_data = json.loads(connection.getresponse().read())
     return photo_data['results']
 
+#helper
 def add_title_and_full_name(congress_data_raw):
     for item in congress_data_raw:
         # Create full_name
@@ -488,6 +513,7 @@ def fed_rep_action_menu(request, programId, segmentId):
 
     return render(request, 'fed_rep_action_menu.html', dataDict)
 
+#helper
 def get_hashtag_data(segmentId):
     # Query for hashtags
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -505,6 +531,7 @@ def get_hashtag_data(segmentId):
     print hashtag_data
     return hashtag_data['results']
 
+#helper
 def get_tweet_data(segmentId):
 
     # Query for tweets
@@ -595,6 +622,7 @@ def verify_twitter(request, programId, segmentId, tweet):
 
         return HttpResponseRedirect(redirect_url)
 
+#helper
 def get_parse_user_with_twitter_auth(user_object_id):
 
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -609,7 +637,7 @@ def get_parse_user_with_twitter_auth(user_object_id):
     print current_user
     return current_user
 
-
+#helper
 def retrieve_twitter_key(user_object_id): #helper
 
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -622,18 +650,19 @@ def retrieve_twitter_key(user_object_id): #helper
     twitter_key = json.loads(connection.getresponse().read())
     return twitter_key
 
+#helper
 def send_tweet_with_tweepy(tweet_text,twitter_keys): #helper
     auth_token = twitter_keys['auth_token']
     auth_token_secret = twitter_keys['auth_token_secret']
     CALLBACK_URL = TWITTER_CALLBACK_ROOT_URL
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
     auth.set_access_token(auth_token, auth_token_secret)
-
     api = tweepy.API(auth)
     api.update_status(tweet_text)
     print "tweet sent"
     return None
 
+#helper
 def show_tweet_success_message(request, tweet_text): #helper
     #send success message
     messages.success(request, 'Tweet sent successfully.')
@@ -716,7 +745,7 @@ def verify_catch(request):
     else:
         return render(request, 'home.html')
 
-
+#helper
 def save_tweet_action(request,tweet_text,current_user,twitter_screen_name): #helper
     connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connectionTweet.connect()
@@ -738,7 +767,7 @@ def save_tweet_action(request,tweet_text,current_user,twitter_screen_name): #hel
     action_object_id = result['objectId']
     return action_object_id
 
-
+#helper
 def save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_object_id):
     hashtag_list = set([i[1:] for i in tweet_text.split() if i.startswith("#")])
 
@@ -770,7 +799,7 @@ def save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_obj
         print result
     return None
 
-
+#helper
 def save_targets(request,tweet_text,current_user,twitter_screen_name,action_object_id):
     target_list = set([i[1:] for i in tweet_text.split() if i.startswith("@")])
 
@@ -800,6 +829,7 @@ def save_targets(request,tweet_text,current_user,twitter_screen_name,action_obje
         print result
     return None
 
+#helper
 def update_segment_stats(request):
     # NEED TO ADD LOGIC TO ADD IF NOT THERE
 
@@ -840,7 +870,7 @@ def update_segment_stats(request):
     print result2
     return None
 
-
+#helper
 def log_user_into_parse(twitter_user,access_key_token,access_key_token_secret): #helper
     #sign up/log in user linked to twitter, save access keys
     import json,httplib
@@ -869,6 +899,7 @@ def log_user_into_parse(twitter_user,access_key_token,access_key_token_secret): 
 
     return result
 
+#helper
 def update_user_with_twitter_data(current_user,twitter_user,access_key_token,access_key_token_secret): #helper
 
     # Update the user info always, new and old users

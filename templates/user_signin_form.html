@@ -6,17 +6,17 @@
 {% block content %}
 
 
-<div class="main-wrapper">
+<br class="main-wrapper">
 
 
 
-    <form class="col-sm-4" id="create-form" name="create-form"  action="http://127.0.0.1:8000/user_signin_form"
+    <form class="x" id="create-form" name="create-form"  action="http://127.0.0.1:8000/user_signin_form"
           method="post"
           autocomplete="on">
          {% csrf_token %}
         <fieldset>
-            <legend>Step 1 of 2:</legend>
-            <div>Create Account</div>
+            <!--<legend></legend>-->
+            <div><h2>Create Account</h2></div>
             <div>
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="user_email"/>
@@ -32,11 +32,15 @@
         </fieldset>
         <br>
         <div>
-
-            <button type="submit" id="create-account-btn">Create Account ajax</button>
+            <button type="submit" id="create-account-btn">Submit</button>
         </div>
     </form>
+    </br>
 </div>
+<br>
+    <div>
+        <button type="button" id="login-btn">Go to Login</button>
+    </div>
         <br><br><br>
 
 

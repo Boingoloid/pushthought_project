@@ -24,6 +24,9 @@ from snippets import urls
 from . import views
 
 urlpatterns = [
+    url(r'^home', views.home,name='home',),
+    url(r'^$', views.home,name='home'),
+    # url(r'^api', views.api,name='api',),
     # Twitter Verification
     url(r'^verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweet>.*)',
         views.verify_twitter),
@@ -56,7 +59,7 @@ urlpatterns = [
 
     # segment JPGM9mmcKV   program JPGM9mmcKV
     # url(r'^action_menu/(?P<segment_pk>\d+)/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})', views.action_menu,
-     # url(r'^action_menu/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})-(<segment_name>)', views.action_menu, name='action_menu'),
+    # url(r'^action_menu/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})-(<segment_name>)', views.action_menu, name='action_menu'),
 
     url(r'^about',views.about, name='about'),
     # url(r'^register', views.register, name='register'),
@@ -65,9 +68,7 @@ urlpatterns = [
     #url(r'^pushthought/', views.), # ADD THIS NEW TUPLE!
     #url(r'^programs/', include('pushthought.urls')),
     # url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^home', views.home,name='home',),
-    # url(r'^api', views.api,name='api',),
-    url(r'^$', views.home,name='home'),
+
     #potentially comment out line above
 ]
 

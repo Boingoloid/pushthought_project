@@ -2,11 +2,16 @@
 {% extends "layout.html" %}
 {% load static from staticfiles %}
 
-<!--{% block static %}<link rel="stylesheet" href="{% static 'pushthought/css/pushthought.css' %}">{% endblock %}-->
+
 {% block title %} {% endblock %}
 
 
 {% block content %}
+
+<head>
+
+    <link rel="stylesheet" href="{% static 'css/account_home.css' %}">
+</head>
 
 <div class="main-wrapper">
     <div class="user-container">
@@ -15,10 +20,30 @@
             {% else %}
                 <p> <button type="button" id="logout">Log out</button></p><p>|</p>
                 <p>You are logged in as: {{current_user.username}}</p>
-                <!--<p>{{user_pk}}</p>-->
-                <!--<p>{{programs}}</p>-->
+
             {% endif %}
     </div>
+
+    <div class="program-container col-lg-12">
+        {% if not programs %}
+            <p>Create an Action Menu for your program or campaign</p>
+        {% else %}
+            <div><h3>List of programs</h3></div>
+            {% for program in programs %}
+                <div class="program-item col-md-6">
+                    <h3>{{ program.programTitle }}</h3>
+                    <p>{{ program }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div id="create-action-menu">
+        <button class="button btn-primary" type="button">Create New Action Menu</button>
+
+
+    </div>
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
