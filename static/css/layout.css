@@ -10,14 +10,65 @@ html {
     height: 100px;
 }
 
+/* navbar
+================================*/
+
+#logo{
+    height:40px;
+    width:40px;
+}
+
+.navbar{
+background: #e6e6e6;
+padding-top:5;
+padding-bottom:10;
+padding-right:20;
+}
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 40px;
+    height: 40px;
+    padding-top: 5;
+    padding-bottom:5;
+}
+
+.navbar-brand{
+line-height: 15px;
+}
+
+.navbar-toggle {top:10px
+padding-bottom:5px;
+}
+
+.navbar-brand small {
+display:block;
+  font-size:12px;
+  padding-top:10;
+}
+
+
+
+
+.intro-header {
+    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: left;
+    color: #f8f8f8;
+    /*background: url('../img/image1 no-repeat center center;*/
+    background: #092551;
+    background-size: cover;
+    h3{
+        color: #ffffff;
+    }
+}
+
+
+
 
 /* Wrappers
 ================================*/
 
 
-body{
-    background: #d3d3d3;
-}
 
 .container .jumbotron{
     top-padding: 10px;
@@ -73,42 +124,6 @@ body{
     }
 }
 
-
-/* navbar
-================================*/
-
-#logo{
-    height:40px;
-    width:40px;
-}
-
-.navbar{
-background: #e6e6e6;
-padding-top:5;
-padding-bottom:10;
-padding-right:20;
-}
-.navbar-brand,
-.navbar-nav li a {
-    line-height: 40px;
-    height: 40px;
-    padding-top: 5;
-    padding-bottom:5;
-}
-
-.navbar-brand{
-line-height: 15px;
-}
-
-.navbar-toggle {top:10px
-padding-bottom:5px;
-}
-
-.navbar-brand small {
-display:block;
-  font-size:12px;
-  padding-top:10;
-}
 
 
 
@@ -257,17 +272,6 @@ img {
 }
 
 
-.intro-header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
-    text-align: left;
-    color: #f8f8f8;
-    background: url('../img/image1.jpg') no-repeat center center;
-    background-size: cover;
-    h3{
-        color: #ffffff;
-    }
-}
 
 
 
