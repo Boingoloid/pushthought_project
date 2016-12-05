@@ -46,29 +46,8 @@ display:block;
   padding-top:10;
 }
 
-
-
-
-.intro-header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
-    text-align: left;
-    color: #f8f8f8;
-    /*background: url('../img/image1 no-repeat center center;*/
-    background: #092551;
-    background-size: cover;
-    h3{
-        color: #ffffff;
-    }
-}
-
-
-
-
 /* Wrappers
 ================================*/
-
-
 
 .container .jumbotron{
     top-padding: 10px;
@@ -196,6 +175,7 @@ h4{
 img {
     max-width: 100%;
     max-height: 100%;
+
 }
 
 /* Buttons

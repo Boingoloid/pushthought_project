@@ -36,7 +36,7 @@ h4,
 h5,
 h6 {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 600;
+  font-weight: 800;
   color: black;
 }
 
@@ -64,21 +64,29 @@ hr.small {
   left: 0;
   width: 100%;
   z-index: 3;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Lora', 'Times New Roman', serif;
 }
+
+.navbar-center{
+    display: none;
+    text-align: center;
+    margin: auto;
+    width: 40%;
+}
+
 .navbar-custom .navbar-brand {
-  font-weight: 800;
+  font-weight: 500;
 }
 .navbar-custom .navbar-header .navbar-toggle {
   color: black;
-  font-weight: 800;
-  text-transform: uppercase;
+  font-weight: 500;
+  /*text-transform: uppercase;*/
   font-size: 12px;
 }
 .navbar-custom .nav li a {
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 800;
+  /*text-transform: uppercase;*/
+  font-size: 16px;
+  font-weight: 500;
   letter-spacing: 1px;
 }
 @media only screen and (min-width: 768px) {
@@ -161,13 +169,16 @@ hr.small {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
+
 }
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
-  padding: 100px 0 50px;
+  padding: 100px 0 20px;
   color: white;
+  height: 450px;
+
 }
 @media only screen and (min-width: 768px) {
   .intro-header .site-heading,
@@ -422,6 +433,13 @@ img::-moz-selection {
 img {
     max-width: 90%;
     height: auto;
+}
+
+
+.img-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 body {
