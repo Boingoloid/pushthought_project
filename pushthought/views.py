@@ -36,9 +36,13 @@ TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 # Create your views here.
 
 def home(request):
+    program_list =  get_program_list()
+
+    dataDict = {}
+    dataDict['programList'] = program_list
     # userDict = dict()
     # userDict['users'] = User.objects.all()
-    return render(request, 'home.html')
+    return render(request, 'home.html', dataDict)
 
 
 def about(request):

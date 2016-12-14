@@ -8,22 +8,36 @@
 body {
   font-family: 'Lora', 'Times New Roman', serif;
   font-size: 20px;
-  color: #333333;
+  background-color:#ffffff;
 }
 p {
   line-height: 1.5;
-  margin: 30px 0;
+  margin: 0px 0;
+  letter-spacing:1px;
+  word-spacing: 3px;
+  color: white;
 }
 p a {
   text-decoration: underline;
 }
 
 a {
-  color: #0000ff;
+  color: black;
+}
+
+.img-free{
+  display: block;
+  margin: auto;
+}
+
+.top-logo{
+  padding: 7px;
+  padding-bottom:0px;
+  margin-bottom: -60px;
 }
 
 footer a{
-  color: #333333;
+  color: #eeeeee;
 }
 
 h1{
@@ -36,8 +50,8 @@ h4,
 h5,
 h6 {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 800;
-  color: black;
+  font-weight: 300;
+  color: white;
 }
 
 a:hover,
@@ -52,33 +66,32 @@ blockquote {
   color: #777777;
   font-style: italic;
 }
+
+hr{
+  margin: 5px auto;
+}
+
 hr.small {
   max-width: 100px;
   margin: 15px auto;
   border-width: 4px;
   border-color: black;
 }
-.navbar-custom {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 3;
-  font-family: 'Lora', 'Times New Roman', serif;
+
+
+
+.navbar{
+  background-color:#092551;
+  border-width: 0px;
 }
 
-.navbar-center{
-    display: none;
-    text-align: center;
-    margin: auto;
-    width: 40%;
-}
-
-.navbar-custom .navbar-brand {
+.navbar-custom .navbar-brand .navbar-default{
   font-weight: 500;
+  color: white;
 }
 .navbar-custom .navbar-header .navbar-toggle {
-  color: black;
+  margin-top: 22px;
+  color: #88c0d2; /*menu button
   font-weight: 500;
   /*text-transform: uppercase;*/
   font-size: 12px;
@@ -89,22 +102,41 @@ hr.small {
   font-weight: 500;
   letter-spacing: 1px;
 }
+.nav{
+  margin-bottom: 0px;
+}
+
+.navbar-brand{
+  margin-top: 10px;
+}
+
+.navbar-brand a{
+  color: #88c0d2;
+}
+
+.navbar-collapse{
+  margin-top: 10px;
+}
+
 @media only screen and (min-width: 768px) {
+
+
   .navbar-custom {
     background: transparent;
-    border-bottom: 1px solid transparent;
   }
   .navbar-custom .navbar-brand {
-    color: white;   /* change this for the brand at the top left!!!! */
+    color: white;
     padding: 20px;
+    padding-bottom: 0px;
   }
   .navbar-custom .navbar-brand:hover,
   .navbar-custom .navbar-brand:focus {
     color: rgba(0, 255, 0, 1.0);
   }
   .navbar-custom .nav li a {
-    color: white;   /* change this for the links in nav at the top right!!!! */
+    color: #88c0d2;   /* change this for the links in nav at the top right!!!! */
     padding: 20px;
+    padding-bottom: 0px;
   }
   .navbar-custom .nav li a:hover,
   .navbar-custom .nav li a:focus {
@@ -128,29 +160,29 @@ hr.small {
   .navbar-custom.is-fixed {
     /* when the user scrolls down, we hide the header right above the viewport */
     position: fixed;
-    top: -61px;
+    top: -55px;
     background-color: rgba(255, 255, 255, 0.9);
-    border-bottom: 1px solid #f2f2f2;
+    border-bottom: 0px solid #f2f2f2;
     -webkit-transition: -webkit-transform 0.3s;
     -moz-transition: -moz-transform 0.3s;
     transition: transform 0.3s;
   }
   .navbar-custom.is-fixed .navbar-brand {
-    color: #333333;
+    color: white;
   }
   .navbar-brand a {
     color: black;
   }
   .navbar-custom.is-fixed .navbar-brand:hover,
   .navbar-custom.is-fixed .navbar-brand:focus {
-    color: #0085A1;
+    color: white;
   }
   .navbar-custom.is-fixed .nav li a {
-    color: #333333;
+    color: white;
   }
   .navbar-custom.is-fixed .nav li a:hover,
   .navbar-custom.is-fixed .nav li a:focus {
-    color: #0085A1;
+    color: white;
   }
   .navbar-custom.is-visible {
     /* if the user changes the scrolling direction, we show the header */
@@ -161,8 +193,10 @@ hr.small {
     transform: translate3d(0, 100%, 0);
   }
 }
+
+/* Intro Header -------------------------------------------------*/
+
 .intro-header {
-  background: purple;
   background: no-repeat center center;
   background-attachment: scroll;
   -webkit-background-size: cover;
@@ -170,35 +204,38 @@ hr.small {
   background-size: cover;
   -o-background-size: cover;
   margin-bottom: 0px;
-
+  background-color:#092551;
 }
+
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
   padding: 100px 0 20px;
   color: white;
-  height: 450px;
-
+  height: 200px;
 }
+
 @media only screen and (min-width: 768px) {
   .intro-header .site-heading,
   .intro-header .post-heading,
   .intro-header .page-heading {
     padding: 150px 0;
+    height: 200px;
   }
 }
-
-
 
 .intro-header .site-heading,
 .intro-header .page-heading {
   text-align: center;
+  margin-bottom: 0px;
 }
+
 .intro-header .site-heading h1,
 .intro-header .page-heading h1 {
   margin-top: 0;
   font-size: 50px;
 }
+
 .intro-header .site-heading .subheading,
 .intro-header .page-heading .subheading {
   font-size: 26px;
@@ -216,9 +253,11 @@ hr.small {
     font-size: 60px;
   }
 }
+
 .intro-header .post-heading h1 {
   font-size: 35px;
 }
+
 .intro-header .post-heading .subheading,
 .intro-header .post-heading .meta {
   line-height: 1.1;
@@ -273,11 +312,11 @@ hr.small {
 }
 .post-preview > .post-meta > a {
   text-decoration: none;
-  color: #333333;
+  color: black;
 }
 .post-preview > .post-meta > a:hover,
 .post-preview > .post-meta > a:focus {
-  color: #0085A1;
+  color: black;
   text-decoration: underline;
 }
 @media only screen and (min-width: 768px) {
@@ -301,7 +340,9 @@ hr.small {
   border-bottom-left-radius: 5px;
 }
 footer {
-  padding: 50px 0 65px;
+  margin: 10px 0 0 0;
+  padding: 20px 0 65px
+  border-top: 3px solid #000000;
 }
 footer .list-inline {
   margin: 0;
@@ -359,7 +400,7 @@ footer .copyright {
   opacity: 1;
 }
 .floating-label-form-group-with-focus label {
-  color: #0085A1;
+  color: black;
 }
 form .row:first-child .floating-label-form-group {
   border-top: 1px solid #eeeeee;
@@ -435,12 +476,19 @@ img {
     height: auto;
 }
 
-
 .img-center {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
+
+.topleft {
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 16px;
+    font-size: 10px;
+}
+
 
 body {
   -webkit-tap-highlight-color: #0085A1;
@@ -474,12 +522,26 @@ table {
   text-align: center;
 }
 
-tr:nth-child(1) { background: hsl(160, 60%, 50%); }
-tr:nth-child(2) { background: hsl(170, 70%, 50%); }
-tr:nth-child(3) { background: hsl(170, 70%, 50%); }
-tr:nth-child(4) { background: hsl(170, 70%, 50%); }
-tr:nth-child(5) { background: hsl(170, 70%, 50%); }
+.container-banner{
+  background: blue;
+  height: 100px;
+}
 
+.container-fluid {
+  margin-top: 0px;
+}
+
+.container-fluid-logo{
+  margin-top: auto;
+  margin-top: auto;
+  text-align: center;
+  margin-top: -50px;
+}
+
+.navbar-default .navbar-brand {
+    color: #88c0d2;
+    margin-top 0px;
+}
 /*@media (min-width: 768px) {
   .post-container {
     width: 750px;
