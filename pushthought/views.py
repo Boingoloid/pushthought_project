@@ -44,7 +44,6 @@ def home(request):
     # userDict['users'] = User.objects.all()
     return render(request, 'home.html', dataDict)
 
-
 def about(request):
     return render(request, 'about.html')
 
@@ -299,7 +298,7 @@ def get_segment_list(program_id):
          })
 
 def browse(request):
-    program_list =  get_program_list()
+    program_list = get_program_list()
 
     dataDict = {}
     dataDict['programList'] = program_list
@@ -312,7 +311,6 @@ def browse(request):
 
 #helper
 def get_program_list():
-
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection.connect()
     connection.request('GET','/parse/classes/Programs', '', {

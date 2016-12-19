@@ -15,8 +15,7 @@
         <div class='program-item' id="program-item{{forloop.counter}}">
             <p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>
             <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
-            <img class='program-item-image'  id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}
-                 alt='Program Image'>
+            <img class='program-item-image'  id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>
         </div>
         {% endfor %}
     </div>  <!--close PROGRAM container-->

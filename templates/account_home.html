@@ -15,13 +15,12 @@
 
 <div class="main-wrapper">
     <div class="user-container">
-            {% if not current_user %}
-                <p>Please login or create an account.</p>
-            {% else %}
-                <p> <button type="button" id="logout">Log out</button></p><p>|</p>
-                <p>You are logged in as: {{current_user.username}}</p>
-
-            {% endif %}
+        {% if not current_user %}
+            <p>Please login or create an account.</p>
+        {% else %}
+            <p> <button type="button" id="logout">Log out</button></p><p>|</p>
+            <p>You are logged in as: {{current_user.username}}</p>
+        {% endif %}
     </div>
 
     <div class="program-container col-lg-12">
@@ -40,7 +39,6 @@
 
     <div id="create-action-menu">
         <button class="button btn-primary" type="button">Create New Action Menu</button>
-
 
     </div>
 
