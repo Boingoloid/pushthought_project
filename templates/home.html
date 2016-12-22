@@ -29,33 +29,27 @@
 
     <div class="container-banner">
         <div class="row">
-             <div class="program-container">
-                {% for item in programList %}
-                <div class='program-item' id="program-item{{forloop.counter}}">
-                    <p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>
-                    <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
-                    {% if item.poster_url %}
-                    <img class='program-item-image'  id='program-item-image{{forloop.counter}}' src={{item.poster_url}} alt='Program Image'>
-                    {% else %}
-                    <img class='program-item-image'  id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>  <!--close PROGRAM container-->
+
+                 <div class="program-container">
+                    {% for item in programList %}
+                    <div class='program-item' id="program-item{{forloop.counter}}">
+                        <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
+                            {% if item.poster_url %}
+                                    <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>
+                            {% else %}
+                                    <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>
+                            {% endif %}
+                        <!--<div class="program-title">-->
+                            <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
+                        <!--</div>-->
+                    </div>
+
+                    {% endfor %}
+                </div>  <!--close PROGRAM container-->
         </div>
     </div><!-- /.container -->
-    <div class="program-container col-lg-12">
-        <!--{% if not programs %}-->
-            <!--<p>Create an Action Menu for your program or campaign</p>-->
-        <!--{% else %}-->
-            <!--<div><h3>List of programs</h3></div>-->
-            <!--{% for program in programs %}-->
-                <!--<div class="program-item col-md-6">-->
-                    <!--<h3>{{ program.programTitle }}</h3>-->
-                    <!--<p>{{ program }}</p>-->
-                <!--</div>-->
-            <!--{% endfor %}-->
-        <!--{% endif %}-->
+    <div class="how-container col-lg-12">
+    Hello
     </div>
 
         <!--<div class="row">-->

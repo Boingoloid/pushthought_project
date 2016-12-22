@@ -37,16 +37,12 @@ TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
 def home(request):
     program_list =  get_program_list()
-
     dataDict = {}
     dataDict['programList'] = program_list
-    # userDict = dict()
-    # userDict['users'] = User.objects.all()
     return render(request, 'home.html', dataDict)
 
 def about(request):
     return render(request, 'about.html')
-
 
 # Use the login_required() decorator to ensure only those logged in can access the view.
 # @login_required
