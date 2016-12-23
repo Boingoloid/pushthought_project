@@ -227,7 +227,7 @@ hr.small {
 .intro-header .site-heading,
 .intro-header .page-heading {
   text-align: center;
-  margin-bottom: 0px;
+  margin-bottom: 150px;
 }
 
 .intro-header .site-heading h1,
@@ -630,10 +630,14 @@ table {
 }
 
 .how-container {
-  height: 400px;
+  height: 450px;
   background-color:#092551;
 }
 
 .how-container p{
   margin: auto;
+}
+
+#email{
+  width: 200px;
 }
