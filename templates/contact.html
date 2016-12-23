@@ -1,17 +1,30 @@
 {% extends "layout.html" %}
-<head>
-   {% block title %}  {% endblock %}
-</head>
+{% load static from staticfiles %}
 {% block content %}
+ <div class="intro-header" style="background-image: {% static 'img/image1.png' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div align="middle"><p>General questions or comments, please email</p></div>
+                    <br/>
+                    <br/>
+                    <div align="middle">
+                        <p align="middle">feedback@pushthought.com</p>
+                        <a align="middle" href="mailto:feedback@pushthought.com"><button class="btn-primary"><p>email
+                        button</p></button></a>
 
-<body>
-    <div class="container">
-        <div class="jumbotron">
-            <ul class="list-unstyled">
-                <li>General Questions: <a href="mailto:feedback@pushthought.com">feedback@pushthought.com</a></li>
+                    </div>
+
+                </div>
+            </div>
+        </div><!-- /.container -->
+        <br/>
+     <br/>
+     <br/>
+    </div><!-- /.intro-header -->
+
                 <!--<br><li>Send tweet to: <a href="http://twitter.com/intent/tweet?screen_name=mattacalin">@pushthought</a></li><br><br>-->
-            </ul>
-        </div>
-    </div>
-</body>
 {% endblock %}

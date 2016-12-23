@@ -26,6 +26,7 @@ from . import views
 urlpatterns = [
     url(r'^home', views.home,name='home',),
     url(r'^$', views.home,name='home'),
+    url(r'^submit-email/(?P<email>.*)', views.submit_email,name='submit_email'),
     # url(r'^api', views.api,name='api',),
     # Twitter Verification
     url(r'^verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweet>.*)',

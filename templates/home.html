@@ -13,9 +13,9 @@
                     <p>you're favorate documentaries, </p>
                     <p>web videos, and podcasts </p>
                     <div class="site-heading">
+                        <span class="subheading"></span>
                         <h1></h1>
                         <!--<hr class="small">-->
-                        <span class="subheading"></span>
                     </div>
                     <dic align="right">
                         <p>as rally points </p>
@@ -29,7 +29,6 @@
 
     <div class="container-banner">
         <div class="row">
-
                  <div class="program-container">
                     {% for item in programList %}
                     <div class='program-item' id="program-item{{forloop.counter}}">
@@ -43,13 +42,33 @@
                             <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
                         <!--</div>-->
                     </div>
-
                     {% endfor %}
                 </div>  <!--close PROGRAM container-->
         </div>
     </div><!-- /.container -->
-    <div class="how-container col-lg-12">
-    Hello
+
+    <div class="how-container col-lg-12" align="middle">
+        <br/>
+         <h1>Push Thought</h1>
+         <p>is currently being built</p>
+        <br/>
+        <br/>
+        <p>Drop your email for info:</p>
+        <form class="form-inline">
+            <div class="form-group">
+                <br/>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <br/>
+            <br/>
+            <div>
+                <button type="button" class="btn btn-primary" id="submit-email-btn"
+                        style="border-radius:10px;">
+                    Submit
+                </button>
+            </div>
+        </form>
+
     </div>
 
         <!--<div class="row">-->
@@ -74,6 +93,7 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="{% static 'js/home.js' %}"></script>
 <script src="{% static 'js/browse.js' %}"></script>
 <script src="{% static 'js/click_handlers.js' %}"></script>
 {% endblock %}

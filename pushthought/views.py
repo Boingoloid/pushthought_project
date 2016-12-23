@@ -41,6 +41,21 @@ def home(request):
     dataDict['programList'] = program_list
     return render(request, 'home.html', dataDict)
 
+def submit_email(request,email):
+    print email
+    emailString = email.decode()
+    connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection2.connect()
+    connection2.request('POST', '/parse/classes/EmailsSubmitted', json.dumps({
+        "email": emailString
+        }), {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY,
+        "Content-Type": "application/json"
+    })
+    result = json.loads(connection2.getresponse().read())
+    return HttpResponseRedirect('/home')
+
 def about(request):
     return render(request, 'about.html')
 
