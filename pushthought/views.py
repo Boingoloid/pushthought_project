@@ -1,6 +1,7 @@
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.conf import settings
+from django.template import RequestContext
 from django.contrib import messages
 
 # from django.contrib.auth import authenticate, login
@@ -22,6 +23,8 @@ import tweepy
 import json, httplib
 import urllib
 
+import app
+import pymongo
 
 PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
@@ -31,8 +34,7 @@ TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
 TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
 TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
-# import jsonpickle
-
+MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
 
 def home(request):
@@ -55,6 +57,28 @@ def submit_email(request,email):
     })
     result = json.loads(connection2.getresponse().read())
     return HttpResponseRedirect('/home')
+
+def contact(request):
+    context_instance=RequestContext(request)
+    return render(request, 'contact.html')
+
+def send_contact(request):
+    print "send contact function!"
+    print request.body
+    print request.GET
+    print request.POST
+    print request.session
+    print request.META
+    context_instance=RequestContext(request)
+    contact_data = json.loads(request.body)
+    print contact_data
+
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+    saveReturn = db.contact_form.save(contact_data)
+    print saveReturn
+
+    return render(request, 'contact.html')
 
 def about(request):
     return render(request, 'about.html')
@@ -209,8 +233,7 @@ def add_segment(request, user_pk, program_pk):
     return render(request, 'add_segment.html', {'form': form, 'program': program})
 
 
-def contact(request):
-    return render(request, 'contact.html')
+
 
     #NEW STUFF-----------------------------------------------------------------------------------------------
 

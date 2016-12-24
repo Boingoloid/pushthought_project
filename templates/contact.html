@@ -8,28 +8,52 @@
                     <br/>
                     <br/>
                     <br/>
-                    <div align="middle"><p>General questions or comments, please email</p></div>
+                    <div align="middle"><h2>Contact</h2></div>
+                    <div align="middle"><p>General questions or comments, please contact us!</p></div>
                     <br/>
-                    <br/>
-                    <div align="middle">
-                        <p align="middle">feedback@pushthought.com</p>
-                        <a align="middle" href="mailto:feedback@pushthought.com">
-                            <button class="btn-primary">
-                                <p>email button</p>
-                            </button>
-                        </a>
-                    </div>
+                    <!--<div align="middle">-->
+                        <!--<p align="middle">feedback@pushthought.com</p>-->
+                        <!--<a align="middle" href="mailto:feedback@pushthought.com">-->
+                            <!--<button class="btn-primary">-->
+                                <!--<p>email button</p>-->
+                            <!--</button>-->
+                        <!--</a>-->
+                    <!--</div>-->
+
+
+
+                    <form name="sentMessage" id="contactForm" validate>
+                        {% csrf_token %}
+                        <div id="success"></div>
+                        <div class="form-group col-xs-12">
+                            <input type="email" class="form-control" placeholder="email address" id="email" required data-validation-required-message="Please enter your email address.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <textarea rows="5" class="form-control" placeholder="message" id="message" required data-validation-required-message="Please enter a message."></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-success">Send</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div><!-- /.container -->
     </div><!-- /.intro-header -->
 </div>
-    <div>
-        <br/>
-        <br/>
-        <br/>
-    </div>
 
 
-                <!--<br><li>Send tweet to: <a href="http://twitter.com/intent/tweet?screen_name=mattacalin">@pushthought</a></li><br><br>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'vendor/jqBootstrapValidation/js/jqBootstrapValidation.js' %}"></script>
+<script src="{% static 'js/contact.js' %}"></script>
+
+<script>
+  $(function () { $("input,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+</script>
+
+
+<!--<br><li>Send tweet to: <a href="http://twitter.com/intent/tweet?screen_name=mattacalin">@pushthought</a></li><br><br>-->
 {% endblock %}
