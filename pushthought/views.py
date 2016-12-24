@@ -56,7 +56,7 @@ def submit_email(request,email):
         "Content-Type": "application/json"
     })
     result = json.loads(connection2.getresponse().read())
-    return HttpResponseRedirect('/home')
+    return HttpResponseRedirect('/home/')
 
 def contact(request):
     context_instance=RequestContext(request)
@@ -768,7 +768,7 @@ def verify_catch(request):
 
 
         request.session.modified = True
-        
+
     else:
         print "verify catch NO message to send"
 

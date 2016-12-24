@@ -1,0 +1,133 @@
+[24/Dec/2016 14:11:07] ERROR [django.security.SuspiciousFileOperation:216] The joined path (/docs/release/2.1.11/minified/require.js) is located outside of the base path component (/Users/matthewacalin/Desktop/Webapps/pushthought_project/staticfiles)
+[24/Dec/2016 14:11:09] ERROR [django.security.SuspiciousFileOperation:216] The joined path (/docs/release/2.1.11/minified/require.js) is located outside of the base path component (/Users/matthewacalin/Desktop/Webapps/pushthought_project/staticfiles)
+[24/Dec/2016 14:11:09] ERROR [django.security.SuspiciousFileOperation:216] The joined path (/docs/release/2.1.11/minified/require.js) is located outside of the base path component (/Users/matthewacalin/Desktop/Webapps/pushthought_project/staticfiles)
+[24/Dec/2016 14:15:26] WARNING [django.request:182] Not Found: /static/img/push_thought_logo.png
+[24/Dec/2016 14:15:33] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 131, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 280, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
+    (clean_name, self))
+ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10ee13490>.
+[24/Dec/2016 14:15:33] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 131, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 280, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
+    (clean_name, self))
+ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10ee13490>.
+[24/Dec/2016 14:15:34] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 131, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 280, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
+    (clean_name, self))
+ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10ee13490>.
