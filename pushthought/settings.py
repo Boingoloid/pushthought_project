@@ -32,7 +32,7 @@ TEMPLATE_DIRS = (
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
 
-DEBUG = True
+DEBUG = False
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -195,7 +195,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
