@@ -41,4 +41,4 @@ six==1.10.0
 static3==0.6.1
 tweepy==3.5.0
 virtualenv==15.0.0
-whitenoise==2.0.6
+whitenoise==3.2.2
