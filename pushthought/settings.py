@@ -71,7 +71,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'snippets',
     'prime',
-    'whitenoise',
 )
 
 
@@ -183,7 +182,7 @@ import dj_database_url
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','pushthought.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','.pushthought.com','herokuapp.com']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
