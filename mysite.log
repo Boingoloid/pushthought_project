@@ -131,3 +131,615 @@ Traceback (most recent call last):
   File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
     (clean_name, self))
 ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10ee13490>.
+[24/Dec/2016 17:36:47] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:36:47] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:36:47] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:36:47] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:36:47] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:36:47] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:36:47] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:36:47] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:36:48] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:36:48] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:36:55] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:36:55] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:36:55] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:36:55] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:36:55] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:36:55] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:36:55] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:36:55] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:36:55] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:36:55] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:37:00] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:37:07] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:38:28] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 131, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 280, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
+    (clean_name, self))
+ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10c77a610>.
+[24/Dec/2016 17:38:29] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 131, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 280, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
+    (clean_name, self))
+ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10c77a610>.
+[24/Dec/2016 17:38:31] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 131, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 280, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
+    (clean_name, self))
+ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10c77a610>.
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:38:41] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:38:58] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:38:59] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:38:59] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:39:06] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:39:08] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:39:08] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:39:08] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:39:08] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:39:08] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:39:08] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:39:08] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:39:08] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:39:08] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:39:08] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:40:16] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:40:17] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:40:17] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:40:17] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:40:17] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:40:17] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:40:17] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:40:17] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:40:17] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:40:17] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:40:18] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:40:19] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:40:31] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:40:32] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:40:32] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:40:32] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:40:32] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:40:32] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:40:32] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:40:32] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:40:32] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:40:32] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:40:32] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:40:34] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:41:37] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:41:38] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/css/clean.css
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/js/home.js
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/js/browse.js
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[24/Dec/2016 17:41:40] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/css/clean.css
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/js/home.js
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/js/browse.js
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[25/Dec/2016 10:25:37] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 11:02:42] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 11:02:42] WARNING [django.request:182] Not Found: /static/css/clean.css
+[25/Dec/2016 11:02:42] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 11:02:42] WARNING [django.request:182] Not Found: /static/js/home.js
+[25/Dec/2016 11:02:42] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[25/Dec/2016 11:02:42] WARNING [django.request:182] Not Found: /static/js/browse.js
+[25/Dec/2016 11:02:42] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[25/Dec/2016 11:02:42] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 11:02:42] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[25/Dec/2016 11:02:42] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[25/Dec/2016 11:04:09] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 11:04:09] WARNING [django.request:182] Not Found: /static/css/clean.css
+[25/Dec/2016 11:04:09] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 11:04:09] WARNING [django.request:182] Not Found: /static/js/home.js
+[25/Dec/2016 11:04:09] WARNING [django.request:182] Not Found: /static/js/browse.js
+[25/Dec/2016 11:04:09] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[25/Dec/2016 11:04:09] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[25/Dec/2016 11:04:09] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 11:04:09] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[25/Dec/2016 11:04:09] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/css/clean.css
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/js/home.js
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/js/browse.js
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[25/Dec/2016 15:42:01] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/css/clean.css
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/js/browse.js
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/js/home.js
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/js/home.js
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/js/browse.js
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 15:43:07] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[25/Dec/2016 16:01:34] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 16:01:34] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 16:01:34] WARNING [django.request:182] Not Found: /static/css/clean.css
+[25/Dec/2016 16:01:34] WARNING [django.request:182] Not Found: /static/js/home.js
+[25/Dec/2016 16:01:34] WARNING [django.request:182] Not Found: /static/js/browse.js
+[25/Dec/2016 16:01:34] WARNING [django.request:182] Not Found: /static/js/click_handlers.js
+[25/Dec/2016 16:01:34] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 16:01:34] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[25/Dec/2016 16:01:34] WARNING [django.request:182] Not Found: /static/img/twitter-wrap.png
+[25/Dec/2016 16:01:34] WARNING [django.request:182] Not Found: /static/img/facebook-wrap.png
+[25/Dec/2016 16:01:43] DEBUG [django.db.backends:89] (0.006) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+[25/Dec/2016 16:01:43] DEBUG [django.db.backends:89] (0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[25/Dec/2016 16:08:59] DEBUG [django.db.backends:89] (0.003) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+[25/Dec/2016 16:08:59] DEBUG [django.db.backends:89] (0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[25/Dec/2016 16:09:08] DEBUG [django.db.backends:89] (0.005) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+[25/Dec/2016 16:09:08] DEBUG [django.db.backends:89] (0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[25/Dec/2016 16:10:39] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 16:10:39] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 16:10:39] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 16:10:44] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 16:10:44] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 16:10:44] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 16:10:47] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 16:10:47] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 16:10:47] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 16:11:08] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 131, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 280, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
+    (clean_name, self))
+ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10c36a590>.
+[25/Dec/2016 16:11:10] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 131, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 280, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
+    (clean_name, self))
+ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10c36a590>.
+[25/Dec/2016 16:11:11] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 131, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 280, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
+    (clean_name, self))
+ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10c36a590>.
+[25/Dec/2016 16:11:12] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 131, in url
+    hashed_name = self.stored_name(clean_name)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 280, in stored_name
+    cache_name = self.clean_name(self.hashed_name(name))
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 94, in hashed_name
+    (clean_name, self))
+ValueError: The file 'img/push_thought_logo.png' could not be found with <whitenoise.django.GzipManifestStaticFilesStorage object at 0x10c36a590>.
+[25/Dec/2016 16:11:35] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 16:11:35] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 16:11:35] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 16:11:38] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 16:11:38] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 16:11:38] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 16:28:15] WARNING [django.request:182] Not Found: /static/vendor/font-awesome/css/font-awesome.min.css
+[25/Dec/2016 16:28:15] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/css/bootstrap.min.css
+[25/Dec/2016 16:28:15] WARNING [django.request:182] Not Found: /static/img/push-thought-logo.png
+[25/Dec/2016 16:28:15] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[25/Dec/2016 16:28:15] WARNING [django.request:182] Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
