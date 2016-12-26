@@ -788,3 +788,278 @@ Traceback (most recent call last):
   File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 315, in load_manifest
     (self.manifest_name, self.manifest_version))
 ValueError: Couldn't load manifest 'staticfiles.json' (version 1.0)
+[26/Dec/2016 14:21:41] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/utils/functional.py", line 204, in inner
+    self._setup()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 394, in _setup
+    self._wrapped = get_storage_class(settings.STATICFILES_STORAGE)()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 293, in __init__
+    self.hashed_files = self.load_manifest()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 315, in load_manifest
+    (self.manifest_name, self.manifest_version))
+ValueError: Couldn't load manifest 'staticfiles.json' (version 1.0)
+[26/Dec/2016 14:21:43] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/utils/functional.py", line 204, in inner
+    self._setup()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 394, in _setup
+    self._wrapped = get_storage_class(settings.STATICFILES_STORAGE)()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 293, in __init__
+    self.hashed_files = self.load_manifest()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 315, in load_manifest
+    (self.manifest_name, self.manifest_version))
+ValueError: Couldn't load manifest 'staticfiles.json' (version 1.0)
+[26/Dec/2016 14:21:43] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/utils/functional.py", line 204, in inner
+    self._setup()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 394, in _setup
+    self._wrapped = get_storage_class(settings.STATICFILES_STORAGE)()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 293, in __init__
+    self.hashed_files = self.load_manifest()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 315, in load_manifest
+    (self.manifest_name, self.manifest_version))
+ValueError: Couldn't load manifest 'staticfiles.json' (version 1.0)
+[26/Dec/2016 14:21:44] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/utils/functional.py", line 204, in inner
+    self._setup()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 394, in _setup
+    self._wrapped = get_storage_class(settings.STATICFILES_STORAGE)()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 293, in __init__
+    self.hashed_files = self.load_manifest()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 315, in load_manifest
+    (self.manifest_name, self.manifest_version))
+ValueError: Couldn't load manifest 'staticfiles.json' (version 1.0)
+[26/Dec/2016 14:21:44] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/utils/functional.py", line 204, in inner
+    self._setup()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 394, in _setup
+    self._wrapped = get_storage_class(settings.STATICFILES_STORAGE)()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 293, in __init__
+    self.hashed_files = self.load_manifest()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 315, in load_manifest
+    (self.manifest_name, self.manifest_version))
+ValueError: Couldn't load manifest 'staticfiles.json' (version 1.0)
+[26/Dec/2016 14:21:58] DEBUG [django.db.backends:89] (0.003) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+[26/Dec/2016 14:21:58] DEBUG [django.db.backends:89] (0.002) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[26/Dec/2016 14:21:59] ERROR [django.request:284] Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 149, in get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/core/handlers/base.py", line 147, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/matthewacalin/Desktop/Webapps/pushthought_project/pushthought/views.py", line 44, in home
+    return render(request, 'home.html', dataDict)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/shortcuts.py", line 67, in render
+    template_name, context, request=request, using=using)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader.py", line 97, in render_to_string
+    return template.render(context, request)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/backends/django.py", line 95, in render
+    return self.template.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 206, in render
+    return self._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/loader_tags.py", line 173, in render
+    return compiled_parent._render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 197, in _render
+    return self.nodelist.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 988, in render
+    bit = node.render_annotated(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/template/base.py", line 955, in render_annotated
+    return self.render(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/templatetags/static.py", line 103, in render
+    url = self.url(context)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 16, in url
+    return static(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/templatetags/staticfiles.py", line 9, in static
+    return staticfiles_storage.url(path)
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/utils/functional.py", line 204, in inner
+    self._setup()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 394, in _setup
+    self._wrapped = get_storage_class(settings.STATICFILES_STORAGE)()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 293, in __init__
+    self.hashed_files = self.load_manifest()
+  File "/Users/matthewacalin/.virtualenvs/ptheroku/lib/python2.7/site-packages/django/contrib/staticfiles/storage.py", line 315, in load_manifest
+    (self.manifest_name, self.manifest_version))
+ValueError: Couldn't load manifest 'staticfiles.json' (version 1.0)
