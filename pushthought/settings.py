@@ -34,9 +34,7 @@ SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
 
 DEBUG = False
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
-
 
 SITE_ID = 1
 
@@ -86,6 +84,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 )
+
 
 ROOT_URLCONF = 'pushthought.urls'
 
