@@ -15,7 +15,7 @@ p {
   margin: 0px 0;
   letter-spacing:1px;
   word-spacing: 3px;
-  color: white;
+  color: black;
 }
 p a {
   text-decoration: underline;
@@ -244,7 +244,7 @@ hr.small {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
   margin: 10px 0 0;
-  color: white;  /*009900*/
+  color: black;  /*009900*/
 }
 
 @media only screen and (min-width: 768px) {
@@ -456,12 +456,12 @@ form .row:first-child .floating-label-form-group {
   cursor: not-allowed;
 }
 ::-moz-selection {
-  color: white;
+  color: black;
   text-shadow: none;
   background: #0085A1;
 }
 ::selection {
-  color: white;
+  color: black;
   text-shadow: none;
   background: #0085A1;
 }
