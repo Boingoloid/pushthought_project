@@ -52,6 +52,7 @@ display:block;
 .container .jumbotron{
     top-padding: 10px;
     top-margin:10px;
+    color:black;
 }
 
 .user-container{
