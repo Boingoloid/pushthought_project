@@ -10,6 +10,7 @@ body {
   font-size: 20px;
   background-color:#ffffff;
 }
+
 p {
   line-height: 1.5;
   margin: 0px 0;
@@ -17,6 +18,7 @@ p {
   word-spacing: 3px;
   color: black;
 }
+
 p a {
   text-decoration: underline;
 }
@@ -43,12 +45,12 @@ footer a{
 h1{
   color:black;
 }
-
 h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+ p{
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: black;
@@ -211,7 +213,7 @@ hr.small {
 .intro-header .post-heading,
 .intro-header .page-heading {
   padding: 100px 0 20px;
-  color: white;
+  color: black;
   height: 200px;
 }
 
@@ -276,7 +278,7 @@ hr.small {
   font-size: 20px;
 }
 .intro-header .post-heading .meta a {
-  color: white;
+  color: black;
 }
 @media only screen and (min-width: 768px) {
   .intro-header .post-heading h1 {
@@ -456,12 +458,12 @@ form .row:first-child .floating-label-form-group {
   cursor: not-allowed;
 }
 ::-moz-selection {
-  color: black;
+  color: white;
   text-shadow: none;
   background: #0085A1;
 }
 ::selection {
-  color: black;
+  color: white;
   text-shadow: none;
   background: #0085A1;
 }
