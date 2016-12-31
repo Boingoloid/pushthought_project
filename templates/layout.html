@@ -22,6 +22,8 @@
         <!--<link rel="stylesheet" href="{% static 'css/layout.css' %}">-->
         <!--<link rel="stylesheet" href="{% static 'css/action-menu.css' %}">-->
         <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">-->
+        <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/cards.css' %}">
         <link rel="stylesheet" href="{% static 'css/clean.css' %}">
 
         <!-- Custom Fonts -->
@@ -71,26 +73,28 @@
 
         {% block content %}{% endblock %}
 
+
+
         <footer>
-                <div class="navbar navbar-default col-sm-12">
-                    <div class="col-sm-2">
-                        <ul class="list-unstyled link-list in-line">
-                            <li><a href="{% url 'home'%}"> Home </a></li>
-                            <li><a href="{% url 'about'%}"> About </a></li>
-                            <li><a href="{% url 'contact'%}"> Contact </a></li>
-                        </ul>
-                    </div>
+            <div class="navbar navbar-default col-sm-12">
+                <div class="col-sm-2">
+                    <ul class="list-unstyled link-list in-line">
+                        <li><a href="{% url 'home'%}"> Home </a></li>
+                        <li><a href="{% url 'about'%}"> About </a></li>
+                        <li><a href="{% url 'contact'%}"> Contact </a></li>
+                    </ul>
                 </div>
-                <div class="col-sm-4 pull-left">
-                    <a href="http://twitter.com/mattacalin">
-                        <img src="{% static 'img/twitter-wrap.png' %}" alt="Twitter Logo" width="30px">
-                    </a>
-                    <a href="https://www.facebook.com/matthew.acalin">
-                        <img src="{% static 'img/facebook-wrap.png' %}" alt="Facebook Logo" width="30px">
-                    </a>
-                    <br>
-                    <p>&copy; 2015 Push Thought</p>
-                </div>
+            </div>
+            <div class="col-sm-4 pull-left">
+                <a href="http://twitter.com/mattacalin">
+                    <img src="{% static 'img/twitter-wrap.png' %}" alt="Twitter Logo" width="30px">
+                </a>
+                <a href="https://www.facebook.com/matthew.acalin">
+                    <img src="{% static 'img/facebook-wrap.png' %}" alt="Facebook Logo" width="30px">
+                </a>
+                <br>
+                <p>&copy; 2015 Push Thought</p>
+            </div>
         </footer>
 
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
@@ -100,6 +104,7 @@
 
         <!-- Bootstrap -->
         <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 

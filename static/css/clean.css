@@ -41,7 +41,7 @@ footer a{
 }
 
 h1{
-  color:white;
+  color:black;
 }
 
 h2,
@@ -51,7 +51,7 @@ h5,
 h6 {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
-  color: white;
+  color: black;
 }
 
 a:hover,
@@ -628,15 +628,34 @@ table {
   text-align:center;
 }
 
-.how-container {
+
+
+
+.landing-container {
   height: 450px;
   background-color:#092551;
 }
 
-.how-container p{
+.landing-container p{
   margin: auto;
+  color: white;
+}
+
+.landing-container h1,h2,h3,h4,h5,h6,p{
+  color: white;
 }
 
 #email{
   width: 200px;
 }
+
+.how-container h1,h2,h3,h4,h5,h6,p{
+  color:black;
+}
+
+.how-container{
+  margin:auto;
+  position:middle;
+}
+
+
