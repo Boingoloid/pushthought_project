@@ -2,679 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f524674-a87c-41f6-a886-0bb20d6b2405" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/base.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/base.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/base.f0d165989b77.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/base.f0d165989b77.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/changelists.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/changelists.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/changelists.facd9faec460.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/changelists.facd9faec460.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/dashboard.4898e2e9983d.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/dashboard.4898e2e9983d.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/dashboard.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/dashboard.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/fonts.cc6140298ba7.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/fonts.cc6140298ba7.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/fonts.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/fonts.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/forms.4d10ed9b5ee5.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/forms.4d10ed9b5ee5.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/forms.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/forms.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/ie.2ca52592ccf6.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/ie.2ca52592ccf6.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/ie.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/ie.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/login.9ee3563a2bfe.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/login.9ee3563a2bfe.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/login.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/login.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/rtl.b619957e18c9.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/rtl.b619957e18c9.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/rtl.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/rtl.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/widgets.2753875e2781.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/widgets.2753875e2781.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/widgets.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/css/widgets.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/LICENSE.d273d63619c9.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/LICENSE.d273d63619c9.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/LICENSE.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/README.2c3d0bcdede2.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/Roboto-Bold-webfont.2ad99072841e.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/Roboto-Bold-webfont.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/Roboto-Light-webfont.b446c2399bb6.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/Roboto-Light-webfont.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/Roboto-Regular-webfont.ec39515ae8c6.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/fonts/Roboto-Regular-webfont.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/LICENSE.2c54f4e1ca1c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/LICENSE.2c54f4e1ca1c.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/LICENSE.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/README.837277fa1908.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/README.837277fa1908.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/README.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/calendar-icons.39b290681a8b.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/calendar-icons.39b290681a8b.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/calendar-icons.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/calendar-icons.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/changelist-bg.eaa563daae2a.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/changelist-bg.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/changelist-bg_rtl.db38ab536edc.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/changelist-bg_rtl.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/default-bg-reverse.2c9949b0bac0.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/default-bg-reverse.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/default-bg.af816e70c828.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/default-bg.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/deleted-overlay.1cd28ce73d7d.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/deleted-overlay.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_off.7a23bf31ef8a.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_off.7a23bf31ef8a.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_off.93ee41d8cad9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_off.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_off.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_off.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_on.0047eba25b67.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_on.0047eba25b67.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_on.99be2571b3f6.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_on.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_on.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/gis/move_vertex_on.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-addlink.d519b3bab011.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-addlink.d519b3bab011.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-addlink.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-addlink.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-alert.034cc7d8a67f.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-alert.034cc7d8a67f.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-alert.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-alert.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-calendar.ac7aea671bea.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-calendar.ac7aea671bea.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-calendar.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-calendar.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-changelink.18d2fd706348.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-changelink.18d2fd706348.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-changelink.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-changelink.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-clock.e1d4dfac3f2b.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-clock.e1d4dfac3f2b.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-clock.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-clock.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-deletelink.564ef9dc3854.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-deletelink.564ef9dc3854.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-deletelink.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-deletelink.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-no.2888642640a3.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-no.439e821418cd.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-no.439e821418cd.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-no.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-no.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-no.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-unknown-alt.81536e128bb6.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-unknown-alt.81536e128bb6.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-unknown-alt.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-unknown-alt.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-unknown.662022bb6ab0.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-unknown.a18cb4398978.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-unknown.a18cb4398978.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-unknown.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-unknown.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-unknown.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-yes.0596085e212f.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-yes.d2f9f035226a.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-yes.d2f9f035226a.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-yes.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-yes.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-yes.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_addlink.27872b1581c4.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_addlink.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_alert.572a03fff47e.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_alert.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_calendar.b4704fc81e9d.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_calendar.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_changelink.76183412227f.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_changelink.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_clock.d65ba15015dd.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_clock.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_deletelink.b797f0120322.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_deletelink.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_error.d0272cd88394.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_error.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_searchbox.46952c2c6973.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_searchbox.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_success.08e6b9d922e1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon_success.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-delete-8bit.1c135ffae5f0.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-delete-8bit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-delete.4df86317f5c4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-delete.fec1b761f254.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-delete.fec1b761f254.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-delete.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-delete.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-delete.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-restore-8bit.19cd843fa6f9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-restore-8bit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-restore.a14579a2580f.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-restore.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-splitter-bg.3d67b08b4771.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/inline-splitter-bg.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/nav-bg-grabber.45d7c744bbe8.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/nav-bg-grabber.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/nav-bg-reverse.bd4701ff1aeb.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/nav-bg-reverse.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/nav-bg-selected.4ebddc881b37.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/nav-bg-selected.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/nav-bg.5dadb8cd9865.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/nav-bg.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/search.7cf54ff789c6.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/search.7cf54ff789c6.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/search.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/search.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/selector-icons.4549da0d5c7f.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/selector-icons.b4555096cea2.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/selector-icons.b4555096cea2.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/selector-icons.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/selector-icons.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/selector-icons.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/selector-search.a5de786630be.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/selector-search.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/sorting-icons.2a27f8855e6b.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/sorting-icons.3a097b59f104.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/sorting-icons.3a097b59f104.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/sorting-icons.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/sorting-icons.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/sorting-icons.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-add.2152fd3b4a4d.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-add.e59d620a9742.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-add.e59d620a9742.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-add.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-add.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-add.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-arrowright.5aa2c86314d7.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-arrowright.bbfb788a849e.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-arrowright.bbfb788a849e.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-arrowright.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-arrowright.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/img/tooltag-arrowright.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/LICENSE-JQUERY.3c2025538601.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/LICENSE-JQUERY.3c2025538601.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/LICENSE-JQUERY.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/LICENSE-JQUERY.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/SelectBox.df843afcc450.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/SelectBox.df843afcc450.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/SelectBox.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/SelectBox.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/SelectFilter2.54a4515a9134.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/SelectFilter2.54a4515a9134.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/SelectFilter2.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/SelectFilter2.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/actions.42b74ac13f07.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/actions.42b74ac13f07.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/actions.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/actions.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/actions.min.2893760b9e40.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/actions.min.2893760b9e40.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/actions.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/actions.min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/DateTimeShortcuts.140919a6a17e.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/DateTimeShortcuts.140919a6a17e.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/DateTimeShortcuts.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/DateTimeShortcuts.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/RelatedObjectLookups.58b2336c1e19.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/RelatedObjectLookups.58b2336c1e19.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/RelatedObjectLookups.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/RelatedObjectLookups.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/calendar.df720acbe7bb.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/calendar.df720acbe7bb.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/calendar.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/calendar.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/collapse.c781bafaf192.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/collapse.c781bafaf192.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/collapse.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/collapse.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/collapse.min.bf4e82bb444b.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/collapse.min.bf4e82bb444b.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/collapse.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/collapse.min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/core.78280057239a.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/core.78280057239a.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/core.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/core.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/inlines.ec5c4bfbf84d.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/inlines.ec5c4bfbf84d.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/inlines.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/inlines.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/inlines.min.e3cd9638369f.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/inlines.min.e3cd9638369f.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/inlines.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/inlines.min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.c0b3962f9f23.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.c0b3962f9f23.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.init.575b5609d57c.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.init.575b5609d57c.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.init.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.init.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.min.5790ead7ad3b.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.min.5790ead7ad3b.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/jquery.min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/prepopulate.cd237b18d36c.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/prepopulate.cd237b18d36c.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/prepopulate.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/prepopulate.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/prepopulate.min.4479f53b704f.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/prepopulate.min.4479f53b704f.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/prepopulate.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/prepopulate.min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/related-widget-wrapper.3641d148e433.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/related-widget-wrapper.3641d148e433.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/related-widget-wrapper.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/related-widget-wrapper.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/timeparse.a298a7ede5c3.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/timeparse.a298a7ede5c3.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/timeparse.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/timeparse.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/urlify.687bc28c85b7.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/urlify.687bc28c85b7.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/urlify.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/urlify.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/LICENSE-JQUERY.a158210a2737.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/LICENSE-JQUERY.a158210a2737.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/LICENSE-JQUERY.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/LICENSE-JQUERY.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.107fbe9555bf.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.107fbe9555bf.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.min.f9c7afd05729.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.min.f9c7afd05729.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/LICENSE-XREGEXP.d64cecf4f157.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/LICENSE-XREGEXP.d64cecf4f157.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/LICENSE-XREGEXP.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/LICENSE-XREGEXP.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/xregexp.min.c95393b8ca4d.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/xregexp.min.c95393b8ca4d.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/xregexp.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/xregexp.min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/account_home.5e2569edc6e6.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/account_home.5e2569edc6e6.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/account_home.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/account_home.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/action-menu.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/action-menu.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/action-menu.e35da703f71e.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/action-menu.e35da703f71e.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/clean.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/clean.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/clean.fc4f4f972e99.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/clean.fc4f4f972e99.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/layout.77173ce21db6.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/layout.77173ce21db6.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/layout.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/layout.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/normalize.4f0235173ce7.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/normalize.4f0235173ce7.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/normalize.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/normalize.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/user_signin_form.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/css/user_signin_form.d41d8cd98f00.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.448c34a56d69.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.89889688147b.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.89889688147b.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.e18bbf611f2a.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.e18bbf611f2a.ttf.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.f4769f9bdb74.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.fa2772327f55.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.ttf.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/fonts/glyphicons-halflings-regular.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/LogoGlow.a12e04975f4a.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/LogoGlow.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/LogoSquare180.15d6e6d2a1e6.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/LogoSquare180.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/LogoWeb.4989405ae831.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/LogoWeb.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/LogoWebBlue.fabb847257b2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/LogoWebBlue.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/content-logos.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/facebook-wrap.fd893312a2d2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/facebook-wrap.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/gray-border-box.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/hanging-lights.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/human-icon-wave.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/image1.315e1ef4d5e5.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/image1.6190618b66a0.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/image1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/image1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/influencers-door.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/light-bulb-idea-vector-1109488.c952bb5e4a21.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/light-bulb-idea-vector-1109488.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/menu_screenshot.b40d84476238.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/menu_screenshot.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/netflix-logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/play-icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/profile_images/The-Culture-High-2014-movie-poster.327fe773a714.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/profile_images/The-Culture-High-2014-movie-poster.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/push-thought-logo.805d35a1a976.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/push-thought-logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/push_thought_logo.b9e5ea383796.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/push_thought_logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/push_thought_logo2.4f65c5b081da.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/push_thought_logo2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/seal-congress.1457080f7e45.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/seal-congress.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/seal-senate.9f3c41ead467.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/seal-senate.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/social.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/social2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/twitter-wrap.3b3cc15f4320.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/img/twitter-wrap.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/action_menu.7fc5fb82a2f7.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/action_menu.7fc5fb82a2f7.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/action_menu.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/action_menu.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/browse.51ca3705c1cc.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/browse.51ca3705c1cc.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/browse.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/browse.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/click_handlers.b7cdae92ceda.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/click_handlers.b7cdae92ceda.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/click_handlers.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/click_handlers.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/contact.025ea90e7988.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/contact.025ea90e7988.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/contact.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/contact.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/fed_rep_action_menu.87c9fdfbfe79.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/fed_rep_action_menu.87c9fdfbfe79.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/fed_rep_action_menu.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/fed_rep_action_menu.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/home.d374f1b14a3b.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/home.d374f1b14a3b.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/home.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/home.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/js-cookie.7e9aa97b7751.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/js-cookie.7e9aa97b7751.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/js-cookie.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/js-cookie.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/login_form.b5b4e5b8a491.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/login_form.b5b4e5b8a491.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/login_form.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/login_form.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/npm.ccb7f3909e30.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/npm.ccb7f3909e30.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/npm.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/npm.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/user_signin_form.9a2118c1e9be.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/user_signin_form.9a2118c1e9be.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/user_signin_form.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/js/user_signin_form.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/pushthought/css/pushthought.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/pushthought/css/pushthought.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/pushthought/css/pushthought.fc8ce4a4e2ac.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/pushthought/css/pushthought.fc8ce4a4e2ac.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/bootstrap-tweaks.1464ccce96f5.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/bootstrap-tweaks.1464ccce96f5.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/bootstrap-tweaks.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/bootstrap-tweaks.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/bootstrap.min.5d5357cb3704.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/bootstrap.min.5d5357cb3704.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/bootstrap.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/bootstrap.min.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/default.713cbe203060.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/default.713cbe203060.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/default.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/default.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/prettify.a987f72342ee.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/prettify.a987f72342ee.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/prettify.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/css/prettify.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.448c34a56d69.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.89889688147b.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.89889688147b.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.e18bbf611f2a.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.e18bbf611f2a.ttf.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.f4769f9bdb74.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.fa2772327f55.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.ttf.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/fonts/glyphicons-halflings-regular.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/img/glyphicons-halflings-white.9bbc6e960299.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/img/glyphicons-halflings-white.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/img/glyphicons-halflings.90233c9067e9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/img/glyphicons-halflings.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/img/grid.a4b938cf382b.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/img/grid.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/ajax-form.8bf28512011a.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/ajax-form.8bf28512011a.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/ajax-form.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/ajax-form.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/bootstrap.min.4becdc910462.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/bootstrap.min.4becdc910462.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/bootstrap.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/bootstrap.min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/csrf.41a1c5464913.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/csrf.41a1c5464913.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/csrf.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/csrf.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/default.89dc3ae23594.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/default.89dc3ae23594.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/default.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/default.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/jquery-1.11.3.min.895323ed2f72.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/jquery-1.11.3.min.895323ed2f72.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/jquery-1.11.3.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/jquery-1.11.3.min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/prettify-min.709bfcc456c6.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/prettify-min.709bfcc456c6.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/prettify-min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/rest_framework/js/prettify-min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.2a31dca112f2.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.2a31dca112f2.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.min.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.min.ec3bb52a00e1.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.min.ec3bb52a00e1.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/cards.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.448c34a56d69.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.89889688147b.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.89889688147b.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.e18bbf611f2a.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.e18bbf611f2a.ttf.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.f4769f9bdb74.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.fa2772327f55.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.ttf.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/js/bootstrap.fb81549ee289.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/js/bootstrap.fb81549ee289.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/js/bootstrap.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/js/bootstrap.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/js/bootstrap.min.5869c96cc8f1.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/js/bootstrap.min.5869c96cc8f1.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/js/bootstrap.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/bootstrap/js/bootstrap.min.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/css/font-awesome.b652e3b75918.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/css/font-awesome.b652e3b75918.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/css/font-awesome.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/css/font-awesome.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/css/font-awesome.min.4083f5d376eb.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/css/font-awesome.min.4083f5d376eb.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/css/font-awesome.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/css/font-awesome.min.css.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/FontAwesome.5dc41d8fe329.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/FontAwesome.5dc41d8fe329.otf.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/FontAwesome.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/FontAwesome.otf.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.1dc35d25e61d.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.1dc35d25e61d.ttf.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.25a32416abee.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.c8ddf1e5e5bf.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.d7c639084f68.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.d7c639084f68.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.e6cf7c6ec7c2.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.svg.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.ttf.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/fonts/fontawesome-webfont.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/animated.08baef05e053.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/animated.08baef05e053.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/animated.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/animated.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/bordered-pulled.898f90e40876.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/bordered-pulled.898f90e40876.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/bordered-pulled.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/bordered-pulled.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/core.fb4efe4ae637.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/core.fb4efe4ae637.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/core.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/core.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/fixed-width.5e07ec001f8d.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/fixed-width.5e07ec001f8d.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/fixed-width.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/fixed-width.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/font-awesome.f53235946c37.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/font-awesome.f53235946c37.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/font-awesome.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/font-awesome.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/icons.3c3bb8fbcd54.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/icons.3c3bb8fbcd54.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/icons.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/icons.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/larger.8cb65280c0f8.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/larger.8cb65280c0f8.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/larger.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/larger.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/list.975571323cf8.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/list.975571323cf8.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/list.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/list.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/mixins.fbb1f2f1ab96.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/mixins.fbb1f2f1ab96.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/mixins.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/mixins.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/path.a8c41460c42a.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/path.a8c41460c42a.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/path.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/path.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/rotated-flipped.a8476cdc50c2.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/rotated-flipped.a8476cdc50c2.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/rotated-flipped.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/rotated-flipped.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/screen-reader.0f8816172645.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/screen-reader.0f8816172645.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/screen-reader.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/screen-reader.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/stacked.518e2b2d2639.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/stacked.518e2b2d2639.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/stacked.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/stacked.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/variables.45fa411bbd22.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/variables.45fa411bbd22.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/variables.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/less/variables.less.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_animated.39ff4f359a7b.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_animated.39ff4f359a7b.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_animated.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_animated.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_bordered-pulled.4cad0df17bf4.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_bordered-pulled.4cad0df17bf4.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_bordered-pulled.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_bordered-pulled.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_core.ef059a98cf9d.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_core.ef059a98cf9d.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_core.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_core.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_fixed-width.9277ab6964a4.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_fixed-width.9277ab6964a4.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_fixed-width.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_fixed-width.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_icons.fdffb08bc3d8.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_icons.fdffb08bc3d8.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_icons.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_icons.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_larger.e95931566f6f.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_larger.e95931566f6f.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_larger.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_larger.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_list.7107e80b0539.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_list.7107e80b0539.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_list.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_list.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_mixins.aa2b8f32b403.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_mixins.aa2b8f32b403.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_mixins.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_mixins.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_path.ab5a9e838856.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_path.ab5a9e838856.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_path.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_path.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_rotated-flipped.9f5d4bc6fade.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_rotated-flipped.9f5d4bc6fade.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_rotated-flipped.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_rotated-flipped.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_screen-reader.8907bd7dbf47.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_screen-reader.8907bd7dbf47.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_screen-reader.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_screen-reader.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_stacked.5594237226ae.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_stacked.5594237226ae.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_stacked.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_stacked.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_variables.783d4422626a.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_variables.783d4422626a.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_variables.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/_variables.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/font-awesome.ace7fb933602.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/font-awesome.ace7fb933602.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/font-awesome.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/font-awesome/scss/font-awesome.scss.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jqBootstrapValidation/js/jqBootstrapValidation.dcd9f481ad3b.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jqBootstrapValidation/js/jqBootstrapValidation.dcd9f481ad3b.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jqBootstrapValidation/js/jqBootstrapValidation.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jqBootstrapValidation/js/jqBootstrapValidation.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jquery/jquery.fb2d334dabf4.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jquery/jquery.fb2d334dabf4.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jquery/jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jquery/jquery.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jquery/jquery.min.4f252523d4af.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jquery/jquery.min.4f252523d4af.js.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jquery/jquery.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/staticfiles/vendor/jquery/jquery.min.js.gz" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.css" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/clean.css" afterPath="$PROJECT_DIR$/static/css/clean.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/home.html" afterPath="$PROJECT_DIR$/templates/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/layout.html" afterPath="$PROJECT_DIR$/templates/layout.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/staticfiles/staticfiles.json" afterPath="$PROJECT_DIR$/staticfiles/staticfiles.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="pushthought_project.iws" />
@@ -699,8 +27,8 @@
       <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-66.875">
-              <caret line="107" column="90" selection-start-line="107" selection-start-column="90" selection-end-line="107" selection-end-column="90" />
+            <state vertical-scroll-proportion="-15.0">
+              <caret line="83" column="104" selection-start-line="83" selection-start-column="104" selection-end-line="83" selection-end-column="104" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -717,10 +45,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pushthought/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.85714287">
               <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
               <folding>
                 <element signature="e#384#393#0" expanded="true" />
@@ -789,10 +117,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="staticfiles.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="staticfiles.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/staticfiles/staticfiles.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -863,7 +191,6 @@
         <option value="$PROJECT_DIR$/static/vendor/bootstrap/css/cards.css" />
         <option value="$PROJECT_DIR$/static/css/layout.css" />
         <option value="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.css" />
-        <option value="$PROJECT_DIR$/pushthought/settings.py" />
         <option value="$PROJECT_DIR$/templates/layout.html" />
         <option value="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.css" />
         <option value="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.min.css" />
@@ -871,6 +198,7 @@
         <option value="$PROJECT_DIR$/static/css/clean.css" />
         <option value="$PROJECT_DIR$/staticfiles/css/clean.css" />
         <option value="$PROJECT_DIR$/templates/home.html" />
+        <option value="$PROJECT_DIR$/pushthought/settings.py" />
       </list>
     </option>
   </component>
@@ -878,6 +206,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="1868" />
     <option name="y" value="23" />
     <option name="width" value="1366" />
     <option name="height" value="741" />
@@ -1223,14 +552,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1366" height="741" extended-state="6" />
-    <editor active="false" />
+    <frame x="1868" y="23" width="1366" height="741" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3344426" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294509" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24967659" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17992565" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17992565" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3044925" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34775373" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -1634,10 +963,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/staticfiles/staticfiles.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-66.875">
-          <caret line="107" column="90" selection-start-line="107" selection-start-column="90" selection-end-line="107" selection-end-column="90" />
+        <state vertical-scroll-proportion="-15.0">
+          <caret line="83" column="104" selection-start-line="83" selection-start-column="104" selection-end-line="83" selection-end-column="104" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -1655,19 +992,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pushthought/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.85714287">
           <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
           <folding>
             <element signature="e#384#393#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/staticfiles/staticfiles.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
