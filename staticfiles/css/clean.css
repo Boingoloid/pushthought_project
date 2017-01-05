@@ -120,11 +120,14 @@ hr.small {
   margin-top: 10px;
 }
 
+
+
 @media only screen and (min-width: 768px) {
 
-
   .navbar-custom {
-    background: transparent;
+    background: #051838;
+    background: linear-gradient(#000b1e, #092551); /* Standard syntax */
+}
   }
   .navbar-custom .navbar-brand {
     color: white;
@@ -529,6 +532,7 @@ table {
 
 .container-banner{
   background: blue;
+  margin-right:15px;
 }
 
 .container-fluid {
@@ -607,7 +611,7 @@ table {
 }
 
 .program-item:hover{
-  transform: scale(1.05);
+  /*transform: scale(1.05);*/
 }
 
 .program-item-image{
@@ -660,4 +664,53 @@ table {
   position:middle;
 }
 
+.panel-heading-crane{
+  padding: 0px;
+}
 
+
+
+
+.img-content-logo1{
+  display: block;
+}
+
+.img-content-logo2{
+  display: none;
+}
+
+@media only screen and (min-width: 992px) {
+  .img-content-logo1{
+    display: none;
+  }
+
+  .img-content-logo2{
+    display: block;
+  }
+}
+
+
+
+.panel-body-crane{
+  padding: 10px;
+  height: 425px;
+
+}
+
+.img-crane{
+
+}
+
+@media only screen and (min-width: 992px) {
+  .img-crane{
+    max-width: 90%;
+  }
+  .panel-body-crane{
+  height: auto;
+
+}
+
+
+
+
+}
