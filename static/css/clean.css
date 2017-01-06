@@ -678,6 +678,11 @@ table {
   padding: 0px;
 }
 
+.panel-body{
+  padding: 0px;
+}
+
+
 .img-content-logo1{
   display: block;
   max-width: 70%;
