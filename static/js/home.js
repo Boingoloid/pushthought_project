@@ -6,8 +6,16 @@ $(document).ready(function() {
 
     $("#browse-btn").on("click",function(){
 //        $('html, body').animate(window.scrollTo(0, 1350));
+
+        $('html, body').animate({
+            scrollTop: $("#landing-container").offset().top
+        }, 1000);
+
+
 //            window.scrollTo(0, 1350);
-            window.location.href="browse/";
+//            window.location.href="browse/";
+
+
     });
 
 

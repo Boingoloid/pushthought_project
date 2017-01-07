@@ -6,8 +6,9 @@ $(document).ready(function() {
 
     $("#browse-btn").on("click",function(){
 //        $('html, body').animate(window.scrollTo(0, 1350));
-//            window.scrollTo(0, 1350);
-            window.location.href="browse/";
+            window.scrollTo(0, 1350);
+//            window.location.href="browse/";
+
     });
 
 
