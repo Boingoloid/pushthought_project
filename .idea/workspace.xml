@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f524674-a87c-41f6-a886-0bb20d6b2405" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/browse.html" afterPath="$PROJECT_DIR$/templates/browse.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/clean.css" afterPath="$PROJECT_DIR$/static/css/clean.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/staticfiles/css/clean.css" afterPath="$PROJECT_DIR$/staticfiles/css/clean.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/home.html" afterPath="$PROJECT_DIR$/templates/home.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/home.js" afterPath="$PROJECT_DIR$/static/js/home.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/staticfiles/js/home.js" afterPath="$PROJECT_DIR$/staticfiles/js/home.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pushthought/settings.py" afterPath="$PROJECT_DIR$/pushthought/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/layout.html" afterPath="$PROJECT_DIR$/templates/layout.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="pushthought_project.iws" />
@@ -31,16 +33,14 @@
       <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.75">
-              <caret line="121" column="22" selection-start-line="121" selection-start-column="22" selection-end-line="121" selection-end-column="22" />
+            <state vertical-scroll-proportion="-2.9803922">
+              <caret line="54" column="57" selection-start-line="54" selection-start-column="57" selection-end-line="54" selection-end-column="57" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#3;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#div#1;n#div#0;n#form#0;n#div#4;n#!!top" expanded="true" />
@@ -49,11 +49,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="browse.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/browse.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.75">
+              <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="clean.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/css/clean.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.703704">
-              <caret line="588" column="17" selection-start-line="588" selection-start-column="17" selection-end-line="588" selection-end-column="17" />
+            <state vertical-scroll-proportion="-14.870968">
+              <caret line="745" column="37" selection-start-line="745" selection-start-column="37" selection-end-line="745" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -63,17 +73,7 @@
         <entry file="file://$PROJECT_DIR$/static/js/home.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="browse.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/browse.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -89,33 +89,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cards.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/vendor/bootstrap/css/cards.css">
+      <file leaf-file-name="layout.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/layout.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="313" column="6" selection-start-line="313" selection-start-column="2" selection-end-line="313" selection-end-column="6" />
+            <state vertical-scroll-proportion="-30.0">
+              <caret line="77" column="75" selection-start-line="77" selection-start-column="75" selection-end-line="77" selection-end-column="75" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/layout.html">
+      <file leaf-file-name="contact.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/contact.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="71" column="35" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
-              <folding>
-                <element signature="n#style#0;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bootstrap.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="4231" column="18" selection-start-line="4231" selection-start-column="18" selection-end-line="4231" selection-end-column="18" />
+            <state vertical-scroll-proportion="-0.625">
+              <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -124,7 +112,7 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pushthought/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7788945">
+            <state vertical-scroll-proportion="0.85427135">
               <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
               <folding>
                 <element signature="e#384#393#0" expanded="true" />
@@ -192,7 +180,6 @@
         <option value="$PROJECT_DIR$/templates/add_segment.html" />
         <option value="$PROJECT_DIR$/requirements" />
         <option value="$PROJECT_DIR$/templates/action_menu.html" />
-        <option value="$PROJECT_DIR$/templates/browse.html" />
         <option value="$PROJECT_DIR$/templates/account_home.html" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/pushthought/urls.py" />
@@ -209,11 +196,12 @@
         <option value="$PROJECT_DIR$/staticfiles/staticfiles.json" />
         <option value="$PROJECT_DIR$/staticfiles/css/clean.css" />
         <option value="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.css" />
-        <option value="$PROJECT_DIR$/templates/layout.html" />
         <option value="$PROJECT_DIR$/pushthought/views.py" />
-        <option value="$PROJECT_DIR$/static/css/clean.css" />
-        <option value="$PROJECT_DIR$/templates/home.html" />
+        <option value="$PROJECT_DIR$/templates/layout.html" />
         <option value="$PROJECT_DIR$/static/js/home.js" />
+        <option value="$PROJECT_DIR$/templates/browse.html" />
+        <option value="$PROJECT_DIR$/templates/home.html" />
+        <option value="$PROJECT_DIR$/static/css/clean.css" />
         <option value="$PROJECT_DIR$/pushthought/settings.py" />
       </list>
     </option>
@@ -786,13 +774,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/browse.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.375">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/vendor/jqBootstrapValidation/js/jqBootstrapValidation.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="108.77778">
@@ -804,13 +785,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/contact.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.0">
-          <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -946,16 +920,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="35" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
-          <folding>
-            <element signature="n#style#0;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/pycharm.jar!/resources/html5-schema/html5/block.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1007,31 +971,45 @@
     <entry file="file://$PROJECT_DIR$/static/js/home.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/clean.css">
+    <entry file="file://$PROJECT_DIR$/templates/contact.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.703704">
-          <caret line="588" column="17" selection-start-line="588" selection-start-column="17" selection-end-line="588" selection-end-column="17" />
+        <state vertical-scroll-proportion="-0.625">
+          <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-30.0">
+          <caret line="77" column="75" selection-start-line="77" selection-start-column="75" selection-end-line="77" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/browse.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.75">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.75">
-          <caret line="121" column="22" selection-start-line="121" selection-start-column="22" selection-end-line="121" selection-end-column="22" />
+        <state vertical-scroll-proportion="-2.9803922">
+          <caret line="54" column="57" selection-start-line="54" selection-start-column="57" selection-end-line="54" selection-end-column="57" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#div#2;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#3;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#0;n#div#1;n#div#0;n#form#0;n#div#4;n#!!top" expanded="true" />
@@ -1039,9 +1017,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/clean.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.870968">
+          <caret line="745" column="37" selection-start-line="745" selection-start-column="37" selection-end-line="745" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pushthought/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7788945">
+        <state vertical-scroll-proportion="0.85427135">
           <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
           <folding>
             <element signature="e#384#393#0" expanded="true" />

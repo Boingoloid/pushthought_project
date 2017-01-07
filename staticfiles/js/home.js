@@ -5,9 +5,9 @@ $(document).ready(function() {
     }, 2000);
 
     $("#browse-btn").on("click",function(){
-            window.scrollTo(0, 1350);
-//            window.location.href="browse/";
-
+//        $('html, body').animate(window.scrollTo(0, 1350));
+//            window.scrollTo(0, 1350);
+            window.location.href="browse/";
     });
 
 

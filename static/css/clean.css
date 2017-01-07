@@ -83,7 +83,8 @@ hr.small {
 
 
 .navbar{
-  background-color:#092551;
+  background-color:#000b1e;
+  /*background: linear-gradient(#092551,#000b1e);*/ /* Standard syntax */
   border-width: 0px;
 }
 
@@ -552,6 +553,17 @@ table {
     color: #88c0d2;
     margin-top 0px;
 }
+
+.navbar{
+  border-radius: 0px;
+}
+
+@media (min-width: 768px){
+  .navbar{
+    border-radius: 0px;
+  }
+}
+
 /*@media (min-width: 768px) {
   .post-container {
     width: 750px;
@@ -642,6 +654,7 @@ table {
 .landing-container {
   height: 450px;
   background-color:#092551;
+  background:linear-gradient(#092551,#000b1e);
 }
 
 .landing-container p{
@@ -724,4 +737,14 @@ table {
 .page-header{
   margin-top:15px;
   font-size: 42px;
+}
+
+#browse-btn{
+  margin:auto; display:block; width:200px;
+}
+
+@media only screen and (min-width: 500px) {
+  #browse-btn{
+    margin:auto; display:block; width:400px;
+  }
 }
