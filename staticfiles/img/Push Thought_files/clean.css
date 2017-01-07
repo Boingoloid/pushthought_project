@@ -706,20 +706,14 @@ table {
 
 
 .img-crane{
-  width:560px;
+  max-width: 100%
 }
-
 
 @media only screen and (min-width: 992px) {
   .img-crane{
-    max-width:100%;
+    width:400px;
   }
   .panel-body-crane{
   height: auto;
   }
-}
-
-.page-header{
-  margin-top:15px;
-  font-size: 42px;
 }
