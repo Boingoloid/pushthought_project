@@ -38,9 +38,9 @@ MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
 
 def home(request):
-    # program_list =  get_program_list()
+    program_list =  get_program_list()
     dataDict = {}
-    # dataDict['programList'] = program_list
+    dataDict['programList'] = program_list
     return render(request, 'home.html', dataDict)
 
 def submit_email(request,email):
