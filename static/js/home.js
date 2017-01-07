@@ -4,6 +4,13 @@ $(document).ready(function() {
         $(".alert").fadeTo(2000, 0)
     }, 2000);
 
+    $("#browse-btn").on("click",function(){
+            window.scrollTo(0, 1350);
+//            window.location.href="browse/";
+
+    });
+
+
   $("#submit-email-btn").on("click",function(){
 //    alert("I am an alert box!");
     //window.location.href="submit-email"

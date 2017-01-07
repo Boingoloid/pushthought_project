@@ -127,6 +127,7 @@ hr.small {
   .navbar-custom {
     background: #051838;
     background: linear-gradient(#000b1e, #092551); /* Standard syntax */
+    background:radial-gradient(#092551,#000b1e);
 }
   }
   .navbar-custom .navbar-brand {
@@ -210,6 +211,7 @@ hr.small {
   -o-background-size: cover;
   margin-bottom: 0px;
   background-color:#092551;
+  background:radial-gradient(#092551,#000b1e)
 }
 
 .intro-header .site-heading,
