@@ -7,7 +7,7 @@ $(document).ready(function() {
     $("#browse-btn").on("click",function(){
         $('html, body').animate({
             scrollTop: $("#landing-container").offset().top
-        }, 1000);
+        }, 2000);
 //            window.location.href="browse/";
 
     });

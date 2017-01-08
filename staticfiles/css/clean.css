@@ -739,12 +739,16 @@ table {
   font-size: 42px;
 }
 
-#browse-btn{
-  margin:auto; display:block; width:200px;
+.browse-btn{
+  margin:auto;
+  display:block;
+  width:200px;
 }
 
 @media only screen and (min-width: 500px) {
-  #browse-btn{
-    margin:auto; display:block; width:400px;
+  .browse-btn{
+    margin:auto;
+    display:block;
+    width:400px;
   }
 }
