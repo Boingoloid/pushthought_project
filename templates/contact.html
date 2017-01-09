@@ -1,15 +1,19 @@
 {% extends "layout.html" %}
 {% load static from staticfiles %}
 {% block content %}
- <div class="intro-header" style="background-image: {% static 'img/image1.png' %}">
+ <div class="intro-header" style="background:radial-gradient(#092551,#000b1e);">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <br/>
                     <br/>
                     <br/>
-                    <div align="middle"><h2>Contact</h2></div>
-                    <div align="middle"><p>General questions or comments, please contact us!</p></div>
+                    <div align="middle">
+                        <h2 style="color:white;">Contact</h2>
+                    </div>
+                    <div align="middle">
+                        <p style="color:white;">General questions or comments, please contact us!</p>
+                    </div>
                     <br/>
                     <!--<div align="middle">-->
                         <!--<p align="middle">feedback@pushthought.com</p>-->
@@ -19,9 +23,6 @@
                             <!--</button>-->
                         <!--</a>-->
                     <!--</div>-->
-
-
-
                     <form name="sentMessage" id="contactForm" validate>
                         {% csrf_token %}
                         <div id="success"></div>
@@ -41,8 +42,7 @@
                 </div>
             </div>
         </div><!-- /.container -->
-    </div><!-- /.intro-header -->
-</div>
+ </div><!-- /.intro-header -->
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>

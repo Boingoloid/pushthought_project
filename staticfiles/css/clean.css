@@ -216,13 +216,20 @@ hr.small {
   -o-background-size: cover;
   margin-top:50px;
   margin-bottom: 0px;
-  background-image: url('/../static/img/doc-here4.png');
+  background-image: url('/../static/img/doc-here7.png');
   width:100%;
-  height:500px;
+  max-height:100%;
   box-shadow: inset 0px 0px 125px 140px rgba(0,0,0,0.8);
 
 }
 
+/*
+@media only screen and (min-width: 768px) {
+  .intro-header {
+    background-image: url('/../static/img/doc-here7.png');
+    }
+}
+*/
 
 .intro-header .site-heading,
 .intro-header .post-heading,
@@ -395,6 +402,7 @@ footer .copyright {
   text-align: center;
   margin-bottom: 0;
 }
+
 
 .floating-label-form-group {
   font-size: 14px;
@@ -632,7 +640,7 @@ table {
   background: black;
   border: 0px solid black;
   border-radius: 5px;
-  overflow: auto;
+  overflow: hidden;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -776,7 +784,8 @@ table {
 .browse-btn{
   margin:auto;
   display:block;
-  width:200px;
+  width:250px;
+  font-size: 24px;
 }
 
 @media only screen and (min-width: 500px) {
@@ -784,5 +793,6 @@ table {
     margin:auto;
     display:block;
     width:400px;
+    font-size: 26px;
   }
 }
