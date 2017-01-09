@@ -209,6 +209,7 @@ hr.small {
 
 .intro-header {
   background: no-repeat center center;
+  background:radial-gradient(#092551,#000b1e);
   background-attachment: scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -216,20 +217,21 @@ hr.small {
   -o-background-size: cover;
   margin-top:50px;
   margin-bottom: 0px;
-  background-image: url('/../static/img/doc-here7.png');
   width:100%;
   max-height:100%;
+}
+
+.intro-header-image {
   box-shadow: inset 0px 0px 125px 140px rgba(0,0,0,0.8);
-
+  background-image: url('/../static/img/doc-here7.png');
 }
 
-/*
-@media only screen and (min-width: 768px) {
-  .intro-header {
-    background-image: url('/../static/img/doc-here7.png');
-    }
+@media only screen and (min-width: 968px) {
+  .intro-header-image {
+    background-image: url('/../static/img/doc-here8.png');
+  }
 }
-*/
+
 
 .intro-header .site-heading,
 .intro-header .post-heading,
@@ -575,6 +577,31 @@ table {
   text-align: center;
 }
 
+/* Containers -----------------------------------------------*/
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 20px;
+    margin-left: 20px;
+    width:100%;
+}
+
+@media (min-width: 1200px)
+.container {
+    width: 100%;
+}
+@media (min-width: 992px)
+.container {
+    width: 100%;
+}
+@media (min-width: 768px)
+.container {
+    width: 100%;
+}
+
+
+
 .container-banner{
   background: black;
   margin-right:15px;
@@ -606,33 +633,7 @@ table {
   }
 }
 
-/*@media (min-width: 768px) {
-  .post-container {
-    width: 750px;
-  }
-}
-@media (min-width: 992px) {
-  .post-container {
-    width: 970px;
-  }
-}
-@media (min-width: 1200px) {
-  .post-container {
-    width: 1170px;
-  }
-}
-.post-container-fluid {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-.post-container{
-  max-width:90%
-}*/
-
-
-/* BROWSE */
+/* HOME Program Container and items */
 
 .program-container{
   display:flex;
@@ -692,7 +693,7 @@ table {
 
 
 
-
+/* landing page are asking for email*/
 .landing-container {
   height: 450px;
   background-color:#092551;
@@ -711,6 +712,10 @@ table {
 #email{
   width: 200px;
 }
+
+
+
+/* how-it-works l*/
 
 .how-container h1,h2,h3,h4,h5,h6,p{
   color:black;
@@ -781,6 +786,8 @@ table {
   font-size: 42px;
 }
 
+
+/* Browse button*/
 .browse-btn{
   margin:auto;
   display:block;
