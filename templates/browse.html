@@ -11,20 +11,48 @@
 <div class="intro-header">
     <div class="container container-text-white">
         <br/>
-                <form class="form-inline">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="1" cols="60" id="comment" placeholder="Search Keyword or Paste Link" ></textarea>
-                        <button type="button" class="btn btn-primary" style="border-radius:10px;">Search</button>
-                    </div>
-                </form>
-             <div class="row">
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <hr/>
-                <p style="color:#bdbdbd; font-weight:600">Recently Active</p>
+        <form class="form-inline">
+            <div class="form-group">
+                <textarea class="form-control" rows="1" cols="60" id="comment" placeholder="Search Keyword or Paste Link" ></textarea>
+                <button type="button" class="btn btn-primary" style="border-radius:10px;">Search</button>
             </div>
+        </form>
+        <div class="row">
+            <br/>
+            <!--<p style="color:#bdbdbd; font-weight:400;">Filters</p>-->
+
+            <!--<button class="btn btn-default btn-outline">type </button>-->
+         </div>
+
+
+
+        <div style="display: inline-block;">
+            <button class="accordion" style="display: inline;color:red;">Browse</button>
+            <div class="panel">
+
+              <a><p>Lorem</p></a>
+                <p>Lorem</p>
+                <p>Lorem</p>
+            </div>
+        </div>
+
+        <!--<div style="display:inline-block;">-->
+            <!--<button class="accordion" style="display: inline;">Section 2</button>-->
+            <!--<div class="panel">-->
+              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div style="display: inline-block;">-->
+            <!--<button class="accordion">Section 3</button>-->
+            <!--<div class="panel">-->
+              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+            <!--</div>-->
+        <!--</div>-->
+
+     <div class="row">
+        <br/>
+        <p style="color:#bdbdbd; font-weight:600; font-size:16px;">All Titles (alphabetical)</p>
+     </div>
     </div><!-- /.container -->
 </div><!-- /.intro-header -->
 
@@ -72,6 +100,6 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<!--<script src="{% static 'js/browse.js' %}"></script>-->
+<script src="{% static 'js/browse.js' %}"></script>
 
  {% endblock %}
