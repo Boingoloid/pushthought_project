@@ -582,8 +582,6 @@ table {
 .container {
     padding-right: 15px;
     padding-left: 15px;
-    margin-right: 20px;
-    margin-left: 20px;
     width:100%;
 }
 
@@ -604,7 +602,7 @@ table {
 
 .container-banner{
   background: black;
-  margin-right:15px;
+  margin-right:0px;
 }
 
 .container-fluid {
@@ -640,7 +638,7 @@ table {
   /*flex-wrap:wrap;*/
   background: black;
   border: 0px solid black;
-  border-radius: 5px;
+  border-radius: 0px;
   overflow: hidden;
   padding-left: 10px;
   padding-right: 10px;
@@ -802,4 +800,25 @@ table {
     width:400px;
     font-size: 26px;
   }
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.btn-outline{
+  background:rgba(0,0,0,0.0);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: gray;
+  color: gray;
+  font-weight: 200;
+  height: 30px;
+  width: 75px;
+  padding:0;
+  padding-left:7px;
+  text-align:left;
+
 }

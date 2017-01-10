@@ -119,6 +119,11 @@ div.panel {
     position: absolute;
 }
 
+div.panel p {
+    color:white;
+    font-size: 16px;
+}
+
 ::selection {
   text-shadow: none;
   background-color: rgba(0,0,0,0);

@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+
+    $('.browse-button-area').on("hover", function () {
+        this.style.backgroundColor = white;
+    });
+
+
     var acc = $('.accordion');
     var i;
 
@@ -23,8 +29,6 @@ $(document).ready(function() {
           panel.style.maxHeight = panel.scrollHeight + 'px';
         }
       }
-
-
     }
 
 
