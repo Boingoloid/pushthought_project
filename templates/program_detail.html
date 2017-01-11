@@ -1,35 +1,39 @@
 {% extends "layout.html" %}
 {% load static from staticfiles %}
-<head>
-   {% block title %}  {% endblock %}
-</head>
-
+{% block title %}Push Thought - Action Menu{% endblock %}
 {% block content %}
-<div class="main-wrapper">
-    <div class="container-breadcrumb col-med-12">
-        <p id="segment-title">/ {{programDict.programTitle}}</p>
-        <p hidden id="program-objectId">{{programObjectId}}</p>
-    </div>
 
-    <div>
-        <button type="button" id="back-btn" class="btn btn-sm btn-secondary">Back to Browse</button>
+<div class="intro-header">
+    <div class="container container-text-white">
+        <p id="program-title">{{program}}</p>
     </div>
-    <div>
+</div>
 
-    </div>
-    <div class="segment-item-container">
-        {% for item in segmentList %}
-        <div class='segment-item' id="segment-item{{forloop.counter}}">
-            <p id="segment-item-title{{forloop.counter}}">{{item.segmentTitle}}</p>
-            <p hidden id="segment-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
-            <img class='segment-item-image'  id='segment-item-image{{forloop.counter}}' src={{item.segmentImage.url}}
-                 alt='Segment Image'>
-        </div>
-        {% endfor %}
-    </div>  <!--close PROGRAM container-->
-</div>  <!--close main-wrapper-->
+<!--<div class="main-wrapper">-->
+    <!--<div class="container-breadcrumb col-med-12">-->
+        <!--<p id="segment-title">/ {{program.programTitle}}</p>-->
+        <!--<p hidden id="program-objectId">{{programTitle.}}</p>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<button type="button" id="back-btn" class="btn btn-sm btn-secondary">Back to Browse</button>-->
+    <!--</div>-->
+    <!--<div>-->
+    <!--</div>-->
+
+<!--</div>  &lt;!&ndash;close main-wrapper&ndash;&gt;-->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'js/browse.js' %}"></script>
 
  {% endblock %}
+
+    <!--<div class="segment-item-container">-->
+        <!--{% for item in segmentList %}-->
+        <!--<div class='segment-item' id="segment-item{{forloop.counter}}">-->
+            <!--<p id="segment-item-title{{forloop.counter}}">{{item.segmentTitle}}</p>-->
+            <!--<p hidden id="segment-item-objectId{{forloop.counter}}">{{item.objectId}}</p>-->
+            <!--<img class='segment-item-image'  id='segment-item-image{{forloop.counter}}' src={{item.segmentImage.url}}-->
+                 <!--alt='Segment Image'>-->
+        <!--</div>-->
+        <!--{% endfor %}-->
+    <!--</div>  &lt;!&ndash;close PROGRAM container&ndash;&gt;-->

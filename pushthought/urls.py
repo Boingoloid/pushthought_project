@@ -28,6 +28,9 @@ urlpatterns = [
     url(r'^$', views.home,name='home'),
     url(r'^submit-email/(?P<email>.*)', views.submit_email,name='submit_email'),
     url(r'^send-contact/', views.send_contact,name='send_contact'),
+    url(r'^browse', views.browse, name='browse'),
+    url(r'^content_landing/(?P<programId>\w+)', views.content_landing, name='content_landing'),
+    url(r'^program_detail/(?P<programId>\w+)', views.program_detail, name='program_detail'),
     # url(r'^api', views.api,name='api',),
     # Twitter Verification
     url(r'^verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweet>.*)',
@@ -56,8 +59,7 @@ urlpatterns = [
     url(r'^login_form',views.login_form, name='login_form'),
     url(r'^logout', views.user_logout, name='user_logout'),
 
-    url(r'^browse', views.browse, name='browse'),
-    url(r'^program_detail/(?P<programId>\w+)', views.program_detail, name='program_detail'),
+
 
     # segment JPGM9mmcKV   program JPGM9mmcKV
     # url(r'^action_menu/(?P<segment_pk>\d+)/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})', views.action_menu,

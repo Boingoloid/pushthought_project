@@ -83,6 +83,36 @@ def send_contact(request):
 def about(request):
     return render(request, 'about.html')
 
+
+def content_landing(request,programId):
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+    program = db.Programs.find_one({"_id":programId})
+    dataDict = {}
+    dataDict['program'] = program
+
+    return render(request, 'content_landing.html',dataDict)
+
+def program_detail(request,programId):
+
+    # if documentary
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+    program = db.Programs.find_one({"_id":programId})
+    # program_dict = fetch_program_data(programId)
+    # segment_list = get_segment_list(programId)
+
+    print "print program"
+    print program
+
+    dataDict = {}
+    dataDict['program'] = program
+    # dataDict['programDict'] = program_dict
+    # dataDict['segmentList'] = segment_list
+    # dataDict['programObjectId'] = program_dict['objectId']
+
+    return render(request, 'program_detail.html',dataDict)
+
 # Use the login_required() decorator to ensure only those logged in can access the view.
 # @login_required
 def user_logout(request):
@@ -293,17 +323,6 @@ def login_form(request):
         return render(request, 'login_form.html')
 
 
-
-def program_detail(request,programId):
-    segment_list = get_segment_list(programId)
-    program_dict = fetch_program_data(programId)
-
-    dataDict = {}
-    dataDict['programDict'] = program_dict
-    dataDict['segmentList'] = segment_list
-    dataDict['programObjectId'] = program_dict['objectId']
-
-    return render(request, 'program_detail.html',dataDict)
 
 def get_segment_list(program_id):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)

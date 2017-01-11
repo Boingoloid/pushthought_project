@@ -3,7 +3,7 @@
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/browse.css' %}">
 {% endblock %}
-{% block title %}Push Thought- Browse{% endblock %}
+{% block title %}Push Thought-Browse{% endblock %}
 
 
 {% block content %}
@@ -12,47 +12,28 @@
     <div class="container container-text-white">
         <br/>
         <form class="form-inline">
-            <div class="form-group">
-                <textarea class="form-control" rows="1" cols="60" id="comment" placeholder="Search Keyword or Paste Link" ></textarea>
-                <button type="button" class="btn btn-primary" style="border-radius:10px;">Search</button>
-            </div>
+            <!--<div class="form-group">-->
+                <!--<textarea class="form-control" rows="1" cols="60" id="comment" placeholder="Search Keyword or Paste Link" ></textarea>-->
+                <!--<button type="button" class="btn btn-primary" style="border-radius:10px;">Search</button>-->
+            <!--</div>-->
         </form>
         <div class="row">
-            <br/>
-            <!--<p style="color:#bdbdbd; font-weight:400;">Filters</p>-->
-
-            <!--<button class="btn btn-default btn-outline">type </button>-->
-         </div>
-
-
-
-        <div class="browse-button-area" style="display: inline-block; margin:10px;">
-            <button class="accordion" style="display: inline;color:red;">Browse</button>
-            <div class="panel">
-                <a><p>Documentaries</p></a>
-                <a><p>Web Videos</p></a>
-                <a><p>Poscasts</p></a>
+            <div class="browse-button-a">
+                <button class="accordion" style="display: inline;color:red;">Browse</button>
+                <div class="panel">
+                    <a><p>Documentaries</p></a>
+                    <a><p>Web Videos</p></a>
+                    <a><p>Podcasts</p></a>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!--<div style="display:inline-block;">-->
-            <!--<button class="accordion" style="display: inline;">Section 2</button>-->
-            <!--<div class="panel">-->
-              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div style="display: inline-block;">-->
-            <!--<button class="accordion">Section 3</button>-->
-            <!--<div class="panel">-->
-              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-            <!--</div>-->
-        <!--</div>-->
-
-     <div class="row">
-        <br/>
-        <p style="color:#bdbdbd; font-weight:600; font-size:16px;">All Titles (alphabetical)</p>
-     </div>
-    </div><!-- /.container -->
+    <div class="container container-text-white">
+         <div class="row">
+            <p style="margin-left:20px; color:#bdbdbd; font-weight:600; font-size:16px;">All Titles</p>
+         </div>
+    </div>
 </div><!-- /.intro-header -->
 
     <div class="browse-container">
@@ -102,3 +83,16 @@
 <script src="{% static 'js/browse.js' %}"></script>
 
  {% endblock %}
+
+        <!--<div style="display:inline-block;">-->
+            <!--<button class="accordion" style="display: inline;">Section 2</button>-->
+            <!--<div class="panel">-->
+              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div style="display: inline-block;">-->
+            <!--<button class="accordion">Section 3</button>-->
+            <!--<div class="panel">-->
+              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+            <!--</div>-->
+        <!--</div>-->
