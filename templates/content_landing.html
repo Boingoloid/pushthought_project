@@ -7,6 +7,7 @@
 
 
 {% block content %}
+<!--{{program}}-->
 
 <div class="intro-header intro-header-landing">
     <div class="container container-text-white">
@@ -15,8 +16,10 @@
                     <h1>{{program.programTitle}}</h1>
                     <p class="description">{{program.programDescription}}</p>
                 </div>
+
                 <div class="content-info-right">
                     <div>hello I"m here</div>
+                    <img class='program-item-image' id='program-item-image' src={{program.poster_url}} alt='Program Image'>
                 </div>
             </div>
 
