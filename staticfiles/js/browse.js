@@ -1,52 +1,42 @@
 $(document).ready(function() {
 
 
-    $('.browse-button-area').on("hover", function () {
-        this.style.backgroundColor = white;
+    $('.browse-button-a').hover( function () {
+        console.log("hello");
+        var acc = $('.accordion');
+        if ($('.panel').css('opacity') == 0){
+            $(".panel").css("opacity", "1.0");
+            $(".panel").css("height", "auto");
+            $(".panel").css("border-top", "3px solid white");
+            console.log("make appear");
+        } else {
+            $(".panel").css("opacity", "0.0");
+            $(".panel").css("height", "0");
+            $(".panel").css("border-top", "0px solid white");
+            console.log("make disappear");
+        }
     });
 
 
-    var acc = $('.accordion');
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-      acc[i].onmouseover = function() {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.maxHeight){
-          panel.style.maxHeight = null;
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-        }
-      }
-
-      acc[i].onmouseout = function() {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.maxHeight){
-          panel.style.maxHeight = null;
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-        }
-      }
-    }
-
-
-    // Browse Page
     $('.program-container').on('click','.program-item',function(event) {
        var idText = $(this).attr('id');
        var repIndex = idText.replace('program-item','');
 
-       var programObjectIdTagName = "#program-item-objectId" + repIndex;
-       var programObjectId = $(programObjectIdTagName).text();
+       var programObjectIdElementName = "#program-item-objectId" + repIndex;
+       var programObjectId = $(programObjectIdElementName).text();
 
-       window.location.href="http://127.0.0.1:8000/program_detail/" + programObjectId;
+       window.location.href="/content_landing/" + programObjectId;
     });
 
     // Back button on program_detail page
     $("#back-btn").on( "click", function() {
-      window.location.href="http://127.0.0.1:8000/browse";
+      window.location.href="/browse";
     });
+
+
+});
+
+
 
 //    $('.segment-item-container').on('click','.segment-item',function(event) {
 //       var programObjectId = $("#program-objectId").text();
@@ -59,4 +49,30 @@ $(document).ready(function() {
 //
 //       window.location.href="http://127.0.0.1:8000/action_menu/" + programObjectId + "/" + segmentObjectId;
 //    });
-});
+
+
+
+//    var acc = $('.accordion');
+//    var i;
+//
+//    for (i = 0; i < acc.length; i++) {
+//      acc[i].onmouseover = function() {
+//        this.classList.toggle("active");
+//        var panel = this.nextElementSibling;
+//        if (panel.style.maxHeight){
+//          panel.style.maxHeight = null;
+//        } else {
+//          panel.style.maxHeight = panel.scrollHeight + 'px';
+//        }
+//      }
+//
+//      acc[i].onmouseout = function() {
+//        this.classList.toggle("active");
+//        var panel = this.nextElementSibling;
+//        if (panel.style.maxHeight){
+//          panel.style.maxHeight = null;
+//        } else {
+//          panel.style.maxHeight = panel.scrollHeight + 'px';
+//        }
+//      }
+//    }

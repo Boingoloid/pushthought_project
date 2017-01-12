@@ -16,7 +16,7 @@ p {
   margin: 0px 0;
   letter-spacing:1px;
   word-spacing: 3px;
-  color: black;
+  color: white;
 }
 
 p a {
@@ -43,7 +43,7 @@ footer a{
 }
 
 h1{
-  color:black;
+  color:white;
 }
 h2,
 h3,
@@ -53,7 +53,7 @@ h6,
  p{
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
-  color: black;
+  color: white;
   margin-top: 10px;
   margin-bottom: 10px;
   letter-spacing:1.5;
@@ -237,7 +237,7 @@ hr.small {
 .intro-header .post-heading,
 .intro-header .page-heading {
   padding: 5px 0 5px;
-  color: black;
+  color: white;
   height: auto;
 }
 
@@ -703,7 +703,13 @@ table {
   color: white;
 }
 
-.landing-container h1,h2,h3,h4,h5,h6,p{
+.landing-container h1,
+.landing-container h2,
+.landing-container h3,
+.landing-container h4,
+.landing-container h5,
+.landing-container h6,
+.landing-container p{
   color: white;
 }
 
@@ -715,7 +721,13 @@ table {
 
 /* how-it-works l*/
 
-.how-container h1,h2,h3,h4,h5,h6,p{
+.how-container h1,
+.how-container h2,
+.how-container h3,
+.how-container h4,
+.how-container h5,
+.how-container h6,
+.how-container p {
   color:black;
 }
 

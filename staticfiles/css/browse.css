@@ -106,25 +106,43 @@ button.accordion.active:after {
 
 }
 
+div.browse-button-a{
+    background:rgba(0,0,0,0);
+    align: left;
+    width:130px;
+    margin-left: 10px;
+}
+
 div.panel {
+    cursor: pointer;
     padding: 0 18px;
-    background-color: rgba(0,0,0,.95);
-    max-height: 0;
+    background-color: rgba(0,0,0,.9);
     overflow: hidden;
     transition: max-height 0.2s ease-out;
     width: 250px;
     border-style: solid;
     border: 0px solid black;
-    border-radius: 10px;
+    border-radius: 0px;
     position: absolute;
+    height: auto;
+    opacity: 0;
 }
 
 div.panel p {
+    cursor: pointer;
     color:white;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight:600;
 }
 
 ::selection {
   text-shadow: none;
   background-color: rgba(0,0,0,0);
+}
+
+
+.browse-container{
+  background: #091525;
+  background: linear-gradient(#000b1e, #092551); /* Standard syntax */
+  padding-left:20px;
 }
