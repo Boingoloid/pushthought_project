@@ -11,23 +11,60 @@
 
 <div class="intro-header intro-header-landing">
     <div class="container container-text-white">
-            <div class="content-wrapper">
-                <div class="content-info-left">
-                    <h1>{{program.programTitle}}</h1>
-                    <p class="description">{{program.programDescription}}</p>
-                </div>
-
-                <div class="content-info-right">
-                    <div>hello I"m here</div>
-                    <img class='program-item-image' id='program-item-image' src={{program.poster_url}} alt='Program Image'>
+        <div class="content-wrapper">
+            <div class="content-info-left">
+                <h1>{{program.programTitle}}</h1>
+                <p class="description">{{program.programDescription}}</p>
+            </div>
+            <div class="content-info-right">
+                <div class="div-title-image">
+                    <img class='img program-item-image img-landing-title' id='program-item-image' src={{program.poster_url}} alt='Program Image'>
+                    <button class="watch-button" style="red;">WATCH</button>
                 </div>
             </div>
-
+        </div>
     </div>
-    <div class="container container-text-white">
+    <div class="container">
          <div class="row">
-            <p style="margin-left:20px; color:#bdbdbd; font-weight:600; font-size:16px;">All Titles</p>
+            <h2 style="color:#bdbdbd; font-weight:600; font-size:20px;">Already seen it?</h2>
+             <h3>Share with purpose below...</h3>
+             <br/>
          </div>
+    </div>
+    <div class="container">
+         <div class="row">
+             <h2>@ Federal Representatives</h2>
+            <div class="rep-container">
+                {% for item in congressData %}
+                <div class='rep-item' id="rep-item{{forloop.counter}}">
+                    <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
+                    <div>
+                        {% if item.imageFileURL %}
+                            <img class='repPhoto' id='repPhoto{{forloop.counter}}' src={{item.imageFileURL}} alt='Portrait'>
+                        {% else %}
+                            <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
+                        {% endif %}
+                        <div class="name-title-container" >
+                            <div><p class="full-name">{{item.full_name}}</p></div>
+                            <div><p class="title">{{item.title}}</p></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div> <!--close rep container-->
+         </div>
+    </div>
+
+
+    <div class="container">
+        <div class="tweet-header">
+            <p>Recent Tweets  (click to copy)</p>
+        </div>
+        <div class="tweet-container list-unstyled col-md-5">
+            {% for item in tweetData %}
+                <div class='tweet-item'>{{item.messageText}}</div>
+            {% endfor %}
+        </div> <!--close tweet container-->
     </div>
 </div><!-- /.intro-header -->
 
@@ -48,6 +85,6 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="{% static 'js/browse.js' %}"></script>
+<script src="{% static 'js/content_landing.js' %}"></script>
 
  {% endblock %}

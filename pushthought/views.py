@@ -83,15 +83,98 @@ def send_contact(request):
 def about(request):
     return render(request, 'about.html')
 
+def leaving(request):
+    return HttpResponse("Watch function not in place yet, working on it. thanks :)")
 
 def content_landing(request,programId):
     client = pymongo.MongoClient(MONGODB_URI)
     db = client.get_default_database()
     program = db.Programs.find_one({"_id":programId})
+
+
+    zipCode = "94107"
+    congress_data_raw = get_congress_data(zipCode)
+    congress_data_raw = add_title_and_full_name(congress_data_raw)
+    congress_photos = get_congress_photos(congress_data_raw)
+    congress_data = add_congress_photos(congress_data_raw,congress_photos)
+    tweet_data = get_tweet_dataA(programId)
+
     dataDict = {}
     dataDict['program'] = program
+    dataDict['congressData'] = congress_data
+    dataDict['tweetData'] = tweet_data
+    print ("tweet data ", tweet_data.count)
 
     return render(request, 'content_landing.html',dataDict)
+
+#helper
+def get_tweet_dataA(segmentId):
+    segmentId = 'JPGM9mmcKV'
+    # Query for tweets
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({
+        "where":json.dumps({
+            "segmentObjectId":segmentId,
+            "messageType": "twitter"
+        }),
+        "order":"-_created_at"})
+    connection.connect()
+    connection.request('GET', '/parse/classes/sentMessages?%s' % params, '', {
+           "X-Parse-Application-Id": PARSE_APP_ID,
+           "X-Parse-REST-API-Key": PARSE_REST_KEY
+         })
+
+    tweet_data = json.loads(connection.getresponse().read())
+    print "Tweet data"
+    print tweet_data
+    return tweet_data['results']
+
+
+def fed_rep_action_menu(request, programId, segmentId):
+
+    # Get variables
+    program_dict = fetch_program_data(programId)
+    segment_dict = fetch_segment_data(segmentId)
+    program_data = json.dumps(program_dict)
+    segment_data = json.dumps(segment_dict)
+    action_list = fetch_action_list(segmentId)
+
+
+    zipCode = "94107"
+    congress_data_raw = get_congress_data(zipCode)
+    congress_data_raw = add_title_and_full_name(congress_data_raw)
+    congress_photos = get_congress_photos(congress_data_raw)
+    congress_data = add_congress_photos(congress_data_raw,congress_photos)
+
+    hashtag_data = get_hashtag_data(segmentId)
+
+    tweet_data = get_tweet_data(segmentId)
+
+    # Store values in session
+    source_url = request.build_absolute_uri()
+    request.session['last_menu_url'] = source_url
+    print "source_url saved in session:" + source_url
+    request.session['programId'] = programId
+    request.session['segmentId'] = segmentId
+
+    dataDict = {}
+    dataDict['actionList'] = action_list
+    dataDict['hashtagData'] = hashtag_data
+    dataDict['tweetData'] = tweet_data
+    dataDict['congressData'] = congress_data
+
+    dataDict['programId'] = programId
+    dataDict['programTitle'] = program_dict['programTitle']
+    dataDict['programData'] = program_data
+
+    dataDict['segmentId'] = segmentId
+    dataDict['segmentTitle'] = segment_dict['segmentTitle']
+    dataDict['purposeSummary'] = segment_dict['purposeSummary']
+    dataDict['segmentData'] = segment_data
+
+    return render(request, 'fed_rep_action_menu.html', dataDict)
+
+
 
 def program_detail(request,programId):
 
@@ -482,8 +565,6 @@ def get_congress_data(zipCode):
 
 #helper
 def add_congress_photos(congress_data,photo_data):
-    print congress_data
-    print photo_data
     for personItem in congress_data:
         for photoItem in photo_data:
             if str(personItem['bioguide_id']) == str(photoItem['bioguideID']):
@@ -525,48 +606,6 @@ def add_title_and_full_name(congress_data_raw):
     return congress_data_raw
 
 
-def fed_rep_action_menu(request, programId, segmentId):
-
-    # Get variables
-    program_dict = fetch_program_data(programId)
-    segment_dict = fetch_segment_data(segmentId)
-    program_data = json.dumps(program_dict)
-    segment_data = json.dumps(segment_dict)
-    action_list = fetch_action_list(segmentId)
-
-    zipCode = "94107"
-    congress_data_raw = get_congress_data(zipCode)
-    congress_data_raw = add_title_and_full_name(congress_data_raw)
-    congress_photos = get_congress_photos(congress_data_raw)
-    congress_data = add_congress_photos(congress_data_raw,congress_photos)
-
-    hashtag_data = get_hashtag_data(segmentId)
-
-    tweet_data = get_tweet_data(segmentId)
-
-    # Store values in session
-    source_url = request.build_absolute_uri()
-    request.session['last_menu_url'] = source_url
-    print "source_url saved in session:" + source_url
-    request.session['programId'] = programId
-    request.session['segmentId'] = segmentId
-
-    dataDict = {}
-    dataDict['actionList'] = action_list
-    dataDict['hashtagData'] = hashtag_data
-    dataDict['tweetData'] = tweet_data
-    dataDict['congressData'] = congress_data
-
-    dataDict['programId'] = programId
-    dataDict['programTitle'] = program_dict['programTitle']
-    dataDict['programData'] = program_data
-
-    dataDict['segmentId'] = segmentId
-    dataDict['segmentTitle'] = segment_dict['segmentTitle']
-    dataDict['purposeSummary'] = segment_dict['purposeSummary']
-    dataDict['segmentData'] = segment_data
-
-    return render(request, 'fed_rep_action_menu.html', dataDict)
 
 #helper
 def get_hashtag_data(segmentId):

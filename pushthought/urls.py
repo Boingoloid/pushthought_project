@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^send-contact/', views.send_contact,name='send_contact'),
     url(r'^browse', views.browse, name='browse'),
     url(r'^content_landing/(?P<programId>\w+)', views.content_landing, name='content_landing'),
+    url(r'^leaving', views.leaving, name='leaving'),
     url(r'^program_detail/(?P<programId>\w+)', views.program_detail, name='program_detail'),
     # url(r'^api', views.api,name='api',),
     # Twitter Verification
