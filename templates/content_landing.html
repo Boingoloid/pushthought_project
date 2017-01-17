@@ -7,7 +7,6 @@
 
 
 {% block content %}
-<!--{{program}}-->
 
 <div class="intro-header intro-header-landing">
     <div class="container container-text-white">
@@ -15,6 +14,10 @@
             <div class="content-info-left">
                 <h1>{{program.programTitle}}</h1>
                 <p class="description">{{program.programDescription}}</p>
+                    <div class="seen-it-container">
+                        <h2 style="color:red; font-weight:600; font-size:20px;">Already seen it?</h2>
+                        <h3>Share with purpose below...</h3>
+                    </div>
             </div>
             <div class="content-info-right">
                 <div class="div-title-image">
@@ -24,57 +27,54 @@
             </div>
         </div>
     </div>
-    <div class="container">
-         <div class="row">
-            <h2 style="color:#bdbdbd; font-weight:600; font-size:20px;">Already seen it?</h2>
-             <h3>Share with purpose below...</h3>
-             <br/>
-         </div>
-    </div>
-    <div class="container">
-         <div class="row">
-             <h2>Federal Representatives</h2>
-            <div class="rep-container">
-                {% for item in congressData %}
-                <div class="rep-item-container">
-                    <div class='rep-item' id="rep-item{{forloop.counter}}">
-                        <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
-                        <div>
-                            {% if item.imageFileURL %}
-                                <img class='repPhoto' id='repPhoto{{forloop.counter}}' src={{item.imageFileURL}} alt='Portrait'>
-                            {% else %}
-                                <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
-                            {% endif %}
-                            <div class="name-title-container" >
-                                <div><p class="full-name">{{item.full_name}}</p></div>
-                                <div><p class="title">{{item.title}}</p></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="action-panel-container">
-                        <div class="action-panel">
-                            <img src="{% static 'img/twitter-icon.png' %}" width="40" heigh="40" >
-                        </div>
+</div>
+<div class="container-standard">
+    <div class="container-standard">
+        <br/>
+        <h2>Federal Representatives</h2>
+        <div class="rep-container">
+            {% for item in congressData %}
+            <div class="rep-item-container">
+                <div class='rep-item' id="rep-item{{forloop.counter}}">
+                    <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
+                    {% if item.imageFileURL %}
+                        <img class='repPhoto' id='repPhoto{{forloop.counter}}' src={{item.imageFileURL}} alt='Portrait'>
+                    {% else %}
+                        <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
+                    {% endif %}
+                    <div class="name-title-container" >
+                        <div><p class="full-name">{{item.full_name}}</p></div>
+                        <div><p class="title">{{item.title}}</p></div>
                     </div>
                 </div>
-                {% endfor %}
-            </div> <!--close rep container-->
-         </div>
-    </div>
-
-
-    <div class="container">
-        <div class="tweet-header">
-            <p>Recent Tweets  (click to copy)</p>
-        </div>
-        <div class="tweet-container list-unstyled col-md-5">
-            {% for item in tweetData %}
-                <div class='tweet-item'>{{item.messageText}}</div>
+                <div class="action-panel-container">
+                    <div class="action-panel">
+                        <img class="phone-icon" src="{% static 'img/phone-icon.png' %}">
+                        <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42" >
+                        <img class="email-icon" src="{% static 'img/email-icon.png' %}" width="36" height="36" >
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-        </div> <!--close tweet container-->
+        </div> <!--close rep container-->
+    </div>
+    <div class="container-standard">
+            <div class="message-container">
+                <div class="tweet-header">
+                    <p>Recent Tweets  <span style="color:gray">(click to copy)</span></p>
+                </div>
+                <div class="tweet-container">
+                    {% for item in tweetData %}
+                    <div class="tweet-item">
+                        <div><p class="twitter-name" style="color:blue; font-size:12pt;">@{{item.username}}</p></div>
+                        <div class="tweet">{{item.messageText}}</div>
+                    </div>
+                   {% endfor %}
+                </div> <!--close tweet container-->
+            </div>
     </div>
 </div><!-- /.intro-header -->
-
+{% endblock %}
 
     <!--<div>-->
         <!--LIST OF PROGRAMS-->
@@ -90,8 +90,9 @@
         <!--{% endfor %}-->
     <!--</div>  &lt;!&ndash;close PROGRAM container&ndash;&gt;-->
 
-
+{% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'js/content_landing.js' %}"></script>
+{% endblock %}
 
- {% endblock %}
+

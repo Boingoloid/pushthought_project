@@ -8,8 +8,25 @@
 body {
   font-family: 'Lora', 'Times New Roman', serif;
   font-size: 20px;
-  background: linear-gradient(to right, #091525, #091525);
-  background:radial-gradient(#092551,#000b1e);
+  background:linear-gradient(#092551,#000b1e);
+  color:white;
+}
+
+body h1{
+  color:white;
+}
+body h2,
+body h3,
+body h4,
+body h5,
+body h6,
+body p {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  letter-spacing:1.5;
 }
 
 
@@ -486,6 +503,44 @@ form .row:first-child .floating-label-form-group {
   border: 1px solid #0085A1;
   color: white;
 }
+
+/* Browse button*/
+.browse-btn {
+  margin: 0 auto;
+  display: block;
+  width: 250px;
+  font-size: 24px;
+}
+
+@media only screen and (min-width: 600px) {
+  .browse-btn {
+    margin: 0 auto;
+    display:block;
+    width:400px;
+    font-size: 26px;
+  }
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.btn-outline {
+  background:rgba(0,0,0,0.0);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: gray;
+  color: gray;
+  font-weight: 200;
+  height: 30px;
+  width: 75px;
+  padding:0;
+  padding-left:7px;
+  text-align:left;
+}
+
 .pager {
   margin: 20px 0 0;
 }
@@ -605,7 +660,7 @@ table {
 
 
 
-.container-banner{
+.container-banner {
   background: black;
   margin-right:0px;
 }
@@ -670,11 +725,11 @@ table {
   font-size: 14px;
 }
 
-.program-item:hover{
+.program-item:hover {
   /*transform: scale(1.05);*/
 }
 
-.program-item-image{
+.program-item-image {
   height: 160px;
   min-height: 160px;
   width: 115px;
@@ -683,12 +738,12 @@ table {
   margin:auto;
 }
 
-.program-item-image-crop{
+.program-item-image-crop {
   display:block;
   margin:auto;
 }
 
-.program-title{
+.program-title {
   display:block;
   margin:auto;
   text-align:center;
@@ -703,7 +758,7 @@ table {
   background:linear-gradient(#092551,#000b1e);
 }
 
-.landing-container p{
+.landing-container p {
   margin: auto;
   color: white;
 }
@@ -714,11 +769,11 @@ table {
 .landing-container h4,
 .landing-container h5,
 .landing-container h6,
-.landing-container p{
+.landing-container p {
   color: white;
 }
 
-#email{
+#email {
   width: 200px;
 }
 
@@ -741,6 +796,11 @@ table {
   position:middle;
 }
 
+.how-it-works-title-container{
+  color:white;
+  width 100%;
+  margin-top 10px;
+}
 
 .panel{
   padding: 0px;
@@ -796,46 +856,8 @@ table {
 }
 
 .page-header{
-.page-header{
   margin-top:15px;
   font-size: 42px;
 }
 
 
-/* Browse button*/
-.browse-btn{
-  margin: 0 auto;
-  display:block;
-  width:250px;
-  font-size: 24px;
-}
-
-@media only screen and (min-width: 500px) {
-  .browse-btn{
-    margin: 0 auto;
-    display:block;
-    width:400px;
-    font-size: 26px;
-  }
-}
-
-.row {
-    margin-right: 0px;
-    margin-left: 0px;
-}
-
-.btn-outline{
-  background:rgba(0,0,0,0.0);
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 10px;
-  border-color: gray;
-  color: gray;
-  font-weight: 200;
-  height: 30px;
-  width: 75px;
-  padding:0;
-  padding-left:7px;
-  text-align:left;
-
-}
