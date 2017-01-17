@@ -28,35 +28,48 @@
         </div>
     </div>
 </div>
+
 <div class="container-standard">
-    <div class="container-standard">
-        <br/>
-        <h2>Federal Representatives</h2>
-        <div class="rep-container">
-            {% for item in congressData %}
-            <div class="rep-item-container">
-                <div class='rep-item' id="rep-item{{forloop.counter}}">
-                    <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
-                    {% if item.imageFileURL %}
-                        <img class='repPhoto' id='repPhoto{{forloop.counter}}' src={{item.imageFileURL}} alt='Portrait'>
-                    {% else %}
-                        <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
-                    {% endif %}
-                    <div class="name-title-container" >
-                        <div><p class="full-name">{{item.full_name}}</p></div>
-                        <div><p class="title">{{item.title}}</p></div>
+    <div class="rep-color-band">
+        <div class="container-standard">
+            <h2>Federal Representatives</h2>
+            <div class="rep-container">
+                {% for item in congressData %}
+                <div class="rep-item-container">
+                    <div class='rep-item' id="rep-item{{forloop.counter}}">
+                        <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
+                        {% if item.imageFileURL %}
+                            <img class='repPhoto' id='repPhoto{{forloop.counter}}' src={{item.imageFileURL}} alt='Portrait'>
+                        {% else %}
+                            <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
+                        {% endif %}
+                        <div class="name-title-container" >
+                            <div><p class="full-name">{{item.full_name}}</p></div>
+                            <div><p class="title">{{item.title}}</p></div>
+                        </div>
+                    </div>
+                    <div class="action-panel-container">
+                        <div class="action-panel">
+                            <img class="phone-icon" src="{% static 'img/phone-icon.png' %}">
+                            <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42" >
+                            <img class="email-icon" src="{% static 'img/email-icon.png' %}" width="36" height="36" >
+                        </div>
                     </div>
                 </div>
-                <div class="action-panel-container">
-                    <div class="action-panel">
-                        <img class="phone-icon" src="{% static 'img/phone-icon.png' %}">
-                        <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42" >
-                        <img class="email-icon" src="{% static 'img/email-icon.png' %}" width="36" height="36" >
+                {% endfor %}
+            </div> <!--close rep container-->
+            <div class="rep-action-container">
+                action container
+                <div>
+                <textarea id="text-input" placeholder="Tweet text here"></textarea>
                     </div>
+                <div>
+                    <input type="checkbox" id="include-link">Include link?</input>
+                    <button id="clear-button">Clear</button>
+                    <button id="tweet-button">Tweet Now</button>
                 </div>
             </div>
-            {% endfor %}
-        </div> <!--close rep container-->
+        </div>
     </div>
     <div class="container-standard">
             <div class="message-container">
