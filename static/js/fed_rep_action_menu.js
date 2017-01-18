@@ -78,9 +78,7 @@ $(document).ready(function(){
 
         alert(window_url)
         window.location.href = window_url;
-
       }
-
     });
 });
 

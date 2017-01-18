@@ -7,6 +7,8 @@
 
 
 {% block content %}
+<p hidden id="segmentId">{{program.segmentId}}</p>
+<p hidden id="programId">{{program.programId}}</p>
 
 <div class="intro-header intro-header-landing">
     <div class="container container-text-white">
@@ -59,14 +61,13 @@
                 {% endfor %}
             </div> <!--close rep container-->
             <div class="rep-action-container">
-                action container
                 <div>
-                <textarea id="text-input" placeholder="Tweet text here"></textarea>
-                    </div>
-                <div>
-                    <input type="checkbox" id="include-link">Include link?</input>
-                    <button id="clear-button">Clear</button>
+                    <textarea id="text-input" placeholder="Tweet text here"></textarea>
                     <button id="tweet-button">Tweet Now</button>
+                </div>
+                <div>
+                    <img class="img-checked-box" src="{% static 'img/white-check-box.png' %}" width="20" height="20"style="margin-top:-6px;"><p style="display:inline; margin-left:10px; margin-top:5px; margin-bottom:0px; padding:5px;">link included</p>
+                    <button id="clear-button">Clear</button>
                 </div>
             </div>
         </div>
@@ -87,6 +88,7 @@
             </div>
     </div>
 </div><!-- /.intro-header -->
+
 {% endblock %}
 
     <!--<div>-->
@@ -106,6 +108,7 @@
 {% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'js/content_landing.js' %}"></script>
+{% csrf_token %}
 {% endblock %}
 
 

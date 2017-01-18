@@ -34,8 +34,9 @@ urlpatterns = [
     url(r'^program_detail/(?P<programId>\w+)', views.program_detail, name='program_detail'),
     # url(r'^api', views.api,name='api',),
     # Twitter Verification
-    url(r'^verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweet>.*)',
-        views.verify_twitter),
+    url(r'^verify_twitter',views.verify_twitter),
+    # url(r'^verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweet>.*)',
+    #     views.verify_twitter),
     url(r'^verify_catch', views.verify_catch,name='verify_catch'),
 
     # Admin

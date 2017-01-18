@@ -62,7 +62,7 @@ $(document).ready(function() {
         });
 
 
-    //        var csrftoken = Cookies.get('csrftoken');
+//        var csrftoken = Cookies.get('csrftoken');
 //        alert("CSRF token:" + csrftoken);
 //
 //        function csrfSafeMethod(method) {

@@ -127,13 +127,39 @@ h2{
 }
 
 .rep-action-container{
+   padding: 10px;
    padding-left:50px;
    border: 0px solid black;
-   border-bottom:3px solid black;
-   padding: 10px;
+   border-bottom:0px solid black;
 }
 
+#text-input{
+  background: rgba(0,0,0,0);
+  border: 3px solid green;
+  border-radius: 10px;
+  width:450px;
+}
 
+#tweet-button{
+  height: 65px;
+  vertical-align: top;
+  margin: auto;
+  margin-top:0px;
+  border-radius: 10px;
+  background: green;
+}
+
+#include-link {
+  height: 30px;
+}
+
+#clear-button {
+  background:rgba(0,0,0,0);
+  border: 2px solid white;
+  border-radius:5px;
+  width: 100px;
+  margin-left:165px;
+}
 
 .rep-item-container{
   display:block;
