@@ -4,6 +4,8 @@ from django.conf import settings
 from django.template import RequestContext
 from django.contrib import messages
 
+from corsheaders.defaults import default_methods
+
 # from django.contrib.auth import authenticate, login
 # from pushthought.forms import UserForm, UserProfileForm
 # from django.contrib.auth.decorators import login_required
@@ -201,10 +203,10 @@ def verify_twitter(request):
     # res = requests.get(redirect_url)
     # print res.text
 
-    # s = requests.Session()
-    # s.headers.update({'Access-Control-Allow-Origin': '*'})
-    # s.headers.update({'Access-Control-Allow-Credentials': 'true'})
-    # s.headers.update({'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'})
+    s = requests.Session()
+    s.headers.update({'Access-Control-Allow-Origin': '*'})
+    s.headers.update({'Access-Control-Allow-Credentials': 'true'})
+    s.headers.update({'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'})
 
     # Store session value b/c sending to twitter for auth
     request.session['request_token'] = auth.request_token

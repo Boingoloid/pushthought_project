@@ -68,6 +68,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'pushthought',
+    'corsheaders',
     'rest_framework',
     'snippets',
     'prime',
@@ -75,6 +76,7 @@ INSTALLED_APPS = (
 
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -106,6 +108,15 @@ DJANGO_SETTINGS_MODULE = [
 ]
 
 WSGI_APPLICATION = 'pushthought.wsgi.application'
+
+
+CORS_ORIGIN_WHITELIST = (
+    'pushthought.com',
+    'localhost:8000',
+    '127.0.0.1:8000'
+)
+
+# CORS_ORIGIN_REGEX_WHITELIST = (r'^(https?://)?(\w+\.)?google\.com$', )
 
 
 # DATABASES = {
