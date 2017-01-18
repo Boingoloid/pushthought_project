@@ -1,15 +1,17 @@
+
+
+
 function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
+// these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
+
+
 $(document).ready(function() {
 
-
-
-    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-//    csrftoken = Cookies.get('csrftoken');
-
+    var csrftoken = Cookies.get('csrftoken');
+    //var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();  //this also works
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
@@ -17,6 +19,7 @@ $(document).ready(function() {
             }
         }
     });
+
 
     $('.watch-button').click( function() {
 //       var idText = $(this).attr('id');
@@ -78,8 +81,7 @@ $(document).ready(function() {
         dataSet = JSON.stringify({
             data: {
                 tweet_text: tweet_text,
-                twitter_username: twitter_username,
-                twitter_password: twitter_password
+                twitter_username: twitter_username
             }
         });
 
@@ -91,13 +93,15 @@ $(document).ready(function() {
                 success: function() {
                     // Success message
                     console.log('success')
+
                 },
                 error: function() {
                     // Fail message
                     console.log('fail :)')
                 },
             });
-
+        alert(window_url)
+        //window.location.href = window_url;
       }
     });
 

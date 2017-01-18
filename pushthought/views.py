@@ -18,18 +18,17 @@ from .forms import SegmentForm
 from views_parse import *
 # from django.contrib.auth import logout
 
-import os
 import tweepy
 import json, httplib
 import urllib
 
-import app
 import pymongo
+import requests
 
 PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
-TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
-#TWITTER_CALLBACK_ROOT_URL = 'http://www.pushthought.com/verify_catch'
+# TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
+TWITTER_CALLBACK_ROOT_URL = 'http://www.pushthought.com/verify_catch'
 
 TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
 TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
@@ -134,23 +133,24 @@ def get_tweet_dataA(segmentId):
 def verify_twitter(request):
     print "ajax hitting verify twitter!"
     print "send contact function!"
-    print request.body
-    print request.GET
-    print request.POST
-    print request.session
-    print request.META
+    print "request.body:", request.body
+    print "request.GET:", request.GET
+    print "request.POST", request.POST
+    print "request.session", request.session
+    print "request.META", request.META
+    # print "request.cookies", request.cookies
 
     verification_post = json.loads(request.body)
     verification_data = verification_post['data']
     print verification_data
     tweet_text = verification_data['tweet_text']
     print tweet_text
-    
 
-    return HttpResponse("Watch function not in place yet, working on it. thanks :)")
+
+    # return HttpResponse("Watch function not in place yet, working on it. thanks :)")
 
     # tweet_text = urllib.unquote_plus(tweet)
-    #request.session['user_object_id'] = 'JMSR6hFydj'
+    # request.session['user_object_id'] = 'JMSR6hFydj'
     # try:
     #     print "user has token, user id:" + request.session['user_object_id']
     # except:
@@ -191,22 +191,103 @@ def verify_twitter(request):
     #
     # except:
     #     print "exception"
-    #     CALLBACK_URL = TWITTER_CALLBACK_ROOT_URL
-    #
-    #     # App level auth
-    #     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
-    #     redirect_url = auth.get_authorization_url()
-    #
-    #     # Store session value b/c sending to twitter for auth
-    #     request.session['request_token'] = auth.request_token
-    #     request.session['tweetText'] = tweet_text
-    #     request.session['programId'] = programId
-    #     request.session['segmentId'] = segmentId
-    #     request.session.modified = True
-    #
-    #     return HttpResponseRedirect(redirect_url)
+    CALLBACK_URL = TWITTER_CALLBACK_ROOT_URL
+
+    # App level auth
+    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
+    redirect_url = auth.get_authorization_url()
+    print redirect_url
+
+    # res = requests.get(redirect_url)
+    # print res.text
+
+    # s = requests.Session()
+    # s.headers.update({'Access-Control-Allow-Origin': '*'})
+    # s.headers.update({'Access-Control-Allow-Credentials': 'true'})
+    # s.headers.update({'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'})
+
+    # Store session value b/c sending to twitter for auth
+    request.session['request_token'] = auth.request_token
+    # request.session['tweetText'] = tweet_text
+    # request.session['programId'] = programId
+    # request.session['segmentId'] = segmentId
+    request.session.modified = True
+    return HttpResponseRedirect(redirect_url)
+
+def verify_catch(request):
+
+    print "verify catch starting"
+
+    # Establish auth connection using Ap identification
+    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
+
+    # Get Request Token, then delete from session
+    token = request.session['request_token']
+    print "request token being used" + str(token)
+    auth.request_token = token
+    try:
+        del request.session['request_token']
+        print "deleting request token"
+    except request.exceptions.HTTPError as e:
+        print "And you get an HTTPError:", e.message
+
+    # Get Access Key
+    verifier = request.GET.get('oauth_verifier')
+    accessKey = auth.get_access_token(verifier)
+    accessKeyToken = accessKey[0]
+    accessKeyTokenSecret = accessKey[1]
+
+    # Establish API connection
+    api = tweepy.API(auth)
+
+    # Get Twitter User info
+    twitter_user = api.me()
+    twitter_screen_name = twitter_user.screen_name
 
 
+    current_user = log_user_into_parse(twitter_user,accessKeyToken,accessKeyTokenSecret)
+    update_user_with_twitter_data (current_user,twitter_user,accessKeyToken,accessKeyTokenSecret)
+
+    request.session['user_object_id'] = str(current_user['objectId'])
+
+
+    # Send tweet (if available)
+    if 'tweetText' in request.session:
+        tweet_text = request.session['tweetText']
+        del request.session['tweetText']
+        api.update_status(tweet_text)
+        show_tweet_success_message(request, tweet_text)
+        print "tweet sent"
+
+        # Save tweet action
+        action_object_id = save_tweet_action(request,tweet_text,current_user,twitter_screen_name)
+
+        # Save #'s
+        save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_object_id)
+
+        # Save @'s
+        save_targets(request,tweet_text,current_user,twitter_screen_name, action_object_id)
+
+        # Save to SegmentStats
+        update_segment_stats(request)
+
+
+
+
+
+        request.session.modified = True
+
+    else:
+        print "verify catch NO message to send"
+
+    # Navigation
+    if 'last_menu_url' in request.session:
+        source_url = request.session['last_menu_url']
+
+        return HttpResponseRedirect(source_url)
+        # return render(request, 'fed_rep_action_menu.html', {'programId'z: program, 'segmentId': segment})
+    else:
+        return render(request, 'home.html')
 
 def fed_rep_action_menu(request, programId, segmentId):
 
@@ -448,7 +529,7 @@ def user_signin_form(request):
             user_objectId = current_user['objectId']
             request.session['sessionToken'] = current_user['sessionToken']
             print "session token:" + request.session['sessionToken']
-            account_home = "http://127.0.0.1:8000/account/" + user_objectId
+            account_home = "/account/" + user_objectId
             return HttpResponseRedirect(account_home)
 
             # return render(request, 'account_home.html',{'user_pk':current_user['objectId']})
@@ -785,80 +866,7 @@ def show_tweet_success_message(request, tweet_text): #helper
     return None
 
 
-def verify_catch(request):
 
-    print "verify catch starting"
-
-    # Establish auth connection using Ap identification
-    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
-
-    # Get Request Token, then delete from session
-    token = request.session['request_token']
-    print "request token being used" + str(token)
-    auth.request_token = token
-    try:
-        del request.session['request_token']
-        print "deleting request token"
-    except request.exceptions.HTTPError as e:
-        print "And you get an HTTPError:", e.message
-
-    # Get Access Key
-    verifier = request.GET.get('oauth_verifier')
-    accessKey = auth.get_access_token(verifier)
-    accessKeyToken = accessKey[0]
-    accessKeyTokenSecret = accessKey[1]
-
-    # Establish API connection
-    api = tweepy.API(auth)
-
-    # Get Twitter User info
-    twitter_user = api.me()
-    twitter_screen_name = twitter_user.screen_name
-
-
-    current_user = log_user_into_parse(twitter_user,accessKeyToken,accessKeyTokenSecret)
-    update_user_with_twitter_data (current_user,twitter_user,accessKeyToken,accessKeyTokenSecret)
-
-    request.session['user_object_id'] = str(current_user['objectId'])
-
-
-    # Send tweet (if available)
-    if 'tweetText' in request.session:
-        tweet_text = request.session['tweetText']
-        del request.session['tweetText']
-        api.update_status(tweet_text)
-        show_tweet_success_message(request, tweet_text)
-        print "tweet sent"
-
-        # Save tweet action
-        action_object_id = save_tweet_action(request,tweet_text,current_user,twitter_screen_name)
-
-        # Save #'s
-        save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_object_id)
-
-        # Save @'s
-        save_targets(request,tweet_text,current_user,twitter_screen_name, action_object_id)
-
-        # Save to SegmentStats
-        update_segment_stats(request)
-
-
-
-
-
-        request.session.modified = True
-
-    else:
-        print "verify catch NO message to send"
-
-    # Navigation
-    if 'last_menu_url' in request.session:
-        source_url = request.session['last_menu_url']
-
-        return HttpResponseRedirect(source_url)
-        # return render(request, 'fed_rep_action_menu.html', {'programId'z: program, 'segmentId': segment})
-    else:
-        return render(request, 'home.html')
 
 #helper
 def save_tweet_action(request,tweet_text,current_user,twitter_screen_name): #helper
