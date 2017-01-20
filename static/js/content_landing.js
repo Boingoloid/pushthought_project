@@ -67,41 +67,44 @@ $(document).ready(function() {
         alert ("Please type a message to tweet first");
       } else {
         alert (tweet_text);
+
+        window_url = "http://127.0.0.1:8000/verify_twitter"
+
         //Create and encode URL
         //var encodedTweetText = encodeURIComponent(tweetText);
         //window_url = "http://127.0.0.1:8000";
         //window_url += "/verify_twitter/" + programId + "/" + segmentId;
         //window_url += "/" + encodedTweetText;
 
-        var twitter_username = "username"
-        var twitter_password = "password"
+        //var twitter_username = "username"
+        //var twitter_password = "password"
         // For Success/Failure Message
         // Check for white space in name for Success/Fail message
 
-        dataSet = JSON.stringify({
-            data: {
-                tweet_text: tweet_text,
-                twitter_username: twitter_username
-            }
-        });
+//        dataSet = JSON.stringify({
+//            data: {
+//                tweet_text: tweet_text,
+//                twitter_username: twitter_username
+//            }
+//        });
+//
+//         $.ajax({url: "/verify_twitter",
+//                type: "POST",
+//                data: dataSet,
+//                contentType: 'application/json;charset=UTF-8',
+//                cache: false,
+//                success: function() {
+//                    // Success message
+//                    console.log('success')
+//
+//                },
+//                error: function() {
+//                    // Fail message
+//                    console.log('fail :)')
+//                },
+//            });
 
-         $.ajax({url: "/verify_twitter",
-                type: "POST",
-                data: dataSet,
-                contentType: 'application/json;charset=UTF-8',
-                cache: false,
-                success: function() {
-                    // Success message
-                    console.log('success')
-
-                },
-                error: function() {
-                    // Fail message
-                    console.log('fail :)')
-                },
-            });
-        alert(window_url)
-        //window.location.href = window_url;
+        window.location.href = window_url;
       }
     });
 

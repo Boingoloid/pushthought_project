@@ -194,6 +194,7 @@ import dj_database_url
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
+# ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['localhost','127.0.0.1','.pushthought.com','.herokuapp.com']
 
 # Static files (CSS, JavaScript, Images)
@@ -209,6 +210,8 @@ STATICFILES_DIRS = (
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
+PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
 
 PARSE_KEY = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_SECRET = 'tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP'
@@ -219,9 +222,14 @@ TWITTER_CONSUMER_SECRET = 'BiN5qkDZpltqgHhyCtUO0zYrSsgE3WhTWEqYAgKhIAmpl1f4NI'
 # user level twitter settings
 TWITTER_ACCESS_TOKEN = '3082438601-f7UpqrzsVb9wfoUrF4pUXxdsqHm7T6Ybd2mFOFO'
 TWITTER_ACCESS_TOKEN_SECRET = '7LqRKtDnG84rfmEvvS0n1cW47Zomg3uWkEjIoQAXuqWnr'
+TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
+
+SUNLIGHT_LABS_API_KEY = "ed7f6bb54edc4577943dcc588664c89f"
 
 MONGO_DBNAME = "heroku_zcdt9dml"
 MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/heroku_zcdt9dml"
+
+CONGRESS_DATA_UPDATE_TRIGGER = False
 
 
 

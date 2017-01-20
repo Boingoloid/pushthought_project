@@ -21,9 +21,10 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.conf.urls import url, include
 from snippets import urls
-from . import views
+import views
 
 urlpatterns = [
+    url(r'^test', views.get_congress_data,name='test',),
     url(r'^home', views.home,name='home',),
     url(r'^$', views.home,name='home'),
     url(r'^submit-email/(?P<email>.*)', views.submit_email,name='submit_email'),
