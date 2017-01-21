@@ -43,7 +43,6 @@ TWITTER_CALLBACK_ROOT_URL = settings.TWITTER_CALLBACK_ROOT_URL
 TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
 TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
-
 MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
 
@@ -158,7 +157,6 @@ def fed_rep_action_menu(request, programId, segmentId):
     dataDict['segmentData'] = segment_data
 
     return render(request, 'fed_rep_action_menu.html', dataDict)
-
 
 
 def program_detail(request,programId):

@@ -7,22 +7,20 @@ from views_get_data import *
 from views_user_forms import *
 
 def verify_twitter(request):
-    print "ajax hitting verify twitter!"
-    print "send contact function!"
-    print "request.body:", request.body
-    print "request.GET:", request.GET
-    print "request.POST", request.POST
-    print "request.session", request.session
-    print "request.META", request.META
+    # print "ajax hitting verify twitter!"
+    # print "send contact function!"
+    # print "request.body:", request.body
+    # print "request.GET:", request.GET
+    # print "request.POST", request.POST
+    # print "request.session", request.session
+    # print "request.META", request.META
 
-    verification_post = json.loads(request.body)
-    verification_data = verification_post['data']
-    tweet_text = verification_data['tweet_text']
-
-    request.session['user_object_id'] = ''
+    # verification_post = json.loads(request.body)
+    # verification_data = verification_post['data']
+    # tweet_text = verification_data['tweet_text']
+    # request.session['user_object_id'] = ''
 
     # check if user logged in.
-
     try:
         print "user has token, user id:" + request.session['user_object_id']
     except:
@@ -63,6 +61,7 @@ def verify_twitter(request):
     #
     # except:
     #     print "exception"
+
     CALLBACK_URL = settings.TWITTER_CALLBACK_ROOT_URL
 
     # App level auth
@@ -91,6 +90,7 @@ def verify_catch(request):
     token = request.session['request_token']
     print "request token being used" + str(token)
     auth.request_token = token
+
     try:
         del request.session['request_token']
         print "deleting request token"
@@ -100,8 +100,8 @@ def verify_catch(request):
     # Get Access Key
     verifier = request.GET.get('oauth_verifier')
     accessKey = auth.get_access_token(verifier)
-    accessKeyToken = accessKey[0]
-    accessKeyTokenSecret = accessKey[1]
+    access_key_token = accessKey[0]
+    access_key_token_secret = accessKey[1]
 
     # Establish API connection
     api = tweepy.API(auth)
@@ -110,54 +110,66 @@ def verify_catch(request):
     twitter_user = api.me()
     twitter_screen_name = twitter_user.screen_name
 
+    # print "Twitter user:", twitter_user
 
-    current_user = log_user_into_parse(twitter_user,accessKeyToken,accessKeyTokenSecret)
-    print "current user:", current_user
-    update_user_with_twitter_data (current_user,twitter_user,accessKeyToken,accessKeyTokenSecret)
-
-    request.session['user_object_id'] = str(current_user['objectId'])
-
-
-    # Send tweet (if available)
-    if 'tweetText' in request.session:
-        tweet_text = request.session['tweetText']
-        del request.session['tweetText']
-        api.update_status(tweet_text)
-        show_tweet_success_message(request, tweet_text)
-        print "tweet sent"
-
-        # Save tweet action
-        action_object_id = save_tweet_action(request,tweet_text,current_user,twitter_screen_name)
-
-        # Save #'s
-        save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_object_id)
-
-        # Save @'s
-        save_targets(request,tweet_text,current_user,twitter_screen_name, action_object_id)
-
-        # Save to SegmentStats
-        update_segment_stats(request)
-
-
-
-
-
-        request.session.modified = True
-
+    # check if user exists
+    current_user = get_user_by_twitter_screen_name(twitter_screen_name)
+    if current_user:
+        print "current user exists"
+        #Download and log in, user exists
     else:
-        print "verify catch NO message to send"
+        print "current user does NOT exist"
+        #create user
+        user_result = create_user_with_twitter_auth(twitter_user,access_key_token,access_key_token_secret)
 
-    # Navigation
-    if 'last_menu_url' in request.session:
-        source_url = request.session['last_menu_url']
-
-        return HttpResponseRedirect(source_url)
-        # return render(request, 'fed_rep_action_menu.html', {'programId'z: program, 'segmentId': segment})
-    else:
-        return render(request, 'home.html')
+        # either save session token, parse auto?  or
+        # send tweet if I need to, then save action.
 
 
-    #helper
+
+        # current_user = log_user_into_parse(twitter_user,access_key_token,access_key_token_secret)
+
+    return HttpResponse("made it")
+    # print "current user:", current_user
+    # update_user_with_twitter_data (current_user,twitter_user,access_key_token,access_key_token_secret)
+    #
+    # request.session['user_object_id'] = str(current_user['objectId'])
+    #
+    # # Send tweet (if available)
+    # if 'tweetText' in request.session:
+    #     tweet_text = request.session['tweetText']
+    #     del request.session['tweetText']
+    #     api.update_status(tweet_text)
+    #     show_tweet_success_message(request, tweet_text)
+    #     print "tweet sent"
+    #
+    #     # Save tweet action
+    #     action_object_id = save_tweet_action(request,tweet_text,current_user,twitter_screen_name)
+    #
+    #     # Save #'s
+    #     save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_object_id)
+    #
+    #     # Save @'s
+    #     save_targets(request,tweet_text,current_user,twitter_screen_name, action_object_id)
+    #
+    #     # Save to SegmentStats
+    #     update_segment_stats(request)
+    #     request.session.modified = True
+    #
+    # else:
+    #     print "verify catch NO message to send"
+    #
+    # # Navigation
+    # if 'last_menu_url' in request.session:
+    #     source_url = request.session['last_menu_url']
+    #
+    #     return HttpResponseRedirect(source_url)
+    #     # return render(request, 'fed_rep_action_menu.html', {'programId'z: program, 'segmentId': segment})
+    # else:
+    #     return render(request, 'home.html')
+
+
+#helper
 def send_tweet_with_tweepy(tweet_text,twitter_keys): #helper
     auth_token = twitter_keys['auth_token']
     auth_token_secret = twitter_keys['auth_token_secret']

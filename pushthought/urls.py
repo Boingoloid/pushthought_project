@@ -24,7 +24,7 @@ from snippets import urls
 import views
 
 urlpatterns = [
-    url(r'^test', views.get_congress_data,name='test',),
+    url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name,name='test',),
     url(r'^home', views.home,name='home',),
     url(r'^$', views.home,name='home'),
     url(r'^submit-email/(?P<email>.*)', views.submit_email,name='submit_email'),

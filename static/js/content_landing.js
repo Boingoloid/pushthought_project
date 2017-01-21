@@ -66,7 +66,7 @@ $(document).ready(function() {
       if(tweet_text.length < 1){
         alert ("Please type a message to tweet first");
       } else {
-        alert (tweet_text);
+//        alert (tweet_text);
 
         window_url = "http://127.0.0.1:8000/verify_twitter"
 
