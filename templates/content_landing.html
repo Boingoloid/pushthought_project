@@ -8,13 +8,14 @@
 
 {% block content %}
 <p hidden id="segmentId">{{program.segmentId}}</p>
-<p hidden id="programId">{{program.programId}}</p>
+<p hidden style="color:white;" id="programId">{{ programId }}</p>
 
 <div class="intro-header intro-header-landing">
     <div class="container container-text-white">
         <div class="content-wrapper">
             <div class="content-info-left">
                 <h1>{{program.programTitle}}</h1>
+
                 <p class="description">{{program.programDescription}}</p>
                     <div class="seen-it-container">
                         <h2 style="color:red; font-weight:600; font-size:20px;">Already seen it?</h2>
@@ -23,7 +24,8 @@
             </div>
             <div class="content-info-right">
                 <div class="div-title-image">
-                    <img class='img program-item-image img-landing-title' id='program-item-image' src={{program.poster_url}} alt='Program Image'>
+                    <img class='img program-item-image img-landing-title' id='program-item-image'
+                         src={{program.posterURL}} alt='Program Image'>
                     <button class="watch-button" style="red;">WATCH</button>
                 </div>
             </div>

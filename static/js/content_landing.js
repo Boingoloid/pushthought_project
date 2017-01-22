@@ -22,12 +22,10 @@ $(document).ready(function() {
 
 
     $('.watch-button').click( function() {
-//       var idText = $(this).attr('id');
-//       var repIndex = idText.replace('program-item','');
-//
-//       var programObjectIdElementName = "#program-item-objectId" + repIndex;
-//       var programObjectId = $(programObjectIdElementName).text();
-
+       //var idText = $(this).attr('id');
+       //var repIndex = idText.replace('program-item','');
+       //var programObjectIdElementName = "#program-item-objectId" + repIndex;
+       //var programObjectId = $(programObjectIdElementName).text();
        window.location.href="/leaving";
     });
 
@@ -52,12 +50,9 @@ $(document).ready(function() {
         alert('The link is always included for context')
     });
 
-
     var window_url =  window.location.href;
-    var segmentId = $('#segmentId').text();
-    //    "JPGM9mmcKV";
-    var programId = $('#programId').text();
-    //alert (segmentId);
+    var segment_id = $('#segmentId').text();
+    var program_id = $('#programId').text();
 
     $('#tweet-button').on('click',function(event) {
 
@@ -66,45 +61,30 @@ $(document).ready(function() {
       if(tweet_text.length < 1){
         alert ("Please type a message to tweet first");
       } else {
-//        alert (tweet_text);
+        dataSet = JSON.stringify({
+            data: {
+                "tweet_text": tweet_text,
+                "segment_id": segment_id,
+                "program_id": program_id,
+                "last_menu_url": window_url
+            }
+        });
+         $.ajax({url: "/verify_twitter",
+                type: "POST",
+                data: dataSet,
+                contentType: 'application/json;charset=UTF-8',
+                cache: false,
+                success: function(data) {
+                    // Success message
+                    console.log('success')
+                    window.location.href = data['redirect_url'];
 
-        window_url = "http://127.0.0.1:8000/verify_twitter"
-
-        //Create and encode URL
-        //var encodedTweetText = encodeURIComponent(tweetText);
-        //window_url = "http://127.0.0.1:8000";
-        //window_url += "/verify_twitter/" + programId + "/" + segmentId;
-        //window_url += "/" + encodedTweetText;
-
-        //var twitter_username = "username"
-        //var twitter_password = "password"
-        // For Success/Failure Message
-        // Check for white space in name for Success/Fail message
-
-//        dataSet = JSON.stringify({
-//            data: {
-//                tweet_text: tweet_text,
-//                twitter_username: twitter_username
-//            }
-//        });
-//
-//         $.ajax({url: "/verify_twitter",
-//                type: "POST",
-//                data: dataSet,
-//                contentType: 'application/json;charset=UTF-8',
-//                cache: false,
-//                success: function() {
-//                    // Success message
-//                    console.log('success')
-//
-//                },
-//                error: function() {
-//                    // Fail message
-//                    console.log('fail :)')
-//                },
-//            });
-
-        window.location.href = window_url;
+                },
+                error: function() {
+                    // Fail message
+                    console.log('fail :)')
+                },
+         });
       }
     });
 
@@ -118,4 +98,8 @@ $(document).ready(function() {
 //       window.location.href="/content_landing/" + tweetObjectId;
 //    });
 
+//        window.location.href = window_url;
+
+//        Create and encode URL
+//        var encodedTweetText = encodeURIComponent(tweetText);
 });

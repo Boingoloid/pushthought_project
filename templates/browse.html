@@ -43,7 +43,7 @@
                     {% for item in programList %}
                     <div class='program-item' id="program-item{{forloop.counter}}">
                         <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
-                            {% if item.poster_url %}
+                            {% if item.posterURL %}
                                     <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>
                             {% else %}
                                     <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>

@@ -24,13 +24,8 @@ $(document).ready(function() {
 
        var programObjectIdElementName = "#program-item-objectId" + repIndex;
        var programObjectId = $(programObjectIdElementName).text();
-
+       alert (programObjectId)
        window.location.href="/content_landing/" + programObjectId;
-    });
-
-    // Back button on program_detail page
-    $("#back-btn").on( "click", function() {
-      window.location.href="/browse";
     });
 
 

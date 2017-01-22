@@ -26,45 +26,21 @@ def get_user_by_twitter_screen_name(twitter_screen_name):
      })
     results = json.loads(connection.getresponse().read())
     current_user = results['results']
-    # print "got user by twitter name:", current_user
-
-    # if not current_user:
-    #     pass
-        #twiiter name does not exist as a user.
-        # sign up with twitter info and signup password.
-
-
-    # return HttpResponse(str(current_user))
+    print "current user got from twitter screen name", current_user
     return current_user
 
 
 def create_user_with_twitter_auth(twitter_user,access_key_token,access_key_token_secret ):
 
-    import jsonpickle
-    pickled = jsonpickle.encode(twitter_user)
+    import random, string
+    # password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
 
-    print "twitter user stuff below"
-    # print "twitter user object", twitter_user
-    # print "dir", dir(twitter_user)
-    # print "__dict_", twitter_user.__dict__
-    # new = json.dumps(twitter_user.__dict__)
-    # print new['screen_name']
-
-
-    user_password = "password"
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection.connect()
     connection.request('POST', '/parse/classes/_User', json.dumps({
         "username": str(twitter_user.screen_name),
-        "screen_name": str(twitter_user.screen_name),
-        "password": user_password,
-        "name_tw": twitter_user.name,
-        "id_tw": twitter_user.id_str,
-        "followers_count_tw": twitter_user.followers_count,
-        "friends_count_tw": twitter_user.friends_count,
-        "location_tw": twitter_user.location,
-        "time_zone_tw": twitter_user.time_zone,
-        "url_tw": twitter_user.url,
+        "twitterScreenName": str(twitter_user.screen_name),
+        "password": "password"
     }),
     {
        "X-Parse-Application-Id": PARSE_APP_ID,
@@ -72,15 +48,24 @@ def create_user_with_twitter_auth(twitter_user,access_key_token,access_key_token
        "X-Parse-Revocable-Session": "1",
        "Content-Type": "application/json"
     })
-    result = json.loads(connection.getresponse().read())
+    current_user = json.loads(connection.getresponse().read())
+    print "current user created", current_user
+    return current_user
 
-    user_object_Id = str(result['objectId'])
-    session_token = str(result['sessionToken'])
-    print "objectID", str(user_object_Id)
-    print "sessionToken", str(session_token)
-    print "User created in create_user_with_twitter_auth:", result
+def update_user_with_twitter_profile_data(current_user,twitter_user,access_key_token,access_key_token_secret):
+    data = twitter_user.__dict__
+    dataDump = str(data)
+    print dataDump
 
     authDic = json.dumps({
+        "name_tw": twitter_user.name,
+        "id_tw": twitter_user.id_str,
+        "followers_count_tw": twitter_user.followers_count,
+        "friends_count_tw": twitter_user.friends_count,
+        "location_tw": twitter_user.location,
+        "time_zone_tw": twitter_user.time_zone,
+        "url_tw": twitter_user.url,
+        "twitter_user": dataDump,
         "authData": {
             "twitter": {
                 "id": str(twitter_user.id),
@@ -92,25 +77,22 @@ def create_user_with_twitter_auth(twitter_user,access_key_token,access_key_token
              }
          }
     })
-    print authDic
 
-    connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection2.connect()
-    connection2.request('PUT', '/parse/classes/_User/' + user_object_Id, authDic,
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('PUT', '/parse/classes/_User/' + current_user['objectId'], authDic,
     {
        "X-Parse-Application-Id": PARSE_APP_ID,
        "X-Parse-REST-API-Key": PARSE_REST_KEY,
-       "X-Parse-Session-Token": session_token,
+       "X-Parse-Session-Token": current_user['sessionToken'],
        "Content-Type": "application/json"
     })
-    result = json.loads(connection2.getresponse().read())
-
-    print "User updated with_twitter_auth:", result
-
-
-
-    return result
-
+    result = json.loads(connection.getresponse().read())
+    if result:
+        print "twitter profile saved to user successfully"
+    else:
+        print "error saving twitter profile info to user"
+    return None
 
 def get_user_in_parse_only(request, user_pk):
 

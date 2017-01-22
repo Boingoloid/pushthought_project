@@ -136,16 +136,16 @@ def get_hashtag_data(segmentId):
     return hashtag_data['results']
 
 #helper
-def save_tweet_action(request,tweet_text,current_user,twitter_screen_name): #helper
+def save_tweet_action(request, tweet_text, current_user,twitter_user): #helper
     connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connectionTweet.connect()
-    connectionTweet.request('POST', '/parse/classes/sentMessages', json.dumps({
+    connectionTweet.request('POST', '/parse/classes/SentMessages', json.dumps({
         "messageText": tweet_text,
         "actionCategory": "Local Representative",
         "messageCategory": "Local Representative",
         "messageType": "twitter",
         "userObjectId": current_user['objectId'],
-        "twitterUserName": twitter_screen_name,
+        "twitterUserName": twitter_user.screen_name,
         "programObjectId" : request.session['programId'],
         "segmentObjectId" : request.session['segmentId']
         }), {
@@ -158,7 +158,7 @@ def save_tweet_action(request,tweet_text,current_user,twitter_screen_name): #hel
     return action_object_id
 
 #helper
-def save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_object_id):
+def save_hashtags(request,tweet_text,current_user,twitter_user,action_object_id):
     hashtag_list = set([i[1:] for i in tweet_text.split() if i.startswith("#")])
 
     for hashtag in hashtag_list:
@@ -175,7 +175,7 @@ def save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_obj
             "messageCategory": "Local Representative",
             "messageType": "twitter",
             "userObjectId": current_user['objectId'],
-            "twitterUserName": twitter_screen_name,
+            "twitterUserName": twitter_user.screen_name,
             "programObjectId" : request.session['programId'],
             "segmentObjectId" : request.session['segmentId'],
             'actionObjectId' : action_object_id
@@ -185,12 +185,11 @@ def save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_obj
             "Content-Type": "application/json"
         })
         result = json.loads(connectionTweet.getresponse().read())
-        print "hashtag save result"
-        print result
+        print "# save result", result
     return None
 
 #helper
-def save_targets(request,tweet_text,current_user,twitter_screen_name,action_object_id):
+def save_targets(request,tweet_text,current_user,twitter_user,action_object_id):
     target_list = set([i[1:] for i in tweet_text.split() if i.startswith("@")])
 
     for target in target_list:
@@ -205,7 +204,7 @@ def save_targets(request,tweet_text,current_user,twitter_screen_name,action_obje
             "messageCategory": "Local Representative",
             "messageType": "twitter",
             "userObjectId": current_user['objectId'],
-            "twitterUserName": twitter_screen_name,
+            "twitterUserName": twitter_user.screen_name,
             "programObjectId" : request.session['programId'],
             "segmentObjectId" : request.session['segmentId'],
             'actionObjectId' : action_object_id
@@ -215,38 +214,38 @@ def save_targets(request,tweet_text,current_user,twitter_screen_name,action_obje
             "Content-Type": "application/json"
         })
         result = json.loads(connectionTweet.getresponse().read())
-        print "address save result"
-        print result
+        print "@ save result", result
     return None
 
 #helper
 def update_segment_stats(request):
-    # NEED TO ADD LOGIC TO ADD IF NOT THERE
 
-    #look up value
+    # GET current value for segment activity
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    params = urllib.urlencode({"where":json.dumps({
-       "segmentObjectId": request.session['segmentId']
-     })})
+    params = urllib.urlencode({
+        "where":json.dumps({
+            "segmentObjectId": request.session['segmentId']
+        })
+    })
     connection.connect()
     connection.request('GET', '/parse/classes/SegmentStats?%s' % params, '', {
        "X-Parse-Application-Id": PARSE_APP_ID,
        "X-Parse-REST-API-Key": PARSE_REST_KEY
      })
     result = json.loads(connection.getresponse().read())
-    print "downloaded segment stats"
-    print result
+    print "downloaded segment stats:", result['results']
 
-    result_dict = result['results']
-    print "result dict"
-    print result_dict
-    action_count = result_dict[0]['actionCount']
-    action_count = action_count + 1
+    data = result['results']
+    if data:
+        action_count = data['actionCount']
+        action_count = action_count + 1
+    else:
+        action_count = 1
 
-    #update entry
+    #UPDATE current value for segment activity
     connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection2.connect()
-    connection2.request('PUT', '/parse/classes/SegmentStats/' + result_dict[0]['objectId'] , json.dumps({
+    connection2.request('PUT', '/parse/classes/SegmentStats/' + data[0]['objectId'] , json.dumps({
            "actionCount": action_count
          }), {
            "X-Parse-Application-Id": PARSE_APP_ID,
@@ -255,9 +254,8 @@ def update_segment_stats(request):
          })
 
     result2 = connection2.getresponse().read()
-    print "uploaded segment stats"
+    print "uploaded segment stats:", result2
 
-    print result2
     return None
 
 

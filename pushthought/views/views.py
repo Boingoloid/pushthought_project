@@ -95,7 +95,17 @@ def about(request):
 def leaving(request):
     return HttpResponse("Watch function not in place yet, working on it. thanks :)")
 
-def content_landing(request,programId):
+
+def browse(request):
+    program_list = get_program_list()
+
+    dataDict = {}
+    dataDict['programList'] = program_list
+    dataDict['segmentList'] = segment_list
+
+    return render(request, 'browse.html', dataDict)
+
+def content_landing(request, programId):
     client = pymongo.MongoClient(MONGODB_URI)
     db = client.get_default_database()
     program = db.Programs.find_one({"_id":programId})
@@ -109,9 +119,9 @@ def content_landing(request,programId):
 
     dataDict = {}
     dataDict['program'] = program
+    dataDict['programId'] = programId
     dataDict['congressData'] = congress_data
     dataDict['tweetData'] = tweet_data
-    print ("tweet data ", tweet_data.count)
 
     return render(request, 'content_landing.html',dataDict)
 
@@ -247,17 +257,6 @@ def segment_menu(request, user_pk, program_pk, segment_pk):
 
 
 
-def browse(request):
-    program_list = get_program_list()
-
-    dataDict = {}
-    dataDict['programList'] = program_list
-    dataDict['segmentList'] = segment_list
-    print (dataDict)
-
-    import pprint
-    pprint.pprint(dataDict)
-    return render(request, 'browse.html', dataDict)
 
 
 
@@ -284,7 +283,6 @@ def action_menu(request, programId, segmentId):
     dataDict['segmentData'] = segment_data
 
     return render(request, 'action_menu.html', dataDict)
-
 
 def petition(request, programId, segmentId):
     redirect_url = "a"

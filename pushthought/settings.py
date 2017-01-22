@@ -193,13 +193,11 @@ import dj_database_url
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Allow all host headers
+# Allowed host headers
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['localhost','127.0.0.1','.pushthought.com','.herokuapp.com']
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-# Static asset configuration
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
