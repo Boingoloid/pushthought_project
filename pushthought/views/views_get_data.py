@@ -40,9 +40,11 @@ def get_program_list():
         "X-Parse-Application-Id": PARSE_APP_ID,
         "X-Parse-REST-API-Key": PARSE_REST_KEY
     })
-
-    program_list = json.loads(connection.getresponse().read())
-    return program_list['results']
+    # program_list = connection.getresponse().read()
+    # print "return from get-programs:", program_list
+    program_list_results = json.loads(connection.getresponse().read())
+    program_list = program_list_results['results']
+    return program_list
 
 def get_program_list_for_user(user_pk):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -169,7 +171,7 @@ def save_hashtags(request,tweet_text,current_user,twitter_user,action_object_id)
         connectionTweet.connect()
         connectionTweet.request('POST', '/parse/classes/Hashtags', json.dumps({
             "hashtag" : hashtag,
-            "frequency" : "1",
+            "frequency" : 1,
             "messageText": tweet_text,
             "actionCategory": "Local Representative",
             "messageCategory": "Local Representative",
@@ -224,7 +226,7 @@ def update_segment_stats(request):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     params = urllib.urlencode({
         "where":json.dumps({
-            "segmentObjectId": request.session['segmentId']
+            "programObjectId": request.session['programId']
         })
     })
     connection.connect()
@@ -234,28 +236,39 @@ def update_segment_stats(request):
      })
     result = json.loads(connection.getresponse().read())
     print "downloaded segment stats:", result['results']
-
     data = result['results']
+
     if data:
         action_count = data['actionCount']
         action_count = action_count + 1
+        #UPDATE current value for segment activity
+        connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connection2.connect()
+        connection2.request('PUT', '/parse/classes/SegmentStats/' + data['objectId'] , json.dumps({
+               "actionCount": action_count
+             }), {
+               "X-Parse-Application-Id": PARSE_APP_ID,
+               "X-Parse-REST-API-Key": PARSE_REST_KEY,
+               "Content-Type": "application/json"
+             })
+
+        result2 = connection2.getresponse().read()
+        print "uploaded segment stats:", result2
     else:
         action_count = 1
+        #UPDATE current value for segment activity
+        connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connection2.connect()
+        connection2.request('POST', '/parse/classes/SegmentStats', json.dumps({
+               "actionCount": action_count
+             }), {
+               "X-Parse-Application-Id": PARSE_APP_ID,
+               "X-Parse-REST-API-Key": PARSE_REST_KEY,
+               "Content-Type": "application/json"
+             })
 
-    #UPDATE current value for segment activity
-    connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection2.connect()
-    connection2.request('PUT', '/parse/classes/SegmentStats/' + data[0]['objectId'] , json.dumps({
-           "actionCount": action_count
-         }), {
-           "X-Parse-Application-Id": PARSE_APP_ID,
-           "X-Parse-REST-API-Key": PARSE_REST_KEY,
-           "Content-Type": "application/json"
-         })
-
-    result2 = connection2.getresponse().read()
-    print "uploaded segment stats:", result2
-
+        result2 = connection2.getresponse().read()
+        print "uploaded segment stats:", result2
     return None
 
 

@@ -102,6 +102,15 @@ hr.small {
   border-color: black;
 }
 
+.nav-hr{
+  margin-left:-15px;
+  margin-right:-15px;
+}
+
+.nav-container{
+  height: 52px;
+  margin-bottom:0px;
+}
 
 
 .navbar{

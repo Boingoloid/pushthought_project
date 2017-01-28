@@ -44,9 +44,9 @@
                     <div class='program-item' id="program-item{{forloop.counter}}">
                         <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
                             {% if item.posterURL %}
-                                    <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>
+                                    <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} >
                             {% else %}
-                                    <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>
+                                    <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}>
                             {% endif %}
                         <!--<div class="program-title">-->
                             <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->

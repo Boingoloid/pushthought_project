@@ -1,4 +1,10 @@
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
 $(document).ready(function() {
+
 
 
     $('.browse-button-a').hover( function () {
@@ -23,9 +29,43 @@ $(document).ready(function() {
        var repIndex = idText.replace('program-item','');
 
        var programObjectIdElementName = "#program-item-objectId" + repIndex;
-       var programObjectId = $(programObjectIdElementName).text();
-       alert (programObjectId)
-       window.location.href="/content_landing/" + programObjectId;
+       var programId = $(programObjectIdElementName).text();
+       // alert (programObjectId)
+       window.location.href="/content_landing/" + programId;
+
+
+//        var csrftoken = Cookies.get('csrftoken');
+//        //var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();  //this also works
+//        $.ajaxSetup({
+//            beforeSend: function(xhr, settings) {
+//                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+//                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+//                }
+//            }
+//        });
+
+//
+//       dataSet = JSON.stringify({
+//                "programId": programId
+//        });
+//         $.ajax({url: "/content_landing/" + programId,
+//                type: "GET",
+////                data: dataSet,
+////                contentType: 'application/json;charset=UTF-8',
+////                cache: false,
+//                success: function(data) {
+//                    // Success message
+////                    programId = data['programId']
+////                    window.location.href='/content_landing/' + programId
+//                },
+//                error: function() {
+//                    // Fail message
+//                    console.log('fail :)')
+//                },
+//         });
+
+
+
     });
 
 

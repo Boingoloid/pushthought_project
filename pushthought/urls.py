@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^submit-email/(?P<email>.*)', views.submit_email,name='submit_email'),
     url(r'^send-contact/', views.send_contact,name='send_contact'),
     url(r'^browse', views.browse, name='browse'),
+    url(r'^content_landing_empty/$', views.content_landing_empty, name='content_landing_empty'),
     url(r'^content_landing/(?P<programId>\w+)', views.content_landing, name='content_landing'),
     url(r'^leaving', views.leaving, name='leaving'),
     url(r'^program_detail/(?P<programId>\w+)', views.program_detail, name='program_detail'),

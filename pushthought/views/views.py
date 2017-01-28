@@ -47,9 +47,10 @@ MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
 
 def home(request):
-    program_list =  get_program_list()
+    program_list = get_program_list()
     dataDict = {}
     dataDict['programList'] = program_list
+    print program_list
     return render(request, 'home.html', dataDict)
 
 def submit_email(request,email):
@@ -106,6 +107,8 @@ def browse(request):
     return render(request, 'browse.html', dataDict)
 
 def content_landing(request, programId):
+    request.session['programId'] = programId
+    print "content_landing programId:", programId
     client = pymongo.MongoClient(MONGODB_URI)
     db = client.get_default_database()
     program = db.Programs.find_one({"_id":programId})
@@ -124,6 +127,17 @@ def content_landing(request, programId):
     dataDict['tweetData'] = tweet_data
 
     return render(request, 'content_landing.html',dataDict)
+
+def content_landing_empty(request):
+    try:
+        programId = request.session['programId']
+        # del request.session['programId']
+        print "Content_landing_empty, passing on programId:", programId
+        dataDict = {}
+        dataDict['programId'] = programId
+        return render(request, 'content_landing_empty.html',dataDict)
+    except:
+        return HttpResponseRedirect('/browse/')
 
 def fed_rep_action_menu(request, programId, segmentId):
 

@@ -11,7 +11,8 @@ h2{
 
 .intro-header-landing {
   padding: 20px;
-  padding-bottom: 20px;
+  padding-top: 0px;
+  padding-bottom: 0px;
   background:linear-gradient( to left, #092551,#000b1e);
   height:auto;
 }
@@ -46,7 +47,6 @@ h2{
     position: absolute;
     right: 20;
 }
-
 
 
 .img-landing-title {
@@ -104,8 +104,16 @@ h2{
   min-width: 300px;
 }
 
+.container-standard {
+  margin: 15px;
+  margin-top: 0px;
+  margin-bottom:0px;
+}
+
+
+
 .rep-color-band{
-  background:rgba(0,0,0,0.5);
+  background:rgba(0,0,0,0.25);
   margin:0px;
   margin-left: -30px;
   padding-left: 30px;
@@ -114,51 +122,170 @@ h2{
   padding-top: 3px;
 }
 
+.category-container{
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  margin-top: 2px;
+  height: 220px;
+  box-sizing: border-box;
+}
+
 .rep-container{
   display:flex;
   background: rgba(0,0,0,0);/*#75776a;*/
-  margin-left: -31px;
+  margin-left: -30px;
   margin-right: -30px;
+  margin-bottom: 0px;
   padding-left: 30px;
   border-top:0px solid black;
   border-bottom:0px solid black;
   overflow: auto;
-  height:auto;
+  padding-bottom:10px;
 }
+
+
+
 
 .rep-action-container{
-   padding: 10px;
-   padding-left:50px;
-   border: 0px solid black;
-   border-bottom:0px solid black;
+  position:relative;
+  margin-bottom:10px;
+  margin-left:60px;
+  padding: 10px;
+  padding-left:10px;
+  padding-bottom: 2px;
+  border: 0px solid black;
+  width:auto;
+  height:0px;
+  opacity:0;
+  display: none;
 }
 
+#close-button{
+  position: absolute;
+  top:15px;
+  left: -18px;
+}
+
+#close-button:hover{
+  border: 1px solid gray;
+}
+
+text-tweet-block{
+  display:block;
+}
 #text-input{
   background: rgba(0,0,0,0);
   border: 3px solid green;
   border-radius: 10px;
-  width:450px;
+  width: 450px;
+}
+
+#text-input:hover{
+  background:black;
 }
 
 #tweet-button{
-  height: 65px;
-  vertical-align: top;
-  margin: auto;
-  margin-top:0px;
-  border-radius: 10px;
-  background: green;
+  display:inline-block;
+  vertical-align:top;
+  text-align: center;
+  margin: 0;
+  padding: 2px;
+  height: 66px;
+  width: 120px;
+  border: 3px solid green;
+  border-radius: 5px;
+  font-size: 12pt;
+  position: relative;
+  /*background: background-image: url('/../static/img/doc-here8.png');*/
 }
 
-#include-link {
-  height: 30px;
+#tweet-button:hover{
+  background:black;
+}
+
+#img-send-tweet-icon{
+  position:absolute;
+  left:35px;
+  top:1px;
+}
+
+/*
+#send-count{
+  position:absolute;
+  top:-5;
+  right:15px;
+  font-weight:400;
+}
+*/
+
+#tweet-button-label{
+  position: absolute;
+  left: 22px;
+  bottom: -9px;
+}
+
+.img-checked-box-container{
+  position:relative;
+}
+
+#img-checked-box{
+  vertical-align: top;
+  margin-top:7px;
+}
+
+#img-checked-box:hover{
+  border: 1px solid white;
+}
+
+
+
+#link-included {
+  display:inline;
+  margin-left:10px;
+  margin-top:5px;
+  margin-bottom:0px;
+  padding:5px;
+  margin-top:-6px;
+  color: gray;
 }
 
 #clear-button {
   background:rgba(0,0,0,0);
-  border: 2px solid white;
+  border: 2px solid gray;
   border-radius:5px;
   width: 100px;
   margin-left:165px;
+  color: gray;
+}
+
+#clear-button:hover {
+  background:rgba(0,0,0,1);
+}
+
+.warning-box{
+  position:absolute;
+  background: red;
+  border-radius:5px;
+  height: 37px;
+  opacity:0;
+}
+
+.warning-box-tweet-icon{
+  position:absolute;
+  top: 55px;
+  left: 10px;
+  background: red;
+  border-radius:5px;
+  height: 17px;
+  opacity: 0.0;
+}
+
+.warning-text{
+  margin: 0px;
+  padding:0px;
+  padding-left:10px;
+  padding-right:10px;
+  font-size:12px;
 }
 
 .rep-item-container{
@@ -173,9 +300,9 @@ h2{
   min-width: 270px;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
   background:linear-gradient( to left, #092551,#000b1e);
-  font-size:20px;
+  font-size:18px;
   width:auto;
-  height: auto;
+  height: 100px;
   position:relative;
   display:inline-block;
   /*box-shadow: 4px 4px 5px #294f2f;*/
@@ -200,7 +327,7 @@ h2{
   width: 60px;
   padding: 5px;
   display:inline;
-  /*float: left;*/
+  float: left;
   margin-right:10px;
 }
 
@@ -209,11 +336,15 @@ h2{
 }
 
 .name-title-container{
-  float:right;
-
+  display: inline-block;
+  height:100%;
+  padding-bottom:10px;
+  /*border: 1px solid black;*/
+  max-width:180px;
 }
 
 .full-name{
+  margin-top:5px;
 }
 
 .title{
@@ -234,7 +365,31 @@ h2{
   position:relative;
 }
 
+
+
+#twitter-name{
+  position:absolute;
+  top:10px;
+  left: 0px;
+  color: #00aced;
+  width: 100%;
+  text-align: center;
+  height: 100%;
+  vertical-align: text-middle;
+  opacity: 0;
+}
+
+
+
+/*Icons*/
 .twitter-icon{
+  position:absolute;
+  top: 4px;
+  left: 20px;
+}
+
+/*Icons*/
+.twitter-icon-empty{
   position:absolute;
   top: 4px;
   left: 20px;
@@ -323,9 +478,7 @@ h2{
 }
 
 
-.container-standard {
-  margin: 15px;
-}
+
 
 
 

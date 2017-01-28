@@ -28,17 +28,21 @@
     </div><!-- /.container -->
     <br/>
 </div><!-- /.intro-header -->
+<div>
 
+</div>
 <div class="container-banner">
     <div class="row">
          <div class="program-container">
             {% for item in programList %}
-            <div class='program-item' id="program-item{{forloop.counter}}">
+            <div class='program-item' id="program-item {{ forloop.counter }}">
                 <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
-                    {% if item.poster_url %}
-                            <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>
+                    {% if item.programImage %}
+                            <img class='program-item-image' id='program-item-image {{ forloop.counter }}'
+                                 src='{{ item.programImage.url }}'>
                     {% else %}
-                            <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>
+                            <img class='program-item-image' id='program-item-image {{ forloop.counter }}'
+                                 src='{{ item.posterURL }}'>
                     {% endif %}
                 <!--<div class="program-title">-->
                     <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
