@@ -44,6 +44,7 @@ def get_program_list():
     # print "return from get-programs:", program_list
     program_list_results = json.loads(connection.getresponse().read())
     program_list = program_list_results['results']
+    print program_list
     return program_list
 
 def get_program_list_for_user(user_pk):

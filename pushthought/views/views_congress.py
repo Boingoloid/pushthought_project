@@ -37,8 +37,10 @@ def get_congress_data(zip_code):
         def save_to_congress_data_collection():
             save_dictionary = { "zip_code": zip_code, "results": results}
             save_result = db.CongressData.insert_one(save_dictionary)
+            # get image:
             print "results of save: ", save_result.inserted_id
             return save_result
+
         save_to_congress_data_collection()
         return results
 

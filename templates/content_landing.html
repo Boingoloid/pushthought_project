@@ -38,7 +38,7 @@
             <h2>Federal Representatives</h2>
             <div class="rep-container">
                 {% for item in congressData %}
-                <div class="rep-item-container">
+                <div class="rep-item-container rep-item-container-{{forloop.counter}}-">
                     <div class='rep-item' id="rep-item{{forloop.counter}}">
                         <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
                         {% if item.imageFileURL %}
@@ -51,13 +51,14 @@
                             <div><p class="title">{{item.title}}</p></div>
                         </div>
                     </div>
-                    <div class="action-panel-container">
+                    <div class="action-panel-container action-panel-container-{{forloop.counter}}" id="action-panel-container">
                         <div class="action-panel">
                             {% if item.twitter_id %}
                                 <p class="twitter-name" id="twitter-name">@{{item.twitter_id}}</p>
                                 <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
                             {% else %}
                                 <p class="twitter-name" id="twitter-name">n/a</p>
+                                <p class="add-remove-label" id="add-remove-label"></p>
                                 <img class="twitter-icon-empty" src="{% static 'img/twitter-icon-gray.png' %}" width="42" height="42">
                                 <div class="warning-box-tweet-icon">
                                     <p class="warning-text">twitter address n/a</p>
@@ -65,6 +66,8 @@
                             {% endif %}
                             <img class="phone-icon" src="{% static 'img/phone-icon.png' %}">
                             <img class="email-icon" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+                            <!--<div class="indicator2"></div>-->
+                            <!--<div class="indicator"></div>-->
                         </div>
                     </div>
                 </div>

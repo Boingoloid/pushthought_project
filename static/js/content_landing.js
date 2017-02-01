@@ -9,9 +9,9 @@ function csrfSafeMethod(method) {
 $(document).ready(function() {
 
 
-    setTimeout(function() {
-        $(".twitter-icon").trigger('click');
-    },10);
+//    setTimeout(function() {
+//        $(".twitter-icon").trigger('click');
+//    },10);
 
     var csrftoken = Cookies.get('csrftoken');
     //var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();  //this also works
@@ -35,22 +35,37 @@ $(document).ready(function() {
         if ($(':animated').length || $(this).css('opacity') == 0) {
             console.log("cancelling twitter empty icon click, animation or item invisible");
             return false;
-        }
-        $('.rep-action-container').css('display','block')
-        $('.category-container').animate({'height':'350px'},400,function(){
+        };
+        $('.rep-action-container').css('display','block'),200,function(){
+
+
+            //var caretPos = $("#text-input").selectionStart;
+            //var textAreaTxt = $("#text-input").val();
+            //var txtToAdd = "stuff";
+            //$("#text-input").val(textAreaTxt.substring(0, caretPos) + txtToAdd + textAreaTxt.substring(caretPos));
+        };
+        $('.category-container').animate({'height':'350px'},200,function(){
             var headerAllowance = $('.seen-it-container').offset().top - 20;
             $('html, body').animate({
                 scrollTop: headerAllowance + 'px'
             }, 'fast');
         });
+        $('.rep-color-band').animate({'height':'375px'});
+        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'},500,function() {
+                console.log($("#text-input").val())
+                $("#text-input").val("stuff")
+            })
 
-        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'},500,function() {})
         //$('.twitter-icon').animate({'left':'42%'});
         $('.twitter-icon').animate({'opacity':'0'});
         $('.twitter-icon-empty').animate({'opacity':'0'});
         $('.phone-icon').animate({'opacity':'0'});
         $('.email-icon').animate({'opacity':'0'});
-        $('.twitter-name').animate({'opacity':'1.0'});
+        $('.twitter-name').animate({'opacity':'1.0'},400,function(){
+        });
+        $(this).parent('div').parent('div').toggleClass( "selected");
+
+
     });
 
     $('.twitter-icon-empty').click(function() {
@@ -93,6 +108,8 @@ $(document).ready(function() {
         $('.phone-icon').animate({'opacity':'1'});
         $('.email-icon').animate({'opacity':'1'});
         $('.twitter-name').animate({'opacity':'0.0'});
+        $('.rep-color-band').animate({'height':'233px'});
+        $('.selected').animate($('.selected').removeClass('selected'));
     });
 
 
@@ -147,6 +164,49 @@ $(document).ready(function() {
       }
     });
 
+
+    $('#text-input').keydown(function() {
+        alert("The text has been changed.");
+    });
+
+    $('.action-panel-container').on('click', function(){
+        if($('.twitter-name').css('opacity') == 0) {
+            return false
+        } else {
+            if ($(this).hasClass( "selected" )){
+                $(this).removeClass('selected');
+            } else {
+                $(this).addClass('selected');
+            }
+        }
+    });
+
+    // CLICK ACTIONS
+    $('.rep-container').on('click','.rep-item',function(event) {
+        // extract index # of click and grab twitter address
+       var idText = $(this).attr('id');
+       var repIndex = idText.replace('rep-item','');
+       var tweetAddressID = "#tweet-address-item" + repIndex;
+       var tweetAddress = $(tweetAddressID).text();
+       var currentText = $('#text-input').val();
+
+
+       if ($(this).css('background-color') === 'rgb(255, 255, 255)'){
+
+         $(this).css('background-color','green');
+         currentText += tweetAddress;
+         $('#text-input').val(currentText);
+
+       } else {
+
+        $(this).css('background-color','white');
+        var n = currentText.search(tweetAddress);
+        //console.log(n);
+        var re = new RegExp(tweetAddress,"gi");
+        var newText = currentText.replace(re,"");
+        $('#text-input').val(newText);
+       }
+    });
 
 //    $('.tweet-container').on('click','.tweet-item',function(event) {
 //       var idText = $(this).attr('id');

@@ -100,9 +100,6 @@ h2{
   margin-left: auto;
 }
 
-#text-input{
-  min-width: 300px;
-}
 
 .container-standard {
   margin: 15px;
@@ -120,10 +117,11 @@ h2{
   margin-right: -30px;
   padding-right: 30px;
   padding-top: 3px;
+  height: 233px;
 }
 
 .category-container{
-  padding-bottom: 0px;
+  padding-bottom: 10px;
   margin-bottom: 0px;
   margin-top: 2px;
   height: 220px;
@@ -143,7 +141,31 @@ h2{
   padding-bottom:10px;
 }
 
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+    background-color: #F5F5F5;
+}
 
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+    display: None;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #000000;
+}
+
+/*
+::-webkit-scrollbar-button {
+    background-color: #7c2929;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #b3b3b3;
+}
+*/
 
 
 .rep-action-container{
@@ -173,16 +195,32 @@ h2{
 text-tweet-block{
   display:block;
 }
+
 #text-input{
   background: rgba(0,0,0,0);
-  border: 3px solid green;
+  border: 2px solid gray;
   border-radius: 10px;
   width: 450px;
+  margin-top: 1px;
+  min-width: 300px;
 }
 
 #text-input:hover{
   background:black;
 }
+
+.address-container{
+  display:flex;
+
+}
+
+.address-item{
+  height: 15px;
+  width: 80px;
+  border: 1px solid green;
+}
+
+
 
 #tweet-button{
   display:inline-block;
@@ -353,13 +391,36 @@ text-tweet-block{
 .action-panel-container{
     margin:20px;
     margin-top:-7px;
-    height:50px;
-    border-right:1px solid gray;
-    border-left:1px solid gray;
-    border-bottom:1px solid gray;
+    height:60px;
+    border-right:1px solid #00aced;
+    border-left:1px solid #00aced;
+    border-bottom:1px solid #00aced;
     border-radius: 5px;
     box-shadow: 2px 2px 5px #294f2f;
+
+    /*background: linear-gradient(to bottom right, rgb(0, 172, 237), rgba(0,200,0,0.75) 20%, rgba(0,200,0,0.75));*/
 }
+
+.action-panel-container:hover{
+    box-shadow: 0px 0px 20px #00aced;
+}
+
+.action-panel-container.selected{
+    box-shadow: 0px 3px 30px green;
+    border-right: 3px solid green;
+    border-left: 3px solid green;
+    border-bottom: 3px solid green;
+}
+
+.action-panel-container.selected:hover{
+    box-shadow: 0px 1px 30px green;
+    border-right: 1px solid green;
+    border-left: 1px solid green;
+    border-bottom: 1px solid green;
+}
+
+
+
 
 .action-panel{
   position:relative;
@@ -369,7 +430,8 @@ text-tweet-block{
 
 #twitter-name{
   position:absolute;
-  top:10px;
+  font-size: 14pt;
+  top:3px;
   left: 0px;
   color: #00aced;
   width: 100%;
@@ -379,7 +441,11 @@ text-tweet-block{
   opacity: 0;
 }
 
-
+#add-remove-label{
+  position:absolute;
+  top:7px;
+  font-size:12pt;
+}
 
 /*Icons*/
 .twitter-icon{
@@ -409,6 +475,31 @@ text-tweet-block{
   right: 20px;
 }
 
+.indicator{
+  position: absolute;
+  top: 53px;
+  left: 10%;
+  right: 10%;
+  border-radius: 5px;
+  background: green;
+  background:linear-gradient( to left, green, green 85% ,#00aced);
+  /*background:linear-gradient( to left, #092551,#000b1e);*/
+  height: 15px;
+  background: linear-gradient(to bottom right, #00aced, green 30%, green); /* Standard syntax (must be last) */
+}
+
+.indicator2{
+  position: absolute;
+  top: 10px;
+  left: 10%;
+  right: 10%;
+  border-radius: 5px;
+  background: green;
+  background:linear-gradient( to left, green, green 85% ,#00aced);
+  /*background:linear-gradient( to left, #092551,#000b1e);*/
+  height: 65px;
+  background: linear-gradient(to bottom right, #00aced, green 30%, green); /* Standard syntax (must be last) */
+}
 
 /*
 .repPhoto:hover{
@@ -441,7 +532,7 @@ text-tweet-block{
 }
 
 .hashtag-item:hover, .tweet-item:hover{
-  transform: scale(1.025);
+  transform: scale(1.01);
   margin-top:2px;
   margin-bottom:2px;
 }
@@ -473,34 +564,16 @@ text-tweet-block{
   color: black;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
   border: 2px solid #092551;
-  background: linear-gradient(to right, #D0D0D0,#D8D8D8);
+  /*background: linear-gradient(to right, #D0D0D0,#D8D8D8);*/
   transform-origin: 0% 50%;
 }
-
-
-
-
-
 
 .twitter-name {
   line-spacing:1.0;
   margin: 0px;
-
+  color: #00aced;
 }
 
 .tweet {
-
-}
-
-body::-webkit-scrollbar {
-    width: 1em;
-}
-
-body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: black;
-  outline: 1px solid black;
+  color:white;
 }

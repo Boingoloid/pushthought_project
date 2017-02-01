@@ -12,15 +12,11 @@ $(document).ready(function(){
     Parse.serverURL = 'https://ptparse.herokuapp.com/parse';
 
     var segmentId = $('#segmentId').text();
-    //    "JPGM9mmcKV";
+    //"JPGM9mmcKV";
     var programId = $('#programId').text();
     //alert (segmentId);
 
-
-
-
-
-        // CLICK ACTIONS
+    // CLICK ACTIONS
     $('.rep-container').on('click','.rep-item',function(event) {
        var idText = $(this).attr('id');
        var repIndex = idText.replace('rep-item','');
