@@ -51,14 +51,15 @@
                             <div><p class="title">{{item.title}}</p></div>
                         </div>
                     </div>
-                    <div class="action-panel-container action-panel-container-{{forloop.counter}}" id="action-panel-container">
+                    <div class="action-panel-container" id="{{forloop.counter}}">
                         <div class="action-panel">
                             {% if item.twitter_id %}
-                                <p class="twitter-name" id="twitter-name">@{{item.twitter_id}}</p>
+                                <div class="twitter-name">@{{item.twitter_id}}</div>
+                                <div hidden class="index">{{forloop.counter}}</div>
                                 <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
                             {% else %}
-                                <p class="twitter-name" id="twitter-name">n/a</p>
-                                <p class="add-remove-label" id="add-remove-label"></p>
+                                <div class="twitter-name" id="twitter-name">n/a</div>
+                                <!--<div class="add-remove-label" id="add-remove-label"></div>-->
                                 <img class="twitter-icon-empty" src="{% static 'img/twitter-icon-gray.png' %}" width="42" height="42">
                                 <div class="warning-box-tweet-icon">
                                     <p class="warning-text">twitter address n/a</p>
@@ -76,7 +77,19 @@
             <div class="rep-action-container">
                 <img id="close-button"src="{% static 'img/x-mark-gray.png' %}" width="15" height="15">
                 <div id="text-tweet-block">
-                    <textarea id="text-input" placeholder="Tweet text here"></textarea>
+                    <div class="address-container">
+                            <div class="address-title">
+                                <p>Send to: </p>
+                            </div>
+                        {% for item in congressData %}
+                            {% if item.twitter_id %}
+                                <div class="address-item address-item-{{forloop.counter}}">
+                                    <p class="address-label-{{forloop.counter}}">@{{item.twitter_id}}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div contenteditable id="text-input" placeholder="Tweet text here">this it the placeholder<span style="color:blue;">blue text</span></div>
                     <div id="tweet-button">
                         <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
                         <!--<p id="send-count">4</p>-->
@@ -105,7 +118,7 @@
                 <div class="tweet-container">
                     {% for item in tweetData %}
                     <div class="tweet-item">
-                        <div><p class="twitter-name" style="color:blue; font-size:12pt;">@{{item.username}}</p></div>
+                        <div><p class="tweet-name" style="color:blue; font-size:12pt;">@{{item.username}}</p></div>
                         <div class="tweet">{{item.messageText}}</div>
                     </div>
                    {% endfor %}

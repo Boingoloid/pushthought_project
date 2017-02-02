@@ -138,7 +138,7 @@ h2{
   border-top:0px solid black;
   border-bottom:0px solid black;
   overflow: auto;
-  padding-bottom:10px;
+  padding-bottom:0px;
 }
 
 ::-webkit-scrollbar-track
@@ -170,11 +170,12 @@ h2{
 
 .rep-action-container{
   position:relative;
+  margin: 0px;
   margin-bottom:10px;
   margin-left:60px;
-  padding: 10px;
+  padding-top:0px;
+  padding: 0px;
   padding-left:10px;
-  padding-bottom: 2px;
   border: 0px solid black;
   width:auto;
   height:0px;
@@ -197,30 +198,62 @@ text-tweet-block{
 }
 
 #text-input{
+  display: inline-block;
   background: rgba(0,0,0,0);
   border: 2px solid gray;
   border-radius: 10px;
   width: 450px;
+  height: 63px;
   margin-top: 1px;
   min-width: 300px;
+  letter-spacing:1.15;
 }
 
 #text-input:hover{
   background:black;
 }
 
+.address-placeholder{
+  color: red;
+}
+
 .address-container{
   display:flex;
+  flex-direction: row;
+  margin: 0px;
+  padding: 0px;
+}
 
+.address-title{
+  display:inline;
+  margin: 0px;
+  padding: 0px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 10pt;
+  line-height: 1.0;
 }
 
 .address-item{
-  height: 15px;
-  width: 80px;
-  border: 1px solid green;
+  display:inline;
+  margin: 0px;
+  padding: 0px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 10pt;
+  line-height: 1.0;
+  display: none;
 }
 
+.address-item p, .address-title p{
+  margin: 0px;
+  padding: 0px;
+  color:gray;
+}
 
+.address-item.selected{
+  display:inline;
+}
 
 #tweet-button{
   display:inline-block;
@@ -310,8 +343,8 @@ text-tweet-block{
 
 .warning-box-tweet-icon{
   position:absolute;
-  top: 55px;
-  left: 10px;
+  top: 0px;
+  left: 20px;
   background: red;
   border-radius:5px;
   height: 17px;
@@ -428,7 +461,7 @@ text-tweet-block{
 
 
 
-#twitter-name{
+.twitter-name{
   position:absolute;
   font-size: 14pt;
   top:3px;
@@ -439,6 +472,13 @@ text-tweet-block{
   height: 100%;
   vertical-align: text-middle;
   opacity: 0;
+  cursor: default;
+}
+
+.tweet-name {
+  line-spacing:1.0;
+  margin: 0px;
+  color: #00aced;
 }
 
 #add-remove-label{
@@ -568,11 +608,6 @@ text-tweet-block{
   transform-origin: 0% 50%;
 }
 
-.twitter-name {
-  line-spacing:1.0;
-  margin: 0px;
-  color: #00aced;
-}
 
 .tweet {
   color:white;

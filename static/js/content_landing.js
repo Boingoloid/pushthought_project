@@ -37,8 +37,6 @@ $(document).ready(function() {
             return false;
         };
         $('.rep-action-container').css('display','block'),200,function(){
-
-
             //var caretPos = $("#text-input").selectionStart;
             //var textAreaTxt = $("#text-input").val();
             //var txtToAdd = "stuff";
@@ -53,19 +51,31 @@ $(document).ready(function() {
         $('.rep-color-band').animate({'height':'375px'});
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'},500,function() {
                 console.log($("#text-input").val())
-                $("#text-input").val("stuff")
+                $("#text-input").val("@ multiple")
             })
 
         //$('.twitter-icon').animate({'left':'42%'});
         $('.twitter-icon').animate({'opacity':'0'});
+        $('.twitter-icon').css('display','none')
         $('.twitter-icon-empty').animate({'opacity':'0'});
+        $('.twitter-icon-empty').css('display','none')
         $('.phone-icon').animate({'opacity':'0'});
+        $('.phone-icon').css('display','none')
         $('.email-icon').animate({'opacity':'0'});
+        $('.email-icon').css('display','none')
         $('.twitter-name').animate({'opacity':'1.0'},400,function(){
         });
-        $(this).parent('div').parent('div').toggleClass( "selected");
+        $(this).parent('div').parent('div').toggleClass("selected");
 
+        var index = $(this).parent('div').parent('div').attr('id');
+        console.log(index);
+        var addressPath = ".address-item-" + index;
+        console.log(addressPath);
+        $(addressPath).toggleClass('selected');
 
+        addressPlaceholderClass= '.address-label-' + index;
+        addressPlaceholder = $(addressPlaceholderClass).html()
+        $('#text-input').html('<span class=address-placeholder>' + addressPlaceholder + '</span>');
     });
 
     $('.twitter-icon-empty').click(function() {
@@ -104,9 +114,13 @@ $(document).ready(function() {
         })
         //$('.twitter-icon').animate({'left':'42%'});
         $('.twitter-icon').animate({'opacity':'1'});
+        $('.twitter-icon').show()
         $('.twitter-icon-empty').animate({'opacity':'1'});
+        $('.twitter-icon-empty').show();
         $('.phone-icon').animate({'opacity':'1'});
+        $('.phone-icon').show();
         $('.email-icon').animate({'opacity':'1'});
+        $('.email-icon').show();
         $('.twitter-name').animate({'opacity':'0.0'});
         $('.rep-color-band').animate({'height':'233px'});
         $('.selected').animate($('.selected').removeClass('selected'));
@@ -164,10 +178,38 @@ $(document).ready(function() {
       }
     });
 
+    var textStart = '';
+    var textEnd = '';
+    var placeholderText = '';
+
 
     $('#text-input').keydown(function() {
-        alert("The text has been changed.");
+        textStart = $(this).html();
+        console.log(textStart);
+        var numItems = $('.address-item.selected').length;
+        if (numItems == 1){
+            placeholderText = $('.address-item.selected').children('p').html();
+        } else {
+            placeholderText = '@multiple';
+        }
     });
+
+    $('#text-input').keyup(function() {
+        textEnd = $(this).text();
+        console.log('output');
+        console.log('textecd:' + textEnd);
+        console.log("placeholder" + placeholderText);
+        if (textEnd.indexOf(placeholderText) > -1){
+            return false;
+        } else {
+            alert("This is where will put the twitter names.  Add text before and after.");
+            $(this).html(textStart);
+            textStart = '';
+            textEnd = '';
+            placeholderText = '';
+        }
+    });
+
 
     $('.action-panel-container').on('click', function(){
         if($('.twitter-name').css('opacity') == 0) {
@@ -175,38 +217,68 @@ $(document).ready(function() {
         } else {
             if ($(this).hasClass( "selected" )){
                 $(this).removeClass('selected');
+
+                // add or remove twitter name above textarea
+                var index = $(this).attr('id');
+                var addressPath = ".address-item-" + index;
+                $(addressPath).removeClass('selected');
+
             } else {
                 $(this).addClass('selected');
+
+                // add or remove twitter name above textarea
+                var index = $(this).attr('id');
+                var addressPath = ".address-item-" + index;
+                $(addressPath).addClass('selected');
             }
+
+            var numItems = $('.address-item.selected').length;
+            if (numItems == 1){
+                placeholderText = $('.address-item.selected').children('p').html();
+                $('.address-placeholder').text(placeholderText);
+            } else {
+                placeholderText = '@multiple';
+                $('.address-placeholder').text('@multiple');
+            }
+
         }
+
+
+
     });
 
-    // CLICK ACTIONS
-    $('.rep-container').on('click','.rep-item',function(event) {
-        // extract index # of click and grab twitter address
-       var idText = $(this).attr('id');
-       var repIndex = idText.replace('rep-item','');
-       var tweetAddressID = "#tweet-address-item" + repIndex;
-       var tweetAddress = $(tweetAddressID).text();
-       var currentText = $('#text-input').val();
+    function updatePlaceholder(){
+        var numItems = $('.address-item.selected').length;
+        console.log(numItems);
+    }
 
 
-       if ($(this).css('background-color') === 'rgb(255, 255, 255)'){
-
-         $(this).css('background-color','green');
-         currentText += tweetAddress;
-         $('#text-input').val(currentText);
-
-       } else {
-
-        $(this).css('background-color','white');
-        var n = currentText.search(tweetAddress);
-        //console.log(n);
-        var re = new RegExp(tweetAddress,"gi");
-        var newText = currentText.replace(re,"");
-        $('#text-input').val(newText);
-       }
-    });
+//    // CLICK ACTIONS
+//    $('.rep-container').on('click','.rep-item',function(event) {
+//        // extract index # of click and grab twitter address
+//       var idText = $(this).attr('id');
+//       var repIndex = idText.replace('rep-item','');
+//       var tweetAddressID = "#tweet-address-item" + repIndex;
+//       var tweetAddress = $(tweetAddressID).text();
+//       var currentText = $('#text-input').val();
+//
+//
+//       if ($(this).css('background-color') === 'rgb(255, 255, 255)'){
+//
+//         $(this).css('background-color','green');
+//         currentText += tweetAddress;
+//         $('#text-input').val(currentText);
+//
+//       } else {
+//
+//        $(this).css('background-color','white');
+//        var n = currentText.search(tweetAddress);
+//        //console.log(n);
+//        var re = new RegExp(tweetAddress,"gi");
+//        var newText = currentText.replace(re,"");
+//        $('#text-input').val(newText);
+//       }
+//    });
 
 //    $('.tweet-container').on('click','.tweet-item',function(event) {
 //       var idText = $(this).attr('id');
