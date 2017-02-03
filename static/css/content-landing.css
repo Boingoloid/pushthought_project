@@ -199,6 +199,7 @@ text-tweet-block{
 
 #text-input{
   display: inline-block;
+  overflow: auto;
   background: rgba(0,0,0,0);
   border: 2px solid gray;
   border-radius: 10px;
@@ -207,6 +208,8 @@ text-tweet-block{
   margin-top: 1px;
   min-width: 300px;
   letter-spacing:1.15;
+  font-weight:200;
+  color: white;
 }
 
 #text-input:hover{
@@ -214,7 +217,11 @@ text-tweet-block{
 }
 
 .address-placeholder{
-  color: red;
+  color: #00aced;
+  border-radius: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  background: rgba(0,0,0,0);
 }
 
 .address-container{

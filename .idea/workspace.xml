@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f524674-a87c-41f6-a886-0bb20d6b2405" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/content-landing.css" afterPath="$PROJECT_DIR$/static/css/content-landing.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/content_landing.html" afterPath="$PROJECT_DIR$/templates/content_landing.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/content_landing.js" afterPath="$PROJECT_DIR$/static/js/content_landing.js" />
@@ -28,8 +29,8 @@
             <file leaf-file-name="content_landing.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/static/js/content_landing.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.7459547">
-                    <caret line="205" column="36" selection-start-line="205" selection-start-column="36" selection-end-line="205" selection-end-column="36" />
+                  <state vertical-scroll-proportion="0.3260188">
+                    <caret line="219" column="53" selection-start-line="219" selection-start-column="53" selection-end-line="219" selection-end-column="53" />
                     <folding />
                   </state>
                 </provider>
@@ -70,8 +71,8 @@
             <file leaf-file-name="content-landing.css" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/static/css/content-landing.css">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.6966292">
-                    <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
+                  <state vertical-scroll-proportion="0.3967742">
+                    <caret line="221" column="21" selection-start-line="221" selection-start-column="21" selection-end-line="221" selection-end-column="21" />
                     <folding />
                   </state>
                 </provider>
@@ -113,11 +114,11 @@
       <file leaf-file-name="content_landing.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/content_landing.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.57793343">
-              <caret line="91" column="134" selection-start-line="91" selection-start-column="134" selection-end-line="91" selection-end-column="134" />
+            <state vertical-scroll-proportion="0.55140185">
+              <caret line="119" column="44" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
               <folding>
                 <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -221,7 +222,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/static/css/layout.css" />
         <option value="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/staticfiles/staticfiles.json" />
         <option value="$PROJECT_DIR$/staticfiles/vendor/bootstrap/css/bootstrap.css" />
@@ -269,6 +269,7 @@
         <option value="$PROJECT_DIR$/pushthought/views/views_parse_user.py" />
         <option value="$PROJECT_DIR$/pushthought/settings.py" />
         <option value="$PROJECT_DIR$/static/js/fed_rep_action_menu.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/static/css/content-landing.css" />
         <option value="$PROJECT_DIR$/templates/content_landing.html" />
         <option value="$PROJECT_DIR$/static/js/content_landing.js" />
@@ -279,10 +280,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="162" />
+    <option name="x" value="1381" />
     <option name="y" value="23" />
-    <option name="width" value="1054" />
-    <option name="height" value="741" />
+    <option name="width" value="879" />
+    <option name="height" value="1053" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -681,14 +682,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="162" y="23" width="1054" height="741" extended-state="0" />
+    <frame x="1381" y="23" width="879" height="1053" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3344426" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294509" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24892704" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26331076" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3170163" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3044925" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34775373" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -738,13 +739,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/browse.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/staticfiles/staticfiles.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1097,30 +1091,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/content-landing.css">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6966292">
-          <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/content_landing.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57793343">
-          <caret line="91" column="134" selection-start-line="91" selection-start-column="134" selection-end-line="91" selection-end-column="134" />
+        <state vertical-scroll-proportion="0.55140185">
+          <caret line="119" column="44" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
           <folding>
             <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/content-landing.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3967742">
+          <caret line="221" column="21" selection-start-line="221" selection-start-column="21" selection-end-line="221" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/content_landing.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7459547">
-          <caret line="205" column="36" selection-start-line="205" selection-start-column="36" selection-end-line="205" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.3260188">
+          <caret line="219" column="53" selection-start-line="219" selection-start-column="53" selection-end-line="219" selection-end-column="53" />
           <folding />
         </state>
       </provider>
