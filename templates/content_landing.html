@@ -9,6 +9,7 @@
 {% block content %}
 <p hidden id="segmentId">{{program.segmentId}}</p>
 <p hidden style="color:white;" id="programId">{{ programId }}</p>
+<p hidden id="successArray">{{ successArray }}</p>
 
 <div class="intro-header intro-header-landing">
     <div class="container container-text-white">
@@ -40,7 +41,11 @@
                 {% for item in congressData %}
                 <div class="rep-item-container rep-item-container-{{forloop.counter}}-">
                     <div class='rep-item' id="rep-item{{forloop.counter}}">
+                        <img class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
                         <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
+                        <!--<div class="success-box">-->
+                            <!--<p class="success-text">message sent</p>-->
+                        <!--</div>-->
                         {% if item.imageFileURL %}
                             <img class='repPhoto' id='repPhoto{{forloop.counter}}' src={{item.imageFileURL}}>
                         {% else %}

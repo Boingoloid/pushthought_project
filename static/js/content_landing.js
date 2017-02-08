@@ -6,8 +6,26 @@ function csrfSafeMethod(method) {
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
+
+function show_success_message() {
+    $('.success-box').css({'opacity':'1'});
+    $('.success-box').animate({'opacity':'0.0'},2500,function() {});
+}
+
 $(document).ready(function() {
 
+    if ($('#successArray').val()){
+      alert($('#successArray').val());
+      for (item in successArray) {
+        $('.success-indicator-' + str(item)).each(function() {
+            $(this).css({'opacity':'1'});
+            $(this).animate({'opacity':'0.0'},2500,function() {});
+        });
+      }
+    } else {
+        alert('no value');
+        alert($('#successArray').val());
+    }
 
 //    setTimeout(function() {
 //        $(".twitter-icon").trigger('click');
@@ -32,6 +50,7 @@ $(document).ready(function() {
     });
 
     $('.twitter-icon').click(function() {
+
         if ($(':animated').length || $(this).css('opacity') == 0) {
             console.log("cancelling twitter empty icon click, animation or item invisible");
             return false;
@@ -168,18 +187,26 @@ $(document).ready(function() {
 
     $('#tweet-button').on('click',function(event) {
 
-      var tweet_text = $('#text-input').val();
+      var tweet_text = $('#text-input').text();
 
       if(tweet_text.length < 1){
         alert ("Please type a message to tweet first");
       } else {
+        var successArray = [];
+        $('.action-panel-container.selected').each(function() {
+            twitterName = $(this).contents().contents('.twitter-name').text();
+            successArray.push(twitterName);
+            console.log(twitterName);
+        });
+
         dataSet = JSON.stringify({
                 "tweet_text": tweet_text,
                 "segment_id": segment_id,
                 "program_id": program_id,
-                "last_menu_url": window_url
+                "last_menu_url": window_url,
+                "successArray" : successArray
         });
-         $.ajax({url: "/verify_twitter/",
+         $.ajax({url: "/verify_twitter",
                 type: "POST",
                 data: dataSet,
                 contentType: 'json;charset=UTF-8',
@@ -196,9 +223,9 @@ $(document).ready(function() {
          });
       }
     });
-    var textStart = '';
-    var textEnd = '';
-    var placeholderText = '';
+//    var textStart = '';
+//    var textEnd = '';
+//    var placeholderText = '';
 
 
     $('#text-input').keydown(function() {

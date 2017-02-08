@@ -6,6 +6,7 @@ TWITTER_CALLBACK_ROOT_URL = settings.TWITTER_CALLBACK_ROOT_URL
 
 TWITTER_CONSUMER_KEY = settings.TWITTER_CONSUMER_KEY
 TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
+PARSE_MASTER = settings.PARSE_MASTER
 
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
@@ -16,13 +17,18 @@ def get_user_by_twitter_screen_name(request, twitter_screen_name):
     print "looking up user by twitter name:", twitter_screen_name
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection.connect()
-    params = urllib.urlencode({"keys":"auth_data, sessionToken","where":json.dumps({"twitterScreenName": twitter_screen_name})})
+    params = urllib.urlencode({
+        "include": "tokenSession, twitterScreenName",
+        "where":json.dumps({
+            "twitterScreenName": twitter_screen_name
+        })
+    });
     connection.request('GET', '/parse/classes/_User/' + '?%s' % params, '', {
        "X-Parse-Application-Id": PARSE_APP_ID,
-       "X-Parse-REST-API-Key": PARSE_REST_KEY
+       "X-Parse-REST-API-Key": PARSE_REST_KEY,
+        "X-Parse-Master-Key": PARSE_MASTER
      })
     results = json.loads(connection.getresponse().read())
-    # print results
 
     try:
         current_user = results['results'][0]
@@ -31,8 +37,8 @@ def get_user_by_twitter_screen_name(request, twitter_screen_name):
 
     # save sessionToken to session
     if current_user:
-        request.session['sessionToken'] = current_user['sessionToken']
-        print "sessionToken entered:", request.session['sessionToken']
+        request.session['sessionToken'] = current_user['tokenSession']
+        print "tokenSession entered:", request.session['sessionToken']
         request.session['userObjectId'] = current_user['objectId']
         print "userObjectId entered:", request.session['userObjectId']
         request.session.modified = True
@@ -60,22 +66,45 @@ def create_user_with_twitter_auth(request, twitter_user,access_key_token,access_
     current_user = json.loads(connection.getresponse().read())
 
     # save sessionToken to session
-    print "saving sessionToken into session from returned created user"
+    print "saving sessionToken into session from created user"
     request.session['sessionToken'] = current_user['sessionToken']
     request.session['userObjectId'] = current_user['objectId']
     print "sessionToken here entered:", request.session['sessionToken']
     print "userObjectId  here entered:", request.session['userObjectId']
     request.session.modified = True
 
+    #save session to user
+    connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection2.connect()
+    connection2.request('PUT', '/parse/classes/_User/' + current_user['objectId'], json.dumps({
+        "sessionToken": request.session['sessionToken'],
+        "tokenSession": request.session['sessionToken']
+
+    }),
+    {
+       "X-Parse-Application-Id": PARSE_APP_ID,
+       "X-Parse-REST-API-Key": PARSE_REST_KEY,
+       "X-Parse-Session-Token": request.session['sessionToken'],
+       "Content-Type": "application/json"
+    })
+    result2 = json.loads(connection2.getresponse().read())
+    if result2:
+        print "sessionToken updated to user:", result2
+    else:
+        print "error updating sessionToken to user"
+
     return current_user
 
 def update_user_with_twitter_profile_data(request, current_user,twitter_user,access_key_token,access_key_token_secret):
     data = twitter_user.__dict__
-    twitter_user_dictionary = str(data)
+    twitter_user_dictionary = data
     # print twitter_user_dictionary
+    print type(str(access_key_token))
+    print type(access_key_token_secret)
 
     authDic = json.dumps({
         "sessionToken": request.session['sessionToken'],
+        "tokenSession": request.session['sessionToken'],
         "name_tw": twitter_user.name,
         "id_tw": twitter_user.id_str,
         "followers_count_tw": twitter_user.followers_count,
@@ -83,15 +112,13 @@ def update_user_with_twitter_profile_data(request, current_user,twitter_user,acc
         "location_tw": twitter_user.location,
         "time_zone_tw": twitter_user.time_zone,
         "url_tw": twitter_user.url,
-        "twitter_user": twitter_user_dictionary,
+        "twitter_user": str(twitter_user_dictionary),
         "authData": {
             "twitter": {
-                "id": str(twitter_user.id),
-                "screen_name": str(twitter_user.screen_name),
-                "consumer_key": str(settings.TWITTER_CONSUMER_KEY),
-                "consumer_secret": str(settings.TWITTER_CONSUMER_SECRET),
-                "auth_token": str(access_key_token),
-                "auth_token_secret": str(access_key_token_secret)
+                "id": twitter_user.id,
+                "screen_name": twitter_user.screen_name,
+                "auth_token": access_key_token,
+                "auth_token_secret": access_key_token_secret
              }
          }
     })
@@ -107,7 +134,7 @@ def update_user_with_twitter_profile_data(request, current_user,twitter_user,acc
     })
     result = json.loads(connection.getresponse().read())
     if result:
-        print "twitter profile updated to user successfully:", result
+        print "twitter profile updated to user successfully:"
     else:
         print "error updating twitter profile info to user"
     return None

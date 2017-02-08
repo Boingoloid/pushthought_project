@@ -144,11 +144,11 @@ def save_tweet_action(request, tweet_text, current_user,twitter_user): #helper
     connectionTweet.connect()
     connectionTweet.request('POST', '/parse/classes/SentMessages', json.dumps({
         "messageText": tweet_text,
-        "actionCategory": "Local Representative",
-        "messageCategory": "Local Representative",
+        "actionCategory": "Federal Representative",
+        "messageCategory": "Federal Representative",
         "messageType": "twitter",
         "userObjectId": current_user['objectId'],
-        "twitterUserName": twitter_user.screen_name,
+        "twitterUserName": str(current_user['twitterScreenName']),
         "programObjectId" : request.session['programId'],
         "segmentObjectId" : request.session['segmentId']
         }), {
@@ -157,6 +157,7 @@ def save_tweet_action(request, tweet_text, current_user,twitter_user): #helper
         "Content-Type": "application/json"
     })
     result = json.loads(connectionTweet.getresponse().read())
+    print "save tweet action result:", result
     action_object_id = result['objectId']
     return action_object_id
 
@@ -174,11 +175,11 @@ def save_hashtags(request,tweet_text,current_user,twitter_user,action_object_id)
             "hashtag" : hashtag,
             "frequency" : 1,
             "messageText": tweet_text,
-            "actionCategory": "Local Representative",
-            "messageCategory": "Local Representative",
+            "actionCategory": "Federal Representative",
+            "messageCategory": "Federal Representative",
             "messageType": "twitter",
             "userObjectId": current_user['objectId'],
-            "twitterUserName": twitter_user.screen_name,
+            "twitterUserName": str(current_user['twitterScreenName']),
             "programObjectId" : request.session['programId'],
             "segmentObjectId" : request.session['segmentId'],
             'actionObjectId' : action_object_id
@@ -203,11 +204,11 @@ def save_targets(request,tweet_text,current_user,twitter_user,action_object_id):
             "targetTwitterName" : target,
             "frequency" : 1,
             "messageText": tweet_text,
-            "actionCategory": "Local Representative",
-            "messageCategory": "Local Representative",
+            "actionCategory": "Federal Representative",
+            "messageCategory": "Federal Representative",
             "messageType": "twitter",
             "userObjectId": current_user['objectId'],
-            "twitterUserName": twitter_user.screen_name,
+            "twitterUserName": str(current_user['twitterScreenName']),
             "programObjectId" : request.session['programId'],
             "segmentObjectId" : request.session['segmentId'],
             'actionObjectId' : action_object_id
@@ -227,7 +228,7 @@ def update_segment_stats(request):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     params = urllib.urlencode({
         "where":json.dumps({
-            "programObjectId": request.session['programId']
+            "segmentObjectId": request.session['programId']
         })
     })
     connection.connect()
@@ -261,7 +262,9 @@ def update_segment_stats(request):
         connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
         connection2.connect()
         connection2.request('POST', '/parse/classes/SegmentStats', json.dumps({
-               "actionCount": action_count
+                "actionCount": action_count,
+                "segmentObjectId": request.session['segmentId'],
+                "programObjectId": request.session['programId']
              }), {
                "X-Parse-Application-Id": PARSE_APP_ID,
                "X-Parse-REST-API-Key": PARSE_REST_KEY,

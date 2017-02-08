@@ -126,6 +126,13 @@ def content_landing(request, programId):
     dataDict['congressData'] = congress_data
     dataDict['tweetData'] = tweet_data
 
+    try:
+        dataDict['successArray'] = request.session['successArray']
+        del request.session['successArray']
+        print "content landing successArray", dataDict['successArray']
+    except:
+        print "no success array"
+
     return render(request, 'content_landing.html',dataDict)
 
 def content_landing_empty(request):

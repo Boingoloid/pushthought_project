@@ -16,9 +16,6 @@ def verify_twitter(request):
     # print "request.session", request.session
     # print "request.META", request.META
 
-
-    # check if user logged in.
-
     data = json.loads(request.body)
     print "printing body of request made to verify_twitter", data
 
@@ -26,17 +23,20 @@ def verify_twitter(request):
     request.session['programId'] = data['program_id']
     request.session['segmentId'] = data['segment_id']
     request.session['lastMenuURL'] = data['last_menu_url']
+    request.session['successArray'] = data['successArray']
     request.session.modified = True
+
+    print "program id in session:", request.session['programId']
+    print "successsArray in session:", request.session['successArray']
 
     try:
         sessionToken = request.session['sessionToken']
         userObjectId = request.session['userObjectId']
+        print "SessionToken and userObjectUd found, validating and getting user"
     except:
         sessionToken = None
 
-
     if sessionToken and userObjectId:
-        print "SessionToken and userObjectUd found, validating and getting user"
         connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
         connection.connect()
         connection.request('GET', '/parse/classes/_User/' + userObjectId, '', {
@@ -44,84 +44,90 @@ def verify_twitter(request):
                 "X-Parse-REST-API-Key": PARSE_REST_KEY,
                 "X-Parse-Session-Token": sessionToken
              })
-        currentUser = json.loads(connection.getresponse().read())
-        # print "user query returned:", currentUser
-        redirectURL = "/content_landing/" + request.session['programId']
-        return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
-        # return HttpResponseRedirect('/content_landing_empty/')
+        current_user = json.loads(connection.getresponse().read())
+        print "current User retrieved" , current_user
+        try:
+            if current_user['code'] == 209:
+                print "yes, status is 209, invalid session token, sending ot twitter"
+                CALLBACK_URL = settings.TWITTER_CALLBACK_ROOT_URL
 
-        # if not result:
-        #     raise ValueError
-        from django.core.urlresolvers import reverse
-        # idEncoded = urllib.urlencode(program_id)
-        # print "id encoded: ", idEncoded
-        # print "url encoded: ", url
-        # url = reverse('content_landing', kwargs={'programId': program_id})
-        # print "getting current_user with /me func", result2
-        # return_menu = "/content_landing/" + program_id
-        # # return HttpResponseRedirect(last_menu,request.session['programId'])
-        # # dataDict = {}
-        # # dataDict['program'] = program
-        # # dataDict['programId'] = programId
-        # # dataDict['congressData'] = congress_data
-        # # dataDict['tweetData'] = tweet_data
-        # print "return menu", return_menu
-        # return HttpResponseRedirect(return_menu)
-        # # return render(request, 'content_landing.html',dataDict)
-        #
-        # # extract data
+                # App level auth
+                auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET, CALLBACK_URL)
+                redirectURL = auth.get_authorization_url()
+
+                # Store session value b/c sending to twitter for auth
+                request.session['requestToken'] = auth.request_token
+                request.session.modified = True
+
+                print "redirect url", redirectURL
+                return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
+        except:
+            print "no code 209"
+
+        # Gather twitter keys
+        access_key_token = current_user['authData']['twitter']['auth_token']
+        access_key_token_secret = current_user['authData']['twitter']['auth_token_secret']
+
+        twitter_user = current_user['twitter_user']
+        # print "type twitter_user :" type(twitter_user)
 
 
+        # print "screen_name", twitter_user.screen_name
+        # save twitter profile data to current_user
+        # update_user_with_twitter_profile_data(request, current_user,twitter_user,access_key_token,access_key_token_secret)
 
-    #     user is not logged in
-    # try:
-    #     print "TRYING"
-    #     user_object_id = str(request.session['user_object_id'])
-    #     current_user = get_parse_user_with_twitter_auth(user_object_id)
-    #
-    #     # Gather twitter keys -> methods below
-    #     twitter_keys = { "auth_token" : current_user['authData']['twitter']['auth_token'],
-    #                      "auth_token_secret" : current_user['authData']['twitter']['auth_token_secret'] }
-    #     twitter_screen_name = current_user['authData']['twitter']['screen_name']
-    #
-    #     # Send tweet and show success
-    #     send_tweet_with_tweepy(tweet_text, twitter_keys)
-    #     show_tweet_success_message(request, tweet_text)
-    #
-    #     # Save tweet action
-    #     action_object_id = save_tweet_action(request,tweet_text,current_user,twitter_screen_name)
-    #
-    #     # Save #'s
-    #     save_hashtags(request,tweet_text,current_user,twitter_screen_name,action_object_id)
-    #
-    #     # Save @'s
-    #     save_targets(request,tweet_text,current_user,twitter_screen_name, action_object_id)
-    #
-    #     # Update SegmentStats
-    #     update_segment_stats(request)
-    #
-    #     # Post-tweet navigation
-    #     if 'last_menu_url' in request.session:
-    #         source_action_menu = request.session['last_menu_url']
-    #         return HttpResponseRedirect(source_action_menu)
-    #     else:
-    #         return render(request, 'home.html')
-    #
-    # except:
-    #     print "exception"
+        #  Gather data to sent tweet from session
+        #     tweet_text
+        try:
+            tweet_text = request.session['tweetText']
+            del request.session['tweetText']
+            request.session.modified = True
+        except:
+            print "hit error while finding/deleting tweetText in session"
+
+        #  Send meesage if tweet text
+        if not tweet_text:
+            print "verify catch done, NO message to send"
+        else:
+            # send tweet
+            send_tweet_with_tweepy(tweet_text, access_key_token, access_key_token_secret)
+
+            # save tweet
+            action_object_id = save_tweet_action(request, tweet_text,current_user,twitter_user)
+
+            # Save #'s
+            save_hashtags(request,tweet_text,current_user,twitter_user,action_object_id)
+
+            # Save @'s
+            save_targets(request,tweet_text,current_user,twitter_user, action_object_id)
+
+            # Save to SegmentStats
+            update_segment_stats(request)
+
+        # redirect to last landing page if programId
+        if request.session['programId']:
+            redirectURL = "/content_landing/" + request.session['programId']
+            print "here is the redirect url flag 1", redirectURL
+            return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
+        else:
+            redirectURL = "/browse/"
+            print "here is the redirect to browse", redirectURL
+            return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
     else:
         print "SessionToken and userObjectUd NOT found, send to twitter auth"
         CALLBACK_URL = settings.TWITTER_CALLBACK_ROOT_URL
+        print "callback url", CALLBACK_URL
 
         # App level auth
         auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET, CALLBACK_URL)
         redirectURL = auth.get_authorization_url()
 
+
         # Store session value b/c sending to twitter for auth
         request.session['requestToken'] = auth.request_token
         request.session.modified = True
 
-        print "redirect url", redirectURL
+        print "redirect url down here", redirectURL
         # return HttpResponseRedirect(redirect_url)
         return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
 
@@ -151,20 +157,35 @@ def verify_catch(request):
     # Get Twitter User info
     twitter_user = api.me()
 
-    # check if user exists
+    # check if user exists, if not create
     current_user = get_user_by_twitter_screen_name(request,twitter_user.screen_name)
     if current_user:
         print "got current_user from twitter screen name", current_user
     else:
         current_user = create_user_with_twitter_auth(request, twitter_user,access_key_token,access_key_token_secret)
-        print "new twitter user, created user", current_user
+        print "new twitter user, created user"
 
     # save twitter profile data to current_user
     update_user_with_twitter_profile_data(request, current_user,twitter_user,access_key_token,access_key_token_secret)
 
+    #  Gather data to sent tweet from session
+    #     tweet_text
+    try:
+        tweet_text = request.session['tweetText']
+        del request.session['tweetText']
+        request.session.modified = True
+    except:
+        print "hit error while deleting"
 
 
-    tweet_text = request.session['tweetText']
+    #     programId
+    try:
+        programId = request.session['programId']
+    except:
+        programId = None
+
+
+    #  Send meesage if tweet text
     if not tweet_text:
         print "verify catch done, NO message to send"
     else:
@@ -183,27 +204,15 @@ def verify_catch(request):
         # Save to SegmentStats
         update_segment_stats(request)
 
-    try:
-        del request.session['tweetText']
-        request.session.modified = True
-        print "deleted tweetText"
-    except:
-        print "hit error while deleting"
-
-    try:
-        programId = request.session['programId']
-    except:
-        programId = None
-
-    # redirect to last landing page
+    # redirect to last landing page if programId
     if programId:
         redirectURL = "/content_landing/" + programId
         print "here is the redirect url", redirectURL
-        # return HttpResponse(json.dumps({'redirect_url': redirect_url}), content_type="application/json")
+        print "successArray", request.session['successArray']
         return HttpResponseRedirect(redirectURL)
     else:
-        redirectURL = "/content_landing/" + programId
-        print "here is the redirect url", redirectURL
+        redirectURL = "/browse/"
+        print "here is the redirect to brose to browse", redirectURL
         return HttpResponseRedirect(redirectURL)
 
 
@@ -217,3 +226,7 @@ def send_tweet_with_tweepy(tweet_text,access_key_token,access_key_token_secret):
     print "tweet sent"
     return None
 
+        # import ast
+        # d = ast.literal_eval(twitter_user)
+        # print "d:", d
+        # print "type d:", type(d)

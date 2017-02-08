@@ -366,11 +366,36 @@ text-tweet-block{
   font-size:12px;
 }
 
+.success-box{
+  position:absolute;
+  background: green;
+  border-radius:5px;
+  height: 37px;
+  opacity:1;
+}
+
+.success-text{
+  margin: 0px;
+  padding:0px;
+  padding-left:10px;
+  padding-right:10px;
+  font-size:16px;
+}
+
+.success-indicator{
+  position: absolute;
+  height:25px;
+  width:25px;
+  top: -10px;
+  right: -5px;
+}
+
 .rep-item-container{
   display:block;
 }
 
 .rep-item{
+  position:relative;
   margin: 7px;
   padding: 7px;
   border: 5px solid #092551;
@@ -381,7 +406,6 @@ text-tweet-block{
   font-size:18px;
   width:auto;
   height: 100px;
-  position:relative;
   display:inline-block;
   /*box-shadow: 4px 4px 5px #294f2f;*/
 }
