@@ -189,6 +189,20 @@ $(document).ready(function() {
 
       var tweet_text = $('#text-input').text();
 
+
+//  var numItems = $('.address-item.selected').length;
+//        if (numItems == 0){
+//            placeholderText = '';
+//            $('.address-placeholder').text(placeholderText);
+//        } else if (numItems == 1){
+//            placeholderText = $('.address-item.selected').children('p').html();
+//            $('.address-placeholder').text(placeholderText);
+//        } else {
+//            placeholderText = '@multiple';
+//            $('.address-placeholder').text('@multiple');
+//        }
+
+
       if(tweet_text.length < 1){
         alert ("Please type a message to tweet first");
       } else {

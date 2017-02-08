@@ -62,19 +62,14 @@ def verify_twitter(request):
                 print "redirect url", redirectURL
                 return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
         except:
-            print "no code 209"
+            print "no code 209, session token ok"
+
 
         # Gather twitter keys
         access_key_token = current_user['authData']['twitter']['auth_token']
         access_key_token_secret = current_user['authData']['twitter']['auth_token_secret']
 
         twitter_user = current_user['twitter_user']
-        # print "type twitter_user :" type(twitter_user)
-
-
-        # print "screen_name", twitter_user.screen_name
-        # save twitter profile data to current_user
-        # update_user_with_twitter_profile_data(request, current_user,twitter_user,access_key_token,access_key_token_secret)
 
         #  Gather data to sent tweet from session
         #     tweet_text
@@ -87,7 +82,7 @@ def verify_twitter(request):
 
         #  Send meesage if tweet text
         if not tweet_text:
-            print "verify catch done, NO message to send"
+            print "verify twitter done, NO message to send"
         else:
             # send tweet
             send_tweet_with_tweepy(tweet_text, access_key_token, access_key_token_secret)
@@ -185,24 +180,37 @@ def verify_catch(request):
         programId = None
 
 
-    #  Send meesage if tweet text
-    if not tweet_text:
-        print "verify catch done, NO message to send"
+    #  count success array items
+    #  if 0 or 1 send once with no modification
+    #  if 2 or more, then execute loop, replace tweetText @multiple every time with value.  Never cahnge tweettext base
+
+    print "successArray length", len(request.session['successArray'])
+    if len(request.session['successArray'] < 2):
+        print "ok"
+        send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user,twitter_user)
     else:
-        # send tweet
-        send_tweet_with_tweepy(tweet_text, access_key_token, access_key_token_secret)
+        for item in request.session['successArray']:
+            tweet_replaced = tweet_text.replace('@multiple',str(item))
+            send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret,current_user,twitter_user)
 
-        # save tweet
-        action_object_id = save_tweet_action(request, tweet_text,current_user,twitter_user)
-
-        # Save #'s
-        save_hashtags(request,tweet_text,current_user,twitter_user,action_object_id)
-
-        # Save @'s
-        save_targets(request,tweet_text,current_user,twitter_user, action_object_id)
-
-        # Save to SegmentStats
-        update_segment_stats(request)
+    # #  Send meesage if tweet text
+    # if not tweet_text:
+    #     print "verify catch done, NO message to send"
+    # else:
+    #     # send tweet
+    #     send_tweet_with_tweepy(tweet_text, access_key_token, access_key_token_secret)
+    #
+    #     # save tweet
+    #     action_object_id = save_tweet_action(request, tweet_text,current_user,twitter_user)
+    #
+    #     # Save #'s
+    #     save_hashtags(request,tweet_text,current_user,twitter_user,action_object_id)
+    #
+    #     # Save @'s
+    #     save_targets(request,tweet_text,current_user,twitter_user, action_object_id)
+    #
+    #     # Save to SegmentStats
+    #     update_segment_stats(request)
 
     # redirect to last landing page if programId
     if programId:
@@ -224,6 +232,25 @@ def send_tweet_with_tweepy(tweet_text,access_key_token,access_key_token_secret):
     api = tweepy.API(auth)
     api.update_status(tweet_text)
     print "tweet sent"
+    return None
+
+
+
+def send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret, current_user,twitter_user):
+    # send tweet
+    send_tweet_with_tweepy(tweet_replaced, access_key_token, access_key_token_secret)
+
+    # save tweet
+    action_object_id = save_tweet_action(request, tweet_replaced,current_user,twitter_user)
+
+    # Save #'s
+    save_hashtags(request,tweet_replaced,current_user,twitter_user,action_object_id)
+
+    # Save @'s
+    save_targets(request,tweet_replaced,current_user,twitter_user, action_object_id)
+
+    # Save to SegmentStats
+    update_segment_stats(request)
     return None
 
         # import ast
