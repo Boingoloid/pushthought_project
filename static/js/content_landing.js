@@ -7,32 +7,48 @@ function csrfSafeMethod(method) {
 }
 
 
-function show_success_message() {
-    $('.success-box').css({'opacity':'1'});
-    $('.success-box').animate({'opacity':'0.0'},2500,function() {});
-}
+
+
+
+
+//}function show_success_message() {
+//    if ($('#successArray').val()){
+//      alert($('#successArray').val());
+//      console.log($('#successArray').val());
+//      for (item in successArray) {
+//            var refText = '.success-box-' + str(item)
+//            $(refText).each(function() {
+//                $('.success-box').each(function() {
+//                    $('.success-text').css({'opacity':'0.0'});
+//                    $(this).animate({'height':'0.0'},0,function() {
+//                        $(this).css({'width':'10px'});
+//                        $(this).css({'opacity':'1.0'});
+//                        $(this).show();
+//                    });
+//                    $(this).animate({'height':'58.0'},300,function() {
+//                        $(this).animate({'width':'200px'},600,function() {
+//                            $('.success-text').css({'opacity':'1.0'});
+//                            $(this).animate({'width':'200px'},1500,function() {
+//                                $('.success-text').css({'opacity':'0.0'});
+//                                $(this).animate({'width':'10px'},600,function() {
+//                                    $(this).animate({'height':'0px'},300,function(){});
+//                                });
+//                            });
+//                        });
+//                    });
+//                });
+//            });
+//      }
+//    } else {
+//    }
+//}
+
+//testWindow = window.open("popup.php","interaction","resizable=0,width=800,height=600,status=0");
 
 $(document).ready(function() {
 
-    if ($('#successArray').val()){
-      alert($('#successArray').val());
-      for (item in successArray) {
-        $('.success-indicator-' + str(item)).each(function() {
-            $(this).css({'opacity':'1'});
-            $(this).animate({'opacity':'0.0'},2500,function() {});
-        });
-      }
-    } else {
-        alert('no value');
-        alert($('#successArray').val());
-    }
-
-//    setTimeout(function() {
-//        $(".twitter-icon").trigger('click');
-//    },10);
 
     var csrftoken = Cookies.get('csrftoken');
-    //var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();  //this also works
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
@@ -50,7 +66,6 @@ $(document).ready(function() {
     });
 
     $('.twitter-icon').click(function() {
-
         if ($(':animated').length || $(this).css('opacity') == 0) {
             console.log("cancelling twitter empty icon click, animation or item invisible");
             return false;
@@ -105,6 +120,8 @@ $(document).ready(function() {
         //document.execCommand('selectAll',false,null);
         console.log(window.getSelection().getRangeAt(0));
         var selection = window.getSelection();
+
+        $('#text-input').val('');
         //selection.focusOffset = 3;
         //selection.focus(3);
         //console.log("selection.focusNode.data[selection.focusOffset]" + selection.focusNode.data[selection.focusOffset]);
@@ -188,108 +205,80 @@ $(document).ready(function() {
     $('#tweet-button').on('click',function(event) {
 
       var tweet_text = $('#text-input').text();
-
-
-//  var numItems = $('.address-item.selected').length;
-//        if (numItems == 0){
-//            placeholderText = '';
-//            $('.address-placeholder').text(placeholderText);
-//        } else if (numItems == 1){
-//            placeholderText = $('.address-item.selected').children('p').html();
-//            $('.address-placeholder').text(placeholderText);
-//        } else {
-//            placeholderText = '@multiple';
-//            $('.address-placeholder').text('@multiple');
-//        }
-
-
       if(tweet_text.length < 1){
         alert ("Please type a message to tweet first");
       } else {
-        var successArray = [];
+        var addressArray = [];
+
+        // make addressArray:  array of twitter names to attempt
         $('.action-panel-container.selected').each(function() {
             twitterName = $(this).contents().contents('.twitter-name').text();
-            successArray.push(twitterName);
-            console.log(twitterName);
+            addressArray.push(twitterName);
         });
 
+
+        // create dataSet string
         dataSet = JSON.stringify({
                 "tweet_text": tweet_text,
                 "segment_id": segment_id,
                 "program_id": program_id,
                 "last_menu_url": window_url,
-                "successArray" : successArray
+                "addressArray" : addressArray,
         });
-         $.ajax({url: "/verify_twitter",
-                type: "POST",
-                data: dataSet,
-                contentType: 'json;charset=UTF-8',
-                cache: false,
-                success: function(data) {
-                    // Success message
-                    console.log('success');
-                    window.location.href = data['redirectURL'];
-                },
-                error: function() {
-                    // Fail message
-                    console.log('fail :)');
+
+        console.log(dataSet);
+
+        // Grab success array
+//        var successArray = JSON.parse(dataSet)['addressArray'];
+//        var duplicateArray = JSON.parse(dataSet)['addressArray'];
+//        console.log(successArray);
+//        console.log('DUPLICATE:')
+//        console.log(duplicateArray);
+//        var lengthValue = duplicateArray.length;
+//        console.log(lengthValue);
+        //showSuccess(successArray, duplicateArray);
+        $.ajax({url: "/verify_twitter",
+            type: "POST",
+            data: dataSet,
+            contentType: 'json;charset=UTF-8',
+            cache: false,
+            success: function(data) {
+                // Success message
+                console.log('success');
+                if(data['redirectURL']){
+                     window.location.href = data['redirectURL'];
+                } else {
+                    var len = data['successArray'].length;
+                    console.log(data['successArray'].length);
+                    console.log(data['duplicateArray'].length);
+                    if(data['successArray'].length !=0){
+                        successArray = data['successArray'];
+                        var placeholderText = '';
+                    } else {
+                        successArray = [];
+                    }
+
+                    if(data['duplicateArray'].length !=0){
+                        duplicateArray = data['duplicateArray'];
+                    } else {
+                        duplicateArray = [];
+                    }
+                    showSuccess(successArray, duplicateArray);
                 }
-         });
+            },
+            error: function() {
+                // Fail message
+                console.log('fail :)');
+            }
+        });
       }
     });
-//    var textStart = '';
-//    var textEnd = '';
-//    var placeholderText = '';
-
-
-    $('#text-input').keydown(function() {
-        var inputText = $('#text-input').text();
-        textStart = $(this).html();
-        console.log(textStart);
-        var numItems = $('.address-item.selected').length;
-
-
-//        placeholderTextSpace = placeholderText;
-    });
-
-    $('#text-input').keyup(function() {
-
-//        var re = /@/.test(inputText);
-//        var remulti = /@multiple/.test(inputText);
-//        console.log(remulti);
-
-            // add back placeholder if it was deleted
-        if (!$(this).contents().hasClass('address-placeholder')){
-//                insertTextAtCursor('<span contenteditable=false class=address-placeholder></span>');
-//                $('.address-item.selected').each(function() {
-//                    $('address-item').removeClass('selected');
-//                });
-            $(this).html(textStart);
-        }
-
-        console.log($(this).hasClass('address-placeholder'));
-        console.log($(this).html());
-//        console.log('output');
-//        console.log('textStart:' + textStart);
-//        console.log('textEnd:' + textEnd);
-//        console.log("placeholder" + placeholderText);
-
-//        if (textEnd.indexOf(placeholderText) > -1){
-//            console.log("index of placeholder" + textEnd.indexOf(placeholderText));
-//            return false;
-//        } else if ($('.placeholderText').text() == '') {
-//            console.log('blank placeholderText')
-//            return false;
-//        } else {
-////            console.log("index of placeholder" + textEnd.indexOf(placeholderText));
-//            alert("This is where will put the twitter names.  Add text before and after.");
-//            $(this).html(textStart);
-//            textStart = '';
-//            textEnd = '';
-//            placeholderText = '';
-//        }
-    });
-
+            //    $('#text-input').keydown(function() {
+            //        var inputText = $('#text-input').text();
+            //        textStart = $(this).html();
+            //        console.log(textStart);
+            //        var numItems = $('.address-item.selected').length;
+            //    });
 
     $('.action-panel-container').on('click', function(){
         if($('.twitter-name').css('opacity') == 0) {
@@ -298,12 +287,10 @@ $(document).ready(function() {
             //console.log(window.getSelection().getRangeAt(0));
             if ($(this).hasClass( "selected" )){
                 $(this).removeClass('selected');
-
                 // add or remove twitter name above textarea
                 var index = $(this).attr('id');
                 var addressPath = ".address-item-" + index;
                 $(addressPath).removeClass('selected');
-
             } else {
                 $(this).addClass('selected');
                 // add or remove twitter name above textarea
@@ -313,13 +300,11 @@ $(document).ready(function() {
             }
 
             // add back placeholder if it was deleted
-//            if (!$('text-input').hasClass('address-placeholder')){
-//                $('text-input').focus();
-//                $('text-input').select();
-//                insertTextAtCursor('<span contenteditable=false class=address-placeholder></span>');
-//            }
-
-
+            //            if (!$('text-input').hasClass('address-placeholder')){
+            //                $('text-input').focus();
+            //                $('text-input').select();
+            //                insertTextAtCursor('<span contenteditable=false class=address-placeholder></span>');
+               //            }
             var numItems = $('.address-item.selected').length;
             if (numItems == 0){
                 placeholderText = '';
@@ -333,29 +318,107 @@ $(document).ready(function() {
             }
         }
     });
+});
 
+
+
+// show duplicate method
+function showDuplicate(duplicateArray){
+    if (duplicateArray.length != 0){
+        duplicateArray.forEach(function (value, i) {
+            console.log('%d: %s', i, value);
+            var idText = '#success-box-' + value.slice(1);
+            $(idText).each(function(){
+                $(this).css({'opacity':'0.0'});
+                $(this).css({'background':'#800000'});
+                $(this).animate({'height':'0.0'},0,function() {
+                    $(this).css({'width':'10px'});
+                });
+                $(this).animate({'height':'58.0'},300,function() {
+                    $(this).css({'opacity':'1.0'});
+                    $(this).show();
+                    $(this).animate({'width':'200px'},600,function() {
+                        $(this).contents('.duplicate-text').css({'opacity':'1.0'});
+                        $(this).contents('.duplicate-text').show();
+                        $(this).animate({'width':'200px'},1500,function() {
+                            $(this).contents('.duplicate-text').css({'opacity':'0.0'});
+                            $(this).contents('.duplicate-text').css({'display':'none'});
+                            $(this).animate({'width':'10px'},600,function() {
+                                $(this).animate({'height':'0px'},300,function(){
+                                    $(this).css({'opacity':'0.0'});
+                                    $(this).css({'display':'none'});
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    } else {
+        console.log('no dpulicates');
+    }
+}
+
+
+function showSuccess(successArray, duplicateArray){
+    if (successArray.length != 0){
+        successArray.forEach(function (value, i) {
+            var idText = '#success-box-' + value.slice(1);
+            $(idText).each(function(){
+                $(this).css({'opacity':'0.0'});
+                $(this).css({'background':'green'});
+                $(this).animate({'height':'0.0'},0,function() {
+                    $(this).css({'width':'10px'});
+                });
+                $(this).animate({'height':'58.0'},300,function() {
+                    $(this).css({'opacity':'1.0'});
+                    $(this).show();
+                    $(this).animate({'width':'200px'},600,function() {
+                        $(this).contents('.success-text').css({'opacity':'1.0'});
+                        $(this).contents('.success-text').show();
+                        $(this).animate({'width':'200px'},1500,function() {
+                            $(this).contents('.success-text').css({'opacity':'0.0'});
+                            $(this).contents('.success-text').css({'display':'none'});
+                            $(this).animate({'width':'10px'},600,function() {
+                                $(this).animate({'height':'0px'},300,function(){
+                                    $(this).css({'display':'none'});
+                                    $(this).animate({'opacity':'0.0'},0,function(){
+                                        showDuplicate(duplicateArray);
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    } else {
+        showDuplicate(duplicateArray);
+        console.log('no success, going to duplicateArray')
+    }
+}
 
 //html('<span contenteditable=false class=address-placeholder>''</span>');
 
 
-    function insertTextAtCursor(text) {
-        var sel, range, html;
-        if (window.getSelection) {
-            sel = window.getSelection();
-            if (sel.getRangeAt && sel.rangeCount) {
-                range = sel.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode( document.createNode(text));
-            }
-        } else if (document.selection && document.selection.createRange) {
-            document.selection.createRange().text = text;
-        }
-    }
+//    function insertTextAtCursor(text) {
+//        var sel, range, html;
+//        if (window.getSelection) {
+//            sel = window.getSelection();
+//            if (sel.getRangeAt && sel.rangeCount) {
+//                range = sel.getRangeAt(0);
+//                range.deleteContents();
+//                range.insertNode( document.createNode(text));
+//            }
+//        } else if (document.selection && document.selection.createRange) {
+//            document.selection.createRange().text = text;
+//        }
+//    }
 
-    function updatePlaceholder(){
-        var numItems = $('.address-item.selected').length;
-        console.log(numItems);
-    }
+//    function updatePlaceholder(){
+//        var numItems = $('.address-item.selected').length;
+//        console.log(numItems);
+//    }
 
 
 //    // CLICK ACTIONS
@@ -399,44 +462,41 @@ $(document).ready(function() {
 //        Create and encode URL
 //        var encodedTweetText = encodeURIComponent(tweetText);
 
-	function insertAtCaret(areaId, text) {
-		var txtarea = $('#text-input');
-		if (!txtarea) { return; }
-
-		var scrollPos = txtarea.scrollTop;
-		var strPos = 0;
-		var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
-			"ff" : (document.selection ? "ie" : false ) );
-		if (br == "ie") {
-			txtarea.focus();
-			var range = document.selection.createRange();
-			range.moveStart ('character', -txtarea.html.length);
-			strPos = range.text.length;
-		} else if (br == "ff") {
-			strPos = txtarea.selectionStart;
-		}
-
-		var front = (txtarea.html).substring(0, strPos);
-		var back = (txtarea.html).substring(strPos, txtarea.html.length);
-		txtarea.html = front + text + back;
-		strPos = strPos + text.length;
-		if (br == "ie") {
-			txtarea.focus();
-			var ieRange = document.selection.createRange();
-			ieRange.moveStart ('character', -txtarea.html.length);
-			ieRange.moveStart ('character', strPos);
-			ieRange.moveEnd ('character', 0);
-			ieRange.select();
-		} else if (br == "ff") {
-			txtarea.selectionStart = strPos;
-			txtarea.selectionEnd = strPos;
-			txtarea.focus();
-		}
-
-		txtarea.scrollTop = scrollPos;
-	}
+//	function insertAtCaret(areaId, text) {
+//		var txtarea = $('#text-input');
+//		if (!txtarea) { return; }
+//
+//		var scrollPos = txtarea.scrollTop;
+//		var strPos = 0;
+//		var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
+//			"ff" : (document.selection ? "ie" : false ) );
+//		if (br == "ie") {
+//			txtarea.focus();
+//			var range = document.selection.createRange();
+//			range.moveStart ('character', -txtarea.html.length);
+//			strPos = range.text.length;
+//		} else if (br == "ff") {
+//			strPos = txtarea.selectionStart;
+//		}
+//
+//		var front = (txtarea.html).substring(0, strPos);
+//		var back = (txtarea.html).substring(strPos, txtarea.html.length);
+//		txtarea.html = front + text + back;
+//		strPos = strPos + text.length;
+//		if (br == "ie") {
+//			txtarea.focus();
+//			var ieRange = document.selection.createRange();
+//			ieRange.moveStart ('character', -txtarea.html.length);
+//			ieRange.moveStart ('character', strPos);
+//			ieRange.moveEnd ('character', 0);
+//			ieRange.select();
+//		} else if (br == "ff") {
+//			txtarea.selectionStart = strPos;
+//			txtarea.selectionEnd = strPos;
+//			txtarea.focus();
+//		}
+//
+//		txtarea.scrollTop = scrollPos;
+//	}
 
 //    insertAtCaret('#text-input', 'text to insert')
-
-
-});

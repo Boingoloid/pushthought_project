@@ -4,10 +4,13 @@ from ..forms import SegmentForm
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.conf import settings
 from ..models import Program
+from bson.son import SON
+import pymongo
 
 
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
+MONGODB_URI = settings.MONGODB_URI
 
 #helper
 def fetch_program_data(program_id):
@@ -120,8 +123,25 @@ def get_petition_url(action_list):
     return petition_url
 
 
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+    saveReturn = db.contact_form.save(contact_data)
+
 #helper
 def get_hashtag_data(segmentId):
+
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+
+    pipeline = [{"$group": {"_id": "$hashtag", "count": {"$sum": 1}}},{"$sort": SON([("count", -1), ("_id", -1)])}]
+
+    array = []
+    result = db.Hashtags.aggregate(pipeline)
+    for doc in result:
+        doc['hashtag'] = doc['_id']
+        print doc
+        array.append(doc)
+
     # Query for hashtags
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     params = urllib.urlencode({"where":json.dumps({
@@ -136,7 +156,9 @@ def get_hashtag_data(segmentId):
     hashtag_data = json.loads(connection.getresponse().read())
     print "Hashtag data"
     print hashtag_data
-    return hashtag_data['results']
+    # return hashtag_data['results']
+    return array
+
 
 #helper
 def save_tweet_action(request, tweet_text, current_user,twitter_user): #helper
@@ -238,7 +260,11 @@ def update_segment_stats(request):
      })
     result = json.loads(connection.getresponse().read())
     print "downloaded segment stats:", result['results']
-    data = result['results']
+
+    try:
+        data = result['results'][0]
+    except:
+        data = None
 
     if data:
         action_count = data['actionCount']

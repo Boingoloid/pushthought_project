@@ -107,7 +107,10 @@ def browse(request):
     return render(request, 'browse.html', dataDict)
 
 def content_landing(request, programId):
+    segmentId = programId
     request.session['programId'] = programId
+    request.session['segmentId'] = segmentId
+
     print "content_landing programId:", programId
     client = pymongo.MongoClient(MONGODB_URI)
     db = client.get_default_database()
@@ -119,12 +122,14 @@ def content_landing(request, programId):
     congress_photos = get_congress_photos(congress_data_raw)
     congress_data = add_congress_photos(congress_data_raw,congress_photos)
     tweet_data = get_tweet_data(programId)
+    hashtag_data = get_hashtag_data(segmentId)
 
     dataDict = {}
     dataDict['program'] = program
     dataDict['programId'] = programId
     dataDict['congressData'] = congress_data
     dataDict['tweetData'] = tweet_data
+    dataDict['hashtagData'] = hashtag_data
 
     try:
         dataDict['successArray'] = request.session['successArray']

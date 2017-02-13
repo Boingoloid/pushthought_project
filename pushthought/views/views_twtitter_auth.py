@@ -6,6 +6,8 @@ from views_get_data import *
 from views_user_forms import *
 import json,httplib
 
+
+
 def verify_twitter(request):
     print "verify twitter running"
     # print "ajax hitting verify twitter!"
@@ -23,11 +25,11 @@ def verify_twitter(request):
     request.session['programId'] = data['program_id']
     request.session['segmentId'] = data['segment_id']
     request.session['lastMenuURL'] = data['last_menu_url']
-    request.session['successArray'] = data['successArray']
+    request.session['addressArray'] = data['addressArray']
     request.session.modified = True
 
     print "program id in session:", request.session['programId']
-    print "successsArray in session:", request.session['successArray']
+    print "addressArray in session:", request.session['addressArray']
 
     try:
         sessionToken = request.session['sessionToken']
@@ -45,10 +47,10 @@ def verify_twitter(request):
                 "X-Parse-Session-Token": sessionToken
              })
         current_user = json.loads(connection.getresponse().read())
-        print "current User retrieved" , current_user
+        # print "current User retrieved" , current_user
         try:
             if current_user['code'] == 209:
-                print "yes, status is 209, invalid session token, sending ot twitter"
+                print "yes, status is 209, invalid session token, sending to twitter."
                 CALLBACK_URL = settings.TWITTER_CALLBACK_ROOT_URL
 
                 # App level auth
@@ -62,8 +64,7 @@ def verify_twitter(request):
                 print "redirect url", redirectURL
                 return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
         except:
-            print "no code 209, session token ok"
-
+            print "session token ok, no code 209"
 
         # Gather twitter keys
         access_key_token = current_user['authData']['twitter']['auth_token']
@@ -71,8 +72,6 @@ def verify_twitter(request):
 
         twitter_user = current_user['twitter_user']
 
-        #  Gather data to sent tweet from session
-        #     tweet_text
         try:
             tweet_text = request.session['tweetText']
             del request.session['tweetText']
@@ -80,30 +79,32 @@ def verify_twitter(request):
         except:
             print "hit error while finding/deleting tweetText in session"
 
-        #  Send meesage if tweet text
-        if not tweet_text:
-            print "verify twitter done, NO message to send"
+
+        print "addressArray length", len(request.session['addressArray'])
+
+        successArray = []
+        duplicateArray = []
+
+        if (len(request.session['addressArray']) < 2):
+            if send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user,twitter_user):
+                print "hello"
+                successArray = request.session['addressArray']
+            else:
+                print "yellow"
+                duplicateArray = request.session['addressArray']
         else:
-            # send tweet
-            send_tweet_with_tweepy(tweet_text, access_key_token, access_key_token_secret)
-
-            # save tweet
-            action_object_id = save_tweet_action(request, tweet_text,current_user,twitter_user)
-
-            # Save #'s
-            save_hashtags(request,tweet_text,current_user,twitter_user,action_object_id)
-
-            # Save @'s
-            save_targets(request,tweet_text,current_user,twitter_user, action_object_id)
-
-            # Save to SegmentStats
-            update_segment_stats(request)
+            for item in request.session['addressArray']:
+                tweet_replaced = tweet_text.replace('@multiple',str(item))
+                if send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret,current_user,twitter_user):
+                    successArray.append(item)
+                else:
+                    duplicateArray.append(item)
 
         # redirect to last landing page if programId
         if request.session['programId']:
-            redirectURL = "/content_landing/" + request.session['programId']
-            print "here is the redirect url flag 1", redirectURL
-            return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
+            # redirectURL = "/content_landing/" + request.session['programId']
+            # print "here is the redirect url flag 1", redirectURL
+            return HttpResponse(json.dumps({'successArray': successArray,'duplicateArray': duplicateArray}), content_type="application/json")
         else:
             redirectURL = "/browse/"
             print "here is the redirect to browse", redirectURL
@@ -117,19 +118,15 @@ def verify_twitter(request):
         auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET, CALLBACK_URL)
         redirectURL = auth.get_authorization_url()
 
-
         # Store session value b/c sending to twitter for auth
         request.session['requestToken'] = auth.request_token
         request.session.modified = True
 
         print "redirect url down here", redirectURL
-        # return HttpResponseRedirect(redirect_url)
         return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
 
 def verify_catch(request):
-
     print "verify catch starting"
-
     # Establish auth connection using Ap identification
     auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
 
@@ -172,57 +169,35 @@ def verify_catch(request):
     except:
         print "hit error while deleting"
 
-
     #     programId
     try:
         programId = request.session['programId']
     except:
         programId = None
 
-
     #  count success array items
     #  if 0 or 1 send once with no modification
-    #  if 2 or more, then execute loop, replace tweetText @multiple every time with value.  Never cahnge tweettext base
+    #  if 2 or more, then execute loop, replace tweetText @multiple every time with value.  Never change tweettext base
 
-    print "successArray length", len(request.session['successArray'])
-    if len(request.session['successArray'] < 2):
-        print "ok"
-        send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user,twitter_user)
+    print "addressArray length", len(request.session['addressArray'])
+    if (len(request.session['addressArray']) < 2):
+        if send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user,twitter_user):
+            successArray = request.session['addressArray']
     else:
-        for item in request.session['successArray']:
+        for item in request.session['addressArray']:
             tweet_replaced = tweet_text.replace('@multiple',str(item))
             send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret,current_user,twitter_user)
-
-    # #  Send meesage if tweet text
-    # if not tweet_text:
-    #     print "verify catch done, NO message to send"
-    # else:
-    #     # send tweet
-    #     send_tweet_with_tweepy(tweet_text, access_key_token, access_key_token_secret)
-    #
-    #     # save tweet
-    #     action_object_id = save_tweet_action(request, tweet_text,current_user,twitter_user)
-    #
-    #     # Save #'s
-    #     save_hashtags(request,tweet_text,current_user,twitter_user,action_object_id)
-    #
-    #     # Save @'s
-    #     save_targets(request,tweet_text,current_user,twitter_user, action_object_id)
-    #
-    #     # Save to SegmentStats
-    #     update_segment_stats(request)
 
     # redirect to last landing page if programId
     if programId:
         redirectURL = "/content_landing/" + programId
         print "here is the redirect url", redirectURL
-        print "successArray", request.session['successArray']
+        print "addressArray", request.session['addressArray']
         return HttpResponseRedirect(redirectURL)
     else:
         redirectURL = "/browse/"
         print "here is the redirect to brose to browse", redirectURL
         return HttpResponseRedirect(redirectURL)
-
 
 #helper
 def send_tweet_with_tweepy(tweet_text,access_key_token,access_key_token_secret): #helper
@@ -230,30 +205,41 @@ def send_tweet_with_tweepy(tweet_text,access_key_token,access_key_token_secret):
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
     auth.set_access_token(access_key_token, access_key_token_secret)
     api = tweepy.API(auth)
-    api.update_status(tweet_text)
-    print "tweet sent"
-    return None
 
+    successArray = []
+    duplicateArray = []
+
+    try:
+        api.update_status(tweet_text)
+        print "tweet sent"
+        return True
+    except tweepy.TweepError as e:
+        print e
+        print (e.api_code)
+        return e.api_code
 
 
 def send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret, current_user,twitter_user):
     # send tweet
-    send_tweet_with_tweepy(tweet_replaced, access_key_token, access_key_token_secret)
+    result = send_tweet_with_tweepy(tweet_replaced, access_key_token, access_key_token_secret)
+    print "did it work", result
+    if result == True:
+        # save tweet
+        action_object_id = save_tweet_action(request, tweet_replaced,current_user,twitter_user)
 
-    # save tweet
-    action_object_id = save_tweet_action(request, tweet_replaced,current_user,twitter_user)
+        # Save #'s
+        save_hashtags(request,tweet_replaced,current_user,twitter_user,action_object_id)
 
-    # Save #'s
-    save_hashtags(request,tweet_replaced,current_user,twitter_user,action_object_id)
+        # Save @'s
+        save_targets(request,tweet_replaced,current_user,twitter_user, action_object_id)
 
-    # Save @'s
-    save_targets(request,tweet_replaced,current_user,twitter_user, action_object_id)
+        # Save to SegmentStats
+        update_segment_stats(request)
+        return True
+    elif result == 187:
+        print result
+        return False
+    else:
+        print "returning false"
+        return False
 
-    # Save to SegmentStats
-    update_segment_stats(request)
-    return None
-
-        # import ast
-        # d = ast.literal_eval(twitter_user)
-        # print "d:", d
-        # print "type d:", type(d)

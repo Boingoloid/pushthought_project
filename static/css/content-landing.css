@@ -367,11 +367,14 @@ text-tweet-block{
 }
 
 .success-box{
+  margin-top: 4px;
   position:absolute;
   background: green;
+  border:2px solid #001900;
   border-radius:5px;
-  height: 37px;
-  opacity:1;
+  height: 0px;
+  opacity: 0;
+  display:none;
 }
 
 .success-text{
@@ -379,7 +382,26 @@ text-tweet-block{
   padding:0px;
   padding-left:10px;
   padding-right:10px;
-  font-size:16px;
+  font-size:14px;
+  font-weight:400;
+  display:none;
+}
+
+
+.duplicate-text{
+  margin: 0px;
+  padding:0px;
+  padding-left:10px;
+  padding-right:10px;
+  font-size:14px;
+  font-weight:400;
+  display:none;
+}
+
+.img-logo-success{
+  position: absolute;
+  left: 5px;
+  top: 4px;
 }
 
 .success-indicator{
@@ -581,25 +603,27 @@ text-tweet-block{
 }
 */
 
+.hashtag-header{
+  background:rgba(0,0,0,0);
+}
 
 .hashtag-container{
   display:flex;
-  display:inline-block;
-  flex-wrap:wrap;
-  background: white;
-  border: 5px solid #642039;
+  flex-direction: row;
   border-radius: 5px;
+  height: 40px;
+  width: auto;
 }
 
 .hashtag-item{
-  margin: 10px;
-  padding: 10px;
-  background:#FFFFFF;
-  border: 1px solid #642039;
+  margin: 5px;
+  padding: 5px;
   border-radius:5px;
-  max-width: 300px;
-  max-height: 43px;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
+  color: #00aced;
+  border: 2px solid #092551;
+  width: auto;
+  height: 40px;
 }
 
 .hashtag-item:hover, .tweet-item:hover{
@@ -641,5 +665,5 @@ text-tweet-block{
 
 
 .tweet {
-  color:white;
+  color: #00aced;
 }
