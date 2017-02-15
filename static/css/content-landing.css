@@ -663,16 +663,20 @@ text-tweet-block{
   flex-direction: row;
   /*-webkit-align-items: flex-start;*/
   /*align-items: flex-start;*/
-  height:800px;
+  max-height:800px;
   max-width: auto;
   flex-flow: row wrap;
 }
 
 .tweet-item{
   padding: 5px;
+  padding-left:10px;
+  padding-right:10px;
+  letter-spacing: 1.1;
   border-radius:5px;
   min-width: 200px;
   max-width: 350px;
+  height: auto;
   color: black;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
   border: 2px inset #092551;

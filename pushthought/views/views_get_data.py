@@ -59,13 +59,13 @@ def get_program_browse_stats():
     result = db.SentMessages.aggregate(pipeline)
     for doc in result:
         doc['programObjectId'] = doc['_id']
-        print doc
+        # print doc
         array.append(doc)
     return array
 
 def get_program_list_with_stats(program_list,program_stats):
-    print "PROGRAM LIST", program_list[0]
-    print "PROGRAM STATS", program_stats
+    # print "PROGRAM LIST", program_list[0]
+    # print "PROGRAM STATS", program_stats
 
     for program_item in program_list:
         print
@@ -78,7 +78,7 @@ def get_program_list_with_stats(program_list,program_stats):
                 program_item['sentMessagesCount'] = stats_item['count']
                 break
                 #({'_id': program_item['programObjectId']}, {'$set': {'sentMessagesCount': program_item['count']}})
-    print "program list with stats:", program_list[0]
+    # print "program list with stats:", program_list[0]
     return program_list
 
 def get_program_list_for_user(user_pk):

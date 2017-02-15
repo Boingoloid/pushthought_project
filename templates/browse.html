@@ -43,14 +43,23 @@
                     {% for item in programList %}
                     <div class='program-item' id="program-item{{forloop.counter}}">
                         <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
+                        <div class="program-img-container">
                             {% if item.posterURL %}
                                     <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} >
                             {% else %}
                                     <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}>
                             {% endif %}
-                        <p>
-                            {{ item.sentMessagesCount }}
-                        </p>
+                        </div>
+                        <div class="program-info-container" style="display:inline;">
+                            {% if item.sentMessagesCount %}
+                                <div class="count">{{ item.sentMessagesCount }}</div>
+                                <div class="count" style="display:block; font-size:12px; font-weight:200;">actions</div>
+                                <!--<hr class="hr-small" style="border-color:black;"/>-->
+                                <!--<div class="count">{{ item.sentMessagesCount }}</div>-->
+                                <!--<div class="count" style="display:block; font-size:12px; font-weight:200;">users</div>-->
+                            {% else %}
+                            {% endif %}
+                        </div>
                         <!--<div class="program-title">-->
                             <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
                         <!--</div>-->

@@ -58,13 +58,7 @@ def get_congress_data(zip_code):
         print "deleted CongressData documents count:", delete_result.deleted_count
         return get_congress_data_from_api()
 
-#helper
-def add_congress_photos(congress_data,photo_data):
-    for personItem in congress_data:
-        for photoItem in photo_data:
-            if str(personItem['bioguide_id']) == str(photoItem['bioguideID']):
-                personItem['imageFileURL'] = photoItem['imageFile']['url']
-    return congress_data
+
 
 #helper
 def get_congress_photos(congress_data):
@@ -76,7 +70,7 @@ def get_congress_photos(congress_data):
     # Query for photos
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     params = urllib.urlencode({"where":json.dumps({
-           "bioguideID": {
+           "bioguideId": {
              "$in": bioguide_array
            }
          })})
@@ -99,3 +93,13 @@ def add_title_and_full_name(congress_data_raw):
         else:
             item['title'] = "Senator, " + item['state']
     return congress_data_raw
+
+#helper
+def add_congress_photos(congress_data,photo_data):
+    for personItem in congress_data:
+        for photoItem in photo_data:
+            if str(personItem['bioguide_id']) == str(photoItem['bioguideId']):
+                personItem['imageFileURL'] = photoItem['image']
+                print personItem
+                print photoItem
+    return congress_data

@@ -52,7 +52,7 @@
                         </div>
                         <div style="display:inline-block;">
                             {% if item.imageFileURL %}
-                                <img class='repPhoto' id='repPhoto{{forloop.counter}}' src={{item.imageFileURL}}>
+                                <img class='repPhoto' id='repPhoto{{forloop.counter}}' src='{{ item.imageFileURL.url }}'>
                             {% else %}
                                 <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
                             {% endif %}

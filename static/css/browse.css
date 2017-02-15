@@ -20,10 +20,6 @@
 }
 
 .program-item{
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
   margin:5px;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -44,19 +40,21 @@
 .program-item:hover{
   /*transform: scale(1.05);*/
 }
+.program-img-container{
+  display:inline;
+}
 
 .program-item-image{
+  display: inline;
   height: 160px;
   min-height: 160px;
   width: 115px;
   min-width: 115px;
-  display:block;
   margin:auto;
-  margin-left: 5px;
 }
 
 .program-item-image-crop{
-  display:block;
+  float: left;
   margin:auto;
 }
 
@@ -66,7 +64,22 @@
   text-align:center;
 }
 
+.program-info-container{
+  float: right;
+  height: 30px;
+  margin: 0px;
+  margin-top: 10px;
+  width: 82px;
+  text-align: center;
+}
 
+.count{
+    color: gray;
+    display:inline-block;
+    margin: auto;
+    font-size: 28px;
+    font-weight: 400;
+}
 
 button.accordion {
     background:rgba(0,0,0,0.0);
