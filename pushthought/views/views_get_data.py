@@ -50,6 +50,8 @@ def get_program_list():
     print program_list
     return program_list
 
+
+
 def get_program_list_for_user(user_pk):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     params = urllib.urlencode({"where":json.dumps({
@@ -92,28 +94,73 @@ def get_segment_list(program_id):
            "X-Parse-REST-API-Key": PARSE_REST_KEY
          })
 
+
+#helper
+def get_hashtag_data(segmentId):
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+    pipeline = [{"$match":{"segmentObjectId": segmentId}},
+                {"$group": {"_id": "$hashtag", "count": {"$sum": 1}}},
+                {"$sort": SON([("count", -1), ("_id", -1)])}]
+    array = []
+    result = db.Hashtags.aggregate(pipeline)
+    for doc in result:
+        doc['hashtag'] = doc['_id']
+        print doc
+        array.append(doc)
+    # Query for hashtags
+    # connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    # params = urllib.urlencode({"where":json.dumps({
+    #        "segmentObjectId":segmentId
+    #      })})
+    # connection.connect()
+    # connection.request('GET', '/parse/classes/Hashtags?%s' % params, '', {
+    #        "X-Parse-Application-Id": PARSE_APP_ID,
+    #        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    #      })
+    #
+    # hashtag_data = json.loads(connection.getresponse().read())
+    # print "Hashtag data"
+    # print hashtag_data
+    # return hashtag_data['results']
+    return array
+
+
+
+
 #helper
 def get_tweet_data(segmentId):
-    segmentId = 'JPGM9mmcKV'
     # Query for tweets
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    params = urllib.urlencode({
-        "where":json.dumps({
-            "segmentObjectId":segmentId,
-            "messageType": "twitter"
-        }),
-        "order":"-_create"
-                "d_at"})
-    connection.connect()
-    connection.request('GET', '/parse/classes/sentMessages?%s' % params, '', {
-           "X-Parse-Application-Id": PARSE_APP_ID,
-           "X-Parse-REST-API-Key": PARSE_REST_KEY
-         })
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+    pipeline = [{"$match":{"segmentObjectId": segmentId}},
+                {"$sort": SON([("_created_at", -1)])}]
+    array = []
+    result = db.Hashtags.aggregate(pipeline)
+    for doc in result:
+        doc['hashtag'] = doc['_id']
+        print doc
+        array.append(doc)
+    return array
 
-    tweet_data = json.loads(connection.getresponse().read())
-    # print "Tweet data"
-    # print tweet_data
-    return tweet_data['results']
+    # connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    # params = urllib.urlencode({
+    #     "where":json.dumps({
+    #         "segmentObjectId":segmentId,
+    #         "messageType": "twitter"
+    #     }),
+    #     "order":"-_create"
+    #             "d_at"})
+    # connection.connect()
+    # connection.request('GET', '/parse/classes/sentMessages?%s' % params, '', {
+    #        "X-Parse-Application-Id": PARSE_APP_ID,
+    #        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    #      })
+    #
+    # tweet_data = json.loads(connection.getresponse().read())
+    # # print "Tweet data"
+    # # print tweet_data
+    # return tweet_data['results']
 
 #helper
 def get_petition_url(action_list):
@@ -127,37 +174,6 @@ def get_petition_url(action_list):
     db = client.get_default_database()
     saveReturn = db.contact_form.save(contact_data)
 
-#helper
-def get_hashtag_data(segmentId):
-
-    client = pymongo.MongoClient(MONGODB_URI)
-    db = client.get_default_database()
-
-    pipeline = [{"$group": {"_id": "$hashtag", "count": {"$sum": 1}}},{"$sort": SON([("count", -1), ("_id", -1)])}]
-
-    array = []
-    result = db.Hashtags.aggregate(pipeline)
-    for doc in result:
-        doc['hashtag'] = doc['_id']
-        print doc
-        array.append(doc)
-
-    # Query for hashtags
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    params = urllib.urlencode({"where":json.dumps({
-           "segmentObjectId":segmentId
-         })})
-    connection.connect()
-    connection.request('GET', '/parse/classes/Hashtags?%s' % params, '', {
-           "X-Parse-Application-Id": PARSE_APP_ID,
-           "X-Parse-REST-API-Key": PARSE_REST_KEY
-         })
-
-    hashtag_data = json.loads(connection.getresponse().read())
-    print "Hashtag data"
-    print hashtag_data
-    # return hashtag_data['results']
-    return array
 
 
 #helper

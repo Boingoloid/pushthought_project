@@ -50,14 +50,16 @@
                             <p class="duplicate-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>
                             <!--<img class="img-logo-success" src="{% static 'img/push_thought_logo3.png' %}" width="70" height="70">-->
                         </div>
-                        {% if item.imageFileURL %}
-                            <img class='repPhoto' id='repPhoto{{forloop.counter}}' src={{item.imageFileURL}}>
-                        {% else %}
-                            <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
-                        {% endif %}
-                        <div class="name-title-container" >
-                            <div><p class="full-name">{{item.full_name}}</p></div>
-                            <div><p class="title">{{item.title}}</p></div>
+                        <div style="display:inline-block;">
+                            {% if item.imageFileURL %}
+                                <img class='repPhoto' id='repPhoto{{forloop.counter}}' src={{item.imageFileURL}}>
+                            {% else %}
+                                <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
+                            {% endif %}
+                            <div class="name-title-container" >
+                                <div><p class="full-name">{{item.full_name}}</p></div>
+                                <div><p class="title">{{item.title}}</p></div>
+                            </div>
                         </div>
                     </div>
                     <div class="action-panel-container" id="{{forloop.counter}}">
@@ -123,7 +125,7 @@
     <div class="container-standard">
         <div class="hashtag-container">
             <div class="hashtag-header">
-                    <p>#| <span style="color:gray"></span></p>
+                    <p><span style="color:gray">#| </span></p>
             </div>
             {% for item in hashtagData %}
                 <div class='hashtag-item' id="hashtag-item">#{{item.hashtag}} | {{item.count}}</div>
@@ -132,19 +134,19 @@
     </div>
 
     <div class="container-standard">
-            <div class="message-container">
-                <div class="tweet-header">
-                    <p>Tweets<span style="color:gray"></span></p>
-                </div>
-                <div class="tweet-container">
-                    {% for item in tweetData %}
-                    <div class="tweet-item">
-                        <div><p class="tweet-name" style="color:blue; font-size:12pt;">@{{item.username}}</p></div>
-                        <div class="tweet">{{item.messageText}}</div>
-                    </div>
-                   {% endfor %}
-                </div> <!--close tweet container-->
+        <div class="message-container">
+            <div class="tweet-header">
+                <p><span style="color:gray">Tweets|</span></p>
             </div>
+            <div class="tweet-container">
+                {% for item in tweetData %}
+                <div class="tweet-item">
+                    <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.username}}</p></div>
+                    <div class="tweet">{{item.messageText}}</div>
+                </div>
+               {% endfor %}
+            </div> <!--close tweet container-->
+        </div>
     </div>
 </div><!-- /.intro-header -->
 

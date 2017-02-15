@@ -99,6 +99,7 @@ def leaving(request):
 
 def browse(request):
     program_list = get_program_list()
+    # program_stats = get_program_stats()
 
     dataDict = {}
     dataDict['programList'] = program_list

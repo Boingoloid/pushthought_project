@@ -465,6 +465,7 @@ text-tweet-block{
   padding-bottom:10px;
   /*border: 1px solid black;*/
   max-width:180px;
+  cursor:default;
 }
 
 .full-name{
@@ -568,6 +569,14 @@ text-tweet-block{
   right: 20px;
 }
 
+
+.twitter-icon:hover, .phone-icon:hover, .email-icon:hover{
+    box-shadow: 0px 1px 10px green;
+    box-shadow: 0px 2px 4px green;
+    box-shadow: 0px 0px 2px green;
+
+}
+
 .indicator{
   position: absolute;
   top: 53px;
@@ -604,6 +613,7 @@ text-tweet-block{
 */
 
 .hashtag-header{
+  cursor:default;
   background:rgba(0,0,0,0);
 }
 
@@ -611,8 +621,9 @@ text-tweet-block{
   display:flex;
   flex-direction: row;
   border-radius: 5px;
-  height: 40px;
   width: auto;
+  border: 2px inset #092551;
+  border: none;
 }
 
 .hashtag-item{
@@ -621,9 +632,11 @@ text-tweet-block{
   border-radius:5px;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
   color: #00aced;
-  border: 2px solid #092551;
+  color: white;
+  border: 2px inset #092551;
   width: auto;
   height: 40px;
+  cursor:default;
 }
 
 .hashtag-item:hover, .tweet-item:hover{
@@ -637,28 +650,32 @@ text-tweet-block{
 }
 
 .tweet-header{
+  cursor:default;
   background:rgba(0,0,0,0);
 }
 
 .tweet-container{
+  cursor:default;
   display:flex;
   overflow: auto;
   display: -webkit-flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  /*-webkit-align-items: flex-start;*/
+  /*align-items: flex-start;*/
   height:800px;
-  max-width: 380px;
+  max-width: auto;
+  flex-flow: row wrap;
 }
 
 .tweet-item{
   padding: 5px;
   border-radius:5px;
-  width: 340px;
+  min-width: 200px;
+  max-width: 350px;
   color: black;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
-  border: 2px solid #092551;
+  border: 2px inset #092551;
   /*background: linear-gradient(to right, #D0D0D0,#D8D8D8);*/
   transform-origin: 0% 50%;
 }
@@ -666,4 +683,5 @@ text-tweet-block{
 
 .tweet {
   color: #00aced;
+  color: white;
 }
