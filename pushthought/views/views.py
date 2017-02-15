@@ -99,10 +99,11 @@ def leaving(request):
 
 def browse(request):
     program_list = get_program_list()
-    # program_stats = get_program_stats()
+    program_stats = get_program_browse_stats()
+    program_list_with_stats = get_program_list_with_stats(program_list,program_stats)
 
     dataDict = {}
-    dataDict['programList'] = program_list
+    dataDict['programList'] = program_list_with_stats
     dataDict['segmentList'] = segment_list
 
     return render(request, 'browse.html', dataDict)

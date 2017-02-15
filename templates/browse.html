@@ -48,6 +48,9 @@
                             {% else %}
                                     <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}>
                             {% endif %}
+                        <p>
+                            {{ item.sentMessagesCount }}
+                        </p>
                         <!--<div class="program-title">-->
                             <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
                         <!--</div>-->

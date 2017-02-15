@@ -47,10 +47,39 @@ def get_program_list():
     # print "return from get-programs:", program_list
     program_list_results = json.loads(connection.getresponse().read())
     program_list = program_list_results['results']
-    print program_list
+    # print program_list
     return program_list
 
+def get_program_browse_stats():
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+    pipeline = [{"$group": {"_id": "$programObjectId", "count": {"$sum": 1}}},
+                {"$sort": SON([("count", -1), ("_id", -1)])}]
+    array = []
+    result = db.SentMessages.aggregate(pipeline)
+    for doc in result:
+        doc['programObjectId'] = doc['_id']
+        print doc
+        array.append(doc)
+    return array
 
+def get_program_list_with_stats(program_list,program_stats):
+    print "PROGRAM LIST", program_list[0]
+    print "PROGRAM STATS", program_stats
+
+    for program_item in program_list:
+        print
+        program_id = program_item['objectId']
+        for stats_item in program_stats:
+            stats_id = stats_item['programObjectId']
+            print "program_id:", program_id
+            # print "stats_id:", stats_id
+            if program_id == stats_id:
+                program_item['sentMessagesCount'] = stats_item['count']
+                break
+                #({'_id': program_item['programObjectId']}, {'$set': {'sentMessagesCount': program_item['count']}})
+    print "program list with stats:", program_list[0]
+    return program_list
 
 def get_program_list_for_user(user_pk):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -106,7 +135,7 @@ def get_hashtag_data(segmentId):
     result = db.Hashtags.aggregate(pipeline)
     for doc in result:
         doc['hashtag'] = doc['_id']
-        print doc
+        # print doc
         array.append(doc)
     # Query for hashtags
     # connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -136,10 +165,10 @@ def get_tweet_data(segmentId):
     pipeline = [{"$match":{"segmentObjectId": segmentId}},
                 {"$sort": SON([("_created_at", -1)])}]
     array = []
-    result = db.Hashtags.aggregate(pipeline)
+    result = db.SentMessages.aggregate(pipeline)
     for doc in result:
-        doc['hashtag'] = doc['_id']
-        print doc
+        doc['sent_message'] = doc['_id']
+        # print doc
         array.append(doc)
     return array
 
