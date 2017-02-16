@@ -25,14 +25,13 @@
             <div class="content-info-right">
                 <div class="div-title-image">
                     <img class='img program-item-image img-landing-title' id='program-item-image'
-                         src={{program.posterURL}}>
+                         src='{{ program.programImage.url }}'>
                     <button class="watch-button" style="red;">WATCH</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <div class="container-standard">
     <div class="rep-color-band">
         <div class="container-standard category-container">
@@ -51,10 +50,11 @@
                             <!--<img class="img-logo-success" src="{% static 'img/push_thought_logo3.png' %}" width="70" height="70">-->
                         </div>
                         <div style="display:inline-block;">
-                            {% if item.imageFileURL %}
-                                <img class='repPhoto' id='repPhoto{{forloop.counter}}' src='{{ item.imageFileURL.url }}'>
+                            {% if item.image %}
+                                <img class='repPhoto' id='repPhoto{{forloop.counter}}' src='{{ item.image.url }}'>
                             {% else %}
                                 <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
+
                             {% endif %}
                             <div class="name-title-container" >
                                 <div><p class="full-name">{{item.full_name}}</p></div>

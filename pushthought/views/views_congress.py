@@ -99,7 +99,7 @@ def add_congress_photos(congress_data,photo_data):
     for personItem in congress_data:
         for photoItem in photo_data:
             if str(personItem['bioguide_id']) == str(photoItem['bioguideId']):
-                personItem['imageFileURL'] = photoItem['image']
-                print personItem
-                print photoItem
+                personItem['image'] = photoItem['image']
+                # print personItem
+                # print photoItem
     return congress_data

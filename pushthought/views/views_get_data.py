@@ -43,12 +43,13 @@ def get_program_list():
         "X-Parse-Application-Id": PARSE_APP_ID,
         "X-Parse-REST-API-Key": PARSE_REST_KEY
     })
-    # program_list = connection.getresponse().read()
-    # print "return from get-programs:", program_list
     program_list_results = json.loads(connection.getresponse().read())
     program_list = program_list_results['results']
-    # print program_list
     return program_list
+
+    # client = pymongo.MongoClient(MONGODB_URI)
+    # db = client.get_default_database()
+    # program = db.Programs.find_one({"_id":programId})
 
 def get_program_browse_stats():
     client = pymongo.MongoClient(MONGODB_URI)

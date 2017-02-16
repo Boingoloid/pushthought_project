@@ -112,11 +112,25 @@ def content_landing(request, programId):
     segmentId = programId
     request.session['programId'] = programId
     request.session['segmentId'] = segmentId
+    print "object id for program:", programId
+    # params = urllib.urlencode({"where":json.dumps({
+    #        "id": programId
+    #      })})
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('GET','/parse/classes/Programs/' + programId, '', {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY
+    })
+    program_results = json.loads(connection.getresponse().read())
+    # program = program_results['results']
+    print "program found:", program_results
 
-    print "content_landing programId:", programId
-    client = pymongo.MongoClient(MONGODB_URI)
-    db = client.get_default_database()
-    program = db.Programs.find_one({"_id":programId})
+    # print "content_landing programId:", programId
+    # client = pymongo.MongoClient(MONGODB_URI)
+    # db = client.get_default_database()
+    # program = db.Programs.find_one({"_id":programId})
+    # print "program found:", program
 
     zipCode = "94107"
     congress_data_raw = get_congress_data(zipCode)
@@ -127,7 +141,7 @@ def content_landing(request, programId):
     hashtag_data = get_hashtag_data(segmentId)
 
     dataDict = {}
-    dataDict['program'] = program
+    dataDict['program'] = program_results
     dataDict['programId'] = programId
     dataDict['congressData'] = congress_data
     dataDict['tweetData'] = tweet_data
