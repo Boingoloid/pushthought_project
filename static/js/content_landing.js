@@ -147,14 +147,33 @@ $(document).ready(function() {
         if ($(':animated').length || $(this).css('opacity') == 0) {
             return false;
         }
-        alert("phone clicked");
+        var phone = $('.phone-icon').attr('id');
+        var fullname = $(this).attr('name');
+        var message = 'Making call to ' + fullname + '\'s DC office: ' + phone + '  Leave a message with your info and thoughts.';
+        var makeCall = confirm(message);
+        if (makeCall){
+            window.location.href='tel:' + phone;
+        } else {
+            return false;
+        }
     });
 
     $('.email-icon').click( function() {
         if ($(':animated').length || $(this).css('opacity') == 0) {
             return false;
         }
-        alert("email clicked");
+
+        text = $(this).attr('id');
+        console.log(text);
+
+        if ($(this).attr('id').length < 5 ){
+            alert('sorry, no email form yet for this person.');
+        } else {
+            var contactPath = $(this).attr('id');
+            window.open(contactPath);
+        }
+
+        //window.open('mailto:test@example.com?subject=subject&body=body');
     });
 
     $('#close-button').on('click',function(event) {

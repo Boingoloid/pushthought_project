@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f524674-a87c-41f6-a886-0bb20d6b2405" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/img/twitter-icon-gray.png" afterPath="$PROJECT_DIR$/static/img/twitter-icon-gray.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/content_landing.html" afterPath="$PROJECT_DIR$/templates/content_landing.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/home.html" afterPath="$PROJECT_DIR$/templates/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/content_landing.js" afterPath="$PROJECT_DIR$/static/js/content_landing.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/layout.html" afterPath="$PROJECT_DIR$/templates/layout.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pushthought/views/views.py" afterPath="$PROJECT_DIR$/pushthought/views/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pushthought/views/views_congress.py" afterPath="$PROJECT_DIR$/pushthought/views/views_congress.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pushthought/views/views_get_data.py" afterPath="$PROJECT_DIR$/pushthought/views/views_get_data.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="pushthought_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,20 +26,20 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file leaf-file-name="content_landing.js" pinned="false" current-in-tab="false">
+            <file leaf-file-name="content_landing.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/static/js/content_landing.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="-6.2222223">
-                    <caret line="360" column="0" selection-start-line="360" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
+                  <state vertical-scroll-proportion="0.4032258">
+                    <caret line="168" column="40" selection-start-line="168" selection-start-column="40" selection-end-line="168" selection-end-column="40" />
                     <folding />
                   </state>
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="views_parse_user.py" pinned="false" current-in-tab="true">
+            <file leaf-file-name="views_parse_user.py" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/pushthought/views/views_parse_user.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.33333334">
+                  <state vertical-scroll-proportion="-9.259259">
                     <caret line="146" column="30" selection-start-line="146" selection-start-column="29" selection-end-line="146" selection-end-column="30" />
                     <folding>
                       <element signature="e#0#32#0" expanded="true" />
@@ -60,10 +59,11 @@
             <file leaf-file-name="content_landing.html" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/templates/content_landing.html">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.2561366">
-                    <caret line="20" column="45" selection-start-line="20" selection-start-column="45" selection-end-line="20" selection-end-column="45" />
+                  <state vertical-scroll-proportion="0.7395498">
+                    <caret line="82" column="141" selection-start-line="82" selection-start-column="141" selection-end-line="82" selection-end-column="141" />
                     <folding>
                       <element signature="n#style#0;n#p#1;n#!!top" expanded="true" />
+                      <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                       <element signature="n#style#0;n#button#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                       <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
                       <element signature="n#style#0;n#p#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
@@ -89,8 +89,8 @@
             <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/pushthought/views/views.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.043010753">
-                    <caret line="108" column="17" selection-start-line="108" selection-start-column="17" selection-end-line="108" selection-end-column="17" />
+                  <state vertical-scroll-proportion="0.5913978">
+                    <caret line="150" column="8" selection-start-line="150" selection-start-column="8" selection-end-line="150" selection-end-column="8" />
                     <folding>
                       <element signature="e#0#71#0" expanded="true" />
                     </folding>
@@ -145,11 +145,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views_twtitter_auth.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views_twtitter_auth.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pushthought/views/views_twtitter_auth.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1111112">
-              <caret line="110" column="80" selection-start-line="110" selection-start-column="80" selection-end-line="110" selection-end-column="80" />
+            <state vertical-scroll-proportion="0.375">
+              <caret line="38" column="27" selection-start-line="33" selection-start-column="4" selection-end-line="38" selection-end-column="27" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -157,10 +157,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views_congress.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views_congress.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pushthought/views/views_congress.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40463066">
+            <state vertical-scroll-proportion="0.0">
               <caret line="74" column="12" selection-start-line="74" selection-start-column="12" selection-end-line="74" selection-end-column="12" />
               <folding />
             </state>
@@ -250,17 +250,17 @@
         <option value="$PROJECT_DIR$/pushthought/settings.py" />
         <option value="$PROJECT_DIR$/pushthought/views/views_parse_user.py" />
         <option value="$PROJECT_DIR$/pushthought/views/views_twtitter_auth.py" />
-        <option value="$PROJECT_DIR$/static/js/content_landing.js" />
         <option value="$PROJECT_DIR$/templates/fed_rep_action_menu.html" />
         <option value="$PROJECT_DIR$/static/css/browse.css" />
         <option value="$PROJECT_DIR$/templates/browse.html" />
-        <option value="$PROJECT_DIR$/templates/layout.html" />
         <option value="$PROJECT_DIR$/static/css/content-landing.css" />
         <option value="$PROJECT_DIR$/templates/home.html" />
         <option value="$PROJECT_DIR$/pushthought/views/views_get_data.py" />
-        <option value="$PROJECT_DIR$/pushthought/views/views.py" />
         <option value="$PROJECT_DIR$/pushthought/views/views_congress.py" />
+        <option value="$PROJECT_DIR$/pushthought/views/views.py" />
+        <option value="$PROJECT_DIR$/templates/layout.html" />
         <option value="$PROJECT_DIR$/templates/content_landing.html" />
+        <option value="$PROJECT_DIR$/static/js/content_landing.js" />
       </list>
     </option>
   </component>
@@ -268,9 +268,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2118" />
+    <option name="x" value="1437" />
     <option name="y" value="23" />
-    <option name="width" value="1047" />
+    <option name="width" value="781" />
     <option name="height" value="1053" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -689,14 +689,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2118" y="23" width="1047" height="1053" extended-state="0" />
+    <frame x="1437" y="23" width="781" height="1053" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3344426" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294509" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24892704" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28752437" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3881579" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3044925" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34775373" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -1009,14 +1009,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.49912435">
-          <caret line="40" column="130" selection-start-line="40" selection-start-column="130" selection-end-line="40" selection-end-column="130" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/layout.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38487396">
@@ -1041,16 +1033,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pushthought/views/views_twtitter_auth.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1111112">
-          <caret line="110" column="80" selection-start-line="110" selection-start-column="80" selection-end-line="110" selection-end-column="80" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/browse.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-36.75">
@@ -1071,30 +1053,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/content_landing.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.2222223">
-          <caret line="360" column="0" selection-start-line="360" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pushthought/views/views_get_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.935484">
           <caret line="53" column="27" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="27" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pushthought/views/views_parse_user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="146" column="30" selection-start-line="146" selection-start-column="29" selection-end-line="146" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1109,12 +1073,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pushthought/views/views_congress.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="74" column="12" selection-start-line="74" selection-start-column="12" selection-end-line="74" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pushthought/views/views_parse_user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.259259">
+          <caret line="146" column="30" selection-start-line="146" selection-start-column="29" selection-end-line="146" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.050962627">
+          <caret line="72" column="37" selection-start-line="72" selection-start-column="37" selection-end-line="72" selection-end-column="37" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pushthought/views/views_twtitter_auth.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.375">
+          <caret line="38" column="27" selection-start-line="33" selection-start-column="4" selection-end-line="38" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pushthought/views/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5913978">
+          <caret line="150" column="8" selection-start-line="150" selection-start-column="8" selection-end-line="150" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/content_landing.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2561366">
-          <caret line="20" column="45" selection-start-line="20" selection-start-column="45" selection-end-line="20" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.7395498">
+          <caret line="82" column="141" selection-start-line="82" selection-start-column="141" selection-end-line="82" selection-end-column="141" />
           <folding>
             <element signature="n#style#0;n#p#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
@@ -1128,21 +1141,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pushthought/views/views_congress.py">
+    <entry file="file://$PROJECT_DIR$/static/js/content_landing.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40463066">
-          <caret line="74" column="12" selection-start-line="74" selection-start-column="12" selection-end-line="74" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.4032258">
+          <caret line="168" column="40" selection-start-line="168" selection-start-column="40" selection-end-line="168" selection-end-column="40" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pushthought/views/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.043010753">
-          <caret line="108" column="17" selection-start-line="108" selection-start-column="17" selection-end-line="108" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#71#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

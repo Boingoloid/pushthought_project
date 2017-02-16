@@ -76,10 +76,12 @@
                                     <p class="warning-text">twitter address n/a</p>
                                 </div>
                             {% endif %}
-                            <img class="phone-icon" src="{% static 'img/phone-icon.png' %}">
-                            <img class="email-icon" src="{% static 'img/email-icon.png' %}" width="36" height="36">
-                            <!--<div class="indicator2"></div>-->
-                            <!--<div class="indicator"></div>-->
+                            <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
+                            {% if item.contact_form %}
+                                <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+                            {% else %}
+                                <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -141,7 +143,7 @@
             <div class="tweet-container">
                 {% for item in tweetData %}
                 <div class="tweet-item">
-                    <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.username}}</p></div>
+                    <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.twitterUserName}}</p></div>
                     <div class="tweet">{{item.messageText}}</div>
                 </div>
                {% endfor %}
