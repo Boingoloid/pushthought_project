@@ -181,12 +181,15 @@ def verify_catch(request):
 
     print "addressArray length", len(request.session['addressArray'])
     if (len(request.session['addressArray']) < 2):
-        if send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user,twitter_user):
-            successArray = request.session['addressArray']
+        for item in request.session['addressArray']:
+            target_address = str(item)
+            if send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user,twitter_user, target_address):
+                successArray = request.session['addressArray']
     else:
         for item in request.session['addressArray']:
-            tweet_replaced = tweet_text.replace('@multiple',str(item))
-            send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret,current_user,twitter_user)
+            target_address = str(item)
+            tweet_replaced = tweet_text.replace('@multiple',target_address)
+            send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret,current_user,twitter_user, target_address)
 
     # redirect to last landing page if programId
     if programId:
@@ -219,13 +222,13 @@ def send_tweet_with_tweepy(tweet_text,access_key_token,access_key_token_secret):
         return e.api_code
 
 
-def send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret, current_user,twitter_user):
+def send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret, current_user,twitter_user, target_address):
     # send tweet
     result = send_tweet_with_tweepy(tweet_replaced, access_key_token, access_key_token_secret)
     print "did it work", result
     if result == True:
         # save tweet
-        action_object_id = save_tweet_action(request, tweet_replaced,current_user,twitter_user)
+        action_object_id = save_tweet_action(request, tweet_replaced,current_user,twitter_user, target_address)
 
         # Save #'s
         save_hashtags(request,tweet_replaced,current_user,twitter_user,action_object_id)

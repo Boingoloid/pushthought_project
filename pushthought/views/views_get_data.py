@@ -69,7 +69,6 @@ def get_program_list_with_stats(program_list,program_stats):
     # print "PROGRAM STATS", program_stats
 
     for program_item in program_list:
-        print
         program_id = program_item['objectId']
         for stats_item in program_stats:
             stats_id = stats_item['programObjectId']
@@ -207,7 +206,7 @@ def get_petition_url(action_list):
 
 
 #helper
-def save_tweet_action(request, tweet_text, current_user,twitter_user): #helper
+def save_tweet_action(request, tweet_text, current_user,twitter_user,target_address): #helper
     connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connectionTweet.connect()
     connectionTweet.request('POST', '/parse/classes/SentMessages', json.dumps({
@@ -218,7 +217,8 @@ def save_tweet_action(request, tweet_text, current_user,twitter_user): #helper
         "userObjectId": current_user['objectId'],
         "twitterUserName": str(current_user['twitterScreenName']),
         "programObjectId" : request.session['programId'],
-        "segmentObjectId" : request.session['segmentId']
+        "segmentObjectId" : request.session['segmentId'],
+        "targetAddress" : target_address
         }), {
         "X-Parse-Application-Id": PARSE_APP_ID,
         "X-Parse-REST-API-Key": PARSE_REST_KEY,

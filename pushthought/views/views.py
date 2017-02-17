@@ -108,12 +108,60 @@ def browse(request):
 
     return render(request, 'browse.html', dataDict)
 
+def get_user_by_token_and_id(request):
+    try:
+        sessionToken = request.session['sessionToken']
+        userObjectId = request.session['userObjectId']
+    except:
+        sessionToken = None
+        userObjectId = None
+
+    if sessionToken and userObjectId:
+        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connection.connect()
+        connection.request('GET', '/parse/classes/_User/' + userObjectId, '', {
+                "X-Parse-Application-Id": PARSE_APP_ID,
+                "X-Parse-REST-API-Key": PARSE_REST_KEY,
+                "X-Parse-Session-Token": sessionToken
+             })
+        current_user = json.loads(connection.getresponse().read())
+        return current_user
+    else:
+        return None
+
+def get_segment_actions_for_user(segmentId,userObjectId):
+    # GET current value for segment activity
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({
+        "where":json.dumps({
+            "segmentObjectId": segmentId,
+            "userObjectId": userObjectId
+        })
+    })
+    connection.connect()
+    connection.request('GET', '/parse/classes/SentMessages?%s' % params, '', {
+       "X-Parse-Application-Id": PARSE_APP_ID,
+       "X-Parse-REST-API-Key": PARSE_REST_KEY
+     })
+    result = json.loads(connection.getresponse().read())
+    messaage_list = result['results']
+    print "downloaded segment actions for user:", messaage_list
+    return messaage_list
+
 def content_landing(request, programId):
     segmentId = programId
     request.session['programId'] = programId
     request.session['segmentId'] = segmentId
     print "object id for program:", programId
 
+    # get user
+    current_user = get_user_by_token_and_id(request)
+
+    # get user messages
+    if current_user:
+        message_list = get_segment_actions_for_user(segmentId,current_user['objectId'])
+
+    # get program
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection.connect()
     connection.request('GET','/parse/classes/Programs/' + programId, '', {
@@ -121,17 +169,47 @@ def content_landing(request, programId):
         "X-Parse-REST-API-Key": PARSE_REST_KEY
     })
     program_results = json.loads(connection.getresponse().read())
-    print "program found:", program_results
+    # print "program found:", program_results
+
+
+    def add_prior_activity_to_congress_data(congress_data,message_list):
+        for item in congress_data:
+
+            try:
+                twitter_id = item['twitter_id']
+            except:
+                twitter_id = None
+
+            if twitter_id:
+                twitter_id = item['twitter_id']
+                for message in message_list:
+                    try:
+                        target_address = message['targetAddress']
+                    except:
+                        target_address = None
+                    if(target_address):
+                        print "twitter_id", twitter_id
+                        print "target_address", target_address
+                        if target_address == twitter_id:
+                            item['userTouched'] = 1
+                            print "YES! user touched!!! " , twitter_id
+                            print congress_data
+
+        return congress_data
 
     zipCode = "94107"
     congress_data_raw = get_congress_data(zipCode)
     congress_data_raw = add_title_and_full_name(congress_data_raw)
     congress_photos = get_congress_photos(congress_data_raw)
     congress_data = add_congress_photos(congress_data_raw,congress_photos)
+    if message_list:
+        congress_data = add_prior_activity_to_congress_data(congress_data,message_list)
+
     tweet_data = get_tweet_data(programId)
     hashtag_data = get_hashtag_data(segmentId)
 
     dataDict = {}
+    dataDict['currentUser'] = current_user
     dataDict['program'] = program_results
     dataDict['programId'] = programId
     dataDict['congressData'] = congress_data
