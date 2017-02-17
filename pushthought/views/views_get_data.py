@@ -218,7 +218,7 @@ def save_tweet_action(request, tweet_text, current_user,twitter_user,target_addr
         "twitterUserName": str(current_user['twitterScreenName']),
         "programObjectId" : request.session['programId'],
         "segmentObjectId" : request.session['segmentId'],
-        "targetAddress" : target_address
+        "targetAddress" : target_address[1:]
         }), {
         "X-Parse-Application-Id": PARSE_APP_ID,
         "X-Parse-REST-API-Key": PARSE_REST_KEY,

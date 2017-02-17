@@ -84,18 +84,22 @@ def verify_twitter(request):
 
         successArray = []
         duplicateArray = []
+        address_array = request.session['addressArray']
 
-        if (len(request.session['addressArray']) < 2):
-            if send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user,twitter_user):
-                print "hello"
-                successArray = request.session['addressArray']
-            else:
-                print "yellow"
-                duplicateArray = request.session['addressArray']
+        if (len(address_array) < 2):
+            for item in address_array:
+                target_address = str(item)
+                if send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user,twitter_user,target_address ):
+                    print "green"
+                    successArray = request.session['addressArray']
+                else:
+                    print "yellow"
+                    duplicateArray = request.session['addressArray']
         else:
-            for item in request.session['addressArray']:
+            for item in address_array:
+                target_address = str(item)
                 tweet_replaced = tweet_text.replace('@multiple',str(item))
-                if send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret,current_user,twitter_user):
+                if send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret,current_user,twitter_user,target_address):
                     successArray.append(item)
                 else:
                     duplicateArray.append(item)
