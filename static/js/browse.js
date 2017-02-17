@@ -34,7 +34,6 @@ $(document).ready(function() {
         var idText = $(this).attr('id');
         var repIndex = idText.replace('program-item','');
 
-
         showLoading(repIndex);
 
 

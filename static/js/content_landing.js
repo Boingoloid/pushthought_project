@@ -273,6 +273,18 @@ $(document).ready(function() {
 
         // make addressArray:  array of twitter names to attempt
         $('.action-panel-container.selected').each(function() {
+
+            index = $(this).attr('id');
+
+
+            function showLoading(index){
+                var loaderDiv = '.loader-' + index;
+                console.log(loaderDiv);
+                $(loaderDiv).show();
+            }
+            showLoading(index);
+
+
             twitterName = $(this).contents().contents('.twitter-name').text();
             addressArray.push(twitterName);
         });
@@ -304,6 +316,9 @@ $(document).ready(function() {
             contentType: 'json;charset=UTF-8',
             cache: false,
             success: function(data) {
+
+
+
                 // Success message
                 console.log('success');
                 if(data['redirectURL']){
@@ -323,10 +338,17 @@ $(document).ready(function() {
                     } else {
                         duplicateArray = [];
                     }
-                    showSuccess(successArray, duplicateArray);
+
+                    function hideLoading(){
+                        $('.loader').hide();
+                    }
+
+                    $.when(hideLoading()).then(showSuccess(successArray, duplicateArray))
+                    //showSuccess(successArray, duplicateArray);
                 }
             },
             error: function() {
+                $('.loader').hide();
                 // Fail message
                 console.log('fail :)');
             }
