@@ -221,7 +221,49 @@ $(document).ready(function() {
     var segment_id = $('#segmentId').text();
     var program_id = $('#programId').text();
 
-    $('#tweet-button').on('click',function(event) {
+
+    $('.action-panel-container').on('click', function(){
+        if($('.twitter-name').css('opacity') == 0) {
+            return false
+        } else {
+            //console.log(window.getSelection().getRangeAt(0));
+            if ($(this).hasClass( "selected" )){
+                $(this).removeClass('selected');
+                // add or remove twitter name above textarea
+                var index = $(this).attr('id');
+                var addressPath = ".address-item-" + index;
+                $(addressPath).removeClass('selected');
+            } else {
+                $(this).addClass('selected');
+                // add or remove twitter name above textarea
+                var index = $(this).attr('id');
+                var addressPath = ".address-item-" + index;
+                $(addressPath).addClass('selected');
+            }
+
+            // add back placeholder if it was deleted
+            //            if (!$('text-input').hasClass('address-placeholder')){
+            //                $('text-input').focus();
+            //                $('text-input').select();
+            //                insertTextAtCursor('<span contenteditable=false class=address-placeholder></span>');
+               //            }
+            var numItems = $('.address-item.selected').length;
+            var labelText = 'tweet: ' + numItems
+            $('#tweet-button-label').text(labelText);
+            if (numItems == 0){
+                placeholderText = '';
+                $('.address-placeholder').text(placeholderText);
+            } else if (numItems == 1){
+                placeholderText = $('.address-item.selected').children('p').html();
+                $('.address-placeholder').text(placeholderText);
+            } else {
+                placeholderText = '@multiple';
+                $('.address-placeholder').text('@multiple');
+            }
+        }
+    });
+
+   $('#tweet-button').on('click',function(event) {
 
       var tweet_text = $('#text-input').text();
       if(tweet_text.length < 1){
@@ -272,7 +314,6 @@ $(document).ready(function() {
                     console.log(data['duplicateArray'].length);
                     if(data['successArray'].length !=0){
                         successArray = data['successArray'];
-                        var placeholderText = '';
                     } else {
                         successArray = [];
                     }
@@ -299,45 +340,12 @@ $(document).ready(function() {
             //        var numItems = $('.address-item.selected').length;
             //    });
 
-    $('.action-panel-container').on('click', function(){
-        if($('.twitter-name').css('opacity') == 0) {
-            return false
-        } else {
-            //console.log(window.getSelection().getRangeAt(0));
-            if ($(this).hasClass( "selected" )){
-                $(this).removeClass('selected');
-                // add or remove twitter name above textarea
-                var index = $(this).attr('id');
-                var addressPath = ".address-item-" + index;
-                $(addressPath).removeClass('selected');
-            } else {
-                $(this).addClass('selected');
-                // add or remove twitter name above textarea
-                var index = $(this).attr('id');
-                var addressPath = ".address-item-" + index;
-                $(addressPath).addClass('selected');
-            }
 
-            // add back placeholder if it was deleted
-            //            if (!$('text-input').hasClass('address-placeholder')){
-            //                $('text-input').focus();
-            //                $('text-input').select();
-            //                insertTextAtCursor('<span contenteditable=false class=address-placeholder></span>');
-               //            }
-            var numItems = $('.address-item.selected').length;
-            if (numItems == 0){
-                placeholderText = '';
-                $('.address-placeholder').text(placeholderText);
-            } else if (numItems == 1){
-                placeholderText = $('.address-item.selected').children('p').html();
-                $('.address-placeholder').text(placeholderText);
-            } else {
-                placeholderText = '@multiple';
-                $('.address-placeholder').text('@multiple');
-            }
-        }
-    });
+
 });
+
+
+
 
 
 
@@ -346,7 +354,8 @@ function showDuplicate(duplicateArray){
     if (duplicateArray.length != 0){
         duplicateArray.forEach(function (value, i) {
             console.log('%d: %s', i, value);
-            var idText = '#success-box-' + value.slice(1);
+            var tweetName = value.slice(1)
+            var idText = '#success-box-' + tweetName;
             $(idText).each(function(){
                 $(this).css({'opacity':'0.0'});
                 $(this).css({'background':'#800000'});
@@ -382,7 +391,9 @@ function showDuplicate(duplicateArray){
 function showSuccess(successArray, duplicateArray){
     if (successArray.length != 0){
         successArray.forEach(function (value, i) {
-            var idText = '#success-box-' + value.slice(1);
+            var tweetName = value.slice(1)
+            var idText = '#success-box-' + tweetName;
+            var idSuccessIndicator = '#success-indicator-' + tweetName;
             $(idText).each(function(){
                 $(this).css({'opacity':'0.0'});
                 $(this).css({'background':'green'});
@@ -402,6 +413,7 @@ function showSuccess(successArray, duplicateArray){
                                 $(this).animate({'height':'0px'},300,function(){
                                     $(this).css({'display':'none'});
                                     $(this).animate({'opacity':'0.0'},0,function(){
+                                        $(idSuccessIndicator).show();
                                         showDuplicate(duplicateArray);
                                     });
                                 });

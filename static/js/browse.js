@@ -25,14 +25,24 @@ $(document).ready(function() {
 
 
     $('.program-container').on('click','.program-item',function(event) {
-       var idText = $(this).attr('id');
-       var repIndex = idText.replace('program-item','');
+        function showLoading(index){
+            var loaderDiv = '.loader-' + index;
+            console.log(loaderDiv);
+            $(loaderDiv).show();
+        }
 
-       var programObjectIdElementName = "#program-item-objectId" + repIndex;
-       var programId = $(programObjectIdElementName).text();
-       // alert (programObjectId)
-       window.location.href="/content_landing/" + programId;
+        var idText = $(this).attr('id');
+        var repIndex = idText.replace('program-item','');
 
+
+        showLoading(repIndex);
+
+
+
+        var programObjectIdElementName = "#program-item-objectId" + repIndex;
+        var programId = $(programObjectIdElementName).text();
+        // alert (programObjectId)
+        window.location.href="/content_landing/" + programId;
 
 //        var csrftoken = Cookies.get('csrftoken');
 //        //var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();  //this also works

@@ -54,10 +54,12 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li style="position:relative;">
-                            <a style="background:black; padding-bottom:16px;" href="/home"> {{ currentUser.username }}</a>
-                            <p style="position:absolute; top:2; left:15; font-size:10pt;">user</p>
-                        </li>
+                        {% if currentUser %}
+                            <li style="position:relative;">
+                                <a style="background:black; padding-bottom:16px;" href="/home"> {{ currentUser.username }}</a>
+                                <p style="position:absolute; top:2; left:15; font-size:10pt;">user</p>
+                            </li>
+                        {% endif %}
                         <li>
                             <a href="/home">Home</a>
                         </li>

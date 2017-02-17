@@ -40,8 +40,9 @@
         <div class="container-banner">
             <div class="row">
                  <div class="program-container">
-                    {% for item in programList %}
+                     {% for item in programList %}
                     <div class='program-item' id="program-item{{forloop.counter}}">
+                        <div class='loader-{{forloop.counter}}'  id="loader"></div>
                         <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
                         <div class="program-img-container">
                             {% if item.posterURL %}
