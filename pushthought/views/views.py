@@ -202,8 +202,8 @@ def content_landing(request, programId):
     congress_data_raw = add_title_and_full_name(congress_data_raw)
     congress_photos = get_congress_photos(congress_data_raw)
     congress_data = add_congress_photos(congress_data_raw,congress_photos)
-    if message_list:
-        congress_data = add_prior_activity_to_congress_data(congress_data,message_list)
+    # if message_list:
+    #     congress_data = add_prior_activity_to_congress_data(congress_data,message_list)
 
     tweet_data = get_tweet_data(programId)
     hashtag_data = get_hashtag_data(segmentId)

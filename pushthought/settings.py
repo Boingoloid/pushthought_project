@@ -37,6 +37,36 @@ DEBUG = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
+
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': TEMPLATE_DIRS
+            # insert your TEMPLATE_DIRS here
+        ,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+
+
+
+
 SITE_ID = 1
 
 REGISTRATION_OPEN = True    # If True, users can register
@@ -159,7 +189,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 # DATABASE_URL = 'postgres://hdgnhjpsjylwrv:WONinZmjc9PthqNGYp6mZfg8fF@ec2-54-204-8-224.compute-1.amazonaws.com:5432/d6lt20ja1h9poi'
 #
-# urlparse.uses_netloc.append("postgres")
+# urlparse.uses_netlo`c.append("postgres")
 # url = urlparse.urlparse(DATABASE_URL)
 # # url = urlparse.urlparse(os.environ["DATABASE_URL"])
 #
