@@ -160,6 +160,8 @@ def content_landing(request, programId):
     # get user messages
     if current_user:
         message_list = get_segment_actions_for_user(segmentId,current_user['objectId'])
+    else:
+        message_list = []
 
     # get program
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -202,8 +204,8 @@ def content_landing(request, programId):
     congress_data_raw = add_title_and_full_name(congress_data_raw)
     congress_photos = get_congress_photos(congress_data_raw)
     congress_data = add_congress_photos(congress_data_raw,congress_photos)
-    # if message_list:
-    #     congress_data = add_prior_activity_to_congress_data(congress_data,message_list)
+    if len(message_list) > 0:
+        congress_data = add_prior_activity_to_congress_data(congress_data,message_list)
 
     tweet_data = get_tweet_data(programId)
     hashtag_data = get_hashtag_data(segmentId)
