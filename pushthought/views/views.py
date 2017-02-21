@@ -17,8 +17,6 @@ from django.contrib.sessions.models import Session
 from ..models import Segment
 from ..models import MenuItem
 
-
-
 # views import
 
 from views_twtitter_auth import *
@@ -50,11 +48,11 @@ def home(request):
     program_list = get_program_list()
     dataDict = {}
     dataDict['programList'] = program_list
-    print program_list
+    # print program_list
     return render(request, 'home.html', dataDict)
 
 def submit_email(request,email):
-    print email
+    # print email
     emailString = email.decode()
     connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection2.connect()
@@ -102,9 +100,35 @@ def browse(request):
     program_stats = get_program_browse_stats()
     program_list_with_stats = get_program_list_with_stats(program_list,program_stats)
 
+    documentaryArray = []
+    webVideoArray = []
+    podcastArray = []
+    otherArray = []
+
+    # sort and divide
+    for item in program_list_with_stats:
+        category = item['tagCustom']
+        if category == 'documentary':
+            documentaryArray.append(item)
+        elif category == 'webvideo':
+            webVideoArray.append(item)
+        elif category == 'podcast':
+            podcastArray.append(item)
+        else:
+            otherArray.append(item)
+
+    print "doc Video", len(documentaryArray)
+    print "web Video", len(webVideoArray)
+    print "podcast", len(podcastArray)
+    print "other", len(otherArray)
+
     dataDict = {}
     dataDict['programList'] = program_list_with_stats
     dataDict['segmentList'] = segment_list
+    dataDict['documentaryArray'] = documentaryArray
+    dataDict['webVideoArray'] = webVideoArray
+    dataDict['podcastArray'] = podcastArray
+    dataDict['otherArray'] = otherArray
 
     return render(request, 'browse.html', dataDict)
 
@@ -145,14 +169,12 @@ def get_segment_actions_for_user(segmentId,userObjectId):
      })
     result = json.loads(connection.getresponse().read())
     messaage_list = result['results']
-    print "downloaded segment actions for user:", messaage_list
     return messaage_list
 
 def content_landing(request, programId):
     segmentId = programId
     request.session['programId'] = programId
     request.session['segmentId'] = segmentId
-    print "object id for program:", programId
 
     # get user
     current_user = get_user_by_token_and_id(request)
@@ -190,12 +212,12 @@ def content_landing(request, programId):
                     except:
                         target_address = None
                     if(target_address):
-                        print "twitter_id", twitter_id
-                        print "target_address", target_address
+                        # print "twitter_id", twitter_id
+                        # print "target_address", target_address
                         if target_address == twitter_id:
                             item['userTouched'] = 1
-                            print "YES! user touched!!! " , twitter_id
-                            print congress_data
+                            # print "YES! user touched!!! " , twitter_id
+                            # print congress_data
 
         return congress_data
 

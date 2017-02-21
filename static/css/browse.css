@@ -1,22 +1,56 @@
 /* HOME Program Container and items */
 
+.body {
+  background: yellow;
+}
+
 .intro-header{
 }
 
-
-.container-banner{
-  background: rgba(0,0,0,0.0);
-  margin-right:0px;
+.browse-container{
+  background: #091525;
+  background: linear-gradient(#000b1e, #092551); /* Standard syntax */
+  padding-left:20px;
 }
+
+.browse-header{
+  margin:0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background:radial-gradient(#092551,#000b1e);
+  background: rgba(0,0,0,0.0);
+  margin-top:50px;
+  margin-bottom: 0px;
+  width:100%;
+  max-height:100%;
+}
+
+.category-section{
+  background: rgba(0,0,0,0.0);
+  margin-right: 0px;
+  display: block;
+}
+
+
+
+.category-heading{
+  margin:0px;
+  margin-left:18px;
+  color:#bdbdbd;
+  font-weight:700;
+  font-size:16px;
+}
+
 
 .program-container{
   display:flex;
-  flex-wrap:wrap;
+  flex-direction: row;
+  overflow: auto;
   border: 0px solid black;
-  overflow: wrap;
   padding: 0px;
-  background-color:#092551;
-  background:radial-gradient(#092551,#000b1e);
+  /*background-color:#092551;
+  background:radial-gradient(#092551,#000b1e);*/
+  background: rgba(0,0,0,0);
 }
 
 
@@ -31,8 +65,8 @@
   border: 1px solid black;
   border-radius: 5px;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
+  min-width:200px;
   width: 200px;
-  position: relative;
 }
 
 
@@ -150,7 +184,6 @@ div.browse-button-a{
     background:rgba(0,0,0,0);
     align: left;
     width:130px;
-    margin-left: 10px;
 }
 
 div.panel {
@@ -181,8 +214,3 @@ div.panel p {
 }
 
 
-.browse-container{
-  background: #091525;
-  background: linear-gradient(#000b1e, #092551); /* Standard syntax */
-  padding-left:20px;
-}

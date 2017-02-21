@@ -6,68 +6,89 @@
 {% block title %}Push Thought-Browse{% endblock %}
 
 
-{% block content %}
+                <!--<form class="form-inline">-->
+                    <!--<div class="form-group">-->
+                        <!--<textarea class="form-control" rows="1" cols="60" id="comment" placeholder="Search Keyword or Paste Link" ></textarea>-->
+                        <!--<button type="button" class="btn btn-primary" style="border-radius:10px;">Search</button>-->
+                    <!--</div>-->
+                <!--</form>-->
 
-<div class="intro-header">
-    <div class="container container-text-white">
-        <br/>
-        <form class="form-inline">
-            <!--<div class="form-group">-->
-                <!--<textarea class="form-control" rows="1" cols="60" id="comment" placeholder="Search Keyword or Paste Link" ></textarea>-->
-                <!--<button type="button" class="btn btn-primary" style="border-radius:10px;">Search</button>-->
-            <!--</div>-->
-        </form>
-        <div class="row">
+{% block content %}
+    <div class="browse-container">
+        <div class="browse-header">
             <div class="browse-button-a">
-                <button class="accordion" style="display: inline;color:red;">Browse</button>
+                <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>
                 <div class="panel">
                     <a><p>Documentaries</p></a>
                     <a><p>Web Videos</p></a>
                     <a><p>Podcasts</p></a>
                 </div>
             </div>
-        </div>
-    </div>
+        </div><!-- /.browse-header -->
 
-    <div class="container container-text-white">
-         <div class="row">
-            <p style="margin-left:20px; color:#bdbdbd; font-weight:600; font-size:16px;">All Titles</p>
-         </div>
-    </div>
-</div><!-- /.intro-header -->
 
-    <div class="browse-container">
-        <div class="container-banner">
-            <div class="row">
-                 <div class="program-container">
-                     {% for item in programList %}
-                    <div class='program-item' id="program-item{{forloop.counter}}">
-                        <div class='loader-{{forloop.counter}}'  id="loader"></div>
-                        <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
-                        <div class="program-img-container">
-                            {% if item.posterURL %}
-                                    <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} >
-                            {% else %}
-                                    <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}>
-                            {% endif %}
-                        </div>
-                        <div class="program-info-container" style="display:inline;">
-                            {% if item.sentMessagesCount %}
-                                <div class="count">{{ item.sentMessagesCount }}</div>
-                                <div class="count" style="display:block; font-size:12px; font-weight:200;">actions</div>
-                                <!--<hr class="hr-small" style="border-color:black;"/>-->
-                                <!--<div class="count">{{ item.sentMessagesCount }}</div>-->
-                                <!--<div class="count" style="display:block; font-size:12px; font-weight:200;">users</div>-->
-                            {% else %}
-                            {% endif %}
-                        </div>
-                        <!--<div class="program-title">-->
-                            <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
-                        <!--</div>-->
+        <div class="category-section">
+        <p class="category-heading">Documentaries</p>
+             <div class="program-container">
+                {% for item in webVideoArray %}
+                <div class='program-item' id="program-item{{forloop.counter}}">
+                    <div class='loader-{{forloop.counter}}'  id="loader"></div>
+                    <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
+                    <div class="program-img-container">
+                        {% if item.posterURL %}
+                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} >
+                        {% else %}
+                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}>
+                        {% endif %}
                     </div>
-                    {% endfor %}
-                </div>  <!--close PROGRAM container-->
-            </div>
+                    <div class="program-info-container" style="display:inline;">
+                        {% if item.sentMessagesCount %}
+                            <div class="count">{{ item.sentMessagesCount }}</div>
+                            <div class="count" style="display:block; font-size:12px; font-weight:200;">actions</div>
+                            <!--<hr class="hr-small" style="border-color:black;"/>-->
+                            <!--<div class="count">{{ item.sentMessagesCount }}</div>-->
+                            <!--<div class="count" style="display:block; font-size:12px; font-weight:200;">users</div>-->
+                        {% else %}
+                        {% endif %}
+                    </div>
+                    <!--<div class="program-title">-->
+                        <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
+                    <!--</div>-->
+                </div>
+                {% endfor %}
+             </div>
+        </div>
+
+        <div class="category-section">
+        <p class="category-heading">Web Videos</p>
+            <div class="program-container">
+                 {% for item in programList %}
+                <div class='program-item' id="program-item{{forloop.counter}}">
+                    <div class='loader-{{forloop.counter}}'  id="loader"></div>
+                    <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
+                    <div class="program-img-container">
+                        {% if item.posterURL %}
+                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} >
+                        {% else %}
+                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}>
+                        {% endif %}
+                    </div>
+                    <div class="program-info-container" style="display:inline;">
+                        {% if item.sentMessagesCount %}
+                            <div class="count">{{ item.sentMessagesCount }}</div>
+                            <div class="count" style="display:block; font-size:12px; font-weight:200;">actions</div>
+                            <!--<hr class="hr-small" style="border-color:black;"/>-->
+                            <!--<div class="count">{{ item.sentMessagesCount }}</div>-->
+                            <!--<div class="count" style="display:block; font-size:12px; font-weight:200;">users</div>-->
+                        {% else %}
+                        {% endif %}
+                    </div>
+                    <!--<div class="program-title">-->
+                        <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
+                    <!--</div>-->
+                </div>
+                {% endfor %}
+            </div>  <!--close PROGRAM container-->
         </div><!-- /.container -->
     </div>
 
