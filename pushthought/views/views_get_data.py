@@ -57,12 +57,129 @@ def get_program_browse_stats():
     pipeline = [{"$group": {"_id": "$programObjectId", "count": {"$sum": 1}}},
                 {"$sort": SON([("count", -1), ("_id", -1)])}]
     array = []
+    # userArray = []
+
+
     result = db.SentMessages.aggregate(pipeline)
     for doc in result:
         doc['programObjectId'] = doc['_id']
         # print doc
         array.append(doc)
+        # userArray.append(doc['userObjectId'])
+
+    # userSet = set(userArray)
+    # print "counts:", len(userArray) , " and unique: ", len(userSet)
+    # for user in sorted(userArray):
+    #     if user == previousUser:z
     return array
+
+import pandas as pd
+def get_program_browse_stats_user_count():
+
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+
+    pipeline = [{"$group": {"segmentObjectId": "$programObjectId", "count": {"$sum": 1}}},
+                {"$sort": SON([("count", -1), ("segmentObjectid", -1)])}]
+
+
+    pipeline = [{"$group": {
+        "_id": {
+            "segmentObjectId": "$segmentObjectId",
+            "userObjectId": "$userObjectId"
+        },
+        "count": {"$sum": 1}
+    }},
+    {"$group": {
+        "_id": {
+            "segmentObjectId": "$_id.segmentObjectId",
+            "userObjectId": "$_id.userObjectId"
+        },
+        "totalCount": {"$sum": "$count"},
+        "distinctCount": {"$sum": 1}
+    }}]
+
+
+    result = db.SentMessages.aggregate(pipeline)
+    l = []
+    for doc in result:
+        l.append(doc)
+    l.sort(key=lambda x: (x['_id']['segmentObjectId'], x['_id']['userObjectId']))
+    groupedList = simplify(l)
+
+    print "GROUPED LIST:::::::", groupedList
+    return groupedList
+
+def combine_programs_with_stats(program_list,stats_list):
+    for program_item in program_list:
+        program_id = program_item['objectId']
+        for stats_item in stats_list:
+            stats_program_id = stats_item['segmentObjectId']
+            if program_id == stats_program_id:
+                program_item['sentMessagesCount'] = stats_item['totalMessages']
+                program_item['userCount'] = stats_item['totalUsers']
+                break
+    return program_list
+
+def simplify(list):
+    previousId = ""
+    currentId = ""
+    totalDistinct = 0
+    totalMessages = 0
+    groupedList = []
+    saveDict = {}
+
+    for item in list:
+        currentId = item['_id']['segmentObjectId']
+        print "currentId", currentId
+
+        if previousId == "":
+            totalDistinct = item['distinctCount'] + totalDistinct
+            totalMessages = item['totalCount'] + totalMessages
+            print "totalMessages:", totalMessages
+            previousId = currentId
+
+        elif currentId == previousId:
+            # update the total distinct number
+            totalDistinct = totalDistinct + item['distinctCount']
+            totalMessages = totalMessages + item['totalCount']
+
+        else:
+            saveDict['segmentObjectId'] = previousId
+            saveDict['totalUsers'] = totalDistinct
+            saveDict['totalMessages'] = totalMessages
+            groupedList.append(saveDict)
+
+            # Reset
+            totalDistinct = item['distinctCount']
+            totalMessages = item['totalCount']
+            previousId = currentId
+            saveDict = {}
+
+    return groupedList
+
+
+
+def get_program_list_with_user_stats(program_list,user_stats):
+    # print "PROGRAM LIST", program_list[0]
+    # print "PROGRAM STATS", program_stats
+
+    for program_item in program_list:
+        program_id = program_item['objectId']
+        for stats_item in user_stats:
+            stats_program_id = stats_item['_id']['segmentObjectId']
+            if program_id == stats_program_id:
+                program_item['userMessagesCount'] = stats_item['count']
+                break
+                #({'_id': program_item['programObjectId']}, {'$set': {'sentMessagesCount': program_item['count']}})
+    # print "program list with stats:", program_list[0]
+    return program_list
+
+
+
+
+
+
 
 def get_program_list_with_stats(program_list,program_stats):
     # print "PROGRAM LIST", program_list[0]
@@ -72,7 +189,7 @@ def get_program_list_with_stats(program_list,program_stats):
         program_id = program_item['objectId']
         for stats_item in program_stats:
             stats_id = stats_item['programObjectId']
-            print "program_id:", program_id
+            # print "program_id:", program_id
             # print "stats_id:", stats_id
             if program_id == stats_id:
                 program_item['sentMessagesCount'] = stats_item['count']
@@ -93,8 +210,8 @@ def get_program_list_for_user(user_pk):
     })
 
     program_list = json.loads(connection.getresponse().read())
-    print "Printing program list for user"
-    print program_list['results']
+    # print "Printing program list for user"
+    # print program_list['results']
     return program_list['results']
 
 def get_segment_list(program_id):

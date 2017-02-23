@@ -98,7 +98,9 @@ def leaving(request):
 def browse(request):
     program_list = get_program_list()
     program_stats = get_program_browse_stats()
-    program_list_with_stats = get_program_list_with_stats(program_list,program_stats)
+    # program_list_with_stats = get_program_list_with_stats(program_list,program_stats)
+    stats_list = get_program_browse_stats_user_count()
+    program_list_with_stats = combine_programs_with_stats(program_list,stats_list)
 
     documentaryArray = []
     webVideoArray = []
