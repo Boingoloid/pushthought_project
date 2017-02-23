@@ -240,6 +240,27 @@ $(document).ready(function() {
                 $(addressPath).addClass('selected');
             }
 
+            var placeholderLength = $('.address-placeholder').text().length
+            value = $('#text-input').html();
+            searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
+            if (searchBool == -1){
+                console.log("span is NOT there");
+                console.log(searchBool);
+                $('#text-input').html(value + '<span contenteditable=false class=address-placeholder></span>');
+                console.log("span inserted");
+            } else {
+                console.log("span is there");
+                console.log(searchBool);
+            }
+
+            console.log(value);
+//                $('#text-input').html($('#text-input').html()+' <span contenteditable=false class=address-placeholder></span>');
+//                $('#text-input').focus();
+//                $('#text-input').select();
+//                insertTextAtCursor('<span contenteditable=false class=address-placeholder></span>');
+
+
+//            }
             // add back placeholder if it was deleted
             //            if (!$('text-input').hasClass('address-placeholder')){
             //                $('text-input').focus();
@@ -342,21 +363,24 @@ $(document).ready(function() {
     });
 
 
-//    $('#text-input').keydown(function() {
-//        if ($('.address-placeholder').text().length < 1){
-//            $('.action-panel-container').each(function(){
-//                 if ($(this).hasClass( "selected" )){
-//                    $(this).removeClass('selected');
-//                    // remove twitter name above textarea
-//                    var index = $(this).attr('id');
-//                    var addressPath = ".address-item-" + index;
-//                    $(addressPath).removeClass('selected');
-//                 }
-//            });
-//        }
-//    });
-
-
+    $('#text-input').keyup(function() {
+        var placeholderLength = $('.address-placeholder').text().length
+        value = $('#text-input').html();
+        searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
+        if (searchBool == -1){
+            console.log("span is NOT there, adding");
+            $('#text-input').html('<span contenteditable=false class=address-placeholder></span>' + value);
+            $('.action-panel-container').each(function(){
+                 if ($(this).hasClass( "selected" )){
+                    $(this).removeClass('selected');
+                    // remove twitter name above textarea
+                    var index = $(this).attr('id');
+                    var addressPath = ".address-item-" + index;
+                    $(addressPath).removeClass('selected');
+                 }
+            });
+        }
+    });
 });
 
 
