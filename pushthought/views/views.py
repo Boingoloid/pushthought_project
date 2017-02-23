@@ -127,10 +127,10 @@ def browse(request):
     dataDict = {}
     dataDict['programList'] = program_list_with_stats
     dataDict['segmentList'] = segment_list
-    dataDict['documentaryArray'] = documentaryArray
-    dataDict['webVideoArray'] = webVideoArray
-    dataDict['podcastArray'] = podcastArray
-    dataDict['otherArray'] = otherArray
+    dataDict['documentaryList'] = documentaryArray
+    dataDict['webVideoList'] = webVideoArray
+    dataDict['podcastList'] = podcastArray
+    dataDict['otherList'] = otherArray
 
     return render(request, 'browse.html', dataDict)
 

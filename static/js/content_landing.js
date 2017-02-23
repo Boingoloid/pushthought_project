@@ -226,7 +226,6 @@ $(document).ready(function() {
         if($('.twitter-name').css('opacity') == 0) {
             return false
         } else {
-            //console.log(window.getSelection().getRangeAt(0));
             if ($(this).hasClass( "selected" )){
                 $(this).removeClass('selected');
                 // add or remove twitter name above textarea
@@ -269,14 +268,10 @@ $(document).ready(function() {
       if(tweet_text.length < 1){
         alert ("Please type a message to tweet first");
       } else {
-        var addressArray = [];
 
-        // make addressArray:  array of twitter names to attempt
+        addressArray = [];
         $('.action-panel-container.selected').each(function() {
-
             index = $(this).attr('id');
-
-
             function showLoading(index){
                 var loaderDiv = '.loader-' + index;
                 console.log(loaderDiv);
@@ -284,11 +279,9 @@ $(document).ready(function() {
             }
             showLoading(index);
 
-
             twitterName = $(this).contents().contents('.twitter-name').text();
             addressArray.push(twitterName);
-        });
-
+         });
 
         // create dataSet string
         dataSet = JSON.stringify({
@@ -298,26 +291,14 @@ $(document).ready(function() {
                 "last_menu_url": window_url,
                 "addressArray" : addressArray,
         });
-
         console.log(dataSet);
 
-        // Grab success array
-//        var successArray = JSON.parse(dataSet)['addressArray'];
-//        var duplicateArray = JSON.parse(dataSet)['addressArray'];
-//        console.log(successArray);
-//        console.log('DUPLICATE:')
-//        console.log(duplicateArray);
-//        var lengthValue = duplicateArray.length;
-//        console.log(lengthValue);
-        //showSuccess(successArray, duplicateArray);
         $.ajax({url: "/verify_twitter",
             type: "POST",
             data: dataSet,
             contentType: 'json;charset=UTF-8',
             cache: false,
             success: function(data) {
-
-
 
                 // Success message
                 console.log('success');
@@ -359,13 +340,21 @@ $(document).ready(function() {
         });
       }
     });
-            //    $('#text-input').keydown(function() {
-            //        var inputText = $('#text-input').text();
-            //        textStart = $(this).html();
-            //        console.log(textStart);
-            //        var numItems = $('.address-item.selected').length;
-            //    });
 
+
+//    $('#text-input').keydown(function() {
+//        if ($('.address-placeholder').text().length < 1){
+//            $('.action-panel-container').each(function(){
+//                 if ($(this).hasClass( "selected" )){
+//                    $(this).removeClass('selected');
+//                    // remove twitter name above textarea
+//                    var index = $(this).attr('id');
+//                    var addressPath = ".address-item-" + index;
+//                    $(addressPath).removeClass('selected');
+//                 }
+//            });
+//        }
+//    });
 
 
 });
