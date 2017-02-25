@@ -243,6 +243,12 @@ def content_landing(request, programId):
     dataDict['hashtagData'] = hashtag_data
 
     try:
+        dataDict['alertList'] = request.session['alertList']
+    except:
+        print "no alertList to display"
+        pass
+
+    try:
         dataDict['successArray'] = request.session['successArray']
         del request.session['successArray']
         print "content landing successArray", dataDict['successArray']

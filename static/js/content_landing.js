@@ -7,45 +7,28 @@ function csrfSafeMethod(method) {
 }
 
 
-
-
-
-
-//}function show_success_message() {
-//    if ($('#successArray').val()){
-//      alert($('#successArray').val());
-//      console.log($('#successArray').val());
-//      for (item in successArray) {
-//            var refText = '.success-box-' + str(item)
-//            $(refText).each(function() {
-//                $('.success-box').each(function() {
-//                    $('.success-text').css({'opacity':'0.0'});
-//                    $(this).animate({'height':'0.0'},0,function() {
-//                        $(this).css({'width':'10px'});
-//                        $(this).css({'opacity':'1.0'});
-//                        $(this).show();
-//                    });
-//                    $(this).animate({'height':'58.0'},300,function() {
-//                        $(this).animate({'width':'200px'},600,function() {
-//                            $('.success-text').css({'opacity':'1.0'});
-//                            $(this).animate({'width':'200px'},1500,function() {
-//                                $('.success-text').css({'opacity':'0.0'});
-//                                $(this).animate({'width':'10px'},600,function() {
-//                                    $(this).animate({'height':'0px'},300,function(){});
-//                                });
-//                            });
-//                        });
-//                    });
-//                });
-//            });
-//      }
-//    } else {
-//    }
-//}
-
 //testWindow = window.open("popup.php","interaction","resizable=0,width=800,height=600,status=0");
 
 $(document).ready(function() {
+
+//    Object.prototype.getName = function() {
+//       var funcNameRegex = /function (.{1,})\(/;
+//       var results = (funcNameRegex).exec((this).constructor.toString());
+//       return (results && results.length > 1) ? results[1] : "";
+//    };
+
+    var data = $('#alertList').data('alertlist');
+    if(data){
+        var headerAllowance = $('.seen-it-container').offset().top - 20;
+        $('html, body').animate({
+                scrollTop: headerAllowance + 'px'
+            }, 'fast');
+        console.log(data);
+        console.log(data[1][0]);
+
+
+        showSuccess(data[0], data[1]);
+    }
 
 
     var csrftoken = Cookies.get('csrftoken');
@@ -56,6 +39,8 @@ $(document).ready(function() {
             }
         }
     });
+
+
 
     $('.watch-button').click( function() {
        //var idText = $(this).attr('id');
@@ -122,6 +107,7 @@ $(document).ready(function() {
         var selection = window.getSelection();
 
         $('#text-input').val('');
+        $('#text-input').focus();
         //selection.focusOffset = 3;
         //selection.focus(3);
         //console.log("selection.focusNode.data[selection.focusOffset]" + selection.focusNode.data[selection.focusOffset]);
@@ -283,14 +269,14 @@ $(document).ready(function() {
             twitterName = $(this).contents().contents('.twitter-name').text();
             addressArray.push(twitterName);
          });
-
+        alert(tweet_text);
         // create dataSet string
         dataSet = JSON.stringify({
                 "tweet_text": tweet_text,
                 "segment_id": segment_id,
                 "program_id": program_id,
                 "last_menu_url": window_url,
-                "addressArray" : addressArray,
+                "address_array" : addressArray,
         });
         console.log(dataSet);
 

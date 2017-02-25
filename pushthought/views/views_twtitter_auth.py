@@ -24,7 +24,9 @@ def verify_twitter(request):
     request.session['programId'] = data['program_id']
     request.session['segmentId'] = data['segment_id']
     request.session['lastMenuURL'] = data['last_menu_url']
-    request.session['addressArray'] = data['addressArray']
+    request.session['addressArray'] = data['address_array']
+    request.session['tweetText'] = data['tweet_text']
+    tweet_text = request.session['tweetText']
     request.session.modified = True
 
     print "program id in session:", request.session['programId']
@@ -71,12 +73,9 @@ def verify_twitter(request):
 
         twitter_user = current_user['twitter_user']
 
-        try:
-            tweet_text = data['tweet_text']
-        except:
-            tweet_text = ''
 
-        print "addressArray length", len(request.session['addressArray'])
+
+        # print "addressArray length", len(request.session['addressArray'])
 
         successArray = []
         duplicateArray = []
@@ -184,17 +183,6 @@ def verify_catch(request):
     # save twitter profile data to current_user
     update_user_with_twitter_profile_data(request, current_user,twitter_user,access_key_token,access_key_token_secret)
 
-    #  Gather data to sent tweet from session
-    #     tweet_text
-    try:
-        tweet_text = request.session['tweetText']
-        del request.session['tweetText']
-        request.session.modified = True
-    except:
-        print "hit error while deleting"
-
-
-
     #  count success array items
     #  if 0 or 1 send once with no modification
     #  if 2 or more, then execute loop, replace tweetText @multiple every time with value.  Never change tweettext base
@@ -205,6 +193,7 @@ def verify_catch(request):
     duplicateArray = []
     otherErrorArray = []
     address_array = request.session['addressArray']
+    tweet_text = request.session['tweetText']
 
     for item in address_array:
         target_address = str(item)
@@ -215,9 +204,10 @@ def verify_catch(request):
         if result == True:
             successArray.append(item)
         elif result == 187:
-            duplicateArray.append(item)
+            duplicateArray.append(str(item))
         else:
             otherErrorArray.append(item)
+
 
 
 
@@ -236,7 +226,7 @@ def verify_catch(request):
     #         send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret,current_user,twitter_user, target_address)
 
 
-    # redirect and show success.
+    # redirect and show success
 
     #thanks for signing in, now sending tweets.
     # pass the arrays  if in session, show?  put in html element, if there then show success
@@ -247,18 +237,26 @@ def verify_catch(request):
     # Fire off animation.
 
     # redirect to last landing page if programId
+
+
+
+
     try:
         programId = request.session['programId']
     except:
         programId = None
     if programId:
+        alertList = [successArray, duplicateArray, otherErrorArray]
+        alertList = json.dumps(alertList)
+        print "ALERT LIST:", alertList
+        print type(alertList)
+        request.session['alertList'] = alertList
         redirectURL = "/content_landing/" + programId
-        print "here is the redirect url", redirectURL
-        print "addressArray", request.session['addressArray']
+        print "redirecting to content_landing: ", redirectURL
         return HttpResponseRedirect(redirectURL)
     else:
         redirectURL = "/browse/"
-        print "hno programID redirect to browse", redirectURL
+        print "no programId redirecting to Browse:", redirectURL
         return HttpResponseRedirect(redirectURL)
 
 #helper
@@ -267,9 +265,6 @@ def send_tweet_with_tweepy(tweet_text,access_key_token,access_key_token_secret):
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
     auth.set_access_token(access_key_token, access_key_token_secret)
     api = tweepy.API(auth)
-
-    successArray = []
-    duplicateArray = []
 
     try:
         api.update_status(tweet_text)
