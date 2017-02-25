@@ -244,29 +244,9 @@ $(document).ready(function() {
             value = $('#text-input').html();
             searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
             if (searchBool == -1){
-                console.log("span is NOT there");
-                console.log(searchBool);
                 $('#text-input').html(value + '<span contenteditable=false class=address-placeholder></span>');
-                console.log("span inserted");
-            } else {
-                console.log("span is there");
-                console.log(searchBool);
             }
 
-            console.log(value);
-//                $('#text-input').html($('#text-input').html()+' <span contenteditable=false class=address-placeholder></span>');
-//                $('#text-input').focus();
-//                $('#text-input').select();
-//                insertTextAtCursor('<span contenteditable=false class=address-placeholder></span>');
-
-
-//            }
-            // add back placeholder if it was deleted
-            //            if (!$('text-input').hasClass('address-placeholder')){
-            //                $('text-input').focus();
-            //                $('text-input').select();
-            //                insertTextAtCursor('<span contenteditable=false class=address-placeholder></span>');
-               //            }
             var numItems = $('.address-item.selected').length;
             var labelText = 'tweet: ' + numItems
             $('#tweet-button-label').text(labelText);
@@ -368,7 +348,7 @@ $(document).ready(function() {
         value = $('#text-input').html();
         searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
         if (searchBool == -1){
-            console.log("span is NOT there, adding");
+//            console.log("span is NOT there, adding");
             $('#text-input').html('<span contenteditable=false class=address-placeholder></span>' + value);
             $('.action-panel-container').each(function(){
                  if ($(this).hasClass( "selected" )){
