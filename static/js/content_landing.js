@@ -55,6 +55,7 @@ $(document).ready(function() {
             console.log("cancelling twitter empty icon click, animation or item invisible");
             return false;
         };
+
         $('.rep-action-container').css('display','block'),200,function(){
             //var caretPos = $("#text-input").selectionStart;
             //var textAreaTxt = $("#text-input").val();
@@ -69,7 +70,6 @@ $(document).ready(function() {
         });
         $('.rep-color-band').animate({'height':'375px'});
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'},500,function() {
-                $("#text-input").val("@multiple")
             });
         //$('.twitter-icon').animate({'left':'42%'});
         $('.twitter-icon').animate({'opacity':'0'});
@@ -95,19 +95,23 @@ $(document).ready(function() {
         stringSpace = '&nbsp';
         $('#text-input').html('<span contenteditable=false class=address-placeholder>' + addressPlaceholder + '</span>');
 
-        var tweetText = $('#text-input').text();
-        letterCount = tweetText.length;
-        console.log("letter count:" + letterCount);
+        //var tweetText = $('#text-input').text();
+        //letterCount = tweetText.length;
+        //console.log("letter count:" + letterCount);
+
+        // set button label
+        var numItems = $('.address-item.selected').length;
+        var labelText = 'tweet: ' + numItems
+        $('#tweet-button-label').text(labelText);
+
 
         $('#text-input').focus();
-        range = window.getSelection().getRangeAt(0);
-        range.setStart(range.endContainer,range.endOffset);
+        //range = window.getSelection().getRangeAt(0);
+        //range.setStart(range.endContainer,range.endOffset);
         //document.execCommand('selectAll',false,null);
-        console.log(window.getSelection().getRangeAt(0));
-        var selection = window.getSelection();
+        //console.log(window.getSelection().getRangeAt(0));
+        //var selection = window.getSelection();
 
-        $('#text-input').val('');
-        $('#text-input').focus();
         //selection.focusOffset = 3;
         //selection.focus(3);
         //console.log("selection.focusNode.data[selection.focusOffset]" + selection.focusNode.data[selection.focusOffset]);
@@ -346,6 +350,11 @@ $(document).ready(function() {
                  }
             });
         }
+
+        // set button label
+        var numItems = $('.address-item.selected').length;
+        var labelText = 'tweet: ' + numItems
+        $('#tweet-button-label').text(labelText);
     });
 });
 
