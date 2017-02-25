@@ -35,8 +35,15 @@
 <div class="container-standard">
     <div class="rep-color-band">
         <div class="container-standard category-container">
-            <h2>Federal Representatives</h2>
+            <div class="category-title" style="z-index:0;">Federal Representatives</div>
             <div class="rep-container">
+                <div class="zip-capture" > </div>
+                <div class="location-label">current location:</div>
+                <img class='location-icon' src="{% static 'img/location-icon.png' %}">
+                <div class="or-label">---  or  ---</div>
+                <div class="zip-label">zip code:</div>
+                <button class="submit-zip">SUBMIT ZIP</button>
+                <input class="zip-input" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
                 {% for item in congressData %}
                 <div class="rep-item-container rep-item-container-{{forloop.counter}}-">
                     <div class='rep-item' id="rep-item{{forloop.counter}}">

@@ -11,6 +11,34 @@ function csrfSafeMethod(method) {
 
 $(document).ready(function() {
 
+    $('.zip-input').click( function() {
+        $('.submit-zip').show();
+    });
+
+    $(document).mouseup(function(){
+        if ($('.zip-input') == "focused"){
+
+        } else{
+            if($(".submit-zip:visible").length==1){
+                $(".submit-zip").hide(); // Toggle
+            }
+        }
+    });
+
+   $('.submit-zip').click( function() {
+        // validators
+        var zip = $('.zip-input').val();
+        var isValidZip = /(^\d{5}$)/.test(zip);
+
+        if (isValidZip){
+            console.log('valid zip');
+        } else{
+            console.log('NOT a valid zip');
+            alert("not a valid zip")
+        }
+
+    });
+
 //    Object.prototype.getName = function() {
 //       var funcNameRegex = /function (.{1,})\(/;
 //       var results = (funcNameRegex).exec((this).constructor.toString());

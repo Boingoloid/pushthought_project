@@ -234,6 +234,24 @@ def content_landing(request, programId):
     tweet_data = get_tweet_data(programId)
     hashtag_data = get_hashtag_data(segmentId)
 
+    print "congress_data:", type(congress_data)
+
+    congress_data = [
+        {
+            "full_name": "Congressperson",
+            "title": "state / district"
+        },
+        {
+            "full_name": "Congressperson",
+            "title": "state / district"
+        },
+        {
+            "full_name": "Congressperson",
+            "title": "state / district"
+        }
+    ]
+
+
     dataDict = {}
     dataDict['currentUser'] = current_user
     dataDict['program'] = program_results

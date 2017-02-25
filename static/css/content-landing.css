@@ -128,6 +128,104 @@ h2{
   box-sizing: border-box;
 }
 
+.category-title{
+font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+letter-spacing:1.07;
+}
+
+
+.zip-capture{
+    position:absolute;
+    z-index:2000;
+    background:black;
+    top:0;
+    left:0;
+    width:30%;
+    height:70%;
+    opacity:1;
+    border-radius: 0 0 10px 10px;
+    border-radius: 0px 10px 10px 0px;
+    border-right:3px solid gray;
+    border-top:3px solid gray;
+    border-bottom:3px solid gray;
+}
+
+
+.location-label{
+    position: absolute;
+    top:22;
+    left:34;
+    color:white;
+    height:30px;
+    width: 200px;
+    z-index:2001;
+}
+
+.location-icon{
+    position:absolute;
+    z-index: 2001;
+    top: 12;
+    left: 230;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
+
+
+.or-label{
+    position: absolute;
+    top:66;
+    left:226;
+    color:gray;
+    height:30px;
+    width: 100px;
+    z-index:2001;
+    font-size: 14px;
+    cursor: default;
+}
+
+
+.zip-label{
+    position: absolute;
+    top:90;
+    left:106;
+    color:white;
+    height:30px;
+    width: 200px;
+    z-index:2001;
+}
+
+.submit-zip{
+    position: absolute;
+    top: 10;
+    left: 213;
+    height: 80px;
+    width: 90px;
+    z-index:2001;
+    background: green;
+    border-radius:10px;
+    display: None;
+
+}
+
+.zip-input{
+     position: absolute;
+     color:black;
+     z-index:2001;
+     height:25px;
+     width:90px;
+     left:213;
+     top:90;
+     border:1px solid black;
+     border-radius:10px;
+     background: #ccefff;
+     text-align:center;
+}
+
+
+
+
+
 .rep-container{
   display:flex;
   background: rgba(0,0,0,0);/*#75776a;*/
@@ -139,6 +237,7 @@ h2{
   border-bottom:0px solid black;
   overflow: auto;
   padding-bottom:0px;
+  position: relative;
 }
 
 ::-webkit-scrollbar-track
@@ -710,3 +809,6 @@ text-tweet-block{
   color: #00aced;
   color: white;
 }
+
+
+
