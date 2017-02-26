@@ -18,6 +18,7 @@
                 <h1>{{program.programTitle}}</h1>
                 <p class="description">{{program.programDescription}}</p>
                     <div class="seen-it-container">
+                        <div class="drop-here" style="color:red; font-weight:600; font-size:20px;">This is a sample</div>
                         <h2 style="color:red; font-weight:600; font-size:20px;">Already seen it?</h2>
                         <h3>Share with purpose below...</h3>
                     </div>
@@ -37,13 +38,13 @@
         <div class="container-standard category-container">
             <div class="category-title" style="z-index:0;">Federal Representatives</div>
             <div class="rep-container">
-                <div class="zip-capture" > </div>
+                <div class="zip-capture">
                 <div class="location-label">current location:</div>
                 <img class='location-icon' src="{% static 'img/location-icon.png' %}">
                 <div class="or-label">---  or  ---</div>
                 <div class="zip-label">zip code:</div>
                 <button class="submit-zip">SUBMIT ZIP</button>
-                <input class="zip-input" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
+                <input class="zip-input" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input></div>
                 {% for item in congressData %}
                 <div class="rep-item-container rep-item-container-{{forloop.counter}}-">
                     <div class='rep-item' id="rep-item{{forloop.counter}}">
@@ -67,7 +68,6 @@
                                 <img class='repPhoto' id='repPhoto{{forloop.counter}}' src='{{ item.image.url }}'>
                             {% else %}
                                 <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
-
                             {% endif %}
                             <div class="name-title-container" >
                                 <div><p class="full-name">{{item.full_name}}</p></div>

@@ -11,6 +11,116 @@ function csrfSafeMethod(method) {
 
 $(document).ready(function() {
 
+
+
+    function get_congress(){
+        var zip = $('.zip-input').val();
+        zip = '94107';
+        $.ajax({url: "/get_congress/" + zip,
+            type: "GET",
+            data: "",
+            contentType: 'json;charset=UTF-8',
+            cache: false,
+            success: function(data) {
+                console.log(data);
+                // put in congress data
+                // for each insert through js the html
+                var index = 0;
+                console.log(data['congressData']);
+                for (item in data['congressData']){
+                    var text =  '<div class="hello">hello, text text test ' +  index  +' </div>';
+                    console.log(data);
+                    $('.drop-here').html(text);
+                    index++;
+                    }
+//                    for (let [index, val] of array.entries()) {
+//                      // your code goes here
+//                    }
+//                <div class="rep-item-container rep-item-container-{{forloop.counter}}-">
+//                    <div class='rep-item' id="rep-item{{forloop.counter}}">
+//                        <div class='loader loader-{{forloop.counter}}'  id="loader"></div>
+//                        {% if item.userTouched %}
+//                            <img class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
+//                        {% else %}
+//                            <img style="display:none;" class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
+//                        {% endif %}
+//
+//                        <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
+//                        <div class="success-box" id="success-box-{{item.twitter_id}}">
+//                            <p class="success-text" style="padding-top:4px;">tweet sent to:</p>
+//                            <p class="success-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>
+//                            <p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>
+//                            <p class="duplicate-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>
+//                            <!--<img class="img-logo-success" src="{% static 'img/push_thought_logo3.png' %}" width="70" height="70">-->
+//                        </div>
+//                        <div style="display:inline-block;">
+//                            {% if item.image %}
+//                                <img class='repPhoto' id='repPhoto{{forloop.counter}}' src='{{ item.image.url }}'>
+//                            {% else %}
+//                                <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
+//
+//                            {% endif %}
+//                            <div class="name-title-container" >
+//                                <div><p class="full-name">{{item.full_name}}</p></div>
+//                                <div><p class="title">{{item.title}}</p></div>
+//                            </div>
+//                        </div>
+//                    </div>
+//                    <div class="action-panel-container" id="{{forloop.counter}}">
+//                        <div class="action-panel">
+//                            {% if item.twitter_id %}
+//                                <div class="twitter-name">@{{item.twitter_id}}</div>
+//                                <div hidden class="index">{{forloop.counter}}</div>
+//                                <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
+//                            {% else %}
+//                                <div class="twitter-name" id="twitter-name">n/a</div>
+//                                <!--<div class="add-remove-label" id="add-remove-label"></div>-->
+//                                <img class="twitter-icon-empty" src="{% static 'img/twitter-icon-gray.png' %}" width="42" height="42">
+//                                <div class="warning-box-tweet-icon">
+//                                    <p class="warning-text">twitter address n/a</p>
+//                                </div>
+//                            {% endif %}
+//                            <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
+//                            {% if item.contact_form %}
+//                                <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+//                            {% else %}
+//                                <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">
+//                            {% endif %}
+//                        </div>
+//                    </div>
+//                </div>
+//                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                },
+            error: function() {
+                console.log('fail');
+            }
+        });
+    }
+    get_congress();
+
+
     $('.zip-input').click( function() {
         $('.submit-zip').show();
     });
@@ -34,7 +144,6 @@ $(document).ready(function() {
             console.log('valid zip');
         } else{
             console.log('NOT a valid zip');
-            alert("not a valid zip")
         }
 
     });

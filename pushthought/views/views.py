@@ -200,7 +200,6 @@ def content_landing(request, programId):
 
     def add_prior_activity_to_congress_data(congress_data,message_list):
         for item in congress_data:
-
             try:
                 twitter_id = item['twitter_id']
             except:
@@ -220,8 +219,8 @@ def content_landing(request, programId):
                             item['userTouched'] = 1
                             # print "YES! user touched!!! " , twitter_id
                             # print congress_data
-
         return congress_data
+
 
     zipCode = "94107"
     congress_data_raw = get_congress_data(zipCode)
@@ -234,7 +233,7 @@ def content_landing(request, programId):
     tweet_data = get_tweet_data(programId)
     hashtag_data = get_hashtag_data(segmentId)
 
-    print "congress_data:", type(congress_data)
+    print "congress_data type:", type(congress_data)
 
     congress_data = [
         {
@@ -251,6 +250,8 @@ def content_landing(request, programId):
         }
     ]
 
+    # if zip in user, then user it
+    # if not, ask for it, make display  (JS)
 
     dataDict = {}
     dataDict['currentUser'] = current_user
@@ -285,6 +286,15 @@ def content_landing_empty(request):
         return render(request, 'content_landing_empty.html',dataDict)
     except:
         return HttpResponseRedirect('/browse/')
+
+def get_congress(request,zip):
+
+    congress_data_raw = get_congress_data(zip)
+    congress_data_raw = add_title_and_full_name(congress_data_raw)
+    congress_photos = get_congress_photos(congress_data_raw)
+    congress_data = add_congress_photos(congress_data_raw,congress_photos)
+    return HttpResponse(json.dumps({'congressData': congress_data,}), content_type="application/json")
+    # return None
 
 def fed_rep_action_menu(request, programId, segmentId):
 

@@ -133,6 +133,14 @@ font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 letter-spacing:1.07;
 }
 
+.drop-here{
+    position:relative;
+    z-index:2000;
+    height: auto;
+    width: auto;
+    border: 2px solid red;
+}
+
 
 .zip-capture{
     position:absolute;
@@ -148,6 +156,7 @@ letter-spacing:1.07;
     border-right:3px solid gray;
     border-top:3px solid gray;
     border-bottom:3px solid gray;
+    display:None;
 }
 
 
