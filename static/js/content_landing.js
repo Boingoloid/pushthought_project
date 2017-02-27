@@ -31,64 +31,79 @@ $(document).ready(function() {
                 for (i=0; i<len; ++i) {
                   if (i in myStringArray) {
                     var item = myStringArray[i];
-                    var imageString
 
+                    // Image check
+                    var imageString
                     if(!item['image']['url']){
                        imageString = '<img class="repPhoto repPhoto-none" src=\'/static/img/push-thought-logo.png\'>';
                     } else {
                        imageString = '<img class="repPhoto" id="repPhoto'+i+'" src="'+item['image']['url']+'">';
                     }
 
+                    // twitterId check
+                    if(!item['twitter_id']){
+                       twitterIdString = ['<div class="twitter-name" id="twitter-name">n/a</div>',
+                        '<img class="twitter-icon-empty" src=\'/static/img/twitter-icon-gray.png\' width="42" height="42">',
+                        '<div class="warning-box-tweet-icon">',
+                            '<p class="warning-text">twitter address n/a</p>',
+                        '</div>'
+                        ].join("\n");
+                    } else {
+                       twitterIdString = ['<div class="twitter-name">@'+item['twitter_id']+'</div>',
+                            '<div hidden class="index">'+i+'</div>',
+                            '<img class="twitter-icon" src=\'/static/img/twitter-icon.png\' width="42" height="42">'
+                            ].join("\n");
+                    }
+
+                    // contact form check
+                    if(!item['contact_form']){
+                       emailString = '<img class="email-icon" id="'+item['contact_form']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">';
+                    } else {
+                       emailString = '<img class="email-icon" id="'+item['contact_form']+'" src=\'/static/img/email-icon.png\' width="36" height="36">';
+                    }
 
 
-                    var text =  ['<div class="rep-item-container rep-item-container-' + i +'">',
-                                    '<div class="rep-item" id="rep-item'+i+'">',
-                                      '<div class="loader loader-'+i+ '" id="loader"></div>',
-                                      '<img style="" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>',
-                                      '<p hidden id="tweet-address-item'+i+'">@'+item['twitter_id']+'</p>',
-                                      '<div class="success-box" id="success-box-'+item['twitter_id']+'">',
-                                              '<p class="success-text" style="padding-top:4px;">tweet sent to:</p>',
-                                              '<p class="success-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
-                                              '<p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>',
-                                              '<p class="duplicate-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
-                                      '</div>',
-                                      '<div style="display:inline-block;">',
-                                       imageString,
-                                            '<div class="name-title-container">',
-                                                 '<div><p class="full-name">'+ item['full_name']+'</p></div>',
-                                                 '<div><p class="title">'+item['title']+'</p></div>',
-                                            '</div>',
-                                      '</div>',
+                    // construct HTML
+                    var text =  [
+                        '<div class="rep-item-container rep-item-container-' + i +'">',
+                            '<div class="rep-item" id="rep-item'+i+'">',
+                              '<div class="loader loader-'+i+ '" id="loader"></div>',
+                              '<img style="" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>',
+                              '<p hidden id="tweet-address-item'+i+'">@'+item['twitter_id']+'</p>',
+                              '<div class="success-box" id="success-box-'+item['twitter_id']+'">',
+                                      '<p class="success-text" style="padding-top:4px;">tweet sent to:</p>',
+                                      '<p class="success-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
+                                      '<p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>',
+                                      '<p class="duplicate-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
+                              '</div>',
+                              '<div style="display:inline-block;">',
+                               imageString,
+                                    '<div class="name-title-container">',
+                                         '<div><p class="full-name">'+ item['full_name']+'</p></div>',
+                                         '<div><p class="title">'+item['title']+'</p></div>',
                                     '</div>',
-                                    '<div class="action-panel-container" id="'+i+'">',
-                                         '<div class="action-panel">',
+                              '</div>',
+                            '</div>',
+                            '<div class="action-panel-container" id="'+i+'">',
+                                    '<div class="action-panel">',
+                                        twitterIdString,
+                                        '<img class="phone-icon" id="'+item['phone']+'" name="'+item['full_name']+'" src=\'/static/img/phone-icon.png\'>',
+                                        emailString,
+                                    '</div>',
+                            '</div>',
+                        '</div>'
+                    ].join("\n");
 
-
-                                  ].join("\n");
-
-                    $('.drop-here').append(text);
+                    $('.rep-container').append(text);
+//                    $('.drop-here').append(text);
 
                     //s = myStringArray[i]['twitter_id'];
                     //console.log("here is the item:" + s);
                   }
                 }
 
-//
-//
-//
-//                            {% if item.twitter_id %}
-//                                <div class="twitter-name">@{{item.twitter_id}}</div>
-//                                <div hidden class="index">{{forloop.counter}}</div>
-//                                <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
-//                            {% else %}
-//                                <div class="twitter-name" id="twitter-name">n/a</div>
-//                                <!--<div class="add-remove-label" id="add-remove-label"></div>-->
-//                                <img class="twitter-icon-empty" src="{% static 'img/twitter-icon-gray.png' %}" width="42" height="42">
-//                                <div class="warning-box-tweet-icon">
-//                                    <p class="warning-text">twitter address n/a</p>
-//                                </div>
 //                            {% endif %}
-//                            <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
+
 //                            {% if item.contact_form %}
 //                                <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
 //                            {% else %}
@@ -195,7 +210,7 @@ $(document).ready(function() {
        window.location.href="/leaving";
     });
 
-    $('.twitter-icon').click(function() {
+    $('.rep-container').on("click", "img.twitter-icon", function() {
         if ($(':animated').length || $(this).css('opacity') == 0) {
             console.log("cancelling twitter empty icon click, animation or item invisible");
             return false;
@@ -265,20 +280,17 @@ $(document).ready(function() {
         //document.selection.select
     });
 
-
-    //<span>' + stringSpace + '</span>
-    $('.twitter-icon-empty').click(function() {
+    $('.rep-container').on("click", "img.twitter-icon-empty", function() {
         if ($(':animated').length || $(this).css('opacity') == 0) {
             console.log("cancelling twitter empty icon click, animation or item invisible");
             return false;
         }
-
         $('.warning-box-tweet-icon').css({'opacity':'1'});
         $('.warning-box-tweet-icon').animate({'opacity':'0.0'},2500,function() {});
     });
     //alert("twitter clicked");
 
-    $('.phone-icon').click( function() {
+    $('.rep-container').on("click", "img.phone-icon", function() {
         if ($(':animated').length || $(this).css('opacity') == 0) {
             return false;
         }
@@ -293,7 +305,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.email-icon').click( function() {
+    $('.rep-container').on("click", "img.email-icon", function() {
         if ($(':animated').length || $(this).css('opacity') == 0) {
             return false;
         }

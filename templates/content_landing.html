@@ -18,7 +18,6 @@
                 <h1>{{program.programTitle}}</h1>
                 <p class="description">{{program.programDescription}}</p>
                     <div class="seen-it-container">
-                        <div class="drop-here" style="color:red; font-weight:600; font-size:20px;">This is a sample</div>
                         <h2 style="color:red; font-weight:600; font-size:20px;">Already seen it?</h2>
                         <h3>Share with purpose below...</h3>
                     </div>
@@ -45,60 +44,61 @@
                 <div class="zip-label">zip code:</div>
                 <button class="submit-zip">SUBMIT ZIP</button>
                 <input class="zip-input" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input></div>
-                {% for item in congressData %}
-                <div class="rep-item-container rep-item-container-{{forloop.counter}}-">
-                    <div class='rep-item' id="rep-item{{forloop.counter}}">
-                        <div class='loader loader-{{forloop.counter}}'  id="loader"></div>
-                        {% if item.userTouched %}
-                            <img class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
-                        {% else %}
-                            <img style="display:none;" class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
-                        {% endif %}
+                <!--<div class="drop-here" style="color:red; font-weight:600; font-size:20px;">This is a sample</div>-->
+                <!--{% for item in congressData %}-->
+                <!--<div class="rep-item-container rep-item-container-{{forloop.counter}}-">-->
+                    <!--<div class='rep-item' id="rep-item{{forloop.counter}}">-->
+                        <!--<div class='loader loader-{{forloop.counter}}'  id="loader"></div>-->
+                        <!--{% if item.userTouched %}-->
+                            <!--<img class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">-->
+                        <!--{% else %}-->
+                            <!--<img style="display:none;" class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">-->
+                        <!--{% endif %}-->
 
-                        <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
-                        <div class="success-box" id="success-box-{{item.twitter_id}}">
-                            <p class="success-text" style="padding-top:4px;">tweet sent to:</p>
-                            <p class="success-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>
-                            <p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>
-                            <p class="duplicate-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>
-                            <!--<img class="img-logo-success" src="{% static 'img/push_thought_logo3.png' %}" width="70" height="70">-->
-                        </div>
-                        <div style="display:inline-block;">
-                            {% if item.image %}
-                                <img class='repPhoto' id='repPhoto{{forloop.counter}}' src='{{ item.image.url }}'>
-                            {% else %}
-                                <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
-                            {% endif %}
-                            <div class="name-title-container" >
-                                <div><p class="full-name">{{item.full_name}}</p></div>
-                                <div><p class="title">{{item.title}}</p></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="action-panel-container" id="{{forloop.counter}}">
-                        <div class="action-panel">
-                            {% if item.twitter_id %}
-                                <div class="twitter-name">@{{item.twitter_id}}</div>
-                                <div hidden class="index">{{forloop.counter}}</div>
-                                <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
-                            {% else %}
-                                <div class="twitter-name" id="twitter-name">n/a</div>
-                                <!--<div class="add-remove-label" id="add-remove-label"></div>-->
-                                <img class="twitter-icon-empty" src="{% static 'img/twitter-icon-gray.png' %}" width="42" height="42">
-                                <div class="warning-box-tweet-icon">
-                                    <p class="warning-text">twitter address n/a</p>
-                                </div>
-                            {% endif %}
-                            <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
-                            {% if item.contact_form %}
-                                <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
-                            {% else %}
-                                <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+                        <!--<p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>-->
+                        <!--<div class="success-box" id="success-box-{{item.twitter_id}}">-->
+                            <!--<p class="success-text" style="padding-top:4px;">tweet sent to:</p>-->
+                            <!--<p class="success-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>-->
+                            <!--<p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>-->
+                            <!--<p class="duplicate-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>-->
+                            <!--&lt;!&ndash;<img class="img-logo-success" src="{% static 'img/push_thought_logo3.png' %}" width="70" height="70">&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div style="display:inline-block;">-->
+                            <!--{% if item.image %}-->
+                                <!--<img class='repPhoto' id='repPhoto{{forloop.counter}}' src='{{ item.image.url }}'>-->
+                            <!--{% else %}-->
+                                <!--<img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">-->
+                            <!--{% endif %}-->
+                            <!--<div class="name-title-container" >-->
+                                <!--<div><p class="full-name">{{item.full_name}}</p></div>-->
+                                <!--<div><p class="title">{{item.title}}</p></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="action-panel-container" id="{{forloop.counter}}">-->
+                        <!--<div class="action-panel">-->
+                            <!--{% if item.twitter_id %}-->
+                                <!--<div class="twitter-name">@{{item.twitter_id}}</div>-->
+                                <!--<div hidden class="index">{{forloop.counter}}</div>-->
+                                <!--<img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">-->
+                            <!--{% else %}-->
+                                <!--<div class="twitter-name" id="twitter-name">n/a</div>-->
+                                <!--&lt;!&ndash;<div class="add-remove-label" id="add-remove-label"></div>&ndash;&gt;-->
+                                <!--<img class="twitter-icon-empty" src="{% static 'img/twitter-icon-gray.png' %}" width="42" height="42">-->
+                                <!--<div class="warning-box-tweet-icon">-->
+                                    <!--<p class="warning-text">twitter address n/a</p>-->
+                                <!--</div>-->
+                            <!--{% endif %}-->
+                            <!--<img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">-->
+                            <!--{% if item.contact_form %}-->
+                                <!--<img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">-->
+                            <!--{% else %}-->
+                                <!--<img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">-->
+                            <!--{% endif %}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--{% endfor %}-->
             </div> <!--close rep container-->
             <div class="rep-action-container">
                 <img id="close-button"src="{% static 'img/x-mark-gray.png' %}" width="15" height="15">
