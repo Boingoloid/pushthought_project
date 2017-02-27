@@ -95,47 +95,20 @@ $(document).ready(function() {
                     ].join("\n");
 
                     $('.rep-container').append(text);
-//                    $('.drop-here').append(text);
 
-                    //s = myStringArray[i]['twitter_id'];
-                    //console.log("here is the item:" + s);
+
+                    if(item['twitter_id']){
+                        var addressText;
+                        addressText = [
+                          '<div class="address-item address-item-'+i+'">',
+                             '<p class="address-label-'+i+'">@'+item['twitter_id']+'</p>',
+                          '</div>'
+                        ].join("\n");
+                        $('.address-container').append(addressText);
+                    }
                   }
                 }
-
-//                            {% endif %}
-
-//                            {% if item.contact_form %}
-//                                <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
-//                            {% else %}
-//                                <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">
-//                            {% endif %}
-//                        </div>
-//                    </div>
-//                </div>
-//                }
-
-
-
-
-//                            <!--<img class="img-logo-success" src="{% static 'img/push_thought_logo3.png' %}" width="70" height="70">-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                },
+            },
             error: function() {
                 console.log('fail');
             }
@@ -245,9 +218,9 @@ $(document).ready(function() {
         $(this).parent('div').parent('div').toggleClass("selected");
 
         var index = $(this).parent('div').parent('div').attr('id');
-        //console.log(index);
+        console.log("idnex: " + index);
         var addressPath = ".address-item-" + index;
-        //console.log(addressPath);
+        console.log(addressPath);
         $(addressPath).toggleClass('selected');
 
         addressPlaceholderClass= '.address-label-' + index;
@@ -347,29 +320,7 @@ $(document).ready(function() {
     });
 
 
-    $('#clear-button').on('click',function(event) {
-        var addressPlaceholder = $('.address-placeholder').text();
-        console.log(addressPlaceholder);
-        $('#text-input').html('<span contenteditable=false class=address-placeholder>' + addressPlaceholder + '</span>');
-    });
-
-    $('#img-checked-box').on('click',function(event) {
-        if ($(':animated').length) {
-            console.log("cancelling click");
-            return false;
-        }
-        //alert('The link is always included for context')
-        $('.warning-box').css({'opacity':'1'});
-        $('.warning-box').animate({'opacity':'0.0'},2500,function() {
-        });
-    });
-
-    var window_url =  window.location.href;
-    var segment_id = $('#segmentId').text();
-    var program_id = $('#programId').text();
-
-
-    $('.action-panel-container').on('click', function(){
+    $('.rep-container').on("click", ".action-panel-container", function() {
         if($('.twitter-name').css('opacity') == 0) {
             return false
         } else {
@@ -409,6 +360,28 @@ $(document).ready(function() {
             }
         }
     });
+
+    $('#clear-button').on('click',function(event) {
+        var addressPlaceholder = $('.address-placeholder').text();
+        console.log(addressPlaceholder);
+        $('#text-input').html('<span contenteditable=false class=address-placeholder>' + addressPlaceholder + '</span>');
+    });
+
+    $('#img-checked-box').on('click',function(event) {
+        if ($(':animated').length) {
+            console.log("cancelling click");
+            return false;
+        }
+        //alert('The link is always included for context')
+        $('.warning-box').css({'opacity':'1'});
+        $('.warning-box').animate({'opacity':'0.0'},2500,function() {
+        });
+    });
+
+    var window_url =  window.location.href;
+    var segment_id = $('#segmentId').text();
+    var program_id = $('#programId').text();
+
 
    $('#tweet-button').on('click',function(event) {
 
@@ -622,83 +595,3 @@ function showSuccess(successArray, duplicateArray){
 //        console.log(numItems);
 //    }
 
-
-//    // CLICK ACTIONS
-//    $('.rep-container').on('click','.rep-item',function(event) {
-//        // extract index # of click and grab twitter address
-//       var idText = $(this).attr('id');
-//       var repIndex = idText.replace('rep-item','');
-//       var tweetAddressID = "#tweet-address-item" + repIndex;
-//       var tweetAddress = $(tweetAddressID).text();
-//       var currentText = $('#text-input').val();
-//
-//
-//       if ($(this).css('background-color') === 'rgb(255, 255, 255)'){
-//
-//         $(this).css('background-color','green');
-//         currentText += tweetAddress;
-//         $('#text-input').val(currentText);
-//
-//       } else {
-//
-//        $(this).css('background-color','white');
-//        var n = currentText.search(tweetAddress);
-//        //console.log(n);
-//        var re = new RegExp(tweetAddress,"gi");
-//        var newText = currentText.replace(re,"");
-//        $('#text-input').val(newText);
-//       }
-//    });
-
-//    $('.tweet-container').on('click','.tweet-item',function(event) {
-//       var idText = $(this).attr('id');
-//       var tweetIndex = idText.replace('tweet-item','');
-//
-//       var tweetObjectIdElementName = "#tweet-item-objectId" + tweetIndex;
-//       var tweetObjectId = $(programObjectIdElementName).text();
-//       window.location.href="/content_landing/" + tweetObjectId;
-//    });
-
-//        window.location.href = window_url;
-
-//        Create and encode URL
-//        var encodedTweetText = encodeURIComponent(tweetText);
-
-//	function insertAtCaret(areaId, text) {
-//		var txtarea = $('#text-input');
-//		if (!txtarea) { return; }
-//
-//		var scrollPos = txtarea.scrollTop;
-//		var strPos = 0;
-//		var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
-//			"ff" : (document.selection ? "ie" : false ) );
-//		if (br == "ie") {
-//			txtarea.focus();
-//			var range = document.selection.createRange();
-//			range.moveStart ('character', -txtarea.html.length);
-//			strPos = range.text.length;
-//		} else if (br == "ff") {
-//			strPos = txtarea.selectionStart;
-//		}
-//
-//		var front = (txtarea.html).substring(0, strPos);
-//		var back = (txtarea.html).substring(strPos, txtarea.html.length);
-//		txtarea.html = front + text + back;
-//		strPos = strPos + text.length;
-//		if (br == "ie") {
-//			txtarea.focus();
-//			var ieRange = document.selection.createRange();
-//			ieRange.moveStart ('character', -txtarea.html.length);
-//			ieRange.moveStart ('character', strPos);
-//			ieRange.moveEnd ('character', 0);
-//			ieRange.select();
-//		} else if (br == "ff") {
-//			txtarea.selectionStart = strPos;
-//			txtarea.selectionEnd = strPos;
-//			txtarea.focus();
-//		}
-//
-//		txtarea.scrollTop = scrollPos;
-//	}
-
-//    insertAtCaret('#text-input', 'text to insert')

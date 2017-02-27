@@ -107,13 +107,14 @@
                             <div class="address-title">
                                 <p>Send to: </p>
                             </div>
-                        {% for item in congressData %}
-                            {% if item.twitter_id %}
-                                <div class="address-item address-item-{{forloop.counter}}">
-                                    <p class="address-label-{{forloop.counter}}">@{{item.twitter_id}}</p>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
+                                <!--{% for item in congressData %}-->
+                                    <!--{% if item.twitter_id %}-->
+                                        <!--<div class="address-item address-item-{{forloop.counter}}">-->
+                                            <!--<p class="address-label-{{forloop.counter}}">@{{item.twitter_id}}</p>-->
+                                        <!--</div>-->
+                                    <!--{% endif %}-->
+                                <!--{% endfor %}-->
+
                     </div>
                     <div tabindex="-1" contenteditable id="text-input" placeholder="Tweet text here"></div>
                     <div id="tweet-button">
