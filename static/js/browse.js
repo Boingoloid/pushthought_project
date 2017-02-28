@@ -25,16 +25,19 @@ $(document).ready(function() {
 
 
     $('.program-container').on('click','.program-item',function(event) {
-        function showLoading(index){
-            var loaderDiv = '.loader-' + index;
-            console.log(loaderDiv);
-            $(loaderDiv).show();
-        }
 
-        var idText = $(this).attr('id');
-        var repIndex = idText.replace('program-item','');
+//        var idText = $(this).attr('id');
+//        var repIndex = idText.replace('program-item','');
+//
+//        function showLoading(index){
+//            var loaderDiv = '.loader-' + index;
+//            console.log(loaderDiv);
+//            $(loaderDiv).show();
+//        }
 
-        showLoading(repIndex);
+        $(this).contents('#loader').show();
+
+//        showLoading(repIndex);
 
 
 
