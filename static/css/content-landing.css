@@ -434,6 +434,22 @@ text-tweet-block{
   background:black;
 }
 
+#tweet-loader {
+  position: absolute;
+  top: 4;
+  left: 90;
+  z-index: 1000;
+  margin: 0px 0 0 0px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-top: 2px solid #00aced;
+  width: 18px;
+  height: 18px;
+  -webkit-animation: spin 0.4s linear infinite;
+  animation: spin 0.4s linear infinite;
+  display:none;
+}
+
 #img-send-tweet-icon{
   position:absolute;
   left:35px;

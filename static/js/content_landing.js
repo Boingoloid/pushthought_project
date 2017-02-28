@@ -460,18 +460,20 @@ $('.zip-input').keydown(function(thisEvent){
 
    $('#tweet-button').on('click',function(event) {
 
+      // get tweet and validate length
       var tweet_text = $('#text-input').text();
       if(tweet_text.length < 1){
         alert ("Please type a message to tweet first");
       } else {
 
+        //
         addressArray = [];
         $('.action-panel-container.selected').each(function() {
             index = $(this).attr('id');
             function showLoading(index){
                 var loaderDiv = '.loader-' + index;
-                console.log(loaderDiv);
                 $(loaderDiv).show();
+                $('.tweet-loader').show();
             }
             showLoading(index);
 
@@ -517,6 +519,7 @@ $('.zip-input').keydown(function(thisEvent){
 
                     function hideLoading(){
                         $('.loader').hide();
+                        $('.tweet-loader').hide();
                     }
 
                     if (successArray.length > 0){
