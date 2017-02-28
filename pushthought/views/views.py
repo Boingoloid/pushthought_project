@@ -174,105 +174,75 @@ def get_segment_actions_for_user(segmentId,userObjectId):
     return messaage_list
 
 def content_landing(request, programId):
+    # get program and segment ID
+    # store ID's in session
     segmentId = programId
     request.session['programId'] = programId
     request.session['segmentId'] = segmentId
 
-    # get user
-    current_user = get_user_by_token_and_id(request)
 
-    # get user messages
+
+    # get program object and Tweet/# activity for the program's landing page
+    program_result = fetch_program_data(programId)
+    tweet_data = get_tweet_data(programId)
+    hashtag_data = get_hashtag_data(segmentId)
+
+    # get user and sentMessage list
+    current_user = get_user_by_token_and_id(request)
+    request.session['currentUser'] = current_user
+
     if current_user:
         message_list = get_segment_actions_for_user(segmentId,current_user['objectId'])
     else:
         message_list = []
 
-    # get program
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection.connect()
-    connection.request('GET','/parse/classes/Programs/' + programId, '', {
-        "X-Parse-Application-Id": PARSE_APP_ID,
-        "X-Parse-REST-API-Key": PARSE_REST_KEY
-    })
-    program_results = json.loads(connection.getresponse().read())
-    # print "program found:", program_results
+    # if zipcode, load congress people
+    try:
+        zip = current_user['zip']
+    except:
+        zip = None
 
+    if zip:
+        hasCongressData = True
+        congress_data_raw = get_congress_data(zip)
+        congress_data_raw = add_title_and_full_name(congress_data_raw)
+        congress_photos = get_congress_photos(congress_data_raw)
+        congress_data = add_congress_photos(congress_data_raw, congress_photos)
+        # congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
+    else:
+        hasCongressData = False
+        congress_data = [
+            {
+                "full_name": "Congressperson",
+                "title": "state / district"
+            },
+            {
+                "full_name": "Congressperson",
+                "title": "state / district"
+            },
+            {
+                "full_name": "Congressperson",
+                "title": "state / district"
+            }
+        ]
 
-    def add_prior_activity_to_congress_data(congress_data,message_list):
-        for item in congress_data:
-            try:
-                twitter_id = item['twitter_id']
-            except:
-                twitter_id = None
-
-            if twitter_id:
-                twitter_id = item['twitter_id']
-                for message in message_list:
-                    try:
-                        target_address = message['targetAddress']
-                    except:
-                        target_address = None
-                    if(target_address):
-                        # print "twitter_id", twitter_id
-                        # print "target_address", target_address
-                        if target_address == twitter_id:
-                            item['userTouched'] = 1
-                            # print "YES! user touched!!! " , twitter_id
-                            # print congress_data
-        return congress_data
-
-
-    zipCode = "94107"
-    congress_data_raw = get_congress_data(zipCode)
-    congress_data_raw = add_title_and_full_name(congress_data_raw)
-    congress_photos = get_congress_photos(congress_data_raw)
-    congress_data = add_congress_photos(congress_data_raw,congress_photos)
-    if len(message_list) > 0:
-        congress_data = add_prior_activity_to_congress_data(congress_data,message_list)
-
-    tweet_data = get_tweet_data(programId)
-    hashtag_data = get_hashtag_data(segmentId)
-
-    print "congress_data type:", type(congress_data)
-
-    congress_data = [
-        {
-            "full_name": "Congressperson",
-            "title": "state / district"
-        },
-        {
-            "full_name": "Congressperson",
-            "title": "state / district"
-        },
-        {
-            "full_name": "Congressperson",
-            "title": "state / district"
-        }
-    ]
-
-    # if zip in user, then user it
-    # if not, ask for it, make display  (JS)
-
+    # create dataDict to send with response.
     dataDict = {}
-    dataDict['currentUser'] = current_user
-    dataDict['program'] = program_results
+    # inclue alert list, if returning from an action, these alerts will display on load
+    try:
+        dataDict['alertList'] = request.session['alertList']
+        del request.session['alerList']
+    except:
+        print "no alertList to display"
+
+    dataDict['program'] = program_result
     dataDict['programId'] = programId
+    dataDict['segmentId'] = segmentId
+    dataDict['currentUser'] = current_user
     dataDict['congressData'] = congress_data
     dataDict['tweetData'] = tweet_data
     dataDict['hashtagData'] = hashtag_data
-
-    try:
-        dataDict['alertList'] = request.session['alertList']
-    except:
-        print "no alertList to display"
-        pass
-
-    try:
-        dataDict['successArray'] = request.session['successArray']
-        del request.session['successArray']
-        print "content landing successArray", dataDict['successArray']
-    except:
-        print "no success array"
+    dataDict['hasCongressData'] = hasCongressData
 
     return render(request, 'content_landing.html',dataDict)
 
@@ -287,14 +257,42 @@ def content_landing_empty(request):
     except:
         return HttpResponseRedirect('/browse/')
 
-def get_congress(request,zip):
+def save_zip_to_user(request,zip):
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('PUT', '/parse/classes/_User/' + request['currentUser']['objectId'], json.dumps({
+            "zip": zip,
+        }),
+        {
+            "X-Parse-Application-Id": PARSE_APP_ID,
+            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+            "X-Parse-Session-Token": request.session['sessionToken'],
+            "Content-Type": "application/json"
+        })
+    result = json.loads(connection.getresponse().read())
+    return result
 
+
+def get_congress(request,zip):
+    # Save zip to Session
+    request.session['zip'] = zip
+
+    # Save zip to user: try
+    try:
+        save_result = save_zip_to_user(request, zip)
+        print "zip saved to user:", save_result
+    except:
+        print "error updating zip to user"
+
+    # Return congress based on location
     congress_data_raw = get_congress_data(zip)
     congress_data_raw = add_title_and_full_name(congress_data_raw)
     congress_photos = get_congress_photos(congress_data_raw)
     congress_data = add_congress_photos(congress_data_raw,congress_photos)
-    return HttpResponse(json.dumps({'congressData': congress_data,}), content_type="application/json")
-    # return None
+    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
+
+def set_zip_in_session(request,zip):
+    return HttpResponse(json.dumps({'status': 200},{'message':'zip save in session'}), content_type="application/json")
 
 def fed_rep_action_menu(request, programId, segmentId):
 

@@ -103,3 +103,28 @@ def add_congress_photos(congress_data,photo_data):
                 # print personItem
                 # print photoItem
     return congress_data
+
+
+#helper
+def add_prior_activity_to_congress_data(congress_data,message_list):
+    for item in congress_data:
+        try:
+            twitter_id = item['twitter_id']
+        except:
+            twitter_id = None
+
+        if twitter_id:
+            twitter_id = item['twitter_id']
+            for message in message_list:
+                try:
+                    target_address = message['targetAddress']
+                except:
+                    target_address = None
+                if(target_address):
+                    # print "twitter_id", twitter_id
+                    # print "target_address", target_address
+                    if target_address == twitter_id:
+                        item['userTouched'] = 1
+                        # print "YES! user touched!!! " , twitter_id
+                        # print congress_data
+    return congress_data

@@ -11,11 +11,26 @@ function csrfSafeMethod(method) {
 
 $(document).ready(function() {
 
+    $('.zip-indicator').mouseenter(function() {
+        $('.zip-reset').show();
+      });
 
+    $('.zip-reset-hover-boundary').mouseleave(function() {
+        $('.zip-reset').hide();
+    });
 
-    function get_congress(){
-        var zip = $('.zip-input').val();
-        zip = '94107';
+    $('.zip-reset').click(function() {
+        // hide button
+        $(this).hide();
+        // clear the fed reps
+        $('.rep-container').html('');
+        // show zip capture
+        $('.zip-capture').show();
+        // hide zip indicator
+        $('.zip-indicator').hide();
+    });
+
+    function get_congress(zip){
         $.ajax({url: "/get_congress/" + zip,
             type: "GET",
             data: "",
@@ -23,10 +38,12 @@ $(document).ready(function() {
             cache: false,
             success: function(data) {
                 console.log(data);
-                // put in congress data
-                // for each insert through js the html
-                var index = 0;
 
+                // hide zip cature
+                $('.zip-capture').hide();
+                $('.zip-indicator').show();
+
+                var index = 0;
                 var i, s, myStringArray = data['congressData'], len = myStringArray.length;
                 for (i=0; i<len; ++i) {
                   if (i in myStringArray) {
@@ -63,7 +80,7 @@ $(document).ready(function() {
                     }
 
 
-                    // construct HTML
+                    // construct HTML for contacts in category
                     var text =  [
                         '<div class="rep-item-container rep-item-container-' + i +'">',
                             '<div class="rep-item" id="rep-item'+i+'">',
@@ -96,7 +113,7 @@ $(document).ready(function() {
 
                     $('.rep-container').append(text);
 
-
+                    // HTML option for twitter address addressLabel above input box
                     if(item['twitter_id']){
                         var addressText;
                         addressText = [
@@ -114,7 +131,7 @@ $(document).ready(function() {
             }
         });
     }
-    get_congress();
+//    get_congress();
 
 
     $('.zip-input').click( function() {
@@ -138,6 +155,8 @@ $(document).ready(function() {
 
         if (isValidZip){
             console.log('valid zip');
+            $('.zip-input').val('');
+            get_congress(zip);
         } else{
             console.log('NOT a valid zip');
         }

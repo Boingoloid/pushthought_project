@@ -47,16 +47,24 @@ def get_user_by_twitter_screen_name(request, twitter_screen_name):
 
 def create_user_with_twitter_auth(request, twitter_user,access_key_token,access_key_token_secret):
 
-    import random, string
-    # password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
 
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection.connect()
-    connection.request('POST', '/parse/classes/_User', json.dumps({
+    # user data into save dictionary
+    jsonDict = {
         "username": str(twitter_user.screen_name),
         "twitterScreenName": str(twitter_user.screen_name),
         "password": "password"
-    }),
+    }
+
+    # if zip, add it to dictionary
+    try:
+        zip = request.session['zip']
+        jsonDict['zip'] = zip
+    except:
+        print "zip not in session so zip not saved with created user."
+
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('POST', '/parse/classes/_User', json.dumps(jsonDict),
     {
         "X-Parse-Application-Id": PARSE_APP_ID,
         "X-Parse-REST-API-Key": PARSE_REST_KEY,
@@ -73,7 +81,7 @@ def create_user_with_twitter_auth(request, twitter_user,access_key_token,access_
     print "userObjectId  here entered:", request.session['userObjectId']
     request.session.modified = True
 
-    #save session to user
+    #save session Tokens to user
     connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection2.connect()
     connection2.request('PUT', '/parse/classes/_User/' + current_user['objectId'], json.dumps({
