@@ -257,10 +257,27 @@ def content_landing_empty(request):
     except:
         return HttpResponseRedirect('/browse/')
 
+
+
+def get_congress(request,zip):
+    # Save zip to Session
+    request.session['zip'] = zip
+
+    # Save zip to user: try
+    save_result = save_zip_to_user(request, zip)
+    print "zip to user result:", save_result
+
+    # Return congress based on location
+    congress_data_raw = get_congress_data(zip)
+    congress_data_raw = add_title_and_full_name(congress_data_raw)
+    congress_photos = get_congress_photos(congress_data_raw)
+    congress_data = add_congress_photos(congress_data_raw,congress_photos)
+    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
+
 def save_zip_to_user(request,zip):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection.connect()
-    connection.request('PUT', '/parse/classes/_User/' + request['currentUser']['objectId'], json.dumps({
+    connection.request('PUT', '/parse/classes/_User/' + request.session['currentUser']['objectId'], json.dumps({
             "zip": zip,
         }),
         {
@@ -272,27 +289,6 @@ def save_zip_to_user(request,zip):
     result = json.loads(connection.getresponse().read())
     return result
 
-
-def get_congress(request,zip):
-    # Save zip to Session
-    request.session['zip'] = zip
-
-    # Save zip to user: try
-    try:
-        save_result = save_zip_to_user(request, zip)
-        print "zip saved to user:", save_result
-    except:
-        print "error updating zip to user"
-
-    # Return congress based on location
-    congress_data_raw = get_congress_data(zip)
-    congress_data_raw = add_title_and_full_name(congress_data_raw)
-    congress_photos = get_congress_photos(congress_data_raw)
-    congress_data = add_congress_photos(congress_data_raw,congress_photos)
-    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
-
-def set_zip_in_session(request,zip):
-    return HttpResponse(json.dumps({'status': 200},{'message':'zip save in session'}), content_type="application/json")
 
 def fed_rep_action_menu(request, programId, segmentId):
 
@@ -361,12 +357,12 @@ def program_detail(request,programId):
 # Use the login_required() decorator to ensure only those logged in can access the view.
 # @login_required
 
-
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 
 def account_home(request, user_pk):
 
-    from django.core.urlresolvers import reverse
-    from django.shortcuts import redirect
+
     dataDict = {}
     try:
         session_token = request.session['sessionToken']

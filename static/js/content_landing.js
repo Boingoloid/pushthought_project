@@ -11,6 +11,14 @@ function csrfSafeMethod(method) {
 
 $(document).ready(function() {
 
+
+    $(document).on('paste','[contenteditable]',function(e) {
+        e.preventDefault();
+        var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+        window.document.execCommand('insertText', false, text);
+    });
+
+
     $('.zip-indicator').mouseenter(function() {
         $('.zip-reset').show();
       });
@@ -24,10 +32,16 @@ $(document).ready(function() {
         $(this).hide();
         // clear the fed reps
         $('.rep-container').html('');
+        // clear the address items
+        $('.address-item').each(function(){
+            $(this).remove();
+        });
         // show zip capture
         $('.zip-capture').show();
         // hide zip indicator
         $('.zip-indicator').hide();
+        // close action area if open
+        $('#close-button').trigger('click');
     });
 
     function get_congress(zip){
