@@ -13,7 +13,6 @@ $(document).ready(function() {
 $('.zip-input').keydown(function(thisEvent){
   if (thisEvent.keyCode == 13) { // enter key
     thisEvent.preventDefault();
-    alert('enter press');
     $('.submit-zip').trigger('click');
   }
 
@@ -53,7 +52,7 @@ $('.zip-input').keydown(function(thisEvent){
     });
 
     $('.location-icon').click(function(){
-        alert("Oops, our location finder is broken, please enter you zip in the box below.");
+        alert("Still in Development: Our location finder is being built, please enter you zip using the box below.  We'll move the cursor there for you :)");
         $('.zip-input').focus();
     });
 
@@ -66,10 +65,17 @@ $('.zip-input').keydown(function(thisEvent){
             cache: false,
             success: function(data) {
                 console.log(data);
+
+                // hide loading indicator
+                $('#zip-loader').hide();
+
+                // Count if any results returned, if not, go back
                 var index = 0;
                 var i, s, congressDataArray = data['congressData'], len = congressDataArray.length;
                 if(len == 0){
                     alert("We aren't able to find representatives for that zip code.  Please check your zip code and try again.");
+                    $('.zip-input').focus();
+                    $('.submit-zip').show();
                     return false;
                 }
 
@@ -162,7 +168,8 @@ $('.zip-input').keydown(function(thisEvent){
                 }
             },
             error: function() {
-                console.log('fail');
+                $('#zip-loader').hide();
+                console.log('failure pulling congress data - in content_landing.js');
             }
         });
     }
@@ -189,6 +196,7 @@ $('.zip-input').keydown(function(thisEvent){
         var isValidZip = /(^\d{5}$)/.test(zip);
 
         if (isValidZip){
+            $('#zip-loader').show();
             console.log('valid zip');
             get_congress(zip);
         } else{
@@ -196,6 +204,7 @@ $('.zip-input').keydown(function(thisEvent){
             alert('Not a valid zip code.  Please check and try again.')
             $('.zip-input').focus();
             $(this).show();
+
         }
 
     });
@@ -317,7 +326,6 @@ $('.zip-input').keydown(function(thisEvent){
         $('.warning-box-tweet-icon').css({'opacity':'1'});
         $('.warning-box-tweet-icon').animate({'opacity':'0.0'},2500,function() {});
     });
-    //alert("twitter clicked");
 
     $('.rep-container').on("click", "img.phone-icon", function() {
         if ($(':animated').length || $(this).css('opacity') == 0) {
@@ -459,7 +467,6 @@ $('.zip-input').keydown(function(thisEvent){
             twitterName = $(this).contents().contents('.twitter-name').text();
             addressArray.push(twitterName);
          });
-        alert(tweet_text);
         // create dataSet string
         dataSet = JSON.stringify({
                 "tweet_text": tweet_text,

@@ -243,6 +243,22 @@ h2{
     letter-spacing:1.05;
 }
 
+#zip-loader {
+  position: absolute;
+  top: 122;
+  left: 307;
+  z-index: 1000;
+  margin: 0px 0 0 0px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-top: 2px solid #00aced;
+  width: 18px;
+  height: 18px;
+  -webkit-animation: spin 0.4s linear infinite;
+  animation: spin 0.4s linear infinite;
+  display:none;
+}
+
 .submit-zip:hover{
     color: black;
     border: 2px solid white;
@@ -281,7 +297,6 @@ h2{
   position: relative;
 }
 
-/* Center the loader */
 #loader {
   position: absolute;
   left: 35%;
@@ -297,6 +312,8 @@ h2{
   animation: spin 0.4s linear infinite;
   display:none;
 }
+
+
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
