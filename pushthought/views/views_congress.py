@@ -41,7 +41,8 @@ def get_congress_data(zip_code):
             print "results of save: ", save_result.inserted_id
             return save_result
 
-        save_to_congress_data_collection()
+        if len(results) != 0:
+            save_to_congress_data_collection()
         return results
 
     #MAIN: Checks UPDATE TRIGGER, then uses method above to get data locally or form api

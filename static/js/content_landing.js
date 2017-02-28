@@ -10,6 +10,14 @@ function csrfSafeMethod(method) {
 //testWindow = window.open("popup.php","interaction","resizable=0,width=800,height=600,status=0");
 
 $(document).ready(function() {
+$('.zip-input').keydown(function(thisEvent){
+  if (thisEvent.keyCode == 13) { // enter key
+    thisEvent.preventDefault();
+    alert('enter press');
+    $('.submit-zip').trigger('click');
+  }
+
+});
 
 
     $(document).on('paste','[contenteditable]',function(e) {
@@ -44,6 +52,12 @@ $(document).ready(function() {
         $('#close-button').trigger('click');
     });
 
+    $('.location-icon').click(function(){
+        alert("Oops, our location finder is broken, please enter you zip in the box below.");
+        $('.zip-input').focus();
+    });
+
+
     function get_congress(zip){
         $.ajax({url: "/get_congress/" + zip,
             type: "GET",
@@ -52,16 +66,23 @@ $(document).ready(function() {
             cache: false,
             success: function(data) {
                 console.log(data);
+                var index = 0;
+                var i, s, congressDataArray = data['congressData'], len = congressDataArray.length;
+                if(len == 0){
+                    alert("We aren't able to find representatives for that zip code.  Please check your zip code and try again.");
+                    return false;
+                }
 
-                // hide zip cature
+                // hide zip cature, clear zip input
                 $('.zip-capture').hide();
+                $('.zip-input').val('');
+
+                // show zip indicator, to allow reset
                 $('.zip-indicator').show();
 
-                var index = 0;
-                var i, s, myStringArray = data['congressData'], len = myStringArray.length;
                 for (i=0; i<len; ++i) {
-                  if (i in myStringArray) {
-                    var item = myStringArray[i];
+                  if (i in congressDataArray) {
+                    var item = congressDataArray[i];
 
                     // Image check
                     var imageString
@@ -149,7 +170,7 @@ $(document).ready(function() {
 
 
     $('.zip-input').click( function() {
-        $('.submit-zip').show();
+            $('.submit-zip').show();
     });
 
     $(document).mouseup(function(){
@@ -169,10 +190,12 @@ $(document).ready(function() {
 
         if (isValidZip){
             console.log('valid zip');
-            $('.zip-input').val('');
             get_congress(zip);
         } else{
             console.log('NOT a valid zip');
+            alert('Not a valid zip code.  Please check and try again.')
+            $('.zip-input').focus();
+            $(this).show();
         }
 
     });

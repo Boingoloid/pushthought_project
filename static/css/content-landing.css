@@ -231,15 +231,21 @@ h2{
 
 .submit-zip{
     position: absolute;
-    top: 10;
+    top: 115;
     left: 213;
-    height: 80px;
+    height: 30px;
     width: 90px;
     z-index:2001;
     background: green;
     border-radius:10px;
-    display: None;
+    display: none;
+    font-size: 12pt;
+    letter-spacing:1.05;
+}
 
+.submit-zip:hover{
+    color: black;
+    border: 2px solid white;
 }
 
 .zip-input{
@@ -837,4 +843,11 @@ text-tweet-block{
 ::-webkit-scrollbar-thumb {
     background-color: black;
     border-radius:5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
