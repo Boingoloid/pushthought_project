@@ -25,6 +25,15 @@ $('.zip-input').keydown(function(thisEvent){
         window.document.execCommand('insertText', false, text);
     });
 
+    $('.action-panel-container').mouseenter(function() {
+        if($("#text-input:visible").length==1){
+            $(this).css({"cursor": "pointer"});
+        }
+    });
+
+    $('.action-panel-container').mouseleave(function() {
+        $(this).css({"cursor": "default"});
+    });
 
     $('.zip-indicator').mouseenter(function() {
         $('.zip-reset').show();
@@ -278,6 +287,7 @@ $('.zip-input').keydown(function(thisEvent){
         $('.phone-icon').css('display','none')
         $('.email-icon').animate({'opacity':'0'});
         $('.email-icon').css('display','none')
+        $('.twitter-name').show();
         $('.twitter-name').animate({'opacity':'1.0'},400,function(){
         });
         $(this).parent('div').parent('div').toggleClass("selected");
@@ -379,6 +389,7 @@ $('.zip-input').keydown(function(thisEvent){
         $('.email-icon').animate({'opacity':'1'});
         $('.email-icon').show();
         $('.twitter-name').animate({'opacity':'0.0'});
+        $('.twitter-name').hide();
         $('.rep-color-band').animate({'height':'233px'});
         $('.selected').animate($('.selected').removeClass('selected'));
     });
