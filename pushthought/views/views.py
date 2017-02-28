@@ -263,9 +263,16 @@ def get_congress(request,zip):
     # Save zip to Session
     request.session['zip'] = zip
 
-    # Save zip to user: try
-    save_result = save_zip_to_user(request, zip)
-    print "zip to user result:", save_result
+    # Save zip to user:
+    try:
+        currentUser = request.session['currentUser']
+    except:
+        print "no user logged in, passing key error on currentUser while saving zip."
+        pass
+    if currentUser:
+        save_result = save_zip_to_user(request, zip)
+        print "zip to user result:", save_result
+
 
     # Return congress based on location
     congress_data_raw = get_congress_data(zip)
