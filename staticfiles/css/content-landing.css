@@ -231,15 +231,37 @@ h2{
 
 .submit-zip{
     position: absolute;
-    top: 10;
+    top: 115;
     left: 213;
-    height: 80px;
+    height: 30px;
     width: 90px;
     z-index:2001;
     background: green;
     border-radius:10px;
-    display: None;
+    display: none;
+    font-size: 12pt;
+    letter-spacing:1.05;
+}
 
+#zip-loader {
+  position: absolute;
+  top: 122;
+  left: 307;
+  z-index: 1000;
+  margin: 0px 0 0 0px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-top: 2px solid #00aced;
+  width: 18px;
+  height: 18px;
+  -webkit-animation: spin 0.4s linear infinite;
+  animation: spin 0.4s linear infinite;
+  display:none;
+}
+
+.submit-zip:hover{
+    color: black;
+    border: 2px solid white;
 }
 
 .zip-input{
@@ -275,33 +297,6 @@ h2{
   position: relative;
 }
 
-::-webkit-scrollbar-track
-{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
-    background-color: #F5F5F5;
-}
-
-::-webkit-scrollbar {
-    width: 6px;
-    background-color: #F5F5F5;
-    display: None;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #000000;
-}
-
-/*
-::-webkit-scrollbar-button {
-    background-color: #7c2929;
-}
-
-::-webkit-scrollbar-corner {
-    background-color: #b3b3b3;
-}
-*/
-
-/* Center the loader */
 #loader {
   position: absolute;
   left: 35%;
@@ -317,6 +312,8 @@ h2{
   animation: spin 0.4s linear infinite;
   display:none;
 }
+
+
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -342,6 +339,7 @@ h2{
   position: absolute;
   top:15px;
   left: -18px;
+  cursor:pointer;
 }
 
 #close-button:hover{
@@ -429,11 +427,27 @@ text-tweet-block{
   border-radius: 5px;
   font-size: 12pt;
   position: relative;
-  /*background: background-image: url('/../static/img/doc-here8.png');*/
+  cursor:pointer;
 }
 
 #tweet-button:hover{
   background:black;
+}
+
+#tweet-loader {
+  position: absolute;
+  top: 4;
+  left: 90;
+  z-index: 1000;
+  margin: 0px 0 0 0px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-top: 2px solid #00aced;
+  width: 18px;
+  height: 18px;
+  -webkit-animation: spin 0.4s linear infinite;
+  animation: spin 0.4s linear infinite;
+  display:none;
 }
 
 #img-send-tweet-icon{
@@ -455,6 +469,7 @@ text-tweet-block{
   position: absolute;
   left: 22px;
   bottom: -9px;
+  cursor:pointer;
 }
 
 .img-checked-box-container{
@@ -639,8 +654,6 @@ text-tweet-block{
     border-bottom:1px solid #00aced;
     border-radius: 5px;
     box-shadow: 2px 2px 5px #294f2f;
-
-    /*background: linear-gradient(to bottom right, rgb(0, 172, 237), rgba(0,200,0,0.75) 20%, rgba(0,200,0,0.75));*/
 }
 
 .action-panel-container:hover{
@@ -681,7 +694,8 @@ text-tweet-block{
   height: 100%;
   vertical-align: text-middle;
   opacity: 0;
-  cursor: default;
+  display:none;
+  cursor: pointer;
 }
 
 .tweet-name {
@@ -701,6 +715,7 @@ text-tweet-block{
   position:absolute;
   top: 4px;
   left: 20px;
+  cursor: pointer;
 }
 
 /*Icons*/
@@ -715,6 +730,7 @@ text-tweet-block{
   top: 9px;
   left: 42%;
   height: 32px;
+  cursor: pointer;
 }
 
 
@@ -722,6 +738,7 @@ text-tweet-block{
   position:absolute;
   top: 9px;
   right: 20px;
+  cursor: pointer;
 }
 
 
@@ -847,3 +864,27 @@ text-tweet-block{
 
 
 
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+    background-color: #092551;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: #092551;
+    border-radius:5px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius:5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

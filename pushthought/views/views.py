@@ -208,7 +208,9 @@ def content_landing(request, programId):
         congress_data_raw = add_title_and_full_name(congress_data_raw)
         congress_photos = get_congress_photos(congress_data_raw)
         congress_data = add_congress_photos(congress_data_raw, congress_photos)
-        # congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
+        if message_list:
+            congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
+            print message_list
     else:
         hasCongressData = False
         congress_data = [
@@ -263,22 +265,38 @@ def get_congress(request,zip):
     # Save zip to Session
     request.session['zip'] = zip
 
+
+
     # Save zip to user:
     try:
-        currentUser = request.session['currentUser']
+        current_user = request.session['currentUser']
     except:
+        current_user = None
         print "no user logged in, passing key error on currentUser while saving zip."
-        pass
-    if currentUser:
+
+    # get programId from session if available, use to pull user messages:
+    try:
+        segment_id = request.session['programId']
+    except:
+        segment_id = None
+        print "no segmentId during get congress, so cannot pull previous messages for user."
+
+
+    if current_user:
         save_result = save_zip_to_user(request, zip)
         print "zip to user result:", save_result
-
+        if segment_id:
+            message_list = get_segment_actions_for_user(segment_id, current_user['objectId'])
+        else:
+            message_list = []
 
     # Return congress based on location
     congress_data_raw = get_congress_data(zip)
     congress_data_raw = add_title_and_full_name(congress_data_raw)
     congress_photos = get_congress_photos(congress_data_raw)
     congress_data = add_congress_photos(congress_data_raw,congress_photos)
+    if message_list:
+        congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
     return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
 
 def save_zip_to_user(request,zip):

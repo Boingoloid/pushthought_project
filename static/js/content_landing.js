@@ -100,7 +100,7 @@ $('.zip-input').keydown(function(thisEvent){
                     var item = congressDataArray[i];
 
                     // Image check
-                    var imageString
+                    var imageString;
                     if(!item['image']['url']){
                        imageString = '<img class="repPhoto repPhoto-none" src=\'/static/img/push-thought-logo.png\'>';
                     } else {
@@ -108,6 +108,7 @@ $('.zip-input').keydown(function(thisEvent){
                     }
 
                     // twitterId check
+                    var twitterIdString;
                     if(!item['twitter_id']){
                        twitterIdString = ['<div class="twitter-name" id="twitter-name">n/a</div>',
                         '<img class="twitter-icon-empty" src=\'/static/img/twitter-icon-gray.png\' width="42" height="42">',
@@ -123,10 +124,19 @@ $('.zip-input').keydown(function(thisEvent){
                     }
 
                     // contact form check
+                    var emailString;
                     if(!item['contact_form']){
                        emailString = '<img class="email-icon" id="'+item['contact_form']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">';
                     } else {
                        emailString = '<img class="email-icon" id="'+item['contact_form']+'" src=\'/static/img/email-icon.png\' width="36" height="36">';
+                    }
+
+                    // user touched check
+                    var indicatorString;
+                    if(!item['userTouched']){
+                       indicatorString = '<img style="display:none" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
+                    } else {
+                        indicatorString = '<img class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
                     }
 
 
@@ -135,7 +145,7 @@ $('.zip-input').keydown(function(thisEvent){
                         '<div class="rep-item-container rep-item-container-' + i +'">',
                             '<div class="rep-item" id="rep-item'+i+'">',
                               '<div class="loader loader-'+i+ '" id="loader"></div>',
-                              '<img style="" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>',
+                               indicatorString,
                               '<p hidden id="tweet-address-item'+i+'">@'+item['twitter_id']+'</p>',
                               '<div class="success-box" id="success-box-'+item['twitter_id']+'">',
                                       '<p class="success-text" style="padding-top:4px;">tweet sent to:</p>',

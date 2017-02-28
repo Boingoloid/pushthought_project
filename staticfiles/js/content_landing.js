@@ -10,6 +10,30 @@ function csrfSafeMethod(method) {
 //testWindow = window.open("popup.php","interaction","resizable=0,width=800,height=600,status=0");
 
 $(document).ready(function() {
+$('.zip-input').keydown(function(thisEvent){
+  if (thisEvent.keyCode == 13) { // enter key
+    thisEvent.preventDefault();
+    $('.submit-zip').trigger('click');
+  }
+
+});
+
+
+    $(document).on('paste','[contenteditable]',function(e) {
+        e.preventDefault();
+        var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+        window.document.execCommand('insertText', false, text);
+    });
+
+    $('.action-panel-container').mouseenter(function() {
+        if($("#text-input:visible").length==1){
+            $(this).css({"cursor": "pointer"});
+        }
+    });
+
+    $('.action-panel-container').mouseleave(function() {
+        $(this).css({"cursor": "default"});
+    });
 
     $('.zip-indicator').mouseenter(function() {
         $('.zip-reset').show();
@@ -24,11 +48,23 @@ $(document).ready(function() {
         $(this).hide();
         // clear the fed reps
         $('.rep-container').html('');
+        // clear the address items
+        $('.address-item').each(function(){
+            $(this).remove();
+        });
         // show zip capture
         $('.zip-capture').show();
         // hide zip indicator
         $('.zip-indicator').hide();
+        // close action area if open
+        $('#close-button').trigger('click');
     });
+
+    $('.location-icon').click(function(){
+        alert("Still in Development: Our location finder is being built, please enter you zip using the box below.  We'll move the cursor there for you :)");
+        $('.zip-input').focus();
+    });
+
 
     function get_congress(zip){
         $.ajax({url: "/get_congress/" + zip,
@@ -39,18 +75,32 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data);
 
-                // hide zip cature
+                // hide loading indicator
+                $('#zip-loader').hide();
+
+                // Count if any results returned, if not, go back
+                var index = 0;
+                var i, s, congressDataArray = data['congressData'], len = congressDataArray.length;
+                if(len == 0){
+                    alert("We aren't able to find representatives for that zip code.  Please check your zip code and try again.");
+                    $('.zip-input').focus();
+                    $('.submit-zip').show();
+                    return false;
+                }
+
+                // hide zip cature, clear zip input
                 $('.zip-capture').hide();
+                $('.zip-input').val('');
+
+                // show zip indicator, to allow reset
                 $('.zip-indicator').show();
 
-                var index = 0;
-                var i, s, myStringArray = data['congressData'], len = myStringArray.length;
                 for (i=0; i<len; ++i) {
-                  if (i in myStringArray) {
-                    var item = myStringArray[i];
+                  if (i in congressDataArray) {
+                    var item = congressDataArray[i];
 
                     // Image check
-                    var imageString
+                    var imageString;
                     if(!item['image']['url']){
                        imageString = '<img class="repPhoto repPhoto-none" src=\'/static/img/push-thought-logo.png\'>';
                     } else {
@@ -58,6 +108,7 @@ $(document).ready(function() {
                     }
 
                     // twitterId check
+                    var twitterIdString;
                     if(!item['twitter_id']){
                        twitterIdString = ['<div class="twitter-name" id="twitter-name">n/a</div>',
                         '<img class="twitter-icon-empty" src=\'/static/img/twitter-icon-gray.png\' width="42" height="42">',
@@ -73,10 +124,19 @@ $(document).ready(function() {
                     }
 
                     // contact form check
+                    var emailString;
                     if(!item['contact_form']){
                        emailString = '<img class="email-icon" id="'+item['contact_form']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">';
                     } else {
                        emailString = '<img class="email-icon" id="'+item['contact_form']+'" src=\'/static/img/email-icon.png\' width="36" height="36">';
+                    }
+
+                    // user touched check
+                    var indicatorString;
+                    if(!item['userTouched']){
+                       indicatorString = '<img style="display:none" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
+                    } else {
+                        indicatorString = '<img class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
                     }
 
 
@@ -85,7 +145,7 @@ $(document).ready(function() {
                         '<div class="rep-item-container rep-item-container-' + i +'">',
                             '<div class="rep-item" id="rep-item'+i+'">',
                               '<div class="loader loader-'+i+ '" id="loader"></div>',
-                              '<img style="" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>',
+                               indicatorString,
                               '<p hidden id="tweet-address-item'+i+'">@'+item['twitter_id']+'</p>',
                               '<div class="success-box" id="success-box-'+item['twitter_id']+'">',
                                       '<p class="success-text" style="padding-top:4px;">tweet sent to:</p>',
@@ -127,7 +187,8 @@ $(document).ready(function() {
                 }
             },
             error: function() {
-                console.log('fail');
+                $('#zip-loader').hide();
+                console.log('failure pulling congress data - in content_landing.js');
             }
         });
     }
@@ -135,7 +196,7 @@ $(document).ready(function() {
 
 
     $('.zip-input').click( function() {
-        $('.submit-zip').show();
+            $('.submit-zip').show();
     });
 
     $(document).mouseup(function(){
@@ -154,11 +215,15 @@ $(document).ready(function() {
         var isValidZip = /(^\d{5}$)/.test(zip);
 
         if (isValidZip){
+            $('#zip-loader').show();
             console.log('valid zip');
-            $('.zip-input').val('');
             get_congress(zip);
         } else{
             console.log('NOT a valid zip');
+            alert('Not a valid zip code.  Please check and try again.')
+            $('.zip-input').focus();
+            $(this).show();
+
         }
 
     });
@@ -232,6 +297,7 @@ $(document).ready(function() {
         $('.phone-icon').css('display','none')
         $('.email-icon').animate({'opacity':'0'});
         $('.email-icon').css('display','none')
+        $('.twitter-name').show();
         $('.twitter-name').animate({'opacity':'1.0'},400,function(){
         });
         $(this).parent('div').parent('div').toggleClass("selected");
@@ -280,7 +346,6 @@ $(document).ready(function() {
         $('.warning-box-tweet-icon').css({'opacity':'1'});
         $('.warning-box-tweet-icon').animate({'opacity':'0.0'},2500,function() {});
     });
-    //alert("twitter clicked");
 
     $('.rep-container').on("click", "img.phone-icon", function() {
         if ($(':animated').length || $(this).css('opacity') == 0) {
@@ -334,6 +399,7 @@ $(document).ready(function() {
         $('.email-icon').animate({'opacity':'1'});
         $('.email-icon').show();
         $('.twitter-name').animate({'opacity':'0.0'});
+        $('.twitter-name').hide();
         $('.rep-color-band').animate({'height':'233px'});
         $('.selected').animate($('.selected').removeClass('selected'));
     });
@@ -404,25 +470,26 @@ $(document).ready(function() {
 
    $('#tweet-button').on('click',function(event) {
 
+      // get tweet and validate length
       var tweet_text = $('#text-input').text();
       if(tweet_text.length < 1){
         alert ("Please type a message to tweet first");
       } else {
 
+        //
         addressArray = [];
         $('.action-panel-container.selected').each(function() {
             index = $(this).attr('id');
             function showLoading(index){
                 var loaderDiv = '.loader-' + index;
-                console.log(loaderDiv);
                 $(loaderDiv).show();
+                $('.tweet-loader').show();
             }
             showLoading(index);
 
             twitterName = $(this).contents().contents('.twitter-name').text();
             addressArray.push(twitterName);
          });
-        alert(tweet_text);
         // create dataSet string
         dataSet = JSON.stringify({
                 "tweet_text": tweet_text,
@@ -462,6 +529,7 @@ $(document).ready(function() {
 
                     function hideLoading(){
                         $('.loader').hide();
+                        $('.tweet-loader').hide();
                     }
 
                     if (successArray.length > 0){

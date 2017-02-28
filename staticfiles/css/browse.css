@@ -56,6 +56,7 @@
 
 
 .program-item{
+  position: relative;
   margin:5px;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -213,4 +214,32 @@ div.panel p {
   background-color: rgba(0,0,0,0);
 }
 
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+    background-color: #092551;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: #092551;
+    border-radius:5px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius:5px;
+}
+
+/*
+::-webkit-scrollbar-button:horizontal:decrement {
+    background-color: #7c2929;
+}
+
+::-webkit-scrollbar-button:horizontal:increment {
+	background-image: url('/static/img/location-icon-bold.png');
+}
+*/
 
