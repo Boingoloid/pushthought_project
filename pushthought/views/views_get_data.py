@@ -73,7 +73,6 @@ def get_program_browse_stats():
     #     if user == previousUser:z
     return array
 
-import pandas as pd
 def get_program_browse_stats_user_count():
 
     client = pymongo.MongoClient(MONGODB_URI)
