@@ -25,13 +25,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.zip-input').keydown(function(thisEvent){
-      if (thisEvent.keyCode == 13) { // enter key
-        thisEvent.preventDefault();
-        $('.submit-zip').trigger('click');
-      }
 
-    });
 
 
     $(document).on('paste','[contenteditable]',function(e) {
@@ -80,6 +74,24 @@ $(document).ready(function() {
         $('.zip-input').focus();
     });
 
+
+    $('.zip-input').keydown(function(thisEvent){
+      if (thisEvent.keyCode == 13) { // enter key
+        thisEvent.preventDefault();
+        $('.submit-zip').trigger('click');
+      }
+
+    });
+
+    $(document).mouseup(function(){
+        if ($('.zip-input') == "focused"){
+            $('.submit-zip').show();
+        } else{
+            if($(".submit-zip:visible").length==1){
+                $(".submit-zip").hide(); // Toggle
+            }
+        }
+    });
 
     function get_congress(zip){
         $.ajax({url: "/get_congress/" + zip,
@@ -141,10 +153,11 @@ $(document).ready(function() {
                     // contact form check
                     var emailString;
                     if(!item['contact_form']){
-                       emailString = '<img class="email-icon" id="'+item['contact_form']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">';
+                       emailString = '<img class="email-icon-gray" id="'+item['contact_form']+'name="'+item['bioguide_id']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">';
                     } else {
-                       emailString = '<img class="email-icon" id="'+item['contact_form']+'" src=\'/static/img/email-icon.png\' width="36" height="36">';
+                       emailString = '<img class="email-icon" id="'+item['contact_form']+'name="'+item['bioguide_id']+'" src=\'/static/img/email-icon.png\' width="36" height="36">';
                     }
+
 
                     // user touched check
                     var indicatorString;
@@ -185,7 +198,7 @@ $(document).ready(function() {
                             '</div>',
                         '</div>'
                     ].join("\n");
-
+                    print "text:", text
                     $('.rep-container').append(text);
 
                     // HTML option for twitter address addressLabel above input box
@@ -210,23 +223,10 @@ $(document).ready(function() {
 //    get_congress();
 
 
-    $('.zip-input').click( function() {
-            $('.submit-zip').show();
-    });
-
-    $(document).mouseup(function(){
-        if ($('.zip-input') == "focused"){
-
-        } else{
-            if($(".submit-zip:visible").length==1){
-                $(".submit-zip").hide(); // Toggle
-            }
-        }
-    });
-
    $('.submit-zip').click( function() {
         // validators
-        var zip = $('.zip-input').val();
+        var zip = $('.zip-input').text();
+        print "ZIP:::::::::", zip
         var isValidZip = /(^\d{5}$)/.test(zip);
 
         if (isValidZip){
