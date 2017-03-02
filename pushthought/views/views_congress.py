@@ -28,6 +28,9 @@ def get_congress_data(zip_code):
 
     root = "https://congress.api.sunlightfoundation.com/legislators/locate"
 
+
+
+
     #HELPER FUNCTION: nested function to get Congress Data from api, then save in CongressData under the zip_code
     def get_congress_data_from_api():
         urlAPI = root + "?zip=" + zip_code + "&apikey=" + settings.SUNLIGHT_LABS_API_KEY
@@ -45,11 +48,15 @@ def get_congress_data(zip_code):
             save_to_congress_data_collection()
         return results
 
+
+
+
+
     #MAIN: Checks UPDATE TRIGGER, then uses method above to get data locally or form api
     if not settings.CONGRESS_DATA_UPDATE_TRIGGER:
         congress_data = db.CongressData.find_one({"zip_code":zip_code})
         if congress_data:
-            print "congress data returned local, no api used"
+            print "congress data returned local, no api used", congress_data
             return congress_data['results']
         else:
             print "no congress for that zip"

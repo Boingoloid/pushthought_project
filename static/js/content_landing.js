@@ -93,146 +93,21 @@ $(document).ready(function() {
         }
     });
 
-    function get_congress(zip){
-        $.ajax({url: "/get_congress/" + zip,
-            type: "GET",
-            data: "",
-            contentType: 'json;charset=UTF-8',
-            cache: false,
-            success: function(data) {
-                console.log(data);
 
-                // hide loading indicator
-                $('#zip-loader').hide();
-
-                // Count if any results returned, if not, go back
-                var index = 0;
-                var i, s, congressDataArray = data['congressData'], len = congressDataArray.length;
-                if(len == 0){
-                    alert("We aren't able to find representatives for that zip code.  Please check your zip code and try again.");
-                    $('.zip-input').focus();
-                    $('.submit-zip').show();
-                    return false;
-                }
-
-                // hide zip cature, clear zip input
-                $('.zip-capture').hide();
-                $('.zip-input').val('');
-
-                // show zip indicator, to allow reset
-                $('.zip-indicator').show();
-
-                for (i=0; i<len; ++i) {
-                  if (i in congressDataArray) {
-                    var item = congressDataArray[i];
-
-                    // Image check
-                    var imageString;
-                    if(!item['image']['url']){
-                       imageString = '<img class="repPhoto repPhoto-none" src=\'/static/img/push-thought-logo.png\'>';
-                    } else {
-                       imageString = '<img class="repPhoto" id="repPhoto'+i+'" src="'+item['image']['url']+'">';
-                    }
-
-                    // twitterId check
-                    var twitterIdString;
-                    if(!item['twitter_id']){
-                       twitterIdString = ['<div class="twitter-name" id="twitter-name">n/a</div>',
-                        '<img class="twitter-icon-empty" src=\'/static/img/twitter-icon-gray.png\' width="42" height="42">',
-                        '<div class="warning-box-tweet-icon">',
-                            '<p class="warning-text">twitter address n/a</p>',
-                        '</div>'
-                        ].join("\n");
-                    } else {
-                       twitterIdString = ['<div class="twitter-name">@'+item['twitter_id']+'</div>',
-                            '<div hidden class="index">'+i+'</div>',
-                            '<img class="twitter-icon" src=\'/static/img/twitter-icon.png\' width="42" height="42">'
-                            ].join("\n");
-                    }
-
-                    // contact form check
-                    var emailString;
-                    if(!item['contact_form']){
-                       emailString = '<img class="email-icon-gray" id="'+item['contact_form']+'name="'+item['bioguide_id']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">';
-                    } else {
-                       emailString = '<img class="email-icon" id="'+item['contact_form']+'name="'+item['bioguide_id']+'" src=\'/static/img/email-icon.png\' width="36" height="36">';
-                    }
-
-
-                    // user touched check
-                    var indicatorString;
-                    if(!item['userTouched']){
-                       indicatorString = '<img style="display:none" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
-                    } else {
-                        indicatorString = '<img class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
-                    }
-
-
-                    // construct HTML for contacts in category
-                    var text =  [
-                        '<div class="rep-item-container rep-item-container-' + i +'">',
-                            '<div class="rep-item" id="rep-item'+i+'">',
-                              '<div class="loader loader-'+i+ '" id="loader"></div>',
-                               indicatorString,
-                              '<p hidden id="tweet-address-item'+i+'">@'+item['twitter_id']+'</p>',
-                              '<div class="success-box" id="success-box-'+item['twitter_id']+'">',
-                                      '<p class="success-text" style="padding-top:4px;">tweet sent to:</p>',
-                                      '<p class="success-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
-                                      '<p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>',
-                                      '<p class="duplicate-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
-                              '</div>',
-                              '<div style="display:inline-block;">',
-                               imageString,
-                                    '<div class="name-title-container">',
-                                         '<div><p class="full-name">'+ item['full_name']+'</p></div>',
-                                         '<div><p class="title">'+item['title']+'</p></div>',
-                                    '</div>',
-                              '</div>',
-                            '</div>',
-                            '<div class="action-panel-container" id="'+i+'">',
-                                    '<div class="action-panel">',
-                                        twitterIdString,
-                                        '<img class="phone-icon" id="'+item['phone']+'" name="'+item['full_name']+'" src=\'/static/img/phone-icon.png\'>',
-                                        emailString,
-                                    '</div>',
-                            '</div>',
-                        '</div>'
-                    ].join("\n");
-                    print "text:", text
-                    $('.rep-container').append(text);
-
-                    // HTML option for twitter address addressLabel above input box
-                    if(item['twitter_id']){
-                        var addressText;
-                        addressText = [
-                          '<div class="address-item address-item-'+i+'">',
-                             '<p class="address-label-'+i+'">@'+item['twitter_id']+'</p>',
-                          '</div>'
-                        ].join("\n");
-                        $('.address-container').append(addressText);
-                    }
-                  }
-                }
-            },
-            error: function() {
-                $('#zip-loader').hide();
-                console.log('failure pulling congress data - in content_landing.js');
-            }
-        });
-    }
 //    get_congress();
 
 
    $('.submit-zip').click( function() {
         // validators
-        var zip = $('.zip-input').text();
-        print "ZIP:::::::::", zip
+        var zip = $('.zip-input').val();
         var isValidZip = /(^\d{5}$)/.test(zip);
 
         if (isValidZip){
             $('#zip-loader').show();
             console.log('valid zip');
+            console.log('get_congres on zip:' + zip);
             get_congress(zip);
+
         } else{
             console.log('NOT a valid zip');
             alert('Not a valid zip code.  Please check and try again.')
@@ -713,3 +588,134 @@ function get_congress_email_fields(bioguideId){
 //
 //    });
 //}
+
+    function get_congress(zip){
+        $.ajax({url: "/get_congress/" + zip,
+            type: "GET",
+            data: "",
+            contentType: 'json;charset=UTF-8',
+            cache: false,
+            success: function(data) {
+                console.log(data);
+
+                // hide loading indicator
+                $('#zip-loader').hide();
+
+                // Count if any results returned, if not, go back
+                var index = 0;
+                var i;
+                var s;
+                var congressDataArray = data['congressData'];
+                console.log(congressDataArray)
+                var len = congressDataArray.length;
+                if(len == 0){
+                    alert("We aren't able to find representatives for that zip code.  Please check your zip code and try again.");
+                    $('.zip-input').focus();
+                    $('.submit-zip').show();
+                    return false;
+                }
+                // hide zip cature, clear zip input
+                $('.zip-capture').hide();
+                $('.zip-input').val('');
+
+                // show zip indicator, to allow reset
+                $('.zip-indicator').show();
+                console.log(len);
+
+                for (i=0; i<len; ++i) {
+                  if (i in congressDataArray) {
+                    var item = congressDataArray[i];
+
+                    // Image check
+                    var imageString;
+                    if(!item['image']['url']){
+                       imageString = '<img class="repPhoto repPhoto-none" src=\'/static/img/push-thought-logo.png\'>';
+                    } else {
+                       imageString = '<img class="repPhoto" id="repPhoto'+i+'" src="'+item['image']['url']+'">';
+                    }
+
+                    // twitterId check
+                    var twitterIdString;
+                    if(!item['twitter_id']){
+                       twitterIdString = ['<div class="twitter-name" id="twitter-name">n/a</div>',
+                        '<img class="twitter-icon-empty" src=\'/static/img/twitter-icon-gray.png\' width="42" height="42">',
+                        '<div class="warning-box-tweet-icon">',
+                            '<p class="warning-text">twitter address n/a</p>',
+                        '</div>'
+                        ].join("\n");
+                    } else {
+                       twitterIdString = ['<div class="twitter-name">@'+item['twitter_id']+'</div>',
+                            '<div hidden class="index">'+i+'</div>',
+                            '<img class="twitter-icon" src=\'/static/img/twitter-icon.png\' width="42" height="42">'
+                            ].join("\n");
+                    }
+
+                    // contact form check
+                    var emailString;
+                    if(!item['contact_form']){
+                       emailString = '<img class="email-icon-gray" id="'+item['contact_form']+'name="'+item['bioguide_id']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">';
+                    } else {
+                       emailString = '<img class="email-icon" id="'+item['contact_form']+'name="'+item['bioguide_id']+'" src=\'/static/img/email-icon.png\' width="36" height="36">';
+                    }
+
+
+                    // user touched check
+                    var indicatorString;
+                    if(!item['userTouched']){
+                       indicatorString = '<img style="display:none" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
+                    } else {
+                        indicatorString = '<img class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
+                    }
+
+
+                    // construct HTML for contacts in category
+                    var text =  [
+                        '<div class="rep-item-container rep-item-container-' + i +'">',
+                            '<div class="rep-item" id="rep-item'+i+'">',
+                              '<div class="loader loader-'+i+ '" id="loader"></div>',
+                               indicatorString,
+                              '<p hidden id="tweet-address-item'+i+'">@'+item['twitter_id']+'</p>',
+                              '<div class="success-box" id="success-box-'+item['twitter_id']+'">',
+                                      '<p class="success-text" style="padding-top:4px;">tweet sent to:</p>',
+                                      '<p class="success-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
+                                      '<p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>',
+                                      '<p class="duplicate-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
+                              '</div>',
+                              '<div style="display:inline-block;">',
+                               imageString,
+                                    '<div class="name-title-container">',
+                                         '<div><p class="full-name">'+ item['full_name']+'</p></div>',
+                                         '<div><p class="title">'+item['title']+'</p></div>',
+                                    '</div>',
+                              '</div>',
+                            '</div>',
+                            '<div class="action-panel-container" id="'+i+'">',
+                                    '<div class="action-panel">',
+                                        twitterIdString,
+                                        '<img class="phone-icon" id="'+item['phone']+'" name="'+item['full_name']+'" src=\'/static/img/phone-icon.png\'>',
+                                        emailString,
+                                    '</div>',
+                            '</div>',
+                        '</div>'
+                    ].join("\n");
+                    $('.rep-container').append(text);
+
+                    // HTML option for twitter address addressLabel above input box
+                    if(item['twitter_id']){
+                        var addressText;
+                        addressText = [
+                          '<div class="address-item address-item-'+i+'">',
+                             '<p class="address-label-'+i+'">@'+item['twitter_id']+'</p>',
+                          '</div>'
+                        ].join("\n");
+                        $('.address-container').append(addressText);
+                    }
+                  }
+                }
+            },
+            error: function() {
+                $('#zip-loader').hide();
+                console.log('failure pulling congress data - in content_landing.js');
+            }
+        });
+    }

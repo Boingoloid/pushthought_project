@@ -19,13 +19,15 @@ from ..models import MenuItem
 
 # views import
 
-from views_twtitter_auth import *
-from views_parse_user import *
+
+
+from views_alerts import *
 from views_api import *
 from views_get_data import *
-from views_alerts import *
-from views_user_forms import *
 from views_congress import *
+from views_parse_user import *
+from views_twtitter_auth import *
+from views_user_forms import *
 
 # from django.contrib.auth import logout
 
@@ -264,7 +266,7 @@ def content_landing_empty(request):
 def get_congress(request,zip):
     # Save zip to Session
     request.session['zip'] = zip
-
+    print "zip:", zip
 
 
     # Save zip to user:
@@ -292,11 +294,17 @@ def get_congress(request,zip):
 
     # Return congress based on location
     congress_data_raw = get_congress_data(zip)
+    print "congress data raw:", congress_data_raw
     congress_data_raw = add_title_and_full_name(congress_data_raw)
+    print "2- congress data raw:", congress_data_raw
     congress_photos = get_congress_photos(congress_data_raw)
     congress_data = add_congress_photos(congress_data_raw,congress_photos)
-    if message_list:
-        congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
+    print "congress data post photo:", congress_data
+
+
+    # if message_list:
+    #     congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
+    print "made it here, sending success response with congressData"
     return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
 
 def save_zip_to_user(request,zip):
