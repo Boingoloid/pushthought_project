@@ -26,11 +26,7 @@ $(document).ready(function() {
 
     $('.program-container').on('click','.program-item',function(event) {
         $(this).contents('#loader').show();
-
-        var idText = $(this).attr('id');
-        var repIndex = idText.replace('program-item','');
-        var programObjectIdElementName = "#program-item-objectId" + repIndex;
-        var programId = $(programObjectIdElementName).text();
+        var programId = $(this).attr('id');
         window.location.href="/content_landing/" + programId;
     });
 });

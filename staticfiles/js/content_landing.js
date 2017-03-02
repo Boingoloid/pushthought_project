@@ -1,22 +1,37 @@
 
 
 
-function csrfSafeMethod(method) {
-// these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
 
 
 //testWindow = window.open("popup.php","interaction","resizable=0,width=800,height=600,status=0");
 
-$(document).ready(function() {
-$('.zip-input').keydown(function(thisEvent){
-  if (thisEvent.keyCode == 13) { // enter key
-    thisEvent.preventDefault();
-    $('.submit-zip').trigger('click');
-  }
 
-});
+
+
+$(document).ready(function() {
+
+
+    function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    var csrftoken = Cookies.get('csrftoken');
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $('.zip-input').keydown(function(thisEvent){
+      if (thisEvent.keyCode == 13) { // enter key
+        thisEvent.preventDefault();
+        $('.submit-zip').trigger('click');
+      }
+
+    });
 
 
     $(document).on('paste','[contenteditable]',function(e) {
@@ -248,14 +263,6 @@ $('.zip-input').keydown(function(thisEvent){
     }
 
 
-    var csrftoken = Cookies.get('csrftoken');
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
 
 
 
@@ -297,6 +304,8 @@ $('.zip-input').keydown(function(thisEvent){
         $('.phone-icon').css('display','none')
         $('.email-icon').animate({'opacity':'0'});
         $('.email-icon').css('display','none')
+        $('.email-icon-gray').animate({'opacity':'0'});
+        $('.email-icon-gray').css('display','none')
         $('.twitter-name').show();
         $('.twitter-name').animate({'opacity':'1.0'},400,function(){
         });
@@ -367,17 +376,24 @@ $('.zip-input').keydown(function(thisEvent){
             return false;
         }
 
-        text = $(this).attr('id');
-        console.log(text);
+        bioguideId = $(this).attr('name');
+        console.log(bioguideId);
+        get_congress_email_fields(bioguideId);
 
-        if ($(this).attr('id').length < 5 ){
-            alert('sorry, no email form yet for this person.');
-        } else {
-            var contactPath = $(this).attr('id');
-            window.open(contactPath);
-        }
-
+        //if ($(this).attr('id').length < 5 ){
+        //    alert('sorry, no email form yet for this person.');
+        //} else {
+        //    var contactPath = $(this).attr('id');
+        //    window.open(contactPath);
+        //}
         //window.open('mailto:test@example.com?subject=subject&body=body');
+    });
+
+    $('.rep-container').on("click", "img.email-icon-gray", function() {
+        if ($(':animated').length || $(this).css('opacity') == 0) {
+            return false;
+        }
+        alert('sorry, no email form yet for this person.  Pleaes call or tweet.');
     });
 
     $('#close-button').on('click',function(event) {
@@ -398,6 +414,8 @@ $('.zip-input').keydown(function(thisEvent){
         $('.phone-icon').show();
         $('.email-icon').animate({'opacity':'1'});
         $('.email-icon').show();
+        $('.email-icon-gray').animate({'opacity':'1'});
+        $('.email-icon-gray').show();
         $('.twitter-name').animate({'opacity':'0.0'});
         $('.twitter-name').hide();
         $('.rep-color-band').animate({'height':'233px'});
@@ -660,25 +678,38 @@ function showSuccess(successArray, duplicateArray){
     }
 }
 
-//html('<span contenteditable=false class=address-placeholder>''</span>');
 
 
-//    function insertTextAtCursor(text) {
-//        var sel, range, html;
-//        if (window.getSelection) {
-//            sel = window.getSelection();
-//            if (sel.getRangeAt && sel.rangeCount) {
-//                range = sel.getRangeAt(0);
-//                range.deleteContents();
-//                range.insertNode( document.createNode(text));
-//            }
-//        } else if (document.selection && document.selection.createRange) {
-//            document.selection.createRange().text = text;
-//        }
-//    }
 
-//    function updatePlaceholder(){
-//        var numItems = $('.address-item.selected').length;
-//        console.log(numItems);
-//    }
+function get_congress_email_fields(bioguideId){
+    alert(bioguideId);
+    baseURL = 'https://congressforms.eff.org';
+    endpoint = '/retrieve-form-elements'
 
+//    bioguide = '{"bio_ids": ["C000880", "A000360"]}
+
+    $.ajax({url: '/get_congress_email_fields/',
+        type: "POST",
+        data: bioguideId,
+        contentType: 'json;charset=UTF-8',
+        cache: false,
+        success: function(data) {
+            console.log(data);
+//            form_boom(data);
+
+
+
+        },
+        error: function() {
+            console.log('failure in get email fields content_landing.js');
+        }
+    });
+}
+
+//function form_boom(data){
+//    requiredActions = data["F000062"]["required_actions"];
+//    requiredActions.forEach(function (fieldItem, i) {
+//        console.log(fieldItem["value"]);
+//
+//    });
+//}

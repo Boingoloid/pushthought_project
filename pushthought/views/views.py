@@ -366,10 +366,16 @@ def save_fields(bioguideId, required_fields_object):
     for field in required_fields:
         field['value'] = field['value'].replace('$','')
         if field['value'] == 'NAME_PREFIX':
+            print "AAAAAA FOUND PREFIX"
             optionDict = field['options_hash']
             for item in optionDict:
-                newItem = item.replace('.', '').replace('   ', ' ').replace('/', '').replace(',', '').replace('$', '')
-                item = newItem
+                print "item:", type(item)
+                for i in item:
+                    if i == '.':
+                        print "YES YES YES"
+                        i = ''
+                    print "new item:", i
+
         if field['value'] == 'TOPIC':
             optionDict = field['options_hash']
             try:

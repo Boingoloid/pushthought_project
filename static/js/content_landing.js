@@ -304,6 +304,8 @@ $(document).ready(function() {
         $('.phone-icon').css('display','none')
         $('.email-icon').animate({'opacity':'0'});
         $('.email-icon').css('display','none')
+        $('.email-icon-gray').animate({'opacity':'0'});
+        $('.email-icon-gray').css('display','none')
         $('.twitter-name').show();
         $('.twitter-name').animate({'opacity':'1.0'},400,function(){
         });
@@ -412,6 +414,8 @@ $(document).ready(function() {
         $('.phone-icon').show();
         $('.email-icon').animate({'opacity':'1'});
         $('.email-icon').show();
+        $('.email-icon-gray').animate({'opacity':'1'});
+        $('.email-icon-gray').show();
         $('.twitter-name').animate({'opacity':'0.0'});
         $('.twitter-name').hide();
         $('.rep-color-band').animate({'height':'233px'});

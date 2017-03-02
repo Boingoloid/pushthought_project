@@ -31,7 +31,7 @@
         <p class="category-heading">Documentaries</p>
              <div class="program-container">
                 {% for item in documentaryList %}
-                <div class='program-item' id="program-item{{forloop.counter}}">
+                <div class='program-item' id="{{ item.objectId }}">
                     <div class='loader-{{forloop.counter}}'  id="loader"></div>
                     <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
                     <div class="program-img-container">
@@ -64,7 +64,7 @@
         <p class="category-heading">Web Videos</p>
             <div class="program-container">
                  {% for item in webVideoList %}
-                <div class='program-item' id="program-item{{forloop.counter}}">
+                <div class='program-item' id="{{ item.objectId }}">
                     <div class='loader-{{forloop.counter}}'  id="loader"></div>
                     <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
                     <div class="program-img-container">
