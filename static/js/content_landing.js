@@ -1,22 +1,37 @@
 
 
 
-function csrfSafeMethod(method) {
-// these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
 
 
 //testWindow = window.open("popup.php","interaction","resizable=0,width=800,height=600,status=0");
 
-$(document).ready(function() {
-$('.zip-input').keydown(function(thisEvent){
-  if (thisEvent.keyCode == 13) { // enter key
-    thisEvent.preventDefault();
-    $('.submit-zip').trigger('click');
-  }
 
-});
+
+
+$(document).ready(function() {
+
+
+    function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    var csrftoken = Cookies.get('csrftoken');
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $('.zip-input').keydown(function(thisEvent){
+      if (thisEvent.keyCode == 13) { // enter key
+        thisEvent.preventDefault();
+        $('.submit-zip').trigger('click');
+      }
+
+    });
 
 
     $(document).on('paste','[contenteditable]',function(e) {
@@ -248,14 +263,6 @@ $('.zip-input').keydown(function(thisEvent){
     }
 
 
-    var csrftoken = Cookies.get('csrftoken');
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
 
 
 
@@ -367,15 +374,20 @@ $('.zip-input').keydown(function(thisEvent){
             return false;
         }
 
-        text = $(this).attr('id');
-        console.log(text);
+        bioguideId = $(this).attr('name');
+        console.log(bioguideId);
 
-        if ($(this).attr('id').length < 5 ){
-            alert('sorry, no email form yet for this person.');
-        } else {
-            var contactPath = $(this).attr('id');
-            window.open(contactPath);
-        }
+
+        get_congress_email_fields(bioguideId);
+
+
+
+//        if ($(this).attr('id').length < 5 ){
+//            alert('sorry, no email form yet for this person.');
+//        } else {
+//            var contactPath = $(this).attr('id');
+//            window.open(contactPath);
+//        }
 
         //window.open('mailto:test@example.com?subject=subject&body=body');
     });
@@ -660,25 +672,38 @@ function showSuccess(successArray, duplicateArray){
     }
 }
 
-//html('<span contenteditable=false class=address-placeholder>''</span>');
 
 
-//    function insertTextAtCursor(text) {
-//        var sel, range, html;
-//        if (window.getSelection) {
-//            sel = window.getSelection();
-//            if (sel.getRangeAt && sel.rangeCount) {
-//                range = sel.getRangeAt(0);
-//                range.deleteContents();
-//                range.insertNode( document.createNode(text));
-//            }
-//        } else if (document.selection && document.selection.createRange) {
-//            document.selection.createRange().text = text;
-//        }
-//    }
 
-//    function updatePlaceholder(){
-//        var numItems = $('.address-item.selected').length;
-//        console.log(numItems);
-//    }
+function get_congress_email_fields(bioguideId){
+    alert(bioguideId);
+    baseURL = 'https://congressforms.eff.org';
+    endpoint = '/retrieve-form-elements'
 
+//    bioguide = '{"bio_ids": ["C000880", "A000360"]}
+
+    $.ajax({url: '/get_congress_email_fields/',
+        type: "POST",
+        data: bioguideId,
+        contentType: 'json;charset=UTF-8',
+        cache: false,
+        success: function(data) {
+            console.log(data);
+            form_boom(data);
+
+
+
+        },
+        error: function() {
+            console.log('failure in get email fields content_landing.js');
+        }
+    });
+}
+
+function form_boom(data){
+    requiredActions = data["F000062"]["required_actions"];
+    requiredActions.forEach(function (fieldItem, i) {
+        console.log(fieldItem["value"]);
+
+    });
+}

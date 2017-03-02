@@ -109,7 +109,7 @@
                                 {% endif %}
                                 <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
                                 {% if item.contact_form %}
-                                    <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+                                    <img class="email-icon" id="{{ item.contact_form }}" name="{{ item.bioguide_id }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
                                 {% else %}
                                     <img class="email-icon" id="{{ item.contact_form }}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">
                                 {% endif %}

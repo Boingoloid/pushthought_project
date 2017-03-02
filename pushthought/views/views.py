@@ -314,6 +314,56 @@ def save_zip_to_user(request,zip):
     result = json.loads(connection.getresponse().read())
     return result
 
+def get_congress_email_fields(request):
+    bioguideId = request.body
+    print "bioguideId:", bioguideId
+    connection = httplib.HTTPSConnection('congressforms.eff.org')
+    connection.connect()
+    connection.request('POST', '/retrieve-form-elements/',
+        json.dumps({
+            "bio_ids": [bioguideId],
+        }),
+        {#headers
+           "Content-Type": "application/json"
+        })
+    required_fields_object = json.loads(connection.getresponse().read())
+
+
+
+    save_fields(bioguideId, required_fields_object)
+    return HttpResponse(json.dumps(required_fields_object), content_type="application/json")
+
+import ast
+def save_fields(bioguideId, required_fields_object):
+    print "email_fields_array:::::::::::", required_fields_object
+    required_fields = required_fields_object[bioguideId]["required_actions"]
+
+    for field in required_fields:
+        field['value'] = field['value'].replace('$','')
+        if field['options_hash']:
+            optionDict = field['options_hash']
+            for key, value in optionDict.items():
+                newKey = key.replace('.', '').replace('   ',' ').replace('/', '').replace(',', '').replace('$','')
+                print key
+                print newKey
+                optionDict[newKey] = optionDict.pop(key)
+    print "after replace::::::::::::", required_fields
+
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('POST', '/parse/classes/CongressRequiredEmailFields',
+    json.dumps({
+        "bioguideId": bioguideId,
+        "required_fields": required_fields
+    }),
+   {
+       "X-Parse-Application-Id": PARSE_APP_ID,
+       "X-Parse-REST-API-Key": PARSE_REST_KEY,
+       "Content-Type": "application/json"
+   })
+    result = json.loads(connection.getresponse().read())
+    print "save result for required fields::::::", result
+    return None
 
 def fed_rep_action_menu(request, programId, segmentId):
 

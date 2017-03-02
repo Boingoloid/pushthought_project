@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^browse', views.browse, name='browse'),
     url(r'^content_landing_empty/$', views.content_landing_empty, name='content_landing_empty'),
     url(r'^content_landing/(?P<programId>\w+)', views.content_landing, name='content_landing'),
+    url(r'^get_congress_email_fields', views.get_congress_email_fields, name='get_congress'),
     url(r'^get_congress/(?P<zip>\w+)', views.get_congress, name='get_congress'),
     url(r'^leaving', views.leaving, name='leaving'),
     url(r'^program_detail/(?P<programId>\w+)', views.program_detail, name='program_detail'),
