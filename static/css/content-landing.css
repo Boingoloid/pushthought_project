@@ -713,7 +713,7 @@ text-tweet-block{
 /*Icons*/
 .twitter-icon{
   position:absolute;
-  top: 4px;
+  top: 7px;
   left: 20px;
   cursor: pointer;
 }
@@ -721,32 +721,36 @@ text-tweet-block{
 /*Icons*/
 .twitter-icon-empty{
   position:absolute;
-  top: 4px;
+  top: 7px;
   left: 20px;
 }
 
-.phone-icon {
+.phone-icon{
   position:absolute;
-  top: 9px;
+  top: 13px;
   left: 42%;
   height: 32px;
   cursor: pointer;
 }
 
-
 .email-icon{
   position:absolute;
-  top: 9px;
+  top: 14px;
   right: 20px;
   cursor: pointer;
 }
 
+.email-icon-gray{
+  position:absolute;
+  top: 14px;
+  right: 20px;
+  cursor: pointer;
+}
 
 .twitter-icon:hover, .phone-icon:hover, .email-icon:hover{
     box-shadow: 0px 1px 10px green;
     box-shadow: 0px 2px 4px green;
     box-shadow: 0px 0px 2px green;
-
 }
 
 .indicator{

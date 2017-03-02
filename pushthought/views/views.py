@@ -312,41 +312,77 @@ def save_zip_to_user(request,zip):
             "Content-Type": "application/json"
         })
     result = json.loads(connection.getresponse().read())
+    print result
     return result
 
 def get_congress_email_fields(request):
     bioguideId = request.body
     print "bioguideId:", bioguideId
-    connection = httplib.HTTPSConnection('congressforms.eff.org')
+
+    result = get_congress_required_fields(bioguideId)
+    print result
+    print len(result)
+    if len(result) > 0:
+        print "congress req fields in database, returning from parse-server"
+    else:
+        print "No congress required fields in DB so pulling from phantom congress"
+        connection = httplib.HTTPSConnection('congressforms.eff.org')
+        connection.connect()
+        connection.request('POST', '/retrieve-form-elements/',
+            json.dumps({
+                "bio_ids": [bioguideId],
+            }),
+            {#headers
+               "Content-Type": "application/json"
+            })
+        required_fields_object = json.loads(connection.getresponse().read())
+        save_fields(bioguideId, required_fields_object)
+        result = get_congress_required_fields(bioguideId)
+
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+def get_congress_required_fields(bioguideId):
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection.connect()
-    connection.request('POST', '/retrieve-form-elements/',
-        json.dumps({
-            "bio_ids": [bioguideId],
-        }),
-        {#headers
-           "Content-Type": "application/json"
-        })
-    required_fields_object = json.loads(connection.getresponse().read())
+    params = urllib.urlencode({"where":json.dumps({
+           "bioguideId": bioguideId
+         })})
+    connection.request('GET', '/parse/classes/CongressRequiredEmailFields?%s' % params,
+                       '',
+                       {
+                           "X-Parse-Application-Id": PARSE_APP_ID,
+                           "X-Parse-REST-API-Key": PARSE_REST_KEY,
+                           "Content-Type": "application/json"
+                       })
+    result = json.loads(connection.getresponse().read())
+    print "pulling required fields result", result['results']
+    return result['results']
 
 
-
-    save_fields(bioguideId, required_fields_object)
-    return HttpResponse(json.dumps(required_fields_object), content_type="application/json")
-
-import ast
 def save_fields(bioguideId, required_fields_object):
-    print "email_fields_array:::::::::::", required_fields_object
+    print "fields_array before savew:::::::::::", required_fields_object
     required_fields = required_fields_object[bioguideId]["required_actions"]
 
     for field in required_fields:
         field['value'] = field['value'].replace('$','')
-        if field['options_hash']:
+        if field['value'] == 'NAME_PREFIX':
             optionDict = field['options_hash']
-            for key, value in optionDict.items():
-                newKey = key.replace('.', '').replace('   ',' ').replace('/', '').replace(',', '').replace('$','')
-                print key
-                print newKey
-                optionDict[newKey] = optionDict.pop(key)
+            for item in optionDict:
+                newItem = item.replace('.', '').replace('   ', ' ').replace('/', '').replace(',', '').replace('$', '')
+                item = newItem
+        if field['value'] == 'TOPIC':
+            optionDict = field['options_hash']
+            try:
+                for key, value in optionDict.items():
+                    newKey = key.replace('.', '').replace('   ',' ').replace('/', '').replace(',', '').replace('$','')
+                    print key
+                    print newKey
+                    optionDict[newKey] = optionDict.pop(key)
+            except:
+                for item in optionDict:
+                    newItem = item.replace('.', '').replace('   ', ' ').replace('/', '').replace(',', '').replace('$','')
+                    item = newItem
+
     print "after replace::::::::::::", required_fields
 
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)

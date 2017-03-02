@@ -376,20 +376,22 @@ $(document).ready(function() {
 
         bioguideId = $(this).attr('name');
         console.log(bioguideId);
-
-
         get_congress_email_fields(bioguideId);
 
-
-
-//        if ($(this).attr('id').length < 5 ){
-//            alert('sorry, no email form yet for this person.');
-//        } else {
-//            var contactPath = $(this).attr('id');
-//            window.open(contactPath);
-//        }
-
+        //if ($(this).attr('id').length < 5 ){
+        //    alert('sorry, no email form yet for this person.');
+        //} else {
+        //    var contactPath = $(this).attr('id');
+        //    window.open(contactPath);
+        //}
         //window.open('mailto:test@example.com?subject=subject&body=body');
+    });
+
+    $('.rep-container').on("click", "img.email-icon-gray", function() {
+        if ($(':animated').length || $(this).css('opacity') == 0) {
+            return false;
+        }
+        alert('sorry, no email form yet for this person.  Pleaes call or tweet.');
     });
 
     $('#close-button').on('click',function(event) {
@@ -689,7 +691,7 @@ function get_congress_email_fields(bioguideId){
         cache: false,
         success: function(data) {
             console.log(data);
-            form_boom(data);
+//            form_boom(data);
 
 
 
@@ -700,10 +702,10 @@ function get_congress_email_fields(bioguideId){
     });
 }
 
-function form_boom(data){
-    requiredActions = data["F000062"]["required_actions"];
-    requiredActions.forEach(function (fieldItem, i) {
-        console.log(fieldItem["value"]);
-
-    });
-}
+//function form_boom(data){
+//    requiredActions = data["F000062"]["required_actions"];
+//    requiredActions.forEach(function (fieldItem, i) {
+//        console.log(fieldItem["value"]);
+//
+//    });
+//}
