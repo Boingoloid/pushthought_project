@@ -294,6 +294,7 @@ h2{
   border-bottom:0px solid black;
   overflow: auto;
   padding-bottom:0px;
+  padding-top:5px;
   position: relative;
 }
 
@@ -577,13 +578,19 @@ text-tweet-block{
 .sent-messages-count{
   position: absolute;
   z-index=2001;
-  height:40px;
-  width:80px;
-  top: -10px;
-  right: -5px;
-  color: red;
-  font-size: 18pt;
-  border:2px solid red;
+  height:25px;
+  width:auto;
+  min-width:40px;
+  top: -15px;
+  right: 0px;
+  color: #00aced;
+  font-size: 14pt;
+  border:2px solid black;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 25px; /* same as height*/
+  background:linear-gradient( to right, #092551,#000b1e);
 
 }
 
@@ -712,11 +719,7 @@ text-tweet-block{
   cursor: pointer;
 }
 
-.tweet-name {
-  line-spacing:1.0;
-  margin: 0px;
-  color: #00aced;
-}
+
 
 #add-remove-label{
   position:absolute;
@@ -874,9 +877,13 @@ text-tweet-block{
   transform-origin: 0% 50%;
 }
 
+.tweet-name {
+  line-spacing:1.0;
+  margin: 0px;
+  color: #00aced;
+}
 
 .tweet {
-  color: #00aced;
   color: white;
 }
 
