@@ -68,12 +68,14 @@
                     <div class="rep-item-container rep-item-container-{{forloop.counter}}-">
                         <div class='rep-item' id="rep-item{{forloop.counter}}">
                             <div class='loader loader-{{forloop.counter}}'  id="loader"></div>
-                            <div class='sent-messages-count'>{{ item.sent_messages_count }}</div>
-                            <!--{% if item.userTouched %}-->
-                                <!--<img class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">-->
-                            <!--{% else %}-->
-                                <!--<img style="display:none;" class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">-->
-                            <!--{% endif %}-->
+                            {% if item.sent_messages_count %}
+                                <div class='sent-messages-count'>{{ item.sent_messages_count }}</div>
+                            {% endif %}
+                            {% if item.userTouched %}
+                                <img class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
+                            {% else %}
+                                <img style="display:none;" class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
+                            {% endif %}
                             <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
                             <div class="success-box" id="success-box-{{item.twitter_id}}">
                                 <p class="success-text" style="padding-top:4px;">tweet sent to:</p>

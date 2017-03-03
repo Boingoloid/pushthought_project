@@ -658,6 +658,13 @@ function get_congress_email_fields(bioguideId){
                        emailString = '<img class="email-icon" id="'+item['contact_form']+'name="'+item['bioguide_id']+'" src=\'/static/img/email-icon.png\' width="36" height="36">';
                     }
 
+                    var sentCountDiv
+                    if(!item['sent_messages_count']){
+                        sentCountDiv  = '';
+                    } else {
+                        sentCountDiv = '<div class="sent-messages-count">' +item['sent_messages_count']+'</div>';
+                    }
+
 
                     // user touched check
                     var indicatorString;
@@ -673,6 +680,7 @@ function get_congress_email_fields(bioguideId){
                         '<div class="rep-item-container rep-item-container-' + i +'">',
                             '<div class="rep-item" id="rep-item'+i+'">',
                               '<div class="loader loader-'+i+ '" id="loader"></div>',
+                                sentCountDiv,
                                indicatorString,
                               '<p hidden id="tweet-address-item'+i+'">@'+item['twitter_id']+'</p>',
                               '<div class="success-box" id="success-box-'+item['twitter_id']+'">',

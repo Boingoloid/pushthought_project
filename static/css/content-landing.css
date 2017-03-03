@@ -597,10 +597,12 @@ text-tweet-block{
 .success-indicator{
   position: absolute;
   z-index=2001;
-  height:25px;
-  width:25px;
-  top: -10px;
-  right: -5px;
+  height:20px;
+  width:20px;
+  bottom: 0px;
+  right: 0px;
+  border:1px solid green;
+  border-radius: 50pt;
 }
 
 .rep-item-container{
