@@ -175,26 +175,30 @@ def get_segment_actions_for_user(segmentId,userObjectId):
     messaage_list = result['results']
     return messaage_list
 
-def content_landing(request, programId):
+def content_landing(request, segment_id):
     # get program and segment ID
     # store ID's in session
-    segmentId = programId
-    request.session['programId'] = programId
-    request.session['segmentId'] = segmentId
+    program_id = segment_id
+    try:
+        request.session['programId'] = program_id
+        request.session['segmentId'] = segment_id
+    except:
+        print "error in top of content landing saving request.session segment and program ids - passing on."
 
+    program_result = fetch_program_data(segment_id)
+    tweet_data = get_tweet_data(segment_id)
+    hashtag_data = get_hashtag_data(segment_id)
 
+    # get program object and programStats and Tweet/# activity for the program's landing page
 
-    # get program object and Tweet/# activity for the program's landing page
-    program_result = fetch_program_data(programId)
-    tweet_data = get_tweet_data(programId)
-    hashtag_data = get_hashtag_data(segmentId)
 
     # get user and sentMessage list
     current_user = get_user_by_token_and_id(request)
-    request.session['currentUser'] = current_user
+
 
     if current_user:
-        message_list = get_segment_actions_for_user(segmentId,current_user['objectId'])
+        request.session['currentUser'] = current_user
+        message_list = get_segment_actions_for_user(segment_id,current_user['objectId'])
     else:
         message_list = []
 
@@ -210,6 +214,8 @@ def content_landing(request, programId):
         congress_data_raw = add_title_and_full_name(congress_data_raw)
         congress_photos = get_congress_photos(congress_data_raw)
         congress_data = add_congress_photos(congress_data_raw, congress_photos)
+        segment_congress_stats = get_congress_stats_for_program(segment_id)
+        add_congress_stats(congress_data, segment_congress_stats)
         if message_list:
             congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
             print message_list
@@ -239,27 +245,29 @@ def content_landing(request, programId):
     except:
         print "no alertList to display"
 
+    dataDict['programId'] = program_id
+    dataDict['segmentId'] = segment_id
     dataDict['program'] = program_result
-    dataDict['programId'] = programId
-    dataDict['segmentId'] = segmentId
+    dataDict['segment_congress_stats'] = segment_congress_stats
     dataDict['currentUser'] = current_user
     dataDict['congressData'] = congress_data
     dataDict['tweetData'] = tweet_data
     dataDict['hashtagData'] = hashtag_data
     dataDict['hasCongressData'] = hasCongressData
 
+
     return render(request, 'content_landing.html',dataDict)
 
 def content_landing_empty(request):
-    try:
-        programId = request.session['programId']
-        # del request.session['programId']
-        print "Content_landing_empty, passing on programId:", programId
-        dataDict = {}
-        dataDict['programId'] = programId
-        return render(request, 'content_landing_empty.html',dataDict)
-    except:
-        return HttpResponseRedirect('/browse/')
+    # try:
+        # programId = request.session['programId']
+        # # del request.session['programId']
+        # print "Content_landing_empty, passing on programId:", programId
+        # dataDict = {}
+        # dataDict['programId'] = programId
+        # return render(request, 'content_landing_empty.html',dataDict)
+    # except:
+    return HttpResponseRedirect('/browse/')
 
 
 
@@ -278,11 +286,14 @@ def get_congress(request,zip):
 
     # get programId from session if available, use to pull user messages:
     try:
-        segment_id = request.session['programId']
+        segment_id = request.session['segmentId']
     except:
         segment_id = None
-        print "no segmentId during get congress, so cannot pull previous messages for user."
+        print "no segmentId during get congress, so cannot pull stats or user previous messages."
 
+    if segment_id:
+        segment_congress_stats = get_congress_stats_for_program(segment_id)
+        print "printing congress stats on get_congress:", segment_congress_stats
 
     if current_user:
         save_result = save_zip_to_user(request, zip)
@@ -291,21 +302,26 @@ def get_congress(request,zip):
             message_list = get_segment_actions_for_user(segment_id, current_user['objectId'])
         else:
             message_list = []
+    else:
+        message_list = []
+
+
+
+
 
     # Return congress based on location
     congress_data_raw = get_congress_data(zip)
-    print "congress data raw:", congress_data_raw
     congress_data_raw = add_title_and_full_name(congress_data_raw)
-    print "2- congress data raw:", congress_data_raw
     congress_photos = get_congress_photos(congress_data_raw)
     congress_data = add_congress_photos(congress_data_raw,congress_photos)
-    print "congress data post photo:", congress_data
+    congress_data = add_congress_stats(congress_data,segment_congress_stats)
 
-
-    # if message_list:
-    #     congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
+    if message_list:
+        congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
     print "made it here, sending success response with congressData"
     return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
+
+
 
 def save_zip_to_user(request,zip):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)

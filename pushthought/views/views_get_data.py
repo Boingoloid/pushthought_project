@@ -51,6 +51,13 @@ def get_program_list():
     # db = client.get_default_database()
     # program = db.Programs.find_one({"_id":programId})
 
+
+
+
+
+
+
+
 def get_program_browse_stats():
     client = pymongo.MongoClient(MONGODB_URI)
     db = client.get_default_database()
@@ -322,7 +329,7 @@ def get_petition_url(action_list):
 
 
 #helper
-def save_tweet_action(request, tweet_text, current_user,twitter_user,target_address): #helper
+def save_tweet_action(request, tweet_text, current_user,twitter_user,target_address, target_bioguide): #helper
     connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connectionTweet.connect()
     connectionTweet.request('POST', '/parse/classes/SentMessages', json.dumps({
@@ -334,6 +341,7 @@ def save_tweet_action(request, tweet_text, current_user,twitter_user,target_addr
         "twitterUserName": str(current_user['twitterScreenName']),
         "programObjectId" : request.session['programId'],
         "segmentObjectId" : request.session['segmentId'],
+        "targetBioguideId":target_bioguide ,
         "targetAddress" : target_address[1:]
         }), {
         "X-Parse-Application-Id": PARSE_APP_ID,

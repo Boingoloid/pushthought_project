@@ -338,7 +338,7 @@ h2{
 #close-button{
   position: absolute;
   top:15px;
-  left: -18px;
+  left: -22px;
   cursor:pointer;
 }
 
@@ -574,8 +574,22 @@ text-tweet-block{
   top: 4px;
 }
 
+.sent-messages-count{
+  position: absolute;
+  z-index=2001;
+  height:40px;
+  width:80px;
+  top: -10px;
+  right: -5px;
+  color: red;
+  font-size: 18pt;
+  border:2px solid red;
+
+}
+
 .success-indicator{
   position: absolute;
+  z-index=2001;
   height:25px;
   width:25px;
   top: -10px;

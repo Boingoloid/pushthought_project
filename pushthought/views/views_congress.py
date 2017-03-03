@@ -5,6 +5,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.conf import settings
 from ..models import Program
 import requests
+from bson.son import SON
 import pymongo
 
 
@@ -113,6 +114,7 @@ def add_congress_photos(congress_data,photo_data):
     return congress_data
 
 
+
 #helper
 def add_prior_activity_to_congress_data(congress_data,message_list):
     for item in congress_data:
@@ -135,4 +137,27 @@ def add_prior_activity_to_congress_data(congress_data,message_list):
                         item['userTouched'] = 1
                         # print "YES! user touched!!! " , twitter_id
                         # print congress_data
+    return congress_data
+
+def get_congress_stats_for_program(segment_id):
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+    pipeline = [{"$match": {"segmentObjectId": segment_id}},
+                {"$group": {"_id": "$targetBioguideId", "count": {"$sum": 1}}},
+                {"$sort": SON([("count", -1), ("_id", -1)])}]
+    array = []
+    result = db.SentMessages.aggregate(pipeline)
+    for doc in result:
+        doc['targetBioguideId'] = doc['_id']
+        array.append(doc)
+    print "print get_congress_stats_array result:",array
+    return array
+
+
+def add_congress_stats(congress_data, segment_congress_stats):
+    for personItem in congress_data:
+        for dataItem in segment_congress_stats:
+            if str(personItem['bioguide_id']) == str(dataItem['targetBioguideId']):
+                personItem['sent_messages_count'] = dataItem['count']
+                # personItem['user_count'] =
     return congress_data
