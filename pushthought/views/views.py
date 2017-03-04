@@ -344,10 +344,10 @@ def get_congress_email_fields(request):
     print "bioguideId:", bioguideId
 
     result = get_congress_required_fields(bioguideId)
-    print result
-    print len(result)
     if len(result) > 0:
         print "congress req fields in database, returning from parse-server"
+        resultFields = result[0]['required_fields']
+        return HttpResponse(json.dumps(resultFields), content_type="application/json")
     else:
         print "No congress required fields in DB so pulling from phantom congress"
         connection = httplib.HTTPSConnection('congressforms.eff.org')
@@ -362,8 +362,7 @@ def get_congress_email_fields(request):
         required_fields_object = json.loads(connection.getresponse().read())
         save_fields(bioguideId, required_fields_object)
         result = get_congress_required_fields(bioguideId)
-
-    return HttpResponse(json.dumps(result), content_type="application/json")
+        return HttpResponse(json.dumps(result), content_type="application/json")
 
 def get_congress_required_fields(bioguideId):
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)

@@ -34,6 +34,25 @@ $(document).ready(function() {
         window.document.execCommand('insertText', false, text);
     });
 
+
+    $('.success-indicator').mouseenter(function() {
+        var id = $(this).attr('id');
+        idContainer = id.replace('success-indicator-','warning-box-indicator-');
+        idText = id.replace('success-indicator-','indicator-text-');
+
+        $('#'+ idContainer).show()
+        $('#' + idText).show()
+
+    });
+
+    $('.success-indicator').mouseleave(function() {
+        var id = $(this).attr('id');
+        idContainer = id.replace('success-indicator-','warning-box-indicator-');
+        idText = id.replace('success-indicator-','indicator-text-');
+        $('#'+ idContainer).hide()
+        $('#' + idText).hide()
+    });
+
     $('.action-panel-container').mouseenter(function() {
         if($("#text-input:visible").length==1){
             $(this).css({"cursor": "pointer"});
@@ -149,28 +168,39 @@ $(document).ready(function() {
        window.location.href="/leaving";
     });
 
-    $('.rep-container').on("click", "img.twitter-icon", function() {
+    $('.rep-container').on("click", "img.email-icon", function() {
+
+            //if ($(this).attr('id').length < 5 ){
+        //    alert('sorry, no email form yet for this person.');
+        //} else {
+        //    var contactPath = $(this).attr('id');
+        //    window.open(contactPath);
+        //}
+        //window.open('mailto:test@example.com?subject=subject&body=body');
+
+        // stop if animation in progress
         if ($(':animated').length || $(this).css('opacity') == 0) {
-            console.log("cancelling twitter empty icon click, animation or item invisible");
             return false;
+        }
+
+        var bioguideId = $(this).attr('name');
+        get_congress_email_fields(bioguideId);  //get fields from db or phantom congress
+
+        // show action container
+        $('.rep-action-container').css('display','block'),200,function(){
         };
 
-        $('.rep-action-container').css('display','block'),200,function(){
-            //var caretPos = $("#text-input").selectionStart;
-            //var textAreaTxt = $("#text-input").val();
-            //var txtToAdd = "stuff";
-            //$("#text-input").val(textAreaTxt.substring(0, caretPos) + txtToAdd + textAreaTxt.substring(caretPos));
-        };
+        // scroll to appropriate place on screen to see action container
         $('.category-container').animate({'height':'350px'},200,function(){
             var headerAllowance = $('.seen-it-container').offset().top - 20;
             $('html, body').animate({
                 scrollTop: headerAllowance + 'px'
             }, 'fast');
         });
+
+        // hide items that disappear
         $('.rep-color-band').animate({'height':'375px'});
-        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'},500,function() {
-            });
-        //$('.twitter-icon').animate({'left':'42%'});
+        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
         $('.twitter-icon').animate({'opacity':'0'});
         $('.twitter-icon').css('display','none')
         $('.twitter-icon-empty').animate({'opacity':'0'});
@@ -181,33 +211,118 @@ $(document).ready(function() {
         $('.email-icon').css('display','none')
         $('.email-icon-gray').animate({'opacity':'0'});
         $('.email-icon-gray').css('display','none')
-        $('.twitter-name').show();
-        $('.twitter-name').animate({'opacity':'1.0'},400,function(){
+
+        // show twitter name
+        $('.email-name').show();
+        $('.email-name').animate({'opacity':'1.0'},400,function(){
         });
+
+        // toggle selection for activity container with clicked email icon
         $(this).parent('div').parent('div').toggleClass("selected");
 
+        // toggle address paths above text input
         var index = $(this).parent('div').parent('div').attr('id');
-        console.log("idnex: " + index);
-        var addressPath = ".address-item-" + index;
-        console.log(addressPath);
+        var addressPath = ".email-address-item-" + index;
         $(addressPath).toggleClass('selected');
 
-        addressPlaceholderClass= '.address-label-' + index;
-        addressPlaceholder = $(addressPlaceholderClass).html()
+        // show Send button
+        $('#img-send-tweet-icon').hide();
+        $('#img-send-email-icon').show();
+
+        // write text in Send label for number selected
+        var numItems = $('.address-item.selected').length;
+        var labelText = 'email: ' + numItems;
+        $('#tweet-button-label').text(labelText);
+        $('#text-input').focus();
+
+
+    });
+
+    $('.rep-container').on("click", "img.twitter-icon", function() {
+        var i = $(this).attr('id');
+        console.log("i:" + i);
+
+        // if animation occuring, stop method
+        if ($(':animated').length || $(this).css('opacity') == 0) {
+            console.log("cancelling twitter empty icon click, animation or item invisible");
+            return false;
+        };
+
+        // show action container
+        $('.rep-action-container').show();
+
+        // scroll to appropriate place on screen to see action container
+        $('.category-container').animate({'height':'350px'},200,function(){
+            var headerAllowance = $('.seen-it-container').offset().top - 20;
+            $('html, body').animate({
+                scrollTop: headerAllowance + 'px'
+            }, 'fast');
+        });
+
+        // hide items that disappear
+        $('.rep-color-band').animate({'height':'375px'});
+        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
+        $('.twitter-icon').css('display','none');
+        $('.twitter-icon-empty').css('display','none');
+        $('.phone-icon').css('display','none');
+        $('.email-icon').css('display','none');
+        $('.email-icon-gray').css('display','none');
+
+        // show twitter name
+        $('.twitter-name').show();
+
+        // toggle selection of activity container
+//        $(this).parent('div').parent('div').toggleClass("selected");
+        $('.action-panel-contianer#'+i).toggleClass("selected");
+
+        // create address items above text input
+        $('.twitter-name').each(function( index ){
+           index = index + 1;
+           //console.log("index:" + index);
+           if(i == index){
+                console.log('yes');
+           }
+
+           var address = $(this).text();
+           var text = ['<div class="address-item address-node-'+ index +'">',
+                            '<p class="address-item-label address-item-label-'+index +'">'+address+'</p>',
+                      '</div>'].join("\n");
+           $('.address-container').append(text);
+        });
+
+
+        // select address according to button clicked
+        var addressPath = String(".address-node-" + i)
+        console.log(addressPath);
+        $(addressPath).toggleClass("selected");
+
+
+
+
+        // insert address placeholder in text-input
+        addressPlaceholderClass = '.address-item-label-' + i;
+        addressPlaceholder = $(addressPlaceholderClass).html();
         stringSpace = '&nbsp';
         $('#text-input').html('<span contenteditable=false class=address-placeholder>' + addressPlaceholder + '</span>');
+
+
+
+        // set button label
+        var numItems = $('.address-item.selected').length;
+        var labelText = 'tweet: ' + numItems;
+        $('#button-label').text(labelText);
+
+        // Focus on text box
+        $('#text-input').focus();
+
+
 
         //var tweetText = $('#text-input').text();
         //letterCount = tweetText.length;
         //console.log("letter count:" + letterCount);
 
-        // set button label
-        var numItems = $('.address-item.selected').length;
-        var labelText = 'tweet: ' + numItems
-        $('#tweet-button-label').text(labelText);
 
 
-        $('#text-input').focus();
         //range = window.getSelection().getRangeAt(0);
         //range.setStart(range.endContainer,range.endOffset);
         //document.execCommand('selectAll',false,null);
@@ -246,23 +361,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.rep-container').on("click", "img.email-icon", function() {
-        if ($(':animated').length || $(this).css('opacity') == 0) {
-            return false;
-        }
 
-        bioguideId = $(this).attr('name');
-        console.log(bioguideId);
-        get_congress_email_fields(bioguideId);
-
-        //if ($(this).attr('id').length < 5 ){
-        //    alert('sorry, no email form yet for this person.');
-        //} else {
-        //    var contactPath = $(this).attr('id');
-        //    window.open(contactPath);
-        //}
-        //window.open('mailto:test@example.com?subject=subject&body=body');
-    });
 
     $('.rep-container').on("click", "img.email-icon-gray", function() {
         if ($(':animated').length || $(this).css('opacity') == 0) {
@@ -272,60 +371,67 @@ $(document).ready(function() {
     });
 
     $('#close-button').on('click',function(event) {
-        //if ($(':animated').length) {
-        //    console.log("cancelling close button click");
-        //    return false;
-        //}
+        $('.address-container').html(' ');
         $('.category-container').animate({'height':'220px'});
         $('.rep-action-container').animate({'opacity':'0.0','height':'0px'},500,function() {
-            $('.rep-action-container').css('display','none')
+            $('.rep-action-container').css('display','none');
         })
         //$('.twitter-icon').animate({'left':'42%'});
-        $('.twitter-icon').animate({'opacity':'1'});
-        $('.twitter-icon').show()
-        $('.twitter-icon-empty').animate({'opacity':'1'});
+        $('.twitter-icon').show();
         $('.twitter-icon-empty').show();
-        $('.phone-icon').animate({'opacity':'1'});
         $('.phone-icon').show();
-        $('.email-icon').animate({'opacity':'1'});
         $('.email-icon').show();
-        $('.email-icon-gray').animate({'opacity':'1'});
         $('.email-icon-gray').show();
-        $('.twitter-name').animate({'opacity':'0.0'});
         $('.twitter-name').hide();
+        $('.email-name').hide();
         $('.rep-color-band').animate({'height':'233px'});
         $('.selected').animate($('.selected').removeClass('selected'));
+        $('#img-send-email-icon').hide();
+
+
     });
 
 
     $('.rep-container').on("click", ".action-panel-container", function() {
-        if($('.twitter-name').css('opacity') == 0) {
-            return false
+        var i = $(this).attr('id');
+        var text = $('#twitter-name-'+i).text();
+        console.log(text);
+
+        if(!$('.twitter-name').is(":visible")) {
+            return false;
+        } else if(  text == 'n/a'){
+            alert('Don\'t have a twitter account for this rep yet.  We\'re working on it.  Thank you for your patience.');
+            return false;
         } else {
+        // adjust the highlight of selected/unselected container
             if ($(this).hasClass( "selected" )){
                 $(this).removeClass('selected');
                 // add or remove twitter name above textarea
                 var index = $(this).attr('id');
-                var addressPath = ".address-item-" + index;
+                var addressPath = ".address-node-" + index;
                 $(addressPath).removeClass('selected');
             } else {
                 $(this).addClass('selected');
                 // add or remove twitter name above textarea
                 var index = $(this).attr('id');
-                var addressPath = ".address-item-" + index;
+                var addressPath = ".address-node-" + index;
                 $(addressPath).addClass('selected');
             }
 
+            // grapping length and value of textInput
             var placeholderLength = $('.address-placeholder').text().length
             value = $('#text-input').html();
+
+            // add placeholder if one does not exist
             searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
             if (searchBool == -1){
                 $('#text-input').html(value + '<span contenteditable=false class=address-placeholder></span>');
             }
 
+            // update placeholderText and button label -> based on # of addresses selected
             var numItems = $('.address-item.selected').length;
             var labelText = 'tweet: ' + numItems
-            $('#tweet-button-label').text(labelText);
+            $('#button-label').text(labelText);
             if (numItems == 0){
                 placeholderText = '';
                 $('.address-placeholder').text(placeholderText);
@@ -557,9 +663,8 @@ function showSuccess(successArray, duplicateArray){
 
 
 function get_congress_email_fields(bioguideId){
-    alert(bioguideId);
     baseURL = 'https://congressforms.eff.org';
-    endpoint = '/retrieve-form-elements'
+    endpoint = '/retrieve-form-elements';
 
 //    bioguide = '{"bio_ids": ["C000880", "A000360"]}
 
@@ -569,11 +674,26 @@ function get_congress_email_fields(bioguideId){
         contentType: 'json;charset=UTF-8',
         cache: false,
         success: function(data) {
-            console.log(data);
-//            form_boom(data);
+
+            console.log(data)
+            data.forEach(function (dict, i) {
+                field = dict['value']
+                    if(field == 'NAME_FIRST'){
+                        console.log('yes, first name');
+                    } else {
+                        console.log('not, first name');
+                    }
+                    console.log(dict['value']);
 
 
 
+            });
+
+//            console.log("Congress fields:"+ data[0][bioguideId]);
+            //var congressDataArray = data['congressData'];
+            //console.log(congressDataArray)
+            //var len = congressDataArray.length;
+            //form_boom(data);
         },
         error: function() {
             console.log('failure in get email fields content_landing.js');
@@ -581,13 +701,13 @@ function get_congress_email_fields(bioguideId){
     });
 }
 
-//function form_boom(data){
-//    requiredActions = data["F000062"]["required_actions"];
-//    requiredActions.forEach(function (fieldItem, i) {
-//        console.log(fieldItem["value"]);
-//
-//    });
-//}
+function form_boom(data){
+    requiredActions = data["F000062"]["required_actions"];
+    requiredActions.forEach(function (fieldItem, i) {
+        console.log(fieldItem["value"]);
+
+    });
+}
 
     function get_congress(zip){
         $.ajax({url: "/get_congress/" + zip,
@@ -597,7 +717,6 @@ function get_congress_email_fields(bioguideId){
             cache: false,
             success: function(data) {
                 console.log(data);
-
                 // hide loading indicator
                 $('#zip-loader').hide();
 

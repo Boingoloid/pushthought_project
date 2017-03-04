@@ -378,12 +378,38 @@ text-tweet-block{
   background: rgba(0,0,0,0);
 }
 
-.address-container{
+.address-container, .email-address-container{
   display:flex;
   flex-direction: row;
   margin: 0px;
   padding: 0px;
 }
+
+
+
+
+.address-item, .email-address-item{
+  display:inline;
+  margin: 0px;
+  padding: 0px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 10pt;
+  line-height: 1.0;
+  display:none;
+}
+
+.address-item-label, .email-address-item-label{
+  display: inline;
+  font-size: 10pt;
+  line-height: 10pt;
+  margin: 0px;
+  padding: 0px;
+  padding-right: 5px;
+  padding-left: 5px;
+  color: #00aced;
+}
+
 
 .address-title{
   display:inline;
@@ -395,22 +421,14 @@ text-tweet-block{
   line-height: 1.0;
 }
 
-.address-item{
-  display:inline;
-  margin: 0px;
-  padding: 0px;
-  padding-right: 5px;
-  padding-left: 5px;
-  font-size: 10pt;
-  line-height: 1.0;
-  display: none;
-}
-
-.address-item p, .address-title p{
+.address-title p, .address-title p{
   margin: 0px;
   padding: 0px;
   color:gray;
+  display:inline;
 }
+
+
 
 .address-item.selected{
   display:inline;
@@ -457,6 +475,12 @@ text-tweet-block{
   top:1px;
 }
 
+#img-send-email-icon{
+  position:absolute;
+  left:35px;
+  top:1px;
+  display:none;
+ }
 /*
 #send-count{
   position:absolute;
@@ -466,7 +490,7 @@ text-tweet-block{
 }
 */
 
-#tweet-button-label{
+#button-label{
   position: absolute;
   left: 22px;
   bottom: -9px;
@@ -559,6 +583,7 @@ text-tweet-block{
 }
 
 
+
 .duplicate-text{
   margin: 0px;
   padding:0px;
@@ -591,7 +616,11 @@ text-tweet-block{
   vertical-align: middle;
   line-height: 25px; /* same as height*/
   background:linear-gradient( to right, #092551,#000b1e);
+  cursor:default;
+}
 
+.sent-messages-count:hover{
+  cursor:default;
 }
 
 .success-indicator{
@@ -603,6 +632,29 @@ text-tweet-block{
   right: 0px;
   border:1px solid green;
   border-radius: 50pt;
+}
+
+.warning-box-indicator{
+  position:absolute;
+  z-index=2001;
+  bottom: 0px;
+  right: 0px;
+  background: green;
+  border-radius:5px;
+  height: auto;
+  max-width: 150px;
+  display:none;
+}
+
+.indicator-text{
+  z-index=2001;
+  margin: 0px;
+  padding:0px;
+  padding-left:10px;
+  padding-right:10px;
+  font-size:12px;
+  font-weight:400;
+  display:none;
 }
 
 .rep-item-container{
@@ -706,7 +758,7 @@ text-tweet-block{
 
 
 
-.twitter-name{
+.twitter-name, .rep-twitter-name, .email-name{
   position:absolute;
   font-size: 14pt;
   top:3px;
@@ -716,7 +768,6 @@ text-tweet-block{
   text-align: center;
   height: 100%;
   vertical-align: text-middle;
-  opacity: 0;
   display:none;
   cursor: pointer;
 }

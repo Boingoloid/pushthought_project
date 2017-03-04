@@ -42,9 +42,9 @@
                 <p class="category-title" style="z-index:0;">Federal Representatives</p>
                 <div class="zip-reset-hover-boundary">
                     {% if hasCongressData %}
-                    <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="20" height="20">
+                    <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25">
                     {% else %}
-                    <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="20" height="20" style="display:none;">
+                    <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25" style="display:none;">
                     {% endif %}
                     <button class="zip-reset btn-danger">reset zip</button>
                 </div>
@@ -76,6 +76,9 @@
                             {% else %}
                                 <img style="display:none;" class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
                             {% endif %}
+                                <div class="warning-box-indicator" id="warning-box-indicator-{{item.twitter_id}}">
+                                    <p class="indicator-text" id="indicator-text-{{item.twitter_id}}">you've already contacted this person</p>
+                                </div>
                             <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
                             <div class="success-box" id="success-box-{{item.twitter_id}}">
                                 <p class="success-text" style="padding-top:4px;">tweet sent to:</p>
@@ -99,11 +102,12 @@
                         <div class="action-panel-container" id="{{forloop.counter}}">
                             <div class="action-panel">
                                 {% if item.twitter_id %}
-                                    <div class="twitter-name">@{{item.twitter_id}}</div>
+                                    <div class="twitter-name" id="twitter-name-{{forloop.counter}}">@{{item.twitter_id}}</div>
+                                    <div class="email-name">add/remove fields</div>
                                     <div hidden class="index">{{forloop.counter}}</div>
-                                    <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
+                                    <img class="twitter-icon" id="{{forloop.counter}}" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
                                 {% else %}
-                                    <div class="twitter-name" id="twitter-name">n/a</div>
+                                    <div class="twitter-name" id="twitter-name-{{forloop.counter}}">n/a</div>
                                     <img class="twitter-icon-empty" src="{% static 'img/twitter-icon-gray.png' %}" width="42" height="42">
                                     <div class="warning-box-tweet-icon">
                                         <p class="warning-text">twitter address n/a</p>
@@ -125,30 +129,40 @@
             <div class="rep-action-container">
                 <img id="close-button"src="{% static 'img/x-mark-gray.png' %}" width="20" height="20">
                 <div id="text-tweet-block">
-                    <div class="address-container">
-                            <div class="address-title">
-                                <p>Send to: </p>
-                            </div>
-                                {% if hasCongressData %}
-                                {% for item in congressData %}
-                                    {% if item.twitter_id %}
-                                        <div class="address-item address-item-{{forloop.counter}}">
-                                            <p class="address-label-{{forloop.counter}}">@{{item.twitter_id}}</p>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                                {% endif %}
+                    <div style="display:block">
+                        <div class="address-title" style="display:inline;">
+                            <p style="display:inline;">Send to: </p>
+                        </div>
+                        <div class="address-container" style="display:inline;">
+                            <!--{% if hasCongressData %}-->
+                            <!--{% for item in congressData %}-->
+                                <!--{% if item.twitter_id %}-->
+                                    <!--<div class="address-item address-item-{{forloop.counter}}">-->
+                                        <!--<p class="address-item-label address-label-{{forloop.counter}}">@{{item.twitter_id}}</p>-->
+                                    <!--</div>-->
+                                <!--{% endif %}-->
+                            <!--{% endfor %}-->
+                            <!--{% endif %}-->
+                        </div>
                     </div>
+                    <!--<div class="email-address-container" style="display:inline;>-->
+                        <!--{% if hasCongressData %}-->
+                        <!--{% for item in congressData %}-->
+                            <!--{% if item.contact_form %}-->
+                                <!--<div class="email-address-item email-address-item-{{forloop.counter}}">-->
+                                    <!--<p class="email-address-item-label email-address-label-{{forloop.counter}}">{{item.first_name}} {{item.last_name}}</p>-->
+                                <!--</div>-->
+                            <!--{% endif %}-->
+                        <!--{% endfor %}-->
+                        <!--{% endif %}-->
+                    <!--</div>-->
                     <div tabindex="-1" contenteditable id="text-input" placeholder="Tweet text here"></div>
                     <div id="tweet-button">
                         <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
-                        <!--<p id="send-count">4</p>-->
-                        <p id="tweet-button-label">tweet: 1</p>
+                        <img id="img-send-email-icon" style="" src="{% static 'img/email-icon.png' %}" width="40" height="40">
+                        <p id="button-label"></p>
                         <div class='tweet-loader' id="tweet-loader"></div>
                     </div>
-
-                </div>
-                <div>
                     <div class="img-checked-box-container">
                         <img id="img-checked-box" src="{% static 'img/check-circle-gray2.png' %}" width="20" height="20">
                         <p id="link-included">link included</p>
