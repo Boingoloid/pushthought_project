@@ -103,8 +103,7 @@
                             <div class="action-panel">
                                 {% if item.twitter_id %}
                                     <div class="twitter-name" id="twitter-name-{{forloop.counter}}">@{{item.twitter_id}}</div>
-                                    <div class="email-name">add/remove fields</div>
-                                    <div hidden class="index">{{forloop.counter}}</div>
+                                    <!--<div class="email-name">add/remove fields</div>-->
                                     <img class="twitter-icon" id="{{forloop.counter}}" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
                                 {% else %}
                                     <div class="twitter-name" id="twitter-name-{{forloop.counter}}">n/a</div>

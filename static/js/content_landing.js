@@ -97,9 +97,13 @@ $(document).ready(function() {
     $('.zip-input').keydown(function(thisEvent){
       if (thisEvent.keyCode == 13) { // enter key
         thisEvent.preventDefault();
-        $('.submit-zip').trigger('click');
-      }
 
+        if($('.zip-loader:visible').length > 0){
+            return false;
+        } else{
+            $('.submit-zip').trigger('click');
+        }
+      }
     });
 
     $(document).mouseup(function(){
@@ -290,14 +294,10 @@ $(document).ready(function() {
            $('.address-container').append(text);
         });
 
-
         // select address according to button clicked
         var addressPath = String(".address-node-" + i)
         console.log(addressPath);
         $(addressPath).toggleClass("selected");
-
-
-
 
         // insert address placeholder in text-input
         addressPlaceholderClass = '.address-item-label-' + i;
@@ -394,6 +394,7 @@ $(document).ready(function() {
 
     $('.rep-container').on("click", ".action-panel-container", function() {
         var i = $(this).attr('id');
+        i= i + 1
         var text = $('#twitter-name-'+i).text();
         console.log(text);
 
@@ -741,7 +742,7 @@ function form_boom(data){
                 $('.zip-indicator').show();
                 console.log(len);
 
-                for (i=0; i<len; ++i) {
+                for (i=0; i<=len; i++) {
                   if (i in congressDataArray) {
                     var item = congressDataArray[i];
 
@@ -756,15 +757,14 @@ function form_boom(data){
                     // twitterId check
                     var twitterIdString;
                     if(!item['twitter_id']){
-                       twitterIdString = ['<div class="twitter-name" id="twitter-name">n/a</div>',
+                       twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'">n/a</div>',
                         '<img class="twitter-icon-empty" src=\'/static/img/twitter-icon-gray.png\' width="42" height="42">',
                         '<div class="warning-box-tweet-icon">',
                             '<p class="warning-text">twitter address n/a</p>',
                         '</div>'
                         ].join("\n");
                     } else {
-                       twitterIdString = ['<div class="twitter-name">@'+item['twitter_id']+'</div>',
-                            '<div hidden class="index">'+i+'</div>',
+                       twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'">@'+item['twitter_id']+'</div>',
                             '<img class="twitter-icon" src=\'/static/img/twitter-icon.png\' width="42" height="42">'
                             ].join("\n");
                     }
