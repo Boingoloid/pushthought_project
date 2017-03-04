@@ -248,7 +248,6 @@ def content_landing(request, segment_id):
     dataDict['programId'] = program_id
     dataDict['segmentId'] = segment_id
     dataDict['program'] = program_result
-    dataDict['segment_congress_stats'] = segment_congress_stats
     dataDict['currentUser'] = current_user
     dataDict['congressData'] = congress_data
     dataDict['tweetData'] = tweet_data

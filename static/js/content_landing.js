@@ -154,9 +154,6 @@ $(document).ready(function() {
                 scrollTop: headerAllowance + 'px'
             }, 'fast');
         console.log(data);
-        console.log(data[1][0]);
-
-
         showSuccess(data[0], data[1]);
     }
 
@@ -173,8 +170,10 @@ $(document).ready(function() {
     });
 
     $('.rep-container').on("click", "img.email-icon", function() {
-
-            //if ($(this).attr('id').length < 5 ){
+        var i = $(this).attr('id');
+//        console.log("i:" + i);
+        // Previous version, just sends to webform
+        //if ($(this).attr('id').length < 5 ){
         //    alert('sorry, no email form yet for this person.');
         //} else {
         //    var contactPath = $(this).attr('id');
@@ -183,14 +182,16 @@ $(document).ready(function() {
         //window.open('mailto:test@example.com?subject=subject&body=body');
 
         // stop if animation in progress
-        if ($(':animated').length || $(this).css('opacity') == 0) {
+        if ($(':animated').length > 0) {
             return false;
         }
 
-        var bioguideId = $(this).attr('name');
+        // grab BioguideID and reqeust congress phantom email fields from server
+        var bioguideId = $(this).next().attr('id');
+//        console.log(bioguideId);
         get_congress_email_fields(bioguideId);  //get fields from db or phantom congress
 
-        // show action container
+        // show action container and it's contents
         $('.rep-action-container').css('display','block'),200,function(){
         };
 
@@ -202,53 +203,79 @@ $(document).ready(function() {
             }, 'fast');
         });
 
-        // hide items that disappear
+        // expand containers
         $('.rep-color-band').animate({'height':'375px'});
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
-        $('.twitter-icon').animate({'opacity':'0'});
-        $('.twitter-icon').css('display','none')
-        $('.twitter-icon-empty').animate({'opacity':'0'});
-        $('.twitter-icon-empty').css('display','none')
-        $('.phone-icon').animate({'opacity':'0'});
-        $('.phone-icon').css('display','none')
-        $('.email-icon').animate({'opacity':'0'});
-        $('.email-icon').css('display','none')
-        $('.email-icon-gray').animate({'opacity':'0'});
-        $('.email-icon-gray').css('display','none')
 
-        // show twitter name
+        // hide items that need to disappear
+        $('.twitter-icon').css('display','none');
+        $('.twitter-icon-empty').css('display','none');
+        $('.phone-icon').css('display','none');
+        $('.email-icon').css('display','none');
+        $('.email-icon-gray').css('display','none');
+
+        // show email name
         $('.email-name').show();
-        $('.email-name').animate({'opacity':'1.0'},400,function(){
+
+        // toggle selection of activity container
+        $('.action-panel-contianer').toggleClass("selected");  //WHY THE FUCK IS THIS CONTIANER, I DONT GET IT!!!
+
+        //        // toggle address paths above text input
+        //        var index = $(this).parent('div').parent('div').attr('id');
+        //        var addressPath = ".email-address-item-" + index;
+        //        $(addressPath).toggleClass('selected');
+
+
+        // create address items above text input
+        $('.email-name').each(function( index ){
+           index = index;
+           console.log("index:" + index);
+           if(i == index){
+                console.log('yes');
+           }
+           var full_name = $(this).attr('name');
+           var text = ['<div class="address-item address-node-'+ index +'">',
+                            '<p class="address-item-label address-item-label-'+index +'">'+full_name+'</p>',
+                      '</div>'].join('\n');
+           $(".address-container").append(text);
         });
 
-        // toggle selection for activity container with clicked email icon
-        $(this).parent('div').parent('div').toggleClass("selected");
 
-        // toggle address paths above text input
-        var index = $(this).parent('div').parent('div').attr('id');
-        var addressPath = ".email-address-item-" + index;
-        $(addressPath).toggleClass('selected');
+        // select address according to button clicked
+        var addressPath = String(".address-node-" + i);
+        console.log(addressPath);
+        $(addressPath).toggleClass("selected");
 
-        // show Send button
+        // text-input clear
+        $('#text-input').html('');
+        $('.address-placeholder').html('');
+
+
+        // show Send button , hide Tweet button
         $('#img-send-tweet-icon').hide();
         $('#img-send-email-icon').show();
 
-        // write text in Send label for number selected
+
+        // set button label
         var numItems = $('.address-item.selected').length;
+        console.log('setting button label text');
         var labelText = 'email: ' + numItems;
-        $('#tweet-button-label').text(labelText);
+        console.log("label text" + labelText);
+        $('#send-button-label').text(labelText);
+
+        // Focus on text box
         $('#text-input').focus();
-
-
     });
+
+
 
     $('.rep-container').on("click", "img.twitter-icon", function() {
         var i = $(this).attr('id');
         console.log("i:" + i);
 
         // if animation occuring, stop method
-        if ($(':animated').length || $(this).css('opacity') == 0) {
-            console.log("cancelling twitter empty icon click, animation or item invisible");
+        if ($(':animated').length > 0) {
+            console.log("returning false");
             return false;
         };
 
@@ -263,9 +290,11 @@ $(document).ready(function() {
             }, 'fast');
         });
 
-        // hide items that disappear
+        // expand containers
         $('.rep-color-band').animate({'height':'375px'});
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
+
+        // hide items that disappear
         $('.twitter-icon').css('display','none');
         $('.twitter-icon-empty').css('display','none');
         $('.phone-icon').css('display','none');
@@ -276,8 +305,7 @@ $(document).ready(function() {
         $('.twitter-name').show();
 
         // toggle selection of activity container
-//        $(this).parent('div').parent('div').toggleClass("selected");
-        $('.action-panel-contianer#'+i).toggleClass("selected");
+        $('.action-panel-contianer#'+i).toggleClass('selected');  //WHY THE FUCK IS THIS CONTIANER, I DONT GET IT!!!
 
         // create address items above text input
         $('.twitter-name').each(function( index ){
@@ -295,7 +323,7 @@ $(document).ready(function() {
         });
 
         // select address according to button clicked
-        var addressPath = String(".address-node-" + i)
+        var addressPath = String(".address-node-" + i);
         console.log(addressPath);
         $(addressPath).toggleClass("selected");
 
@@ -305,12 +333,10 @@ $(document).ready(function() {
         stringSpace = '&nbsp';
         $('#text-input').html('<span contenteditable=false class=address-placeholder>' + addressPlaceholder + '</span>');
 
-
-
         // set button label
         var numItems = $('.address-item.selected').length;
         var labelText = 'tweet: ' + numItems;
-        $('#button-label').text(labelText);
+        $('#send-button-label').text(labelText);
 
         // Focus on text box
         $('#text-input').focus();
@@ -371,11 +397,13 @@ $(document).ready(function() {
     });
 
     $('#close-button').on('click',function(event) {
+        $('#text-input').text('');
+        $('.address-placeholder').html('');
         $('.address-container').html(' ');
         $('.category-container').animate({'height':'220px'});
         $('.rep-action-container').animate({'opacity':'0.0','height':'0px'},500,function() {
             $('.rep-action-container').css('display','none');
-        })
+        });
         //$('.twitter-icon').animate({'left':'42%'});
         $('.twitter-icon').show();
         $('.twitter-icon-empty').show();
@@ -387,6 +415,8 @@ $(document).ready(function() {
         $('.rep-color-band').animate({'height':'233px'});
         $('.selected').animate($('.selected').removeClass('selected'));
         $('#img-send-email-icon').hide();
+        $('#img-send-tweet-icon').show();
+
 
 
     });
@@ -394,17 +424,25 @@ $(document).ready(function() {
 
     $('.rep-container').on("click", ".action-panel-container", function() {
         var i = $(this).attr('id');
-        i= i + 1
-        var text = $('#twitter-name-'+i).text();
-        console.log(text);
+        i = i;
 
-        if(!$('.twitter-name').is(":visible")) {
+        if($('.twitter-name').is(":visible")){
+            var elementName = '#twitter-name-'+i;
+            console.log("element name:", elementName);
+            var elementText = $('#twitter-name-'+i).html();
+            console.log("tweet element Text" + elementText);
+        } else if($('.email-name').is(":visible")){
+            var elementText = $('.email-name-'+i).text();
+            console.log("email element Text"+ elementText);
+        } else {
             return false;
-        } else if(  text == 'n/a'){
-            alert('Don\'t have a twitter account for this rep yet.  We\'re working on it.  Thank you for your patience.');
+        }
+
+        if( elementText == 'n/a'){
+            alert('Don\'t have this item yet.  We\'re working on it.  Thank you for your patience.');
             return false;
         } else {
-        // adjust the highlight of selected/unselected container
+            // adjust the highlight of selected/unselected container
             if ($(this).hasClass( "selected" )){
                 $(this).removeClass('selected');
                 // add or remove twitter name above textarea
@@ -432,7 +470,7 @@ $(document).ready(function() {
             // update placeholderText and button label -> based on # of addresses selected
             var numItems = $('.address-item.selected').length;
             var labelText = 'tweet: ' + numItems
-            $('#button-label').text(labelText);
+            $('#send-button-label').text(labelText);
             if (numItems == 0){
                 placeholderText = '';
                 $('.address-placeholder').text(placeholderText);
@@ -560,18 +598,17 @@ $(document).ready(function() {
             $('.action-panel-container').each(function(){
                  if ($(this).hasClass( "selected" )){
                     $(this).removeClass('selected');
-                    // remove twitter name above textarea
-                    var index = $(this).attr('id');
-                    var addressPath = ".address-item-" + index;
-                    $(addressPath).removeClass('selected');
                  }
+            });
+            $('.address-item').each(function(){
+                $(this).removeClass('selected');
             });
         }
 
         // set button label
         var numItems = $('.address-item.selected').length;
         var labelText = 'tweet: ' + numItems
-        $('#tweet-button-label').text(labelText);
+        $('#send-button-label').text(labelText);
     });
 });
 
@@ -676,19 +713,19 @@ function get_congress_email_fields(bioguideId){
         cache: false,
         success: function(data) {
 
-            console.log(data)
-            data.forEach(function (dict, i) {
-                field = dict['value']
-                    if(field == 'NAME_FIRST'){
-                        console.log('yes, first name');
-                    } else {
-                        console.log('not, first name');
-                    }
-                    console.log(dict['value']);
-
-
-
-            });
+            //            console.log(data)
+            //            data.forEach(function (dict, i) {
+            //                field = dict['value']
+            //                    if(field == 'NAME_FIRST'){
+            //                        console.log('yes, first name');
+            //                    } else {
+            //                        console.log('not, first name');
+            //                    }
+            //                    console.log(dict['value']);
+            //
+            //
+            //
+            //            });
 
 //            console.log("Congress fields:"+ data[0][bioguideId]);
             //var congressDataArray = data['congressData'];
@@ -717,7 +754,7 @@ function form_boom(data){
             contentType: 'json;charset=UTF-8',
             cache: false,
             success: function(data) {
-                console.log(data);
+//                console.log(data);
                 // hide loading indicator
                 $('#zip-loader').hide();
 
@@ -726,7 +763,7 @@ function form_boom(data){
                 var i;
                 var s;
                 var congressDataArray = data['congressData'];
-                console.log(congressDataArray)
+//                console.log(congressDataArray)
                 var len = congressDataArray.length;
                 if(len == 0){
                     alert("We aren't able to find representatives for that zip code.  Please check your zip code and try again.");
@@ -740,9 +777,10 @@ function form_boom(data){
 
                 // show zip indicator, to allow reset
                 $('.zip-indicator').show();
+
                 console.log(len);
 
-                for (i=0; i<=len; i++) {
+                for (i=0; i<len; ++i) {
                   if (i in congressDataArray) {
                     var item = congressDataArray[i];
 
@@ -772,11 +810,16 @@ function form_boom(data){
                     // contact form check
                     var emailString;
                     if(!item['contact_form']){
-                       emailString = '<img class="email-icon-gray" id="'+item['contact_form']+'name="'+item['bioguide_id']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">';
+                       emailString =  ['<div class="email-name" id="'+i+'" name="'+ item['full_name'] + '">n/a</div>',
+                       '<img class="email-icon-gray" id="'+i+'name="'+item['full_name']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">',
+                       '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'"></div>'].join("\n");
                     } else {
-                       emailString = '<img class="email-icon" id="'+item['contact_form']+'name="'+item['bioguide_id']+'" src=\'/static/img/email-icon.png\' width="36" height="36">';
+                       emailString =  ['<div class="email-name" id="'+i+'" name="'+ item['full_name'] + '">included below</div>',
+                       '<img class="email-icon" id="'+i+'name="'+item['full_name']+'" src=\'/static/img/email-icon.png\' width="36" height="36">',
+                       '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'"></div>'].join("\n");
                     }
 
+                    // sent user count
                     var sentCountDiv
                     if(!item['sent_messages_count']){
                         sentCountDiv  = '';
@@ -827,16 +870,16 @@ function form_boom(data){
                     ].join("\n");
                     $('.rep-container').append(text);
 
-                    // HTML option for twitter address addressLabel above input box
-                    if(item['twitter_id']){
-                        var addressText;
-                        addressText = [
-                          '<div class="address-item address-item-'+i+'">',
-                             '<p class="address-label-'+i+'">@'+item['twitter_id']+'</p>',
-                          '</div>'
-                        ].join("\n");
-                        $('.address-container').append(addressText);
-                    }
+                    //                    // HTML option for twitter address addressLabel above input box
+                    //                    if(item['twitter_id']){
+                    //                        var addressText;
+                    //                        addressText = [
+                    //                          '<div class="address-item address-item-'+i+'">',
+                    //                             '<p class="address-label-'+i+'">@'+item['twitter_id']+'</p>',
+                    //                          '</div>'
+                    //                        ].join("\n");
+                    //                        $('.address-container').append(addressText);
+                    //                    }
                   }
                 }
             },

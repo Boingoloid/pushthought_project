@@ -477,8 +477,8 @@ text-tweet-block{
 
 #img-send-email-icon{
   position:absolute;
-  left:35px;
-  top:1px;
+  left:39px;
+  top:3px;
   display:none;
  }
 /*
@@ -490,7 +490,7 @@ text-tweet-block{
 }
 */
 
-#button-label{
+#send-button-label{
   position: absolute;
   left: 22px;
   bottom: -9px;
@@ -749,16 +749,11 @@ text-tweet-block{
     border-bottom: 1px solid green;
 }
 
-
-
-
 .action-panel{
   position:relative;
 }
 
-
-
-.twitter-name, .rep-twitter-name, .email-name{
+.twitter-name, .email-name{
   position:absolute;
   font-size: 14pt;
   top:3px;
@@ -771,8 +766,6 @@ text-tweet-block{
   display:none;
   cursor: pointer;
 }
-
-
 
 #add-remove-label{
   position:absolute;

@@ -65,7 +65,7 @@
             <div class="rep-container">
                 {% if hasCongressData %}
                     {% for item in congressData %}
-                    <div class="rep-item-container rep-item-container-{{forloop.counter}}-">
+                    <div class="rep-item-container rep-item-container-{{forloop.counter}}">
                         <div class='rep-item' id="rep-item{{forloop.counter}}">
                             <div class='loader loader-{{forloop.counter}}'  id="loader"></div>
                             {% if item.sent_messages_count %}
@@ -103,7 +103,6 @@
                             <div class="action-panel">
                                 {% if item.twitter_id %}
                                     <div class="twitter-name" id="twitter-name-{{forloop.counter}}">@{{item.twitter_id}}</div>
-                                    <!--<div class="email-name">add/remove fields</div>-->
                                     <img class="twitter-icon" id="{{forloop.counter}}" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
                                 {% else %}
                                     <div class="twitter-name" id="twitter-name-{{forloop.counter}}">n/a</div>
@@ -114,15 +113,19 @@
                                 {% endif %}
                                 <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
                                 {% if item.contact_form %}
-                                    <img class="email-icon" id="{{ item.contact_form }}" name="{{ item.bioguide_id }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+                                    <div class="email-name" id="{{forloop.counter}}" name="{{ item.full_name }}">included below</div>
+                                    <img class="email-icon" id="{{forloop.counter}}" name="{{item.full_name}}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+                                    <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}"></div>
                                 {% else %}
-                                    <img class="email-icon-gray" id="{{ item.contact_form }}" name="{{ item.bioguide_id }}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">
+                                    <div class="email-name" id="{{forloop.counter}}" name="{{ item.full_name }}">n/a</div>
+                                    <img class="email-icon-gray" id="{{forloop.counter}}" name="{{item.full_name}}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">
+                                    <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}"></div>
                                 {% endif %}
+
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-
                 {% endif %}
             </div> <!--close rep container-->
             <div class="rep-action-container">
@@ -133,33 +136,13 @@
                             <p style="display:inline;">Send to: </p>
                         </div>
                         <div class="address-container" style="display:inline;">
-                            <!--{% if hasCongressData %}-->
-                            <!--{% for item in congressData %}-->
-                                <!--{% if item.twitter_id %}-->
-                                    <!--<div class="address-item address-item-{{forloop.counter}}">-->
-                                        <!--<p class="address-item-label address-label-{{forloop.counter}}">@{{item.twitter_id}}</p>-->
-                                    <!--</div>-->
-                                <!--{% endif %}-->
-                            <!--{% endfor %}-->
-                            <!--{% endif %}-->
                         </div>
                     </div>
-                    <!--<div class="email-address-container" style="display:inline;>-->
-                        <!--{% if hasCongressData %}-->
-                        <!--{% for item in congressData %}-->
-                            <!--{% if item.contact_form %}-->
-                                <!--<div class="email-address-item email-address-item-{{forloop.counter}}">-->
-                                    <!--<p class="email-address-item-label email-address-label-{{forloop.counter}}">{{item.first_name}} {{item.last_name}}</p>-->
-                                <!--</div>-->
-                            <!--{% endif %}-->
-                        <!--{% endfor %}-->
-                        <!--{% endif %}-->
-                    <!--</div>-->
                     <div tabindex="-1" contenteditable id="text-input" placeholder="Tweet text here"></div>
                     <div id="tweet-button">
                         <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
-                        <img id="img-send-email-icon" style="" src="{% static 'img/email-icon.png' %}" width="40" height="40">
-                        <p id="button-label"></p>
+                        <img id="img-send-email-icon" style="" src="{% static 'img/email-icon.png' %}" width="37" height="37">
+                        <p id="send-button-label"></p>
                         <div class='tweet-loader' id="tweet-loader"></div>
                     </div>
                     <div class="img-checked-box-container">
