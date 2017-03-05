@@ -170,8 +170,9 @@ $(document).ready(function() {
     });
 
     $('.rep-container').on("click", "img.email-icon", function() {
-        var i = $(this).attr('id');
-//        console.log("i:" + i);
+        var emailIconId = $(this).attr('id');
+        var i = emailIconId.replace('email-icon-','')
+        //        console.log("i:" + i);
         // Previous version, just sends to webform
         //if ($(this).attr('id').length < 5 ){
         //    alert('sorry, no email form yet for this person.');
@@ -188,7 +189,7 @@ $(document).ready(function() {
 
         // grab BioguideID and reqeust congress phantom email fields from server
         var bioguideId = $(this).next().attr('id');
-//        console.log(bioguideId);
+        //console.log(bioguideId);
         get_congress_email_fields(bioguideId);  //get fields from db or phantom congress
 
         // show action container and it's contents
@@ -217,7 +218,7 @@ $(document).ready(function() {
         // show email name
         $('.email-name').show();
 
-        // toggle selection of activity container
+        // select or toggle selection of activity container
         $('.action-panel-contianer').toggleClass("selected");  //WHY THE FUCK IS THIS CONTIANER, I DONT GET IT!!!
 
         //        // toggle address paths above text input
@@ -228,10 +229,9 @@ $(document).ready(function() {
 
         // create address items above text input
         $('.email-name').each(function( index ){
-           index = index;
-           console.log("index:" + index);
+            //           console.log("index:" + index);
            if(i == index){
-                console.log('yes');
+                //console.log('yes');
            }
            var full_name = $(this).attr('name');
            var text = ['<div class="address-item address-node-'+ index +'">',
@@ -242,9 +242,9 @@ $(document).ready(function() {
 
 
         // select address according to button clicked
-        var addressPath = String(".address-node-" + i);
-        console.log(addressPath);
-        $(addressPath).toggleClass("selected");
+//        var addressPath = String(".address-node-" + i);
+        console.log('Before address node lookup: check 9991');
+        $(".address-node-" + i).toggleClass("selected");
 
         // text-input clear
         $('#text-input').html('');
@@ -253,18 +253,39 @@ $(document).ready(function() {
 
         // show Send button , hide Tweet button
         $('#img-send-tweet-icon').hide();
+        $('#tweet-button-label').hide();
         $('#img-send-email-icon').show();
+        $('#email-button-label').show();
+
+        countSelected = 0;
+        $('.address-item').each(function(){
+            if($(this).hasClass('selected')){
+                countSelected = countSelected+1;
+                console.log('yes');
+            }
+
+        });
+        console.log('countSelected:'+countSelected);
+
+        var labelText = 'email: ' + countSelected;
+        console.log(labelText);
+
+        $('#email-button-label').text(labelText);
 
 
-        // set button label
-        var numItems = $('.address-item.selected').length;
-        console.log('setting button label text');
-        var labelText = 'email: ' + numItems;
-        console.log("label text" + labelText);
-        $('#send-button-label').text(labelText);
+//        // set button label
+//        var numItems;
+        var x = document.getElementsByClassName(".address-item.selected").length;
+        console.log("x:"+x);
+//        var labelText = 'email: ' + numItems;
+//        console.log('label text: ' + labelText);
+//        $('#email-button-label').show();
+//        $('#email-button-label').text(labelText);
+//        $('#tweet-button-label').hide();
 
         // Focus on text box
         $('#text-input').focus();
+
     });
 
 
@@ -336,7 +357,7 @@ $(document).ready(function() {
         // set button label
         var numItems = $('.address-item.selected').length;
         var labelText = 'tweet: ' + numItems;
-        $('#send-button-label').text(labelText);
+        $('#tweet-button-label').text(labelText);
 
         // Focus on text box
         $('#text-input').focus();
@@ -416,7 +437,8 @@ $(document).ready(function() {
         $('.selected').animate($('.selected').removeClass('selected'));
         $('#img-send-email-icon').hide();
         $('#img-send-tweet-icon').show();
-
+        $('#email-button-label').hide();
+        $('#twitter-button-label').show();
 
 
     });
@@ -424,16 +446,18 @@ $(document).ready(function() {
 
     $('.rep-container').on("click", ".action-panel-container", function() {
         var i = $(this).attr('id');
-        i = i;
-
+        console.log("i:"+i);
+        // get either twitter name or email value, depending on which is visible.
         if($('.twitter-name').is(":visible")){
-            var elementName = '#twitter-name-'+i;
-            console.log("element name:", elementName);
-            var elementText = $('#twitter-name-'+i).html();
-            console.log("tweet element Text" + elementText);
+            var whichIconClicked = "twitter";
+            var elementRef = "#email-name-"+i;
+            console.log(elementRef);
+            var elementText = $('#twitter-name-'+i).text();
+            console.log("twitter element Text: "+ elementText);
         } else if($('.email-name').is(":visible")){
-            var elementText = $('.email-name-'+i).text();
-            console.log("email element Text"+ elementText);
+            var whichIconClicked = "email";
+            var elementText = $('div#'+i+'.email-name').text();
+            console.log("email element Text: "+ elementText);
         } else {
             return false;
         }
@@ -467,10 +491,23 @@ $(document).ready(function() {
                 $('#text-input').html(value + '<span contenteditable=false class=address-placeholder></span>');
             }
 
-            // update placeholderText and button label -> based on # of addresses selected
+            // Get count of selected items
             var numItems = $('.address-item.selected').length;
-            var labelText = 'tweet: ' + numItems
-            $('#send-button-label').text(labelText);
+
+            console.log("number of items: "+numItems);
+            // Change button label
+            if (whichIconClicked == "email"){
+              var labelText = 'email: ' + numItems;
+              $('#email-button-label').text(labelText);
+            } else{
+              var labelText = 'tweet: ' + numItems;
+              $('#tweet-button-label').text(labelText);
+            }
+
+
+
+            // update placeholderText -> based on # of addresses selected
+
             if (numItems == 0){
                 placeholderText = '';
                 $('.address-placeholder').text(placeholderText);
@@ -481,6 +518,8 @@ $(document).ready(function() {
                 placeholderText = '@multiple';
                 $('.address-placeholder').text('@multiple');
             }
+
+
         }
     });
 
@@ -603,6 +642,10 @@ $(document).ready(function() {
             $('.address-item').each(function(){
                 $(this).removeClass('selected');
             });
+
+
+
+
         }
 
         // set button label
@@ -778,8 +821,6 @@ function form_boom(data){
                 // show zip indicator, to allow reset
                 $('.zip-indicator').show();
 
-                console.log(len);
-
                 for (i=0; i<len; ++i) {
                   if (i in congressDataArray) {
                     var item = congressDataArray[i];
@@ -811,11 +852,11 @@ function form_boom(data){
                     var emailString;
                     if(!item['contact_form']){
                        emailString =  ['<div class="email-name" id="'+i+'" name="'+ item['full_name'] + '">n/a</div>',
-                       '<img class="email-icon-gray" id="'+i+'name="'+item['full_name']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">',
+                       '<img class="email-icon-gray" id="email-icon-'+i+'name="'+item['full_name']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">',
                        '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'"></div>'].join("\n");
                     } else {
-                       emailString =  ['<div class="email-name" id="'+i+'" name="'+ item['full_name'] + '">included below</div>',
-                       '<img class="email-icon" id="'+i+'name="'+item['full_name']+'" src=\'/static/img/email-icon.png\' width="36" height="36">',
+                       emailString =  ['<div class="email-name" id="'+i+'" name="'+ item['full_name'] + '">see below</div>',
+                       '<img class="email-icon" id="email-icon-'+i+'" name="'+item['full_name']+'" src=\'/static/img/email-icon.png\' width="36" height="36">',
                        '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'"></div>'].join("\n");
                     }
 

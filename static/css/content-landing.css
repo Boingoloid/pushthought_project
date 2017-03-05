@@ -490,7 +490,7 @@ text-tweet-block{
 }
 */
 
-#send-button-label{
+#tweet-button-label, #email-button-label{
   position: absolute;
   left: 22px;
   bottom: -9px;

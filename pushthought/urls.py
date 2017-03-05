@@ -23,6 +23,11 @@ from django.conf.urls import url, include
 from snippets import urls
 import views
 
+
+
+
+
+
 urlpatterns = [
     url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name,name='test',),
     url(r'^home', views.home,name='home',),
@@ -83,3 +88,11 @@ urlpatterns = [
 ]
 
 urlpatterns += staticfiles_urlpatterns()
+
+from django.conf import settings
+from django.contrib.staticfiles.views import serve as serve_static
+from django.views.decorators.cache import never_cache
+
+
+if settings.DEBUG:
+    urlpatterns += url(r'^static/(?P<path>.*)$', never_cache(serve_static)),

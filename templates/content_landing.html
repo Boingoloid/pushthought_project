@@ -79,7 +79,6 @@
                                 <div class="warning-box-indicator" id="warning-box-indicator-{{item.twitter_id}}">
                                     <p class="indicator-text" id="indicator-text-{{item.twitter_id}}">you've already contacted this person</p>
                                 </div>
-                            <p hidden id="tweet-address-item{{forloop.counter}}">@{{item.twitter_id}}</p>
                             <div class="success-box" id="success-box-{{item.twitter_id}}">
                                 <p class="success-text" style="padding-top:4px;">tweet sent to:</p>
                                 <p class="success-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>
@@ -113,15 +112,14 @@
                                 {% endif %}
                                 <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
                                 {% if item.contact_form %}
-                                    <div class="email-name" id="{{forloop.counter}}" name="{{ item.full_name }}">included below</div>
-                                    <img class="email-icon" id="{{forloop.counter}}" name="{{item.full_name}}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+                                    <div class="email-name" id="{{forloop.counter}}" name="{{ item.full_name }}">see below</div>
+                                    <img class="email-icon" id="email-icon-{{forloop.counter}}" name="{{ item.full_name }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
                                     <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}"></div>
                                 {% else %}
                                     <div class="email-name" id="{{forloop.counter}}" name="{{ item.full_name }}">n/a</div>
-                                    <img class="email-icon-gray" id="{{forloop.counter}}" name="{{item.full_name}}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">
+                                    <img class="email-icon-gray" id="email-icon-{{forloop.counter}}" name="{{item.full_name}}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">
                                     <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}"></div>
                                 {% endif %}
-
                             </div>
                         </div>
                     </div>
@@ -142,7 +140,8 @@
                     <div id="tweet-button">
                         <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
                         <img id="img-send-email-icon" style="" src="{% static 'img/email-icon.png' %}" width="37" height="37">
-                        <p id="send-button-label"></p>
+                        <p class="tweet-button-label" id="tweet-button-label">Tweet</p>
+                        <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
                         <div class='tweet-loader' id="tweet-loader"></div>
                     </div>
                     <div class="img-checked-box-container">
