@@ -42,7 +42,7 @@ def get_congress_data(zip_code):
             save_dictionary = { "zip_code": zip_code, "results": results}
             save_result = db.CongressData.insert_one(save_dictionary)
             # get image:
-            print "results of save: ", save_result.inserted_id
+            # print "results of save: ", save_result.inserted_id
             return save_result
 
         if len(results) != 0:
@@ -57,7 +57,7 @@ def get_congress_data(zip_code):
     if not settings.CONGRESS_DATA_UPDATE_TRIGGER:
         congress_data = db.CongressData.find_one({"zip_code":zip_code})
         if congress_data:
-            print "congress data returned local, no api used", congress_data
+            # print "congress data returned local, no api used", congress_data
             return congress_data['results']
         else:
             print "no congress for that zip"
@@ -150,7 +150,7 @@ def get_congress_stats_for_program(segment_id):
     for doc in result:
         doc['targetBioguideId'] = doc['_id']
         array.append(doc)
-    print "print get_congress_stats_array result:",array
+    # print "print get_congress_stats_array result:",array
     return array
 
 

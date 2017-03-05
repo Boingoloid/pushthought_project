@@ -351,6 +351,17 @@ text-tweet-block{
   display:block;
 }
 
+
+.letter-count{
+  position: absolute;
+  z-index:2001;
+  top: 63px;
+  left: 437px;
+  cursor:pointer;
+  color:gray;
+  font-size: 12pt;
+}
+
 #text-input{
   display: inline-block;
   overflow: auto;

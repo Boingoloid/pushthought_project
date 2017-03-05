@@ -72,9 +72,6 @@ def verify_twitter(request):
         access_key_token_secret = current_user['authData']['twitter']['auth_token_secret']
 
         twitter_user = current_user['twitter_user']
-
-
-
         # print "addressArray length", len(request.session['addressArray'])
 
         successArray = []
@@ -82,44 +79,24 @@ def verify_twitter(request):
         otherErrorArray = []
         address_array = request.session['addressArray']
 
-
-        for item in address_array:
-            target_address = str(item)
-            if (len(address_array) > 1):
-                tweet_text = tweet_text.replace('@multiple', target_address)
-            result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user, twitter_user, target_address)
-            print "Result of send tweet attempt:", result
-            if result == True:
-                successArray.append(item)
-            elif result == 187:
-                duplicateArray.append(item)
-            else:
-                otherErrorArray.append(item)
-
-
-
-        # if (len(address_array) < 2):
-        #     for item in address_array:
-        #         target_address = str(item)
-        #         result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user,twitter_user,target_address )
-        #         print "Result of send tweet attempt:", result
-        #         if result == True:
-        #             successArray = request.session['addressArray']
-        #         elif result == 187:
-        #             duplicateArray = request.session['addressArray']
-        #         else:
-        #             otherErrorArray = request.session['addressArray']
-        #
-        # else:
-        #     for item in address_array:
-        #         target_address = str(item)
-        #         tweet_replaced = tweet_text.replace('@multiple',str(item))
-        #         result = send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret,current_user,twitter_user,target_address)
-        #         print "Result of send attempt:", result
-        #         if result:
-        #             successArray.append(item)
-        #         else:
-        #             duplicateArray.append(item)
+        if (len(address_array) == 0):
+            target_address = ' '
+            result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,
+                                                current_user, twitter_user, target_address)
+        else:
+            for item in address_array:
+                target_address = str(item)
+                print "print length of address array:", len(address_array)
+                if (len(address_array) > 1):
+                    tweet_text = tweet_text.replace('@multiple', target_address)
+                result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user, twitter_user, target_address)
+                print "Result of send tweet attempt:", result
+                if result == True:
+                    successArray.append(item)
+                elif result == 187:
+                    duplicateArray.append(item)
+                else:
+                    otherErrorArray.append(item)
 
         # redirect to last landing page if programId
         try:
@@ -127,7 +104,7 @@ def verify_twitter(request):
         except:
             programId = None
         if programId:
-            return HttpResponse(json.dumps({'successArray': successArray,'duplicateArray': duplicateArray, 'otherErrorArray': otherErrorArray}), content_type="application/json")
+            return HttpResponse(json.dumps({'send_response': successArray,'successArray': successArray,'duplicateArray': duplicateArray, 'otherErrorArray': otherErrorArray}), content_type="application/json")
         else:
             redirectURL = "/browse/"
             print "redirect to browse no programId", redirectURL
@@ -195,18 +172,23 @@ def verify_catch(request):
     address_array = request.session['addressArray']
     tweet_text = request.session['tweetText']
 
-    for item in address_array:
-        target_address = str(item)
-        if (len(address_array) > 1):
-            tweet_text = tweet_text.replace('@multiple', target_address)
-        result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user, twitter_user, target_address)
-        print "Result of send tweet attempt:", result
-        if result == True:
-            successArray.append(item)
-        elif result == 187:
-            duplicateArray.append(str(item))
-        else:
-            otherErrorArray.append(item)
+    if (len(address_array) == 0):
+        target_address = ' '
+        result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,
+                                            current_user, twitter_user, target_address)
+    else:
+        for item in address_array:
+            target_address = str(item)
+            if (len(address_array) > 1):
+                tweet_text = tweet_text.replace('@multiple', target_address)
+            result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user, twitter_user, target_address)
+            print "Result of send tweet attempt:", result
+            if result == True:
+                successArray.append(item)
+            elif result == 187:
+                duplicateArray.append(str(item))
+            else:
+                otherErrorArray.append(item)
 
 
 
@@ -259,13 +241,29 @@ def verify_catch(request):
         print "no programId redirecting to Browse:", redirectURL
         return HttpResponseRedirect(redirectURL)
 
+
+
+
+
+
+
+from PIL import Image, ImageFilter
+
 #helper
-def send_tweet_with_tweepy(tweet_text,access_key_token,access_key_token_secret): #helper
+def send_tweet_with_tweepy(request, tweet_text,access_key_token,access_key_token_secret): #helper
     CALLBACK_URL = TWITTER_CALLBACK_ROOT_URL
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
     auth.set_access_token(access_key_token, access_key_token_secret)
     api = tweepy.API(auth)
 
+    try:
+        program_id = request.session['programId']
+        urlText = 'http://www.pushthought.com/content_landing/', program_id
+    except:
+        print "no program Id to send MEDIA with tweet"
+
+    tweet_text_final = tweet_text + ' ' + urlText
+     # need link to action menu
     try:
         api.update_status(tweet_text)
         print "tweet sent"
@@ -274,12 +272,30 @@ def send_tweet_with_tweepy(tweet_text,access_key_token,access_key_token_secret):
         print e
         return e.api_code
 
+    # try:
+    #     URL='http://www.pushthought.com/content_landing/'
+    #     image_file = urllib.urlretrieve(URL, "000001.jpg")
+    #     img = Image.open("000001.jpg")
+    #
+    #     filea = urllib.urlretrieve('http://www.pushthought.com/content_landing/')
+    #     api.update_with_media(img, status=tweet_text)
+    #     print "tweet sent with media"
+    #     return True
+    # except tweepy.TweepError as e:
+    #     print "tweet send error:", e
+    #     return e.api_code
+
+# photo = open('/path/to/file/image.jpg', 'rb')
+# response = twitter.upload_media(media=photo)
+# twitter.update_status(status='Checkout this cool image!', media_ids=[response['media_id']])
+
 def send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret, current_user,twitter_user, target_address):
     # send tweet
-    result = send_tweet_with_tweepy(tweet_replaced, access_key_token, access_key_token_secret)
+    print "ATTEMPTING SEND WITH TWEEPY"
+    result = send_tweet_with_tweepy(request, tweet_replaced, access_key_token, access_key_token_secret)
     if result == True:
         # save tweet
-        action_object_id = save_tweet_action(request, tweet_replaced,current_user,twitter_user, target_address)
+        action_object_id = save_tweet_action(request, tweet_replaced,current_user,twitter_user, target_address,)
 
         # Save #'s
         save_hashtags(request,tweet_replaced,current_user,twitter_user,action_object_id)

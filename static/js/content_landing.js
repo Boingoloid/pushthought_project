@@ -189,7 +189,6 @@ $(document).ready(function() {
 
         // grab BioguideID and reqeust congress phantom email fields from server
         var bioguideId = $(this).next().attr('id');
-        //console.log(bioguideId);
         get_congress_email_fields(bioguideId);  //get fields from db or phantom congress
 
         // show action container and it's contents
@@ -209,11 +208,11 @@ $(document).ready(function() {
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
 
         // hide items that need to disappear
-        $('.twitter-icon').css('display','none');
-        $('.twitter-icon-empty').css('display','none');
-        $('.phone-icon').css('display','none');
-        $('.email-icon').css('display','none');
-        $('.email-icon-gray').css('display','none');
+        $('.twitter-icon').hide();
+        $('.twitter-icon-empty').hide();
+        $('.phone-icon').hide();
+        $('.email-icon').hide();
+        $('.email-icon-gray').hide();
 
         // show email name
         $('.email-name').show();
@@ -221,18 +220,9 @@ $(document).ready(function() {
         // select or toggle selection of activity container
         $('.action-panel-contianer').toggleClass("selected");  //WHY THE FUCK IS THIS CONTIANER, I DONT GET IT!!!
 
-        //        // toggle address paths above text input
-        //        var index = $(this).parent('div').parent('div').attr('id');
-        //        var addressPath = ".email-address-item-" + index;
-        //        $(addressPath).toggleClass('selected');
-
-
         // create address items above text input
         $('.email-name').each(function( index ){
-            //           console.log("index:" + index);
-           if(i == index){
-                //console.log('yes');
-           }
+           index = index + 1; //add 1 because this index starts at 0 as where HTML forloop it matches starts at 1
            var full_name = $(this).attr('name');
            var text = ['<div class="address-item address-node-'+ index +'">',
                             '<p class="address-item-label address-item-label-'+index +'">'+full_name+'</p>',
@@ -250,8 +240,13 @@ $(document).ready(function() {
         $('#text-input').html('');
         $('.address-placeholder').html('');
 
+        // insert address placeholder in text-input
+            //addressPlaceholderClass = '.address-item-label-' + i;
+            //addressPlaceholder = $(addressPlaceholderClass).html();
+        stringSpace = '&nbsp';
+        $('#text-input').html('<span contenteditable=false class=address-placeholder>' + stringSpace + '</span>');
 
-        // show Send button , hide Tweet button
+        // show Send button and label , hide Tweet button and label
         $('#img-send-tweet-icon').hide();
         $('#tweet-button-label').hide();
         $('#img-send-email-icon').show();
@@ -263,25 +258,12 @@ $(document).ready(function() {
                 countSelected = countSelected+1;
                 console.log('yes');
             }
-
         });
         console.log('countSelected:'+countSelected);
 
+        // Set email label
         var labelText = 'email: ' + countSelected;
-        console.log(labelText);
-
         $('#email-button-label').text(labelText);
-
-
-//        // set button label
-//        var numItems;
-        var x = document.getElementsByClassName(".address-item.selected").length;
-        console.log("x:"+x);
-//        var labelText = 'email: ' + numItems;
-//        console.log('label text: ' + labelText);
-//        $('#email-button-label').show();
-//        $('#email-button-label').text(labelText);
-//        $('#tweet-button-label').hide();
 
         // Focus on text box
         $('#text-input').focus();
@@ -315,27 +297,28 @@ $(document).ready(function() {
         $('.rep-color-band').animate({'height':'375px'});
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
 
-        // hide items that disappear
-        $('.twitter-icon').css('display','none');
-        $('.twitter-icon-empty').css('display','none');
-        $('.phone-icon').css('display','none');
-        $('.email-icon').css('display','none');
-        $('.email-icon-gray').css('display','none');
+        // hide icons that disappear
+        $('.twitter-icon').hide();
+        $('.twitter-icon-empty').hide();
+        $('.phone-icon').hide();
+        $('.email-icon').hide();
+        $('.email-icon-gray').hide();
 
         // show twitter name
         $('.twitter-name').show();
+
+        // show Send button and label , hide Email button and label
+        $('.img-send-tweet-icon').show();
+        $('.tweet-button-label').show();
+        $('.email-button-label').hide();
+        $('.img-send-email-icon').hide();
 
         // toggle selection of activity container
         $('.action-panel-contianer#'+i).toggleClass('selected');  //WHY THE FUCK IS THIS CONTIANER, I DONT GET IT!!!
 
         // create address items above text input
         $('.twitter-name').each(function( index ){
-           index = index + 1;
-           //console.log("index:" + index);
-           if(i == index){
-                console.log('yes');
-           }
-
+           index = index + 1; //add 1 because this index starts at 0 as where HTML forloop it matches starts at 1
            var address = $(this).text();
            var text = ['<div class="address-item address-node-'+ index +'">',
                             '<p class="address-item-label address-item-label-'+index +'">'+address+'</p>',
@@ -367,21 +350,6 @@ $(document).ready(function() {
         //var tweetText = $('#text-input').text();
         //letterCount = tweetText.length;
         //console.log("letter count:" + letterCount);
-
-
-
-        //range = window.getSelection().getRangeAt(0);
-        //range.setStart(range.endContainer,range.endOffset);
-        //document.execCommand('selectAll',false,null);
-        //console.log(window.getSelection().getRangeAt(0));
-        //var selection = window.getSelection();
-
-        //selection.focusOffset = 3;
-        //selection.focus(3);
-        //console.log("selection.focusNode.data[selection.focusOffset]" + selection.focusNode.data[selection.focusOffset]);
-        //        alert(selection.focusOffset);
-        //var index = tweetText.indexOf()
-        //document.selection.select
     });
 
     $('.rep-container').on("click", "img.twitter-icon-empty", function() {
@@ -585,7 +553,9 @@ $(document).ready(function() {
             success: function(data) {
 
                 // Success message
-                console.log('success');
+                console.log('success, here is the data:'+ data);
+
+
                 if(data['redirectURL']){
                      window.location.href = data['redirectURL'];
                 } else {
@@ -628,8 +598,14 @@ $(document).ready(function() {
 
 
     $('#text-input').keyup(function() {
-        var placeholderLength = $('.address-placeholder').text().length
-        value = $('#text-input').html();
+        // get value in text box
+        var textInput = $('#text-input').text();
+        $('.letter-count').text(textInput.length);
+
+
+        // placeholder text: if removed adjust selected items and button lazbel
+        var value = $('#text-input').html();
+        //var placeholderLength = $('.address-placeholder').text().length;
         searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
         if (searchBool == -1){
 //            console.log("span is NOT there, adding");
@@ -640,18 +616,27 @@ $(document).ready(function() {
                  }
             });
             $('.address-item').each(function(){
-                $(this).removeClass('selected');
+                 if ($(this).hasClass( "selected" )){
+                    $(this).removeClass('selected');
+                 }
             });
 
+            // set button label
+            countSelected = 0;
+            $('.address-item').each(function(){
+                if($(this).hasClass('selected')){
+                    countSelected = countSelected + 1;
+                }
+            });
 
-
-
+            if($('.email-name').is(":visible")){
+                var labelText = 'email: ' + countSelected;
+                $('#email-button-label').text(labelText);
+            } else {
+                var labelText = 'tweet: ' + countSelected;
+                $('#tweet-button-label').text(labelText);
+            }
         }
-
-        // set button label
-        var numItems = $('.address-item.selected').length;
-        var labelText = 'tweet: ' + numItems
-        $('#send-button-label').text(labelText);
     });
 });
 
@@ -765,9 +750,6 @@ function get_congress_email_fields(bioguideId){
             //                        console.log('not, first name');
             //                    }
             //                    console.log(dict['value']);
-            //
-            //
-            //
             //            });
 
 //            console.log("Congress fields:"+ data[0][bioguideId]);
