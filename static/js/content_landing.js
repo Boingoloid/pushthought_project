@@ -259,6 +259,7 @@ $(document).ready(function() {
 
         // Focus on text box
         $('#text-input').focus();
+        updateTextCount();
 
     });
 
@@ -267,7 +268,6 @@ $(document).ready(function() {
     $('.rep-container').on("click", "img.twitter-icon", function(e) {
         e.stopPropagation();
         var i = $(this).attr('id');
-        console.log("i:" + i);
 
         // if animation occuring, stop method
         if ($(':animated').length > 0) {
@@ -339,6 +339,7 @@ $(document).ready(function() {
 
         // Focus on text box
         $('#text-input').focus();
+        updateTextCount();
     });
 
     $('.rep-container').on("click", "img.twitter-icon-empty", function(e) {
@@ -466,11 +467,11 @@ $(document).ready(function() {
                 $('.address-placeholder').text(placeholderText);
             } else if (numItems == 1){
                 placeholderText = $('.address-item.selected').children('p').html();
-//                placeholderText = placeholderText + stringSpace;
+                placeholderText = placeholderText + ' ';
                 $('.address-placeholder').text(placeholderText);
             } else {
                 placeholderText = '@multiple';
-//                placeholderText = placeholderText + stringSpace;
+                placeholderText = placeholderText + ' '; // endspace important so @ recognized
                 $('.address-placeholder').text(placeholderText);
             }
 
@@ -479,8 +480,9 @@ $(document).ready(function() {
     });
 
     $('#clear-button').on('click',function(event) {
-        var addressPlaceholder = $('.address-placeholder').text();
-        $('#text-input').text('');
+        var addressPlaceholder = $('.address-placeholder');
+        $('#text-input').html(addressPlaceholder);
+
     });
 
     $('#img-checked-box').on('click',function(event) {
@@ -492,7 +494,7 @@ $(document).ready(function() {
         $('.warning-box').animate({'opacity':'0.0'},2500,function() {
         });
     });
-    
+
 
     var window_url =  window.location.href;
     var segment_id = $('#segmentId').text();
@@ -583,22 +585,8 @@ $(document).ready(function() {
     });
 
     $('#text-input').keyup(function() {
-        // get value in text box
-        var textInput = $('#text-input').text();
-        $('.letter-count').text(textInput.length);
-
-        var twitterMax = 140;
-        var twitterDefaultLinkLength = 22;
-        var longestAddressLength = 0;
-
-        // loop through and find longest one
-        $('.address-item-label:visible').each(function(){
-               var text = $(this).text();
-               if (text.length > longestAddressLength){
-                    longestAddressLength = text.length;
-               }
-        });
-        console.log('longestAddressLength:'+longestAddressLength);
+        // count letters and update letter count
+        updateTextCount();
 
         // If Placeholder changed, update selections and button label
         var value = $('#text-input').html();
@@ -638,7 +626,44 @@ $(document).ready(function() {
 });
 
 
+// loop through and find longest address
+function get_longest_address(){
+    var longestAddressLength = 0;
+    $('.address-item-label:visible').each(function(){
+        var text = $(this).text();
+        if (text.length > longestAddressLength){
+            longestAddressLength = text.length;
+        }
+    });
+    console.log('longestAddressLength:'+longestAddressLength);
+    return longestAddressLength;
+}
 
+function updateTextCount(){
+    var textInput = $('#text-input').text();
+    var twitterMax = 140;
+    var twitterDefaultLinkLength = 22;
+    var countAfterLink = twitterMax - twitterDefaultLinkLength;
+
+    var addressInput = $('.address-placeholder').text();
+    var countAddressInput =  addressInput.length;
+    var countTextInput =  textInput.length;
+    console.log(countTextInput);
+    var longestAddressLength = get_longest_address();
+    var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength;
+
+    // adjust for line breaks
+    numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
+    countRemaining = countRemaining - numberOfLineBreaks;
+    console.log("line breaks:"+numberOfLineBreaks);
+
+    $('.letter-count').text(countRemaining);
+    if (countRemaining < 0){
+        $('.letter-count').css({'color':'red'});
+    } else {
+        $('.letter-count').css({'color':'gray'});
+    }
+}
 
 
 

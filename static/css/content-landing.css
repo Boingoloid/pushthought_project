@@ -364,18 +364,23 @@ text-tweet-block{
 
 #text-input{
   display: inline-block;
-  overflow: auto;
+  float:left;
   background: rgba(0,0,0,0);
   border: 2px solid gray;
   border-radius: 10px;
   width: 450px;
+  min-width: 450px;
+  max-width: 450px;
   height: 63px;
+  max-height: 63px;
   margin-top: 1px;
-  min-width: 300px;
   letter-spacing:1.15;
   font-weight:200;
   color: white;
-  white-space: pre;
+  white-space: pre-wrap;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 #text-input:hover{
@@ -388,7 +393,7 @@ text-tweet-block{
   padding-right: 5px;
   padding-left: 5px;
   background: rgba(0,0,0,0);
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .address-container, .email-address-container{
