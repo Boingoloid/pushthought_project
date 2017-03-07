@@ -375,6 +375,7 @@ text-tweet-block{
   letter-spacing:1.15;
   font-weight:200;
   color: white;
+  white-space: pre;
 }
 
 #text-input:hover{
@@ -387,6 +388,7 @@ text-tweet-block{
   padding-right: 5px;
   padding-left: 5px;
   background: rgba(0,0,0,0);
+  white-space: pre;
 }
 
 .address-container, .email-address-container{

@@ -191,38 +191,6 @@ def verify_catch(request):
                 otherErrorArray.append(item)
 
 
-
-
-
-
-    # if (len(request.session['addressArray']) < 2):
-    #     for item in request.session['addressArray']:
-    #         target_address = str(item)
-    #         result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user,twitter_user, target_address)
-    #         if result == True:
-    #             successArray = request.session['addressArray']
-    # else:
-    #     for item in request.session['addressArray']:
-    #         target_address = str(item)
-    #         tweet_replaced = tweet_text.replace('@multiple',target_address)
-    #         send_tweet_and_save_action(request, tweet_replaced, access_key_token, access_key_token_secret,current_user,twitter_user, target_address)
-
-
-    # redirect and show success
-
-    #thanks for signing in, now sending tweets.
-    # pass the arrays  if in session, show?  put in html element, if there then show success
-    # after session values taken use ajax to tell server to delete?
-    # just go to where element is in view ->, then select action containers as .selected
-    # insert tweet text (could send 2 clicks).  Then run tweets.
-
-    # Fire off animation.
-
-    # redirect to last landing page if programId
-
-
-
-
     try:
         programId = request.session['programId']
     except:
@@ -233,6 +201,7 @@ def verify_catch(request):
         print "ALERT LIST:", alertList
         print type(alertList)
         request.session['alertList'] = alertList
+        request.session.modified = True
         redirectURL = "/content_landing/" + programId
         print "redirecting to content_landing: ", redirectURL
         return HttpResponseRedirect(redirectURL)
@@ -258,14 +227,14 @@ def send_tweet_with_tweepy(request, tweet_text,access_key_token,access_key_token
 
     try:
         program_id = request.session['programId']
-        urlText = 'http://www.pushthought.com/content_landing/', program_id
+        urlText = 'http://www.pushthought.com/content_landing/' + program_id
     except:
         print "no program Id to send MEDIA with tweet"
 
     tweet_text_final = tweet_text + ' ' + urlText
      # need link to action menu
     try:
-        api.update_status(tweet_text)
+        api.update_status(tweet_text_final)
         print "tweet sent"
         return True
     except tweepy.TweepError as e:

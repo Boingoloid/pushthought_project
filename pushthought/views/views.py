@@ -239,9 +239,12 @@ def content_landing(request, segment_id):
     # create dataDict to send with response.
     dataDict = {}
     # inclue alert list, if returning from an action, these alerts will display on load
+
+
     try:
         dataDict['alertList'] = request.session['alertList']
-        del request.session['alerList']
+        del request.session['alertList']
+        request.session.modified = True
     except:
         print "no alertList to display"
 
