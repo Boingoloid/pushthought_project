@@ -356,10 +356,11 @@ text-tweet-block{
   position: absolute;
   z-index:2001;
   top: 63px;
-  left: 437px;
+  left: 434px;
   cursor:pointer;
   color:gray;
   font-size: 12pt;
+  align:right;
 }
 
 #text-input{
@@ -383,7 +384,7 @@ text-tweet-block{
   word-wrap: break-word;
 }
 
-#text-input:hover{
+#text-input:hover, #text-input:focus {
   background:black;
 }
 
@@ -847,18 +848,6 @@ text-tweet-block{
   background: linear-gradient(to bottom right, #00aced, green 30%, green); /* Standard syntax (must be last) */
 }
 
-.indicator2{
-  position: absolute;
-  top: 10px;
-  left: 10%;
-  right: 10%;
-  border-radius: 5px;
-  background: green;
-  background:linear-gradient( to left, green, green 85% ,#00aced);
-  /*background:linear-gradient( to left, #092551,#000b1e);*/
-  height: 65px;
-  background: linear-gradient(to bottom right, #00aced, green 30%, green); /* Standard syntax (must be last) */
-}
 
 /*
 .repPhoto:hover{
@@ -869,6 +858,57 @@ text-tweet-block{
 }
 */
 
+
+.email-action-container{
+  display:block;
+  margin-left:50px;
+  width: 500px;
+
+}
+
+.email-form-input{
+    float:right;
+    width:300px;
+    background: #000b1e;  /*#00aced #092551,#000b1e     */
+    background: #000b1e;
+    border-radius:10px;
+    border: 1px solid green;
+    font-size: 12pt;
+}
+
+.email-form-input:focus, .email-form-input:hover{
+  background: black;
+}
+
+
+
+
+.label-div{
+  display:inline;
+}
+.email-form-label{
+    display: inline;
+    width: 200px;
+    max-width: 200px;
+    font-weight:200;
+    font-size:12pt;
+}
+
+
+.field-div{
+  display:inline;
+}
+.email-form-field-container{
+  display:block;
+  padding:5px;
+  margin:0px;
+}
+
+
+
+
+
+/* tweets and hashtags */
 .hashtag-header{
   cursor:default;
   background:rgba(0,0,0,0);
@@ -952,7 +992,7 @@ text-tweet-block{
 }
 
 
-
+/* scroll bar */
 ::-webkit-scrollbar-track
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.6);

@@ -9,7 +9,8 @@
 
 
 $(document).ready(function() {
-
+    setTimeout(function(){ $('#email-icon-3').trigger('click'); }, 400);
+//
 
     //
 
@@ -180,9 +181,6 @@ $(document).ready(function() {
             return false;
         }
 
-        // grab BioguideID and reqeust congress phantom email fields from server
-        var bioguideId = $(this).next().attr('id');
-        get_congress_email_fields(bioguideId);  //get fields from db or phantom congress
 
         // show action container and it's contents
         $('.rep-action-container').css('display','block'),200,function(){
@@ -196,9 +194,14 @@ $(document).ready(function() {
             }, 'fast');
         });
 
+        // grab BioguideID and reqeust congress phantom email fields from server
+        var bioguideId = $(this).next().attr('id');
+        get_congress_email_fields(bioguideId);  //get fields from db or phantom congress
+
         // expand containers
-        $('.rep-color-band').animate({'height':'375px'});
+        $('.rep-color-band').animate({'height':'675px'}); //220
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
+
 
         // hide items that need to disappear
         $('.twitter-icon').hide();
@@ -763,16 +766,94 @@ function get_congress_email_fields(bioguideId){
         cache: false,
         success: function(data) {
 
-            //            console.log(data)
-            //            data.forEach(function (dict, i) {
-            //                field = dict['value']
-            //                    if(field == 'NAME_FIRST'){
-            //                        console.log('yes, first name');
-            //                    } else {
-            //                        console.log('not, first name');
-            //                    }
-            //                    console.log(dict['value']);
-            //            });
+            console.log(data)
+            data.forEach(function (dict, i) {
+                field = dict['value']
+                    if(field == 'NAME_FIRST'){
+                        console.log('yes, first name');
+                        var htmlText = [
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                                '<label for="emailfirst" style="display:inline;" class="email-form-label">First name:</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                                '<input type="text" class="email-form-input" id="emailfirst">',
+                            '</div>',
+                        '</div>',
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                                '<label for="emaillast" style="display:inline;" class="email-form-label">Last name:</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                                '<input type="text" class="email-form-input" id="emaillast">',
+                            '</div>',
+                        '</div>',
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                                '<label for="emailstreetaddress" style="display:inline;" class="email-form-label">Street Address:</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                                '<input type="text" class="email-form-input" id="emailstreetaddress">',
+                            '</div>',
+                        '</div>',
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                                '<label for="emailcity" style="display:inline;" class="email-form-label">City:</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                                '<input type="text" class="email-form-input" id="emailcity">',
+                            '</div>',
+                        '</div>',
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                                '<label for="emailzip" style="display:inline;" class="email-form-label">Zip:</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                                '<input type="text" class="email-form-input" id="emailzip">',
+                            '</div>',
+                        '</div>',
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                                '<label for="emailemail" style="display:inline;" class="email-form-label">Email:</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                                '<input type="text" class="email-form-input" id="emailemail">',
+                            '</div>',
+                        '</div>',
+
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                                '<label for="emailmessage" style="display:inline;" class="email-form-label">Message:</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                                '<input type="text" class="email-form-input" id="emailmessage">',
+                            '</div>',
+                        '</div>',
+
+
+
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                                '<label for="emailtopic" style="display:inline;" class="email-form-label">Topic:</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                                '<input type="text" class="email-form-input" id="emailtopic">',
+                            '</div>',
+                        '</div>'
+
+
+
+                        ].join("\n");
+
+                        $('.email-action-container').append(htmlText);
+
+                        //drop in fields based on name.
+
+                    } else {
+                        console.log('not, first name');
+                    }
+                    console.log(dict['value']);
+            });
 
 //            console.log("Congress fields:"+ data[0][bioguideId]);
             //var congressDataArray = data['congressData'];
@@ -784,7 +865,14 @@ function get_congress_email_fields(bioguideId){
             console.log('failure in get email fields content_landing.js');
         }
     });
+
+
+
+
+
 }
+
+
 
 function form_boom(data){
     requiredActions = data["F000062"]["required_actions"];
