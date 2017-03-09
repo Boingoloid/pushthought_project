@@ -229,7 +229,6 @@ $(document).ready(function() {
 
         // select address according to button clicked
 //        var addressPath = String(".address-node-" + i);
-        console.log('Before address node lookup: check 9991');
         $(".address-node-" + i).toggleClass("selected");
 
         // text-input clear
@@ -254,7 +253,6 @@ $(document).ready(function() {
                 countSelected = countSelected + 1;
             }
         });
-        console.log('countSelected:'+countSelected);
 
         // Set email label
         var labelText = 'email: ' + countSelected;
@@ -504,8 +502,6 @@ $(document).ready(function() {
     var program_id = $('#programId').text();
 
 
-
-
     function runTweet(){
         // get message length and validate length
         var tweet_text = $('#text-input').text();
@@ -527,7 +523,7 @@ $(document).ready(function() {
             addressArray.push(twitterName);
          });
         // create dataSet string
-        dataSet = JSON.stringify({
+        var dataSet = JSON.stringify({
                 "tweet_text": tweet_text,
                 "segment_id": segment_id,
                 "program_id": program_id,
@@ -551,8 +547,8 @@ $(document).ready(function() {
                      window.location.href = data['redirectURL'];
                 } else {
                     var len = data['successArray'].length;
-                    console.log(data['successArray'].length);
-                    console.log(data['duplicateArray'].length);
+//                    console.log(data['successArray'].length);
+//                    console.log(data['duplicateArray'].length);
                     if(data['successArray'].length !=0){
                         successArray = data['successArray'];
                     } else {
@@ -588,10 +584,8 @@ $(document).ready(function() {
 
     $('#tweet-button').on('click',function(event) {
         if($('.email-name').is(":visible")){
-            console.log('email visible');
             runEmail();
         } else {
-            console.log('email not');
             runTweet();
         }
     });
@@ -647,7 +641,6 @@ function get_longest_address(){
             longestAddressLength = text.length;
         }
     });
-    console.log('longestAddressLength:'+longestAddressLength);
     return longestAddressLength;
 }
 
@@ -660,14 +653,12 @@ function updateTextCount(){
     var addressInput = $('.address-placeholder').text();
     var countAddressInput =  addressInput.length;
     var countTextInput =  textInput.length;
-    console.log(countTextInput);
     var longestAddressLength = get_longest_address();
     var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength;
 
     // adjust for line breaks
     numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
     countRemaining = countRemaining - numberOfLineBreaks;
-    console.log("line breaks:"+numberOfLineBreaks);
 
     $('.letter-count').text(countRemaining);
     if (countRemaining < 0){
@@ -790,7 +781,7 @@ function get_congress_email_fields(bioguideId){
                                 '<label for="eform-'+ fieldName +'" style="display:inline;" class="email-form-label">'+ fieldName +':</label>',
                             '</div>',
                             '<div class="field-div">',
-                                '<select class="eform" style="display:block;">',
+                                '<select class="eform" id="eform-'+ fieldName +'" style="display:block;">',
                                 '<option value=0 disabled="disabled" selected="selected">select a topic</option>'
                         ].join("\n");
                         var optionsList = dict['options_hash'];
@@ -844,28 +835,70 @@ function get_congress_email_fields(bioguideId){
             return re.test(email);
         }
 
-        var email = $('.eform#eform-EMAIL').val();
+        /*var email = $('.eform#eform-EMAIL').val();
         console.log(email);
         if (validateEmail(email)){
-            console.log("email is good.");
+            //console.log("email is good.");
         } else {
-            console.log("email is bad");
+            //console.log("email is bad");
         }
 
 
         // validate no blank fields
         $('.eform').each(function(){
-            var field = $(this).text();
-            if(field.length == 0){
-                alert('all fields are required');
+        //console.log($(this));
+            var field = $(this).val();
+            if (field){
+                if(field.length == 0){
+                    alert('all fields are required:' + field);
+                    return false;
+                }
+            } else {
+                alert('please select a topic');
                 return false;
+            }
+        });*/
+
+        console.log('you made it');
+        // create json
+
+        var dataArray = [];
+        $('.eform').each(function(i){
+            var dict = {};
+            var field = String($(this).attr('id'));
+            field = field.replace('eform-','')
+            dict[field] = $(this).val();
+            dataArray.push(dict);
+        });
+        var stringArray = JSON.stringify(dataArray);
+        console.log(stringArray);
+        console.log(typeof(stringArray));
+
+        /*var dataSet = JSON.stringify({
+                "tweet_text": tweet_text,
+                "segment_id": segment_id,
+                "program_id": program_id,
+                "last_menu_url": window_url,
+                "address_array" : addressArray,
+        });
+        console.log(dataSet);*/
+
+        $.ajax({url: "/submit_congress_email/",
+            type: "POST",
+            data: stringArray,
+            contentType: 'json;charset=UTF-8',
+            cache: false,
+            success: function(data) {
+                console.log(data);
+            },
+            error: function() {
             }
         });
 
 
-
-
     }
+
+
 
     function form_boom(data){
         requiredActions = data["F000062"]["required_actions"];

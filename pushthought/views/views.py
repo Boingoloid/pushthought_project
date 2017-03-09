@@ -430,7 +430,16 @@ def save_fields(bioguideId, required_fields_object):
    })
     result = json.loads(connection.getresponse().read())
     print "save result for required fields::::::", result
-    return None
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+def submit_congress_email(request):
+    print request.body
+    print request.GET
+    print request.POST
+    print request.META
+    return HttpResponse(request.body, content_type="application/json")
+
 
 def fed_rep_action_menu(request, programId, segmentId):
 

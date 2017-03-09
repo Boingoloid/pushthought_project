@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name,name='test',),
     url(r'^home', views.home,name='home',),
     url(r'^$', views.home,name='home'),
+    url(r'^submit_congress_email', views.submit_congress_email,name='submit_congress_email'),
     url(r'^submit-email/(?P<email>.*)', views.submit_email,name='submit_email'),
     url(r'^send-contact/', views.send_contact,name='send_contact'),
     url(r'^browse', views.browse, name='browse'),
