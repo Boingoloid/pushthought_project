@@ -866,7 +866,18 @@ text-tweet-block{
 
 }
 
-.email-form-input{
+.email-form-field-container{
+  display:block;
+  padding:5px;
+  margin:0px;
+}
+
+
+
+.field-div{
+  display:inline;
+}
+.eform{
     float:right;
     width:300px;
     background: #000b1e;  /*#00aced #092551,#000b1e     */
@@ -876,7 +887,7 @@ text-tweet-block{
     font-size: 12pt;
 }
 
-.email-form-input:focus, .email-form-input:hover{
+.eform:focus, .email-form-input:hover{
   background: black;
 }
 
@@ -895,14 +906,7 @@ text-tweet-block{
 }
 
 
-.field-div{
-  display:inline;
-}
-.email-form-field-container{
-  display:block;
-  padding:5px;
-  margin:0px;
-}
+
 
 
 

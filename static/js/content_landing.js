@@ -504,15 +504,15 @@ $(document).ready(function() {
     var program_id = $('#programId').text();
 
 
-   $('#tweet-button').on('click',function(event) {
 
-      // get tweet and validate length
-      var tweet_text = $('#text-input').text();
-      if(tweet_text.length < 1){
-        alert ("Please type a message to tweet first");
-      } else {
 
-        //
+    function runTweet(){
+        // get message length and validate length
+        var tweet_text = $('#text-input').text();
+        if(tweet_text.length < 1){
+            alert ("Please type a message first");
+            return false;
+        }
         addressArray = [];
         $('.action-panel-container.selected').each(function() {
             index = $(this).attr('id');
@@ -584,7 +584,16 @@ $(document).ready(function() {
                 console.log('fail :)');
             }
         });
-      }
+    }
+
+    $('#tweet-button').on('click',function(event) {
+        if($('.email-name').is(":visible")){
+            console.log('email visible');
+            runEmail();
+        } else {
+            console.log('email not');
+            runTweet();
+        }
     });
 
     $('#text-input').keyup(function() {
@@ -767,120 +776,104 @@ function get_congress_email_fields(bioguideId){
         success: function(data) {
 
             console.log(data)
+            var htmlText = [];
             data.forEach(function (dict, i) {
-                field = dict['value']
-                    if(field == 'NAME_FIRST'){
-                        console.log('yes, first name');
-                        var htmlText = [
+                field = dict['value'];
+                //console.log(dict['value']);
+                    //if(field == 'NAME_FIRST'){
+                    var fieldName = field.replace('_','-');
+                    //console.log('yes, first name');
+                    if(fieldName == 'TOPIC'){
+                        htmlText = [htmlText,
                         '<div class="email-form-field-container" style="display:block;">',
                             '<div class="label-div">',
-                                '<label for="emailfirst" style="display:inline;" class="email-form-label">First name:</label>',
+                                '<label for="eform-'+ fieldName +'" style="display:inline;" class="email-form-label">'+ fieldName +':</label>',
                             '</div>',
                             '<div class="field-div">',
-                                '<input type="text" class="email-form-input" id="emailfirst">',
-                            '</div>',
-                        '</div>',
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                                '<label for="emaillast" style="display:inline;" class="email-form-label">Last name:</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                                '<input type="text" class="email-form-input" id="emaillast">',
-                            '</div>',
-                        '</div>',
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                                '<label for="emailstreetaddress" style="display:inline;" class="email-form-label">Street Address:</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                                '<input type="text" class="email-form-input" id="emailstreetaddress">',
-                            '</div>',
-                        '</div>',
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                                '<label for="emailcity" style="display:inline;" class="email-form-label">City:</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                                '<input type="text" class="email-form-input" id="emailcity">',
-                            '</div>',
-                        '</div>',
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                                '<label for="emailzip" style="display:inline;" class="email-form-label">Zip:</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                                '<input type="text" class="email-form-input" id="emailzip">',
-                            '</div>',
-                        '</div>',
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                                '<label for="emailemail" style="display:inline;" class="email-form-label">Email:</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                                '<input type="text" class="email-form-input" id="emailemail">',
-                            '</div>',
-                        '</div>',
+                                '<select class="eform" style="display:block;">',
+                                '<option value=0 disabled="disabled" selected="selected">select a topic</option>'
+                        ].join("\n");
+                        var optionsList = dict['options_hash'];
+                        console.log(optionsList);
 
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                                '<label for="emailmessage" style="display:inline;" class="email-form-label">Message:</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                                '<input type="text" class="email-form-input" id="emailmessage">',
-                            '</div>',
-                        '</div>',
-
-
-
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                                '<label for="emailtopic" style="display:inline;" class="email-form-label">Topic:</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                                '<input type="text" class="email-form-input" id="emailtopic">',
+                        for (option in optionsList){
+                            htmlText = [htmlText,
+                                    '<option value="' +option +'">'+option+'</option>',
+                            ].join("\n");
+                        }
+                        htmlText = [htmlText,
+                                '</select>',
                             '</div>',
                         '</div>'
-
-
-
                         ].join("\n");
-
-                        $('.email-action-container').append(htmlText);
-
-                        //drop in fields based on name.
-
+                    } else if(fieldName == 'MESSAGE'){
+                        htmlText = htmlText;
                     } else {
-                        console.log('not, first name');
+                        htmlText = [htmlText,
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                                '<label for="eform-'+ fieldName +'" style="display:inline;" class="email-form-label">'+ fieldName +':</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                                '<input type="text" class="eform" id="eform-'+ fieldName+'">',
+                            '</div>',
+                        '</div>'].join("\n");
                     }
-                    console.log(dict['value']);
             });
-
-//            console.log("Congress fields:"+ data[0][bioguideId]);
-            //var congressDataArray = data['congressData'];
-            //console.log(congressDataArray)
-            //var len = congressDataArray.length;
-            //form_boom(data);
+            $('.email-action-container').append(htmlText);
         },
         error: function() {
             console.log('failure in get email fields content_landing.js');
         }
     });
-
-
-
-
-
 }
 
 
 
-function form_boom(data){
-    requiredActions = data["F000062"]["required_actions"];
-    requiredActions.forEach(function (fieldItem, i) {
-        console.log(fieldItem["value"]);
+    function runEmail(){
+        // validate text input not blank
+        var message_text = $('#text-input').text();
+        if(message_text.length < 1){
+            alert ("Please type a message first");
+            return false;
+        }
 
-    });
-}
+        // validate email
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+
+        var email = $('.eform#eform-EMAIL').val();
+        console.log(email);
+        if (validateEmail(email)){
+            console.log("email is good.");
+        } else {
+            console.log("email is bad");
+        }
+
+
+        // validate no blank fields
+        $('.eform').each(function(){
+            var field = $(this).text();
+            if(field.length == 0){
+                alert('all fields are required');
+                return false;
+            }
+        });
+
+
+
+
+    }
+
+    function form_boom(data){
+        requiredActions = data["F000062"]["required_actions"];
+        requiredActions.forEach(function (fieldItem, i) {
+            console.log(fieldItem["value"]);
+
+        });
+    }
 
     function get_congress(zip){
         $.ajax({url: "/get_congress/" + zip,
@@ -1004,17 +997,6 @@ function form_boom(data){
                         '</div>'
                     ].join("\n");
                     $('.rep-container').append(text);
-
-                    //                    // HTML option for twitter address addressLabel above input box
-                    //                    if(item['twitter_id']){
-                    //                        var addressText;
-                    //                        addressText = [
-                    //                          '<div class="address-item address-item-'+i+'">',
-                    //                             '<p class="address-label-'+i+'">@'+item['twitter_id']+'</p>',
-                    //                          '</div>'
-                    //                        ].join("\n");
-                    //                        $('.address-container').append(addressText);
-                    //                    }
                   }
                 }
             },
@@ -1024,3 +1006,4 @@ function form_boom(data){
             }
         });
     }
+
