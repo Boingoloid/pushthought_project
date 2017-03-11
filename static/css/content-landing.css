@@ -908,8 +908,61 @@ text-tweet-block{
 
 
 
+.captcha-container{
+    position:relative;
+    float:right;
+    width:300px;
+}
+
+.captcha-img{
+    float:right;
+}
+
+.captcha-input{
+    float:right;
+    width:100px;
+    background: #000b1e;  /*#00aced #092551,#000b1e     */
+    background: #000b1e;
+    border-radius:10px;
+    border: 1px solid green;
+    font-size: 12pt;
+}
+
+.captcha-input:focus, .captcha-input:hover{
+  background: black;
+}
 
 
+#captcha-button{
+  float:right;
+  background:rgba(0,0,0,0);
+  border: 2px solid gray;
+  border-radius:5px;
+  width: 100px;
+  margin-left:165px;
+  color: green;
+}
+
+#captcha-button:hover {
+  background:rgba(0,0,0,1);
+}
+
+
+.captcha-error{
+  position:absolute;
+  top: 0px;
+  right: 0px;
+  background: red;
+  color: white;
+  border-radius:5px;
+  height: 17px;
+  margin: 0px;
+  padding:0px;
+  padding-left:8px;
+  padding-right:8px;
+  font-size:12px;
+  display:none;
+}
 
 
 /* tweets and hashtags */

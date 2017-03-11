@@ -181,7 +181,6 @@ $(document).ready(function() {
             return false;
         }
 
-
         // show action container and it's contents
         $('.rep-action-container').css('display','block'),200,function(){
         };
@@ -584,7 +583,8 @@ $(document).ready(function() {
 
     $('#tweet-button').on('click',function(event) {
         if($('.email-name').is(":visible")){
-            runEmail();
+            var bioguideId = 'F000062';
+            runEmail(bioguideId);
         } else {
             runTweet();
         }
@@ -629,7 +629,45 @@ $(document).ready(function() {
             }
         }
     });
-});
+
+
+
+
+    $('.email-action-container').on("click", "#captcha-button", function(e) {
+        // submit the capture via ajax and using the uid etc that are needed
+
+        var captchaInput = $('captcha-input').val();
+        var uid = $('.captcha-uid').text();
+//-d '{"answer": "cx9bp", "uid": "example_uid"}'
+
+
+        var data = JSON.stringify({
+            "answer": captchaInput,
+            "uid": uid
+        });
+        console.log(stringJson);
+
+        $.ajax({url: "/submit_congress_captcha/",
+            type: "POST",
+            data: stringJson,
+            contentType: 'json;charset=UTF-8',
+            cache: false,
+            success: function(data) {
+                console.log(data);
+                if(data['status'] == 'success'){
+                    //show success
+                } else if (data['status'] == 'error'){
+                    // show error: captcha failed, please retry
+                    $('.captcha-error').text(data['message]);
+                    $('.captcha-error').show();
+                    console.log('error message:' + data['message']);
+                    setTimeout(function(){ $('.captcha-error').hide(); }, 2000);
+                    }
+            },
+            error: function() {
+            }
+        });
+    });
 
 
 // loop through and find longest address
@@ -811,6 +849,8 @@ function get_congress_email_fields(bioguideId){
                         '</div>'].join("\n");
                     }
             });
+            htmlText = [htmlText,
+            '<div class="captcha-container"></div>'].join("\n");
             $('.email-action-container').append(htmlText);
         },
         error: function() {
@@ -821,7 +861,7 @@ function get_congress_email_fields(bioguideId){
 
 
 
-    function runEmail(){
+    function runEmail(bioguideId){
         // validate text input not blank
         var message_text = $('#text-input').text();
         if(message_text.length < 1){
@@ -862,17 +902,18 @@ function get_congress_email_fields(bioguideId){
         console.log('you made it');
         // create json
 
-        var dataArray = [];
+        var formDataDictionary = {};
         $('.eform').each(function(i){
-            var dict = {};
             var field = String($(this).attr('id'));
-            field = field.replace('eform-','')
-            dict[field] = $(this).val();
-            dataArray.push(dict);
+            field = '$' + field.replace('eform-','').replace('-','_');
+            formDataDictionary[field] = $(this).val();
         });
-        var stringArray = JSON.stringify(dataArray);
-        console.log(stringArray);
-        console.log(typeof(stringArray));
+        var stringJson = JSON.stringify({
+            "bio_id": bioguideId,
+            "fields": formDataDictionary
+        });
+        console.log(stringJson);
+
 
         /*var dataSet = JSON.stringify({
                 "tweet_text": tweet_text,
@@ -885,17 +926,29 @@ function get_congress_email_fields(bioguideId){
 
         $.ajax({url: "/submit_congress_email/",
             type: "POST",
-            data: stringArray,
+            data: stringJson,
             contentType: 'json;charset=UTF-8',
             cache: false,
             success: function(data) {
                 console.log(data);
+                if(data['status'] == 'success')
+                    //show success
+                    else if (data['status'] == 'captcha_needed')
+                    // show captcha
+                    var captchahtml = ['<img class="captcha-img" src="'+data['url']+'">',
+                    '<input type="text" class="captcha-input">',
+                    '<button id="captcha-button">submit</button>',
+                    '<div class="captcha-error">Captcha failed, please try again</div>'
+                    ].join("\n");
+                    $('captcha-container').append(captchahtml);
+
+                    else if (data['status'] == 'error'){
+                        console.log('error message:' + data['message']);
+                    }
             },
             error: function() {
             }
         });
-
-
     }
 
 

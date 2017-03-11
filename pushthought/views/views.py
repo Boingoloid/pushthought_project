@@ -25,6 +25,7 @@ from views_alerts import *
 from views_api import *
 from views_get_data import *
 from views_congress import *
+from views_email_congress import *
 from views_parse_user import *
 from views_twtitter_auth import *
 from views_user_forms import *
@@ -35,8 +36,8 @@ import tweepy
 import json, httplib
 import pymongo
 
-PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
-PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
+PARSE_APP_ID = settings.PARSE_APP_ID
+PARSE_REST_KEY = settings.PARSE_REST_KEY
 TWITTER_CALLBACK_ROOT_URL = settings.TWITTER_CALLBACK_ROOT_URL
 # TWITTER_CALLBACK_ROOT_URL = 'http://www.pushthought.com/verify_catch'
 
@@ -45,6 +46,29 @@ TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
 MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
+
+
+def data_loop(request):
+    print request.body
+    result = request.body
+
+    # submit_congress_email(request)
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+def data_throw(request):
+    print request.body
+    result = request.body
+
+    # submit_congress_email(request)
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+def submit_congress_email_view(request):
+
+    # if success return success message
+    #     if captcha, exectue show captcha method
+
+
+    return HttpResponse(json.dumps(result), content_type="application/json")
 
 def home(request):
     program_list = get_program_list()
@@ -271,13 +295,10 @@ def content_landing_empty(request):
     # except:
     return HttpResponseRedirect('/browse/')
 
-
-
 def get_congress(request,zip):
     # Save zip to Session
     request.session['zip'] = zip
     print "zip:", zip
-
 
     # Save zip to user:
     try:
@@ -306,10 +327,6 @@ def get_congress(request,zip):
             message_list = []
     else:
         message_list = []
-
-
-
-
 
     # Return congress based on location
     congress_data_raw = get_congress_data(zip)
@@ -341,104 +358,6 @@ def save_zip_to_user(request,zip):
     print result
     return result
 
-def get_congress_email_fields(request):
-    bioguideId = request.body
-    print "bioguideId:", bioguideId
-
-    result = get_congress_required_fields(bioguideId)
-    if len(result) > 0:
-        print "congress req fields in database, returning from parse-server"
-        resultFields = result[0]['required_fields']
-        return HttpResponse(json.dumps(resultFields), content_type="application/json")
-    else:
-        print "No congress required fields in DB so pulling from phantom congress"
-        connection = httplib.HTTPSConnection('congressforms.eff.org')
-        connection.connect()
-        connection.request('POST', '/retrieve-form-elements/',
-            json.dumps({
-                "bio_ids": [bioguideId],
-            }),
-            {#headers
-               "Content-Type": "application/json"
-            })
-        required_fields_object = json.loads(connection.getresponse().read())
-        save_fields(bioguideId, required_fields_object)
-        result = get_congress_required_fields(bioguideId)
-        return HttpResponse(json.dumps(result), content_type="application/json")
-
-def get_congress_required_fields(bioguideId):
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection.connect()
-    params = urllib.urlencode({"where":json.dumps({
-           "bioguideId": bioguideId
-         })})
-    connection.request('GET', '/parse/classes/CongressRequiredEmailFields?%s' % params,
-                       '',
-                       {
-                           "X-Parse-Application-Id": PARSE_APP_ID,
-                           "X-Parse-REST-API-Key": PARSE_REST_KEY,
-                           "Content-Type": "application/json"
-                       })
-    result = json.loads(connection.getresponse().read())
-    print "pulling required fields result", result['results']
-    return result['results']
-
-
-def save_fields(bioguideId, required_fields_object):
-    print "fields_array before savew:::::::::::", required_fields_object
-    required_fields = required_fields_object[bioguideId]["required_actions"]
-
-    for field in required_fields:
-        field['value'] = field['value'].replace('$','')
-        if field['value'] == 'NAME_PREFIX':
-            print "AAAAAA FOUND PREFIX"
-            optionDict = field['options_hash']
-            for item in optionDict:
-                print "item:", type(item)
-                for i in item:
-                    if i == '.':
-                        print "YES YES YES"
-                        i = ''
-                    print "new item:", i
-
-        if field['value'] == 'TOPIC':
-            optionDict = field['options_hash']
-            try:
-                for key, value in optionDict.items():
-                    newKey = key.replace('.', '').replace('   ',' ').replace('/', '').replace(',', '').replace('$','')
-                    print key
-                    print newKey
-                    optionDict[newKey] = optionDict.pop(key)
-            except:
-                for item in optionDict:
-                    newItem = item.replace('.', '').replace('   ', ' ').replace('/', '').replace(',', '').replace('$','')
-                    item = newItem
-
-    print "after replace::::::::::::", required_fields
-
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection.connect()
-    connection.request('POST', '/parse/classes/CongressRequiredEmailFields',
-    json.dumps({
-        "bioguideId": bioguideId,
-        "required_fields": required_fields
-    }),
-   {
-       "X-Parse-Application-Id": PARSE_APP_ID,
-       "X-Parse-REST-API-Key": PARSE_REST_KEY,
-       "Content-Type": "application/json"
-   })
-    result = json.loads(connection.getresponse().read())
-    print "save result for required fields::::::", result
-    return HttpResponse(json.dumps(result), content_type="application/json")
-
-
-def submit_congress_email(request):
-    print request.body
-    print request.GET
-    print request.POST
-    print request.META
-    return HttpResponse(request.body, content_type="application/json")
 
 
 def fed_rep_action_menu(request, programId, segmentId):
