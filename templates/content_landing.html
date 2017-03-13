@@ -9,7 +9,8 @@
 {% block content %}
 <p hidden id="segmentId">{{program.segmentId}}</p>
 <p hidden style="color:white;" id="programId">{{ programId }}</p>
-<div hidden style="color:white;" id="alertList" data-alertList="{{ alertList }}">yo yo yo</div>
+<div hidden id="alertList" data-alertList="{{ alertList }}"></div>
+
 
 <div class="intro-header intro-header-landing">
     <div class="container container-text-white">
@@ -74,7 +75,7 @@
                             {% if item.userTouched %}
                                 <img class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
                             {% else %}
-                                <img style="display:none;" class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
+                                <img style="display:none;" class="success-indicator" id="success-indicator-{{item.twitter_id}} success-indicator-{{item.bioguide_id}}" src="{% static 'img/check-green.png' %}">
                             {% endif %}
                                 <div class="warning-box-indicator" id="warning-box-indicator-{{item.twitter_id}}">
                                     <p class="indicator-text" id="indicator-text-{{item.twitter_id}}">you've already contacted this person</p>
@@ -85,6 +86,8 @@
                                 <p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>
                                 <p class="duplicate-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>
                                 <!--<img class="img-logo-success" src="{% static 'img/push_thought_logo3.png' %}" width="70" height="70">-->
+                            </div>
+                            <div class="success-box" id="success-box-{{item.bioguide_id}}" name="{{item.full_name}}">
                             </div>
                             <div style="display:inline-block;">
                                 {% if item.image %}
@@ -197,6 +200,10 @@
 {% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'js/content_landing.js' %}"></script>
+<script src="{% static 'js/content_landing_success_messages.js' %}"></script>
+<script src="{% static 'js/content_landing_email_action.js' %}"></script>
+<script src="{% static 'js/content_landing_tweet_action.js' %}"></script>
+<script src="{% static 'js/content_landing_get_congress.js' %}"></script>
 
 {% csrf_token %}
 {% endblock %}

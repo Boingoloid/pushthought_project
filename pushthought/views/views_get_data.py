@@ -35,6 +35,27 @@ def fetch_segment_data(segment_id):
     segment_dict = json.loads(connection.getresponse().read())
     return segment_dict
 
+
+def get_segment_actions_for_user(segmentId,userObjectId):
+    # GET current value for segment activity
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    params = urllib.urlencode({
+        "where":json.dumps({
+            "segmentObjectId": segmentId,
+            "userObjectId": userObjectId
+        })
+    })
+    connection.connect()
+    connection.request('GET', '/parse/classes/SentMessages?%s' % params, '', {
+       "X-Parse-Application-Id": PARSE_APP_ID,
+       "X-Parse-REST-API-Key": PARSE_REST_KEY
+     })
+    result = json.loads(connection.getresponse().read())
+    messaage_list = result['results']
+    return messaage_list
+
+
+
 #helper
 def get_program_list():
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -247,6 +268,9 @@ def get_segment_list(program_id):
          })
 
 
+
+
+
 #helper
 def get_hashtag_data(segmentId):
     client = pymongo.MongoClient(MONGODB_URI)
@@ -351,6 +375,32 @@ def save_tweet_action(request, tweet_text, current_user,twitter_user,target_biog
     print "save tweet action result:", result
     action_object_id = result['objectId']
     return action_object_id
+
+
+def save_email_congress_action(request):
+    data = request.body
+    connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connectionTweet.connect()
+    connectionTweet.request('POST', '/parse/classes/SentMessages', json.dumps({
+        "actionCategory": "Federal Representative",
+        "messageCategory": "Federal Representative",
+        "messageType": "email",
+        # "userObjectId": current_user['objectId'],
+        # "twitterUserName": str(current_user['twitterScreenName']),
+        "programObjectId": request.session['programId'],
+        "segmentObjectId": request.session['segmentId'],
+        "targetBioguideId": data['bio_id'],
+        "emailContent": str(data)
+    }), {
+        "X-Parse-Application-Id": PARSE_APP_ID,
+        "X-Parse-REST-API-Key": PARSE_REST_KEY,
+        "Content-Type": "application/json"
+    })
+    result = json.loads(connectionTweet.getresponse().read())
+    print "save email action result:", result
+    action_object_id = result['objectId']
+    return None
+
 
 #helper
 def save_hashtags(request,tweet_text,current_user,twitter_user,action_object_id):
@@ -528,3 +578,4 @@ def format_action_list(action_list):
     formattedList = move_to_front(formattedList,"Regulator")
     formattedList = move_to_front(formattedList,"Local Representative")
     return formattedList
+

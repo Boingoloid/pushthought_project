@@ -59,16 +59,40 @@ def data_throw(request):
     print request.body
     result = request.body
 
-    # submit_congress_email(request)
+
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 def submit_congress_email_view(request):
+    send_response_object =  submit_congress_email(request)
+    status = send_response_object['status']
+    if send_response_object:
+        if status == 'success':
+            print "email was sent"
+            save_email_congress_action(request)
+        elif status == 'captcha_needed':
+            # save email, needs captcha to true, then exclude them.  or save to different table
+            print "captcha_needed"
+        elif status == 'error':
+            print "ERROR submit congress failed: error messag returned:" + send_response_object['message']
+        return HttpResponse(json.dumps(send_response_object), content_type="application/json")
+    else:
+        print "ERROR: submit congress failed, no object returned from phantom congress"
+        return HttpResponse(json.dumps({"status":"error", "message":"timeout, no response from phantom congress"}), content_type="application/json")
+        # captcha_crush(request, send_response_object)
 
-    # if success return success message
-    #     if captcha, exectue show captcha method
 
 
-    return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+def submit_congress_captcha_view(request):
+    captcha_response_object = submit_congress_captcha(request)
+    status = captcha_response_object['status']
+    if captcha_response_object:
+        if status == 'success':
+            print "email was sent with OK captcha"
+            save_email_congress_action(request)
+    return HttpResponse(json.dumps(captcha_response_object), content_type="application/json")
+
 
 def home(request):
     program_list = get_program_list()
@@ -160,44 +184,9 @@ def browse(request):
 
     return render(request, 'browse.html', dataDict)
 
-def get_user_by_token_and_id(request):
-    try:
-        sessionToken = request.session['sessionToken']
-        userObjectId = request.session['userObjectId']
-    except:
-        sessionToken = None
-        userObjectId = None
 
-    if sessionToken and userObjectId:
-        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-        connection.connect()
-        connection.request('GET', '/parse/classes/_User/' + userObjectId, '', {
-                "X-Parse-Application-Id": PARSE_APP_ID,
-                "X-Parse-REST-API-Key": PARSE_REST_KEY,
-                "X-Parse-Session-Token": sessionToken
-             })
-        current_user = json.loads(connection.getresponse().read())
-        return current_user
-    else:
-        return None
 
-def get_segment_actions_for_user(segmentId,userObjectId):
-    # GET current value for segment activity
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    params = urllib.urlencode({
-        "where":json.dumps({
-            "segmentObjectId": segmentId,
-            "userObjectId": userObjectId
-        })
-    })
-    connection.connect()
-    connection.request('GET', '/parse/classes/SentMessages?%s' % params, '', {
-       "X-Parse-Application-Id": PARSE_APP_ID,
-       "X-Parse-REST-API-Key": PARSE_REST_KEY
-     })
-    result = json.loads(connection.getresponse().read())
-    messaage_list = result['results']
-    return messaage_list
+
 
 def content_landing(request, segment_id):
     # get program and segment ID
@@ -295,71 +284,13 @@ def content_landing_empty(request):
     # except:
     return HttpResponseRedirect('/browse/')
 
-def get_congress(request,zip):
-    # Save zip to Session
-    request.session['zip'] = zip
-    print "zip:", zip
-
-    # Save zip to user:
-    try:
-        current_user = request.session['currentUser']
-    except:
-        current_user = None
-        print "no user logged in, passing key error on currentUser while saving zip."
-
-    # get programId from session if available, use to pull user messages:
-    try:
-        segment_id = request.session['segmentId']
-    except:
-        segment_id = None
-        print "no segmentId during get congress, so cannot pull stats or user previous messages."
-
-    if segment_id:
-        segment_congress_stats = get_congress_stats_for_program(segment_id)
-        print "printing congress stats on get_congress:", segment_congress_stats
-
-    if current_user:
-        save_result = save_zip_to_user(request, zip)
-        print "zip to user result:", save_result
-        if segment_id:
-            message_list = get_segment_actions_for_user(segment_id, current_user['objectId'])
-        else:
-            message_list = []
-    else:
-        message_list = []
-
-    # Return congress based on location
-    congress_data_raw = get_congress_data(zip)
-    congress_data_raw = add_title_and_full_name(congress_data_raw)
-    congress_photos = get_congress_photos(congress_data_raw)
-    congress_data = add_congress_photos(congress_data_raw,congress_photos)
-    congress_data = add_congress_stats(congress_data,segment_congress_stats)
-
-    if message_list:
-        congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
-    print "made it here, sending success response with congressData"
-    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
 
 
 
-def save_zip_to_user(request,zip):
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection.connect()
-    connection.request('PUT', '/parse/classes/_User/' + request.session['currentUser']['objectId'], json.dumps({
-            "zip": zip,
-        }),
-        {
-            "X-Parse-Application-Id": PARSE_APP_ID,
-            "X-Parse-REST-API-Key": PARSE_REST_KEY,
-            "X-Parse-Session-Token": request.session['sessionToken'],
-            "Content-Type": "application/json"
-        })
-    result = json.loads(connection.getresponse().read())
-    print result
-    return result
 
 
 
+# OLD ----------------------------
 def fed_rep_action_menu(request, programId, segmentId):
 
     # Get variables

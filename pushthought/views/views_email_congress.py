@@ -125,26 +125,30 @@ def submit_congress_email(request):
     bodyString = request.body
 
     print "submitting email to congressperson"
-    # connection = httplib.HTTPSConnection('congressforms.eff.org')
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com')
+    connection = httplib.HTTPSConnection('congressforms.eff.org')
+    # connection = httplib.HTTPSConnection('ptparse.herokuapp.com')
     connection.connect()
     connection.request('POST', '/fill-out-form/',bodyString,
                        {  # headers
                            "Content-Type": "application/json"
                        })
     send_response_object = json.loads(connection.getresponse().read())
-    status = send_response_object['status']
-    if status == 'success':
-        print "email was sent"
-    #     show success message
-    elif status == 'captcha_needed':
-        print "captcha_needed"
-        captcha_crush(request,send_response_object)
-    elif status == 'error':
-        print "error sending congress email:" + send_response_object['message']
+    return send_response_object
 
-    return HttpResponse(json.dumps(send_response_object), content_type="application/json")
+def submit_congress_captcha(request):
+    print request.body
+    bodyString = request.body
 
+    print "submitting captcha"
+    connection = httplib.HTTPSConnection('congressforms.eff.org')
+    # connection = httplib.HTTPSConnection('ptparse.herokuapp.com')
+    connection.connect()
+    connection.request('POST', '/fill-out-captcha/', bodyString,
+                       {  # headers
+                           "Content-Type": "application/json"
+                       })
+    captcha_response_object = json.loads(connection.getresponse().read())
+    return captcha_response_object
 
 
 def captcha_crush(request, send_response_object):

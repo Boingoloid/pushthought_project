@@ -28,14 +28,15 @@ urlpatterns = [
     url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name,name='test',),
     url(r'^home', views.home,name='home',),
     url(r'^$', views.home,name='home'),
-    url(r'^submit_congress_email', views.submit_congress_email_view,name='submit_congress_email'),
-    url(r'^fill_out_form', views.data_throw,name='data_throw'),
+
+    # congress email
+    url(r'^submit_congress_email', views.submit_congress_email_view,name='submit_congress_email_view'),
+    url(r'^submit_congress_captcha', views.submit_congress_captcha_view,name='submit_congress_captcha_view'),
     url(r'^submit-email/(?P<email>.*)', views.submit_email,name='submit_email'),
     url(r'^send-contact/', views.send_contact,name='send_contact'),
     url(r'^browse', views.browse, name='browse'),
     url(r'^content_landing/$', views.content_landing_empty, name='content_landing_empty'),
     url(r'^content_landing/(?P<segment_id>\w+)', views.content_landing, name='content_landing'),
-    url(r'^fill-out-form', views.data_loop, name='data_loop'),
     url(r'^get_congress_email_fields', views.get_congress_email_fields, name='get_congress'),
     url(r'^get_congress/(?P<zip>\w+)', views.get_congress, name='get_congress'),
     url(r'^leaving', views.leaving, name='leaving'),

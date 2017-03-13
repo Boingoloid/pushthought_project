@@ -337,3 +337,24 @@ def create_user(request):
     print result
 
     return result
+
+def get_user_by_token_and_id(request):
+    try:
+        sessionToken = request.session['sessionToken']
+        userObjectId = request.session['userObjectId']
+    except:
+        sessionToken = None
+        userObjectId = None
+
+    if sessionToken and userObjectId:
+        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connection.connect()
+        connection.request('GET', '/parse/classes/_User/' + userObjectId, '', {
+                "X-Parse-Application-Id": PARSE_APP_ID,
+                "X-Parse-REST-API-Key": PARSE_REST_KEY,
+                "X-Parse-Session-Token": sessionToken
+             })
+        current_user = json.loads(connection.getresponse().read())
+        return current_user
+    else:
+        return None

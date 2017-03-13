@@ -10,15 +10,28 @@
 
 $(document).ready(function() {
     setTimeout(function(){ $('#email-icon-3').trigger('click'); }, 400);
-//
 
-    //
-
-    function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    // If alerts, scroll doewn and show them
+    var data = $('#alertList').data('alertlist');
+    if(data){
+        var headerAllowance = $('.seen-it-container').offset().top - 20;
+        $('html, body').animate({
+                scrollTop: headerAllowance + 'px'
+            }, 'fast');
+        console.log(data);
+        showSuccess(data[0], data[1]);
     }
 
+    function showEmailSuccess(){
+
+
+    }
+
+
+    // CSRF settings
+    function csrfSafeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
     var csrftoken = Cookies.get('csrftoken');
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
@@ -28,6 +41,7 @@ $(document).ready(function() {
         }
     });
 
+    // on paste insert text
     $(document).on('paste','[contenteditable]',function(e) {
         e.preventDefault();
         var text = (e.originalEvent || e).clipboardData.getData('text/plain');
@@ -35,16 +49,14 @@ $(document).ready(function() {
     });
 
 
+    // Success indicator (user already contacted) hover over
     $('.success-indicator').mouseenter(function() {
         var id = $(this).attr('id');
         idContainer = id.replace('success-indicator-','warning-box-indicator-');
         idText = id.replace('success-indicator-','indicator-text-');
-
         $('#'+ idContainer).show()
         $('#' + idText).show()
-
     });
-
     $('.success-indicator').mouseleave(function() {
         var id = $(this).attr('id');
         idContainer = id.replace('success-indicator-','warning-box-indicator-');
@@ -53,24 +65,28 @@ $(document).ready(function() {
         $('#' + idText).hide()
     });
 
+
+    // change cursor for action panel to pointer if action items visible
     $('.action-panel-container').mouseenter(function() {
         if($("#text-input:visible").length==1){
             $(this).css({"cursor": "pointer"});
         }
     });
-
     $('.action-panel-container').mouseleave(function() {
         $(this).css({"cursor": "default"});
     });
 
+
+    // Zip indicator hover
     $('.zip-indicator').mouseenter(function() {
         $('.zip-reset').show();
       });
-
     $('.zip-reset-hover-boundary').mouseleave(function() {
         $('.zip-reset').hide();
     });
 
+
+    // Location icon and zip reset
     $('.zip-reset').click(function() {
         // hide button
         $(this).hide();
@@ -87,7 +103,6 @@ $(document).ready(function() {
         // close action area if open
         $('#close-button').trigger('click');
     });
-
     $('.location-icon').click(function(){
         alert("Still in Development: Our location finder is being built, please enter you zip using the box below.  We'll move the cursor there for you :)");
         $('.zip-input').focus();
@@ -95,7 +110,7 @@ $(document).ready(function() {
 
 
 
-
+    // show/hide zip submit button if focus on zip-input
     $(document).mouseup(function(){
         if ($('.zip-input') == "focused"){
             $('.submit-zip').show();
@@ -106,6 +121,8 @@ $(document).ready(function() {
         }
     });
 
+
+    // Prevent mutiple clicking of submit zip
     $('.zip-input').keydown(function(thisEvent){
       if (thisEvent.keyCode == 13) { // enter key
         thisEvent.preventDefault();
@@ -118,7 +135,9 @@ $(document).ready(function() {
       }
     });
 
-   $('.submit-zip').click( function() {
+
+    // Zip submission button click
+    $('.submit-zip').click( function() {
         // validators
         var zip = $('.zip-input').val();
         var isValidZip = /(^\d{5}$)/.test(zip);
@@ -134,26 +153,10 @@ $(document).ready(function() {
             alert('Not a valid zip code.  Please check and try again.')
             $('.zip-input').focus();
             $(this).show();
-
         }
-
     });
 
-
-    var data = $('#alertList').data('alertlist');
-    if(data){
-        var headerAllowance = $('.seen-it-container').offset().top - 20;
-        $('html, body').animate({
-                scrollTop: headerAllowance + 'px'
-            }, 'fast');
-        console.log(data);
-        showSuccess(data[0], data[1]);
-    }
-
-
-
-
-
+    // Watch button
     $('.watch-button').click( function() {
        //var idText = $(this).attr('id');
        //var repIndex = idText.replace('program-item','');
@@ -162,6 +165,8 @@ $(document).ready(function() {
        window.location.href="/leaving";
     });
 
+
+    // Email Icon
     $('.rep-container').on("click", "img.email-icon", function(e) {
         e.stopPropagation();
         var emailIconId = $(this).attr('id');
@@ -227,7 +232,6 @@ $(document).ready(function() {
 
 
         // select address according to button clicked
-//        var addressPath = String(".address-node-" + i);
         $(".address-node-" + i).toggleClass("selected");
 
         // text-input clear
@@ -264,7 +268,7 @@ $(document).ready(function() {
     });
 
 
-
+    // Twitter Icon
     $('.rep-container').on("click", "img.twitter-icon", function(e) {
         e.stopPropagation();
         var i = $(this).attr('id');
@@ -342,6 +346,7 @@ $(document).ready(function() {
         updateTextCount();
     });
 
+    // Empty Twitter Icon
     $('.rep-container').on("click", "img.twitter-icon-empty", function(e) {
         e.stopPropagation();
         if ($(':animated').length || $(this).css('opacity') == 0) {
@@ -352,6 +357,7 @@ $(document).ready(function() {
         $('.warning-box-tweet-icon').animate({'opacity':'0.0'},2500,function() {});
     });
 
+    // Phone icon
     $('.rep-container').on("click", "img.phone-icon", function(e) {
         e.stopPropagation();
         if ($(':animated').length || $(this).css('opacity') == 0) {
@@ -369,7 +375,7 @@ $(document).ready(function() {
     });
 
 
-
+    // Empty Email Icon
     $('.rep-container').on("click", "img.email-icon-gray", function(e) {
         e.stopPropagation();
         if ($(':animated').length || $(this).css('opacity') == 0) {
@@ -402,7 +408,7 @@ $(document).ready(function() {
         $('#twitter-button-label').show();
     });
 
-
+    // Action Panel Container
     $('.rep-container').on("click", ".action-panel-container", function(e) {
         var i = $(this).attr('id');
         // get either twitter name or email value, depending on which is visible.
@@ -479,12 +485,14 @@ $(document).ready(function() {
         }
     });
 
+    // Clear button
     $('#clear-button').on('click',function(event) {
         var addressPlaceholder = $('.address-placeholder');
         $('#text-input').html(addressPlaceholder);
 
     });
 
+    // Include Link checkbox
     $('#img-checked-box').on('click',function(event) {
         if ($(':animated').length) {
             return false;
@@ -496,100 +504,8 @@ $(document).ready(function() {
     });
 
 
-    var window_url =  window.location.href;
-    var segment_id = $('#segmentId').text();
-    var program_id = $('#programId').text();
 
-
-    function runTweet(){
-        // get message length and validate length
-        var tweet_text = $('#text-input').text();
-        if(tweet_text.length < 1){
-            alert ("Please type a message first");
-            return false;
-        }
-        addressArray = [];
-        $('.action-panel-container.selected').each(function() {
-            index = $(this).attr('id');
-            function showLoading(index){
-                var loaderDiv = '.loader-' + index;
-                $(loaderDiv).show();
-                $('.tweet-loader').show();
-            }
-            showLoading(index);
-
-            twitterName = $(this).contents().contents('.twitter-name').text();
-            addressArray.push(twitterName);
-         });
-        // create dataSet string
-        var dataSet = JSON.stringify({
-                "tweet_text": tweet_text,
-                "segment_id": segment_id,
-                "program_id": program_id,
-                "last_menu_url": window_url,
-                "address_array" : addressArray,
-        });
-        console.log(dataSet);
-
-        $.ajax({url: "/verify_twitter",
-            type: "POST",
-            data: dataSet,
-            contentType: 'json;charset=UTF-8',
-            cache: false,
-            success: function(data) {
-
-                // Success message
-                console.log('success, here is the data:'+ data);
-
-
-                if(data['redirectURL']){
-                     window.location.href = data['redirectURL'];
-                } else {
-                    var len = data['successArray'].length;
-//                    console.log(data['successArray'].length);
-//                    console.log(data['duplicateArray'].length);
-                    if(data['successArray'].length !=0){
-                        successArray = data['successArray'];
-                    } else {
-                        successArray = [];
-                    }
-
-                    if(data['duplicateArray'].length !=0){
-                        duplicateArray = data['duplicateArray'];
-                    } else {
-                        duplicateArray = [];
-                    }
-
-                    function hideLoading(){
-                        $('.loader').hide();
-                        $('.tweet-loader').hide();
-                    }
-
-                    if (successArray.length > 0){
-                        $.when(hideLoading()).then(showSuccess(successArray, duplicateArray)).then($('#close-button').trigger('click'));
-                        //showSuccess(successArray, duplicateArray);
-                    } else {
-                        $.when(hideLoading()).then(showSuccess(successArray, duplicateArray));
-                    }
-                }
-            },
-            error: function() {
-                $('.loader').hide();
-                // Fail message
-                console.log('fail :)');
-            }
-        });
-    }
-
-    $('#tweet-button').on('click',function(event) {
-        if($('.email-name').is(":visible")){
-            var bioguideId = 'F000062';
-            runEmail(bioguideId);
-        } else {
-            runTweet();
-        }
-    });
-
+    // Key Up: replaces placeholder if missing, updates count, updates selected
     $('#text-input').keyup(function() {
         // count letters and update letter count
         updateTextCount();
@@ -632,13 +548,46 @@ $(document).ready(function() {
 
 
 
+    function updateTextCount(){
+        var textInput = $('#text-input').text();
+        var twitterMax = 140;
+        var twitterDefaultLinkLength = 22;
+        var countAfterLink = twitterMax - twitterDefaultLinkLength;
+
+        var addressInput = $('.address-placeholder').text();
+        var countAddressInput =  addressInput.length;
+        var countTextInput =  textInput.length;
+        var longestAddressLength = get_longest_address();
+        var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength;
+
+        // adjust for line breaks
+        numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
+        countRemaining = countRemaining - numberOfLineBreaks;
+
+        $('.letter-count').text(countRemaining);
+        if (countRemaining < 0){
+            $('.letter-count').css({'color':'red'});
+        } else {
+            $('.letter-count').css({'color':'gray'});
+        }
+    }
+
+
+    $('#tweet-button').on('click',function(event) {
+        if($('.email-name').is(":visible")){
+            var bioguideId = 'F000062';
+            runEmail(bioguideId);
+        } else {
+            runTweet();
+        }
+    });
 
     $('.email-action-container').on("click", "#captcha-button", function(e) {
         // submit the capture via ajax and using the uid etc that are needed
 
         var captchaInput = $('captcha-input').val();
         var uid = $('.captcha-uid').text();
-//-d '{"answer": "cx9bp", "uid": "example_uid"}'
+    //-d '{"answer": "cx9bp", "uid": "example_uid"}'
 
 
         var data = JSON.stringify({
@@ -658,7 +607,7 @@ $(document).ready(function() {
                     //show success
                 } else if (data['status'] == 'error'){
                     // show error: captcha failed, please retry
-                    $('.captcha-error').text(data['message]);
+                    $('.captcha-error').text(data['message']);
                     $('.captcha-error').show();
                     console.log('error message:' + data['message']);
                     setTimeout(function(){ $('.captcha-error').hide(); }, 2000);
@@ -669,427 +618,13 @@ $(document).ready(function() {
         });
     });
 
-
-// loop through and find longest address
-function get_longest_address(){
-    var longestAddressLength = 0;
-    $('.address-item-label:visible').each(function(){
-        var text = $(this).text();
-        if (text.length > longestAddressLength){
-            longestAddressLength = text.length;
-        }
-    });
-    return longestAddressLength;
-}
-
-function updateTextCount(){
-    var textInput = $('#text-input').text();
-    var twitterMax = 140;
-    var twitterDefaultLinkLength = 22;
-    var countAfterLink = twitterMax - twitterDefaultLinkLength;
-
-    var addressInput = $('.address-placeholder').text();
-    var countAddressInput =  addressInput.length;
-    var countTextInput =  textInput.length;
-    var longestAddressLength = get_longest_address();
-    var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength;
-
-    // adjust for line breaks
-    numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
-    countRemaining = countRemaining - numberOfLineBreaks;
-
-    $('.letter-count').text(countRemaining);
-    if (countRemaining < 0){
-        $('.letter-count').css({'color':'red'});
-    } else {
-        $('.letter-count').css({'color':'gray'});
-    }
-}
-
-
-
-// show duplicate method
-function showDuplicate(duplicateArray){
-    if (duplicateArray.length != 0){
-        duplicateArray.forEach(function (value, i) {
-            console.log('%d: %s', i, value);
-            var tweetName = value.slice(1)
-            var idText = '#success-box-' + tweetName;
-            $(idText).each(function(){
-                $(this).css({'opacity':'0.0'});
-                $(this).css({'background':'#800000'});
-                $(this).animate({'height':'0.0'},0,function() {
-                    $(this).css({'width':'10px'});
-                });
-                $(this).animate({'height':'58.0'},300,function() {
-                    $(this).css({'opacity':'1.0'});
-                    $(this).show();
-                    $(this).animate({'width':'200px'},600,function() {
-                        $(this).contents('.duplicate-text').css({'opacity':'1.0'});
-                        $(this).contents('.duplicate-text').show();
-                        $(this).animate({'width':'200px'},1500,function() {
-                            $(this).contents('.duplicate-text').css({'opacity':'0.0'});
-                            $(this).contents('.duplicate-text').css({'display':'none'});
-                            $(this).animate({'width':'10px'},600,function() {
-                                $(this).animate({'height':'0px'},300,function(){
-                                    $(this).css({'opacity':'0.0'});
-                                    $(this).css({'display':'none'});
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    } else {
-        console.log('no dpulicates');
-    }
-}
-
-
-function showSuccess(successArray, duplicateArray){
-    if (successArray.length != 0){
-        successArray.forEach(function (value, i) {
-            var tweetName = value.slice(1)
-            var idText = '#success-box-' + tweetName;
-            var idSuccessIndicator = '#success-indicator-' + tweetName;
-            $(idText).each(function(){
-                $(this).css({'opacity':'0.0'});
-                $(this).css({'background':'green'});
-                $(this).animate({'height':'0.0'},0,function() {
-                    $(this).css({'width':'10px'});
-                });
-                $(this).animate({'height':'58.0'},300,function() {
-                    $(this).css({'opacity':'1.0'});
-                    $(this).show();
-                    $(this).animate({'width':'200px'},600,function() {
-                        $(this).contents('.success-text').css({'opacity':'1.0'});
-                        $(this).contents('.success-text').show();
-                        $(this).animate({'width':'200px'},1500,function() {
-                            $(this).contents('.success-text').css({'opacity':'0.0'});
-                            $(this).contents('.success-text').css({'display':'none'});
-                            $(this).animate({'width':'10px'},600,function() {
-                                $(this).animate({'height':'0px'},300,function(){
-                                    $(this).css({'display':'none'});
-                                    $(this).animate({'opacity':'0.0'},0,function(){
-                                        $(idSuccessIndicator).show();
-                                        showDuplicate(duplicateArray);
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    } else {
-        showDuplicate(duplicateArray);
-        console.log('no success, going to duplicateArray')
-    }
-}
+});
 
 
 
 
-function get_congress_email_fields(bioguideId){
-    baseURL = 'https://congressforms.eff.org';
-    endpoint = '/retrieve-form-elements';
-
-//    bioguide = '{"bio_ids": ["C000880", "A000360"]}
-
-    $.ajax({url: '/get_congress_email_fields/',
-        type: "POST",
-        data: bioguideId,
-        contentType: 'json;charset=UTF-8',
-        cache: false,
-        success: function(data) {
-
-            console.log(data)
-            var htmlText = [];
-            data.forEach(function (dict, i) {
-                field = dict['value'];
-                //console.log(dict['value']);
-                    //if(field == 'NAME_FIRST'){
-                    var fieldName = field.replace('_','-');
-                    //console.log('yes, first name');
-                    if(fieldName == 'TOPIC'){
-                        htmlText = [htmlText,
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                                '<label for="eform-'+ fieldName +'" style="display:inline;" class="email-form-label">'+ fieldName +':</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                                '<select class="eform" id="eform-'+ fieldName +'" style="display:block;">',
-                                '<option value=0 disabled="disabled" selected="selected">select a topic</option>'
-                        ].join("\n");
-                        var optionsList = dict['options_hash'];
-                        console.log(optionsList);
-
-                        for (option in optionsList){
-                            htmlText = [htmlText,
-                                    '<option value="' +option +'">'+option+'</option>',
-                            ].join("\n");
-                        }
-                        htmlText = [htmlText,
-                                '</select>',
-                            '</div>',
-                        '</div>'
-                        ].join("\n");
-                    } else if(fieldName == 'MESSAGE'){
-                        htmlText = htmlText;
-                    } else {
-                        htmlText = [htmlText,
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                                '<label for="eform-'+ fieldName +'" style="display:inline;" class="email-form-label">'+ fieldName +':</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                                '<input type="text" class="eform" id="eform-'+ fieldName+'">',
-                            '</div>',
-                        '</div>'].join("\n");
-                    }
-            });
-            htmlText = [htmlText,
-            '<div class="captcha-container"></div>'].join("\n");
-            $('.email-action-container').append(htmlText);
-        },
-        error: function() {
-            console.log('failure in get email fields content_landing.js');
-        }
-    });
-}
 
 
 
-    function runEmail(bioguideId){
-        // validate text input not blank
-        var message_text = $('#text-input').text();
-        if(message_text.length < 1){
-            alert ("Please type a message first");
-            return false;
-        }
 
-        // validate email
-        function validateEmail(email) {
-            var re = /\S+@\S+\.\S+/;
-            return re.test(email);
-        }
-
-        /*var email = $('.eform#eform-EMAIL').val();
-        console.log(email);
-        if (validateEmail(email)){
-            //console.log("email is good.");
-        } else {
-            //console.log("email is bad");
-        }
-
-
-        // validate no blank fields
-        $('.eform').each(function(){
-        //console.log($(this));
-            var field = $(this).val();
-            if (field){
-                if(field.length == 0){
-                    alert('all fields are required:' + field);
-                    return false;
-                }
-            } else {
-                alert('please select a topic');
-                return false;
-            }
-        });*/
-
-        console.log('you made it');
-        // create json
-
-        var formDataDictionary = {};
-        $('.eform').each(function(i){
-            var field = String($(this).attr('id'));
-            field = '$' + field.replace('eform-','').replace('-','_');
-            formDataDictionary[field] = $(this).val();
-        });
-        var stringJson = JSON.stringify({
-            "bio_id": bioguideId,
-            "fields": formDataDictionary
-        });
-        console.log(stringJson);
-
-
-        /*var dataSet = JSON.stringify({
-                "tweet_text": tweet_text,
-                "segment_id": segment_id,
-                "program_id": program_id,
-                "last_menu_url": window_url,
-                "address_array" : addressArray,
-        });
-        console.log(dataSet);*/
-
-        $.ajax({url: "/submit_congress_email/",
-            type: "POST",
-            data: stringJson,
-            contentType: 'json;charset=UTF-8',
-            cache: false,
-            success: function(data) {
-                console.log(data);
-                if(data['status'] == 'success')
-                    //show success
-                    else if (data['status'] == 'captcha_needed')
-                    // show captcha
-                    var captchahtml = ['<img class="captcha-img" src="'+data['url']+'">',
-                    '<input type="text" class="captcha-input">',
-                    '<button id="captcha-button">submit</button>',
-                    '<div class="captcha-error">Captcha failed, please try again</div>'
-                    ].join("\n");
-                    $('captcha-container').append(captchahtml);
-
-                    else if (data['status'] == 'error'){
-                        console.log('error message:' + data['message']);
-                    }
-            },
-            error: function() {
-            }
-        });
-    }
-
-
-
-    function form_boom(data){
-        requiredActions = data["F000062"]["required_actions"];
-        requiredActions.forEach(function (fieldItem, i) {
-            console.log(fieldItem["value"]);
-
-        });
-    }
-
-    function get_congress(zip){
-        $.ajax({url: "/get_congress/" + zip,
-            type: "GET",
-            data: "",
-            contentType: 'json;charset=UTF-8',
-            cache: false,
-            success: function(data) {
-//                console.log(data);
-                // hide loading indicator
-                $('#zip-loader').hide();
-
-                // Count if any results returned, if not, go back
-                var index = 0;
-                var i;
-                var s;
-                var congressDataArray = data['congressData'];
-//                console.log(congressDataArray)
-                var len = congressDataArray.length;
-                if(len == 0){
-                    alert("We aren't able to find representatives for that zip code.  Please check your zip code and try again.");
-                    $('.zip-input').focus();
-                    $('.submit-zip').show();
-                    return false;
-                }
-                // hide zip cature, clear zip input
-                $('.zip-capture').hide();
-                $('.zip-input').val('');
-
-                // show zip indicator, to allow reset
-                $('.zip-indicator').show();
-
-                for (x=0; x<len; ++x) {
-                  //console.log('i in the loop:'+i);  // this loop starts at 0
-                  if (x in congressDataArray) {
-                    var item = congressDataArray[x];
-
-                    var i = x + 1; //needs to match {{ forloop.counter }} of other html templated objects
-                    // Image check
-                    var imageString;
-                    if(!item['image']['url']){
-                       imageString = '<img class="repPhoto repPhoto-none" src=\'/static/img/push-thought-logo.png\'>';
-                    } else {
-                       imageString = '<img class="repPhoto" id="repPhoto'+i+'" src="'+item['image']['url']+'">';
-                    }
-
-                    // twitterId check
-                    var twitterIdString;
-                    if(!item['twitter_id']){
-                       twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'">n/a</div>',
-                        '<img class="twitter-icon-empty" src=\'/static/img/twitter-icon-gray.png\' width="42" height="42">',
-                        '<div class="warning-box-tweet-icon">',
-                            '<p class="warning-text">twitter address n/a</p>',
-                        '</div>'
-                        ].join("\n");
-                    } else {
-                       twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'">@'+item['twitter_id']+'</div>',
-                            '<img class="twitter-icon" src=\'/static/img/twitter-icon.png\' width="42" height="42">'
-                            ].join("\n");
-                    }
-
-                    // contact form check
-                    var emailString;
-                    if(!item['contact_form']){
-                       emailString =  ['<div class="email-name" id="'+i+'" name="'+ item['full_name'] + '">n/a</div>',
-                       '<img class="email-icon-gray" id="email-icon-'+i+'name="'+item['full_name']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">',
-                       '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'"></div>'].join("\n");
-                    } else {
-                       emailString =  ['<div class="email-name" id="'+i+'" name="'+ item['full_name'] + '">see below</div>',
-                       '<img class="email-icon" id="email-icon-'+i+'" name="'+item['full_name']+'" src=\'/static/img/email-icon.png\' width="36" height="36">',
-                       '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'"></div>'].join("\n");
-                    }
-
-                    // sent user count
-                    var sentCountDiv
-                    if(!item['sent_messages_count']){
-                        sentCountDiv  = '';
-                    } else {
-                        sentCountDiv = '<div class="sent-messages-count">' +item['sent_messages_count']+'</div>';
-                    }
-
-
-                    // user touched check
-                    var indicatorString;
-                    if(!item['userTouched']){
-                       indicatorString = '<img style="display:none" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
-                    } else {
-                        indicatorString = '<img class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
-                    }
-
-
-                    // construct HTML for contacts in category
-                    var text =  [
-                        '<div class="rep-item-container rep-item-container-' + i +'">',
-                            '<div class="rep-item" id="rep-item'+i+'">',
-                              '<div class="loader loader-'+i+ '" id="loader"></div>',
-                                sentCountDiv,
-                               indicatorString,
-                              '<p hidden id="tweet-address-item'+i+'">@'+item['twitter_id']+'</p>',
-                              '<div class="success-box" id="success-box-'+item['twitter_id']+'">',
-                                      '<p class="success-text" style="padding-top:4px;">tweet sent to:</p>',
-                                      '<p class="success-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
-                                      '<p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>',
-                                      '<p class="duplicate-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
-                              '</div>',
-                              '<div style="display:inline-block;">',
-                               imageString,
-                                    '<div class="name-title-container">',
-                                         '<div><p class="full-name">'+ item['full_name']+'</p></div>',
-                                         '<div><p class="title">'+item['title']+'</p></div>',
-                                    '</div>',
-                              '</div>',
-                            '</div>',
-                            '<div class="action-panel-container" id="'+i+'">',
-                                    '<div class="action-panel">',
-                                        twitterIdString,
-                                        '<img class="phone-icon" id="'+item['phone']+'" name="'+item['full_name']+'" src=\'/static/img/phone-icon.png\'>',
-                                        emailString,
-                                    '</div>',
-                            '</div>',
-                        '</div>'
-                    ].join("\n");
-                    $('.rep-container').append(text);
-                  }
-                }
-            },
-            error: function() {
-                $('#zip-loader').hide();
-                console.log('failure pulling congress data - in content_landing.js');
-            }
-        });
-    }
 

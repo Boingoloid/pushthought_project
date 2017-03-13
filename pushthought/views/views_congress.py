@@ -14,6 +14,75 @@ MONGODB_URI = settings.MONGODB_URI
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
 
+
+
+# API
+def get_congress(request,zip):
+    # Save zip to Session
+    request.session['zip'] = zip
+    print "zip:", zip
+
+    # Save zip to user:
+    try:
+        current_user = request.session['currentUser']
+    except:
+        current_user = None
+        print "no user logged in, passing key error on currentUser while saving zip."
+
+    # get programId from session if available, use to pull user messages:
+    try:
+        segment_id = request.session['segmentId']
+    except:
+        segment_id = None
+        print "no segmentId during get congress, so cannot pull stats or user previous messages."
+
+    if segment_id:
+        segment_congress_stats = get_congress_stats_for_program(segment_id)
+        print "printing congress stats on get_congress:", segment_congress_stats
+
+    if current_user:
+        save_result = save_zip_to_user(request, zip)
+        print "zip to user result:", save_result
+        if segment_id:
+            message_list = get_segment_actions_for_user(segment_id, current_user['objectId'])
+        else:
+            message_list = []
+    else:
+        message_list = []
+
+    # Return congress based on location
+    congress_data_raw = get_congress_data(zip)
+    congress_data_raw = add_title_and_full_name(congress_data_raw)
+    congress_photos = get_congress_photos(congress_data_raw)
+    congress_data = add_congress_photos(congress_data_raw,congress_photos)
+    congress_data = add_congress_stats(congress_data,segment_congress_stats)
+
+    if message_list:
+        congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
+    print "made it here, sending success response with congressData"
+    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
+
+
+
+def save_zip_to_user(request,zip):
+    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection.connect()
+    connection.request('PUT', '/parse/classes/_User/' + request.session['currentUser']['objectId'], json.dumps({
+            "zip": zip,
+        }),
+        {
+            "X-Parse-Application-Id": PARSE_APP_ID,
+            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+            "X-Parse-Session-Token": request.session['sessionToken'],
+            "Content-Type": "application/json"
+        })
+    result = json.loads(connection.getresponse().read())
+    print result
+    return result
+
+
+
+
 #helper
 def move_to_front(list,value):
     indexNum = list.index(value)
@@ -28,9 +97,6 @@ def get_congress_data(zip_code):
     db = client.get_default_database()
 
     root = "https://congress.api.sunlightfoundation.com/legislators/locate"
-
-
-
 
     #HELPER FUNCTION: nested function to get Congress Data from api, then save in CongressData under the zip_code
     def get_congress_data_from_api():
@@ -161,3 +227,6 @@ def add_congress_stats(congress_data, segment_congress_stats):
                 personItem['sent_messages_count'] = dataItem['count']
                 # personItem['user_count'] =
     return congress_data
+
+
+
