@@ -137,13 +137,21 @@ def submit_congress_email(request):
 
 def submit_congress_captcha(request):
     print request.body
+
     bodyString = request.body
+
+    dict = {}
+    j = json.loads(bodyString)
+    dict['answer'] = j['answer']
+    dict['uid'] = j['uid']
+    dictString = json.dumps(dict)
+
 
     print "submitting captcha"
     connection = httplib.HTTPSConnection('congressforms.eff.org')
     # connection = httplib.HTTPSConnection('ptparse.herokuapp.com')
     connection.connect()
-    connection.request('POST', '/fill-out-captcha/', bodyString,
+    connection.request('POST', '/fill-out-captcha/', dictString,
                        {  # headers
                            "Content-Type": "application/json"
                        })

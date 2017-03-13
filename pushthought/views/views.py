@@ -63,6 +63,7 @@ def data_throw(request):
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 def submit_congress_email_view(request):
+    print "submit_congress_email_view firing"
     send_response_object =  submit_congress_email(request)
     status = send_response_object['status']
     if send_response_object:
@@ -85,6 +86,7 @@ def submit_congress_email_view(request):
 
 
 def submit_congress_captcha_view(request):
+    print "submit_congress_captcha_view firing"
     captcha_response_object = submit_congress_captcha(request)
     status = captcha_response_object['status']
     if captcha_response_object:

@@ -22,11 +22,6 @@ $(document).ready(function() {
         showSuccess(data[0], data[1]);
     }
 
-    function showEmailSuccess(){
-
-
-    }
-
 
     // CSRF settings
     function csrfSafeMethod(method) {
@@ -200,7 +195,11 @@ $(document).ready(function() {
 
         // grab BioguideID and reqeust congress phantom email fields from server
         var bioguideId = $(this).next().attr('id');
-        get_congress_email_fields(bioguideId);  //get fields from db or phantom congress
+
+        //get fields from db or phantom congress
+        $.getScript('/static/js/content_landing_email_action.js', function(){
+            get_congress_email_fields(bioguideId);
+        });
 
         // expand containers
         $('.rep-color-band').animate({'height':'675px'}); //220
@@ -218,7 +217,7 @@ $(document).ready(function() {
         $('.email-name').show();
 
         // select or toggle selection of activity container
-        $('.action-panel-contianer').toggleClass("selected");  //WHY THE FUCK IS THIS CONTIANER, I DONT GET IT!!!
+        $('.action-panel-container#'+i).addClass("selected");
 
         // create address items above text input
         $('.email-name').each(function( index ){
@@ -239,8 +238,6 @@ $(document).ready(function() {
         $('.address-placeholder').html('');
 
         // insert address placeholder in text-input
-            //addressPlaceholderClass = '.address-item-label-' + i;
-            //addressPlaceholder = $(addressPlaceholderClass).html();
         stringSpace = '&nbsp';
         $('#text-input').html('<span contenteditable=false class=address-placeholder></span>');
 
@@ -250,6 +247,7 @@ $(document).ready(function() {
         $('#img-send-email-icon').show();
         $('#email-button-label').show();
 
+        // send label count
         countSelected = 0;
         $('.address-item').each(function(){
             if($(this).hasClass('selected')){
@@ -386,6 +384,7 @@ $(document).ready(function() {
 
     $('#close-button').on('click',function(event) {
         $('#text-input').text('');
+        $('.email-action-container').html('');
         $('.address-placeholder').html('');
         $('.address-container').html(' ');
         $('.category-container').animate({'height':'220px'});
@@ -406,6 +405,8 @@ $(document).ready(function() {
         $('#img-send-tweet-icon').show();
         $('#email-button-label').hide();
         $('#twitter-button-label').show();
+
+
     });
 
     // Action Panel Container
@@ -467,21 +468,22 @@ $(document).ready(function() {
               $('#tweet-button-label').text(labelText);
             }
 
-            // update placeholderText -> based on # of addresses selected
-            if (numItems == 0){
-                placeholderText = '';
-                $('.address-placeholder').text(placeholderText);
-            } else if (numItems == 1){
-                placeholderText = $('.address-item.selected').children('p').html();
-                placeholderText = placeholderText + ' ';
-                $('.address-placeholder').text(placeholderText);
-            } else {
-                placeholderText = '@multiple';
-                placeholderText = placeholderText + ' '; // endspace important so @ recognized
-                $('.address-placeholder').text(placeholderText);
+            if($('.email-name').is(":visible")){
+            } else{
+                // update placeholderText -> based on # of addresses selected
+                if (numItems == 0){
+                    placeholderText = '';
+                    $('.address-placeholder').text(placeholderText);
+                } else if (numItems == 1){
+                    placeholderText = $('.address-item.selected').children('p').html();
+                    placeholderText = placeholderText + ' ';
+                    $('.address-placeholder').text(placeholderText);
+                } else {
+                    placeholderText = '@multiple';
+                    placeholderText = placeholderText + ' '; // endspace important so @ recognized
+                    $('.address-placeholder').text(placeholderText);
+                }
             }
-
-
         }
     });
 
@@ -576,23 +578,32 @@ $(document).ready(function() {
     $('#tweet-button').on('click',function(event) {
         if($('.email-name').is(":visible")){
             var bioguideId = 'F000062';
-            runEmail(bioguideId);
+            console.log("tweet button initializing email send");
+//            $.getScript('/static/js/content_landing_email_action.js'), function (){
+                runEmail(bioguideId);
+//            };
         } else {
             runTweet();
         }
     });
+
+
+
+
+
 
     $('.email-action-container').on("click", "#captcha-button", function(e) {
         // submit the capture via ajax and using the uid etc that are needed
 
         var captchaInput = $('captcha-input').val();
         var uid = $('.captcha-uid').text();
+        var data = $('#emailData').data('emailData');
     //-d '{"answer": "cx9bp", "uid": "example_uid"}'
 
 
         var data = JSON.stringify({
             "answer": captchaInput,
-            "uid": uid
+            "uid": uid,
         });
         console.log(stringJson);
 
@@ -620,9 +631,15 @@ $(document).ready(function() {
 
 });
 
+//var data = $('#alertList').data('alertlist');
 
-
-
+//                '<div><p>from the image</p></div>',
+//                '<div><img class="captcha-img" src="'+data['url']+'"></div>',
+//                '<div><input type="text" class="captcha-input"></div>',
+//                '<div><button id="captcha-button">submit</button></div>'
+//                '<div class="captcha-alert"></div>',
+//                '<div hidden id="emailData" data-emailData="'+stringJson+'"></div>',
+//                '<div hidden class="captcha-uid">'+ data['uid'] +'</div>
 
 
 

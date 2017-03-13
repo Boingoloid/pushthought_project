@@ -4,6 +4,7 @@
 function get_congress_email_fields(bioguideId){
     baseURL = 'https://congressforms.eff.org';
     endpoint = '/retrieve-form-elements';
+    console.log("get congress email field firing.");
 
 //    bioguide = '{"bio_ids": ["C000880", "A000360"]}
 
@@ -16,6 +17,7 @@ function get_congress_email_fields(bioguideId){
 
             console.log(data)
             var htmlText = [];
+            htmlText = '<div style="margin-left:60px; font-size:11pt; color:gray;">required fields</div>';
             data.forEach(function (dict, i) {
                 field = dict['value'];
                 //console.log(dict['value']);
@@ -70,6 +72,7 @@ function get_congress_email_fields(bioguideId){
 }
 
 function runEmail(bioguideId){
+
     // validate text input not blank
     var message_text = $('#text-input').text();
     if(message_text.length < 1){
@@ -77,39 +80,55 @@ function runEmail(bioguideId){
         return false;
     }
 
-    // validate email
-    function validateEmail(email) {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-    }
-
-    /*var email = $('.eform#eform-EMAIL').val();
-    console.log(email);
-    if (validateEmail(email)){
-        //console.log("email is good.");
-    } else {
-        //console.log("email is bad");
-    }
-
-
     // validate no blank fields
+    var validationResult = true;
     $('.eform').each(function(){
-    //console.log($(this));
+        var fieldNode = $(this)
         var field = $(this).val();
-        if (field){
+        var fieldName = fieldNode.attr('id').replace('eform-','');
+        console.log(fieldNode);
+        console.log(field);
+        console.log(fieldName);
+
+
+        if (fieldNode.is('input')){
             if(field.length == 0){
-                alert('all fields are required:' + field);
+                alert('all fields are required.  Please enter this field: ' + fieldName);
+                validationResult = false;
                 return false;
             }
+        } else if (fieldNode.is('select')){
+            var selection =  $(this).find(":selected").text();
+            if(selection == 'select a topic'){
+                console.log(fieldNode);
+                alert("please enter a " + fieldName);
+                validationResult = false;
+                return false;
+            } else {
+            }
+        }
+    });
+
+    // Validation email of if others have values
+    if (validationResult){
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+        var email = $('.eform#eform-EMAIL').val();
+        console.log(email);
+        if (validateEmail(email)){
+            console.log("email is good.");
         } else {
-            alert('please select a topic');
+            console.log("email is bad");
+            alert("Email enetered is not a valid email.  Please check and try again.");
             return false;
         }
-    });*/
+    } else {
+        return false;
+    }
 
-    console.log('you made it');
-    // create json
-
+    // Create dict for send
     var formDataDictionary = {};
     $('.eform').each(function(i){
         var field = String($(this).attr('id'));
@@ -131,6 +150,8 @@ function runEmail(bioguideId){
             "address_array" : addressArray,
     });
     console.log(dataSet);*/
+    console.log("returning false because reached point before submittal")
+    return false;
 
     $.ajax({url: "/submit_congress_email/",
         type: "POST",
@@ -140,6 +161,7 @@ function runEmail(bioguideId){
         success: function(data) {
             console.log(data);
             if(data['status'] == 'success'){
+                console.log("success status from ajax submit_congress_email");
                 //show success
                 $('.email-action-container').html('');
                 var headerAllowance = $('.seen-it-container').offset().top - 20;
@@ -149,29 +171,35 @@ function runEmail(bioguideId){
                 showEmailSuccess(bioguideArray);
 
             } else if (data['status'] == 'captcha_needed'){
+                console.log("need captcha received in ajax submit_congress_email");
                 // show captcha
                 var captchahtml = ['<div><p>Copy the text</p></div>',
                 '<div><p>from the image</p></div>',
                 '<div><img class="captcha-img" src="'+data['url']+'"></div>',
                 '<div><input type="text" class="captcha-input"></div>',
-                '<div><button id="captcha-button">submit</button></div>'
+                '<div><button id="captcha-button">submit</button></div>',
                 '<div class="captcha-alert"></div>',
-                '<div hidden id="emailData" data-emailData="'+stringJson+'"></div>'
+                '<div hidden id="emailData" data-emailData="'+stringJson+'"></div>',
+                '<div hidden class="captcha-uid">'+ data['uid'] +'</div>'
                 ].join("\n");
 
-//                HERE'S' HOW
-//                var data = $('#alertList').data('alertlist');
+
+                //HERE'S' HOW
+                //var data = $('#alertList').data('alertlist');
+                //go to main content landing?  and make action for captcha submit button, include email data.
+
 
                 $('captcha-container').append(captchahtml);
             } else if (data['status'] == 'error'){
-                console.log('error message:' + data['message']);
+                console.log('error message, email submit:' + data['message']);
                 var errorMessageHTML = ['<div class="email-error"><p style="color:red;">'+ data['message'] +'</p></div>'].join("\n");
                 $('.email-action-container').append(errorMessageHTML);
                     setTimeout(function(){ $('.email-error').remove(); }, 2000); // how long message shows
-                    // info just sits without changing.
+                    // info sits without changing, since likely resubmit.
             }
         },
         error: function() {
         }
     });
 }
+
