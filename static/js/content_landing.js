@@ -193,14 +193,6 @@ $(document).ready(function() {
             }, 'fast');
         });
 
-        // grab BioguideID and reqeust congress phantom email fields from server
-        var bioguideId = $(this).next().attr('id');
-
-        //get fields from db or phantom congress
-        $.getScript('/static/js/content_landing_email_action.js', function(){
-            get_congress_email_fields(bioguideId);
-        });
-
         // expand containers
         $('.rep-color-band').animate({'height':'675px'}); //220
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
@@ -262,6 +254,21 @@ $(document).ready(function() {
         // Focus on text box
         $('#text-input').focus();
         updateTextCount();
+
+
+        // grab BioguideID and reqeust congress phantom email fields from server
+        var bioguideId = $(this).next().attr('id');
+
+        //get fields from db or phantom congress
+        var bioguideArray = [];
+        $('.bioguide-mule').each(function(){
+            var bioguideId = $(this).attr('id');
+            bioguideArray.push(bioguideId);
+        });
+        console.log("bioguide:"+bioguideArray);
+        $.getScript('/static/js/content_landing_email_action.js', function(){
+            get_congress_email_fields(bioguideArray);
+        });
 
     });
 
@@ -337,7 +344,6 @@ $(document).ready(function() {
         var numItems = $('.address-item.selected').length;
         var labelText = 'tweet: ' + numItems;
         $('#tweet-button-label').text(labelText);
-
 
         // Focus on text box
         $('#text-input').focus();

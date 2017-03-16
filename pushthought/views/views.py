@@ -48,6 +48,14 @@ MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
 
 
+def get_congress_email_fields_view(request):
+    bioguideArray = json.loads(request.body)
+    field_list = get_congress_email_fields(bioguideArray)
+    return HttpResponse(json.dumps(field_list), content_type="application/json")
+
+
+
+
 def data_loop(request):
     print request.body
     result = request.body
@@ -74,16 +82,12 @@ def submit_congress_email_view(request):
             # save email, needs captcha to true, then exclude them.  or save to different table
             print "captcha_needed"
         elif status == 'error':
-            print "ERROR submit congress failed: error messag returned:" + send_response_object['message']
+            print "ERROR submit congress failed: error message returned:" + send_response_object['message']
         return HttpResponse(json.dumps(send_response_object), content_type="application/json")
     else:
         print "ERROR: submit congress failed, no object returned from phantom congress"
         return HttpResponse(json.dumps({"status":"error", "message":"timeout, no response from phantom congress"}), content_type="application/json")
         # captcha_crush(request, send_response_object)
-
-
-
-
 
 def submit_congress_captcha_view(request):
     print "submit_congress_captcha_view firing"
@@ -96,12 +100,15 @@ def submit_congress_captcha_view(request):
     return HttpResponse(json.dumps(captcha_response_object), content_type="application/json")
 
 
+
+
 def home(request):
     program_list = get_program_list()
     dataDict = {}
     dataDict['programList'] = program_list
     # print program_list
     return render(request, 'home.html', dataDict)
+
 
 def submit_email(request,email):
     # print email

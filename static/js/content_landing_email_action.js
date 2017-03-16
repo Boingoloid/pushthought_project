@@ -1,24 +1,29 @@
 
 
 
-function get_congress_email_fields(bioguideId){
-    baseURL = 'https://congressforms.eff.org';
-    endpoint = '/retrieve-form-elements';
-    console.log("get congress email field firing.");
+function get_congress_email_fields(bioguideArray){
+    console.log("get congress email field firing.:" + bioguideArray);
+    bioguideArrayString = JSON.stringify(bioguideArray);
 
-//    bioguide = '{"bio_ids": ["C000880", "A000360"]}
+    //bioguide = '{"bio_ids": ["C000880", "A000360"]}
 
     $.ajax({url: '/get_congress_email_fields/',
         type: "POST",
-        data: bioguideId,
+        data: bioguideArrayString,
         contentType: 'json;charset=UTF-8',
         cache: false,
         success: function(data) {
-
+            if(!data){
+                console.log("no data to return")
+                return false;
+            }
+            console.log("yes, data to return")
             console.log(data)
             var htmlText = [];
             htmlText = '<div style="margin-left:60px; font-size:11pt; color:gray;">required fields</div>';
-            data.forEach(function (dict, i) {
+            var requiredFields = data['required_fields']
+            console.log(requiredFields);
+            requiredFields.forEach(function (dict, i) {
                 field = dict['value'];
                 //console.log(dict['value']);
                     //if(field == 'NAME_FIRST'){
@@ -89,7 +94,6 @@ function runEmail(bioguideId){
         console.log(fieldNode);
         console.log(field);
         console.log(fieldName);
-
 
         if (fieldNode.is('input')){
             if(field.length == 0){
