@@ -11,6 +11,7 @@ from views_congress import *
 from views_parse_user import *
 from views_twtitter_auth import *
 from views_user_forms import *
+from views_email_congress_format_email_fields import *
 
 # from django.contrib.auth import logout
 
@@ -30,16 +31,17 @@ MONGODB_URI = settings.MONGODB_URI
 
 def get_congress_email_fields(bioguideArray):
     print bioguideArray
-    required_fields_objects = get_congress_required_fields_parse(bioguideArray)
-    missing_bioguides = get_missing_bioguides(bioguideArray,required_fields_objects)
+    field_list_objects = get_congress_required_fields_parse(bioguideArray)
+    missing_bioguides = get_missing_bioguides(bioguideArray,field_list_objects)
     if len(missing_bioguides)>0:
         phantom_required_objects = get_congress_email_fields_phantom(missing_bioguides)
         save_failures(missing_bioguides,phantom_required_objects)
         for item in phantom_required_objects:
-            required_fields_objects.append(item)
+            field_list_objects.append(item)
 
-    print "Finally here!, all concatenated:",required_fields_objects
-    return required_fields_objects[0]
+    print "Finally here!, all concatenated:",field_list_objects
+    master_field_list = create_master_field_list(field_list_objects)
+    return master_field_list
 
 def save_failures(missing_bioguides,phantom_required_objects):
     failures_array = []
