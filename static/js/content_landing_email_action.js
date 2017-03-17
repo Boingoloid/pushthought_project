@@ -21,32 +21,54 @@ function get_congress_email_fields(bioguideArray){
             console.log(data)
             var htmlText = [];
             htmlText = '<div style="margin-left:60px; font-size:11pt; color:gray;">required fields</div>';
-            var requiredFields = data['required_fields']
-            console.log(requiredFields);
-            requiredFields.forEach(function (dict, i) {
+            data.forEach(function (dict, i) {
                 field = dict['value'];
+                var bioguideId = dict['bioguideId'];
+                var congressLastName = $('#'+bioguideId).text();
                 //console.log(dict['value']);
                     //if(field == 'NAME_FIRST'){
                     var fieldName = field.replace('_','-');
                     //console.log('yes, first name');
                     if(fieldName == 'TOPIC'){
+                    // set up the select
                         htmlText = [htmlText,
-                        '<div class="email-form-field-container" style="display:block;">',
+                        '<div class="email-form-field-container '+ bioguideId +'" style="display:block;">',
                             '<div class="label-div">',
-                                '<label for="eform-'+ fieldName +'" style="display:inline;" class="email-form-label">'+ fieldName +':</label>',
+                                '<label for="eform-'+ fieldName +'" style="display:inline;" class="email-form-label">'+ fieldName +' - '+ congressLastName +':</label>',
                             '</div>',
                             '<div class="field-div">',
                                 '<select class="eform" id="eform-'+ fieldName +'" style="display:block;">',
                                 '<option value=0 disabled="disabled" selected="selected">select a topic</option>'
                         ].join("\n");
-                        var optionsList = dict['options_hash'];
-                        console.log(optionsList);
 
-                        for (option in optionsList){
-                            htmlText = [htmlText,
-                                    '<option value="' +option +'">'+option+'</option>',
-                            ].join("\n");
+                        // define optionList
+                        var optionsList = dict['options_hash'];
+
+                        // if array or dictionary, list the options
+                        if(Array.isArray(optionsList)){
+                            console.log(optionsList.length);
+                            for (var i = 0; i < optionsList.length; i++) {
+                                htmlText = [htmlText,
+                                        '<option value="' + optionsList[i] +'">'+optionsList[i]+'</option>'
+                                ].join("\n");
+                            }
+                        } else {
+
+                            // alphabetize keys for display
+                            keys = Object.keys(optionsList);
+                            keys.sort(function(a, b){
+                                if(a < b) return -1;
+                                if(a > b) return 1;
+                                return 0;
+                            })
+                            for (var i = 0; i < keys.length; i++) {
+                                htmlText = [htmlText,
+                                        '<option value="' + keys[i] +'">'+keys[i]+'</option>'
+                                ].join("\n");
+                            }
                         }
+
+                        // Close the select HTML object
                         htmlText = [htmlText,
                                 '</select>',
                             '</div>',
@@ -56,7 +78,7 @@ function get_congress_email_fields(bioguideArray){
                         htmlText = htmlText;
                     } else {
                         htmlText = [htmlText,
-                        '<div class="email-form-field-container" style="display:block;">',
+                        '<div class="email-form-field-container '+ bioguideId +'" style="display:block;">',
                             '<div class="label-div">',
                                 '<label for="eform-'+ fieldName +'" style="display:inline;" class="email-form-label">'+ fieldName +':</label>',
                             '</div>',
@@ -66,9 +88,65 @@ function get_congress_email_fields(bioguideArray){
                         '</div>'].join("\n");
                     }
             });
+            // add captcha container
             htmlText = [htmlText,
             '<div class="captcha-container"></div>'].join("\n");
+
+            // append the HTML
             $('.email-action-container').append(htmlText);
+
+
+            // label which emails are available on email-name
+            $('.email-name').each(function(){
+               var classText = $(this).attr("class").match(/email-name-/);
+               console.log(typeof(classText));
+               console.log(classText);
+               console.log(classText['input'].split(" "));
+               var classWithBioguide = classText['input'].split(" ")[1];
+               console.log(classWithBioguide);
+               var bioguideId = classWithBioguide.replace('email-name-','');
+               var found = false;
+               $('.email-form-field-container').each(function(){
+                    if($(this).hasClass(bioguideId)){
+                        found  = true;
+                        console.log("marking one of them as true");
+                    }
+               });
+                if (found){
+                    $('.email-name-'+bioguideId).text('click to toggle');
+                } else {
+                    $('.email-name-'+bioguideId).text('n/a');
+                }
+            });
+
+            // hide those not selected
+            // hide all, show those with correct bioguide.  IF multi- loop show all for each bioguide
+
+
+
+            $('.email-form-field-container').hide();
+            var showArray = []
+            $('.address-item-label:visible').each(function(){
+                var bioguideId = $(this).attr('id');
+                showArray.push(bioguideId);
+            });
+            console.log(showArray);
+            for (var i = 0; i < showArray.length; i++) {
+                $('.'+ showArray[i]).show();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
         },
         error: function() {
             console.log('failure in get email fields content_landing.js');

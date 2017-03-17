@@ -16,6 +16,7 @@ PARSE_SERVER_URL = 'https://ptparse.herokuapp.com/parse'
 # result = json.loads(connection.getresponse().read())
 # field_list_objects = result['results']
 
+
 def create_master_field_list(field_list_objects):
     #  Create array with fields for bioguide depending on who the field belongs to
     formatted_array = []
@@ -26,6 +27,8 @@ def create_master_field_list(field_list_objects):
                 options_length = len(field['options_hash'])
             except:
                 options_length = 0
+
+
             temp_dict = {
                 "value": field['value'],
                 "bioguideId": bioguideId,

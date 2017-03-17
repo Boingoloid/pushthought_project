@@ -194,7 +194,7 @@ $(document).ready(function() {
         });
 
         // expand containers
-        $('.rep-color-band').animate({'height':'675px'}); //220
+        $('.rep-color-band').animate({'height':'850px'}); //220
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
 
 
@@ -215,8 +215,16 @@ $(document).ready(function() {
         $('.email-name').each(function( index ){
            index = index + 1; //add 1 because this index starts at 0 as where HTML forloop it matches starts at 1
            var full_name = $(this).attr('name');
+           var classText = $(this).attr("class").match(/email-name-/);
+           var classWithBioguide = classText['input'].split(" ")[1];
+           var bioguideId = classWithBioguide.replace('email-name-','');
+
+
+
+
+
            var text = ['<div class="address-item address-node-'+ index +'">',
-                            '<p class="address-item-label address-item-label-'+index +'">'+full_name+'</p>',
+                            '<p class="address-item-label address-item-label-'+index +'" id='+bioguideId+'>'+full_name+'</p>',
                       '</div>'].join('\n');
            $(".address-container").append(text);
         });
