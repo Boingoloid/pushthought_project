@@ -219,10 +219,6 @@ $(document).ready(function() {
            var classWithBioguide = classText['input'].split(" ")[1];
            var bioguideId = classWithBioguide.replace('email-name-','');
 
-
-
-
-
            var text = ['<div class="address-item address-node-'+ index +'">',
                             '<p class="address-item-label address-item-label-'+index +'" id='+bioguideId+'>'+full_name+'</p>',
                       '</div>'].join('\n');
@@ -459,7 +455,7 @@ $(document).ready(function() {
                 $(addressPath).addClass('selected');
             }
 
-            // grapping length and value of textInput
+            // grapping length and value of textInput and placeholder
             var placeholderLength = $('.address-placeholder').text().length
             value = $('#text-input').html();
 
@@ -482,7 +478,22 @@ $(document).ready(function() {
               $('#tweet-button-label').text(labelText);
             }
 
+            // EMAIL - hide / show fields
             if($('.email-name').is(":visible")){
+
+                $('.email-form-field-container').hide();
+                var showArray = []
+                $('.address-item-label:visible').each(function(){
+                    var bioguideId = $(this).attr('id');
+                    showArray.push(bioguideId);
+                });
+                console.log(showArray);
+                for (var i = 0; i < showArray.length; i++) {
+                    $('.'+ showArray[i]).show();
+                }
+
+
+            // TWEET - adjust placeholder text
             } else{
                 // update placeholderText -> based on # of addresses selected
                 if (numItems == 0){
