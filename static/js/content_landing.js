@@ -149,8 +149,9 @@ $(document).ready(function() {
             $('#zip-loader').show();
             console.log('valid zip');
             console.log('get_congres on zip:' + zip);
-            get_congress(zip);
-
+            $.getScript('/static/js/content_landing_get_congress.js', function(){
+                get_congress(zip);
+            });
         } else{
             console.log('NOT a valid zip');
             alert('Not a valid zip code.  Please check and try again.')
@@ -340,10 +341,9 @@ $(document).ready(function() {
            $('.address-container').append(text);
         });
 
-        // select Container and Address according to button clicked
-        $(this).parent().parent('.action-panel-container').addClass('selected');
-        var addressPath = String(".address-node-" + i);
-        $(addressPath).toggleClass("selected");
+        // select address according to button clicked
+        console.log(".address-node-" + i);
+        $(".address-node-" + i).toggleClass("selected");
 
 
         // insert address placeholder in text-input

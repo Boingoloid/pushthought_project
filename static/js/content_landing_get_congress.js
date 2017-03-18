@@ -54,7 +54,7 @@ function get_congress(zip){
                     ].join("\n");
                 } else {
                    twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'">@'+item['twitter_id']+'</div>',
-                        '<img class="twitter-icon" src=\'/static/img/twitter-icon.png\' width="42" height="42">'
+                        '<img class="twitter-icon" id='+i+' src=\'/static/img/twitter-icon.png\' width="42" height="42">'
                         ].join("\n");
                 }
 
