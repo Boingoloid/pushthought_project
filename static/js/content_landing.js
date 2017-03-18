@@ -98,6 +98,8 @@ $(document).ready(function() {
         // close action area if open
         $('#close-button').trigger('click');
         $('.zip-input').focus();
+//        $('.submit-zip').show();
+
     });
 
 
@@ -106,6 +108,9 @@ $(document).ready(function() {
         $('.zip-input').focus();
     });
 
+    $('.zip-input').focusin(function(){
+        $('.submit-zip').show();
+    });
 
 
     // show/hide zip submit button if focus on zip-input
