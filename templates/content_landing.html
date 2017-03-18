@@ -114,15 +114,9 @@
                                     </div>
                                 {% endif %}
                                 <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
-                                {% if item.contact_form %}
-                                    <div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }}">see below</div>
-                                    <img class="email-icon" id="email-icon-{{forloop.counter}}" name="{{ item.full_name }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
-                                    <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}">{{ item.last_name }}</div>
-                                {% else %}
-                                    <div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }}">n/a</div>
-                                    <img class="email-icon-gray" id="email-icon-{{forloop.counter}}" name="{{item.full_name}}" src="{% static 'img/email-icon-gray.png' %}" width="36" height="36">
-                                    <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}">{{ item.last_name }}</div>
-                                {% endif %}
+                                <div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }}">click to toggle</div>
+                                <img class="email-icon" id="email-icon-{{forloop.counter}}" name="{{ item.full_name }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+                                <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}">{{ item.last_name }}</div>
                             </div>
                         </div>
                     </div>

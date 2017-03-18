@@ -48,15 +48,15 @@ def save_failures(missing_bioguides,phantom_required_objects):
 
     for item in missing_bioguides:
         found = False
-        for item2 in phantom_required_objects['results']:
-            print item2
-            if item == item2['bioguideId']:
+        for phantom_object in phantom_required_objects:
+            print phantom_object
+            if item == phantom_object[0]['bioguideId']:
                 found = True
         if not found:
             failures_array.append(item)
     print "not in phantom_array", failures_array
 
-    for item2 in failures_array:
+    for phantom_object in failures_array:
         connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
         connection.connect()
         connection.request('POST', '/parse/classes/CongressEmailFieldsUpdateLog',

@@ -115,7 +115,7 @@ function get_congress_email_fields(bioguideArray){
                 if (found){
                     $('.email-name-'+bioguideId).text('click to toggle');
                 } else {
-                    $('.email-name-'+bioguideId).text('n/a');
+                    $('.email-name-'+bioguideId).text('not integrated site link');
                 }
             });
 

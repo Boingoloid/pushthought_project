@@ -97,7 +97,10 @@ $(document).ready(function() {
         $('.zip-indicator').hide();
         // close action area if open
         $('#close-button').trigger('click');
+        $('.zip-input').focus();
     });
+
+
     $('.location-icon').click(function(){
         alert("Still in Development: Our location finder is being built, please enter you zip using the box below.  We'll move the cursor there for you :)");
         $('.zip-input').focus();
