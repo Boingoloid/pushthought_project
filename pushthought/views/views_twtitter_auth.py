@@ -5,6 +5,7 @@ from views_alerts import *
 from views_get_data import *
 from views_user_forms import *
 import json,httplib
+import time
 
 
 
@@ -97,6 +98,7 @@ def verify_twitter(request):
                     duplicateArray.append(item)
                 else:
                     otherErrorArray.append(item)
+                time.sleep(2)  # delays for 2 seconds
 
         # redirect to last landing page if programId
         try:
@@ -189,7 +191,7 @@ def verify_catch(request):
                 duplicateArray.append(str(item))
             else:
                 otherErrorArray.append(item)
-
+            time.sleep(2)  # delays for 2 seconds
 
     try:
         programId = request.session['programId']
