@@ -251,13 +251,13 @@ hr.small {
 }
 
 .intro-header-image {
-  box-shadow: inset 0px 0px 125px 140px rgba(0,0,0,0.8);
-  background-image: url('/../static/img/doc-here7.png');
+ /* box-shadow: inset 0px 0px 125px 140px rgba(0,0,0,0.8);*/
+  /*background-image: url('/../static/img/doc-here7.png');*/
 }
 
 @media only screen and (min-width: 968px) {
   .intro-header-image {
-    background-image: url('/../static/img/doc-here8.png');
+    /*background-image: url('/../static/img/doc-here8.png');*/
   }
 }
 
@@ -517,14 +517,19 @@ form .row:first-child .floating-label-form-group {
 /* Browse button*/
 .browse-btn {
   margin: 0 auto;
+  margin-top:100px;
   display: block;
-  width: 250px;
+  width: 300px;
   font-size: 24px;
+  background: rgba(0,0,0,0);
+  color: #0085A1;
+  border:3px solid;
 }
 
 @media only screen and (min-width: 600px) {
   .browse-btn {
     margin: 0 auto;
+    margin-top:100px;
     display:block;
     width:400px;
     font-size: 26px;
@@ -798,7 +803,7 @@ table {
 .how-container h5,
 .how-container h6,
 .how-container p {
-  color:black;
+  color:white;
 }
 
 .how-container{
@@ -820,6 +825,13 @@ table {
   /*box-shadow: 0 1px 1px rgba(0, 0, 0, .05);*/
 }
 
+.panel-default{
+  background-color:rgba(0,0,0,0.0);
+}
+
+.panel-default > .panel-heading{
+  background-color:rgba(0,0,0,0.0);
+}
 
 .panel-heading-crane{
   padding: 0px;
@@ -846,7 +858,7 @@ table {
 
   .img-content-logo2{
     display: block;
-    max-width: 70%;
+    /*max-width: 70%;*/
   }
 }
 

@@ -9,7 +9,9 @@
 
 
 $(document).ready(function() {
-    setTimeout(function(){ $('#email-icon-3').trigger('click'); }, 400);
+
+//    // auto trigger email icon
+//    setTimeout(function(){ $('#email-icon-3').trigger('click'); }, 400);
 
     // If alerts, scroll doewn and show them
     var data = $('#alertList').data('alertlist');
