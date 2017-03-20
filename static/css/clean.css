@@ -843,6 +843,12 @@ table {
   padding: 0px;
 }
 
+@media only screen and (max-width: 992px) {
+  .panel-default{
+    margin-bottom:50px;
+  }
+
+}
 
 .img-content-logo1{
   display: block;
@@ -850,12 +856,12 @@ table {
 }
 
 .img-content-logo2{
-  display: none;
+  display: block;
 }
 
 @media only screen and (min-width: 992px) {
   .img-content-logo1{
-    display: none;
+    display: block;
   }
 
   .img-content-logo2{
