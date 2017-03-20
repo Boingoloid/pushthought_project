@@ -6,7 +6,7 @@
 
 
 body {
-  font-family: 'Lora', 'Times New Roman', serif;
+  font-family: 'Helvetica Neue','Lora', 'Times New Roman', serif;
   font-size: 20px;
   background:linear-gradient(#092551,#000b1e);
   color:white;
@@ -21,7 +21,7 @@ body h4,
 body h5,
 body h6,
 body p {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', 'Open Sans', Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: white;
   margin-top: 10px;

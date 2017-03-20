@@ -1008,6 +1008,8 @@ text-tweet-block{
   background:rgba(0,0,0,0);
 }
 
+
+
 .tweet-container{
   cursor:default;
   display:flex;
@@ -1023,6 +1025,7 @@ text-tweet-block{
 }
 
 .tweet-item{
+  position: relative;
   padding: 5px;
   padding-left:10px;
   padding-right:10px;
@@ -1036,6 +1039,21 @@ text-tweet-block{
   border: 2px inset #092551;
   /*background: linear-gradient(to right, #D0D0D0,#D8D8D8);*/
   transform-origin: 0% 50%;
+}
+
+#copied-to-clipboard{
+    position: absolute;
+    top:-2;
+    right:0;
+    width:100px;
+    height:0px;
+    background:green;
+    color: black;
+    font-size:12pt;
+    text-align:center;
+    border-raduis:10px;
+    border:2px solid black;
+    display: none;
 }
 
 .tweet-name {

@@ -119,10 +119,8 @@ $(document).ready(function() {
     $(document).mouseup(function(){
         if ($('.zip-input').is(":focus")){
             $('.submit-zip').show();
-            console.log("show");
         } else {
             $('.submit-zip').hide();
-            console.log("hide");
         }
     });
 
@@ -613,7 +611,7 @@ $(document).ready(function() {
 
     $('#tweet-button').on('click',function(event) {
         if($('.email-name').is(":visible")){
-            var bioguideId = 'F000062';
+            var bioguideId = 'F';
             console.log("tweet button initializing email send");
 //            $.getScript('/static/js/content_landing_email_action.js'), function (){
                 runEmail(bioguideId);
@@ -665,7 +663,52 @@ $(document).ready(function() {
         });
     });
 
+
+
+    $('.tweet-container').on("click", ".tweet-item", function(e) {
+
+        // Function: Select text of tweet
+        function SelectText(element) {
+            var doc = document;
+            var text = element[0];
+            var range;
+            var selection;
+            ;
+            if (doc.body.createTextRange) {
+                range = document.body.createTextRange();
+                range.moveToElementText(text);
+                range.select();
+            } else if (window.getSelection) {
+                selection = window.getSelection();
+                range = document.createRange();
+                range.selectNodeContents(text);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        }
+
+        // Copy tweet text to Clipboard
+        var element = $(this).contents('.tweet').contents().filter(function () { return this.nodeType === 3; });
+        SelectText(element);
+        document.execCommand("copy");
+
+        // Show Copy to Clipboard indicator
+        var element = $(this).contents('#copied-to-clipboard')
+        element.show();
+        element.animate({"height":"47"},400,function(){
+            setTimeout(function(){
+                element.animate({"height":"0"},400,function(){
+                    element.hide();
+                });
+             }, 400);
+        });
+    });
 });
+
+
+
+
+
 
 //var data = $('#alertList').data('alertlist');
 
