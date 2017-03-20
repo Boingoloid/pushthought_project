@@ -329,8 +329,9 @@ $(document).ready(function() {
         $('.email-button-label').hide();
         $('.img-send-email-icon').hide();
 
-        // toggle selection of activity container
-        $('.action-panel-contianer#'+i).toggleClass('selected');  //WHY THE FUCK IS THIS CONTIANER, I DONT GET IT!!!
+
+        // select or toggle selection of activity container
+        $('.action-panel-container#'+i).addClass("selected");
 
         // create address items above text input
         $('.twitter-name').each(function( index ){
