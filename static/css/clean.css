@@ -138,7 +138,7 @@ hr.small {
   letter-spacing: 1px;
 }
 .nav{
-  margin-bottom: 0px;
+  margin-bottom: 15px;
 }
 
 
@@ -150,11 +150,10 @@ hr.small {
   color: #88c0d2;
 }
 
-.navbar-collapse{
-  margin-top: 10px;
+.navbar-collapse {
+  background: black;
+
 }
-
-
 
 @media only screen and (min-width: 768px) {
 
