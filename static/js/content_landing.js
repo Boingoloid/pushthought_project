@@ -100,7 +100,7 @@ $(document).ready(function() {
         // close action area if open
         $('#close-button').trigger('click');
         $('.zip-input').focus();
-//        $('.submit-zip').show();
+        $('.submit-zip').show();
 
     });
 
@@ -110,19 +110,19 @@ $(document).ready(function() {
         $('.zip-input').focus();
     });
 
-    $('.zip-input').focusin(function(){
-        $('.submit-zip').show();
-    });
+//    $('.zip-input').focusin(function(){
+//        $('.submit-zip').show();
+//    });
 
 
     // show/hide zip submit button if focus on zip-input
     $(document).mouseup(function(){
-        if ($('.zip-input') == "focused"){
+        if ($('.zip-input').is(":focus")){
             $('.submit-zip').show();
-        } else{
-            if($(".submit-zip:visible").length==1){
-                $(".submit-zip").hide(); // Toggle
-            }
+            console.log("show");
+        } else {
+            $('.submit-zip').hide();
+            console.log("hide");
         }
     });
 
