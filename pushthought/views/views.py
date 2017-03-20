@@ -228,7 +228,11 @@ def content_landing(request, segment_id):
     try:
         zip = current_user['zip']
     except:
-        zip = None
+        try:
+            zip = request.session['zip']
+        except:
+            zip = None
+
 
     if zip:
         hasCongressData = True

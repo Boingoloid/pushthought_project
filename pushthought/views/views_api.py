@@ -4,7 +4,6 @@ import json
 
 from django.conf import settings
 
-
 def api(request):
     obj = Program.objects.all()
     newObject = json.dumps(obj)
