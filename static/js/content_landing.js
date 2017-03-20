@@ -168,7 +168,8 @@ $(document).ready(function() {
        //var repIndex = idText.replace('program-item','');
        //var programObjectIdElementName = "#program-item-objectId" + repIndex;
        //var programObjectId = $(programObjectIdElementName).text();
-       window.location.href="/leaving";
+//       window.location.href="/leaving";
+        alert("Watch function not in place yet, working on it. thanks :)");
     });
 
 

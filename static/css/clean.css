@@ -827,10 +827,12 @@ table {
 
 .panel-default{
   background-color:rgba(0,0,0,0.0);
+  min-width:270px;
 }
 
 .panel-default > .panel-heading{
   background-color:rgba(0,0,0,0.0);
+  border: none;
 }
 
 .panel-heading-crane{
