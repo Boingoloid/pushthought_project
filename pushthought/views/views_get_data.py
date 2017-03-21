@@ -353,7 +353,7 @@ def get_petition_url(action_list):
 
 
 #helper
-def save_tweet_action(request, tweet_text, current_user,twitter_user,target_bioguide): #helper
+def save_tweet_action(request, tweet_text, current_user,twitter_user,target_address,target_bioguide):
     connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connectionTweet.connect()
     connectionTweet.request('POST', '/parse/classes/SentMessages', json.dumps({
@@ -365,7 +365,8 @@ def save_tweet_action(request, tweet_text, current_user,twitter_user,target_biog
         "twitterUserName": str(current_user['twitterScreenName']),
         "programObjectId" : request.session['programId'],
         "segmentObjectId" : request.session['segmentId'],
-        "targetBioguideId":target_bioguide
+        "targetBioguideId":target_bioguide,
+        "targetAddress": target_address
         }), {
         "X-Parse-Application-Id": PARSE_APP_ID,
         "X-Parse-REST-API-Key": PARSE_REST_KEY,

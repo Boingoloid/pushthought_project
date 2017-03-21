@@ -107,8 +107,6 @@ def update_user_with_twitter_profile_data(request, current_user,twitter_user,acc
     data = twitter_user.__dict__
     twitter_user_dictionary = data
     # print twitter_user_dictionary
-    print type(str(access_key_token))
-    print type(access_key_token_secret)
 
     authDic = json.dumps({
         "sessionToken": request.session['sessionToken'],

@@ -51,12 +51,7 @@ a {
   margin: auto;
 }
 
-.top-logo{
-  padding: 7px;
-  padding-top:3px;
-  padding-bottom:3px;
-  margin-bottom: -60px;
-}
+
 
 footer a{
   color: #eeeeee;
@@ -109,7 +104,6 @@ hr.small {
 }
 
 .nav-container{
-  height: 50px;
   margin-bottom:0px;
 }
 
@@ -136,6 +130,8 @@ hr.small {
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 1px;
+  vertical-align:middle;
+  height: 50px;
 }
 .nav{
   margin-bottom: 15px;
@@ -143,15 +139,46 @@ hr.small {
 
 
 .navbar-brand{
-  margin-top: 10px;
+
 }
 
 .navbar-brand a{
   color: #88c0d2;
 }
 
+.top-logo-container{
+  padding: 0px;
+  padding-top:10px;
+  padding-bottom:0px;
+  margin: auto;
+  vertical-align: middle;
+  align: center;
+  width: 40px;
+  cursor: pointer;
+  margin-bottom: -50px;
+}
+
+.logo-link{
+  cursor:pointer;
+}
+
+.logo-image{
+  vertical-align:middle;
+  margin: auto;
+  max-width:50px;
+  cursor: pointer;
+}
+
+img.img-free.logo-image{
+  cursor:pointer;
+}
+
 .navbar-collapse {
-  background: black;
+  background:radial-gradient(#092551,#000b1e);
+  background: rgba(0,0,0,0);
+  margin-top: -65px;
+  margin-bottom: 0px;
+  height: 65px;
 
 }
 
@@ -176,6 +203,7 @@ hr.small {
     color: #88c0d2;   /* change this for the links in nav at the top right!!!! */
     padding: 20px;
     padding-bottom: 0px;
+    vertical-align:middle;
   }
   .navbar-custom .nav li a:hover,
   .navbar-custom .nav li a:focus {
@@ -210,7 +238,7 @@ hr.small {
     color: white;
   }
   .navbar-brand a {
-    color: black;
+    /*color: black;*/
   }
   .navbar-custom.is-fixed .navbar-brand:hover,
   .navbar-custom.is-fixed .navbar-brand:focus {

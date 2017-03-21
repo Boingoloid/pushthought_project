@@ -3,7 +3,7 @@
 
 
 
-function runTweet(){
+function runTweet(windowURL){
     // get message length and validate length
     var tweet_text = $('#text-input').text();
     if(tweet_text.length < 1){
@@ -20,15 +20,33 @@ function runTweet(){
         }
         showLoading(index);
 
-        twitterName = $(this).contents().contents('.twitter-name').text();
         addressArray.push(twitterName);
      });
+
+
+     // Get program and segment Id
+     var programId = $('#programId').text();
+     var segmentId = $('#segmentId').text();
+
+    // Build Address Array
+    var addressArray = [];
+    $('.address-item.selected').each(function(){
+        var address = $(this).text();
+        addressArray.push(address);
+        var bioguideId = $(this).attr('name');
+        biougideArray.push(bioguideId);
+    });
+    console.log("address array", addressArray);
+    console.log("bioguide array", bioguideArray);
+
+
     // create dataSet string
     var dataSet = JSON.stringify({
             "tweet_text": tweet_text,
-            "segment_id": segment_id,
-            "program_id": program_id,
-            "last_menu_url": window_url,
+            "segment_id": segmentId,
+            "program_id": programId,
+            "last_menu_url": windowURL,
+            "bioguide_array" : bioguideArray,
             "address_array" : addressArray,
     });
     console.log(dataSet);

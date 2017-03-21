@@ -230,7 +230,7 @@ h2{
 }
 
 .submit-zip{
-    position: absolute;
+    position: absolute;0
     top: 115;
     left: 213;
     height: 30px;

@@ -133,9 +133,6 @@ def get_missing_bioguides(bioguideArray,required_fields_objects):
 
 
 def get_congress_required_fields_parse(bioguideArray):
-    # print "bioguideArray at start of parse fetch", bioguideArray
-    # print type(bioguideArray)
-    # bioguideArrayJson = json.loads(bioguideArray)
 
     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connection.connect()
@@ -186,8 +183,6 @@ def save_fields(required_fields_object):
             if field['value'] == 'NAME_PREFIX':
                 optionsDict = field['options_hash']
                 print "TTTTTTTTTTTTTTTT: ", type(optionsDict)
-                # typeString = str(type(optionsDict))
-                # print typeString
                 if isinstance(optionsDict,dict):
                     print "yes, dictionary"
                     # optionsDictNew = {}
@@ -206,16 +201,6 @@ def save_fields(required_fields_object):
                 else:
                     print "Nothing is triggering"
                     del field
-                    # field['option_hash'] = optionsListNew
-                # for it in optionDict:
-                #     new = it.replace('.', '')
-                #     it = new
-                #     print "item:", type(item)
-                #     for i in item:
-                #         if i == '.':
-                #             print "YES YES YES"
-                #             i = ''
-                #         print "new item:", i
             elif field['value'] == 'TOPIC':
                 optionsDict = field['options_hash']
                 try:

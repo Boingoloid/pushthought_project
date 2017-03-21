@@ -10,6 +10,8 @@
 
 $(document).ready(function() {
 
+    var windowURL = window.location.href;
+
 //    // auto trigger email icon
 //    setTimeout(function(){ $('#email-icon-3').trigger('click'); }, 400);
 
@@ -20,7 +22,7 @@ $(document).ready(function() {
         $('html, body').animate({
                 scrollTop: headerAllowance + 'px'
             }, 'fast');
-        console.log(data);
+        console.log("alertList data" + data);
         showSuccess(data[0], data[1]);
     }
 
@@ -162,11 +164,6 @@ $(document).ready(function() {
 
     // Watch button
     $('.watch-button').click( function() {
-       //var idText = $(this).attr('id');
-       //var repIndex = idText.replace('program-item','');
-       //var programObjectIdElementName = "#program-item-objectId" + repIndex;
-       //var programObjectId = $(programObjectIdElementName).text();
-//       window.location.href="/leaving";
         alert("Watch function not in place yet, working on it. thanks :)");
     });
 
@@ -618,7 +615,7 @@ $(document).ready(function() {
                 runEmail(bioguideId);
 //            };
         } else {
-            runTweet();
+            runTweet(windowURL);
         }
     });
 
