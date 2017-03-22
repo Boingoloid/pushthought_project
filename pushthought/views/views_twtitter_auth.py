@@ -7,8 +7,6 @@ from views_user_forms import *
 import json,httplib
 import time
 
-
-
 def verify_twitter(request):
     print "verify twitter running"
     # print "send contact function!"
@@ -78,6 +76,9 @@ def verify_twitter(request):
         duplicateArray = []
         otherErrorArray = []
         overMax = False
+        success = False
+        duplicate = False
+        other = False
         address_array = request.session['addressArray']
         bioguide_array = request.session['bioguideArray']
 
@@ -85,6 +86,17 @@ def verify_twitter(request):
             target_address = None
             target_bioguide = None
             result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret, current_user, twitter_user, target_address, target_bioguide)
+
+            if result == True:
+                success = True
+            elif result == 187:
+                duplicate = True
+            elif result == 186:
+                overMax = True
+            else:
+                other = True
+
+
         else:
             i = 0
             a_array = [x.encode('UTF8') for x in address_array]
@@ -117,7 +129,7 @@ def verify_twitter(request):
         except:
             segmentId = None
         if segmentId:
-            return HttpResponse(json.dumps({'send_response': successArray,'successArray': successArray,'duplicateArray': duplicateArray, 'otherErrorArray': otherErrorArray,'overMax':overMax}), content_type="application/json")
+            return HttpResponse(json.dumps({'send_response': successArray,'successArray': successArray,'duplicateArray': duplicateArray, 'otherErrorArray': otherErrorArray,'overMax':overMax,'success':success,'duplicate':duplicate,'other':other}), content_type="application/json")
         else:
             redirectURL = "/browse/"
             print "redirect to browse no segmentId", redirectURL
@@ -173,14 +185,15 @@ def verify_catch(request):
     # save twitter profile data to current_user
     update_user_with_twitter_profile_data(request, current_user,twitter_user,access_key_token,access_key_token_secret)
 
-
-
     print "addressArray length", len(request.session['addressArray'])
 
     successArray = []
     duplicateArray = []
     otherErrorArray = []
     overMax = False
+    success = False
+    duplicate = False
+    other = False
     address_array = request.session['addressArray']
     bioguide_array = request.session['bioguideArray']
     tweet_text = request.session['tweetText']
@@ -189,12 +202,20 @@ def verify_catch(request):
         target_address = None
         target_bioguide = None
         result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret, current_user, twitter_user, target_address, target_bioguide)
+        if result == True:
+            success = True
+        elif result == 187:
+            duplicate = True
+        elif result == 186:
+            overMax = True
+        else:
+            other = True
     else:
         i = 0
         a_array = [x.encode('UTF8') for x in address_array]
         b_array = []
         for item in a_array:
-            new_item = item.replace('\n', '');
+            new_item = item.replace('\n', '')
             b_array.append(new_item)
         for itemb in b_array:
             target_address = itemb
@@ -213,19 +234,19 @@ def verify_catch(request):
                 otherErrorArray.append(item)
             i = i + 1
             time.sleep(2)  # delays for 2 seconds
-
     try:
         segmentId = request.session['programId']
     except:
         programId = None
     if segmentId:
-        alertList = [successArray, duplicateArray, otherErrorArray, overMax]
+        alertList = [successArray, duplicateArray, otherErrorArray, overMax, success, duplicate, other]
         alertList = json.dumps(alertList)
         print "ALERT LIST:", alertList
         # print type(alertList)
 
         # AlertList into session
         request.session['alertList'] = alertList
+        print
         request.session.modified = True
         redirectURL = "/content_landing/" + segmentId
         print "redirecting to content_landing: ", redirectURL

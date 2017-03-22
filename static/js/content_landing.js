@@ -18,14 +18,55 @@ $(document).ready(function() {
     // If alerts, scroll down and show them
     var data = $('#alertList').data('alertlist');
     if(data){
-        var headerAllowance = $('.seen-it-container').offset().top - 20;
-        $('html, body').animate({
-                scrollTop: headerAllowance + 'px'
-            }, 'fast');
-        console.log("alertList data" + data);
-        showSuccess(data[0], data[1]);
+        console.log("hello data");
+    } else {
+        console.log("no data");
     }
 
+//    alertArray = JSON.parse(data);
+    alertArray = [];
+
+    for (var i = 0; i < data.length; i++) {
+        alertArray.push(data[i]);
+    }
+
+    console.log("alertList data:" + data);
+    console.log(typeof(data));
+    console.log("alertArray data:" + alertArray);
+    console.log(typeof(alertArray));
+    console.log(alertArray.length);
+    console.log(alertArray[0]);
+    console.log(alertArray[1]);
+    console.log(alertArray[2]);
+    console.log(alertArray[3]);
+    console.log(alertArray[4]);
+    console.log(alertArray[5]);
+    console.log(alertArray[6]);
+    console.log(alertArray[7]);
+
+    // scroll down
+    var headerAllowance = $('.seen-it-container').offset().top - 20;
+    $('html, body').animate({
+            scrollTop: headerAllowance + 'px'
+        }, 'fast');
+
+
+    // Alerts if @symbols in tweet and went through verify catch redirect
+    if (alertArray[0]){
+        showSuccess(alertArray[0], alertArray[1]);
+    }
+
+    // Alerts if no @ message and went through verify-catch redirect
+    if(alertArray[3] == true){
+        alert("Tweet is over 140 characters. Shorten a few characters and try again.");
+    } else if(alertArray[4] == true){
+        alert("Your tweet has been sent.");
+        console.log("tweet sent");
+    } else if(alertArray[5] == true){
+        alert("Message is duplicate on your twitter account.  Please alter your message and try again.");
+    } else if(alertArray[6]){
+        alert("There has been an error with twitter.  Please check message and try again.  If it persists, notify Push Thought");
+    }
 
     // CSRF settings
     function csrfSafeMethod(method) {
