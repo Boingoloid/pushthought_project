@@ -107,7 +107,7 @@
                                     <div class="twitter-name" id="twitter-name-{{forloop.counter}}" name="{{ item.bioguide_id }}">@{{item.twitter_id}}</div>
                                     <img class="twitter-icon" id="{{forloop.counter}}" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
                                 {% else %}
-                                    <div class="twitter-name" id="twitter-name-{{forloop.counter}}">n/a</div>
+                                    <div class="twitter-name" id="twitter-name-{{forloop.counter}}" name="{{ item.bioguide_id }}">n/a</div>
                                     <img class="twitter-icon-empty" src="{% static 'img/twitter-icon-gray.png' %}" width="42" height="42">
                                     <div class="warning-box-tweet-icon">
                                         <p class="warning-text">twitter address n/a</p>

@@ -46,14 +46,14 @@ function get_congress(zip){
                 // twitterId check
                 var twitterIdString;
                 if(!item['twitter_id']){
-                   twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'">n/a</div>',
+                   twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name="'+item['bioguide_id']+'">n/a</div>',
                     '<img class="twitter-icon-empty" src=\'/static/img/twitter-icon-gray.png\' width="42" height="42">',
                     '<div class="warning-box-tweet-icon">',
                         '<p class="warning-text">twitter address n/a</p>',
                     '</div>'
                     ].join("\n");
                 } else {
-                   twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'">@'+item['twitter_id']+'</div>',
+                   twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name='+ item['bioguide_id'] +'>@'+item['twitter_id']+'</div>',
                         '<img class="twitter-icon" id='+i+' src=\'/static/img/twitter-icon.png\' width="42" height="42">'
                         ].join("\n");
                 }
