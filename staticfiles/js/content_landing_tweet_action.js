@@ -71,6 +71,16 @@ function runTweet(windowURL){
                 hideLoading();
                 $('#text-input').focus();
                 setEndOfContenteditable($('#text-input'));
+            }else if(data['success']){
+                hideLoading();
+                alert("Your tweet has been sent.");
+                $('.close').trigger('click');
+            }else if(data['duplicate']){
+                hideLoading();
+                alert("Message is duplicate on your twitter account.  Please alter your message and try again.");
+            }else if(data['other']){
+                hideLoading();
+                alert("There has been an error with twitter.  Please check message and try again.  If it persists, notify Push Thought");
             } else {
                 var len = data['successArray'].length;
                 if(data['successArray'].length !=0){

@@ -30,20 +30,6 @@ $(document).ready(function() {
         alertArray.push(data[i]);
     }
 
-    console.log("alertList data:" + data);
-    console.log(typeof(data));
-    console.log("alertArray data:" + alertArray);
-    console.log(typeof(alertArray));
-    console.log(alertArray.length);
-    console.log(alertArray[0]);
-    console.log(alertArray[1]);
-    console.log(alertArray[2]);
-    console.log(alertArray[3]);
-    console.log(alertArray[4]);
-    console.log(alertArray[5]);
-    console.log(alertArray[6]);
-    console.log(alertArray[7]);
-
     // scroll down
     var headerAllowance = $('.seen-it-container').offset().top - 20;
     $('html, body').animate({
@@ -61,7 +47,6 @@ $(document).ready(function() {
         alert("Tweet is over 140 characters. Shorten a few characters and try again.");
     } else if(alertArray[4] == true){
         alert("Your tweet has been sent.");
-        console.log("tweet sent");
     } else if(alertArray[5] == true){
         alert("Message is duplicate on your twitter account.  Please alter your message and try again.");
     } else if(alertArray[6]){
