@@ -10,7 +10,8 @@ function runTweet(windowURL){
         alert ("Please type a message first");
         return false;
     }
-    addressArray = [];
+
+    // Show loaders
     $('.action-panel-container.selected').each(function() {
         index = $(this).attr('id');
         function showLoading(index){
@@ -19,8 +20,6 @@ function runTweet(windowURL){
             $('.tweet-loader').show();
         }
         showLoading(index);
-
-        addressArray.push(twitterName);
      });
 
 
@@ -28,13 +27,16 @@ function runTweet(windowURL){
      var programId = $('#programId').text();
      var segmentId = $('#segmentId').text();
 
-    // Build Address Array
+    // Build Address and Bioguide Array
     var addressArray = [];
+    var bioguideArray = [];
     $('.address-item.selected').each(function(){
         var address = $(this).text();
+        address = address.replace('\n','');
         addressArray.push(address);
         var bioguideId = $(this).attr('name');
-        biougideArray.push(bioguideId);
+        console.log(bioguideId);
+        bioguideArray.push(bioguideId);
     });
     console.log("address array", addressArray);
     console.log("bioguide array", bioguideArray);
@@ -64,10 +66,13 @@ function runTweet(windowURL){
 
             if(data['redirectURL']){
                  window.location.href = data['redirectURL'];
+            }else if(data['overMax']){
+                alert("Tweet is over 140 characters. Shorten a few characters and try again.");
+                hideLoading();
+                $('#text-input').focus();
+                setEndOfContenteditable($('#text-input'));
             } else {
                 var len = data['successArray'].length;
-//                    console.log(data['successArray'].length);
-//                    console.log(data['duplicateArray'].length);
                 if(data['successArray'].length !=0){
                     successArray = data['successArray'];
                 } else {
@@ -80,10 +85,6 @@ function runTweet(windowURL){
                     duplicateArray = [];
                 }
 
-                function hideLoading(){
-                    $('.loader').hide();
-                    $('.tweet-loader').hide();
-                }
 
                 if (successArray.length > 0){
                     $.when(hideLoading()).then(showSuccess(successArray, duplicateArray)).then($('#close-button').trigger('click'));
@@ -99,6 +100,44 @@ function runTweet(windowURL){
             console.log('fail :)');
         }
     });
+}
+
+// hide loading
+function hideLoading(){
+    $('.loader').hide();
+    $('.tweet-loader').hide();
+}
+
+function moveCursorToEnd(element){
+    element.focus();
+    var val = element.html();
+    console.log(val);
+    element.html('');
+    console.log(element.html());
+    element.html(val);
+    console.log(element.html());
+}
+
+
+function setEndOfContenteditable(contentEditableElement)
+{
+    var range,selection;
+    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
+    {
+        range = document.createRange();//Create a range (a range is a like the selection but invisible)
+        range.selectNodeContents(contentEditableElement[0]);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        selection = window.getSelection();//get the selection object (allows you to change selection)
+        selection.removeAllRanges();//remove any selections already made
+        selection.addRange(range);//make the range you have just created the visible selection
+    }
+    else if(document.selection)//IE 8 and lower
+    {
+        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
+        range.moveToElementText(contentEditableElement[0]);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        range.select();//Select the range (make it the visible selection
+    }
 }
 
 // loop through and find longest address

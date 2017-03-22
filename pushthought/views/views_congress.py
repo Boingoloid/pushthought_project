@@ -190,19 +190,14 @@ def add_prior_activity_to_congress_data(congress_data,message_list):
             twitter_id = None
 
         if twitter_id:
-            twitter_id = item['twitter_id']
             for message in message_list:
                 try:
                     target_address = message['targetAddress']
                 except:
                     target_address = None
                 if(target_address):
-                    # print "twitter_id", twitter_id
-                    # print "target_address", target_address
                     if target_address == twitter_id:
                         item['userTouched'] = 1
-                        # print "YES! user touched!!! " , twitter_id
-                        # print congress_data
     return congress_data
 
 def get_congress_stats_for_program(segment_id):

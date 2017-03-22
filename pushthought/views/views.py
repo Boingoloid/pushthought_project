@@ -244,7 +244,7 @@ def content_landing(request, segment_id):
         add_congress_stats(congress_data, segment_congress_stats)
         if message_list:
             congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
-            print message_list
+            # print message_list
     else:
         hasCongressData = False
         congress_data = [

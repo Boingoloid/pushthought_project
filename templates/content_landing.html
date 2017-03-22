@@ -104,7 +104,7 @@
                         <div class="action-panel-container" id="{{forloop.counter}}">
                             <div class="action-panel">
                                 {% if item.twitter_id %}
-                                    <div class="twitter-name" id="twitter-name-{{forloop.counter}}">@{{item.twitter_id}}</div>
+                                    <div class="twitter-name" id="twitter-name-{{forloop.counter}}" name="{{ item.bioguide_id }}">@{{item.twitter_id}}</div>
                                     <img class="twitter-icon" id="{{forloop.counter}}" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
                                 {% else %}
                                     <div class="twitter-name" id="twitter-name-{{forloop.counter}}">n/a</div>

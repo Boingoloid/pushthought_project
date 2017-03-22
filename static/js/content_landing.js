@@ -15,7 +15,7 @@ $(document).ready(function() {
 //    // auto trigger email icon
 //    setTimeout(function(){ $('#email-icon-3').trigger('click'); }, 400);
 
-    // If alerts, scroll doewn and show them
+    // If alerts, scroll down and show them
     var data = $('#alertList').data('alertlist');
     if(data){
         var headerAllowance = $('.seen-it-container').offset().top - 20;
@@ -264,6 +264,7 @@ $(document).ready(function() {
 
         // Focus on text box
         $('#text-input').focus();
+        setEndOfContenteditable($('#text-input'));
         updateTextCount();
 
 
@@ -334,7 +335,9 @@ $(document).ready(function() {
         $('.twitter-name').each(function( index ){
            index = index + 1; //add 1 because this index starts at 0 as where HTML forloop it matches starts at 1
            var address = $(this).text();
-           var text = ['<div class="address-item address-node-'+ index +'">',
+           var bioguideId = $(this).attr('name');
+           console.log(bioguideId);
+           var text = ['<div class="address-item address-node-'+ index +'" name="'+ bioguideId +'">',
                             '<p class="address-item-label address-item-label-'+index +'">'+address+'</p>',
                       '</div>'].join("\n");
            $('.address-container').append(text);
@@ -358,6 +361,7 @@ $(document).ready(function() {
 
         // Focus on text box
         $('#text-input').focus();
+        setEndOfContenteditable($('#text-input'));
         updateTextCount();
     });
 
@@ -722,3 +726,23 @@ $(document).ready(function() {
 
 
 
+function setEndOfContenteditable(contentEditableElement)
+{
+    var range,selection;
+    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
+    {
+        range = document.createRange();//Create a range (a range is a like the selection but invisible)
+        range.selectNodeContents(contentEditableElement[0]);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        selection = window.getSelection();//get the selection object (allows you to change selection)
+        selection.removeAllRanges();//remove any selections already made
+        selection.addRange(range);//make the range you have just created the visible selection
+    }
+    else if(document.selection)//IE 8 and lower
+    {
+        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
+        range.moveToElementText(contentEditableElement[0]);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        range.select();//Select the range (make it the visible selection
+    }
+}

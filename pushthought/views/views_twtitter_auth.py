@@ -77,6 +77,7 @@ def verify_twitter(request):
         successArray = []
         duplicateArray = []
         otherErrorArray = []
+        overMax = False
         address_array = request.session['addressArray']
         bioguide_array = request.session['bioguideArray']
 
@@ -86,19 +87,28 @@ def verify_twitter(request):
             result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret, current_user, twitter_user, target_address, target_bioguide)
         else:
             i = 0
-            for item in address_array:
-                target_address = str(item)
+            a_array = [x.encode('UTF8') for x in address_array]
+            b_array = []
+            for item in a_array:
+                new_item = item.replace('\n','');
+                b_array.append(new_item)
+            print "b array", b_array
+            for itemb in b_array:
+                target_address = itemb
                 target_bioguide = bioguide_array[i]
                 print "print length of address array:", len(address_array)
                 if (len(address_array) > 1):
-                    tweet_text = tweet_text.replace('@multiple', target_address)
-                result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user, twitter_user, target_address, target_bioguide)
+                    tweet_replace = tweet_text.replace('@multiple', target_address)
+                    result = send_tweet_and_save_action(request, tweet_replace, access_key_token, access_key_token_secret,current_user, twitter_user, target_address, target_bioguide)
                 if result == True:
-                    successArray.append(item)
+                    successArray.append(target_address)
                 elif result == 187:
-                    duplicateArray.append(item)
+                    duplicateArray.append(target_address)
+                elif result == 186:
+                    overMax = True
                 else:
-                    otherErrorArray.append(item)
+                    otherErrorArray.append(target_address)
+                i = i + 1
                 time.sleep(2)  # delays for 2 seconds
 
         # redirect to last landing page if segmentId
@@ -107,7 +117,7 @@ def verify_twitter(request):
         except:
             segmentId = None
         if segmentId:
-            return HttpResponse(json.dumps({'send_response': successArray,'successArray': successArray,'duplicateArray': duplicateArray, 'otherErrorArray': otherErrorArray}), content_type="application/json")
+            return HttpResponse(json.dumps({'send_response': successArray,'successArray': successArray,'duplicateArray': duplicateArray, 'otherErrorArray': otherErrorArray,'overMax':overMax}), content_type="application/json")
         else:
             redirectURL = "/browse/"
             print "redirect to browse no segmentId", redirectURL
@@ -170,7 +180,9 @@ def verify_catch(request):
     successArray = []
     duplicateArray = []
     otherErrorArray = []
+    overMax = False
     address_array = request.session['addressArray']
+    bioguide_array = request.session['bioguideArray']
     tweet_text = request.session['tweetText']
 
     if (len(address_array) == 0):
@@ -179,19 +191,27 @@ def verify_catch(request):
         result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret, current_user, twitter_user, target_address, target_bioguide)
     else:
         i = 0
-        for item in address_array:
-            target_address = str(item)
+        a_array = [x.encode('UTF8') for x in address_array]
+        b_array = []
+        for item in a_array:
+            new_item = item.replace('\n', '');
+            b_array.append(new_item)
+        for itemb in b_array:
+            target_address = itemb
             target_bioguide = bioguide_array[i]
             if (len(address_array) > 1):
-                tweet_text = tweet_text.replace('@multiple', target_address)
-            result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user, twitter_user, target_address, target_bioguide)
+                tweet_replace = tweet_text.replace('@multiple', target_address)
+            result = send_tweet_and_save_action(request, tweet_replace, access_key_token, access_key_token_secret,current_user, twitter_user, target_address, target_bioguide)
             print "Result of send tweet attempt:", result
             if result == True:
                 successArray.append(item)
             elif result == 187:
                 duplicateArray.append(str(item))
+            elif result == 186:
+                overMax = True
             else:
                 otherErrorArray.append(item)
+            i = i + 1
             time.sleep(2)  # delays for 2 seconds
 
     try:
@@ -199,10 +219,12 @@ def verify_catch(request):
     except:
         programId = None
     if segmentId:
-        alertList = [successArray, duplicateArray, otherErrorArray]
+        alertList = [successArray, duplicateArray, otherErrorArray, overMax]
         alertList = json.dumps(alertList)
         print "ALERT LIST:", alertList
         # print type(alertList)
+
+        # AlertList into session
         request.session['alertList'] = alertList
         request.session.modified = True
         redirectURL = "/content_landing/" + segmentId
@@ -235,6 +257,7 @@ def send_tweet_with_tweepy(request, tweet_text,access_key_token,access_key_token
         print "no program Id to send MEDIA with tweet"
 
     tweet_text_final = tweet_text + ' ' + urlText
+    print tweet_text_final
      # need link to action menu
     try:
         api.update_status(tweet_text_final)
@@ -280,6 +303,9 @@ def send_tweet_and_save_action(request, tweet_replaced, access_key_token, access
         return True
     elif result == 187:
         print "duplicate:", result
+        return result
+    elif result == 186:
+        print "over max characters (140):", result
         return result
     else:
         print "send tweet returning false, some other error"
