@@ -54,11 +54,6 @@ def get_congress_with_location(request,lat,long):
     congress_data = add_congress_photos(congress_data_raw,congress_photos)
     congress_data = add_congress_stats(congress_data,segment_congress_stats)
 
-    # save location to user
-    if current_user:
-        save_result = save_location_to_user(current_user,location,congress_data)
-        print "location to user result:", save_result
-
     # if MessageList exists, mark who user has touched
     if message_list:
         congress_data = add_user_touched_data(congress_data, message_list)
@@ -142,7 +137,7 @@ def get_congress_with_zip(request,zip):
     else:
         message_list = []
 
-    # Return congress based on location
+    # Return congress based on zip
     congress_data_raw = get_congress_data(zip)
     congress_data_raw = add_title_and_full_name(congress_data_raw)
     congress_photos = get_congress_photos(congress_data_raw)

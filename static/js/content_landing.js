@@ -473,7 +473,7 @@ $(document).ready(function() {
         $('.twitter-name').hide();
         $('.email-name').hide();
         $('.rep-color-band').animate({'height':'233px'});
-        $('.selected').animate($('.selected').removeClass('selected'));
+        $('.selected').removeClass('selected');
         $('#img-send-email-icon').hide();
         $('#img-send-tweet-icon').show();
         $('#email-button-label').hide();

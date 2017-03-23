@@ -65,6 +65,10 @@ def get_congress_with_location_view(request):
     # Get congress data using location
     congress_data = get_congress_with_location(request, lat, long)
 
+    # save data to session
+    if congress_data:
+        request.session['location'] = location
+        request.session['congressData'] = congress_data
     # save congress data and location to user, if user available
     try:
         session_token = request.session['sessionToken']
@@ -218,9 +222,6 @@ def browse(request):
     return render(request, 'browse.html', dataDict)
 
 
-
-
-
 def content_landing(request, segment_id):
     # get program and segment ID
     # store ID's in session
@@ -248,6 +249,19 @@ def content_landing(request, segment_id):
     else:
         message_list = []
 
+
+    # if location, load congress people (try user, then session)
+    try:
+        location = current_user['location']
+        congress_data = current_user['congressData']
+    except:
+        try:
+            location = request.session['location']
+            congress_data = request.session['congressData']
+        except:
+            location = None
+            congress_data = None
+
     # if zipcode, load congress people
     try:
         zip = current_user['zip']
@@ -257,10 +271,21 @@ def content_landing(request, segment_id):
         except:
             zip = None
 
+    # these need
+    if location:
+        if congress_data:
+            hasCongressData = True
+            print "loading from location"
+            segment_congress_stats = get_congress_stats_for_program(segment_id)
+            add_congress_stats(congress_data, segment_congress_stats)
+            if message_list:
+                congress_data = add_user_touched_data(congress_data, message_list)
+                # print message_list
 
-    if zip:
+    elif zip:
         hasCongressData = True
-        congress_data_raw = get_congress_data(zip)
+        congress_data_raw = get_congress_data(zip) #pulls from api or db
+        print "loading from zip"
         congress_data_raw = add_title_and_full_name(congress_data_raw)
         congress_photos = get_congress_photos(congress_data_raw)
         congress_data = add_congress_photos(congress_data_raw, congress_photos)
@@ -271,26 +296,12 @@ def content_landing(request, segment_id):
             # print message_list
     else:
         hasCongressData = False
-        congress_data = [
-            {
-                "full_name": "Congressperson",
-                "title": "state / district"
-            },
-            {
-                "full_name": "Congressperson",
-                "title": "state / district"
-            },
-            {
-                "full_name": "Congressperson",
-                "title": "state / district"
-            }
-        ]
+        congress_data = []
+
 
     # create dataDict to send with response.
     dataDict = {}
     # inclue alert list, if returning from an action, these alerts will display on load
-
-
     try:
         dataDict['alertList'] = request.session['alertList']
         del request.session['alertList']
