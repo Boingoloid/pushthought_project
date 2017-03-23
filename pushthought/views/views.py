@@ -19,8 +19,6 @@ from ..models import MenuItem
 
 # views import
 
-
-
 from views_alerts import *
 from views_api import *
 from views_get_data import *
@@ -53,6 +51,32 @@ def get_congress_email_fields_view(request):
     field_list = get_congress_email_fields(bioguideArray)
     return HttpResponse(json.dumps(field_list), content_type="application/json")
 
+def get_congress_with_zip_view(request, zip):
+    congress_data = get_congress_with_zip(request, zip)
+    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
+
+def get_congress_with_location_view(request):
+    # define variables
+    data = json.loads(request.body)
+    lat = data['lat']
+    long = data['long']
+    location = {"lat": lat, "long": long}
+
+    # Get congress data using location
+    congress_data = get_congress_with_location(request, lat, long)
+
+    # save congress data and location to user, if user available
+    try:
+        session_token = request.session['sessionToken']
+        current_user = request.session['currentUser']
+        objectId = request.session['currentUser']['objectId']
+        if len(congress_data) != 0:
+            save_result = save_location_to_user(location, congress_data, objectId, session_token)
+    except:
+        print "congress data not saved, either b/c no user, no session, or no data"
+
+
+    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
 
 
 
@@ -243,7 +267,7 @@ def content_landing(request, segment_id):
         segment_congress_stats = get_congress_stats_for_program(segment_id)
         add_congress_stats(congress_data, segment_congress_stats)
         if message_list:
-            congress_data = add_prior_activity_to_congress_data(congress_data, message_list)
+            congress_data = add_user_touched_data(congress_data, message_list)
             # print message_list
     else:
         hasCongressData = False
@@ -298,6 +322,10 @@ def content_landing_empty(request):
     return HttpResponseRedirect('/browse/')
 
 
+# OLD ----------------------------
+# OLD ----------------------------
+# OLD ----------------------------
+# OLD ----------------------------# OLD ----------------------------
 
 
 

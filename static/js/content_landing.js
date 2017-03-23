@@ -12,8 +12,8 @@ $(document).ready(function() {
 
     var windowURL = window.location.href;
 
-//    // auto trigger email icon
-//    setTimeout(function(){ $('#email-icon-3').trigger('click'); }, 400);
+//     auto trigger email icon
+    setTimeout(function(){ $('.zip-reset').trigger('click'); }, 400);
 
     // If alerts, scroll down and show them
     var data = $('#alertList').data('alertlist');
@@ -134,9 +134,35 @@ $(document).ready(function() {
 
 
     $('.location-icon').click(function(){
-        alert("Still in Development: Our location finder is being built, please enter you zip using the box below.  We'll move the cursor there for you :)");
-        $('.zip-input').focus();
+        //alert("Still in Development: Our location finder is being built, please enter you zip using the box below.  We'll move the cursor there for you :)");
+        //$('.zip-input').focus();
+        var lat;
+        var long;
+        //var x = document.getElementById("demo");
+        function getLocation() {
+            if (navigator.geolocation) {
+                console.log("yes geo location");
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser or permission denied.");
+            }
+        }
+
+        function showPosition(position) {
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+            console.log("here");
+            $.getScript('/static/js/content_landing_get_congress.js', function(){
+                getCongressWithLocation(lat,long);
+            });
+
+
+        }
+        getLocation();
     });
+
+
+
 
 //    $('.zip-input').focusin(function(){
 //        $('.submit-zip').show();
