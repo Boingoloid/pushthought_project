@@ -247,7 +247,8 @@ TWITTER_CONSUMER_SECRET = 'BiN5qkDZpltqgHhyCtUO0zYrSsgE3WhTWEqYAgKhIAmpl1f4NI'
 # user level twitter settings
 TWITTER_ACCESS_TOKEN = '3082438601-f7UpqrzsVb9wfoUrF4pUXxdsqHm7T6Ybd2mFOFO'
 TWITTER_ACCESS_TOKEN_SECRET = '7LqRKtDnG84rfmEvvS0n1cW47Zomg3uWkEjIoQAXuqWnr'
-TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
+# TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
+TWITTER_CALLBACK_ROOT_URL = 'http://www.pushthought.com/verify_catch'
 
 # sunlight labs api key
 SUNLIGHT_LABS_API_KEY = "ed7f6bb54edc4577943dcc588664c89f"
