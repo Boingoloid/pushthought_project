@@ -41,7 +41,7 @@ def create_master_field_list(field_list_objects):
     # Sort the mother fucker
     import operator
     sorted_array = sorted(formatted_array, key=operator.itemgetter('value','options_length'))
-    print len(sorted_array)
+    # print len(sorted_array)
 
     #  Strip out extra duplicates, group bioguide IDs
     count = 0
@@ -106,19 +106,18 @@ def create_master_field_list(field_list_objects):
     # order the list to be ordered based on master list
     ordered_objects = []
     for list_item in master_ordered_list:
-        print list_item
+        # print list_item
         for object_item in objects_to_order:
-            print "testing against:", object_item['value']
+            # print "testing against:", object_item['value']
             if object_item['value'] == list_item:
                 ordered_objects.append(object_item)
-                print "appending object:"
-            else:
-                print "exception"
+
 
     if len(ordered_objects) != 0:
         ordered_objects = ordered_objects + objects_to_end
-    print len(objects_to_order)
-    print len(ordered_objects)
+
+    # print len(objects_to_order)
+    # print len(ordered_objects)
     print ordered_objects
     return ordered_objects
 

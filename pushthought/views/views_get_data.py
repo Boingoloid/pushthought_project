@@ -309,7 +309,7 @@ def get_tweet_data(segmentId):
     # Query for tweets
     client = pymongo.MongoClient(MONGODB_URI)
     db = client.get_default_database()
-    pipeline = [{"$match":{"segmentObjectId": segmentId}},
+    pipeline = [{"$match":{"segmentObjectId": segmentId, "messageType":"twitter"}},
                 {"$sort": SON([("_created_at", -1)])}]
     array = []
     result = db.SentMessages.aggregate(pipeline)
@@ -379,31 +379,93 @@ def save_tweet_action(request, tweet_text, current_user,twitter_user,target_addr
 
 
 def save_email_congress_action(request):
+
+
+    try:
+        current_user = request.session['currentUser']
+    except:
+        current_user = None
+
     data = request.body
+    json_data = json.loads(data)
+    print "json data from right before save email congress action:", json_data
+    userEmailEntered = json_data['fields']['$EMAIL']
+    print "userEmailEntered for save email action:", userEmailEntered
     connectionTweet = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
     connectionTweet.connect()
-    connectionTweet.request('POST', '/parse/classes/SentMessages', json.dumps({
-        "actionCategory": "Federal Representative",
-        "messageCategory": "Federal Representative",
-        "messageType": "email",
-        # "userObjectId": current_user['objectId'],
-        # "twitterUserName": str(current_user['twitterScreenName']),
-        "programObjectId": request.session['programId'],
-        "segmentObjectId": request.session['segmentId'],
-        "targetBioguideId": data['bio_id'],
-        "emailContent": str(data)
-    }), {
-        "X-Parse-Application-Id": PARSE_APP_ID,
-        "X-Parse-REST-API-Key": PARSE_REST_KEY,
-        "Content-Type": "application/json"
-    })
-    result = json.loads(connectionTweet.getresponse().read())
-    print "save email action result:", result
-    action_object_id = result['objectId']
-    return None
+
+    if current_user:
+        print "yes, current user so saving email action with user objects"
+        connectionTweet.request('POST', '/parse/classes/SentMessages', json.dumps({
+            "actionCategory": "Federal Representative",
+            "messageCategory": "Federal Representative",
+            "messageType": "email",
+            "userEmailEntered": userEmailEntered,
+            "userObjectId": current_user['objectId'],
+            "programObjectId": request.session['programId'],
+            "segmentObjectId": request.session['segmentId'],
+            "targetBioguideId": json_data['bio_id'],
+            "emailContent": json_data
+        }), {
+            "X-Parse-Application-Id": PARSE_APP_ID,
+            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+            "Content-Type": "application/json"
+        })
+    else:
+        print "No, current user so saving without user objects"
+        connectionTweet.request('POST', '/parse/classes/SentMessages', json.dumps({
+            "actionCategory": "Federal Representative",
+            "messageCategory": "Federal Representative",
+            "messageType": "email",
+            "userEmailEntered": userEmailEntered,
+            # "userObjectId": current_user['objectId'],
+            "programObjectId": request.session['programId'],
+            "segmentObjectId": request.session['segmentId'],
+            "targetBioguideId": json_data['bio_id'],
+            "emailContent": json_data
+        }), {
+            "X-Parse-Application-Id": PARSE_APP_ID,
+            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+            "Content-Type": "application/json"
+        })
+        result = json.loads(connectionTweet.getresponse().read())
+        print "save email action result:", result
+        action_object_id = result['objectId']
+        return None
 
 
+def save_congress_email_fields_to_user(request):
+    print request
+    try:
+        current_user = request.session['currentUser']
+        print "CURRENT USER" ,current_user
+        session_token = current_user['tokenSession']
+        print "session token:", session_token
+        print "current user in session, saving congress email fields to user "
+    except:
+        current_user = None
+        session_token = None
+        print "current user NOT in session, not saving congress email fields to user"
 
+    print "printing request body on save congress email fields to user:", request.body
+    bodyString = request.body
+    jsonObject = json.loads(bodyString)
+
+
+    if current_user:
+        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connection.connect()
+        connection.request('PUT', '/parse/classes/_User/' + current_user['objectId'], json.dumps({
+            "congressEmailFields": jsonObject
+        }),
+                           {
+                               "X-Parse-Application-Id": PARSE_APP_ID,
+                               "X-Parse-REST-API-Key": PARSE_REST_KEY,
+                               "X-Parse-Session-Token": session_token,
+                               "Content-Type": "application/json"
+                           })
+        result = json.loads(connection.getresponse().read())
+        print "result of save emailFields to user:", result
 
 
 

@@ -76,6 +76,7 @@ def submit_congress_captcha_view(request):
     if captcha_response_object:
         if status == 'success':
             print "email was sent with OK captcha"
+            save_congress_email_fields_to_user(request)
             save_email_congress_action(request)
     return HttpResponse(json.dumps(captcha_response_object), content_type="application/json")
 
@@ -203,16 +204,13 @@ def content_landing(request, segment_id):
     tweet_data = get_tweet_data(segment_id)
     hashtag_data = get_hashtag_data(segment_id)
 
-    # get program object and programStats and Tweet/# activity for the program's landing page
-
-
     # get user and sentMessage list
     current_user = get_user_by_token_and_id(request)
-
-
     if current_user:
         request.session['currentUser'] = current_user
         message_list = get_segment_actions_for_user(segment_id,current_user['objectId'])
+        #get email fields
+
     else:
         message_list = []
 

@@ -30,7 +30,7 @@ TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 MONGODB_URI = settings.MONGODB_URI
 
 def get_congress_email_fields(bioguideArray):
-    print bioguideArray
+    # print bioguideArray
     field_list_objects = get_congress_required_fields_parse(bioguideArray)
     missing_bioguides = get_missing_bioguides(bioguideArray,field_list_objects)
     if len(missing_bioguides)>0:
@@ -39,7 +39,7 @@ def get_congress_email_fields(bioguideArray):
         for item in phantom_required_objects:
             field_list_objects.append(item)
 
-    print "Finally here!, all concatenated:",field_list_objects
+    # print "Finally here!, all concatenated:",field_list_objects
     master_field_list = create_master_field_list(field_list_objects)
     return master_field_list
 
@@ -49,12 +49,12 @@ def save_failures(missing_bioguides,phantom_required_objects):
     for item in missing_bioguides:
         found = False
         for phantom_object in phantom_required_objects:
-            print phantom_object
+            # print phantom_object
             if item == phantom_object[0]['bioguideId']:
                 found = True
         if not found:
             failures_array.append(item)
-    print "not in phantom_array", failures_array
+    # print "not in phantom_array", failures_array
 
     for phantom_object in failures_array:
         connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
@@ -117,13 +117,12 @@ def get_missing_bioguides(bioguideArray,required_fields_objects):
                        })
     failedArray = json.loads(connection.getresponse().read())
     failedArray = failedArray['results']
-    print failedArray
+    print "failedArray", failedArray
     still_missing_bioguide_array = []
 
     for item in missing_bioguide_array:
         found = False
         for item2 in failedArray:
-            print item2
             if item == item2['bioguideId']:
                 found = True
         if not found:
@@ -174,18 +173,14 @@ def save_fields(required_fields_object):
     save_result_array = []
 
     for key,value in required_fields_object.items():
-        print key
         bioguide_id = key
         required_fields = value['required_actions']
-        print required_fields
         for field in required_fields:
             field['value'] = field['value'].replace('$','')
             if field['value'] == 'NAME_PREFIX':
                 optionsDict = field['options_hash']
-                print "TTTTTTTTTTTTTTTT: ", type(optionsDict)
                 if isinstance(optionsDict,dict):
                     # optionsDictNew = {}
-                    print optionsDict
                     for keya, valuea in optionsDict.items():
                         newKey = keya.replace('.','')
                         optionsDict[newKey] = optionsDict.pop(keya)
@@ -195,7 +190,6 @@ def save_fields(required_fields_object):
                         newItem = item.replace('.','')
                         item = newItem
                 else:
-                    print "Nothing is triggering"
                     del field
             elif field['value'] == 'TOPIC':
                 optionsDict = field['options_hash']
@@ -207,7 +201,6 @@ def save_fields(required_fields_object):
                     for item in optionsDict:
                         newItem = item.replace('.', '').replace('   ', ' ').replace('/', '').replace(',', '').replace('$','')
                         item = newItem
-        print "after replace::::::::::::", required_fields
 
 
          # Save the entry from phantom congress
@@ -271,32 +264,6 @@ def submit_congress_email(request):
 
 
 
-def save_congress_email_fields_to_user(request):
-    try:
-        current_user = request.session['currentUser']
-        session_token = request.session['tokenSession']
-    except:
-        current_user = None
-        session_token = None
-
-    print "printing request body on save congress email fields to user:", request.body
-    bodyString = request.body
-
-    if(current_user):
-        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-        connection.connect()
-        connection.request('PUT', '/parse/classes/_User/' + current_user['objectId'], json.dumps({
-            "congressEmailFields": bodyString
-        }),
-               {
-                   "X-Parse-Application-Id": PARSE_APP_ID,
-                   "X-Parse-REST-API-Key": PARSE_REST_KEY,
-                   "X-Parse-Session-Token": session_token,
-                   "Content-Type": "application/json"
-               })
-        result = json.loads(connection.getresponse().read())
-        print "result of save emailFields to user:", result
-
 
 def submit_congress_captcha(request):
     print request.body
@@ -330,3 +297,4 @@ def captcha_crush(request, send_response_object):
 
 
     return HttpResponse(json.dumps(send_response_object), content_type="application/json")
+

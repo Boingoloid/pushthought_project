@@ -30,15 +30,14 @@ $(document).ready(function() {
         alertArray.push(data[i]);
     }
 
-    // scroll down
-    var headerAllowance = $('.seen-it-container').offset().top - 20;
-    $('html, body').animate({
-            scrollTop: headerAllowance + 'px'
-        }, 'fast');
-
 
     // Alerts if @symbols in tweet and went through verify catch redirect
     if (alertArray[0]){
+        // scroll down
+        var headerAllowance = $('.seen-it-container').offset().top - 20;
+        $('html, body').animate({
+                scrollTop: headerAllowance + 'px'
+            }, 'fast');
         showSuccess(alertArray[0], alertArray[1]);
     }
 
@@ -338,6 +337,22 @@ $(document).ready(function() {
             get_congress_email_fields(bioguideArray);
         });
 
+//         Fill in fields with info from user
+//        var data = $('#emailFields').data('emailfields');
+//        if(data){
+//            console.log("hello data:"+ data);
+//            var fields = data['fields'];
+//            console.log("fields:"+ fields);
+//            for (item in fields){
+//
+//            }
+//
+//
+//
+//        } else {
+//            console.log("no fields data");
+//        }
+        //<div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
     });
 
 
