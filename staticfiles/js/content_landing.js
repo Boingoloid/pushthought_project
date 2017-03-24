@@ -12,8 +12,8 @@ $(document).ready(function() {
 
     var windowURL = window.location.href;
 
-//    // auto trigger email icon
-//    setTimeout(function(){ $('#email-icon-3').trigger('click'); }, 400);
+//     auto trigger email icon
+//    setTimeout(function(){ $('.zip-reset').trigger('click'); }, 400);
 
     // If alerts, scroll down and show them
     var data = $('#alertList').data('alertlist');
@@ -30,15 +30,14 @@ $(document).ready(function() {
         alertArray.push(data[i]);
     }
 
-    // scroll down
-    var headerAllowance = $('.seen-it-container').offset().top - 20;
-    $('html, body').animate({
-            scrollTop: headerAllowance + 'px'
-        }, 'fast');
-
 
     // Alerts if @symbols in tweet and went through verify catch redirect
     if (alertArray[0]){
+        // scroll down
+        var headerAllowance = $('.seen-it-container').offset().top - 20;
+        $('html, body').animate({
+                scrollTop: headerAllowance + 'px'
+            }, 'fast');
         showSuccess(alertArray[0], alertArray[1]);
     }
 
@@ -134,9 +133,35 @@ $(document).ready(function() {
 
 
     $('.location-icon').click(function(){
-        alert("Still in Development: Our location finder is being built, please enter you zip using the box below.  We'll move the cursor there for you :)");
-        $('.zip-input').focus();
+        //alert("Still in Development: Our location finder is being built, please enter you zip using the box below.  We'll move the cursor there for you :)");
+        //$('.zip-input').focus();
+        var lat;
+        var long;
+        //var x = document.getElementById("demo");
+        function getLocation() {
+            if (navigator.geolocation) {
+                console.log("yes geo location");
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser or permission denied.");
+            }
+        }
+
+        function showPosition(position) {
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+            console.log("here");
+            $.getScript('/static/js/content_landing_get_congress.js', function(){
+                getCongressWithLocation(lat,long);
+            });
+
+
+        }
+        getLocation();
     });
+
+
+
 
 //    $('.zip-input').focusin(function(){
 //        $('.submit-zip').show();
@@ -238,8 +263,11 @@ $(document).ready(function() {
         $('.email-icon').hide();
         $('.email-icon-gray').hide();
 
-        // show email name
-        $('.email-name').show();
+        // show email name selected, hide others
+        $('#'+i+'.email-name').show();
+
+        // Hide letter count
+        $('.letter-count').hide();
 
         // select or toggle selection of activity container
         $('.action-panel-container#'+i).addClass("selected");
@@ -262,9 +290,10 @@ $(document).ready(function() {
         // select address according to button clicked
         $(".address-node-" + i).toggleClass("selected");
 
-        // text-input clear
+        // text-input clear and increase height
         $('#text-input').html('');
         $('.address-placeholder').html('');
+        //$('#text-input').css({"height":"100px","max-height":"100px"});
 
         // insert address placeholder in text-input
         stringSpace = '&nbsp';
@@ -308,6 +337,22 @@ $(document).ready(function() {
             get_congress_email_fields(bioguideArray);
         });
 
+//         Fill in fields with info from user
+//        var data = $('#emailFields').data('emailfields');
+//        if(data){
+//            console.log("hello data:"+ data);
+//            var fields = data['fields'];
+//            console.log("fields:"+ fields);
+//            for (item in fields){
+//
+//            }
+//
+//
+//
+//        } else {
+//            console.log("no fields data");
+//        }
+        //<div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
     });
 
 
@@ -431,6 +476,7 @@ $(document).ready(function() {
 
     $('#close-button').on('click',function(event) {
         $('#text-input').text('');
+        $('.letter-count').show();
         $('.email-action-container').html('');
         $('.address-placeholder').html('');
         $('.address-container').html(' ');
@@ -447,13 +493,11 @@ $(document).ready(function() {
         $('.twitter-name').hide();
         $('.email-name').hide();
         $('.rep-color-band').animate({'height':'233px'});
-        $('.selected').animate($('.selected').removeClass('selected'));
+        $('.selected').removeClass('selected');
         $('#img-send-email-icon').hide();
         $('#img-send-tweet-icon').show();
         $('#email-button-label').hide();
         $('#twitter-button-label').show();
-
-
     });
 
     // Action Panel Container
@@ -466,7 +510,14 @@ $(document).ready(function() {
             var elementText = $('#twitter-name-'+i).text();
         } else if($('.email-name').is(":visible")){
             var whichIconClicked = "email";
-            var elementText = $('div#'+i+'.email-name').text();
+            if($(this).hasClass('selected')){
+                $('#close-button').trigger('click');
+            } else {
+                var elementText = $('div#'+i+'.email-name').text();
+                alert("Currently you can only email 1 representative at a time.  Autofill will help you fill out consecutive emails.");
+            }
+
+            return false;
         } else {
             return false;
         }
@@ -492,7 +543,7 @@ $(document).ready(function() {
                 $(addressPath).addClass('selected');
             }
 
-            // grapping length and value of textInput and placeholder
+            // grabbing length and value of textInput and placeholder
             var placeholderLength = $('.address-placeholder').text().length
             value = $('#text-input').html();
 
@@ -636,14 +687,15 @@ $(document).ready(function() {
         }
     }
 
-
+    // TWEET/EMAIL Button
     $('#tweet-button').on('click',function(event) {
         if($('.email-name').is(":visible")){
-            var bioguideId = 'F';
+            var bioguideId = $('.address-item-label:visible').attr('id');
+            console.log("printing bioguide before run email", bioguideId);
             console.log("tweet button initializing email send");
-//            $.getScript('/static/js/content_landing_email_action.js'), function (){
+            //$.getScript('/static/js/content_landing_email_action.js'), function (){
                 runEmail(bioguideId);
-//            };
+            //};
         } else {
             runTweet(windowURL);
         }
