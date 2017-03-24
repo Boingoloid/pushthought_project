@@ -25,10 +25,7 @@ function get_congress_email_fields(bioguideArray){
                 field = dict['value'];
                 var bioguideId = dict['bioguideId'];
                 var congressLastName = $('#'+bioguideId).text();
-                //console.log(dict['value']);
-                    //if(field == 'NAME_FIRST'){
                     var fieldName = field.replace('_','-');
-                    //console.log('yes, first name');
                     if(fieldName == 'TOPIC'){
                     // set up the select
                         htmlText = [htmlText,
@@ -99,23 +96,18 @@ function get_congress_email_fields(bioguideArray){
             // label which emails are available on email-name
             $('.email-name').each(function(){
                var classText = $(this).attr("class").match(/email-name-/);
-               console.log(typeof(classText));
-               console.log(classText);
-               console.log(classText['input'].split(" "));
                var classWithBioguide = classText['input'].split(" ")[1];
-               console.log(classWithBioguide);
                var bioguideId = classWithBioguide.replace('email-name-','');
                var found = false;
                $('.email-form-field-container').each(function(){
                     if($(this).hasClass(bioguideId)){
                         found  = true;
-                        console.log("marking one of them as true");
                     }
                });
                 if (found){
-                    $('.email-name-'+bioguideId).text('click to toggle');
+                    $('.email-name-'+bioguideId).text('form below');
                 } else {
-                    $('.email-name-'+bioguideId).text('not integrated site link');
+                    $('.email-name-'+bioguideId).text('not integrated');
                 }
             });
 
@@ -130,22 +122,9 @@ function get_congress_email_fields(bioguideArray){
                 var bioguideId = $(this).attr('id');
                 showArray.push(bioguideId);
             });
-            console.log(showArray);
             for (var i = 0; i < showArray.length; i++) {
                 $('.'+ showArray[i]).show();
             }
-
-
-
-
-
-
-
-
-
-
-
-
 
         },
         error: function() {
@@ -165,13 +144,10 @@ function runEmail(bioguideId){
 
     // validate no blank fields
     var validationResult = true;
-    $('.eform').each(function(){
+    $('.eform:visible').each(function(){
         var fieldNode = $(this)
         var field = $(this).val();
         var fieldName = fieldNode.attr('id').replace('eform-','');
-        console.log(fieldNode);
-        console.log(field);
-        console.log(fieldName);
 
         if (fieldNode.is('input')){
             if(field.length == 0){
@@ -182,7 +158,6 @@ function runEmail(bioguideId){
         } else if (fieldNode.is('select')){
             var selection =  $(this).find(":selected").text();
             if(selection == 'select a topic'){
-                console.log(fieldNode);
                 alert("please enter a " + fieldName);
                 validationResult = false;
                 return false;
@@ -191,14 +166,13 @@ function runEmail(bioguideId){
         }
     });
 
-    // Validation email of if others have values
+    // Validate email if others pass validation first
     if (validationResult){
         function validateEmail(email) {
             var re = /\S+@\S+\.\S+/;
             return re.test(email);
         }
         var email = $('.eform#eform-EMAIL').val();
-        console.log(email);
         if (validateEmail(email)){
             console.log("email is good.");
         } else {
@@ -212,11 +186,12 @@ function runEmail(bioguideId){
 
     // Create dict for send
     var formDataDictionary = {};
-    $('.eform').each(function(i){
+    $('.eform:visible').each(function(i){
         var field = String($(this).attr('id'));
         field = '$' + field.replace('eform-','').replace('-','_');
         formDataDictionary[field] = $(this).val();
     });
+    formDataDictionary['$MESSAGE'] = $('#text-input').text();
     var stringJson = JSON.stringify({
         "bio_id": bioguideId,
         "fields": formDataDictionary
@@ -231,7 +206,6 @@ function runEmail(bioguideId){
             "last_menu_url": window_url,
             "address_array" : addressArray,
     });
-    console.log(dataSet);*/
     console.log("returning false because reached point before submittal")
     return false;
 
@@ -243,7 +217,7 @@ function runEmail(bioguideId){
         success: function(data) {
             console.log(data);
             if(data['status'] == 'success'){
-                console.log("success status from ajax submit_congress_email");
+                console.log("success status from ajax submit_congress_email:" + data);
                 //show success
                 $('.email-action-container').html('');
                 var headerAllowance = $('.seen-it-container').offset().top - 20;
@@ -253,7 +227,7 @@ function runEmail(bioguideId){
                 showEmailSuccess(bioguideArray);
 
             } else if (data['status'] == 'captcha_needed'){
-                console.log("need captcha received in ajax submit_congress_email");
+                console.log("need captcha received in ajax submit_congress_email:" + data);
                 // show captcha
                 var captchahtml = ['<div><p>Copy the text</p></div>',
                 '<div><p>from the image</p></div>',

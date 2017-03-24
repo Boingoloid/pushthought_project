@@ -114,7 +114,7 @@
                                     </div>
                                 {% endif %}
                                 <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
-                                <div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }}">click to toggle</div>
+                                <div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }}">form below</div>
                                 <img class="email-icon" id="email-icon-{{forloop.counter}}" name="{{ item.full_name }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
                                 <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}">{{ item.last_name }}</div>
                             </div>
@@ -142,9 +142,10 @@
                         <div class='tweet-loader' id="tweet-loader"></div>
                     </div>
                     <div class="letter-count">22</div>
-                    <div class="img-checked-box-container">
+                    <div style="display:block" class="img-checked-box-container">
                         <!--<img id="img-checked-box" src="{% static 'img/check-circle-gray2.png' %}" width="20" height="20">-->
-                        <p id="link-included" style="font-size:12pt;">link will be included</p>
+                        <p id="link-included" style="font-size:12pt;">content link included</p>
+                        <p style="display:block; font-size:12pt;" id="link-included">automatically</p>
                         <button id="clear-button">Clear</button>
                         <div class="warning-box">
                             <p class="warning-text">link always included</p>

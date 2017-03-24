@@ -46,76 +46,28 @@ MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
 
 
-def get_congress_email_fields_view(request):
-    bioguideArray = json.loads(request.body)
-    field_list = get_congress_email_fields(bioguideArray)
-    return HttpResponse(json.dumps(field_list), content_type="application/json")
-
-def get_congress_with_zip_view(request, zip):
-    congress_data = get_congress_with_zip(request, zip)
-    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
-
-def get_congress_with_location_view(request):
-    # define variables
-    data = json.loads(request.body)
-    lat = data['lat']
-    long = data['long']
-    location = {"lat": lat, "long": long}
-
-    # Get congress data using location
-    congress_data = get_congress_with_location(request, lat, long)
-
-    # save data to session
-    if congress_data:
-        request.session['location'] = location
-        request.session['congressData'] = congress_data
-    # save congress data and location to user, if user available
-    try:
-        session_token = request.session['sessionToken']
-        current_user = request.session['currentUser']
-        objectId = request.session['currentUser']['objectId']
-        if len(congress_data) != 0:
-            save_result = save_location_to_user(location, congress_data, objectId, session_token)
-    except:
-        print "congress data not saved, either b/c no user, no session, or no data"
-
-
-    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
-
-
-
-def data_loop(request):
-    print request.body
-    result = request.body
-
-    # submit_congress_email(request)
-    return HttpResponse(json.dumps(result), content_type="application/json")
-
-def data_throw(request):
-    print request.body
-    result = request.body
-
-
-    return HttpResponse(json.dumps(result), content_type="application/json")
 
 def submit_congress_email_view(request):
     print "submit_congress_email_view firing"
-    send_response_object =  submit_congress_email(request)
+    send_response_object = submit_congress_email(request)
     status = send_response_object['status']
     if send_response_object:
         if status == 'success':
             print "email was sent"
+            save_congress_email_fields_to_user(request)
             save_email_congress_action(request)
         elif status == 'captcha_needed':
             # save email, needs captcha to true, then exclude them.  or save to different table
             print "captcha_needed"
+            save_congress_email_fields_to_user(request)
         elif status == 'error':
             print "ERROR submit congress failed: error message returned:" + send_response_object['message']
         return HttpResponse(json.dumps(send_response_object), content_type="application/json")
     else:
         print "ERROR: submit congress failed, no object returned from phantom congress"
-        return HttpResponse(json.dumps({"status":"error", "message":"timeout, no response from phantom congress"}), content_type="application/json")
+        return HttpResponse(json.dumps({"status": "error", "message": "timeout, no response from phantom congress"}),content_type="application/json")
         # captcha_crush(request, send_response_object)
+
 
 def submit_congress_captcha_view(request):
     print "submit_congress_captcha_view firing"
@@ -127,6 +79,21 @@ def submit_congress_captcha_view(request):
             save_email_congress_action(request)
     return HttpResponse(json.dumps(captcha_response_object), content_type="application/json")
 
+
+
+
+
+
+def data_loop(request):
+    print request.body
+    result = request.body
+    # submit_congress_email(request)
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+def data_throw(request):
+    print request.body
+    result = request.body
+    return HttpResponse(json.dumps(result), content_type="application/json")
 
 
 
@@ -332,6 +299,41 @@ def content_landing_empty(request):
     # except:
     return HttpResponseRedirect('/browse/')
 
+def get_congress_with_zip_view(request, zip):
+    congress_data = get_congress_with_zip(request, zip)
+    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
+
+def get_congress_with_location_view(request):
+    # define variables
+    data = json.loads(request.body)
+    lat = data['lat']
+    long = data['long']
+    location = {"lat": lat, "long": long}
+
+    # Get congress data using location
+    congress_data = get_congress_with_location(request, lat, long)
+
+    # save data to session
+    if congress_data:
+        request.session['location'] = location
+        request.session['congressData'] = congress_data
+    # save congress data and location to user, if user available
+    try:
+        session_token = request.session['sessionToken']
+        current_user = request.session['currentUser']
+        objectId = request.session['currentUser']['objectId']
+        if len(congress_data) != 0:
+            save_result = save_location_to_user(location, congress_data, objectId, session_token)
+    except:
+        print "congress data not saved, either b/c no user, no session, or no data"
+
+    return HttpResponse(json.dumps({'congressData': congress_data}), content_type="application/json")
+
+
+def get_congress_email_fields_view(request):
+    bioguideArray = json.loads(request.body)
+    field_list = get_congress_email_fields(bioguideArray)
+    return HttpResponse(json.dumps(field_list), content_type="application/json")
 
 # OLD ----------------------------
 # OLD ----------------------------

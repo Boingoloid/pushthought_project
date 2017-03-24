@@ -184,17 +184,13 @@ def save_fields(required_fields_object):
                 optionsDict = field['options_hash']
                 print "TTTTTTTTTTTTTTTT: ", type(optionsDict)
                 if isinstance(optionsDict,dict):
-                    print "yes, dictionary"
                     # optionsDictNew = {}
                     print optionsDict
                     for keya, valuea in optionsDict.items():
-                        print keya
                         newKey = keya.replace('.','')
-                        print newKey
                         optionsDict[newKey] = optionsDict.pop(keya)
                     # field['options_hash'] = optionsDictNew
                 elif isinstance(optionsDict,list):
-                    print "no, list"
                     for item in optionsDict:
                         newItem = item.replace('.','')
                         item = newItem
@@ -263,14 +259,44 @@ def submit_congress_email(request):
 
     print "submitting email to congressperson"
     connection = httplib.HTTPSConnection('congressforms.eff.org')
-    # connection = httplib.HTTPSConnection('ptparse.herokuapp.com')
     connection.connect()
     connection.request('POST', '/fill-out-form/',bodyString,
                        {  # headers
                            "Content-Type": "application/json"
                        })
     send_response_object = json.loads(connection.getresponse().read())
+    print "printing send result, fill out form congress email to phantom congress", send_response_object
     return send_response_object
+
+
+
+
+def save_congress_email_fields_to_user(request):
+    try:
+        current_user = request.session['currentUser']
+        session_token = request.session['tokenSession']
+    except:
+        current_user = None
+        session_token = None
+
+    print "printing request body on save congress email fields to user:", request.body
+    bodyString = request.body
+
+    if(current_user):
+        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+        connection.connect()
+        connection.request('PUT', '/parse/classes/_User/' + current_user['objectId'], json.dumps({
+            "congressEmailFields": bodyString
+        }),
+               {
+                   "X-Parse-Application-Id": PARSE_APP_ID,
+                   "X-Parse-REST-API-Key": PARSE_REST_KEY,
+                   "X-Parse-Session-Token": session_token,
+                   "Content-Type": "application/json"
+               })
+        result = json.loads(connection.getresponse().read())
+        print "result of save emailFields to user:", result
+
 
 def submit_congress_captcha(request):
     print request.body

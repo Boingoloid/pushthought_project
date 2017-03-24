@@ -13,7 +13,7 @@ $(document).ready(function() {
     var windowURL = window.location.href;
 
 //     auto trigger email icon
-    setTimeout(function(){ $('.zip-reset').trigger('click'); }, 400);
+//    setTimeout(function(){ $('.zip-reset').trigger('click'); }, 400);
 
     // If alerts, scroll down and show them
     var data = $('#alertList').data('alertlist');
@@ -264,8 +264,11 @@ $(document).ready(function() {
         $('.email-icon').hide();
         $('.email-icon-gray').hide();
 
-        // show email name
-        $('.email-name').show();
+        // show email name selected, hide others
+        $('#'+i+'.email-name').show();
+
+        // Hide letter count
+        $('.letter-count').hide();
 
         // select or toggle selection of activity container
         $('.action-panel-container#'+i).addClass("selected");
@@ -288,9 +291,10 @@ $(document).ready(function() {
         // select address according to button clicked
         $(".address-node-" + i).toggleClass("selected");
 
-        // text-input clear
+        // text-input clear and increase height
         $('#text-input').html('');
         $('.address-placeholder').html('');
+        //$('#text-input').css({"height":"100px","max-height":"100px"});
 
         // insert address placeholder in text-input
         stringSpace = '&nbsp';
@@ -457,6 +461,7 @@ $(document).ready(function() {
 
     $('#close-button').on('click',function(event) {
         $('#text-input').text('');
+        $('.letter-count').show();
         $('.email-action-container').html('');
         $('.address-placeholder').html('');
         $('.address-container').html(' ');
@@ -478,8 +483,6 @@ $(document).ready(function() {
         $('#img-send-tweet-icon').show();
         $('#email-button-label').hide();
         $('#twitter-button-label').show();
-
-
     });
 
     // Action Panel Container
@@ -492,7 +495,14 @@ $(document).ready(function() {
             var elementText = $('#twitter-name-'+i).text();
         } else if($('.email-name').is(":visible")){
             var whichIconClicked = "email";
-            var elementText = $('div#'+i+'.email-name').text();
+            if($(this).hasClass('selected')){
+                $('#close-button').trigger('click');
+            } else {
+                var elementText = $('div#'+i+'.email-name').text();
+                alert("Currently you can only email 1 representative at a time.  Autofill will help you fill out consecutive emails.");
+            }
+
+            return false;
         } else {
             return false;
         }
@@ -518,7 +528,7 @@ $(document).ready(function() {
                 $(addressPath).addClass('selected');
             }
 
-            // grapping length and value of textInput and placeholder
+            // grabbing length and value of textInput and placeholder
             var placeholderLength = $('.address-placeholder').text().length
             value = $('#text-input').html();
 
@@ -662,14 +672,15 @@ $(document).ready(function() {
         }
     }
 
-
+    // TWEET/EMAIL Button
     $('#tweet-button').on('click',function(event) {
         if($('.email-name').is(":visible")){
-            var bioguideId = 'F';
+            var bioguideId = $('.address-item-label:visible').attr('id');
+            console.log("printing bioguide before run email", bioguideId);
             console.log("tweet button initializing email send");
-//            $.getScript('/static/js/content_landing_email_action.js'), function (){
+            //$.getScript('/static/js/content_landing_email_action.js'), function (){
                 runEmail(bioguideId);
-//            };
+            //};
         } else {
             runTweet(windowURL);
         }

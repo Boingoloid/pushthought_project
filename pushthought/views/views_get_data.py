@@ -403,6 +403,10 @@ def save_email_congress_action(request):
     return None
 
 
+
+
+
+
 #helper
 def save_hashtags(request,tweet_text,current_user,twitter_user,action_object_id):
     hashtag_list = set([i[1:] for i in tweet_text.split() if i.startswith("#")])
