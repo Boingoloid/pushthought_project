@@ -53,7 +53,7 @@ function runTweet(windowURL){
     });
     console.log(dataSet);
 
-    $.ajax({url: "/verify_twitter",
+    $.ajax({url: "/verify_twitter/",
         type: "POST",
         data: dataSet,
         contentType: 'json;charset=UTF-8',

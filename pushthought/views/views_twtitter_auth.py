@@ -82,7 +82,7 @@ def verify_twitter(request):
         address_array = request.session['addressArray']
         bioguide_array = request.session['bioguideArray']
 
-        if (len(address_array) == 0):
+        if len(address_array) == 0:
             target_address = None
             target_bioguide = None
             result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret, current_user, twitter_user, target_address, target_bioguide)
@@ -96,7 +96,19 @@ def verify_twitter(request):
             else:
                 other = True
 
-
+        elif len(address_array) == 1:
+            a_array = [x.encode('UTF8') for x in address_array]
+            target_address = address_array[0]
+            target_bioguide = bioguide_array[0]
+            result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user, twitter_user, target_address, target_bioguide)
+            if result == True:
+                successArray.append(target_address)
+            elif result == 187:
+                duplicateArray.append(target_address)
+            elif result == 186:
+                overMax = True
+            else:
+                otherErrorArray.append(target_address)
         else:
             i = 0
             a_array = [x.encode('UTF8') for x in address_array]
@@ -210,6 +222,21 @@ def verify_catch(request):
             overMax = True
         else:
             other = True
+
+    elif len(address_array) == 1:
+        a_array = [x.encode('UTF8') for x in address_array]
+        target_address = address_array[0]
+        target_bioguide = bioguide_array[0]
+        result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user, twitter_user, target_address, target_bioguide)
+        if result == True:
+            successArray.append(item)
+        elif result == 187:
+            duplicateArray.append(str(item))
+        elif result == 186:
+            overMax = True
+        else:
+            otherErrorArray.append(item)
+
     else:
         i = 0
         a_array = [x.encode('UTF8') for x in address_array]
