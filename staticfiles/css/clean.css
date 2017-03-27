@@ -180,9 +180,8 @@ img.img-free.logo-image{
 .navbar-collapse {
   background:radial-gradient(#092551,#000b1e);
   background: rgba(0,0,0,0);
-  margin-top: -65px;
   margin-bottom: 0px;
-  height: 65px;
+  height: auto;
 
 }
 
