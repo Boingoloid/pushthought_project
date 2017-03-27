@@ -443,9 +443,12 @@ text-tweet-block{
         top:65px;
         left: 380px;
         font-size: 14px;
-
-
     }
+    p#link-included{
+        font-size:10pt;
+    }
+
+
 }
 @media only screen and (max-width: 462px) {
     #text-input{
@@ -456,6 +459,9 @@ text-tweet-block{
     .letter-count{
         left: 303px;
         font-size: 14px;
+    }
+    p#link-included{
+        font-size:10pt;
     }
 }
 
@@ -470,9 +476,11 @@ text-tweet-block{
 
 .address-container, .email-address-container{
   display:flex;
+  flex-wrap;nowrap;
   flex-direction: row;
   margin: 0px;
   padding: 0px;
+  overflow:auto;
 }
 
 
@@ -611,11 +619,13 @@ text-tweet-block{
 #link-included {
   display:inline-block;
   margin-left:10px;
-  margin-top:5px;
+  margin-top:8px;
   margin-bottom:0px;
   padding:5px;
   margin-top:-6px;
   color: gray;
+  whitespace:nowrap;
+  font-size:12pt;
 }
 
 #clear-button {

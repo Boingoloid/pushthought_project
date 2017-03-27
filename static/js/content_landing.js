@@ -390,7 +390,7 @@ $(document).ready(function() {
         });
 
         // expand containers
-        $('.rep-color-band').animate({'height':'410px'});
+        $('.rep-color-band').animate({'height':'425px'});
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
 
         // hide icons that disappear
@@ -442,8 +442,13 @@ $(document).ready(function() {
         $('#tweet-button-label').text(labelText);
 
         // Focus on text box
-        $('#text-input').focus();
-        setEndOfContenteditable($('#text-input'));
+        if($(window).width() < 525){
+            console.log("no focus, width low");
+        } else {
+            console.log("focus, width high");
+            $('#text-input').focus();
+            setEndOfContenteditable($('#text-input'));
+        }
         updateTextCount();
     });
 
