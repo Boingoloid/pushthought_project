@@ -100,11 +100,20 @@ $(document).ready(function() {
         $(this).css({"cursor": "default"});
     });
 
+    $('.zip-indicator').click(function(){
+        if ($('.zip-reset:visible')){
+            $('.zip-reset').hide();
+        } else{
+            $('.zip-reset').show();
+        }
+    });
+
 
     // Zip indicator hover
     $('.zip-indicator').mouseenter(function() {
-        $('.zip-reset').show();
-      });
+       $('.zip-reset').show();
+    });
+
     $('.zip-reset-hover-boundary').mouseleave(function() {
         $('.zip-reset').hide();
     });
@@ -133,6 +142,7 @@ $(document).ready(function() {
 
 
     $('.location-icon').click(function(){
+        $('#zip-loader').show();
         //alert("Still in Development: Our location finder is being built, please enter you zip using the box below.  We'll move the cursor there for you :)");
         //$('.zip-input').focus();
         var lat;
@@ -158,6 +168,7 @@ $(document).ready(function() {
 
         }
         getLocation();
+
     });
 
 
@@ -379,7 +390,7 @@ $(document).ready(function() {
         });
 
         // expand containers
-        $('.rep-color-band').animate({'height':'375px'});
+        $('.rep-color-band').animate({'height':'410px'});
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
 
         // hide icons that disappear

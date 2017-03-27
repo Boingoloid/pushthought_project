@@ -390,7 +390,7 @@ $(document).ready(function() {
         });
 
         // expand containers
-        $('.rep-color-band').animate({'height':'375px'});
+        $('.rep-color-band').animate({'height':'410px'});
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
 
         // hide icons that disappear

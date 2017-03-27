@@ -19,43 +19,50 @@ h2{
 
 
 .content-info-left{
-    width: 60%;
     max-width:500px;
+    min-width:400px;
     float: left;
     margin-left:-30px;
+    margin-right:0;
+    margin-top:10px;
     padding-left: 40px;
-    padding-right:15px;
+    padding-right: 15px;
     background:black;
     background: linear-gradient(to right, black, #191919 70% ,rgba(255,0,0,0));
     min-height:350px;
     position: relative;
-    margin-right:0
-    position:relative;
 
 }
 
 .seen-it-container {
   position: absolute;
   bottom: 5px;
-
 }
 
 .content-info-right{
-    width:38%
+    /*width:225px;*/
+/*    min-width:225px;
+    max-width:225px;*/
     margin: 0;
     padding 0;
     position: absolute;
-    right: 20;
+    /*right: 5;*/
+    right:0;
 }
 
+@media only screen and (max-width: 750px) {
+    .content-info-right{
+        opacity:0.2;
+    }
+}
 
 .img-landing-title {
   margin:0px;
   padding:0px;
   height:350px;
-  min-height:100%;
-  max-width:100%;
-  width:auto;
+  /*max-height:100%;
+  max-width:100%;*/
+  width: auto;
 
 }
 
@@ -103,9 +110,19 @@ h2{
 
 .container-standard {
   margin: 15px;
+  margin-right: 10px;
   margin-top: 0px;
   margin-bottom:0px;
+  /*min-width: 250px;*/
 }
+
+/*
+@media only screen and (max-width: 350px) {
+  .container-standard {
+    margin-right: -20px;
+  }
+}
+*/
 
 
 
@@ -120,6 +137,12 @@ h2{
   height: 233px;
 }
 
+@media only screen and (max-width: 500px) {
+  .rep-color-band{
+    height: 260px;
+  }
+}
+
 .category-container{
   position:relative;
   padding-bottom: 10px;
@@ -130,6 +153,7 @@ h2{
 }
 
 .category-title-container{
+    display:inline-block;
 }
 
 .category-title{
@@ -269,6 +293,7 @@ h2{
      color:black;
      z-index:2001;
      height:25px;
+     line-height:25px;
      width:90px;
      left:213;
      top:90;
@@ -336,6 +361,23 @@ h2{
   display: none;
 }
 
+@media only screen and (max-width: 710px) {
+    .rep-action-container{
+        margin-left: 10px;
+    }
+
+}
+
+@media only screen and (max-width: 655px) {
+    div.img-checked-box-container{
+        display: inline;
+    }
+    #clear-button{
+        display:none;
+    }
+}
+
+
 #close-button{
   position: absolute;
   top:15px;
@@ -356,11 +398,13 @@ text-tweet-block{
   position: absolute;
   z-index:2001;
   top: 63px;
-  left: 431px;
+  left: 428px;
   cursor:pointer;
   color:gray;
   font-size: 12pt;
   align:right;
+  vertical-align: text-bottom;
+
 }
 
 #text-input{
@@ -370,7 +414,7 @@ text-tweet-block{
   border: 2px solid gray;
   border-radius: 10px;
   width: 450px;
-  min-width: 450px;
+  min-width: 350px;
   max-width: 450px;
   height: 63px;
   max-height: 63px;
@@ -386,6 +430,33 @@ text-tweet-block{
 
 #text-input:hover, #text-input:focus {
   background:black;
+}
+
+
+@media only screen and (max-width: 515px) {
+    #text-input{
+        width: 400px;
+        min-width: 400px;
+        font-size: 14pt;
+    }
+    .letter-count{
+        top:65px;
+        left: 380px;
+        font-size: 14px;
+
+
+    }
+}
+@media only screen and (max-width: 462px) {
+    #text-input{
+        width: 325px;
+        min-width: 325px;
+        font-size: 12pt;
+    }
+    .letter-count{
+        left: 303px;
+        font-size: 14px;
+    }
 }
 
 .address-placeholder{
@@ -523,6 +594,7 @@ text-tweet-block{
 
 .img-checked-box-container{
   position:relative;
+  display:block;
 }
 
 #img-checked-box{
@@ -537,7 +609,7 @@ text-tweet-block{
 
 
 #link-included {
-  display:inline;
+  display:inline-block;
   margin-left:10px;
   margin-top:5px;
   margin-bottom:0px;
@@ -980,7 +1052,9 @@ text-tweet-block{
 
 .hashtag-container{
   display:flex;
+  overflow:auto;
   flex-direction: row;
+  flex-wrap: nowrap;
   border-radius: 5px;
   width: auto;
   border: 2px inset #092551;
@@ -998,6 +1072,7 @@ text-tweet-block{
   width: auto;
   height: 40px;
   cursor:default;
+  white-space: nowrap;
 }
 
 .hashtag-item:hover, .tweet-item:hover{
