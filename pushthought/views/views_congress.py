@@ -189,16 +189,8 @@ def get_congress_data(zip_code):
         urlAPI = root + "?zip=" + zip_code + "&apikey=" + settings.SUNLIGHT_LABS_API_KEY
         r = requests.get(urlAPI)
         results = json.loads(r.content)['results']
-
-        def save_to_congress_data_collection():
-            save_dictionary = { "zip_code": zip_code, "results": results}
-            save_result = db.CongressData.insert_one(save_dictionary)
-            # get image:
-            # print "results of save: ", save_result.inserted_id
-            return save_result
-
         if len(results) != 0:
-            save_to_congress_data_collection()
+            save_result = save_to_congress_data_collection()
         return results
 
     #MAIN: Checks UPDATE TRIGGER, then uses method above to get data locally or form api
@@ -211,11 +203,24 @@ def get_congress_data(zip_code):
             print "no congress for that zip"
             return get_congress_data_from_api()
     else:
-        delete_result = db.CongressData.delete_many({"zip_code": zip_code})
-        print "deleted CongressData documents count:", delete_result.deleted_count
-        return get_congress_data_from_api()
+        results = get_congress_data_from_api()
 
+        # if results, delete existing zip data and add new
+        if len(results) != 0:
+            delete_result = db.CongressData.delete_many({"zip_code": zip_code})
+            print "deleted CongressData documents count:", delete_result.deleted_count
+            save_result = save_to_congress_data_collection(zip_code, results)
+            print "saved CongressData document:", save_result
+            return results
+        else:
+            return results
 
+def save_to_congress_data_collection(zip_code,results):
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+    save_dictionary = { "zip_code": zip_code, "results": results}
+    save_result = db.CongressData.insert_one(save_dictionary)
+    return save_result
 
 #helper
 def get_congress_photos(congress_data):
