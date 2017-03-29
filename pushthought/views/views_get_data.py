@@ -65,9 +65,7 @@ def get_program_list():
         "X-Parse-REST-API-Key": PARSE_REST_KEY
     })
     program_list_results = json.loads(connection.getresponse().read())
-    # program_list = program_list_results['results']
-    program_list = program_list_results
-    print program_list
+    program_list = program_list_results['results']
     return program_list
 
     # client = pymongo.MongoClient(MONGODB_URI)
@@ -82,7 +80,6 @@ def get_program_list():
 
 
 def get_program_browse_stats():
-    print "mongodebURL:", MONGODB_URI
     client = pymongo.MongoClient(MONGODB_URI)
     db = client.get_default_database()
     pipeline = [{"$group": {"_id": "$programObjectId", "count": {"$sum": 1}}},
