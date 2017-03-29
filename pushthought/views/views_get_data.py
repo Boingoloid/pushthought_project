@@ -65,7 +65,9 @@ def get_program_list():
         "X-Parse-REST-API-Key": PARSE_REST_KEY
     })
     program_list_results = json.loads(connection.getresponse().read())
-    program_list = program_list_results['results']
+    # program_list = program_list_results['results']
+    program_list = program_list_results
+    print program_list
     return program_list
 
     # client = pymongo.MongoClient(MONGODB_URI)
