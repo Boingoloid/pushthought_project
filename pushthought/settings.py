@@ -216,46 +216,74 @@ TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
 # HORSE = settings_prod.HORSE
 # print "printing horse: ", HORSE
 
-SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
 
-# parse-server
-PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
-PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
-PARSE_MASTER = 'V3eewSuWRXuLoAHNv4rWOecfITxwoUVqGpNM8y0u'
-PARSE_KEY = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
-PARSE_SECRET = 'tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP'
-PARSE_SERVER_URL = 'https://ptparse.herokuapp.com/parse'
-# PARSE_SERVER_URL = 'https://ptparse.herokuapp.com/parse'
-# app level twitter settings
-TWITTER_CONSUMER_KEY = 'uaqTefYM2ZCqquWDYVSe4kTqD'
-TWITTER_CONSUMER_SECRET = 'BiN5qkDZpltqgHhyCtUO0zYrSsgE3WhTWEqYAgKhIAmpl1f4NI'
-# user level twitter settings
-TWITTER_ACCESS_TOKEN = '3082438601-f7UpqrzsVb9wfoUrF4pUXxdsqHm7T6Ybd2mFOFO'
-TWITTER_ACCESS_TOKEN_SECRET = '7LqRKtDnG84rfmEvvS0n1cW47Zomg3uWkEjIoQAXuqWnr'
-TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
-# TWITTER_CALLBACK_ROOT_URL = 'http://www.pushthought.com/verify_catch'
+# SECURITY WARNING: keep the secret key used in production secret!
 
-# sunlight labs api key
-SUNLIGHT_LABS_API_KEY = "ed7f6bb54edc4577943dcc588664c89f"
 
-# database
-MONGO_DBNAME = "heroku_zcdt9dml"
-MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/heroku_zcdt9dml"
 
 
 import socket
 print "socket"
 
 if socket.gethostname().endswith('local'):
-    print "yes local", PARSE_APP_ID
+    print "yes local"
+
+    # parse-server
+    PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
+    PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
+    PARSE_MASTER = 'V3eewSuWRXuLoAHNv4rWOecfITxwoUVqGpNM8y0u'
+    PARSE_KEY = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
+    PARSE_SECRET = 'tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP'
+    PARSE_SERVER_URL = 'https://ptparse.herokuapp.com/parse'
+    # PARSE_SERVER_URL = 'https://ptparse.herokuapp.com/parse'
+    # app level twitter settings
+    TWITTER_CONSUMER_KEY = 'uaqTefYM2ZCqquWDYVSe4kTqD'
+    TWITTER_CONSUMER_SECRET = 'BiN5qkDZpltqgHhyCtUO0zYrSsgE3WhTWEqYAgKhIAmpl1f4NI'
+    # user level twitter settings
+    TWITTER_ACCESS_TOKEN = '3082438601-f7UpqrzsVb9wfoUrF4pUXxdsqHm7T6Ybd2mFOFO'
+    TWITTER_ACCESS_TOKEN_SECRET = '7LqRKtDnG84rfmEvvS0n1cW47Zomg3uWkEjIoQAXuqWnr'
+    TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
+    # TWITTER_CALLBACK_ROOT_URL = 'http://www.pushthought.com/verify_catch'
+
+    # sunlight labs api key
+    SUNLIGHT_LABS_API_KEY = "ed7f6bb54edc4577943dcc588664c89f"
+
+    # database
+    MONGO_DBNAME = "heroku_zcdt9dml"
+    MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/heroku_zcdt9dml"
+    SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
+
 else:
     print "no not local ", os.environ.get('PARSE_APP_ID')
     print "PARSE_REST_KEY ", os.environ.get('PARSE_REST_KEY')
     print "PARSE_MASTER ", os.environ.get('PARSE_MASTER')
     print "PARSE_KEY ", os.environ.get('PARSE_KEY')
     print "PARSE_SECRET", os.environ.get('PARSE_SECRET')
-    # print "no not local ", os.environ.get('PARSE_APP_ID')
-    # print "no not local ", os.environ.get('PARSE_APP_ID')
-    # print "no not local ", os.environ.get('PARSE_APP_ID')
-    # print "no not local ", os.environ.get('PARSE_APP_ID')
-    #
+
+
+
+    # parse-server
+    PARSE_APP_ID = os.environ.get('PARSE_APP_ID')
+    PARSE_REST_KEY = os.environ.get('PARSE_REST_KEY')
+    PARSE_MASTER = os.environ.get('PARSE_MASTER')
+    PARSE_KEY = os.environ.get('PARSE_KEY')
+    PARSE_SECRET = os.environ.get('PARSE_SECRET')
+    PARSE_SERVER_URL = os.environ.get('PARSE_SERVER_URL')
+
+    # PARSE_SERVER_URL = 'https://ptparse.herokuapp.com/parse'
+    # app level twitter settings
+    TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
+    TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
+    # user level twitter settings
+    TWITTER_ACCESS_TOKEN = os.environ.get('TWITTER_ACCESS_TOKEN')
+    TWITTER_ACCESS_TOKEN_SECRET = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
+
+    # TWITTER_CALLBACK_ROOT_URL = 'http://www.pushthought.com/verify_catch'
+
+    # sunlight labs api key
+    SUNLIGHT_LABS_API_KEY = os.environ.get('SUNLIGHT_LABS_API_KEY')
+
+    # database
+    MONGO_DBNAME = os.environ.get('MONGO_DBNAME')
+    MONGODB_URI = os.environ.get('MONGODB_URI')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
