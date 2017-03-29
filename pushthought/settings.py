@@ -285,5 +285,5 @@ else:
 
     # database
     MONGO_DBNAME = os.environ.get('MONGO_DBNAME')
-    MONGODB_URI = os.environ.get('MONGODB_URI')
+    MONGODB_URI = str(os.environ.get('MONGODB_URI'))
     SECRET_KEY = os.environ.get('SECRET_KEY')

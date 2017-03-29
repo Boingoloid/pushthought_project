@@ -82,6 +82,7 @@ def get_program_list():
 
 
 def get_program_browse_stats():
+    print "mongodebURL:", MONGODB_URI
     client = pymongo.MongoClient(MONGODB_URI)
     db = client.get_default_database()
     pipeline = [{"$group": {"_id": "$programObjectId", "count": {"$sum": 1}}},
