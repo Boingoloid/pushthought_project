@@ -170,7 +170,11 @@
                     <p><span style="color:gray">#| </span></p>
             </div>
             {% for item in hashtagData %}
-                <div class='hashtag-item' id="hashtag-item">#{{item.hashtag}} | {{item.count}}</div>
+                <div class='hashtag-item' id="hashtag-item">
+                    <div id="copied-to-clipboard">Copied to Clipboard</div>
+                    #{{item.hashtag}} | {{item.count}}
+                </div>
+                <div id="copied-to-clipboard">Copied to Clipboard</div>
             {% endfor %}
         </div>
     </div>

@@ -33,7 +33,7 @@ TEMPLATE_DIRS = (
 SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATES = [
     {
@@ -257,55 +257,5 @@ SUNLIGHT_LABS_API_KEY = "ed7f6bb54edc4577943dcc588664c89f"
 MONGO_DBNAME = "heroku_zcdt9dml"
 MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/heroku_zcdt9dml"
 
-# MONGODB_URI = "mongodb://localhost/test"
 
 CONGRESS_DATA_UPDATE_TRIGGER = False
-
-
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-#             'datefmt' : "%d/%b/%Y %H:%M:%S"
-#         },
-#         'simple': {
-#             'format': '%(levelname)s %(message)s'
-#         },
-#     },
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': 'mysite.log',
-#             'formatter': 'verbose'
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers':['file'],
-#             'propagate': True,
-#             'level':'DEBUG',
-#         },
-#         'MYAPP': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#         },
-#     }
-# }
-
-# shell script for creating objects - just a note -----------------------------------------
-# >>> from books.models import Publisher
-# >>> p1 = Publisher(name='Apress', address='2855 Telegraph Avenue',
-# ...     city='Berkeley', state_province='CA', country='U.S.A.',
-# ...     website='http://www.apress.com/')
-# >>> p1.save()
-# >>> p2 = Publisher(name="O'Reilly", address='10 Fawcett St.',
-# ...     city='Cambridge', state_province='MA', country='U.S.A.',
-# ...     website='http://www.oreilly.com/')
-# >>> p2.save()
-# >>> publisher_list = Publisher.objects.all()
-# >>> publisher_list
-# [<Publisher: Publisher object>, <Publisher: Publisher object>]

@@ -16,6 +16,9 @@
 {% block content %}
     <div class="browse-container">
         <div class="browse-header">
+            <div>
+                <input style="margin-top:20px;">
+            </div>
             <div class="browse-button-a">
                 <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>
                 <div class="panel">
@@ -25,10 +28,10 @@
                 </div>
             </div>
         </div><!-- /.browse-header -->
-
-
         <div class="category-section">
-        <p class="category-heading">Documentaries</p>
+            <div>
+                <p class="category-heading" style="display:inline;">Documentaries</p><p style=" margin-left:10px; display:inline; font-size:14">(see all)</p>
+            </div>
              <div class="program-container">
                 {% for item in documentaryList %}
                 <div class='program-item' id="{{ item.objectId }}">

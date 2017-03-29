@@ -760,6 +760,43 @@ $(document).ready(function() {
     });
 
 
+    $('.hashtag-container').on("click", ".hashtag-item", function(e) {
+        // Function: Select text of tweet
+        function SelectText(element) {
+            var doc = document;
+            var text = element;
+            var range;
+            var selection;
+
+            if (doc.body.createTextRange) {
+                range = document.body.createTextRange();
+                range.moveToElementText(text);
+                range.select();
+            } else if (window.getSelection) {
+                selection = window.getSelection();
+                range = document.createRange();
+                range.selectNodeContents(text);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        }
+
+        // Copy hashtag text to Clipboard
+        var element = $(this).contents('.hashtag-item').contents().filter(function () { return this.nodeType === 3; });
+        SelectText(element);
+        document.execCommand("copy");
+
+        // Show Copy to Clipboard indicator
+        var element = $(this).contents('#copied-to-clipboard')
+        element.show();
+        element.animate({"height":"47"},400,function(){
+            setTimeout(function(){
+                element.animate({"height":"0"},400,function(){
+                    element.hide();
+                });
+             }, 400);
+        });
+    });
 
     $('.tweet-container').on("click", ".tweet-item", function(e) {
 
@@ -769,7 +806,7 @@ $(document).ready(function() {
             var text = element[0];
             var range;
             var selection;
-            ;
+
             if (doc.body.createTextRange) {
                 range = document.body.createTextRange();
                 range.moveToElementText(text);

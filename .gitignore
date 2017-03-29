@@ -1,6 +1,6 @@
-/static/js/content_landing.js
 venv
 *.pyc
 #staticfiles
 .env
 node_modules
+/pushthought/settings/settings_base.py
