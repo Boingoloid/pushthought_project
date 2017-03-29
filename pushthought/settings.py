@@ -29,9 +29,6 @@ TEMPLATE_DIRS = (
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -57,9 +54,6 @@ TEMPLATES = [
         },
     },
 ]
-
-
-
 
 
 SITE_ID = 1
@@ -144,16 +138,6 @@ CORS_ORIGIN_WHITELIST = (
 # CORS_ORIGIN_REGEX_WHITELIST = (r'^(https?://)?(\w+\.)?google\.com$', )
 
 
-# DATABASES = {
-#    'default' : {
-#       'ENGINE' : 'django_mongodb_engine',
-#       'NAME': 'mongodb://macalin:ma99723tt@ds037175.mongolab.com:37175/heroku_zcdt9dml',
-#       'USER': 'macalin',
-#       'PASSWORD': 'ma99723tt',
-#       'HOST': '127.0.0.1',
-#       'PORT': '5432',
-#    }
-# }
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -161,40 +145,6 @@ CORS_ORIGIN_WHITELIST = (
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd6lt20ja1h9poi',
-#         'HOST': 'ec2-54-204-8-224.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#         'USER': 'hdgnhjpsjylwrv',
-#         'PASSWORD': 'WONinZmjc9PthqNGYp6mZfg8fF',
-#     }
-# }
-
-
-
-# DATABASE_URL = 'postgres://hdgnhjpsjylwrv:WONinZmjc9PthqNGYp6mZfg8fF@ec2-54-204-8-224.compute-1.amazonaws.com:5432/d6lt20ja1h9poi'
-#
-# urlparse.uses_netlo`c.append("postgres")
-# url = urlparse.urlparse(DATABASE_URL)
-# # url = urlparse.urlparse(os.environ["DATABASE_URL"])
-#
-# conn = psycopg2.connect(
-#     database=url.path[1:],
-#     user=url.username,
-#     password=url.password,
-#     host=url.hostname,
-#     port=url.port
-# )
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -207,13 +157,6 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
-
-## This is heroku code
-
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-# DATABASES['default'] = dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -233,6 +176,13 @@ STATICFILES_DIRS = (
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+CONGRESS_DATA_UPDATE_TRIGGER = False
+
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
+
+
 # parse-server
 PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
@@ -240,6 +190,7 @@ PARSE_MASTER = 'V3eewSuWRXuLoAHNv4rWOecfITxwoUVqGpNM8y0u'
 PARSE_KEY = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_SECRET = 'tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP'
 PARSE_SERVER_URL = 'https://ptparse.herokuapp.com/parse'
+
 # PARSE_SERVER_URL = 'https://ptparse.herokuapp.com/parse'
 # app level twitter settings
 TWITTER_CONSUMER_KEY = 'uaqTefYM2ZCqquWDYVSe4kTqD'
@@ -256,6 +207,11 @@ SUNLIGHT_LABS_API_KEY = "ed7f6bb54edc4577943dcc588664c89f"
 # database
 MONGO_DBNAME = "heroku_zcdt9dml"
 MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/heroku_zcdt9dml"
+import os
+
+variable = os.environ.get('secret_KEY')
+print "HHHHHHHHHHHHHHHHHHHHHHH", variable
 
 
-CONGRESS_DATA_UPDATE_TRIGGER = False
+
+

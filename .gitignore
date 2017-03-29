@@ -3,4 +3,4 @@ venv
 #staticfiles
 .env
 node_modules
-/pushthought/settings/settings_base.py
+/pushthought/settings
