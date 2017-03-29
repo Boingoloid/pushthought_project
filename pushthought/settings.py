@@ -247,6 +247,6 @@ import socket
 print "socket"
 
 if socket.gethostname().endswith('local'):
-    print "yes local"
+    print "yes local", PARSE_APP_ID
 else:
-    print "no not local"
+    print "no not local ", os.environ.get('PARSE_APP_ID')
