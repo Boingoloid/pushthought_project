@@ -30,7 +30,7 @@ TEMPLATE_DIRS = (
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATES = [
     {
@@ -187,7 +187,6 @@ TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
 #
 # # parse-server
 # PARSE_APP_ID = os.environ.get('PARSE_APP_ID')
-# print PARSE_APP_ID
 # PARSE_REST_KEY = os.environ.get('PARSE_REST_KEY')
 # PARSE_MASTER = os.environ.get('PARSE_MASTER')
 # PARSE_KEY = os.environ.get('PARSE_KEY')
@@ -212,8 +211,13 @@ TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
 # MONGODB_URI = os.environ.get('MONGODB_URI')
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
 
+# from settings import settings_prod
+# HORSE = settings_prod.HORSE
+# print "printing horse: ", HORSE
+# print "hello"
+
+SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
 
 # parse-server
 PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
@@ -240,5 +244,6 @@ MONGO_DBNAME = "heroku_zcdt9dml"
 MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/heroku_zcdt9dml"
 
 
-
-
+import socket
+print "socket"
+print socket.gethostname()
