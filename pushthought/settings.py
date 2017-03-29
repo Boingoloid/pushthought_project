@@ -215,7 +215,6 @@ TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
 # from settings import settings_prod
 # HORSE = settings_prod.HORSE
 # print "printing horse: ", HORSE
-# print "hello"
 
 SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
 
@@ -246,4 +245,8 @@ MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/he
 
 import socket
 print "socket"
-print socket.gethostname()
+
+if socket.gethostname().endswith('local'):
+    print "yes local"
+else:
+    print "no not local"

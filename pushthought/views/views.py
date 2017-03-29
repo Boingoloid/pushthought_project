@@ -104,10 +104,6 @@ def home(request):
     dataDict['programList'] = program_list
     # print program_list
 
-    import socket
-    print "socket"
-    print socket.gethostname()
-
     return render(request, 'home.html', dataDict)
 
 
