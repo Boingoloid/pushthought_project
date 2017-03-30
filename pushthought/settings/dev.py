@@ -1,5 +1,4 @@
 from .base import *
-import os
 
 print "no not local ", os.environ.get('PARSE_APP_ID')
 print "PARSE_REST_KEY ", os.environ.get('PARSE_REST_KEY')
