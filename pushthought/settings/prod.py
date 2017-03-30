@@ -1,6 +1,25 @@
 from .base import *
 
-print "no not local ", os.environ.get('PARSE_APP_ID')
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+DJANGO_SETTINGS_MODULE = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': TEMPLATE_DIRS,
+        'APP_DIRS': True,
+        'OPTIONS': {'debug':DEBUG,
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+
 print "PARSE_REST_KEY ", os.environ.get('PARSE_REST_KEY')
 print "PARSE_MASTER ", os.environ.get('PARSE_MASTER')
 print "PARSE_KEY ", os.environ.get('PARSE_KEY')

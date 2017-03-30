@@ -3,3 +3,4 @@ venv
 #staticfiles
 .env
 node_modules
+secret.py
