@@ -3,4 +3,3 @@ venv
 #staticfiles
 .env
 node_modules
-/pushthought/settings
