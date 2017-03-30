@@ -11,10 +11,15 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 import psycopg2
 import urlparse
+PROJECT_FOLDER = os.path.realpath(os.path.dirname(os.path.dirname(__file__)))
 
-PROJECT_FOLDER = os.path.realpath(os.path.dirname(__file__))
-BASE_DIR = os.path.join(os.path.dirname(__file__), '..')
+PROJECT_FOLDER = os.path.dirname(os.path.realpath(os.path.dirname(__file__)))
+print PROJECT_FOLDER
+# BASE_DIR = os.path.dirname(os.path.join(os.path.dirname(__file__), '..'))
+BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), '..')
+print BASE_DIR
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+print TEMPLATE_PATH
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -27,7 +32,7 @@ TEMPLATE_DIRS = (
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATES = [
     {

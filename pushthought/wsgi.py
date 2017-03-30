@@ -1,4 +1,5 @@
 import os
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pushthought.settings")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pushthought.settings")
 
 # This application object is used by the development server

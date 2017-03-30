@@ -7,7 +7,6 @@ print "PARSE_KEY ", os.environ.get('PARSE_KEY')
 print "PARSE_SECRET", os.environ.get('PARSE_SECRET')
 
 
-
 # parse-server
 PARSE_APP_ID = os.environ.get('PARSE_APP_ID')
 PARSE_REST_KEY = os.environ.get('PARSE_REST_KEY')
