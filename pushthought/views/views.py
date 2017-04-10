@@ -34,6 +34,30 @@ import tweepy
 import json, httplib
 import pymongo
 
+from django.shortcuts import (
+    render_to_response
+)
+from django.template import RequestContext
+
+# # HTTP Error 404
+# def page_not_found(request):
+#     response = render_to_response(
+#     '404.html',
+#     context_instance=RequestContext(request)
+#     )
+#     response.status_code = 400
+#     return response
+
+
+def handler404(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+
+
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
 TWITTER_CALLBACK_ROOT_URL = settings.TWITTER_CALLBACK_ROOT_URL

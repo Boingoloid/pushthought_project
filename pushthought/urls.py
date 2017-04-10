@@ -18,6 +18,13 @@ from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# from django.conf.urls import (
+# handler400, handler403, handler404, handler500
+# )
+# # handler400 = 'views.bad_request'
+# # handler403 = 'views.permission_denied'
+# handler404 = 'views.page_not_found'
+# # handler500 = 'views.server_error'
 
 from django.conf.urls import url, include
 from snippets import urls
@@ -28,7 +35,6 @@ urlpatterns = [
     url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name,name='test',),
     url(r'^home', views.home,name='home',),
     url(r'^$', views.home,name='home'),
-
     # congress email
     url(r'^submit_congress_email', views.submit_congress_email_view,name='submit_congress_email_view'),
     url(r'^submit_congress_captcha', views.submit_congress_captcha_view,name='submit_congress_captcha_view'),
