@@ -1,25 +1,6 @@
-from .base import *
 from .heroku import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-DJANGO_SETTINGS_MODULE = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': TEMPLATE_DIRS,
-        'APP_DIRS': True,
-        'OPTIONS': {'debug':DEBUG,
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
 print "prod environment"
 print "PARSE_KEY ", os.environ.get('PARSE_KEY')
 
