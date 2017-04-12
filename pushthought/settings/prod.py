@@ -20,10 +20,8 @@ DJANGO_SETTINGS_MODULE = [
     },
 ]
 
-print "PARSE_REST_KEY ", os.environ.get('PARSE_REST_KEY')
-print "PARSE_MASTER ", os.environ.get('PARSE_MASTER')
+print "prod environment"
 print "PARSE_KEY ", os.environ.get('PARSE_KEY')
-print "PARSE_SECRET", os.environ.get('PARSE_SECRET')
 
 # parse-server
 PARSE_APP_ID = os.environ.get('PARSE_APP_ID')
@@ -49,5 +47,5 @@ SUNLIGHT_LABS_API_KEY = os.environ.get('SUNLIGHT_LABS_API_KEY')
 # database
 MONGO_DBNAME = os.environ.get('MONGO_DBNAME')
 MONGODB_URI = str(os.environ.get('MONGODB_URI'))
-# SECRET_KEY = os.environ.get('SECRET_KEY')
-SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'

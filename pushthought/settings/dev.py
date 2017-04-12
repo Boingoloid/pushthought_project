@@ -21,10 +21,7 @@ DJANGO_SETTINGS_MODULE = [
 ]
 
 print "no not local ", os.environ.get('PARSE_APP_ID')
-print "PARSE_REST_KEY ", os.environ.get('PARSE_REST_KEY')
-print "PARSE_MASTER ", os.environ.get('PARSE_MASTER')
-print "PARSE_KEY ", os.environ.get('PARSE_KEY')
-print "PARSE_SECRET", os.environ.get('PARSE_SECRET')
+
 
 
 # parse-server
