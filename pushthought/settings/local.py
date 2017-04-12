@@ -4,13 +4,16 @@ from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
 PARSE_MASTER = 'V3eewSuWRXuLoAHNv4rWOecfITxwoUVqGpNM8y0u'
 PARSE_KEY = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_SECRET = 'tHZLsIENdHUpZXlfG1AZVLXsETYbgvr5lUorFegP'
-PARSE_SERVER_URL = 'https://ptparse.herokuapp.com/parse'
+
+PARSE_SERVER_URL = 'ptparsedev.herokuapp.com'
 # PARSE_SERVER_URL = 'https://ptparse.herokuapp.com/parse'
+
 # app level twitter settings
 TWITTER_CONSUMER_KEY = 'uaqTefYM2ZCqquWDYVSe4kTqD'
 TWITTER_CONSUMER_SECRET = 'BiN5qkDZpltqgHhyCtUO0zYrSsgE3WhTWEqYAgKhIAmpl1f4NI'
@@ -24,6 +27,8 @@ TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/verify_catch'
 SUNLIGHT_LABS_API_KEY = "ed7f6bb54edc4577943dcc588664c89f"
 
 # database
-MONGO_DBNAME = "heroku_zcdt9dml"
+MONGO_DBNAME = "heroku_zcdt9dml" #prod
 MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/heroku_zcdt9dml"
+# MONGO_DBNAME = "heroku_tz491rn8"
+# MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds159050.mlab.com:59050/heroku_tz491rn8"
 SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
