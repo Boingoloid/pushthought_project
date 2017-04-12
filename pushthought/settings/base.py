@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 import psycopg2
 import urlparse
-PROJECT_FOLDER = os.path.realpath(os.path.dirname(os.path.dirname(__file__)))
+
+DEBUG = os.environ.get('DEBUG', False)
 
 PROJECT_FOLDER = os.path.dirname(os.path.realpath(os.path.dirname(__file__)))
 BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), '..')
@@ -106,21 +107,21 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'pushthought.urls'
 
-# DJANGO_SETTINGS_MODULE = [
-#     {
-#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-#         'DIRS': TEMPLATE_DIRS,
-#         'APP_DIRS': True,
-#         'OPTIONS': {'debug':DEBUG,
-#             'context_processors': [
-#                 'django.template.context_processors.debug',
-#                 'django.template.context_processors.request',
-#                 'django.contrib.auth.context_processors.auth',
-#                 'django.contrib.messages.context_processors.messages',
-#             ],
-#         },
-#     },
-# ]
+DJANGO_SETTINGS_MODULE = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': TEMPLATE_DIRS,
+        'APP_DIRS': True,
+        'OPTIONS': {'debug':DEBUG,
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 WSGI_APPLICATION = 'pushthought.wsgi.application'
 
