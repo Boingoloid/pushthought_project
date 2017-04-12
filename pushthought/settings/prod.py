@@ -20,7 +20,6 @@ DJANGO_SETTINGS_MODULE = [
     },
 ]
 
-
 print "PARSE_REST_KEY ", os.environ.get('PARSE_REST_KEY')
 print "PARSE_MASTER ", os.environ.get('PARSE_MASTER')
 print "PARSE_KEY ", os.environ.get('PARSE_KEY')
