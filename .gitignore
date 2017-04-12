@@ -4,3 +4,11 @@ venv
 .env
 node_modules
 secret.py
+.idea
+
+.vagrant/
+Vagrantfile
+Vagrantfile.chef
+bootstrap.sh
+cookbooks/
+postgres_config.sh
