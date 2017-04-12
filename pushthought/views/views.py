@@ -13,7 +13,6 @@ from corsheaders.defaults import default_methods
 
 from django.contrib.sessions.models import Session
 
-
 from ..models import Segment
 from ..models import MenuItem
 
@@ -34,6 +33,23 @@ import tweepy
 import json, httplib
 import pymongo
 
+# scraping part
+from scrapex import *
+import time
+import sys
+import json
+import urlparse
+import re
+from datetime import datetime
+from datetime import date
+from time import sleep
+from scrapex import common
+from scrapex.node import Node
+from scrapex.excellib import *
+import random
+import threading
+
+
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
 TWITTER_CALLBACK_ROOT_URL = settings.TWITTER_CALLBACK_ROOT_URL
@@ -45,7 +61,23 @@ TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
 
+# create scraping object
+s = Scraper(
+    use_cache=False, #enable cache globally
+    retries=2,
+    delay=0.5,
+    timeout=60,
+    proxy_file = 'proxy.txt',
+    proxy_auth= 'silicons:1pRnQcg87F'
+    )
 
+lock = threading.Lock()
+logger = s.logger
+
+youtube_url = 'http://www.youtube.com/results?search_query='
+limit_top_url_count = 10
+youtube_meta_list = []
+youtube_scraping_url_list = []
 
 def submit_congress_email_view(request):
     print "submit_congress_email_view firing"
@@ -79,11 +111,6 @@ def submit_congress_captcha_view(request):
             save_congress_email_fields_to_user(request)
             save_email_congress_action(request)
     return HttpResponse(json.dumps(captcha_response_object), content_type="application/json")
-
-
-
-
-
 
 def data_loop(request):
     print request.body
@@ -150,8 +177,56 @@ def about(request):
 def leaving(request):
     return HttpResponse("Watch function not in place yet, working on it. thanks :)")
 
+def check_db_duplication(request):
+    lists = []
+    return lists
 
 def browse(request):
+    global youtube_meta_list
+    global youtube_scraping_url_list
+
+    print request.body
+    print request.GET
+    print request.POST
+
+    search_type = request.POST.get('search_type', "")
+    
+    href_links = []
+    if search_type == "scraping":
+        search_keyword =  request.POST['search_keyword']
+        href_links = get_scraping_start_urls(search_keyword)
+
+    #get meta data list for each youtube urls with threading
+    
+    searchArray = []
+
+    if len(href_links) > 0:
+        youtube_meta_list = []
+        youtube_scraping_url_list = []
+        get_youtube_urls(href_links)
+
+        while(1):
+            if len(youtube_scraping_url_list) == len(href_links):
+                break
+
+        for url in href_links:
+            searchArrayObj = {"url": url}
+            for row in youtube_meta_list:
+                if url == row[7]:
+                    key = row[1] + "_" + row[3].replace(":","_")
+                    if row[1] == "itemprop" and row[3] == "duration":
+                        time_str = re.split('[a-zA-Z]+', row[5])
+                        searchArrayObj[key] = time_str[1] + ":" + time_str[2]
+                    else:
+                        searchArrayObj[key] = row[5]
+
+            searchArray.append(searchArrayObj)
+
+    data_lists = check_db_duplication(request)
+
+    if len(data_lists) == 0:
+        print "No Database Data"
+
     program_list = get_program_list()
     program_stats = get_program_browse_stats()
     # program_list_with_stats = get_program_list_with_stats(program_list,program_stats)
@@ -187,9 +262,9 @@ def browse(request):
     dataDict['webVideoList'] = webVideoArray
     dataDict['podcastList'] = podcastArray
     dataDict['otherList'] = otherArray
+    dataDict['searchResultList'] = searchArray
 
     return render(request, 'browse.html', dataDict)
-
 
 def content_landing(request, segment_id):
     # get program and segment ID
@@ -609,5 +684,68 @@ def petition(request, programId, segmentId):
     #         # blank dictionary object...
     #         return render(request, 'login.html', {})
 
+def get_scraping_start_urls(search_keyword):
+    global youtube_url
+    global logger
+
+    url = youtube_url + search_keyword
+    logger.info('loading parent page...' + url)
+    html = s.load(youtube_url + search_keyword, use_cache = False)
+
+    proxy = html.response.request.get("proxy")
+    logger.info(proxy.host + ":" + str(proxy.port))
+    
+    video_divs = html.q("//div[contains(@class, 'yt-lockup-thumbnail contains-addto')]/a")
+    
+    href_links = []
+    if len(video_divs) > 0:
+        for i, row in enumerate(video_divs):
+            if i >= limit_top_url_count: break
+            href_links.append(row.x("@href"))
+
+    return href_links
+
+def get_youtube_urls(href_links):
+    threads = []
+    for i, url in enumerate(href_links):
+        thread_obj = threading.Thread(target = parse_youtube_webpage, args = (url,))
+        threads.append(thread_obj)
+        thread_obj.start()
+
+def parse_youtube_webpage(url):
+    html = s.load(url, use_cache=False)
+
+    proxy = html.response.request.get("proxy")
+    logger.info(proxy.host + ":" + str(proxy.port) + ", URL -> " + url)
+    get_youtube_meta_data(html, url)
+
+def get_youtube_meta_data(html, url):
+    lock.acquire()
+    meta_elements = html.q("//meta")
+
+    for row in meta_elements:
+        meta_name = row.x("@name")
+        meta_content = row.x("@content")
+        meta_property = row.x("@property")
+        meta_itemprop = row.x("@itemprop")
+
+        if meta_name != "":
+            attribute_type = "name"
+            attribute_value= meta_name
+        elif meta_property != "":
+            attribute_type = "property"
+            attribute_value= meta_property
+        elif meta_itemprop != "":
+            attribute_type = "itemprop"
+            attribute_value= meta_itemprop
+
+        meta_info = [   'attribute_type', attribute_type,
+                        'attribute_value', attribute_value,
+                        'meta_content', meta_content,
+                        'url', url]
 
 
+        youtube_meta_list.append(meta_info)
+
+    lock.release()
+    youtube_scraping_url_list.append(url)

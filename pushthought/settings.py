@@ -242,6 +242,8 @@ SUNLIGHT_LABS_API_KEY = "ed7f6bb54edc4577943dcc588664c89f"
 MONGO_DBNAME = "heroku_zcdt9dml"
 MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/heroku_zcdt9dml"
 
+# MONGO_DBNAME = "heroku_zcdt9dml"
+# MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@127.0.0.1:27017/heroku_zcdt9dml"
 
 import socket
 print "socket"

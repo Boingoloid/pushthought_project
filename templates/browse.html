@@ -14,10 +14,14 @@
                 <!--</form>-->
 
 {% block content %}
+<form name="browse_form" action="{% url 'browse' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="search_type" id="search_type" value="">
     <div class="browse-container">
         <div class="browse-header">
             <div>
-                <input style="margin-top:20px;">
+                <input name="search_keyword" id="search_keyword" value="Bill Mahr New Rule"/>
+                <button name="search_btn" id="search_btn" class="btn btn-primary">Search</button>
             </div>
             <div class="browse-button-a">
                 <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>
@@ -28,6 +32,24 @@
                 </div>
             </div>
         </div><!-- /.browse-header -->
+        <div class="search-result-section">
+            <div>
+                <p class="search-result-heading" style="display:inline;">Search Results</p>
+                {% if searchResultList|length > 0 %}
+                    <p>{{searchResultList|length}}</p>
+                {% endif %}
+            </div>
+            <div class="program-container">
+                {% for item in searchResultList %}
+                <div class='program-item' id="{{ item.itemprop_videoId}}">
+                    <div class="program-img-container">
+                        <img class='program-item-image' id='program-item-image' src="{{item.property_og_image}}" >
+                    </div>
+                    <div style="display: inline"><p>{{item.name_title}} - {{item.itemprop_duration}}</p></div>
+                </div>
+                {% endfor %}
+             </div>
+        </div>
         <div class="category-section">
             <div>
                 <p class="category-heading" style="display:inline;">Documentaries</p><p style=" margin-left:10px; display:inline; font-size:14">(see all)</p>
@@ -114,12 +136,21 @@
         <!--</div>-->
         <!--{% endfor %}-->
     <!--</div>  &lt;!&ndash;close PROGRAM container&ndash;&gt;-->
-
+</form>
 {% endblock %}
 
 {% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'js/browse.js' %}"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#search_btn").click(function(){
+            $("#search_type").val("scraping");
+            console.log($("#search_type").val());
+            $("form").submit();
+        });
+    });
+</script>
 {% endblock %}
 
         <!--<div style="display:inline-block;">-->
