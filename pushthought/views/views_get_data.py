@@ -7,7 +7,7 @@ from ..models import Program
 from bson.son import SON
 import pymongo
 
-
+PARSE_SERVER_URL = settings.PARSE_SERVER_URL
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
 MONGODB_URI = settings.MONGODB_URI
@@ -58,7 +58,7 @@ def get_segment_actions_for_user(segmentId,userObjectId):
 
 #helper
 def get_program_list():
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+    connection = httplib.HTTPSConnection(PARSE_SERVER_URL, 443)
     connection.connect()
     connection.request('GET','/parse/classes/Programs', '', {
         "X-Parse-Application-Id": PARSE_APP_ID,
@@ -349,7 +349,6 @@ def get_petition_url(action_list):
     client = pymongo.MongoClient(MONGODB_URI)
     db = client.get_default_database()
     saveReturn = db.contact_form.save(contact_data)
-
 
 
 #helper

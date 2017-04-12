@@ -33,6 +33,8 @@ function runTweet(windowURL){
     $('.address-item.selected').each(function(){
         var address = $(this).text();
         address = address.replace('\n','');
+        address = address.replace('\n','');
+        address = address.replace('\n','');
         addressArray.push(address);
         var bioguideId = $(this).attr('name');
         console.log(bioguideId);
