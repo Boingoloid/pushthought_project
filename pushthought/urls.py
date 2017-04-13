@@ -32,8 +32,13 @@ import views
 
 
 urlpatterns = [
-    url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name,name='test',),
+    # url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name,name='test',),
     url(r'^home', views.home,name='home',),
+
+
+    # This line added to cut off all urls to home
+    url(r'^.*$', views.home,name='home',),
+
     url(r'^$', views.home,name='home'),
     # congress email
     url(r'^submit_congress_email', views.submit_congress_email_view,name='submit_congress_email_view'),
