@@ -48,3 +48,4 @@ django-extensions
 django-allauth
 django-environ
 django-suit==0.2.25
+https://github.com/cungnv/scrapex/archive/master.zip
