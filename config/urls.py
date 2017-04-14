@@ -28,7 +28,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.conf.urls import url, include
 from snippets import urls
-import views
+from pushthought import views
 
 
 urlpatterns = [
