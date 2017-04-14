@@ -14,8 +14,8 @@ from corsheaders.defaults import default_methods
 from django.contrib.sessions.models import Session
 
 
-from ..models import Segment
-from ..models import MenuItem
+# from ..models import Segment
+# from ..models import MenuItem
 
 # views import
 
@@ -467,38 +467,38 @@ def account_home(request, user_pk):
 
 
 
-# @login_required
-def segment_list(request, user_pk, program_pk):
-    program = get_object_or_404(Program, pk=program_pk)
-    segments = Segment.objects.filter(program__pk=program_pk)
-
-    # Entry.objects.filter(blog__name='Beatles Blog')
-    #   get_list_or_404(Segment, program= program_pk)
-
-    dataDict = {}
-    dataDict['user_pk'] = user_pk
-    dataDict['segments'] = segments
-    dataDict['program'] = program
-    return render(request, 'segment_list.html', dataDict)
-
-
-# @login_required
-def segment_menu(request, user_pk, program_pk, segment_pk):
-    menuItems = MenuItem.objects.filter(segment__pk=segment_pk)
-    segment = get_object_or_404(Segment, pk=segment_pk)
-    program = get_object_or_404(Program, pk=program_pk)
-
-    dataDict = {}
-    dataDict['menuItems'] = menuItems
-    dataDict['segment'] = segment
-    dataDict['program'] = program
-
-    return render(request, 'segment_menu.html', dataDict)
-
-    #NEW STUFF-----------------------------------------------------------------------------------------------
-
-
-
+# # @login_required
+# def segment_list(request, user_pk, program_pk):
+#     program = get_object_or_404(Program, pk=program_pk)
+#     segments = Segment.objects.filter(program__pk=program_pk)
+#
+#     # Entry.objects.filter(blog__name='Beatles Blog')
+#     #   get_list_or_404(Segment, program= program_pk)
+#
+#     dataDict = {}
+#     dataDict['user_pk'] = user_pk
+#     dataDict['segments'] = segments
+#     dataDict['program'] = program
+#     return render(request, 'segment_list.html', dataDict)
+#
+#
+# # @login_required
+# def segment_menu(request, user_pk, program_pk, segment_pk):
+#     menuItems = MenuItem.objects.filter(segment__pk=segment_pk)
+#     segment = get_object_or_404(Segment, pk=segment_pk)
+#     program = get_object_or_404(Program, pk=program_pk)
+#
+#     dataDict = {}
+#     dataDict['menuItems'] = menuItems
+#     dataDict['segment'] = segment
+#     dataDict['program'] = program
+#
+#     return render(request, 'segment_menu.html', dataDict)
+#
+#     #NEW STUFF-----------------------------------------------------------------------------------------------
+#
+#
+#
 
 
 
