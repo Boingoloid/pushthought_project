@@ -47,3 +47,4 @@ django-braces
 django-extensions
 django-allauth
 django-environ
+django-suit==0.2.25
