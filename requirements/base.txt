@@ -1,13 +1,12 @@
+Django==1.9
 app==0.0.1
 Babel==2.1.1
 CacheControl==0.11.7
 cycler==0.10.0
 dj-database-url==0.3.0
 dj-static==0.0.6
-Django==1.9
 django-cors-headers==2.0.0
 django-filter==0.12.0
-django-phonenumber-field==1.0.0
 django-registration==2.0.3
 django-toolbelt==0.0.1
 djangorestframework==3.3.2
@@ -49,3 +48,4 @@ django-allauth
 django-environ
 django-suit==0.2.25
 https://github.com/cungnv/scrapex/archive/master.zip
+django-phonenumber-field==1.2.0
