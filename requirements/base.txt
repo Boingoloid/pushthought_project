@@ -43,3 +43,7 @@ static3==0.6.1
 tweepy==3.5.0
 virtualenv==15.0.0
 whitenoise==3.2.2
+django-braces
+django-extensions
+django-allauth
+django-environ
