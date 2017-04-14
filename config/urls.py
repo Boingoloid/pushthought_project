@@ -32,6 +32,9 @@ from pushthought import views
 
 
 urlpatterns = [
+# Admin
+    url(r'^admin/', include(admin.site.urls)),
+
     url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name,name='test',),
     url(r'^home', views.home,name='home',),
     url(r'^$', views.home,name='home'),
@@ -57,8 +60,7 @@ urlpatterns = [
     #     views.verify_twitter),
     url(r'^verify_catch', views.verify_catch,name='verify_catch'),
 
-    # Admin
-    url(r'^admin', include(admin.site.urls)),
+
 
     # Backburner
     url(r'^snippets', include('snippets.urls')),
