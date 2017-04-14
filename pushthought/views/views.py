@@ -87,22 +87,6 @@ MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
 
 # create scraping object
-s = Scraper(
-    use_cache=False, #enable cache globally
-    retries=2,
-    delay=0.5,
-    timeout=60,
-    proxy_file = 'proxy.txt',
-    proxy_auth= 'silicons:1pRnQcg87F'
-    )
-
-lock = threading.Lock()
-logger = s.logger
-
-youtube_url = 'http://www.youtube.com/results?search_query='
-limit_top_url_count = 10
-youtube_meta_list = []
-youtube_scraping_url_list = []
 
 def submit_congress_email_view(request):
     print "submit_congress_email_view firing"
@@ -559,17 +543,17 @@ def segment_list(request, user_pk, program_pk):
 
 
 # @login_required
-def segment_menu(request, user_pk, program_pk, segment_pk):
-    menuItems = MenuItem.objects.filter(segment__pk=segment_pk)
-    segment = get_object_or_404(Segment, pk=segment_pk)
-    program = get_object_or_404(Program, pk=program_pk)
-
-    dataDict = {}
-    dataDict['menuItems'] = menuItems
-    dataDict['segment'] = segment
-    dataDict['program'] = program
-
-    return render(request, 'segment_menu.html', dataDict)
+# def segment_menu(request, user_pk, program_pk, segment_pk):
+#     menuItems = MenuItem.objects.filter(segment__pk=segment_pk)
+#     segment = get_object_or_404(Segment, pk=segment_pk)
+#     program = get_object_or_404(Program, pk=program_pk)
+#
+#     dataDict = {}
+#     dataDict['menuItems'] = menuItems
+#     dataDict['segment'] = segment
+#     dataDict['program'] = program
+#
+#     return render(request, 'segment_menu.html', dataDict)
 
     #NEW STUFF-----------------------------------------------------------------------------------------------
 
@@ -710,8 +694,22 @@ def petition(request, programId, segmentId):
     #         return render(request, 'login.html', {})
 
 def get_scraping_start_urls(search_keyword):
-    global youtube_url
-    global logger
+    s = Scraper(
+        use_cache=False,  # enable cache globally
+        retries=2,
+        delay=0.5,
+        timeout=60,
+        proxy_file='proxy.txt',
+        proxy_auth='silicons:1pRnQcg87F'
+    )
+
+    lock = threading.Lock()
+    logger = s.logger
+
+    youtube_url = 'http://www.youtube.com/results?search_query='
+    limit_top_url_count = 10
+    youtube_meta_list = []
+    youtube_scraping_url_list = []
 
     url = youtube_url + search_keyword
     logger.info('loading parent page...' + url)
