@@ -1,9 +1,9 @@
 import json, httplib, urllib
 from views import *
-from ..forms import SegmentForm
+# from ..forms import SegmentForm
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.conf import settings
-from ..models import Program
+# from ..models import Program
 from bson.son import SON
 import pymongo
 
@@ -587,32 +587,32 @@ def update_segment_stats(request):
     return None
 
 
-# @login_required
-def add_segment(request, user_pk, program_pk):
-    program = get_object_or_404(Program, pk=program_pk)
-
-    # A HTTP POST?
-    if request.method == 'POST':
-        form = SegmentForm(request.POST)
-
-        # Have we been provided with a valid form?
-        if form.is_valid():
-            # Save the new category to the database.
-            form.save(commit=True)
-
-            # Now call the index() view.
-            # The user will be shown the homepage.
-            return home(request)
-        else:
-            # The supplied form contained errors - just print them to the terminal.
-            print form.errors
-    else:
-        # If the request was not a POST, display the form to enter details.
-        form = SegmentForm(initial={'program': program})
-
-    # Bad form (or form details), no form supplied...
-    # Render the form with error messages (if any).
-    return render(request, 'add_segment.html', {'form': form, 'program': program})
+# # @login_required
+# def add_segment(request, user_pk, program_pk):
+#     program = get_object_or_404(Program, pk=program_pk)
+#
+#     # A HTTP POST?
+#     if request.method == 'POST':
+#         form = SegmentForm(request.POST)
+#
+#         # Have we been provided with a valid form?
+#         if form.is_valid():
+#             # Save the new category to the database.
+#             form.save(commit=True)
+#
+#             # Now call the index() view.
+#             # The user will be shown the homepage.
+#             return home(request)
+#         else:
+#             # The supplied form contained errors - just print them to the terminal.
+#             print form.errors
+#     else:
+#         # If the request was not a POST, display the form to enter details.
+#         form = SegmentForm(initial={'program': program})
+#
+#     # Bad form (or form details), no form supplied...
+#     # Render the form with error messages (if any).
+#     return render(request, 'add_segment.html', {'form': form, 'program': program})
 
 #helper
 def fetch_action_list(segment_id):

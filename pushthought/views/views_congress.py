@@ -1,10 +1,10 @@
 import json, httplib, urllib
 from pushthought.views import *
 from views import *
-from ..forms import SegmentForm
+# from ..forms import SegmentForm
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.conf import settings
-from ..models import Program
+# from ..models import Program
 import requests
 from bson.son import SON
 import pymongo

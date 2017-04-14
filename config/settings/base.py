@@ -9,49 +9,65 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import psycopg2
-import urlparse
-
-DEBUG = os.environ.get('DEBUG', False)
+import environ
 
 PROJECT_FOLDER = os.path.dirname(os.path.realpath(os.path.dirname(__file__)))
 BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), '..')
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    TEMPLATE_PATH,
+# Load operating system environment variables and then prepare to use them
+env = environ.Env()
+
+DJANGO_APPS = [
+    # Default Django apps:
+    'suit',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
+    'django.contrib.staticfiles',
+    'django.contrib.sites',
+]
+
+THIRD_PARTY_APPS = [
+    'corsheaders',
+    'rest_framework',
+    'snippets',
+    'prime',
+]
+
+LOCAL_APPS = [
+    'pushthought',
+    'programs',
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 )
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
+DEBUG = os.environ.get('DEBUG', False)
 
+# DATABASE CONFIGURATION
+# ------------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+DATABASES = {
+    'default': env.db('DATABASE_URL', default='postgres:///admin:main2017@localhost/main'),
+}
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': TEMPLATE_DIRS
-            # insert your TEMPLATE_DIRS here
-        ,
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
-                # list if you haven't customized them:
-                'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.debug',
-                'django.template.context_processors.i18n',
-                'django.template.context_processors.media',
-                'django.template.context_processors.static',
-                'django.template.context_processors.tz',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
 
 
 SITE_ID = 1
@@ -74,57 +90,42 @@ REST_FRAMEWORK = {
     ]
 }
 
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'pushthought',
-    'corsheaders',
-    'rest_framework',
-    'snippets',
-    'prime',
-)
+ROOT_URLCONF = 'config.urls'
 
-
-MIDDLEWARE_CLASSES = (
-    'corsheaders.middleware.CorsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-)
-
-
-ROOT_URLCONF = 'pushthought.urls'
-
-DJANGO_SETTINGS_MODULE = [
+TEMPLATES = [
     {
+        # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-TEMPLATES-BACKEND
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': TEMPLATE_DIRS,
-        'APP_DIRS': True,
-        'OPTIONS': {'debug':DEBUG,
+        # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
+        'DIRS': [
+            TEMPLATE_PATH,
+        ],
+        'OPTIONS': {
+            # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
+            'debug': DEBUG,
+            # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
+            # https://docs.djangoproject.com/en/dev/ref/templates/api/#loader-types
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
+            # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                # Your stuff: custom template context processors go here
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'pushthought.wsgi.application'
-
+WSGI_APPLICATION = 'config.wsgi.application'
 
 CORS_ORIGIN_WHITELIST = (
     'pushthought.com',
@@ -141,9 +142,6 @@ CORS_ORIGIN_WHITELIST = (
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
-
-
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Internationalization
