@@ -12,4 +12,4 @@ class ZipForm(forms.ModelForm):
 class CongressForm(forms.ModelForm):
     class Meta:
         model = models.Congress
-        fields = ['__all__']
+        fields = '__all__'
