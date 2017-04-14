@@ -206,7 +206,7 @@ def browse(request):
 
     dataDict = {}
     dataDict['programList'] = program_list_with_stats
-    dataDict['segmentList'] = segment_list
+    # dataDict['segmentList'] = segment_list
     dataDict['documentaryList'] = documentaryArray
     dataDict['webVideoList'] = webVideoArray
     dataDict['podcastList'] = podcastArray
