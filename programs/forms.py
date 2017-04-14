@@ -1,0 +1,25 @@
+from django import forms
+
+from . import models
+
+
+class ProgramForm(forms.ModelForm):
+    class Meta:
+        model = models.Program
+        fields = ['title', 'description', 'image', 'runtime', 'type']
+
+
+# class SeasonForm(forms.ModelForm):
+#     class Meta:
+#         model = models.Season
+#         fields = ['program', 'number']
+#
+#
+# class EpisodeForm(forms.ModelForm):
+#     class Meta:
+#         model = models.Episode
+#
+#
+# class SegmentForm(forms.ModelForm):
+#     class Meta:
+#         model = models.Segment

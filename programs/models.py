@@ -8,7 +8,7 @@ from django.db import models
 class Program(TimeStampedModel):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField()
+    image = models.ImageField(blank=True, null=True)
     runtime = models.IntegerField()
     type = models.CharField(max_length=100)
 
@@ -27,6 +27,3 @@ class Segment(models.Model):
     program = models.ForeignKey('Program')
     episode = models.ForeignKey('Episode', blank=True, null=True)
     duration = models.IntegerField()
-
-
-# class Type
