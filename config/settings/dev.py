@@ -1,8 +1,6 @@
 from .heroku import *
 
-print "no not local ", os.environ.get('PARSE_APP_ID')
-
-
+DEBUG = True
 
 # parse-server
 PARSE_APP_ID = os.environ.get('PARSE_APP_ID')
