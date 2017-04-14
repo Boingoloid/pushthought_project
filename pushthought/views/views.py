@@ -1,79 +1,11 @@
-from django.shortcuts import get_list_or_404, get_object_or_404, render
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.conf import settings
-from django.template import RequestContext
-from django.contrib import messages
-
-from corsheaders.defaults import default_methods
-
-# from django.contrib.auth import authenticate, login
-# from pushthought.forms import UserForm, UserProfileForm
-# from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
-
-from django.contrib.sessions.models import Session
-
-
-# from ..models import Segment
-# from ..models import MenuItem
-
-# views import
-
-from views_alerts import *
-from views_api import *
-from views_get_data import *
-from views_congress import *
 from views_email_congress import *
-from views_parse_user import *
-from views_twtitter_auth import *
 from views_user_forms import *
-
-# from django.contrib.auth import logout
-
-import tweepy
-import json, httplib
-import pymongo
-
-from django.shortcuts import (
-    render_to_response
-)
-from django.template import RequestContext
-
-# # HTTP Error 404
-# def page_not_found(request):
-#     response = render_to_response(
-#     '404.html',
-#     context_instance=RequestContext(request)
-#     )
-#     response.status_code = 400
-#     return response
-
-
-def handler404(request):
-    response = render_to_response('404.html', {},
-                                  context_instance=RequestContext(request))
-    response.status_code = 404
-    return response
-
-
-
-
-# scraping part
 from scrapex import *
-import time
-import sys
 import json
-import urlparse
 import re
-from datetime import datetime
-from datetime import date
-from time import sleep
-from scrapex import common
-from scrapex.node import Node
-from scrapex.excellib import *
-import random
 import threading
-
+from django.views.generic.base import TemplateView
+from django.shortcuts import render_to_response
 
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
@@ -87,6 +19,23 @@ MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
 
 # create scraping object
+
+
+class HomeView(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['programList'] = get_program_list()
+        return context
+
+
+def handler404(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
 
 def submit_congress_email_view(request):
     print "submit_congress_email_view firing"
@@ -134,13 +83,6 @@ def data_throw(request):
 
 
 
-def home(request):
-    program_list = get_program_list()
-    dataDict = {}
-    dataDict['programList'] = program_list
-    # print program_list
-
-    return render(request, 'home.html', dataDict)
 
 
 def submit_email(request,email):
