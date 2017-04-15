@@ -22,15 +22,16 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name, name='test'),
-    url(r'^', views.HomeView.as_view(), name='home',),
-    url(r'^home/', views.HomeView.as_view(), name='home',),
+    url(r'^$', views.HomeView.as_view(), name='home',),
+    url(r'^home/$', views.HomeView.as_view(), name='home',),
+    url(r'^browse/$', views.browse, name='browse'),
 
     # congress email
     url(r'^submit_congress_email', views.submit_congress_email_view, name='submit_congress_email_view'),
     url(r'^submit_congress_captcha', views.submit_congress_captcha_view, name='submit_congress_captcha_view'),
     url(r'^submit-email/(?P<email>.*)', views.submit_email, name='submit_email'),
     url(r'^send-contact/', views.send_contact, name='send_contact'),
-    url(r'^browse', views.browse, name='browse'),
+
     url(r'^content_landing/$', views.content_landing_empty, name='content_landing_empty'),
     url(r'^content_landing/(?P<segment_id>\w+)', views.content_landing, name='content_landing'),
     url(r'^get_congress_email_fields', views.get_congress_email_fields_view, name='get_congress_email_fields_view'),
