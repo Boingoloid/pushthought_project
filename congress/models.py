@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
-
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 class Zip(TimeStampedModel):
     code = models.IntegerField(unique=True)
@@ -24,7 +24,6 @@ class Congress(TimeStampedModel):
     fax = models.CharField(max_length=20, blank=True, null=True)
     twitter_id = models.CharField(max_length=30, blank=True, null=True)
     bioguide_id = models.CharField(max_length=30, unique=True)
-    image = models.ImageField(blank=True, null=True)
     office = models.CharField(max_length=100, blank=True, null=True)
     thomas_id = models.CharField(max_length=100, blank=True, null=True)
     district = models.CharField(max_length=100, blank=True, null=True)
@@ -51,3 +50,9 @@ class Congress(TimeStampedModel):
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)
+
+    @property
+    def image(self):
+        file_name = '{}.jpg'.format(self.bioguide_id.upper())
+        url = static('img/congress/{}'.format(file_name))
+        return url
