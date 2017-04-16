@@ -61,6 +61,8 @@ MIDDLEWARE_CLASSES = (
 DJANGO_DEBUG = bool(int(os.environ.get("DJANGO_DEBUG", '1')))
 if DJANGO_DEBUG:
     DEBUG = DJANGO_DEBUG
+else:
+    DEBUG = True
 
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
