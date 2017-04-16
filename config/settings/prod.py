@@ -22,16 +22,10 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'console'],
             'propagate': True,
-            'level': 'INFO',
+            'level': 'DEBUG',
         },
-        'payments': {
-            'handlers': ['mail_admins'],
-            'propagate': True,
-            'level': 'DEBUG'
-        },
-
     }
 }
 
