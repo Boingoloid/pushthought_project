@@ -152,7 +152,7 @@ EMAIL_HOST_USER = 'django-test@mail.ru'
 EMAIL_HOST_PASSWORD = 'Qwertyasdfgh'
 EMAIL_USE_TLS = True
 
-SERVER_EMAIL = 'django-test@mail.ru'
+SERVER_EMAIL = 'server@example.com'
 
 ADMINS = [
     ('Viacheslav', 'slava.khromyak@gmail.com'),
