@@ -12,6 +12,7 @@ from django.conf.urls import url, include
 from django.conf import settings
 from django.contrib.staticfiles.views import serve as serve_static
 from django.views.decorators.cache import never_cache
+from django.conf.urls.static import static
 
 from snippets import urls
 from pushthought import views
@@ -24,7 +25,7 @@ urlpatterns = [
     url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name, name='test'),
     url(r'^$', views.HomeView.as_view(), name='home',),
     url(r'^home/$', views.HomeView.as_view(), name='home',),
-    url(r'^browse/$', views.browse, name='browse'),
+    url(r'^browse/$', views.BrowseView.as_view(), name='browse'),
 
     # congress email
     url(r'^submit_congress_email', views.submit_congress_email_view, name='submit_congress_email_view'),
@@ -85,7 +86,7 @@ urlpatterns = [
     #potentially comment out line above
 ]
 
-urlpatterns += staticfiles_urlpatterns()
+urlpatterns += staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 

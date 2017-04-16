@@ -55,24 +55,24 @@
                 <p class="category-heading" style="display:inline;">Documentaries</p><p style=" margin-left:10px; display:inline; font-size:14">(see all)</p>
             </div>
              <div class="program-container">
-                {% for item in documentaryList %}
-                <div class='program-item' id="{{ item.objectId }}">
-                    <div class='loader-{{forloop.counter}}'  id="loader"></div>
-                    <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
+                {% for item in documentaries %}
+                <div class='program-item'>
+                    <div class='loader-{{forloop.counter}}'></div>
+                    <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
                     <div class="program-img-container">
-                        {% if item.posterURL %}
-                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} >
+                        {% if item.image %}
+                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.image.url}}>
                         {% else %}
-                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}>
+
                         {% endif %}
                     </div>
                     <div class="program-info-container" style="display:inline;">
-                        {% if item.sentMessagesCount %}
-                            <div class="count">{{ item.sentMessagesCount }}</div>
+                        {% if item.actions %}
+                            <div class="count">{{ item.actions }}</div>
                             <div class="count" style="display:block; font-size:12px; font-weight:200;">actions</div>
                             <br/>
                             <hr class="hr-small" style="border-color:black;"/>
-                            <div class="count">{{ item.userCount }}</div>
+                            <div class="count">{{ item.users }}</div>
                             <div class="count" style="display:block; font-size:12px; font-weight:200;">users</div>
                         {% else %}
                         {% endif %}
