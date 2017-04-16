@@ -29,6 +29,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls import url, include
 from snippets import urls
 from pushthought import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 urlpatterns = [
@@ -96,14 +98,4 @@ urlpatterns = [
     # url(r'^accounts/', include('registration.backends.default.urls')),
 
     #potentially comment out line above
-]
-
-urlpatterns += staticfiles_urlpatterns()
-
-from django.conf import settings
-from django.contrib.staticfiles.views import serve as serve_static
-from django.views.decorators.cache import never_cache
-
-
-if settings.DEBUG:
-    urlpatterns += url(r'^static/(?P<path>.*)$', never_cache(serve_static)),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
