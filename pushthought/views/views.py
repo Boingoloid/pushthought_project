@@ -28,9 +28,23 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['programList'] = get_program_list()
+        context['programs'] = Program.objects.all()[:10]
         return context
 
+
+class BrowseView(TemplateView):
+    template_name = 'browse.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(BrowseView, self).get_context_data(**kwargs)
+        # dataDict['programList'] = program_list_with_stats
+        query = Program.objects
+        context['programList'] = query.all()
+        context['documentaries'] = query.documentaries()
+        context['webVideoList'] = query.webvideos()
+        context['podcastList'] = query.podcasts()
+        context['otherList'] = query.other()
+        return context
 
 def handler404(request):
     response = render_to_response('404.html', {},
@@ -135,19 +149,7 @@ def check_db_duplication(request):
     return lists
 
 
-class BrowseView(TemplateView):
-    template_name = 'browse.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(BrowseView, self).get_context_data(**kwargs)
-        # dataDict['programList'] = program_list_with_stats
-        query = Program.objects
-        context['programList'] = query.all()
-        context['documentaries'] = query.documentaries()
-        context['webVideoList'] = query.webvideos()
-        context['podcastList'] = query.podcasts()
-        context['otherList'] = query.other()
-        return context
 
 
 def browse(request):
