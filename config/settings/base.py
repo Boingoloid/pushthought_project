@@ -46,20 +46,18 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-MIDDLEWARE_CLASSES = (
-    'corsheaders.middleware.CorsMiddleware',
+MIDDLEWARE_CLASSES = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-)
+]
 
-DEBUG = bool(os.environ.get('DEBUG', False))
+DEBUG = bool(int(os.environ.get("DEBUG", '1')))
 
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -143,7 +141,21 @@ CORS_ORIGIN_WHITELIST = (
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+DEFAULT_FROM_EMAIL = 'django-test@mail.ru'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = 'django-test@mail.ru'
+EMAIL_HOST_PASSWORD = 'Qwertyasdfgh'
+EMAIL_USE_TLS = True
+
+SERVER_EMAIL = 'server@example.com'
+
+ADMINS = [
+    ('Viacheslav', 'slava.khromyak@gmail.com'),
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

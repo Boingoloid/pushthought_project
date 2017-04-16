@@ -2,8 +2,6 @@ from .base import *
 # from .secret import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -16,6 +14,9 @@ DATABASES = {
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
+DJANGO_APPS += [
+    'whitenoise.runserver_nostatic',
+]
 
 PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
