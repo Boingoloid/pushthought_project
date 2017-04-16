@@ -20,7 +20,7 @@ env = environ.Env()
 
 DJANGO_APPS = [
     # Default Django apps:
-    'suit',
+    # 'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
