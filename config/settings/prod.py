@@ -1,19 +1,5 @@
 from .heroku import *
 
-DEFAULT_FROM_EMAIL = 'django-test@mail.ru'
-
-EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'django-test@mail.ru'
-EMAIL_HOST_PASSWORD = 'Qwertyasdfgh'
-EMAIL_USE_TLS = True
-
-SERVER_EMAIL = 'server@example.com'
-
-ADMINS = [
-    ('Viacheslav', 'slava.khromyak@gmail.com'),
-]
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
