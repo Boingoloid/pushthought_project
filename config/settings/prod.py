@@ -1,5 +1,60 @@
 from .heroku import *
 
+
+ADMINS = [
+    ('Viacheslav', 'slava.khromyak@gmail.com'),
+]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'regular': {
+            'format': '[%(asctime)s %(levelname)s %(module)s %(funcName)s %(lineno)s]: %(message)s',
+            'datefmt': '%H:%M:%S'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, '..', 'logs', 'django.log'),
+            'formatter': 'regular'
+        },
+        'payments_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, '..', 'logs', 'payments.log'),
+            'formatter': 'regular'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'email_backend': 'sgbackend.SendGridBackend',
+            'include_html': True,
+        }
+
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'mail_admins'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'payments': {
+            'handlers': ['payments_file', 'mail_admins'],
+            'propagate': True,
+            'level': 'DEBUG'
+        },
+
+    }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 print "prod environment"
 print "PARSE_KEY ", os.environ.get('PARSE_KEY')
