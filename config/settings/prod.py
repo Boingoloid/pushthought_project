@@ -21,7 +21,7 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
-            'email_backend': 'sgbackend.SendGridBackend',
+            'email_backend': 'django.core.mail.backends.console.EmailBackend',
             'include_html': True,
         }
 
