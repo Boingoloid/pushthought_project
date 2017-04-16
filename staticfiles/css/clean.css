@@ -544,10 +544,27 @@ form .row:first-child .floating-label-form-group {
   color: white;
 }
 
+/* Home button*/
+.home-banner{
+    font-size:24pt;
+    margin-bottom:40px;
+}
+
+@media only screen and (max-width: 600px) {
+    .home-banner{
+        font-size:20pt;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .home-banner{
+        font-size:16pt;
+    }
+}
+
 /* Browse button*/
 .browse-btn {
   margin: 0 auto;
-  margin-top:100px;
+  margin-top:10px;
   display: block;
   width: 300px;
   font-size: 24px;
@@ -559,7 +576,7 @@ form .row:first-child .floating-label-form-group {
 @media only screen and (min-width: 600px) {
   .browse-btn {
     margin: 0 auto;
-    margin-top:100px;
+    margin-top:10px;
     display:block;
     width:400px;
     font-size: 26px;

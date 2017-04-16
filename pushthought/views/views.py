@@ -1,6 +1,6 @@
 from views_email_congress import *
 from views_user_forms import *
-from scrapex import *
+# from scrapex import *
 import json
 import re
 import threading
@@ -606,82 +606,82 @@ def petition(request, programId, segmentId):
     #         # blank dictionary object...
     #         return render(request, 'login.html', {})
 
-def get_scraping_start_urls(search_keyword):
-    s = Scraper(
-        use_cache=False,  # enable cache globally
-        retries=2,
-        delay=0.5,
-        timeout=60,
-        proxy_file='proxy.txt',
-        proxy_auth='silicons:1pRnQcg87F'
-    )
-
-    lock = threading.Lock()
-    logger = s.logger
-
-    youtube_url = 'http://www.youtube.com/results?search_query='
-    limit_top_url_count = 10
-    youtube_meta_list = []
-    youtube_scraping_url_list = []
-
-    url = youtube_url + search_keyword
-    logger.info('loading parent page...' + url)
-    html = s.load(youtube_url + search_keyword, use_cache = False)
-
-    proxy = html.response.request.get("proxy")
-    logger.info(proxy.host + ":" + str(proxy.port))
-
-    video_divs = html.q("//div[contains(@class, 'yt-lockup-thumbnail contains-addto')]/a")
-
-    href_links = []
-    if len(video_divs) > 0:
-        for i, row in enumerate(video_divs):
-            if i >= limit_top_url_count: break
-            href_links.append(row.x("@href"))
-
-    return href_links
-
-def get_youtube_urls(href_links):
-    threads = []
-    for i, url in enumerate(href_links):
-        thread_obj = threading.Thread(target = parse_youtube_webpage, args = (url,))
-        threads.append(thread_obj)
-        thread_obj.start()
-
-def parse_youtube_webpage(url):
-    html = s.load(url, use_cache=False)
-
-    proxy = html.response.request.get("proxy")
-    logger.info(proxy.host + ":" + str(proxy.port) + ", URL -> " + url)
-    get_youtube_meta_data(html, url)
-
-def get_youtube_meta_data(html, url):
-    lock.acquire()
-    meta_elements = html.q("//meta")
-
-    for row in meta_elements:
-        meta_name = row.x("@name")
-        meta_content = row.x("@content")
-        meta_property = row.x("@property")
-        meta_itemprop = row.x("@itemprop")
-
-        if meta_name != "":
-            attribute_type = "name"
-            attribute_value= meta_name
-        elif meta_property != "":
-            attribute_type = "property"
-            attribute_value= meta_property
-        elif meta_itemprop != "":
-            attribute_type = "itemprop"
-            attribute_value= meta_itemprop
-
-        meta_info = [   'attribute_type', attribute_type,
-                        'attribute_value', attribute_value,
-                        'meta_content', meta_content,
-                        'url', url]
-
-
-        youtube_meta_list.append(meta_info)
-
-    lock.release()
-    youtube_scraping_url_list.append(url)
+# def get_scraping_start_urls(search_keyword):
+#     s = Scraper(
+#         use_cache=False,  # enable cache globally
+#         retries=2,
+#         delay=0.5,
+#         timeout=60,
+#         proxy_file='proxy.txt',
+#         proxy_auth='silicons:1pRnQcg87F'
+#     )
+#
+#     lock = threading.Lock()
+#     logger = s.logger
+#
+#     youtube_url = 'http://www.youtube.com/results?search_query='
+#     limit_top_url_count = 10
+#     youtube_meta_list = []
+#     youtube_scraping_url_list = []
+#
+#     url = youtube_url + search_keyword
+#     logger.info('loading parent page...' + url)
+#     html = s.load(youtube_url + search_keyword, use_cache = False)
+#
+#     proxy = html.response.request.get("proxy")
+#     logger.info(proxy.host + ":" + str(proxy.port))
+#
+#     video_divs = html.q("//div[contains(@class, 'yt-lockup-thumbnail contains-addto')]/a")
+#
+#     href_links = []
+#     if len(video_divs) > 0:
+#         for i, row in enumerate(video_divs):
+#             if i >= limit_top_url_count: break
+#             href_links.append(row.x("@href"))
+#
+#     return href_links
+#
+# def get_youtube_urls(href_links):
+#     threads = []
+#     for i, url in enumerate(href_links):
+#         thread_obj = threading.Thread(target = parse_youtube_webpage, args = (url,))
+#         threads.append(thread_obj)
+#         thread_obj.start()
+#
+# def parse_youtube_webpage(url):
+#     html = s.load(url, use_cache=False)
+#
+#     proxy = html.response.request.get("proxy")
+#     logger.info(proxy.host + ":" + str(proxy.port) + ", URL -> " + url)
+#     get_youtube_meta_data(html, url)
+#
+# def get_youtube_meta_data(html, url):
+#     lock.acquire()
+#     meta_elements = html.q("//meta")
+#
+#     for row in meta_elements:
+#         meta_name = row.x("@name")
+#         meta_content = row.x("@content")
+#         meta_property = row.x("@property")
+#         meta_itemprop = row.x("@itemprop")
+#
+#         if meta_name != "":
+#             attribute_type = "name"
+#             attribute_value= meta_name
+#         elif meta_property != "":
+#             attribute_type = "property"
+#             attribute_value= meta_property
+#         elif meta_itemprop != "":
+#             attribute_type = "itemprop"
+#             attribute_value= meta_itemprop
+#
+#         meta_info = [   'attribute_type', attribute_type,
+#                         'attribute_value', attribute_value,
+#                         'meta_content', meta_content,
+#                         'url', url]
+#
+#
+#         youtube_meta_list.append(meta_info)
+#
+#     lock.release()
+#     youtube_scraping_url_list.append(url)
