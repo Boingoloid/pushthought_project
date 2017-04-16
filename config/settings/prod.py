@@ -1,5 +1,14 @@
 from .heroku import *
 
+DEFAULT_FROM_EMAIL = 'django-test@mail.ru'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'django-test@mail.ru'
+EMAIL_HOST_PASSWORD = 'Qwertyasdfgh'
+EMAIL_USE_TLS = True
+
+SERVER_EMAIL = 'server@example.com'
 
 ADMINS = [
     ('Viacheslav', 'slava.khromyak@gmail.com'),
@@ -21,7 +30,6 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
-            'email_backend': 'django.core.mail.backends.console.EmailBackend',
             'include_html': True,
         }
 
@@ -40,8 +48,6 @@ LOGGING = {
 
     }
 }
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 print "prod environment"
