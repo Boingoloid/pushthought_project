@@ -29,6 +29,8 @@ urlpatterns = [
     url(r'^home/$', views.HomeView.as_view(), name='home',),
     url(r'^browse/$', views.BrowseView.as_view(), name='browse'),
 
+    url(r'^accounts/', include('allauth.urls')),
+
     # congress email
     url(r'^submit_congress_email', views.submit_congress_email_view, name='submit_congress_email_view'),
     url(r'^submit_congress_captcha', views.submit_congress_captcha_view, name='submit_congress_captcha_view'),
