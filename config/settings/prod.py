@@ -18,18 +18,6 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, '..', 'logs', 'django.log'),
-            'formatter': 'regular'
-        },
-        'payments_file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, '..', 'logs', 'payments.log'),
-            'formatter': 'regular'
-        },
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
@@ -40,12 +28,12 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['file', 'mail_admins'],
+            'handlers': ['mail_admins'],
             'propagate': True,
             'level': 'INFO',
         },
         'payments': {
-            'handlers': ['payments_file', 'mail_admins'],
+            'handlers': ['mail_admins'],
             'propagate': True,
             'level': 'DEBUG'
         },
