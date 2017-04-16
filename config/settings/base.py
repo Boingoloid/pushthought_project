@@ -58,11 +58,7 @@ MIDDLEWARE_CLASSES = (
     'whitenoise.middleware.WhiteNoiseMiddleware',
 )
 
-DJANGO_DEBUG = bool(int(os.environ.get("DJANGO_DEBUG", '1')))
-if DJANGO_DEBUG:
-    DEBUG = DJANGO_DEBUG
-else:
-    DEBUG = True
+DEBUG = bool(int(os.environ.get("DEBUG", '1')))
 
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
