@@ -1,5 +1,34 @@
 from .heroku import *
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'regular': {
+            'format': '[%(asctime)s %(levelname)s %(module)s %(funcName)s %(lineno)s]: %(message)s',
+            'datefmt': '%H:%M:%S'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        }
+
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['mail_admins', 'console'],
+            'propagate': True,
+            'level': 'DEBUG',
+        },
+    }
+}
+
 # SECURITY WARNING: don't run with debug turned on in production!
 print "prod environment"
 print "PARSE_KEY ", os.environ.get('PARSE_KEY')
@@ -30,3 +59,5 @@ MONGO_DBNAME = os.environ.get('MONGO_DBNAME')
 MONGODB_URI = str(os.environ.get('MONGODB_URI'))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
+
+ALLOWED_HOSTS = ['www.pushthought.com', ]

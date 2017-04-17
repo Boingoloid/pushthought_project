@@ -53,11 +53,11 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        {% if currentUser %}
-                            <li style="position:relative; ">
-                                <a href="/home"> {{ currentUser.username }}</a>
-                                <!--<p style="position:absolute; top:-5; right:3; font-size:8pt;">username</p>-->
-                            </li>
+                        {% if user.is_authenticated %}
+                            <li>Hey, {{ request.user.first_name }}</li>
+                            <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url 'account_login' %}">Login</a></li>
                         {% endif %}
                         <li>
                             <a href="/home">Home</a>
@@ -110,7 +110,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <script src="{% static 'js/js-cookie.js' %}"></script>
         <!--Require JS-->
-        <!--<script src="{% static 'http://requirejs.org/docs/release/2.1.11/minified/require.js' %}"></script>-->
+        <!--<script src=""></script>-->
 
         <!--Parse-->
         <!--<script src = "https://github.com/Boingoloid/parse-server-example/blob/master/index.js"></script>-->

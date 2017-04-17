@@ -5,12 +5,29 @@ from django_extensions.db.models import TimeStampedModel
 from django.db import models
 
 
+class ProgramManager(models.Manager):
+    def documentaries(self):
+        return super(ProgramManager, self).get_queryset().filter(type='documentary')
+
+    def webvideos(self):
+        return super(ProgramManager, self).get_queryset().filter(type='webvideo')
+
+    def podcasts(self):
+        return super(ProgramManager, self).get_queryset().filter(type='podcast')
+
+    def other(self):
+        return super(ProgramManager, self).get_queryset().exclude(type='podcast').exclude(type='webvideo').exclude(type='documentary')
+
+
 class Program(TimeStampedModel):
     title = models.CharField(max_length=100)
     description = models.TextField()
     image = models.ImageField(blank=True, null=True)
     runtime = models.IntegerField()
     type = models.CharField(max_length=100)
+    objects = ProgramManager()
+    users = models.IntegerField(default=0)
+    actions = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title

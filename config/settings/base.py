@@ -36,6 +36,10 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'snippets',
     'prime',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.twitter',
 ]
 
 LOCAL_APPS = [
@@ -46,8 +50,9 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-MIDDLEWARE_CLASSES = (
-    'corsheaders.middleware.CorsMiddleware',
+MIDDLEWARE_CLASSES = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,11 +60,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-)
+]
 
-DEBUG = bool(os.environ.get('DEBUG', False))
+DEBUG = bool(int(os.environ.get("DEBUG", '1')))
 
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -69,14 +72,12 @@ DATABASES = {
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
-
-
 SITE_ID = 1
 
 REGISTRATION_OPEN = True    # If True, users can register
 ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window; you may, of course, use a different value.
 REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
-LOGIN_REDIRECT_URL = '/pushthought/'  # The page you want users to arrive at after they successful log in
+LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they successful log in
 LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
                                                                 # and are trying to access pages requiring authentication
 LOCAL_SERVER = 'http://127.0.0.1:8000/'
@@ -126,6 +127,14 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 WSGI_APPLICATION = 'config.wsgi.application'
 
 CORS_ORIGIN_WHITELIST = (
@@ -143,7 +152,21 @@ CORS_ORIGIN_WHITELIST = (
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+DEFAULT_FROM_EMAIL = 'django-test@mail.ru'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = 'django-test@mail.ru'
+EMAIL_HOST_PASSWORD = 'Qwertyasdfgh'
+EMAIL_USE_TLS = True
+
+SERVER_EMAIL = 'server@example.com'
+
+ADMINS = [
+    ('Viacheslav', 'slava.khromyak@gmail.com'),
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -168,6 +191,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
 
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

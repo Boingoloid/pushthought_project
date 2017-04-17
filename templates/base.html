@@ -40,11 +40,11 @@
 
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'account_home' user.pk %}">Account Home</a></li>
-                        <li><a href="{% url 'auth_logout' %}?next=/pushthought/">Logout</a></li>
+                        <li><a href="{% url 'account_logout' %}">Logout</a></li>
 
                     {% else %}
-                        <li><a href="{% url 'registration_register' %}">Register Here</a></li>
-                        <li><a href="{% url 'auth_login' %}">Login</a></li>
+
+                        <li><a href="{% url 'account_login' %}">Login</a></li>
                     {% endif %}
               </ul>
         </div>

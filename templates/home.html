@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load static from staticfiles %}
+{% load static %}
 
 {% block css %}{% endblock %}
 
@@ -25,7 +25,7 @@
                 <div style="margin-top:130px; text-align:center;">
                     <h3 style="color:white; font-size:20px;">informative content <img style="width:80px;" src="/static/img/arrow-right.png"> influential people</h3>
                 </div>
-                <button class="btn btn-primary btn-lg browse-btn" id="browse-btn">Get Started</button>
+                <a href="{% url 'browse' %}" class="btn btn-primary btn-lg browse-btn" id="browse-btn">Get Started</a>
                 <div align="right">
                     <h4 style="margin-top:100px;">meaningful action, made easy for</h4>
                     <h4>documentaries, web videos, and podcasts</h4>
@@ -41,21 +41,15 @@
 <div class="container-banner">
     <div class="row">
          <div class="program-container">
-            {% for item in programList %}
-            <div class='program-item' id="program-item {{ forloop.counter }}">
-                <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
-                    {% if item.programImage %}
-                            <img class='program-item-image' id='program-item-image {{ forloop.counter }}'
-                                 src='{{ item.programImage.url }}'>
+             {% for program in programs %}
+                 <div class='program-item'>
+                    {% if program.image %}
+                        <img class='program-item-image' id='program-item-image-{{ program.id }}'
+                             src='{{ program.image.url }}'>
                     {% else %}
-                            <!--<p>poster</p>-->
-                            <!--<img class='program-item-image' id='program-item-image {{ forloop.counter }}'-->
-                                 <!--src='{{ item.posterURL }}'>-->
+
                     {% endif %}
-                <!--<div class="program-title">-->
-                    <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
-                <!--</div>-->
-            </div>
+                </div>
             {% endfor %}
         </div>  <!--close PROGRAM container-->
     </div>
@@ -167,7 +161,7 @@
                 <!--</p>-->
             <!--</div>-->
             <!--<div class="col-sm-6">-->
-                    <!--<img class="img-responsive" src="{% static 'img/image1.png' %}" alt="hello">-->
+                    <!--<img class="img-responsive" src="" alt="hello">-->
             <!--</div>-->
         <!--</div>-->
 

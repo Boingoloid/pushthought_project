@@ -2,8 +2,6 @@ from .base import *
 # from .secret import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -16,6 +14,9 @@ DATABASES = {
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
+DJANGO_APPS += [
+    'whitenoise.runserver_nostatic',
+]
 
 PARSE_APP_ID = 'lzb0o0wZHxbgyIHSyZLlooijAK9afoyN8RV4XwcM'
 PARSE_REST_KEY = 'YTeYDL8DeSDNsmZT219Lp8iXgPZ24ZGu3ywUjo23'
@@ -44,3 +45,5 @@ MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/he
 # MONGO_DBNAME = "heroku_tz491rn8"
 # MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds159050.mlab.com:59050/heroku_tz491rn8"
 SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
+
+ALLOWED_HOSTS = ['*']

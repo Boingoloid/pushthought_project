@@ -7,6 +7,8 @@ import threading
 from django.views.generic.base import TemplateView
 from django.shortcuts import render_to_response
 
+from programs.models import Program
+
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
 TWITTER_CALLBACK_ROOT_URL = settings.TWITTER_CALLBACK_ROOT_URL
@@ -26,9 +28,23 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['programList'] = get_program_list()
+        context['programs'] = Program.objects.all()[:10]
         return context
 
+
+class BrowseView(TemplateView):
+    template_name = 'browse.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(BrowseView, self).get_context_data(**kwargs)
+        # dataDict['programList'] = program_list_with_stats
+        query = Program.objects
+        context['programList'] = query.all()
+        context['documentaries'] = query.documentaries()
+        context['webVideoList'] = query.webvideos()
+        context['podcastList'] = query.podcasts()
+        context['otherList'] = query.other()
+        return context
 
 def handler404(request):
     response = render_to_response('404.html', {},
@@ -80,16 +96,6 @@ def data_throw(request):
     print request.body
     result = request.body
     return HttpResponse(json.dumps(result), content_type="application/json")
-# def data_loop(request):
-#     print request.body
-#     result = request.body
-#     # submit_congress_email(request)
-#     return HttpResponse(json.dumps(result), content_type="application/json")
-#
-# def data_throw(request):
-#     print request.body
-#     result = request.body
-#     return HttpResponse(json.dumps(result), content_type="application/json")
 
 
 
@@ -143,50 +149,10 @@ def check_db_duplication(request):
     return lists
 
 def browse(request):
-    global youtube_meta_list
-    global youtube_scraping_url_list
+    data_lists = check_db_duplication(request)
 
-    print request.body
-    print request.GET
-    print request.POST
-
-    # search_type = request.POST.get('search_type', "")
-    #
-    # href_links = []
-    # if search_type == "scraping":
-    #     search_keyword =  request.POST['search_keyword']
-    #     href_links = get_scraping_start_urls(search_keyword)
-    #
-    # #get meta data list for each youtube urls with threading
-    #
-    # searchArray = []
-    #
-    # if len(href_links) > 0:
-    #     youtube_meta_list = []
-    #     youtube_scraping_url_list = []
-    #     get_youtube_urls(href_links)
-    #
-    #     while(1):
-    #         if len(youtube_scraping_url_list) == len(href_links):
-    #             break
-    #
-    #     for url in href_links:
-    #         searchArrayObj = {"url": url}
-    #         for row in youtube_meta_list:
-    #             if url == row[7]:
-    #                 key = row[1] + "_" + row[3].replace(":","_")
-    #                 if row[1] == "itemprop" and row[3] == "duration":
-    #                     time_str = re.split('[a-zA-Z]+', row[5])
-    #                     searchArrayObj[key] = time_str[1] + ":" + time_str[2]
-    #                 else:
-    #                     searchArrayObj[key] = row[5]
-    #
-    #         searchArray.append(searchArrayObj)
-    #
-    # data_lists = check_db_duplication(request)
-    #
-    # if len(data_lists) == 0:
-    #     print "No Database Data"
+    if len(data_lists) == 0:
+        print "No Database Data"
 
     program_list = get_program_list()
     program_stats = get_program_browse_stats()
@@ -211,19 +177,12 @@ def browse(request):
         else:
             otherArray.append(item)
 
-    print "doc Video", len(documentaryArray)
-    print "web Video", len(webVideoArray)
-    print "podcast", len(podcastArray)
-    print "other", len(otherArray)
-
     dataDict = {}
     dataDict['programList'] = program_list_with_stats
-    # dataDict['segmentList'] = segment_list
     dataDict['documentaryList'] = documentaryArray
     dataDict['webVideoList'] = webVideoArray
     dataDict['podcastList'] = podcastArray
     dataDict['otherList'] = otherArray
-    dataDict['searchResultList'] = searchArray
 
     return render(request, 'browse.html', dataDict)
 
@@ -369,44 +328,6 @@ def get_congress_email_fields_view(request):
     bioguideArray = json.loads(request.body)
     field_list = get_congress_email_fields(bioguideArray)
     return HttpResponse(json.dumps(field_list), content_type="application/json")
-
-
-def submit_congress_email_view(request):
-    print "submit_congress_email_view firing"
-    send_response_object = submit_congress_email(request)
-    status = send_response_object['status']
-    if send_response_object:
-        if status == 'success':
-            print "email was sent"
-            save_congress_email_fields_to_user(request)
-            save_email_congress_action(request)
-        elif status == 'captcha_needed':
-            # save email, needs captcha to true, then exclude them.  or save to different table
-            print "captcha_needed"
-            save_congress_email_fields_to_user(request)
-        elif status == 'error':
-            print "ERROR submit congress failed: error message returned:" + send_response_object['message']
-        return HttpResponse(json.dumps(send_response_object), content_type="application/json")
-    else:
-        print "ERROR: submit congress failed, no object returned from phantom congress"
-        return HttpResponse(json.dumps({"status": "error", "message": "timeout, no response from phantom congress"}),content_type="application/json")
-        # captcha_crush(request, send_response_object)
-
-
-def submit_congress_captcha_view(request):
-    print "submit_congress_captcha_view firing"
-    captcha_response_object = submit_congress_captcha(request)
-    status = captcha_response_object['status']
-    if captcha_response_object:
-        if status == 'success':
-            print "email was sent with OK captcha"
-            save_congress_email_fields_to_user(request)
-            save_email_congress_action(request)
-    return HttpResponse(json.dumps(captcha_response_object), content_type="application/json")
-
-
-
-
 
 # OLD ----------------------------
 # OLD ----------------------------
