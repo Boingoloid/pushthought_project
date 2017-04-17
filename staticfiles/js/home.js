@@ -5,17 +5,17 @@ $(document).ready(function() {
     }, 2000);
 
     $("#browse-btn").on("click",function(){
-//        $('html, body').animate({
-//            scrollTop: $("#landing-container").offset().top
-//        }, 2000);
+        $('html, body').animate({
+            scrollTop: $("#landing-container").offset().top
+        }, 2000);
 
-          window.location.href="browse/";
+          //window.location.href="browse/";
 
     });
 
 
   $("#submit-email-btn").on("click",function(){
-//    alert("I am an alert box!");
+    //alert("I am an alert box!");
     //window.location.href="submit-email"
 
     var email = $("#email").val();
