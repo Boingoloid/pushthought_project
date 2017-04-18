@@ -14,3 +14,5 @@ bootstrap.sh
 cookbooks/
 postgres_config.sh
 log.txt
+cache/
+media/
