@@ -282,19 +282,19 @@ img.img-free.logo-image{
 
 .intro-header-image {
   /*box-shadow: inset 0px 0px 125px 140px rgba(0,0,0,0.8);*/
-  background-image: url('/../img/home_background.png');
+  background-image: url('../img/home_background.png');
 }
 
 @media only screen and (max-width: 748px) {
   .intro-header-image {
-  background-image: url('/../img/home_background_crop.png');
+  background-image: url('../img/home_background_crop.png');
   }
 }
 
 @media only screen and (max-width: 475px) {
   .intro-header-image {
     box-shadow: inset 0px 0px 140px 50px rgba(0,0,0,0.8);
-  background-image: url('/../img/home_background_crop2.png');
+  background-image: url('../img/home_background_crop2.png');
   }
 }
 

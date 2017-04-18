@@ -1,0 +1,209 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/content-landing.css' %}">
+{% endblock %}
+{% block title %}Push Thought-Browse{% endblock %}
+
+
+{% block content %}
+<p hidden id="segmentId">{{ object.id }}</p>
+<p hidden style="color:white;" id="programId">{{ object.id }}</p>
+<div hidden id="alertList" data-alertList="{{ alertList }}"></div>
+<div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
+
+
+<div class="intro-header intro-header-landing">
+    <div class="container container-text-white">
+        <div class="content-wrapper">
+            <div class="content-info-left">
+                <h1>{{ object.title }}</h1>
+                <p class="description">{{ object.title }}</p>
+                    <div class="seen-it-container">
+                        <h2 style="color:red; font-weight:600; font-size:20px;">Already seen it?</h2>
+                        <h3>Share with purpose below...</h3>
+                    </div>
+            </div>
+            <div class="content-info-right">
+                <div class="div-title-image">
+                    <img class='img program-item-image img-landing-title'
+                         id='program-item-image'
+                         src='{{ object.image.url }}'>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-standard">
+    <div class="rep-color-band">
+        <div class="container-standard category-container">
+            <div class="category-title-container">
+                <p class="category-title" style="z-index:0;">Federal Representatives</p>
+                <div class="zip-reset-hover-boundary">
+                    {% if hasCongressData %}
+                    <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25">
+                    {% else %}
+                    <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25" style="display:none;">
+                    {% endif %}
+                    <button class="zip-reset btn-danger">reset location</button>
+                </div>
+            </div>
+            {% if hasCongressData %}
+                <div class="zip-capture" style="display:none">
+            {% else %}
+                <div class="zip-capture">
+            {% endif %}
+                    <div class="location-label">Current Location:</div>
+                    <img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">
+                    <div class="or-label">---  or  ---</div>
+                    <div class="zip-label">Zip Code:</div>
+                    <button class="submit-zip">Submit</button>
+                    <div class='zip-loader'  id="zip-loader"></div>
+                    <input class="zip-input" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
+                </div>
+            <div class="rep-container">
+                {% if hasCongressData %}
+                    {% for item in congressData %}
+                    <div class="rep-item-container rep-item-container-{{forloop.counter}}">
+                        <div class='rep-item' id="rep-item{{forloop.counter}}">
+                            <div class='loader loader-{{forloop.counter}}'  id="loader"></div>
+                            {% if item.sent_messages_count %}
+                                <div class='sent-messages-count'>{{ item.sent_messages_count }}</div>
+                            {% endif %}
+                            {% if item.userTouched %}
+                                <img class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">
+                            {% else %}
+                                <img style="display:none;" class="success-indicator" id="success-indicator-{{item.twitter_id}} success-indicator-{{item.bioguide_id}}" src="{% static 'img/check-green.png' %}">
+                            {% endif %}
+                                <div class="warning-box-indicator" id="warning-box-indicator-{{item.twitter_id}}">
+                                    <p class="indicator-text" id="indicator-text-{{item.twitter_id}}">you've already contacted this person</p>
+                                </div>
+                            <div class="success-box" id="success-box-{{item.twitter_id}}">
+                                <p class="success-text" style="padding-top:4px;">tweet sent to:</p>
+                                <p class="success-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>
+                                <p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>
+                                <p class="duplicate-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>
+                                <!--<img class="img-logo-success" src="{% static 'img/push_thought_logo3.png' %}" width="70" height="70">-->
+                            </div>
+                            <div class="success-box" id="success-box-{{item.bioguide_id}}" name="{{item.full_name}}">
+                            </div>
+                            <div style="display:inline-block;">
+                                {% if item.image %}
+                                    <img class='repPhoto' id='repPhoto{{forloop.counter}}' src='{{ item.image.url }}'>
+                                {% else %}
+                                    <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
+                                {% endif %}
+                                <div class="name-title-container" >
+                                    <div><p class="full-name">{{item.full_name}}</p></div>
+                                    <div><p class="title">{{item.title}}</p></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-panel-container" id="{{forloop.counter}}">
+                            <div class="action-panel">
+                                {% if item.twitter_id %}
+                                    <div class="twitter-name" id="twitter-name-{{forloop.counter}}" name="{{ item.bioguide_id }}">@{{item.twitter_id}}</div>
+                                    <img class="twitter-icon" id="{{forloop.counter}}" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
+                                {% else %}
+                                    <div class="twitter-name" id="twitter-name-{{forloop.counter}}" name="{{ item.bioguide_id }}">n/a</div>
+                                    <img class="twitter-icon-empty" src="{% static 'img/twitter-icon-gray.png' %}" width="42" height="42">
+                                    <div class="warning-box-tweet-icon">
+                                        <p class="warning-text">twitter address n/a</p>
+                                    </div>
+                                {% endif %}
+                                <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
+                                <div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }}">form below</div>
+                                <img class="email-icon" id="email-icon-{{forloop.counter}}" name="{{ item.full_name }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+                                <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}">{{ item.last_name }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div> <!--close rep container-->
+            <div class="rep-action-container">
+                <img id="close-button"src="{% static 'img/x-mark-gray.png' %}" width="20" height="20">
+                <div id="text-tweet-block">
+                    <div style="display:block">
+                        <div class="address-title" style="display:inline;">
+                            <p style="display:inline;">Send to: </p>
+                        </div>
+                        <div class="address-container">
+                        </div>
+                    </div>
+                    <div contenteditable id="text-input" tabindex="-1" placeholder="Tweet text here"></div>
+                    <div id="tweet-button">
+                        <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
+                        <img id="img-send-email-icon" style="" src="{% static 'img/email-icon.png' %}" width="37" height="37">
+                        <p class="tweet-button-label" id="tweet-button-label">Tweet</p>
+                        <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
+                        <div class='tweet-loader' id="tweet-loader"></div>
+                    </div>
+                    <div class="letter-count">22</div>
+                    <div class="img-checked-box-container">
+                        <!--<img id="img-checked-box" src="{% static 'img/check-circle-gray2.png' %}" width="20" height="20">-->
+                        <p id="link-included" >content link included automatically</p>
+                        <!--<p style="font-size:12pt;" id="link-included">automatically</p>-->
+                        <button id="clear-button">Clear</button>
+                        <div class="warning-box">
+                            <p class="warning-text">link always included</p>
+                            <p class="warning-text">for context</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="email-action-container">
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-standard">
+        <div class="hashtag-container">
+            <div class="hashtag-header">
+                    <p><span style="color:gray">#| </span></p>
+            </div>
+            {% for item in hashtagData %}
+                <div class='hashtag-item' id="hashtag-item">
+                    <div id="copied-to-clipboard">Copied to Clipboard</div>
+                    #{{item.hashtag}} | {{item.count}}
+                </div>
+                <div id="copied-to-clipboard">Copied to Clipboard</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container-standard">
+        <div class="message-container">
+            <div class="tweet-header">
+                <p><span style="color:gray">Tweets|</span></p>
+            </div>
+            <div class="tweet-container">
+                {% for item in tweetData %}
+                <div class="tweet-item">
+                    <div id="copied-to-clipboard">Copied to Clipboard</div>
+                    <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.twitterUserName}}</p></div>
+                    <div class="tweet">{{item.messageText}}</div>
+                </div>
+               {% endfor %}
+            </div> <!--close tweet container-->
+        </div>
+    </div>
+</div><!-- /.intro-header -->
+
+{% endblock %}
+
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="{% static 'js/content_landing.js' %}"></script>
+<script src="{% static 'js/content_landing_success_messages.js' %}"></script>
+<script src="{% static 'js/content_landing_email_action.js' %}"></script>
+<script src="{% static 'js/content_landing_tweet_action.js' %}"></script>
+<script src="{% static 'js/content_landing_get_congress.js' %}"></script>
+
+{% csrf_token %}
+{% endblock %}
+
+
