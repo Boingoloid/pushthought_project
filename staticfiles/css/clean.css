@@ -268,8 +268,8 @@ img.img-free.logo-image{
 
 .intro-header {
   background: no-repeat center center;
-  background:radial-gradient(#092551,#000b1e);
-  background-attachment: scroll;
+/*  background:radial-gradient(#092551,#000b1e);
+  background-attachment: scroll;*/
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -561,7 +561,7 @@ form .row:first-child .floating-label-form-group {
     .home-banner{
         font-size:20pt;
     }
-}   
+}
 @media only screen and (max-width: 500px) {
     .home-banner{
         font-size:16pt;
@@ -572,7 +572,6 @@ form .row:first-child .floating-label-form-group {
 .browse-btn {
   margin: 0 auto;
   margin-top:375px;
-  float: left;
   width: 200px;
   height: 37px;
   line-height: 3px;
