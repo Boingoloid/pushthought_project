@@ -267,6 +267,7 @@ img.img-free.logo-image{
 /* Intro Header -------------------------------------------------*/
 
 .intro-header {
+  display: block;
   background: no-repeat center center;
 /*  background:radial-gradient(#092551,#000b1e);
   background-attachment: scroll;*/
