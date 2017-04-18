@@ -12,24 +12,24 @@
     <div class="container container-text-white">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <a href="{% url 'browse' %}" class="btn btn-primary browse-btn" id="browse-btn">Get Started</a>
                 <br/>
-
                 <div class="home-banner" style="width:100%; text-align:center;">
-                    <p style="display:inline;"><font color="red"><b>Watch</b></font></p>
-                    &nbsp&nbsp+&nbsp&nbsp <p style="display:inline;"><font color="red"><b>Share</b></font></p>
-                    &nbsp&nbsp+&nbsp&nbsp <p style="display:inline; "><font color="red"><b>Impact</b></font></p>
+                    <!--<p style="display:inline;"><font color="red"><b>Watch</b></font></p>-->
+                    <!--&nbsp&nbsp+&nbsp&nbsp <p style="display:inline;"><font color="red"><b>Share</b></font></p>-->
+                    <!--&nbsp&nbsp+&nbsp&nbsp <p style="display:inline; "><font color="red"><b>Impact</b></font></p>-->
                 </div>
                 <div>
                     <!--<img src="/static/img/push-thought-logo.png" height="40" width="40"><h3>informative content</h3>-->
                 </div>
                 <div style="margin-top:130px; text-align:center;">
-                    <h3 style="color:white; font-size:20px;">informative content <img style="width:80px;" src="/static/img/arrow-right.png"> influential people</h3>
+                    <!--<h3 style="color:white; font-size:20px;">informative content <img style="width:80px;" src="/static/img/arrow-right.png"> influential people</h3>-->
                 </div>
-                <a href="{% url 'browse' %}" class="btn btn-primary btn-lg browse-btn" id="browse-btn">Get Started</a>
-                <div align="right">
-                    <h4 style="margin-top:100px;">meaningful action, made easy for</h4>
-                    <h4>documentaries, web videos, and podcasts</h4>
-                </div>
+
+                <!--<div align="left">-->
+                    <!--<h4 style="margin-top:100px;">meaningful action, made easy for</h4>-->
+                    <!--<h4>documentaries, web videos, and podcasts</h4>-->
+                <!--</div>-->
             </div>
         </div>
     </div><!-- /.container -->
@@ -47,7 +47,6 @@
                         <img class='program-item-image' id='program-item-image-{{ program.id }}'
                              src='{{ program.image.url }}'>
                     {% else %}
-
                     {% endif %}
                 </div>
             {% endfor %}
