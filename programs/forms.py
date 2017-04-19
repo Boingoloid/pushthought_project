@@ -6,7 +6,7 @@ from . import models
 class ProgramForm(forms.ModelForm):
     class Meta:
         model = models.Program
-        fields = ['title', "plot_outline", 'image', 'runtime', 'type']
+        fields = ['title', "plot_outline", 'image', 'runtime', 'type', 'imdb_id']
 
 
 # class SeasonForm(forms.ModelForm):

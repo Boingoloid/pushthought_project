@@ -1,9 +1,10 @@
 from imdbpie import Imdb
+from requests.models import HTTPError
 
 from django.shortcuts import render
 from django.views.generic import DetailView, View
 from django.http.response import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 from utils.helper import url_to_model_field
 
@@ -26,25 +27,30 @@ class SearchIMDBProgramTitleView(View):
 
 
 class SearchIMDBProgramIDView(View):
+    form = forms.ProgramForm
+
     def get(self, request, *args, **kwargs):
         q = request.GET.get('q', '')
 
         if not q:
             return HttpResponse('', status=200)
 
-        imdb = self.get_imdb_data(q)
-        existing_program = self.get_program(imdb.imdb_id)
+        data = self.get_imdb_data(q)
+        existing_program = self.get_program(data.imdb_id)
 
-        program_form = forms.ProgramForm(imdb.__dict__, instance=existing_program)
-        if program_form.is_valid():
-            program = program_form.save()
-            url_to_model_field(imdb.poster_url, program.image)
+        if existing_program:
+            return HttpResponse('exists', status=200)
 
-        return HttpResponse('created', status=202)
+        self.save_form(data)
+
+        return HttpResponse('created', status=201)
 
     def get_imdb_data(self, q):
         imdb = Imdb(anonymize=True)
-        result = imdb.get_title_by_id(q)
+        try:
+            result = imdb.get_title_by_id(q)
+        except HTTPError:
+            raise Http404
         return result
 
     def get_program(self, imdb_id):
@@ -54,6 +60,11 @@ class SearchIMDBProgramIDView(View):
         except models.Program.DoesNotExist:
             return None
 
+    def save_form(self, data):
+        program_form = self.form(data.__dict__)
+        if program_form.is_valid():
+            program = program_form.save()
+            url_to_model_field(data.poster_url, program.image)
 
 
 class ProgramDetailView(DetailView):
