@@ -1,10 +1,59 @@
-from django.shortcuts import render
-from django.views.generic import DetailView
+from imdbpie import Imdb
 
-from . import models
+from django.shortcuts import render
+from django.views.generic import DetailView, View
+from django.http.response import HttpResponse
+from django.shortcuts import get_object_or_404
+
+from utils.helper import url_to_model_field
+
+from . import models, forms
 
 # to be removed:
 from pushthought.views import views
+
+
+class SearchIMDBProgramTitleView(View):
+    def get(self, request, *args, **kwargs):
+        q = kwargs.get('q', '')
+        results = None
+
+        if q:
+            imdb = Imdb(anonymize=True)
+            results = imdb.search_for_title(q)
+
+        return HttpResponse(results)
+
+
+class SearchIMDBProgramIDView(View):
+    def get(self, request, *args, **kwargs):
+        q = request.GET.get('q', '')
+
+        if not q:
+            return HttpResponse('', status=200)
+
+        imdb = self.get_imdb_data(q)
+        existing_program = self.get_program(imdb.imdb_id)
+
+        program_form = forms.ProgramForm(imdb.__dict__, instance=existing_program)
+        if program_form.is_valid():
+            program = program_form.save()
+            url_to_model_field(imdb.poster_url, program.image)
+
+        return HttpResponse('created', status=202)
+
+    def get_imdb_data(self, q):
+        imdb = Imdb(anonymize=True)
+        result = imdb.get_title_by_id(q)
+        return result
+
+    def get_program(self, imdb_id):
+        try:
+            program = models.Program.objects.get(imdb_id=imdb_id)
+            return program
+        except models.Program.DoesNotExist:
+            return None
+
 
 
 class ProgramDetailView(DetailView):

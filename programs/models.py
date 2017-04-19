@@ -21,8 +21,9 @@ class ProgramManager(models.Manager):
 
 class Program(TimeStampedModel):
     title = models.CharField(max_length=100)
-    description = models.TextField()
+    plot_outline = models.TextField()
     image = models.ImageField(blank=True, null=True)
+    imdb_id = models.CharField(max_length=10, blank=True, null=True, unique=True)
     runtime = models.IntegerField()
     type = models.CharField(max_length=100)
     objects = ProgramManager()
