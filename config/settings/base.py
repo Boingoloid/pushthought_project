@@ -255,13 +255,6 @@ MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/he
 # MONGO_DBNAME = "heroku_zcdt9dml"
 # MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@127.0.0.1:27017/heroku_zcdt9dml"
 
-import socket
-print "socket"
-
-if socket.gethostname().endswith('local'):
-    print "yes local"
-else:
-    print "no not local"
 # Logging
 LOGGING = {
     'version': 1,
@@ -334,14 +327,6 @@ MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/he
 
 # MONGO_DBNAME = "heroku_zcdt9dml"
 # MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@127.0.0.1:27017/heroku_zcdt9dml"
-
-import socket
-print "socket"
-
-if socket.gethostname().endswith('local'):
-    print "yes local"
-else:
-    print "no not local"
 
 CACHES = {
     'default': {
