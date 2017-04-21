@@ -99,6 +99,7 @@
 .program-item p{
   color: white;
   font-size: 14px;
+
 }
 
 
@@ -130,9 +131,9 @@
   float: right;
   height: 30px;
   margin: 0px;
-  margin-top: 10px;
   width: 82px;
   text-align: center;
+  position: relative;
 }
 
 .count{
@@ -141,6 +142,40 @@
     margin: auto;
     font-size: 28px;
     font-weight: 400;
+    position: absolute;
+}
+
+.sent-count{
+  font-size:22px;
+  color: green;
+}
+
+.sent-count-label{
+  color: green;
+}
+
+.user-count{
+  color:yellow;
+}
+
+.user-count-label{
+  color:yellow;
+}
+
+.runtime{
+  position: absolute;
+  top:125px;
+  left: 29px;
+  font-size:16px;
+  color:gray;
+}
+
+.runtime-label{
+  position: absolute;
+  top:140px;
+  left: 20px;
+  color: gray;
+  font-size: 14;
 }
 
 button.accordion {

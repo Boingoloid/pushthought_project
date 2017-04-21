@@ -41,11 +41,12 @@
             </div>
             <div class="program-container">
                 {% for item in searchResultList %}
-                <div class='program-item' id="{{ item.itemprop_videoId}}">
+                <div class='program-item' id="{{item.itemprop_videoId}}">
                     <div class="program-img-container">
-                        <img class='program-item-image' id='program-item-image' src="{{item.property_og_image}}" >
+                        <img class='program-item-image' id='program-item-image' src="{{item.property_og_image}}">
                     </div>
                     <div style="display: inline"><p>{{item.name_title}} - {{item.itemprop_duration}}</p></div>
+
                 </div>
                 {% endfor %}
              </div>
@@ -68,18 +69,19 @@
                     </div>
                     <div class="program-info-container" style="display:inline;">
                         {% if item.actions %}
-                            <div class="count">{{ item.actions }}</div>
-                            <div class="count" style="display:block; font-size:12px; font-weight:200;">actions</div>
-                            <br/>
-                            <hr class="hr-small" style="border-color:black;"/>
-                            <div class="count">{{ item.users }}</div>
-                            <div class="count" style="display:block; font-size:12px; font-weight:200;">users</div>
+                            <div class="sent-count">{{ item.actions }}</div>
+                            <div class="sent-count-label" style="display:block; font-size:12px; font-weight:200;">actions</div>
+                            <div class="runtime">{{ item.runtime }}</div>
+                            <div class="runtime-label">runtime</div>
+                            <!--<hr class="hr-small" style="border-color:black;"/>-->
+                            <!--<div class="user-count">{{ item.users }}</div>-->
+                            <!--<div class="user-count-label" style="display:block; font-size:12px; font-weight:200;">users</div>-->
                         {% else %}
                         {% endif %}
                     </div>
-                    <!--<div class="program-title">-->
-                        <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
-                    <!--</div>-->
+                    <div class="program-title">
+                        <p id="program-item-title{{forloop.counter}}">{{item.title}}</p>
+                    </div>
                 </div>
                 {% endfor %}
              </div>
@@ -101,12 +103,12 @@
                     </div>
                     <div class="program-info-container" style="display:inline;">
                         {% if item.sentMessagesCount %}
-                            <div class="count">{{ item.sentMessagesCount }}</div>
-                            <div class="count" style="display:block; font-size:12px; font-weight:200;">actions</div>
+                            <div class="count sent-count">{{ item.sentMessagesCount }}</div>
+                            <div class="count sent-count-label" style="display:block; font-size:12px; font-weight:200;">actions</div>
                             <br/>
                             <hr class="hr-small" style="border-color:black;"/>
-                            <div class="count">{{ item.userCount }}</div>
-                            <div class="count" style="display:block; font-size:12px; font-weight:200;">users</div>
+                            <div class="count user-count">{{ item.userCount }}</div>
+                            <div class="count user-count-label" style="display:block; font-size:12px; font-weight:200;">users</div>
                         {% else %}
                         {% endif %}
                     </div>
