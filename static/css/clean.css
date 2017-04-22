@@ -607,6 +607,14 @@ form .row:first-child .floating-label-form-group {
   }
 }
 
+
+.communication-icons{
+    height: 30px;
+    width: auto;
+    max-width: auto;
+}
+
+
 .row {
     margin-right: 0px;
     margin-left: 0px;
@@ -884,6 +892,9 @@ table {
 
 .how-header{
   font-weight:400;
+  line-height: 40px;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 
 .how-it-works-title-container{

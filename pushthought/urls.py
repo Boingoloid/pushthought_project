@@ -37,7 +37,7 @@ urlpatterns = [
 
 
     # This line added to cut off all urls to home
-    url(r'^.*$', views.home,name='home',),
+    # url(r'^.*$', views.home,name='home',),
 
     url(r'^$', views.home,name='home'),
     # congress email

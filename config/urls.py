@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name='home',),
     url(r'^home/$', views.HomeView.as_view(), name='home',),
     url(r'^browse/$', views.BrowseView.as_view(), name='browse'),
+    url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
+
 
     url(r'^accounts/', include('allauth.urls')),
     url(r'^program/', include('programs.urls')),
@@ -39,7 +41,7 @@ urlpatterns = [
     url(r'^send-contact/', views.send_contact, name='send_contact'),
 
     url(r'^content_landing/$', views.content_landing_empty, name='content_landing_empty'),
-    url(r'^content_landing/(?P<segment_id>\w+)', views.content_landing, name='content_landing'),
+    # url(r'^content_landing/(?P<program_id>\w+)', views.content_landing, name='content_landing'),
     url(r'^get_congress_email_fields', views.get_congress_email_fields_view, name='get_congress_email_fields_view'),
     url(r'^get_congress_with_zip/(?P<zip>\w+)', views.get_congress_with_zip_view, name='get_congress_with_zip'),
     url(r'^get_congress_with_location', views.get_congress_with_location_view, name='get_congress_with_location'),

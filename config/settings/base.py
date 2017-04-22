@@ -123,6 +123,8 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 # Your stuff: custom template context processors go here
+                # "allauth.context_processors.allauth",
+                # "allauth.account.context_processors.account",
             ],
         },
     },
