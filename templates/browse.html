@@ -56,7 +56,7 @@
             </div>
              <div class="program-container">
                 {% for item in documentaries %}
-                <div class='program-item'>
+                <div class='program-item' id="{{ item.id }}">
                     <div class='loader-{{forloop.counter}}'></div>
                     <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
                     <div class="program-img-container">
@@ -89,7 +89,7 @@
         <p class="category-heading">Web Videos</p>
             <div class="program-container">
                  {% for item in webVideoList %}
-                <div class='program-item' id="{{ item.objectId }}">
+                <div class='program-item' id="{{ item.id }}">
                     <div class='loader-{{forloop.counter}}'  id="loader"></div>
                     <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
                     <div class="program-img-container">
