@@ -162,6 +162,13 @@ h2{
   letter-spacing:1.07;
 }
 
+.category-warning{
+  display: inline;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  letter-spacing:1.07;
+
+}
+
 .zip-indicator{
     z-index: 1000;
     margin-left:6px;
@@ -203,9 +210,10 @@ h2{
     opacity:1;
     border-radius: 0 0 10px 10px;
     border-radius: 0px 10px 10px 0px;
-    border-right:3px solid gray;
-    border-top:3px solid gray;
-    border-bottom:3px solid gray;
+    border-right:3px solid green;
+    border-top:3px solid green;
+    border-bottom:3px solid green;
+    /*box-shadow: 5px 5px 5px green;*/
 }
 
 

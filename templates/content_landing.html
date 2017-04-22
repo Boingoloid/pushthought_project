@@ -24,7 +24,7 @@
                                 <!--<div class="drop-here" style="color:red; font-weight:600; font-size:20px;">This is a sample</div>-->
                             <!--{% endif %}-->
                         <h2 style="color:red; font-weight:600; font-size:20px;">Already seen it?</h2>
-                        <h3>Share with purpose below...</h3>
+                        <h3 style="font-size:16pt;"><img class="img communication-icons" src="/static/img/communication-icons.png">&nbsp with purpose below...</h3>
                     </div>
             </div>
             <div class="content-info-right">
@@ -39,7 +39,8 @@
     <div class="rep-color-band">
         <div class="container-standard category-container">
             <div class="category-title-container">
-                <p class="category-title" style="z-index:0;">Federal Representatives</p>
+                <!--<p class="category-title" style="z-index:0; color:green;">Federal Representatives</p>-->
+                <p class="category-warning" style="z-index:0; color:green; font-weight:400;">Enter Location or Zip to load Federal Representatives</p>
                 <div class="zip-reset-hover-boundary">
                     {% if hasCongressData %}
                     <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25">
