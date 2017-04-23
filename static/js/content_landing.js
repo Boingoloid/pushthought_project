@@ -138,6 +138,10 @@ $(document).ready(function() {
         $('.zip-input').focus();
         $('.submit-zip').show();
 
+        //Show title warning
+        $('.category-title').hide();
+        $('.category-warning').show();
+
     });
 
 

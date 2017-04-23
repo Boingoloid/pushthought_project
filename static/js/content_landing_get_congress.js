@@ -31,6 +31,10 @@ function getCongressWithLocation(lat,long){
             $('.zip-capture').hide();
             $('.zip-input').val('');
 
+            //Change title words
+            $('.category-warning').hide();
+            $('.category-title').show();
+
             // show zip indicator, to allow reset
             $('.zip-indicator').show();
             create_congress_HTML(congressDataArray);
@@ -71,6 +75,11 @@ function get_congress(zip){
 
             // show zip indicator, to allow reset
             $('.zip-indicator').show();
+
+            //Change title words
+            $('.category-warning').hide();
+            $('.category-title').show();
+
             create_congress_HTML(congressDataArray);
         },
         error: function() {

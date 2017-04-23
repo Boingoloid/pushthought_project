@@ -158,12 +158,14 @@ h2{
 
 .category-title{
   display: inline;
+  display: none;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   letter-spacing:1.07;
 }
 
 .category-warning{
   display: inline;
+
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   letter-spacing:1.07;
 
@@ -853,6 +855,7 @@ text-tweet-block{
     border-right:1px solid #00aced;
     border-left:1px solid #00aced;
     border-bottom:1px solid #00aced;
+    /*border-bottom:1px solid #00aced;*/
     border-radius: 5px;
     box-shadow: 2px 2px 5px #294f2f;
 }
