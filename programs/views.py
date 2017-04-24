@@ -1,10 +1,12 @@
+import requests
+import json
 from imdbpie import Imdb
-from requests.models import HTTPError
 
 from django.shortcuts import render
 from django.views.generic import DetailView, View
 from django.http.response import HttpResponse
 from django.http import Http404
+from django.conf import settings
 
 from utils.helper import url_to_model_field
 
@@ -49,7 +51,7 @@ class SearchIMDBProgramIDView(View):
         imdb = Imdb(anonymize=True)
         try:
             result = imdb.get_title_by_id(q)
-        except HTTPError:
+        except requests.HTTPError:
             raise Http404
         return result
 
@@ -71,64 +73,64 @@ class ProgramDetailView(DetailView):
     model = models.Program
     template_name = 'content_landing_new.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(ProgramDetailView, self).get_context_data(**kwargs)
-
-        # context['congressData'] = self.get_congress_data()
-        # context['tweetData'] = tweet_data
-        # context['hashtagData'] = hashtag_data
-        # context['hasCongressData'] = hasCongressData
-        return context
-
-    def get_congress_data(self):
-        location = self.request.user.extra.location
-        current_user = views.get_user_by_token_and_id(self.request)
-        try:
-            location = current_user['location']
-            congress_data = current_user['congressData']
-        except:
-            try:
-                location = self.request.session['location']
-                congress_data = self.request.session['congressData']
-            except:
-                location = None
-                congress_data = None
-
-        # if zipcode, load congress people
-        try:
-            zip = current_user['zip']
-        except:
-            try:
-                zip = self.request.session['zip']
-            except:
-                zip = None
-
-        # these need
-        if location:
-            if congress_data:
-                hasCongressData = True
-                print "loading from location"
-                segment_congress_stats = views.get_congress_stats_for_program(segment_id)
-                views.add_congress_stats(congress_data, segment_congress_stats)
-                if message_list:
-                    congress_data = views.add_user_touched_data(congress_data, message_list)
-                    # print message_list
-
-        elif zip:
-            hasCongressData = True
-            congress_data_raw = views.get_congress_data(zip)  # pulls from api or db
-            print "loading from zip"
-            congress_data_raw = views.add_title_and_full_name(congress_data_raw)
-            congress_photos = views.get_congress_photos(congress_data_raw)
-            congress_data = views.add_congress_photos(congress_data_raw, congress_photos)
-            segment_congress_stats = views.get_congress_stats_for_program(segment_id)
-            views.add_congress_stats(congress_data, segment_congress_stats)
-            if views.message_list:
-                congress_data = views.add_user_touched_data(congress_data, message_list)
-                # print message_list
-        else:
-            hasCongressData = False
-            congress_data = []
+    # def get_context_data(self, **kwargs):
+    #     context = super(ProgramDetailView, self).get_context_data(**kwargs)
+    #
+    #     # context['congressData'] = self.get_congress_data()
+    #     # context['tweetData'] = tweet_data
+    #     # context['hashtagData'] = hashtag_data
+    #     # context['hasCongressData'] = hasCongressData
+    #     return context
+    #
+    # def get_congress_data(self):
+    #     location = self.request.user.extra.location
+    #     current_user = views.get_user_by_token_and_id(self.request)
+    #     try:
+    #         location = current_user['location']
+    #         congress_data = current_user['congressData']
+    #     except:
+    #         try:
+    #             location = self.request.session['location']
+    #             congress_data = self.request.session['congressData']
+    #         except:
+    #             location = None
+    #             congress_data = None
+    #
+    #     # if zipcode, load congress people
+    #     try:
+    #         zip = current_user['zip']
+    #     except:
+    #         try:
+    #             zip = self.request.session['zip']
+    #         except:
+    #             zip = None
+    #
+    #     # these need
+    #     if location:
+    #         if congress_data:
+    #             hasCongressData = True
+    #             print "loading from location"
+    #             segment_congress_stats = views.get_congress_stats_for_program(segment_id)
+    #             views.add_congress_stats(congress_data, segment_congress_stats)
+    #             if message_list:
+    #                 congress_data = views.add_user_touched_data(congress_data, message_list)
+    #                 # print message_list
+    #
+    #     elif zip:
+    #         hasCongressData = True
+    #         congress_data_raw = views.get_congress_data(zip)  # pulls from api or db
+    #         print "loading from zip"
+    #         congress_data_raw = views.add_title_and_full_name(congress_data_raw)
+    #         congress_photos = views.get_congress_photos(congress_data_raw)
+    #         congress_data = views.add_congress_photos(congress_data_raw, congress_photos)
+    #         segment_congress_stats = views.get_congress_stats_for_program(segment_id)
+    #         views.add_congress_stats(congress_data, segment_congress_stats)
+    #         if views.message_list:
+    #             congress_data = views.add_user_touched_data(congress_data, message_list)
+    #             # print message_list
+    #     else:
+    #         hasCongressData = False
+    #         congress_data = []
 
 
 def content_landing(request, segment_id):
@@ -226,3 +228,83 @@ def content_landing(request, segment_id):
 
 
     return render(request, 'content_landing.html',dataDict)
+
+
+class GetCongressByZip(View):
+    API = "https://congress.api.sunlightfoundation.com/legislators/locate"
+
+    def get(self, request, zip, *args, **kwargs):
+        self.zip = zip
+        self.save_zip()
+        json_data = self.get_congress_data()
+        json_data = self.add_title_and_full_name(json_data)
+
+    def save_zip(self):
+        self.request.user.extra.zip = self.zip
+        self.request.user.save()
+
+    def get_congress_data(self):
+        urlAPI = self.API + "?zip=" + self.zip + "&apikey=" + settings.SUNLIGHT_LABS_API_KEY
+        r = requests.get(urlAPI)
+        results = json.loads(r.content)['results']
+        return results
+
+    def add_title_and_full_name(self, json_data):
+        for item in json_data:
+            # Create full_name
+            item['full_name'] = item['first_name'] + " " + item['last_name']
+            # Create Title
+            if item['title'] == "Rep":
+                item['title'] = "Rep, " + item['state'] + " - d:" + str(item['district'])
+            else:
+                item['title'] = "Senator, " + item['state']
+        return json_data
+
+
+
+def get_congress_with_zip(request, zip):
+    # Return congress based on zip
+    congress_data_raw = get_congress_data(zip)
+    congress_data_raw = add_title_and_full_name(congress_data_raw)
+    congress_photos = get_congress_photos(congress_data_raw)
+    congress_data = add_congress_photos(congress_data_raw,congress_photos)
+    congress_data = add_congress_stats(congress_data,segment_congress_stats)
+
+    if message_list:
+        congress_data = add_user_touched_data(congress_data, message_list)
+    print "made it here, sending success response with congressData"
+    return congress_data
+
+def get_congress_data(zip_code):
+    root = "https://congress.api.sunlightfoundation.com/legislators/locate"
+
+    #HELPER FUNCTION: nested function to get Congress Data from api, then save in CongressData under the zip_code
+    def get_congress_data_from_api():
+        urlAPI = root + "?zip=" + zip_code + "&apikey=" + settings.SUNLIGHT_LABS_API_KEY
+        r = requests.get(urlAPI)
+        results = json.loads(r.content)['results']
+        if len(results) != 0:
+            save_result = save_to_congress_data_collection()
+        return results
+
+    #MAIN: Checks UPDATE TRIGGER, then uses method above to get data locally or form api
+    if not settings.CONGRESS_DATA_UPDATE_TRIGGER:
+        congress_data = db.CongressData.find_one({"zip_code":zip_code})
+        if congress_data:
+            # print "congress data returned local, no api used", congress_data
+            return congress_data['results']
+        else:
+            print "no congress for that zip"
+            return get_congress_data_from_api()
+    else:
+        results = get_congress_data_from_api()
+
+        # if results, delete existing zip data and add new
+        if len(results) != 0:
+            delete_result = db.CongressData.delete_many({"zip_code": zip_code})
+            print "deleted CongressData documents count:", delete_result.deleted_count
+            save_result = save_to_congress_data_collection(zip_code, results)
+            print "saved CongressData document:", save_result
+            return results
+        else:
+            return results
