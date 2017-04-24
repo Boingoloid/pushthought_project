@@ -33,6 +33,7 @@ urlpatterns = [
 
     url(r'^accounts/', include('allauth.urls')),
     url(r'^program/', include('programs.urls')),
+    url(r'^congress/', include('congress.urls')),
 
     # congress email
     url(r'^submit_congress_email', views.submit_congress_email_view, name='submit_congress_email_view'),
