@@ -18,6 +18,9 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
+os.environ['HTTPS'] = 'on'
+os.environ['wsgi.url_scheme'] = 'https'
+
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
