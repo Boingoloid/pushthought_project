@@ -627,6 +627,24 @@ form .row:first-child .floating-label-form-group {
 }
 
 
+@media only screen and (max-width: 450px) {
+
+  .title-words{
+    margin-left:35px;
+  }
+
+  .title-words-body{
+    margin-left:35px;
+  }
+
+  .browse-btn {
+    margin-left:35px;
+  }
+
+}
+
+
+
 .communication-icons{
     height: 30px;
     width: auto;
@@ -976,19 +994,37 @@ table {
   max-width: 70%;
 }
 
-.img-content-logo2{
+img.img-content-logo2{
   display: block;
+  max-width:90%;
+  margin: auto;
+
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (max-width: 992px) {
   .img-content-logo1{
     display: block;
   }
 
-  .img-content-logo2{
+  img.img-content-logo2{
     display: block;
-    /*max-width: 70%;*/
+    max-width: 280px;
+
   }
+}
+
+@media only screen and (max-width: 992px)   {
+  .panel-3-image{
+    max-width: 350px;
+
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .panel-3-image{
+    max-width: 90%;
+  }
+
 }
 
 
