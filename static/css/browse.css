@@ -7,6 +7,17 @@
 .intro-header{
 }
 
+#search_keyword{
+    border-radius:5px;
+}
+
+
+#search_btn{
+    border-radius: 5px;
+    width:100px;
+
+}
+
 .browse-container{
   background: #091525;
   background: linear-gradient(#000b1e, #092551); /* Standard syntax */

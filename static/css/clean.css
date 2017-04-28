@@ -992,6 +992,12 @@ img.img-content-logo2{
   }
 }
 
+@media only screen and (max-width: 450px) {
+  img.img-content-logo2{
+    max-width:200px;
+  }
+}
+
 @media only screen and (max-width: 992px)   {
   .panel-3-image{
     max-width: 350px;
