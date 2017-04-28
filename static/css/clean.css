@@ -26,13 +26,13 @@ body p {
   color: white;
   margin-top: 10px;
   margin-bottom: 10px;
-  letter-spacing:1.5;
+  letter-spacing: 1px;
 }
 
 
 p {
   line-height: 1.5;
-  margin: 0px 0;
+  margin: 0;
   letter-spacing:1px;
   word-spacing: 3px;
   color: white;
@@ -65,13 +65,13 @@ h3,
 h4,
 h5,
 h6,
- p{
+p {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: white;
   margin-top: 10px;
   margin-bottom: 10px;
-  letter-spacing:1.5;
+  letter-spacing: 1px;
 }
 
 a:hover,
@@ -82,20 +82,20 @@ a:focus {
 /*a img:focus {*/
   /*cursor: zoom-in;*/
 /*}*/
+
 blockquote {
   color: #777777;
   font-style: italic;
 }
 
 hr{
-  margin: 0px auto;
+  margin: 0 auto;
 }
 
 hr.small {
   max-width: 100px;
   margin: 15px auto;
-  border-width: 4px;
-  border-color: black;
+  border: 4px black;
 }
 
 .nav-hr{
@@ -104,20 +104,21 @@ hr.small {
 }
 
 .nav-container{
-  margin-bottom:0px;
+  margin-bottom:0;
 }
 
 
 .navbar{
   background-color:#000b1e;
   /*background: linear-gradient(#092551,#000b1e);*/ /* Standard syntax */
-  border-width: 0px;
+  border-width: 0;
 }
 
 .navbar-custom .navbar-brand .navbar-default{
   font-weight: 500;
   color: white;
 }
+
 .navbar-custom .navbar-header .navbar-toggle {
   /*margin-top: 22px;*/
   margin-top: 10px;
@@ -128,6 +129,7 @@ hr.small {
   font-size: 12px;
   z-index:3000;
 }
+
 .navbar-custom .nav li a {
   /*text-transform: uppercase;*/
   font-size: 16px;
@@ -151,15 +153,11 @@ hr.small {
 }
 
 .top-logo-container{
-  padding: 0px;
-  padding-top:10px;
-  padding-bottom:0px;
-  margin: auto;
+  padding: 10px 0 0 0;
+  margin: auto auto -50px auto;
   vertical-align: middle;
-  align: center;
   width: 40px;
   cursor: pointer;
-  margin-bottom: -50px;
 }
 
 .logo-link{
@@ -180,7 +178,7 @@ img.img-free.logo-image{
 .navbar-collapse {
   background:radial-gradient(#092551,#000b1e);
   background: rgba(0,0,0,0);
-  margin-bottom: 0px;
+  margin-bottom: 0;
   height: auto;
 
 }
@@ -188,15 +186,14 @@ img.img-free.logo-image{
 @media only screen and (min-width: 768px) {
 
   .navbar-custom {
-    background: #051838;
-    background: linear-gradient(#000b1e, #092551); /* Standard syntax */
-    background:radial-gradient(#092551,#000b1e);
+    /*background: #051838;*/
+    /*background: linear-gradient(#000b1e, #092551); !* Standard syntax *!*/
+    background: radial-gradient(#092551,#000b1e);
 }
-  }
+
   .navbar-custom .navbar-brand {
     color: white;
-    padding: 20px;
-    padding-bottom: 0px;
+    padding: 20px 20px 0 20px;
   }
   .navbar-custom .navbar-brand:hover,
   .navbar-custom .navbar-brand:focus {
@@ -204,8 +201,7 @@ img.img-free.logo-image{
   }
   .navbar-custom .nav li a {
     color: #88c0d2;   /* change this for the links in nav at the top right!!!! */
-    padding: 20px;
-    padding-bottom: 0px;
+    padding: 20px 20px 0 20px;
     vertical-align:middle;
   }
   .navbar-custom .nav li a:hover,
@@ -232,7 +228,7 @@ img.img-free.logo-image{
     position: fixed;
     top: -55px;
     background-color: rgba(255, 255, 255, 0.9);
-    border-bottom: 0px solid #f2f2f2;
+    border-bottom: 0 solid #f2f2f2;
     -webkit-transition: -webkit-transform 0.3s;
     -moz-transition: -moz-transform 0.3s;
     transition: transform 0.3s;
@@ -276,7 +272,7 @@ img.img-free.logo-image{
   background-size: cover;
   -o-background-size: cover;
   margin-top:60px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   width:100%;
   max-height:100%;
 }
@@ -313,7 +309,7 @@ img.img-free.logo-image{
   .intro-header .site-heading,
   .intro-header .post-heading,
   .intro-header .page-heading {
-    padding: 5px 5;
+    padding: 5px 5px;
     height: auto;
   }
 }
@@ -321,7 +317,7 @@ img.img-free.logo-image{
 .intro-header .site-heading,
 .intro-header .page-heading {
   text-align: center;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .intro-header .site-heading h1,
@@ -419,9 +415,8 @@ img.img-free.logo-image{
   margin-bottom: 10px;
 }
 .post-preview > a > .post-subtitle {
-  margin: 0;
+  margin: 0 0 10px 0;
   font-weight: 300;
-  margin-bottom: 10px;
 }
 .post-preview > .post-meta {
   color: #777777;
@@ -459,9 +454,9 @@ img.img-free.logo-image{
   border-bottom-left-radius: 5px;
 }
 footer {
-  margin: 0px 0 0 0;
-  padding: 0px 0 0px;
-  border-top: 0px solid #000000;
+  margin: 0;
+  padding: 0;
+  border-top: 0 solid #000000;
 }
 
 footer .navbar{
@@ -507,7 +502,6 @@ footer .copyright {
   margin: 0;
   font-size: 0.85em;
   line-height: 1.764705882em;
-  vertical-align: middle;
   vertical-align: baseline;
   opacity: 0;
   -webkit-transition: top 0.3s ease,opacity 0.3s ease;
@@ -515,7 +509,7 @@ footer .copyright {
   -ms-transition: top 0.3s ease,opacity 0.3s ease;
   transition: top 0.3s ease,opacity 0.3s ease;
 }
-.floating-label-form-group::not(:first-child) {
+.floating-label-form-group:not(:first-child) {
   padding-left: 14px;
   border-left: 1px solid #eeeeee;
 }
@@ -593,16 +587,12 @@ form .row:first-child .floating-label-form-group {
 
 /* Browse button*/
 .browse-btn {
-  margin: 0 auto;
-  margin-top:5px;
-  margin-left:75px;
+  margin: 5px 0 0 75px;
   width: 200px;
   height: 37px;
   line-height: 3px;
   font-size: 18px;
   font-weight:300;
-  background: rgba(0,0,0,0);
-  color: #0085A1;
   border:2px solid;
   /*background-color: #004c00;*/
   background-color: green;
@@ -648,26 +638,22 @@ form .row:first-child .floating-label-form-group {
 .communication-icons{
     height: 30px;
     width: auto;
-    max-width: auto;
 }
 
 
 .row {
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 .btn-outline {
   background:rgba(0,0,0,0.0);
-  border-style: solid;
-  border-width: 2px;
+  border: solid 2px gray;
   border-radius: 10px;
-  border-color: gray;
   color: gray;
   font-weight: 200;
   height: 30px;
   width: 75px;
-  padding:0;
   padding-left:7px;
   text-align:left;
 }
@@ -776,49 +762,50 @@ table {
     width:100%;
 }
 
-@media (min-width: 1200px)
-.container {
-    width: 100%;
-}
-@media (min-width: 992px)
-.container {
-    width: 100%;
-}
-@media (min-width: 768px)
-.container {
-    width: 100%;
+@media (min-width: 1200px) {
+    .container {
+        width: 100%;
+    }
 }
 
+@media (min-width: 992px){
+    .container {
+        width: 100%;
+    }
+}
 
+@media (min-width: 768px){
+    .container {
+        width: 100%;
+    }
+}
 
 .container-banner {
   background: black;
-  margin-right:0px;
+  margin-right:0;
 }
 
 .container-fluid {
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 .container-fluid-logo{
-  margin-top: auto;
-  margin-top: auto;
   text-align: center;
   margin-top: -50px;
 }
 
 .navbar-default .navbar-brand {
     color: #88c0d2;
-    margin-top 0px;
+    margin-top: 0;
 }
 
 .navbar{
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 @media (min-width: 768px){
   .navbar{
-    border-radius: 0px;
+    border-radius: 0;
   }
 }
 
@@ -828,22 +815,16 @@ table {
   display:flex;
   /*flex-wrap:wrap;*/
   background: black;
-  border: 0px solid black;
-  border-radius: 0px;
+  border: 0 solid black;
+  border-radius: 0;
   overflow: hidden;
   padding-left: 10px;
   padding-right: 10px;
 }
 
 .program-item{
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-left: 0px;
-  padding-right: 0px;
+  margin: 0;
+  padding: 0;
   background: black;
   border: 1px solid black;
   border-radius: 5px;
@@ -885,8 +866,7 @@ table {
 /* landing page are asking for email*/
 .landing-container {
   height: 450px;
-  background-color:#092551;
-  background:linear-gradient(black,#000b1e);
+  background:linear-gradient(black,#000b1e) #092551;
 }
 
 .landing-container p {
@@ -924,7 +904,6 @@ table {
 
 .how-container{
   margin:auto;
-  position:middle;
 }
 
 .how-header{
@@ -935,9 +914,9 @@ table {
 }
 
 .how-it-works-title-container{
-  color:white;
-  width 100%;
-  margin-top 10px;
+  color:    white;
+  width: 100%;
+  margin-top: 10px;
 }
 
 /*
@@ -954,10 +933,10 @@ table {
 }
 
 .panel{
-  padding: 0px;
-  border: 0px;
+  padding: 0;
+  border: 0;
   box-shadow: None;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   /*box-shadow: 0 1px 1px rgba(0, 0, 0, .05);*/
 }
 
@@ -975,11 +954,11 @@ table {
 }
 
 .panel-heading-crane{
-  padding: 0px;
+  padding: 0;
 }
 
 .panel-body{
-  padding: 0px;
+  padding: 0;
 }
 
 @media only screen and (max-width: 992px) {
