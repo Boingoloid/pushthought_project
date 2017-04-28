@@ -2,7 +2,7 @@ import requests
 import json
 from django.views.generic import DetailView, View
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 
 from . import forms
 from . import models
@@ -16,7 +16,7 @@ class GetCongressData(View):
         self.data = self.get_congress_data_from_api()
         if self.data:
             self.save_object()
-            return HttpResponse('Created')
+            return JsonResponse(self.data, safe=False)
         else:
             return HttpResponseNotFound()
 
@@ -53,3 +53,23 @@ class GetCongressData(View):
                 form = forms.CongressForm(congress)
                 if form.is_valid():
                     obj = form.save()
+
+            congress['image'] = obj.image
+            congress['full_name'] = obj.full_name
+
+class GetCongressDataLocation(GetCongressData):
+
+    def get(self, request, *args, **kwargs):
+        self.lat = request.GET.get('lat')
+        self.long = request.GET.get('long')
+        self.data = self.get_congress_data_from_api()
+        if self.data:
+            self.save_object()
+            return HttpResponse('Created')
+        else:
+            return HttpResponseNotFound()
+
+    def get_api_url(self):
+        url = self.API_URL + "?latitude=" + str(self.lat) + "&longitude=" + str(self.long) + "&apikey=" + settings.SUNLIGHT_LABS_API_KEY
+
+        return url

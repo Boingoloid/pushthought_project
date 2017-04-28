@@ -217,9 +217,7 @@ $(document).ready(function() {
             $('#zip-loader').show();
             console.log('valid zip');
             console.log('get_congres on zip:' + zip);
-            $.getScript('/static/js/content_landing_get_congress.js', function(){
-                get_congress(zip);
-            });
+            get_congress(zip);
         } else{
             console.log('NOT a valid zip');
             alert('Not a valid zip code.  Please check and try again.')

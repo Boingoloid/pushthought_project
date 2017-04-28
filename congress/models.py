@@ -53,6 +53,14 @@ class Congress(TimeStampedModel):
         return '{} {}'.format(self.first_name, self.last_name)
 
     @property
+    def full_name(self):
+        if self.middle_name:
+            name = '{} {} {}'.format(self.first_name, self.middle_name, self.last_name)
+        else:
+            name = '{} {}'.format(self.first_name, self.last_name)
+        return name
+
+    @property
     def image(self):
         file_name = '{}.jpg'.format(self.bioguide_id.upper())
         url = static('img/congress/{}'.format(file_name))
