@@ -57,7 +57,7 @@
             </div>
              <div class="program-container">
                 {% for item in documentaries %}
-                <div class='program-item' id="{{ item.id }}">
+                <div class='program-item' id="{{ item.id }}"><a href="{% url 'programs:detail' item.pk %}">
                     <div class='loader-{{forloop.counter}}'></div>
                     <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
                     <div class="program-img-container">
@@ -82,6 +82,7 @@
                     <div class="program-title">
                         <p id="program-item-title{{forloop.counter}}">{{item.title}}</p>
                     </div>
+                </a>
                 </div>
                 {% endfor %}
              </div>
@@ -91,7 +92,7 @@
         <p class="category-heading">Web Videos</p>
             <div class="program-container">
                  {% for item in webVideoList %}
-                <div class='program-item' id="{{ item.id }}">
+                <div class='program-item' id="{{ item.id }}"><a href=""></a>
                     <div class='loader-{{forloop.counter}}'  id="loader"></div>
                     <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
                     <div class="program-img-container">
@@ -125,19 +126,19 @@
 
 
 
-    <!--<div>-->
-        <!--LIST OF PROGRAMS-->
-    <!--</div>-->
-
-    <!--<div class="program-container">-->
-        <!--{% for item in programList %}-->
-        <!--<div class='program-item' id="program-item{{forloop.counter}}">-->
-            <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
-            <!--<p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>-->
-            <!--<img class='program-item-image'  id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>-->
-        <!--</div>-->
-        <!--{% endfor %}-->
-    <!--</div>  &lt;!&ndash;close PROGRAM container&ndash;&gt;-->
+{#    <!--<div>-->#}
+{#        <!--LIST OF PROGRAMS-->#}
+{#    <!--</div>-->#}
+{##}
+{#    <!--<div class="program-container">-->#}
+{#        <!--{% for item in programList %}-->#}
+{#        <!--<div class='program-item' id="program-item{{forloop.counter}}">-->#}
+{#            <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->#}
+{#            <!--<p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>-->#}
+{#            <!--<img class='program-item-image'  id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>-->#}
+{#        <!--</div>-->#}
+{#        <!--{% endfor %}-->#}
+{#    <!--</div>  &lt;!&ndash;close PROGRAM container&ndash;&gt;-->#}
 </form>
 {% endblock %}
 

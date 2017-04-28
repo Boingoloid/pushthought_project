@@ -24,11 +24,12 @@ $(document).ready(function() {
     });
 
 
-    $('.program-container').on('click','.program-item',function(event) {
-        $(this).contents('#loader').show();
-        var programId = $(this).attr('id');
-        window.location.href="/content_landing/" + programId;
-    });
+    // $('.program-container').on('click','.program-item',function(event) {
+    //     $(this).contents('#loader').show();
+    //     var programId = $(this).attr('id');
+    //     window.location.href="/content_landing/" + programId;
+    // });
+
 });
 
 
