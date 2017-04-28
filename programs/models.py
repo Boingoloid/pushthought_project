@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django_extensions.db.models import TimeStampedModel
-
+from django.urls import reverse
 from django.db import models
 
 
@@ -32,6 +32,9 @@ class Program(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('programs:detail', args=[str(self.id)])
 
 
 class Season(TimeStampedModel):

@@ -18,7 +18,16 @@ from snippets import urls
 from pushthought import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.sitemaps.views import sitemap
 
+from .sitemaps import StaticViewSitemap
+from programs.sitemaps import ProgramSitemap
+
+
+sitemaps = {
+    'static': StaticViewSitemap,
+    'programs': ProgramSitemap
+}
 
 urlpatterns = [
     # Admin
@@ -30,10 +39,13 @@ urlpatterns = [
     url(r'^browse/$', views.BrowseView.as_view(), name='browse'),
     url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
 
-
     url(r'^accounts/', include('allauth.urls')),
     url(r'^program/', include('programs.urls', namespace='programs')),
     url(r'^congress/', include('congress.urls', namespace='congress')),
+
+    url(r'^robots\.txt$', include('robots.urls')),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
 
     # congress email
     url(r'^submit_congress_email', views.submit_congress_email_view, name='submit_congress_email_view'),

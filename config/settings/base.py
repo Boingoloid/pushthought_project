@@ -29,6 +29,7 @@ DJANGO_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 THIRD_PARTY_APPS = [
@@ -36,6 +37,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'snippets',
     'prime',
+    'robots',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
