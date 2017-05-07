@@ -1,11 +1,10 @@
 import requests
 import json
-from django.views.generic import DetailView, View
+from django.views.generic import View
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 
-from . import forms
-from . import models
+from . import forms, models, serializers
 
 
 class GetCongressData(View):
@@ -13,15 +12,29 @@ class GetCongressData(View):
 
     def get(self, request, zip_code, *args, **kwargs):
         self.zip_code = zip_code
-        self.data = self.get_congress_data_from_api()
-        if self.data:
-            self.save_object()
-            return JsonResponse(self.data, safe=False)
-        else:
+        self.zip_obj = self.get_zip_object()
+
+        if not self.zip_obj:
             return HttpResponseNotFound()
 
+        serializer = serializers.CongressSerializer(self.zip_obj.congress_set, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+    def get_zip_object(self):
+        zip_obj = models.Zip.objects.filter(code=self.zip_code).first()
+
+        if zip_obj:
+            return zip_obj
+
+        self.data = self.get_congress_data_from_api()
+        if self.data:
+            zip_obj = self.save_object()
+
+        return zip_obj
+
     def get_api_url(self):
-        url = self.API_URL + "?zip=" + self.zip_code + "&apikey=" + settings.SUNLIGHT_LABS_API_KEY
+        url = '{}?zip={}&apikey={}'.format(self.API_URL, self.zip_code, settings.SUNLIGHT_LABS_API_KEY)
 
         return url
 
@@ -39,11 +52,11 @@ class GetCongressData(View):
         return obj
 
     def save_or_get_zip(self):
-        self.zip, created = models.Zip.objects.get_or_create(code=self.zip_code)
-        return self.zip
+        zip, created = models.Zip.objects.get_or_create(code=self.zip_code)
+        return zip
 
     def save_object(self):
-        self.save_or_get_zip()
+        self.zip = self.save_or_get_zip()
 
         for congress in self.data:
             if self.get_existing_congress(congress):
@@ -54,8 +67,6 @@ class GetCongressData(View):
                 if form.is_valid():
                     obj = form.save()
 
-            congress['image'] = obj.image
-            congress['full_name'] = obj.full_name
 
 class GetCongressDataLocation(GetCongressData):
 
