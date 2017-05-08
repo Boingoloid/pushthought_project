@@ -56,16 +56,18 @@ class GetCongressData(View):
         return zip
 
     def save_object(self):
-        self.zip = self.save_or_get_zip()
+        self.zip_obj = self.save_or_get_zip()
 
         for congress in self.data:
             if self.get_existing_congress(congress):
                 obj = self.get_existing_congress(congress)
             else:
-                congress['zip'] = self.zip.id
+                congress['zip'] = self.zip_obj.id
                 form = forms.CongressForm(congress)
                 if form.is_valid():
                     obj = form.save()
+
+        return self.zip_obj
 
 
 class GetCongressDataLocation(GetCongressData):
