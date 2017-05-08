@@ -12,36 +12,35 @@ class GetCongressData(View):
 
     def get(self, request, zip_code, *args, **kwargs):
         self.zip_code = zip_code
-        self.zip_obj = self.get_zip_object()
+        queryset = self.get_congress_data_from_api()
 
-        if not self.zip_obj:
+        if not queryset:
+            queryset = self.get_congress_data_from_api()
+
+        if not queryset:
             return HttpResponseNotFound()
 
-        serializer = serializers.CongressSerializer(self.zip_obj.congress_set, many=True)
+        serializer = serializers.CongressSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False)
 
+    def get_congress_data_from_db(self):
+        queryset = models.Congress.objects.filter(zips__contains=self.zip_code)
+        return queryset
 
-    def get_zip_object(self):
-        zip_obj = models.Zip.objects.filter(code=self.zip_code).first()
-
-        if zip_obj:
-            return zip_obj
-
-        self.data = self.get_congress_data_from_api()
+    def get_congress_data_from_api(self):
+        req = requests.get(self.get_api_url())
+        self.data = json.loads(req.content)['results']
         if self.data:
-            zip_obj = self.save_object()
+            congress = self.save_object()
+        else:
+            congress = None
 
-        return zip_obj
+        return congress
 
     def get_api_url(self):
         url = '{}?zip={}&apikey={}'.format(self.API_URL, self.zip_code, settings.SUNLIGHT_LABS_API_KEY)
 
         return url
-
-    def get_congress_data_from_api(self):
-        req = requests.get(self.get_api_url())
-        data = json.loads(req.content)['results']
-        return data
 
     def get_existing_congress(self, data):
         bioguide_id = data['bioguide_id']
@@ -51,23 +50,26 @@ class GetCongressData(View):
             obj = None
         return obj
 
-    def save_or_get_zip(self):
-        zip, created = models.Zip.objects.get_or_create(code=self.zip_code)
-        return zip
 
     def save_object(self):
-        self.zip_obj = self.save_or_get_zip()
-
+        congress_list = []
         for congress in self.data:
             if self.get_existing_congress(congress):
                 obj = self.get_existing_congress(congress)
+                obj.add_zip(self.zip_code)
             else:
-                congress['zip'] = self.zip_obj.id
+                congress['zips'] = self.zip_code
                 form = forms.CongressForm(congress)
                 if form.is_valid():
                     obj = form.save()
+                else:
+                    obj = None
 
-        return self.zip_obj
+            if obj:
+                congress_list.append(obj.id)
+
+        queryset = models.Congress.objects.filter(id__in=congress_list)
+        return queryset
 
 
 class GetCongressDataLocation(GetCongressData):

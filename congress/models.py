@@ -6,6 +6,7 @@ from django.db import models
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.validators import validate_comma_separated_integer_list
 
+
 class Congress(TimeStampedModel):
     first_name = models.CharField(max_length=30)
     middle_name = models.CharField(max_length=30, blank=True, null=True)
@@ -60,10 +61,16 @@ class Congress(TimeStampedModel):
         url = static('img/congress/{}'.format(file_name))
         return url
 
-    def add_zip(self, zip):
-        self.zips += ',{}'.format(zip)
-        self.save()
-        return self.zips
+    def add_zip(self, zip_code):
+        if not self.zips:
+            self.zips = zip_code
+            self.save()
+            return True
+
+        if zip_code not in self.zips:
+            self.zips += ',{}'.format(zip_code)
+            self.save()
+            return True
 
     def remove_zip(self, zip):
         self.zips = self.zips.replace(',{}'.format(zip), '')
