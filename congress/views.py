@@ -11,9 +11,6 @@ class GetCongressData(View):
     API_URL = "https://congress.api.sunlightfoundation.com/legislators/locate"
 
     def get(self, request, zip_code, *args, **kwargs):
-        if zip_code == '00000':
-            zip_code = 94107
-
         self.zip_code = zip_code
         queryset = self.get_congress_data_from_db()
 
