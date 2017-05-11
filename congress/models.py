@@ -1,15 +1,10 @@
 from __future__ import unicode_literals
 
-from django.db import models
 from django_extensions.db.models import TimeStampedModel
+
+from django.db import models
 from django.contrib.staticfiles.templatetags.staticfiles import static
-
-
-class Zip(TimeStampedModel):
-    code = models.IntegerField(unique=True)
-
-    def __str__(self):
-        return '{}'.format(self.code)
+from django.core.validators import validate_comma_separated_integer_list
 
 
 class Congress(TimeStampedModel):
@@ -47,7 +42,7 @@ class Congress(TimeStampedModel):
     chamber = models.CharField(max_length=100, blank=True, null=True)
     state_rank = models.CharField(max_length=100, blank=True, null=True)
     fec_ids = models.TextField(blank=True, null=True)
-    zip = models.ForeignKey('Zip', blank=True, null=True)
+    zips = models.CharField(max_length=1000, validators=[validate_comma_separated_integer_list], blank=True, null=True)
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)
@@ -65,3 +60,20 @@ class Congress(TimeStampedModel):
         file_name = '{}.jpg'.format(self.bioguide_id.upper())
         url = static('img/congress/{}'.format(file_name))
         return url
+
+    def add_zip(self, zip_code):
+        if not self.zips:
+            self.zips = zip_code
+            self.save()
+            return True
+
+        if zip_code not in self.zips:
+            self.zips += ',{}'.format(zip_code)
+            self.save()
+            return True
+
+    def remove_zip(self, zip):
+        self.zips = self.zips.replace(',{}'.format(zip), '')
+        self.save()
+        return self.zips
+

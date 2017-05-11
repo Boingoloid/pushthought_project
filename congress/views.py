@@ -1,11 +1,10 @@
 import requests
 import json
-from django.views.generic import DetailView, View
+from django.views.generic import View
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 
-from . import forms
-from . import models
+from . import forms, models, serializers
 
 
 class GetCongressData(View):
@@ -13,22 +12,35 @@ class GetCongressData(View):
 
     def get(self, request, zip_code, *args, **kwargs):
         self.zip_code = zip_code
-        self.data = self.get_congress_data_from_api()
-        if self.data:
-            self.save_object()
-            return JsonResponse(self.data, safe=False)
-        else:
+        queryset = self.get_congress_data_from_api()
+
+        if not queryset:
+            queryset = self.get_congress_data_from_api()
+
+        if not queryset:
             return HttpResponseNotFound()
 
-    def get_api_url(self):
-        url = self.API_URL + "?zip=" + self.zip_code + "&apikey=" + settings.SUNLIGHT_LABS_API_KEY
+        serializer = serializers.CongressSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
-        return url
+    def get_congress_data_from_db(self):
+        queryset = models.Congress.objects.filter(zips__contains=self.zip_code)
+        return queryset
 
     def get_congress_data_from_api(self):
         req = requests.get(self.get_api_url())
-        data = json.loads(req.content)['results']
-        return data
+        self.data = json.loads(req.content)['results']
+        if self.data:
+            congress = self.save_object()
+        else:
+            congress = None
+
+        return congress
+
+    def get_api_url(self):
+        url = '{}?zip={}&apikey={}'.format(self.API_URL, self.zip_code, settings.SUNLIGHT_LABS_API_KEY)
+
+        return url
 
     def get_existing_congress(self, data):
         bioguide_id = data['bioguide_id']
@@ -38,24 +50,27 @@ class GetCongressData(View):
             obj = None
         return obj
 
-    def save_or_get_zip(self):
-        self.zip, created = models.Zip.objects.get_or_create(code=self.zip_code)
-        return self.zip
 
     def save_object(self):
-        self.save_or_get_zip()
-
+        congress_list = []
         for congress in self.data:
             if self.get_existing_congress(congress):
                 obj = self.get_existing_congress(congress)
+                obj.add_zip(self.zip_code)
             else:
-                congress['zip'] = self.zip.id
+                congress['zips'] = self.zip_code
                 form = forms.CongressForm(congress)
                 if form.is_valid():
                     obj = form.save()
+                else:
+                    obj = None
 
-            congress['image'] = obj.image
-            congress['full_name'] = obj.full_name
+            if obj:
+                congress_list.append(obj.id)
+
+        queryset = models.Congress.objects.filter(id__in=congress_list)
+        return queryset
+
 
 class GetCongressDataLocation(GetCongressData):
 
