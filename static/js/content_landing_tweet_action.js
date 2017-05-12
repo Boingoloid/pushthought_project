@@ -1,9 +1,65 @@
+var user_logged_in;
+function check_user() {
+    return $.ajax({
+        url: "/is_logged_in/",
+        async: false,
+        success: function(data) {
+            console.log('Logged in:');
+            console.log(data);
+            if (data === 'True') {
+                user_logged_in = true
+            } else {
+                user_logged_in = false
+            }
+        }
+    });
+}
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
 
+function login_user() {
+    var tweetForm = document.createElement("form");
+    tweetForm.method = "POST"; // or "post" if appropriate
+    tweetForm.action = "/save_tweet_twitter_login/";
 
+    var tweetInput = document.createElement("input");
+    tweetInput.type = "text";
+    tweetInput.name = "tweet_text";
+    tweetInput.value = $('#text-input').text();
+    tweetForm.appendChild(tweetInput);
 
+    var tokenInput = document.createElement("input");
+    tokenInput.type = "text";
+    tokenInput.name = "csrfmiddlewaretoken";
+    tokenInput.value = csrftoken;
+    tweetForm.appendChild(tokenInput);
+
+    document.body.appendChild(tweetForm);
+    tweetForm.submit();
+}
 
 function runTweet(windowURL){
+    var login_window;
+    check_user();
+    if (!user_logged_in) {
+        login_user()
+    }
+
     // get message length and validate length
     var tweet_text = $('#text-input').text();
     if(tweet_text.length < 1){
@@ -55,7 +111,7 @@ function runTweet(windowURL){
     });
     console.log(dataSet);
 
-    $.ajax({url: "/verify_twitter/",
+    $.ajax({url: "/verify_catch/",
         type: "POST",
         data: dataSet,
         contentType: 'json;charset=UTF-8',

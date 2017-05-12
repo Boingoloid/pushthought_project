@@ -1,27 +1,18 @@
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-# from django.conf.urls import (
-# handler400, handler403, handler404, handler500
-# )
-# # handler400 = 'views.bad_request'
-# # handler403 = 'views.permission_denied'
-# handler404 = 'views.page_not_found'
-# # handler500 = 'views.server_error'
-
 from django.conf.urls import url, include
-from django.conf import settings
 from django.contrib.staticfiles.views import serve as serve_static
 from django.views.decorators.cache import never_cache
-from django.conf.urls.static import static
 
-from snippets import urls
-from pushthought import views
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.sitemaps.views import sitemap
 
-from .sitemaps import StaticViewSitemap
+from pushthought import views
 from programs.sitemaps import ProgramSitemap
+
+from .sitemaps import StaticViewSitemap
+from .views import LoggedInView, oauth_callback, oauth_login
 
 
 sitemaps = {
@@ -39,9 +30,13 @@ urlpatterns = [
     url(r'^browse/$', views.BrowseView.as_view(), name='browse'),
     url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
 
+    url(r'^accounts/twitter/login/callback/$', oauth_callback, name='twitter_callback'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^program/', include('programs.urls', namespace='programs')),
     url(r'^congress/', include('congress.urls', namespace='congress')),
+
+    url(r'^is_logged_in/$', LoggedInView.as_view(), name='user_logged_in'),
+    url(r'^save_tweet_twitter_login/$', oauth_login, name='save_tweet_twitter_login'),
 
     url(r'^robots\.txt$', include('robots.urls')),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
@@ -107,9 +102,6 @@ urlpatterns = [
 ]
 
 urlpatterns += staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-
 
 if settings.DEBUG:
     urlpatterns += url(r'^static/(?P<path>.*)$', never_cache(serve_static)),
