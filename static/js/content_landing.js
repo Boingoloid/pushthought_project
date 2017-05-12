@@ -12,6 +12,31 @@ $(document).ready(function() {
 
     var windowURL = window.location.href;
 
+
+        // Zip submission button click
+    $('.submit-zip').click( function() {
+        // validators
+        var zip = $('.zip-input').val();
+        var isValidZip = /(^\d{5}$)/.test(zip);
+
+        if (isValidZip){
+            $('#zip-loader').show();
+            console.log('valid zip');
+            console.log('get_congres on zip:' + zip);
+            get_congress(zip);
+        } else{
+            console.log('NOT a valid zip');
+            alert('Not a valid zip code.  Please check and try again.')
+            $('.zip-input').focus();
+            $(this).show();
+        }
+    });
+
+    var zip = $('#zip-capsule').val();
+    console.log(zip);
+    $('.zip-input').text(zip);
+    $('.submit-zip').trigger('click');
+
 //     auto trigger email icon
 //    setTimeout(function(){ $('.zip-reset').trigger('click'); }, 400);
 
@@ -207,24 +232,7 @@ $(document).ready(function() {
     });
 
 
-    // Zip submission button click
-    $('.submit-zip').click( function() {
-        // validators
-        var zip = $('.zip-input').val();
-        var isValidZip = /(^\d{5}$)/.test(zip);
 
-        if (isValidZip){
-            $('#zip-loader').show();
-            console.log('valid zip');
-            console.log('get_congres on zip:' + zip);
-            get_congress(zip);
-        } else{
-            console.log('NOT a valid zip');
-            alert('Not a valid zip code.  Please check and try again.')
-            $('.zip-input').focus();
-            $(this).show();
-        }
-    });
 
     // Watch button
     $('.watch-button').click( function() {
