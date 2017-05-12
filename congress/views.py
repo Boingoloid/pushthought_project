@@ -12,6 +12,7 @@ class GetCongressData(View):
 
     def get(self, request, zip_code, *args, **kwargs):
         self.zip_code = zip_code
+        self.request.session['zip'] = zip_code
         queryset = self.get_congress_data_from_db()
 
         if not queryset:
