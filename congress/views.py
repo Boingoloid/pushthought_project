@@ -12,7 +12,7 @@ class GetCongressData(View):
 
     def get(self, request, zip_code, *args, **kwargs):
         self.zip_code = zip_code
-        queryset = self.get_congress_data_from_api()
+        queryset = self.get_congress_data_from_db()
 
         if not queryset:
             queryset = self.get_congress_data_from_api()
