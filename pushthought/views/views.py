@@ -46,18 +46,18 @@ class BrowseView(TemplateView):
         context['otherList'] = query.other()
         return context
 
-
-class ContentLandingView(TemplateView):
-    template_name = 'content_landing.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(ContentLandingView, self).get_context_data(**kwargs)
-        program_id = self.kwargs['program_id']
-        query = Program.objects.filter(id=program_id)
-        context['program'] = query[0]
-        print context['program']
-        print program_id
-        return context
+#
+# class ContentLandingView(TemplateView):
+#     template_name = 'content_landing.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(ContentLandingView, self).get_context_data(**kwargs)
+#         program_id = self.kwargs['program_id']
+#         query = Program.objects.filter(id=program_id)
+#         context['program'] = query[0]
+#         print context['program']
+#         print program_id
+#         return context
 
 
 def handler404(request):

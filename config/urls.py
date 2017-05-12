@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name='home',),
     url(r'^home/$', views.HomeView.as_view(), name='home',),
     url(r'^browse/$', views.BrowseView.as_view(), name='browse'),
-    url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
+    # url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
 
     url(r'^accounts/twitter/login/callback/$', oauth_callback, name='twitter_callback'),
     url(r'^accounts/', include('allauth.urls')),
