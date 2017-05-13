@@ -71,7 +71,7 @@ class SearchIMDBProgramIDView(View):
 
 class ProgramDetailView(DetailView):
     model = models.Program
-    template_name = 'content_landing_new.html'
+    template_name = 'content_landing.html'
 
     # def get_context_data(self, **kwargs):
     #     context = super(ProgramDetailView, self).get_context_data(**kwargs)
@@ -227,7 +227,7 @@ def content_landing(request, segment_id):
     dataDict['hasCongressData'] = hasCongressData
 
 
-    return render(request, 'content_landing.html',dataDict)
+    return render(request, 'content_landing_old.html', dataDict)
 
 
 class GetCongressByZip(View):

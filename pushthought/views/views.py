@@ -48,7 +48,7 @@ class BrowseView(TemplateView):
 
 
 class ContentLandingView(TemplateView):
-    template_name = 'content_landing.html'
+    template_name = 'content_landing_old.html'
 
     def get_context_data(self, **kwargs):
         context = super(ContentLandingView, self).get_context_data(**kwargs)
@@ -293,7 +293,7 @@ def content_landing(request, segment_id):
     dataDict['hasCongressData'] = hasCongressData
 
 
-    return render(request, 'content_landing.html',dataDict)
+    return render(request, 'content_landing_old.html', dataDict)
 
 def content_landing_empty(request):
     # try:
