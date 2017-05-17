@@ -36,6 +36,17 @@ class Program(TimeStampedModel):
     def get_absolute_url(self):
         return reverse('programs:detail', args=[str(self.id)])
 
+    def increase(self):
+        self.actions += 1
+        self.save()
+        return True
+
+    def recount_actions(self):
+        count = self.action_set.count()
+        self.actions = count
+        self.save()
+        return count
+
 
 class Season(TimeStampedModel):
     program = models.ForeignKey('Program')

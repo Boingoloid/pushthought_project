@@ -1,12 +1,22 @@
-from django.conf import settings
-from django.http import HttpResponseRedirect, HttpResponse
+import re
+import time
+import json
+import httplib
 import tweepy
+
+from allauth.socialaccount.models import SocialApp, SocialToken
+
+from django.views.generic import View
+from django.http import JsonResponse
+
+from actions.models import Action
+from programs.models import Program
+
 from views_alerts import *
 from views_get_data import *
 from views_user_forms import *
-import json, httplib
-import time
-from allauth.socialaccount.models import SocialApp, SocialToken
+
+
 
 
 TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
@@ -172,15 +182,82 @@ def verify_twitter(request):
         print "redirect url down here", redirectURL
         return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
 
+class SendTweetView(View):
+    def post(self, request, *args, **kwargs):
+        self.response = {}
+        self.set_session()
+        self.api = self.get_authed_twitter_api()
+        self.mentions = self.get_mentions()
+        if not len(self.mentions):
+            return JsonResponse({'status': 'noMention'})
+
+        self.clean_tweet_text = self.get_clean_tweet_text()
+        self.send_tweets()
+
+        return JsonResponse({
+            'send_response': self.successArray,
+            'successArray': self.successArray,
+            'duplicateArray': self.duplicateArray
+        })
+
+    def set_session(self):
+        self.successArray = []
+        self.duplicateArray = []
+        data = self.request.POST
+        self.request.session['programId'] = data['program_id']
+        self.request.session['segmentId'] = data['segment_id']
+        self.request.session['lastMenuURL'] = data['last_menu_url']
+        self.request.session['tweetText'] = data['tweet_text']
+        self.request.session['addressArray'] = data['address_array[]']
+        self.request.session['bioguideArray'] = data['bioguide_array[]']
+        self.tweet_text = data['tweet_text']
+        self.program = Program.objects.get(pk=data['program_id'])
+        self.request.session.modified = True
+
+    def get_authed_twitter_api(self):
+        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
+        token_obj = SocialToken.objects.get(account__user=self.request.user, account__provider='twitter')
+        auth.set_access_token(token_obj.token, token_obj.token_secret)
+        api = tweepy.API(auth)
+        return api
+
+    def get_mentions(self):
+        tweet_text = self.tweet_text
+        mentions = re.findall(r'@(\w+)', tweet_text)
+        return mentions
+
+    def get_clean_tweet_text(self):
+        pattern = r'@\w+,?\s'
+        replacement = ''
+        clean_text = re.sub(pattern, replacement, self.tweet_text)
+        return clean_text
+
+    def send_tweet(self, mention):
+        #TODO: create a general function
+        tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
+
+        if len(tweet_text_with_metion) > 140:
+            return JsonResponse({ 'status': 'overMax'})
+
+        try:
+            self.api.update_status(tweet_text_with_metion)
+            Action.tweets.create(tweet_text_with_metion, user=self.request.user, program=self.program)
+            self.successArray.append('@{}'.format(mention))
+            return False
+        except tweepy.TweepError as e:
+            print(e)
+            if e.api_code == 187:
+                self.duplicateArray.append('@{}'.format(mention))
+
+            return e.api_code
+
+    def send_tweets(self):
+        for mention in self.mentions:
+            self.send_tweet(mention)
+
+
 def verify_catch(request):
-    data = json.loads(request.body)
-    request.session['programId'] = data['program_id']
-    request.session['segmentId'] = data['segment_id']
-    request.session['lastMenuURL'] = data['last_menu_url']
-    request.session['addressArray'] = data['address_array']
-    request.session['bioguideArray'] = data['bioguide_array']
-    request.session['tweetText'] = data['tweet_text']
-    request.session.modified = True
+
 
 
     print "verify catch starting"
@@ -194,23 +271,6 @@ def verify_catch(request):
 
     # Establish API connection
     auth.set_access_token(token_obj.token, token_obj.token_secret)
-    api = tweepy.API(auth)
-
-    # Get Twitter User info
-    twitter_user = api.me()
-
-    # check if user exists, if not create
-    current_user = get_user_by_twitter_screen_name(request,twitter_user.screen_name)
-    if current_user:
-        print("got current_user from twitter screen name")#, current_user
-    else:
-        current_user = create_user_with_twitter_auth(request, twitter_user,access_key_token,access_key_token_secret)
-        print("new twitter user, created user")
-
-    # save twitter profile data to current_user
-    update_user_with_twitter_profile_data(request, current_user,twitter_user,access_key_token,access_key_token_secret)
-
-    print("addressArray length", len(request.session['addressArray']))
 
     successArray = []
     duplicateArray = []

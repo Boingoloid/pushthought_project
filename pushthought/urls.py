@@ -60,7 +60,7 @@ urlpatterns = [
     url(r'^verify_twitter',views.verify_twitter),
     # url(r'^verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweet>.*)',
     #     views.verify_twitter),
-    url(r'^verify_catch', views.verify_catch,name='verify_catch'),
+    url(r'^verify_catch', views.SendTweetView.as_view(), name='verify_catch'),
 
     # Admin
     url(r'^admin', include(admin.site.urls)),

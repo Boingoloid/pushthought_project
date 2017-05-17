@@ -101,20 +101,19 @@ function runTweet(windowURL){
 
 
     // create dataSet string
-    var dataSet = JSON.stringify({
+    var dataSet = {
             "tweet_text": tweet_text,
             "segment_id": segmentId,
             "program_id": programId,
             "last_menu_url": windowURL,
             "bioguide_array" : bioguideArray,
             "address_array" : addressArray,
-    });
+    };
     console.log(dataSet);
 
     $.ajax({url: "/verify_catch/",
         type: "POST",
         data: dataSet,
-        contentType: 'json;charset=UTF-8',
         cache: false,
         success: function(data) {
 
@@ -122,32 +121,35 @@ function runTweet(windowURL){
             console.log('success, here is the data:'+ data);
 
 
-            if(data['redirectURL']){
-                 window.location.href = data['redirectURL'];
-            }else if(data['overMax']){
+            if(data.status == 'overMax') {
                 alert("Tweet is over 140 characters. Shorten a few characters and try again.");
                 hideLoading();
                 $('#text-input').focus();
                 setEndOfContenteditable($('#text-input'));
-            }else if(data['success']){
+            } else if(data.status == 'noMention'){
+                alert("No receiver found.");
+                hideLoading();
+                $('#text-input').focus();
+                setEndOfContenteditable($('#text-input'));
+            }else if(data.status == 'success'){
                 hideLoading();
                 alert("Your tweet has been sent.");
                 $('.close').trigger('click');
-            }else if(data['duplicate']){
+            }else if(data.status == 'duplicate'){
                 hideLoading();
                 alert("Message is duplicate on your twitter account.  Please alter your message and try again.");
-            }else if(data['other']){
+            }else if(data.status == 'other'){
                 hideLoading();
                 alert("There has been an error with twitter.  Please check message and try again.  If it persists, notify Push Thought");
             } else {
                 var len = data['successArray'].length;
-                if(data['successArray'].length !=0){
+                if(data.successArray.length !=0){
                     successArray = data['successArray'];
                 } else {
                     successArray = [];
                 }
 
-                if(data['duplicateArray'].length !=0){
+                if(data.duplicateArray.length !=0){
                     duplicateArray = data['duplicateArray'];
                 } else {
                     duplicateArray = [];
