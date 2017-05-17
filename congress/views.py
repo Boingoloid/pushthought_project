@@ -1,5 +1,7 @@
 import requests
 import json
+import re
+
 from django.views.generic import View
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
@@ -12,6 +14,8 @@ class GetCongressData(View):
 
     def get(self, request, zip_code, *args, **kwargs):
         self.zip_code = zip_code
+        program_id = re.findall(r'\/program\/(\d+)', self.request.META['HTTP_REFERER'])[0]
+
         self.request.session['zip'] = zip_code
         queryset = self.get_congress_data_from_db()
 
@@ -21,7 +25,8 @@ class GetCongressData(View):
         if not queryset:
             return HttpResponseNotFound()
 
-        serializer = serializers.CongressSerializer(queryset, many=True)
+        serializer = serializers.CongressSerializer(queryset, program_id=program_id, many=True)
+        # serializer.is_valid()
         return JsonResponse(serializer.data, safe=False)
 
     def get_congress_data_from_db(self):

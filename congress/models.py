@@ -6,6 +6,7 @@ from django.db import models
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.validators import validate_comma_separated_integer_list
 
+from utils.models import CounterMixin
 
 class Congress(TimeStampedModel):
     first_name = models.CharField(max_length=30)
@@ -77,3 +78,14 @@ class Congress(TimeStampedModel):
         self.save()
         return self.zips
 
+
+class CongressCounter(CounterMixin, TimeStampedModel):
+    program = models.ForeignKey('programs.Program')
+    congress = models.ForeignKey('Congress')
+
+    class Meta:
+        unique_together = ('congress', 'program')
+
+    # def recount(self):
+    #     count = Action.objects.filter(receiver=self.congress, program=self.program)
+    #     return count

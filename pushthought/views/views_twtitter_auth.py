@@ -11,6 +11,7 @@ from django.http import JsonResponse
 
 from actions.models import Action
 from programs.models import Program
+from congress.models import Congress
 
 from views_alerts import *
 from views_get_data import *
@@ -235,13 +236,19 @@ class SendTweetView(View):
     def send_tweet(self, mention):
         #TODO: create a general function
         tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
+        congress = Congress.objects.get(twitter_id=mention)
 
         if len(tweet_text_with_metion) > 140:
             return JsonResponse({ 'status': 'overMax'})
 
         try:
             self.api.update_status(tweet_text_with_metion)
-            Action.tweets.create(tweet_text_with_metion, user=self.request.user, program=self.program)
+            Action.tweets.create(
+                tweet_text_with_metion,
+                user=self.request.user,
+                program=self.program,
+                congress=congress
+            )
             self.successArray.append('@{}'.format(mention))
             return False
         except tweepy.TweepError as e:

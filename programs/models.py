@@ -4,6 +4,7 @@ from django_extensions.db.models import TimeStampedModel
 from django.urls import reverse
 from django.db import models
 
+from utils.models import CounterMixin
 
 class ProgramManager(models.Manager):
     def documentaries(self):
@@ -19,7 +20,7 @@ class ProgramManager(models.Manager):
         return super(ProgramManager, self).get_queryset().exclude(type='podcast').exclude(type='webvideo').exclude(type='documentary')
 
 
-class Program(TimeStampedModel):
+class Program(CounterMixin, TimeStampedModel):
     title = models.CharField(max_length=100)
     plot_outline = models.TextField()
     image = models.ImageField(blank=True, null=True)
@@ -28,24 +29,16 @@ class Program(TimeStampedModel):
     type = models.CharField(max_length=100)
     objects = ProgramManager()
     users = models.IntegerField(default=0)
-    actions = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
 
+    def congres_counter(self, bioguide_id):
+        counter = self.congresscounter_set.get(congress__bioguide_id=bioguide_id).counter
+        return counter
+
     def get_absolute_url(self):
         return reverse('programs:detail', args=[str(self.id)])
-
-    def increase(self):
-        self.actions += 1
-        self.save()
-        return True
-
-    def recount_actions(self):
-        count = self.action_set.count()
-        self.actions = count
-        self.save()
-        return count
 
 
 class Season(TimeStampedModel):
