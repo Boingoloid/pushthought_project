@@ -182,12 +182,14 @@
                 <p><span style="color:gray">Tweets|</span></p>
             </div>
             <div class="tweet-container">
-                {% for item in object.action_set.all %}
-                <div class="tweet-item">
-                    <div id="copied-to-clipboard">Copied to Clipboard</div>
-                    <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.username}}</p></div>
-                    <div class="tweet">{{item.tweet.text}}</div>
-                </div>
+                {% for item in object.actions.all %}
+                    {% if item.tweet %}
+                        <div class="tweet-item">
+                            <div id="copied-to-clipboard">Copied to Clipboard</div>
+                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.username}}</p></div>
+                            <div class="tweet">{{item.tweet.text}}</div>
+                        </div>
+                    {% endif %}
                {% endfor %}
             </div> <!--close tweet container-->
         </div>
