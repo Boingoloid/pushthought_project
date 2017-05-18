@@ -32,10 +32,11 @@ $(document).ready(function() {
         }
     });
 
-    var zip = $('#zip-capsule').val();
-    console.log(zip);
-    $('.zip-input').text(zip);
-    $('.submit-zip').trigger('click');
+    var zip = $('.zip-input').val();
+    if (zip) {
+        $('.submit-zip').trigger('click');
+    }
+
 
 //     auto trigger email icon
 //    setTimeout(function(){ $('.zip-reset').trigger('click'); }, 400);
