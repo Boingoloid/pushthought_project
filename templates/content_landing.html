@@ -166,10 +166,10 @@
             <div class="hashtag-header">
                     <p><span style="color:gray">#| </span></p>
             </div>
-            {% for item in hashtagData %}
+            {% for item in object.hashtagcounter_set.all %}
                 <div class='hashtag-item' id="hashtag-item">
                     <div id="copied-to-clipboard">Copied to Clipboard</div>
-                    #{{item.hashtag}} | {{item.count}}
+                    #{{item.hashtag.name}} | {{item.counter}}
                 </div>
                 <div id="copied-to-clipboard">Copied to Clipboard</div>
             {% endfor %}
