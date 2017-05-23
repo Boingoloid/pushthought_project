@@ -264,7 +264,6 @@ def submit_congress_email(request):
 
 
 
-
 def submit_congress_captcha(request):
     print request.body
 
@@ -293,8 +292,6 @@ def captcha_crush(request, send_response_object):
     bioguideId = request.body['bio_id']
     url = request.body['url']
     uid = request.body['uid']
-
-
 
     return HttpResponse(json.dumps(send_response_object), content_type="application/json")
 

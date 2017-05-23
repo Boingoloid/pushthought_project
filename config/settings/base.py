@@ -20,14 +20,16 @@ env = environ.Env()
 
 DJANGO_APPS = [
     # Default Django apps:
-    # 'suit',
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 THIRD_PARTY_APPS = [
@@ -35,15 +37,23 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'snippets',
     'prime',
+    'robots',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.twitter',
 ]
 
 LOCAL_APPS = [
     'pushthought',
     'programs',
+    'congress',
+    'users',
+    'actions',
+    'hashtag',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,6 +62,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -66,14 +77,12 @@ DATABASES = {
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
-
-
 SITE_ID = 1
 
 REGISTRATION_OPEN = True    # If True, users can register
 ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window; you may, of course, use a different value.
 REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
-LOGIN_REDIRECT_URL = '/pushthought/'  # The page you want users to arrive at after they successful log in
+LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they successful log in
 LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
                                                                 # and are trying to access pages requiring authentication
 LOCAL_SERVER = 'http://127.0.0.1:8000/'
@@ -118,10 +127,20 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 # Your stuff: custom template context processors go here
+                # "allauth.context_processors.allauth",
+                # "allauth.account.context_processors.account",
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -180,8 +199,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CONGRESS_DATA_UPDATE_TRIGGER = False
 
@@ -238,13 +261,6 @@ MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/he
 # MONGO_DBNAME = "heroku_zcdt9dml"
 # MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@127.0.0.1:27017/heroku_zcdt9dml"
 
-import socket
-print "socket"
-
-if socket.gethostname().endswith('local'):
-    print "yes local"
-else:
-    print "no not local"
 # Logging
 LOGGING = {
     'version': 1,
@@ -318,10 +334,9 @@ MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/he
 # MONGO_DBNAME = "heroku_zcdt9dml"
 # MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@127.0.0.1:27017/heroku_zcdt9dml"
 
-import socket
-print "socket"
-
-if socket.gethostname().endswith('local'):
-    print "yes local"
-else:
-    print "no not local"
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}

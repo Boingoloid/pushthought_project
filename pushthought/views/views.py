@@ -1,79 +1,13 @@
-from django.shortcuts import get_list_or_404, get_object_or_404, render
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.conf import settings
-from django.template import RequestContext
-from django.contrib import messages
-
-from corsheaders.defaults import default_methods
-
-# from django.contrib.auth import authenticate, login
-# from pushthought.forms import UserForm, UserProfileForm
-# from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
-
-from django.contrib.sessions.models import Session
-
-
-# from ..models import Segment
-# from ..models import MenuItem
-
-# views import
-
-from views_alerts import *
-from views_api import *
-from views_get_data import *
-from views_congress import *
 from views_email_congress import *
-from views_parse_user import *
-from views_twtitter_auth import *
 from views_user_forms import *
-
-# from django.contrib.auth import logout
-
-import tweepy
-import json, httplib
-import pymongo
-
-from django.shortcuts import (
-    render_to_response
-)
-from django.template import RequestContext
-
-# # HTTP Error 404
-# def page_not_found(request):
-#     response = render_to_response(
-#     '404.html',
-#     context_instance=RequestContext(request)
-#     )
-#     response.status_code = 400
-#     return response
-
-
-def handler404(request):
-    response = render_to_response('404.html', {},
-                                  context_instance=RequestContext(request))
-    response.status_code = 404
-    return response
-
-
-
-
-# scraping part
-from scrapex import *
-import time
-import sys
+# from scrapex import *
 import json
-import urlparse
 import re
-from datetime import datetime
-from datetime import date
-from time import sleep
-from scrapex import common
-from scrapex.node import Node
-from scrapex.excellib import *
-import random
 import threading
+from django.views.generic.base import TemplateView
+from django.shortcuts import render_to_response
 
+from programs.models import Program
 
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
@@ -87,6 +21,50 @@ MONGODB_URI = settings.MONGODB_URI
 # Create your views here.
 
 # create scraping object
+
+
+class HomeView(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['programs'] = Program.objects.all()[:10]
+        return context
+
+
+class BrowseView(TemplateView):
+    template_name = 'browse.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(BrowseView, self).get_context_data(**kwargs)
+        # dataDict['programList'] = program_list_with_stats
+        query = Program.objects
+        context['programList'] = query.all()
+        context['documentaries'] = query.documentaries()
+        context['webVideoList'] = query.webvideos()
+        context['podcastList'] = query.podcasts()
+        context['otherList'] = query.other()
+        return context
+
+#
+# class ContentLandingView(TemplateView):
+#     template_name = 'content_landing.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(ContentLandingView, self).get_context_data(**kwargs)
+#         program_id = self.kwargs['program_id']
+#         query = Program.objects.filter(id=program_id)
+#         context['program'] = query[0]
+#         print context['program']
+#         print program_id
+#         return context
+
+
+def handler404(request):
+    response = render_to_response('404.html', {},context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
 
 def submit_congress_email_view(request):
     print "submit_congress_email_view firing"
@@ -134,13 +112,6 @@ def data_throw(request):
 
 
 
-def home(request):
-    program_list = get_program_list()
-    dataDict = {}
-    dataDict['programList'] = program_list
-    # print program_list
-
-    return render(request, 'home.html', dataDict)
 
 
 def submit_email(request,email):
@@ -191,46 +162,6 @@ def check_db_duplication(request):
     return lists
 
 def browse(request):
-    global youtube_meta_list
-    global youtube_scraping_url_list
-
-    print request.body
-    print request.GET
-    print request.POST
-
-    search_type = request.POST.get('search_type', "")
-
-    href_links = []
-    if search_type == "scraping":
-        search_keyword =  request.POST['search_keyword']
-        href_links = get_scraping_start_urls(search_keyword)
-
-    #get meta data list for each youtube urls with threading
-
-    searchArray = []
-
-    if len(href_links) > 0:
-        youtube_meta_list = []
-        youtube_scraping_url_list = []
-        get_youtube_urls(href_links)
-
-        while(1):
-            if len(youtube_scraping_url_list) == len(href_links):
-                break
-
-        for url in href_links:
-            searchArrayObj = {"url": url}
-            for row in youtube_meta_list:
-                if url == row[7]:
-                    key = row[1] + "_" + row[3].replace(":","_")
-                    if row[1] == "itemprop" and row[3] == "duration":
-                        time_str = re.split('[a-zA-Z]+', row[5])
-                        searchArrayObj[key] = time_str[1] + ":" + time_str[2]
-                    else:
-                        searchArrayObj[key] = row[5]
-
-            searchArray.append(searchArrayObj)
-
     data_lists = check_db_duplication(request)
 
     if len(data_lists) == 0:
@@ -259,19 +190,12 @@ def browse(request):
         else:
             otherArray.append(item)
 
-    print "doc Video", len(documentaryArray)
-    print "web Video", len(webVideoArray)
-    print "podcast", len(podcastArray)
-    print "other", len(otherArray)
-
     dataDict = {}
     dataDict['programList'] = program_list_with_stats
-    # dataDict['segmentList'] = segment_list
     dataDict['documentaryList'] = documentaryArray
     dataDict['webVideoList'] = webVideoArray
     dataDict['podcastList'] = podcastArray
     dataDict['otherList'] = otherArray
-    dataDict['searchResultList'] = searchArray
 
     return render(request, 'browse.html', dataDict)
 
@@ -693,82 +617,82 @@ def petition(request, programId, segmentId):
     #         # blank dictionary object...
     #         return render(request, 'login.html', {})
 
-def get_scraping_start_urls(search_keyword):
-    s = Scraper(
-        use_cache=False,  # enable cache globally
-        retries=2,
-        delay=0.5,
-        timeout=60,
-        proxy_file='proxy.txt',
-        proxy_auth='silicons:1pRnQcg87F'
-    )
-
-    lock = threading.Lock()
-    logger = s.logger
-
-    youtube_url = 'http://www.youtube.com/results?search_query='
-    limit_top_url_count = 10
-    youtube_meta_list = []
-    youtube_scraping_url_list = []
-
-    url = youtube_url + search_keyword
-    logger.info('loading parent page...' + url)
-    html = s.load(youtube_url + search_keyword, use_cache = False)
-
-    proxy = html.response.request.get("proxy")
-    logger.info(proxy.host + ":" + str(proxy.port))
-
-    video_divs = html.q("//div[contains(@class, 'yt-lockup-thumbnail contains-addto')]/a")
-
-    href_links = []
-    if len(video_divs) > 0:
-        for i, row in enumerate(video_divs):
-            if i >= limit_top_url_count: break
-            href_links.append(row.x("@href"))
-
-    return href_links
-
-def get_youtube_urls(href_links):
-    threads = []
-    for i, url in enumerate(href_links):
-        thread_obj = threading.Thread(target = parse_youtube_webpage, args = (url,))
-        threads.append(thread_obj)
-        thread_obj.start()
-
-def parse_youtube_webpage(url):
-    html = s.load(url, use_cache=False)
-
-    proxy = html.response.request.get("proxy")
-    logger.info(proxy.host + ":" + str(proxy.port) + ", URL -> " + url)
-    get_youtube_meta_data(html, url)
-
-def get_youtube_meta_data(html, url):
-    lock.acquire()
-    meta_elements = html.q("//meta")
-
-    for row in meta_elements:
-        meta_name = row.x("@name")
-        meta_content = row.x("@content")
-        meta_property = row.x("@property")
-        meta_itemprop = row.x("@itemprop")
-
-        if meta_name != "":
-            attribute_type = "name"
-            attribute_value= meta_name
-        elif meta_property != "":
-            attribute_type = "property"
-            attribute_value= meta_property
-        elif meta_itemprop != "":
-            attribute_type = "itemprop"
-            attribute_value= meta_itemprop
-
-        meta_info = [   'attribute_type', attribute_type,
-                        'attribute_value', attribute_value,
-                        'meta_content', meta_content,
-                        'url', url]
-
-
-        youtube_meta_list.append(meta_info)
-
-    lock.release()
-    youtube_scraping_url_list.append(url)
+# def get_scraping_start_urls(search_keyword):
+#     s = Scraper(
+#         use_cache=False,  # enable cache globally
+#         retries=2,
+#         delay=0.5,
+#         timeout=60,
+#         proxy_file='proxy.txt',
+#         proxy_auth='silicons:1pRnQcg87F'
+#     )
+#
+#     lock = threading.Lock()
+#     logger = s.logger
+#
+#     youtube_url = 'http://www.youtube.com/results?search_query='
+#     limit_top_url_count = 10
+#     youtube_meta_list = []
+#     youtube_scraping_url_list = []
+#
+#     url = youtube_url + search_keyword
+#     logger.info('loading parent page...' + url)
+#     html = s.load(youtube_url + search_keyword, use_cache = False)
+#
+#     proxy = html.response.request.get("proxy")
+#     logger.info(proxy.host + ":" + str(proxy.port))
+#
+#     video_divs = html.q("//div[contains(@class, 'yt-lockup-thumbnail contains-addto')]/a")
+#
+#     href_links = []
+#     if len(video_divs) > 0:
+#         for i, row in enumerate(video_divs):
+#             if i >= limit_top_url_count: break
+#             href_links.append(row.x("@href"))
+#
+#     return href_links
+#
+# def get_youtube_urls(href_links):
+#     threads = []
+#     for i, url in enumerate(href_links):
+#         thread_obj = threading.Thread(target = parse_youtube_webpage, args = (url,))
+#         threads.append(thread_obj)
+#         thread_obj.start()
+#
+# def parse_youtube_webpage(url):
+#     html = s.load(url, use_cache=False)
+#
+#     proxy = html.response.request.get("proxy")
+#     logger.info(proxy.host + ":" + str(proxy.port) + ", URL -> " + url)
+#     get_youtube_meta_data(html, url)
+#
+# def get_youtube_meta_data(html, url):
+#     lock.acquire()
+#     meta_elements = html.q("//meta")
+#
+#     for row in meta_elements:
+#         meta_name = row.x("@name")
+#         meta_content = row.x("@content")
+#         meta_property = row.x("@property")
+#         meta_itemprop = row.x("@itemprop")
+#
+#         if meta_name != "":
+#             attribute_type = "name"
+#             attribute_value= meta_name
+#         elif meta_property != "":
+#             attribute_type = "property"
+#             attribute_value= meta_property
+#         elif meta_itemprop != "":
+#             attribute_type = "itemprop"
+#             attribute_value= meta_itemprop
+#
+#         meta_info = [   'attribute_type', attribute_type,
+#                         'attribute_value', attribute_value,
+#                         'meta_content', meta_content,
+#                         'url', url]
+#
+#
+#         youtube_meta_list.append(meta_info)
+#
+#     lock.release()
+#     youtube_scraping_url_list.append(url)

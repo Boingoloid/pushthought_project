@@ -45,3 +45,16 @@ MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds037175.mlab.com:37175/he
 # MONGO_DBNAME = "heroku_tz491rn8"
 # MONGODB_URI = "mongodb://part_elf_part_man:all_boingo@ds159050.mlab.com:59050/heroku_tz491rn8"
 SECRET_KEY = '9q^nt0sc2+hi%ixu*q40%1h5p$)r7+-1kmfc#mxnwp#va*l$0_'
+
+ALLOWED_HOSTS = ['*']
+
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 86400 # sec
+SESSION_COOKIE_DOMAIN = None
+SESSION_COOKIE_NAME = 'DSESSIONID'
+SESSION_COOKIE_SECURE = False
+
+
+SITE_ID = 3

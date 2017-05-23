@@ -11,105 +11,101 @@
 <div class="intro-header intro-header-image" >
     <div class="container container-text-white">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 class="title-words" style="color:white; font-size:20px;">Send informative content</h3>
+                <h3 class="title-words-body" style="color:white; font-size:20px;">to influential people</h3>
+                <a href="{% url 'browse' %}" class="btn btn-primary browse-btn" id="browse-btn">Get Started</a>
                 <br/>
-                <div>
-                    <h3><font color="red"><b>Watch</b></font> Informative Content</h3>
+                <div class="home-banner" style="width:100%; text-align:center;">
+                    <!--<p style="display:inline;"><font color="red"><b>Watch</b></font></p>-->
+                    <!--&nbsp&nbsp+&nbsp&nbsp <p style="display:inline;"><font color="red"><b>Share</b></font></p>-->
+                    <!--&nbsp&nbsp+&nbsp&nbsp <p style="display:inline; "><font color="red"><b>Impact</b></font></p>-->
                 </div>
                 <div>
-                    <h3 style="color:white;"><font color="red"><b>Share</b></font> w/ Influential People</h3>
+                    <!--<img src="/static/img/push-thought-logo.png" height="40" width="40"><h3>informative content</h3>-->
                 </div>
-                <button class="btn btn-primary btn-lg browse-btn" id="browse-btn">Get Started</button>
-                <div align="right">
-                    <h4 style="margin-top:100px;">meaningful action, made easy for</h4>
-                    <h4>documentaries, web videos, and podcasts</h4>
+                <div style="margin-top:130px; text-align:center;">
+                    <!--<h3 style="color:white; font-size:20px;">informative content <img style="width:80px;" src="/static/img/arrow-right.png"> influential people</h3>-->
                 </div>
-            </div>
+
+                <!--<div align="left">-->
+                    <!--<h4 style="margin-top:100px;">meaningful action, made easy for</h4>-->
+                    <!--<h4>documentaries, web videos, and podcasts</h4>-->
+                <!--</div>-->
         </div>
     </div><!-- /.container -->
     <br/>
 </div><!-- /.intro-header -->
-<div>
+<div style="background-color:black;">
+
+    <h2 class="how-header text-center" style="color:white; font-size:18pt; font-weight:300; margin:0px; padding-top:10px; padding-bottom:10px;">
+        The revolution happens one <img class="img communication-icons" src="/static/img/communication-icons.png"> at a time!</h2>
+    <h2 class="how-header text-center" style="color:white; font-size:18pt; font-weight:300; margin:0px; padding-top:10px; padding-bottom:10px;"></h2>
 
 </div>
 <div class="container-banner">
     <div class="row">
          <div class="program-container">
-            {% for item in programList %}
-            <div class='program-item' id="program-item {{ forloop.counter }}">
-                <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
-                    {% if item.programImage %}
-                            <img class='program-item-image' id='program-item-image {{ forloop.counter }}'
-                                 src='{{ item.programImage.url }}'>
+             {% for program in programs %}
+                 <div class='program-item'>
+                    {% if program.image %}
+                        <img class='program-item-image' id='program-item-image-{{ program.id }}' src='{{ program.image.url }}'>
                     {% else %}
-                            <!--<p>poster</p>-->
-                            <!--<img class='program-item-image' id='program-item-image {{ forloop.counter }}'-->
-                                 <!--src='{{ item.posterURL }}'>-->
                     {% endif %}
-                <!--<div class="program-title">-->
-                    <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
-                <!--</div>-->
-            </div>
+                </div>
             {% endfor %}
         </div>  <!--close PROGRAM container-->
     </div>
 </div><!-- /.container -->
 
-<div style="background:#092551; background:radial-gradient(#092551,#000b1e); margin-top:0px; padding:30px; align=middle;"
-     class="col-lg-12">
-    <div style="text-align:center;margin:auto;">
 
-    </div>
-</div>
 
-<div class="container text-center">
-    <div class="row">
+<div class="container text-center" style="background:black;">
+    <div class="row" >
         <div class="how-container">
             <div class="col-lg-12">
-                <h2 class="page-header text-center" style="color:white;"><b>
+                <h2 class="how-header text-center" style="color:white; font-weight:400;">
                     How Push Thought Works
-                </b></h2>
+                </h2>
                 <!--<h4 style="color:white;">curiousity + technology + purpose</h4>-->
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <img class="img-free" src="{% static 'img/1.png' %}" height=75 width=75>
-                        <h1><b>Watch</b></h1>
-                        <p><b>informative content</b></p>
+                        <h3 style="font-weight:400;">Watch</h3>
+                        <p style="font-weight:400;">informative content</p>
                         <!--<br/>-->
                     </div>
                     <div class="panel-body">
-                        <img class="img-free img-content-logo2" src="{% static 'img/how-it-works-1.png' %}" style="max-width:80%;">
+                        <img class="img-content-logo2" src="{% static 'img/how-it-works-1b.png' %}">
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <img class="img-free" src="{% static 'img/2.png' %}" height=75 width=75>
-                        <h1><b>Share</b></h1>
-                        <p><b>@influential people</b></p>
+                        <h3 style="font-weight:400;">Share</h3>
+                        <p style="font-weight:400;">with influential people</p>
                     </div>
                     <div class="panel-body">
                         <!--<img class="img" src="{% static 'img/social.png' %}" height=10 width=300>-->
                         <div>
-                            <div><img class="img-free" style="max-width:60%; display:block; margin:auto; align:center;" src="{% static 'img/how-it-works-2a.png' %}" style="max-width:80%;"></div>
+                            <div><img class="img-free" style="max-width:60%; display:block; margin:auto; align:center;" src="{% static 'img/how-it-works-2b.png' %}"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <img class="img" src="{% static 'img/3.png' %}" height=75 width=75>
-                        <h1><b>Impact</b></h1>
-                        <p><b>activity as a petition</b></p>
+                        <h3 style="font-weight:400;">Impact</h3>
+                        <p style="font-weight:400;">activity as a petition</p>
                     </div>
                     <div class="panel-body">
                         <div style="text-align: center;">
-                            <h3 style="margin-left:auto; margin-right:auto; font-size:16pt; text-align:center; max-width:70%">99,999 people say watch this segment on Net Neutrality</h3>
-                            <img class="img" src="{% static 'img/rep-item.png' %}" style="max-width:90%;">
-                            <h4></h4>
+                            <img class="img panel-3-image" src="{% static 'img/rep-item.png' %}">
+                            <h4   style="margin-left:auto; margin-right:auto; font-size:16pt; text-align:center; max-width:70%; font-weight:400;">99,999 people say watch this segment</h4>
                             <!--<p><b>Activity of all is aggregated to become newsworthy demands for-->
                                 <!--acknowledgement of, and accountability to, information</b></p>-->
                         </div>

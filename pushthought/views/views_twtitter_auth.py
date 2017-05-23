@@ -1,11 +1,28 @@
-from django.conf import settings
-from django.http import HttpResponseRedirect, HttpResponse
+import re
+import time
+import json
+import httplib
 import tweepy
+
+from allauth.socialaccount.models import SocialApp, SocialToken
+
+from django.views.generic import View
+from django.http import JsonResponse
+
+from actions.models import Action
+from programs.models import Program
+from congress.models import Congress
+
 from views_alerts import *
 from views_get_data import *
 from views_user_forms import *
-import json,httplib
-import time
+
+
+
+
+TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
+TWITTER_CONSUMER_KEY = SocialApp.objects.filter(provider='twitter').last().client_id
+TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/accounts/twitter/login/callback/'
 
 def verify_twitter(request):
     print "verify twitter running"
@@ -26,6 +43,10 @@ def verify_twitter(request):
     request.session['tweetText'] = data['tweet_text']
     tweet_text = request.session['tweetText']
     request.session.modified = True
+
+    if request.user.is_anonymous():
+        ref = request.META['HTTP_REFERER']
+        return HttpResponse('/accounts/twitter/login/?process=login&next=' + ref, status=201)
 
     print "program id in session:", request.session['programId']
     print "addressArray in session:", request.session['addressArray']
@@ -53,7 +74,7 @@ def verify_twitter(request):
                 CALLBACK_URL = settings.TWITTER_CALLBACK_ROOT_URL
 
                 # App level auth
-                auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET, CALLBACK_URL)
+                auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
                 redirectURL = auth.get_authorization_url()
 
                 # Store session value b/c sending to twitter for auth
@@ -152,7 +173,7 @@ def verify_twitter(request):
         print "callback url", CALLBACK_URL
 
         # App level auth
-        auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET, CALLBACK_URL)
+        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
         redirectURL = auth.get_authorization_url()
 
         # Store session value b/c sending to twitter for auth
@@ -162,42 +183,101 @@ def verify_twitter(request):
         print "redirect url down here", redirectURL
         return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
 
+class SendTweetView(View):
+    def post(self, request, *args, **kwargs):
+        self.response = {}
+        self.set_session()
+        self.api = self.get_authed_twitter_api()
+        self.mentions = self.get_mentions()
+        if not len(self.mentions):
+            return JsonResponse({'status': 'noMention'})
+
+        self.clean_tweet_text = self.get_clean_tweet_text()
+        self.send_tweets()
+
+        return JsonResponse({
+            'send_response': self.successArray,
+            'successArray': self.successArray,
+            'duplicateArray': self.duplicateArray
+        })
+
+    def set_session(self):
+        self.successArray = []
+        self.duplicateArray = []
+        data = self.request.POST
+        self.request.session['programId'] = data['program_id']
+        self.request.session['segmentId'] = data['segment_id']
+        self.request.session['lastMenuURL'] = data['last_menu_url']
+        self.request.session['tweetText'] = data['tweet_text']
+        self.request.session['addressArray'] = data['address_array[]']
+        self.request.session['bioguideArray'] = data['bioguide_array[]']
+        self.tweet_text = data['tweet_text']
+        self.program = Program.objects.get(pk=data['program_id'])
+        self.request.session.modified = True
+
+    def get_authed_twitter_api(self):
+        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
+        token_obj = SocialToken.objects.get(account__user=self.request.user, account__provider='twitter')
+        auth.set_access_token(token_obj.token, token_obj.token_secret)
+        api = tweepy.API(auth)
+        return api
+
+    def get_mentions(self):
+        tweet_text = self.tweet_text
+        mentions = re.findall(r'@(\w+)', tweet_text)
+        return mentions
+
+    def get_clean_tweet_text(self):
+        pattern = r'@\w+,?\s'
+        replacement = ''
+        clean_text = re.sub(pattern, replacement, self.tweet_text)
+        return clean_text
+
+    def send_tweet(self, mention):
+        #TODO: create a general function
+        tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
+        congress = Congress.objects.get(twitter_id=mention)
+
+        if len(tweet_text_with_metion) > 140:
+            return JsonResponse({ 'status': 'overMax'})
+
+        try:
+            self.api.update_status(tweet_text_with_metion)
+            Action.tweets.create(
+                tweet_text_with_metion,
+                user=self.request.user,
+                program=self.program,
+                congress=congress
+            )
+            self.successArray.append('@{}'.format(mention))
+            return False
+        except tweepy.TweepError as e:
+            print(e)
+            if e.api_code == 187:
+                self.duplicateArray.append('@{}'.format(mention))
+
+            return e.api_code
+
+    def send_tweets(self):
+        for mention in self.mentions:
+            self.send_tweet(mention)
+
+
 def verify_catch(request):
+
+
+
     print "verify catch starting"
     # Establish auth connection using Ap identification
-    auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
-
-    # Get Request Token, then delete from session
-    token = request.session['requestToken']
-    # print "request token being used" + str(token)
-    auth.request_token = token
-    del request.session['requestToken']
-    # print "deleting request token"
-
+    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
     # Get Access Key
-    verifier = request.GET.get('oauth_verifier')
-    accessKey = auth.get_access_token(verifier)
-    access_key_token = accessKey[0]
-    access_key_token_secret = accessKey[1]
+    token_obj = SocialToken.objects.get(account__user=request.user, account__provider='twitter')
+
+    access_key_token = token_obj.token
+    access_key_token_secret = token_obj.token_secret
 
     # Establish API connection
-    api = tweepy.API(auth)
-
-    # Get Twitter User info
-    twitter_user = api.me()
-
-    # check if user exists, if not create
-    current_user = get_user_by_twitter_screen_name(request,twitter_user.screen_name)
-    if current_user:
-        print "got current_user from twitter screen name"#, current_user
-    else:
-        current_user = create_user_with_twitter_auth(request, twitter_user,access_key_token,access_key_token_secret)
-        print "new twitter user, created user"
-
-    # save twitter profile data to current_user
-    update_user_with_twitter_profile_data(request, current_user,twitter_user,access_key_token,access_key_token_secret)
-
-    print "addressArray length", len(request.session['addressArray'])
+    auth.set_access_token(token_obj.token, token_obj.token_secret)
 
     successArray = []
     duplicateArray = []
@@ -229,13 +309,13 @@ def verify_catch(request):
         target_bioguide = bioguide_array[0]
         result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user, twitter_user, target_address, target_bioguide)
         if result == True:
-            successArray.append(item)
+            successArray.append(target_address)
         elif result == 187:
-            duplicateArray.append(str(item))
+            duplicateArray.append(str(target_address))
         elif result == 186:
             overMax = True
         else:
-            otherErrorArray.append(item)
+            otherErrorArray.append(target_address)
 
     else:
         i = 0
@@ -273,11 +353,13 @@ def verify_catch(request):
 
         # AlertList into session
         request.session['alertList'] = alertList
-        print
         request.session.modified = True
         redirectURL = "/content_landing/" + segmentId
         print "redirecting to content_landing: ", redirectURL
-        return HttpResponseRedirect(redirectURL)
+        return HttpResponse(json.dumps(
+            {'send_response': successArray, 'successArray': successArray, 'duplicateArray': duplicateArray,
+             'otherErrorArray': otherErrorArray, 'overMax': overMax, 'success': success, 'duplicate': duplicate,
+             'other': other}), content_type="application/json")
     else:
         redirectURL = "/browse/"
         print "no programId redirecting to Browse:", redirectURL

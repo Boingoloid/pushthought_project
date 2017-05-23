@@ -1,9 +1,65 @@
+var user_logged_in;
+function check_user() {
+    return $.ajax({
+        url: "/is_logged_in/",
+        async: false,
+        success: function(data) {
+            console.log('Logged in:');
+            console.log(data);
+            if (data === 'True') {
+                user_logged_in = true
+            } else {
+                user_logged_in = false
+            }
+        }
+    });
+}
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
 
+function login_user() {
+    var tweetForm = document.createElement("form");
+    tweetForm.method = "POST"; // or "post" if appropriate
+    tweetForm.action = "/save_tweet_twitter_login/";
 
+    var tweetInput = document.createElement("input");
+    tweetInput.type = "text";
+    tweetInput.name = "tweet_text";
+    tweetInput.value = $('#text-input').text();
+    tweetForm.appendChild(tweetInput);
 
+    var tokenInput = document.createElement("input");
+    tokenInput.type = "text";
+    tokenInput.name = "csrfmiddlewaretoken";
+    tokenInput.value = csrftoken;
+    tweetForm.appendChild(tokenInput);
+
+    document.body.appendChild(tweetForm);
+    tweetForm.submit();
+}
 
 function runTweet(windowURL){
+    var login_window;
+    check_user();
+    if (!user_logged_in) {
+        login_user()
+    }
+
     // get message length and validate length
     var tweet_text = $('#text-input').text();
     if(tweet_text.length < 1){
@@ -45,20 +101,19 @@ function runTweet(windowURL){
 
 
     // create dataSet string
-    var dataSet = JSON.stringify({
+    var dataSet = {
             "tweet_text": tweet_text,
             "segment_id": segmentId,
             "program_id": programId,
             "last_menu_url": windowURL,
             "bioguide_array" : bioguideArray,
             "address_array" : addressArray,
-    });
+    };
     console.log(dataSet);
 
-    $.ajax({url: "/verify_twitter/",
+    $.ajax({url: "/verify_catch/",
         type: "POST",
         data: dataSet,
-        contentType: 'json;charset=UTF-8',
         cache: false,
         success: function(data) {
 
@@ -66,32 +121,35 @@ function runTweet(windowURL){
             console.log('success, here is the data:'+ data);
 
 
-            if(data['redirectURL']){
-                 window.location.href = data['redirectURL'];
-            }else if(data['overMax']){
+            if(data.status == 'overMax') {
                 alert("Tweet is over 140 characters. Shorten a few characters and try again.");
                 hideLoading();
                 $('#text-input').focus();
                 setEndOfContenteditable($('#text-input'));
-            }else if(data['success']){
+            } else if(data.status == 'noMention'){
+                alert("No receiver found.");
+                hideLoading();
+                $('#text-input').focus();
+                setEndOfContenteditable($('#text-input'));
+            }else if(data.status == 'success'){
                 hideLoading();
                 alert("Your tweet has been sent.");
                 $('.close').trigger('click');
-            }else if(data['duplicate']){
+            }else if(data.status == 'duplicate'){
                 hideLoading();
                 alert("Message is duplicate on your twitter account.  Please alter your message and try again.");
-            }else if(data['other']){
+            }else if(data.status == 'other'){
                 hideLoading();
                 alert("There has been an error with twitter.  Please check message and try again.  If it persists, notify Push Thought");
             } else {
                 var len = data['successArray'].length;
-                if(data['successArray'].length !=0){
+                if(data.successArray.length !=0){
                     successArray = data['successArray'];
                 } else {
                     successArray = [];
                 }
 
-                if(data['duplicateArray'].length !=0){
+                if(data.duplicateArray.length !=0){
                     duplicateArray = data['duplicateArray'];
                 } else {
                     duplicateArray = [];

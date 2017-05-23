@@ -7,8 +7,8 @@
 
 
 {% block content %}
-<p hidden id="segmentId">{{program.segmentId}}</p>
-<p hidden style="color:white;" id="programId">{{ programId }}</p>
+<p hidden id="segmentId">{{ object.id }}</p>
+<p hidden id="programId">{{ object.id }}</p>
 <div hidden id="alertList" data-alertList="{{ alertList }}"></div>
 <div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
 
@@ -17,12 +17,9 @@
     <div class="container container-text-white">
         <div class="content-wrapper">
             <div class="content-info-left">
-                <h1>{{program.programTitle}}</h1>
-                <p class="description">{{program.programDescription}}</p>
+                <h1>{{ object.title }}</h1>
+                <p class="description">{{ object.plot_outline }}</p>
                     <div class="seen-it-container">
-                            <!--{% if hasCongressData %}-->
-                                <!--<div class="drop-here" style="color:red; font-weight:600; font-size:20px;">This is a sample</div>-->
-                            <!--{% endif %}-->
                         <h2 style="color:red; font-weight:600; font-size:20px;">Already seen it?</h2>
                         <h3>Share with purpose below...</h3>
                     </div>
@@ -31,8 +28,7 @@
                 <div class="div-title-image">
                     <img class='img program-item-image img-landing-title'
                          id='program-item-image'
-                         src='{{ program.programImage.url }}'>
-
+                         src='{{ object.image.url }}'>
                 </div>
             </div>
         </div>
@@ -42,14 +38,16 @@
     <div class="rep-color-band">
         <div class="container-standard category-container">
             <div class="category-title-container">
-                <p class="category-title" style="z-index:0;">Federal Representatives</p>
-                <div class="zip-reset-hover-boundary">
-                    {% if hasCongressData %}
-                    <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25">
-                    {% else %}
-                    <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25" style="display:none;">
-                    {% endif %}
-                    <button class="zip-reset btn-danger">reset location</button>
+                <div style="display:inline;">
+                    <p class="category-title" style="z-index:0;">Federal Representatives</p>
+                    <div class="zip-reset-hover-boundary">
+                        {% if hasCongressData %}
+                            <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25">
+                        {% else %}
+                            <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25" style="display:none;">
+                        {% endif %}
+                        <button class="zip-reset btn-danger">reset location</button>
+                    </div>
                 </div>
             </div>
             {% if hasCongressData %}
@@ -57,13 +55,13 @@
             {% else %}
                 <div class="zip-capture">
             {% endif %}
-                    <div class="location-label">Current Location:</div>
-                    <img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">
-                    <div class="or-label">---  or  ---</div>
+{#                    <div class="location-label">Current Location:</div>#}
+{#                    <img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
+{#                    <div class="or-label">---  or  ---</div>#}
                     <div class="zip-label">Zip Code:</div>
                     <button class="submit-zip">Submit</button>
                     <div class='zip-loader'  id="zip-loader"></div>
-                    <input class="zip-input" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
+                    <input class="zip-input" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
                 </div>
             <div class="rep-container">
                 {% if hasCongressData %}
@@ -169,10 +167,10 @@
             <div class="hashtag-header">
                     <p><span style="color:gray">#| </span></p>
             </div>
-            {% for item in hashtagData %}
+            {% for item in object.hashtagcounter_set.all %}
                 <div class='hashtag-item' id="hashtag-item">
                     <div id="copied-to-clipboard">Copied to Clipboard</div>
-                    #{{item.hashtag}} | {{item.count}}
+                    #{{item.hashtag.name}} | {{item.counter}}
                 </div>
                 <div id="copied-to-clipboard">Copied to Clipboard</div>
             {% endfor %}
@@ -185,12 +183,14 @@
                 <p><span style="color:gray">Tweets|</span></p>
             </div>
             <div class="tweet-container">
-                {% for item in tweetData %}
-                <div class="tweet-item">
-                    <div id="copied-to-clipboard">Copied to Clipboard</div>
-                    <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.twitterUserName}}</p></div>
-                    <div class="tweet">{{item.messageText}}</div>
-                </div>
+                {% for item in object.actions.all %}
+                    {% if item.tweet %}
+                        <div class="tweet-item">
+                            <div id="copied-to-clipboard">Copied to Clipboard</div>
+                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.username}}</p></div>
+                            <div class="tweet">{{item.tweet.text}}</div>
+                        </div>
+                    {% endif %}
                {% endfor %}
             </div> <!--close tweet container-->
         </div>
@@ -205,6 +205,7 @@
 <script src="{% static 'js/content_landing_success_messages.js' %}"></script>
 <script src="{% static 'js/content_landing_email_action.js' %}"></script>
 <script src="{% static 'js/content_landing_tweet_action.js' %}"></script>
+<script src="{% static 'js/content_landing_get_congress.js' %}"></script>
 <script src="{% static 'js/content_landing_get_congress.js' %}"></script>
 
 {% csrf_token %}

@@ -31,6 +31,10 @@ function getCongressWithLocation(lat,long){
             $('.zip-capture').hide();
             $('.zip-input').val('');
 
+            //Change title words
+            $('.category-warning').hide();
+            $('.category-title').show();
+
             // show zip indicator, to allow reset
             $('.zip-indicator').show();
             create_congress_HTML(congressDataArray);
@@ -44,7 +48,7 @@ function getCongressWithLocation(lat,long){
 
 
 function get_congress(zip){
-    $.ajax({url: "/get_congress_with_zip/" + zip,
+    $.ajax({url: "/congress/add_zip/" + zip + '/',
         type: "GET",
         data: "",
         contentType: 'json;charset=UTF-8',
@@ -55,7 +59,7 @@ function get_congress(zip){
             $('#zip-loader').hide();
 
             // Count if any results returned, if not, go back
-            var congressDataArray = data['congressData'];
+            var congressDataArray = data;
             //      console.log(congressDataArray)
             var len = congressDataArray.length;
             if(len == 0){
@@ -71,6 +75,11 @@ function get_congress(zip){
 
             // show zip indicator, to allow reset
             $('.zip-indicator').show();
+
+            //Change title words
+            $('.category-warning').hide();
+            $('.category-title').show();
+
             create_congress_HTML(congressDataArray);
         },
         error: function() {
@@ -87,16 +96,15 @@ function create_congress_HTML(congressDataArray){
     var len = congressDataArray.length;
     for (x=0; x<len; ++x) {
       //console.log('i in the loop:'+i);  // this loop starts at 0
-      if (x in congressDataArray) {
         var item = congressDataArray[x];
 
         var i = x + 1; //needs to match {{ forloop.counter }} of other html templated objects
         // Image check
         var imageString;
-        if(!item['image']['url']){
+        if(!item['image']){
            imageString = '<img class="repPhoto repPhoto-none" src=\'/static/img/push-thought-logo.png\'>';
         } else {
-           imageString = '<img class="repPhoto" id="repPhoto'+i+'" src="'+item['image']['url']+'">';
+           imageString = '<img class="repPhoto" id="repPhoto'+i+'" src="'+item['image']+'">';
         }
 
         // twitterId check
@@ -175,7 +183,6 @@ function create_congress_HTML(congressDataArray){
             '</div>'
         ].join("\n");
         $('.rep-container').append(text);
-      }
     }
 }
 

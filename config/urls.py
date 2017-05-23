@@ -1,66 +1,67 @@
-"""pushthought URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.8/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Add an import:  from blog import urls as blog_urls
-    2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
-"""
-
-from django.conf.urls import include
-from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-# from django.conf.urls import (
-# handler400, handler403, handler404, handler500
-# )
-# # handler400 = 'views.bad_request'
-# # handler403 = 'views.permission_denied'
-# handler404 = 'views.page_not_found'
-# # handler500 = 'views.server_error'
-
 from django.conf.urls import url, include
-from snippets import urls
-from pushthought import views
+from django.contrib.staticfiles.views import serve as serve_static
+from django.views.decorators.cache import never_cache
+
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.sitemaps.views import sitemap
 
+from pushthought import views
+from programs.sitemaps import ProgramSitemap
+
+from .sitemaps import StaticViewSitemap
+from .views import LoggedInView, oauth_callback, oauth_login
+
+
+sitemaps = {
+    'static': StaticViewSitemap,
+    'programs': ProgramSitemap
+}
 
 urlpatterns = [
-# Admin
+    # Admin
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name,name='test',),
-    url(r'^home', views.home,name='home',),
-    url(r'^$', views.home,name='home'),
+    url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name, name='test'),
+    url(r'^$', views.HomeView.as_view(), name='home',),
+    url(r'^home/$', views.HomeView.as_view(), name='home',),
+    url(r'^browse/$', views.BrowseView.as_view(), name='browse'),
+    # url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
+
+    url(r'^accounts/twitter/login/callback/$', oauth_callback, name='twitter_callback'),
+    url(r'^accounts/', include('allauth.urls')),
+    url(r'^program/', include('programs.urls', namespace='programs')),
+    url(r'^congress/', include('congress.urls', namespace='congress')),
+
+    url(r'^is_logged_in/$', LoggedInView.as_view(), name='user_logged_in'),
+    url(r'^save_tweet_twitter_login/$', oauth_login, name='save_tweet_twitter_login'),
+
+    url(r'^robots\.txt$', include('robots.urls')),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
+
     # congress email
-    url(r'^submit_congress_email', views.submit_congress_email_view,name='submit_congress_email_view'),
-    url(r'^submit_congress_captcha', views.submit_congress_captcha_view,name='submit_congress_captcha_view'),
-    url(r'^submit-email/(?P<email>.*)', views.submit_email,name='submit_email'),
-    url(r'^send-contact/', views.send_contact,name='send_contact'),
-    url(r'^browse', views.browse, name='browse'),
+    url(r'^submit_congress_email', views.submit_congress_email_view, name='submit_congress_email_view'),
+    url(r'^submit_congress_captcha', views.submit_congress_captcha_view, name='submit_congress_captcha_view'),
+    url(r'^submit-email/(?P<email>.*)', views.submit_email, name='submit_email'),
+    url(r'^send-contact/', views.send_contact, name='send_contact'),
+
     url(r'^content_landing/$', views.content_landing_empty, name='content_landing_empty'),
-    url(r'^content_landing/(?P<segment_id>\w+)', views.content_landing, name='content_landing'),
+    # url(r'^content_landing/(?P<program_id>\w+)', views.content_landing, name='content_landing'),
     url(r'^get_congress_email_fields', views.get_congress_email_fields_view, name='get_congress_email_fields_view'),
     url(r'^get_congress_with_zip/(?P<zip>\w+)', views.get_congress_with_zip_view, name='get_congress_with_zip'),
-    url(r'^get_congress_with_location', views.get_congress_with_location_view,
-        name='get_congress_with_location'),
+    url(r'^get_congress_with_location', views.get_congress_with_location_view, name='get_congress_with_location'),
     # url(r'^get_congress_with_location/(?P<lat>\w+)/(?P<long>\w+)', views.get_congress_with_location_view, name='get_congress_with_location'),
     url(r'^leaving', views.leaving, name='leaving'),
     url(r'^program_detail/(?P<programId>\w+)', views.program_detail, name='program_detail'),
     # url(r'^api', views.api,name='api',),
     # Twitter Verification
-    url(r'^verify_twitter',views.verify_twitter),
+    url(r'^verify_twitter', views.verify_twitter),
     # url(r'^verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweet>.*)',
     #     views.verify_twitter),
-    url(r'^verify_catch', views.verify_catch,name='verify_catch'),
+    url(r'^verify_catch', views.SendTweetView.as_view(),name='verify_catch'),
 
 
 
@@ -98,4 +99,9 @@ urlpatterns = [
     # url(r'^accounts/', include('registration.backends.default.urls')),
 
     #potentially comment out line above
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+urlpatterns += staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += url(r'^static/(?P<path>.*)$', never_cache(serve_static)),

@@ -20,8 +20,9 @@
     <div class="browse-container">
         <div class="browse-header">
             <div>
+                </br>
                 <input name="search_keyword" id="search_keyword" value="Bill Mahr New Rule"/>
-                <button name="search_btn" id="search_btn" class="btn btn-primary">Search</button>
+                <button name="search_btn" id="search_btn" class="btn-primary">Search</button>
             </div>
             <div class="browse-button-a">
                 <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>
@@ -41,11 +42,12 @@
             </div>
             <div class="program-container">
                 {% for item in searchResultList %}
-                <div class='program-item' id="{{ item.itemprop_videoId}}">
+                <div class='program-item' id="{{item.itemprop_videoId}}">
                     <div class="program-img-container">
-                        <img class='program-item-image' id='program-item-image' src="{{item.property_og_image}}" >
+                        <img class='program-item-image' id='program-item-image' src="{{item.property_og_image}}">
                     </div>
                     <div style="display: inline"><p>{{item.name_title}} - {{item.itemprop_duration}}</p></div>
+
                 </div>
                 {% endfor %}
              </div>
@@ -55,31 +57,33 @@
                 <p class="category-heading" style="display:inline;">Documentaries</p><p style=" margin-left:10px; display:inline; font-size:14">(see all)</p>
             </div>
              <div class="program-container">
-                {% for item in documentaryList %}
-                <div class='program-item' id="{{ item.objectId }}">
-                    <div class='loader-{{forloop.counter}}'  id="loader"></div>
-                    <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
+                {% for item in documentaries %}
+                <div class='program-item' id="{{ item.id }}"><a href="{% url 'programs:detail' item.pk %}">
+                    <div class='loader-{{forloop.counter}}'></div>
+                    <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
                     <div class="program-img-container">
-                        {% if item.posterURL %}
-                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} >
+                        {% if item.image %}
+                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.image.url}}>
                         {% else %}
-                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}>
+
                         {% endif %}
                     </div>
                     <div class="program-info-container" style="display:inline;">
-                        {% if item.sentMessagesCount %}
-                            <div class="count">{{ item.sentMessagesCount }}</div>
-                            <div class="count" style="display:block; font-size:12px; font-weight:200;">actions</div>
-                            <br/>
-                            <hr class="hr-small" style="border-color:black;"/>
-                            <div class="count">{{ item.userCount }}</div>
-                            <div class="count" style="display:block; font-size:12px; font-weight:200;">users</div>
+                        {% if item.counter %}
+                            <div class="sent-count">{{ item.counter }}</div>
+                            <div class="sent-count-label" style="display:block; font-size:12px; font-weight:200;">actions</div>
+                            <div class="runtime">{{ item.runtime }}</div>
+                            <div class="runtime-label">runtime</div>
+                            <!--<hr class="hr-small" style="border-color:black;"/>-->
+                            <!--<div class="user-count">{{ item.users }}</div>-->
+                            <!--<div class="user-count-label" style="display:block; font-size:12px; font-weight:200;">users</div>-->
                         {% else %}
                         {% endif %}
                     </div>
-                    <!--<div class="program-title">-->
-                        <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
-                    <!--</div>-->
+                    <div class="program-title">
+                        <p id="program-item-title{{forloop.counter}}">{{item.title}}</p>
+                    </div>
+                </a>
                 </div>
                 {% endfor %}
              </div>
@@ -89,7 +93,7 @@
         <p class="category-heading">Web Videos</p>
             <div class="program-container">
                  {% for item in webVideoList %}
-                <div class='program-item' id="{{ item.objectId }}">
+                <div class='program-item' id="{{ item.id }}"><a href=""></a>
                     <div class='loader-{{forloop.counter}}'  id="loader"></div>
                     <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
                     <div class="program-img-container">
@@ -101,12 +105,12 @@
                     </div>
                     <div class="program-info-container" style="display:inline;">
                         {% if item.sentMessagesCount %}
-                            <div class="count">{{ item.sentMessagesCount }}</div>
-                            <div class="count" style="display:block; font-size:12px; font-weight:200;">actions</div>
+                            <div class="count sent-count">{{ item.sentMessagesCount }}</div>
+                            <div class="count sent-count-label" style="display:block; font-size:12px; font-weight:200;">actions</div>
                             <br/>
                             <hr class="hr-small" style="border-color:black;"/>
-                            <div class="count">{{ item.userCount }}</div>
-                            <div class="count" style="display:block; font-size:12px; font-weight:200;">users</div>
+                            <div class="count user-count">{{ item.userCount }}</div>
+                            <div class="count user-count-label" style="display:block; font-size:12px; font-weight:200;">users</div>
                         {% else %}
                         {% endif %}
                     </div>
@@ -123,19 +127,19 @@
 
 
 
-    <!--<div>-->
-        <!--LIST OF PROGRAMS-->
-    <!--</div>-->
-
-    <!--<div class="program-container">-->
-        <!--{% for item in programList %}-->
-        <!--<div class='program-item' id="program-item{{forloop.counter}}">-->
-            <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
-            <!--<p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>-->
-            <!--<img class='program-item-image'  id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>-->
-        <!--</div>-->
-        <!--{% endfor %}-->
-    <!--</div>  &lt;!&ndash;close PROGRAM container&ndash;&gt;-->
+{#    <!--<div>-->#}
+{#        <!--LIST OF PROGRAMS-->#}
+{#    <!--</div>-->#}
+{##}
+{#    <!--<div class="program-container">-->#}
+{#        <!--{% for item in programList %}-->#}
+{#        <!--<div class='program-item' id="program-item{{forloop.counter}}">-->#}
+{#            <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->#}
+{#            <!--<p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>-->#}
+{#            <!--<img class='program-item-image'  id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} alt='Program Image'>-->#}
+{#        <!--</div>-->#}
+{#        <!--{% endfor %}-->#}
+{#    <!--</div>  &lt;!&ndash;close PROGRAM container&ndash;&gt;-->#}
 </form>
 {% endblock %}
 

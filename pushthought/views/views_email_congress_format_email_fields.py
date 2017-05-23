@@ -28,7 +28,6 @@ def create_master_field_list(field_list_objects):
             except:
                 options_length = 0
 
-
             temp_dict = {
                 "value": field['value'],
                 "bioguideId": bioguideId,
