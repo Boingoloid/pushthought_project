@@ -169,7 +169,7 @@ function create_congress_HTML(congressDataArray){
                    imageString,
                         '<div class="name-title-container">',
                              '<div><p class="full-name">'+ item['full_name']+'</p></div>',
-                             '<div><p class="title">'+item['title']+'</p></div>',
+                             '<div><p class="title">'+item['title']+' '+item['state'] + ' '+ item['district'] +'</p></div>',
                         '</div>',
                   '</div>',
                 '</div>',
