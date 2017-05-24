@@ -28,7 +28,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['programs'] = Program.objects.all()[:10]
+        context['programs'] = Program.objects.all()[:11]
         return context
 
 

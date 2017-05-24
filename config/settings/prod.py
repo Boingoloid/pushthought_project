@@ -30,8 +30,6 @@ LOGGING = {
 }
 
 # SECURITY WARNING: don't run with debug turned on in production!
-print "prod environment"
-print "PARSE_KEY ", os.environ.get('PARSE_KEY')
 
 # parse-server
 PARSE_APP_ID = os.environ.get('PARSE_APP_ID')
