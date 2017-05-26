@@ -46,6 +46,8 @@ urlpatterns = [
     url(r'^send-contact/', views.send_contact, name='send_contact'),
 
     url(r'^verify_catch', views.SendTweetView.as_view(),name='verify_catch'),
+    url(r'^save_tweet_twitter_login/$', oauth_login, name='save_tweet_twitter_login'),
+
 
     url(r'^about',views.about, name='about'),
     url(r'^contact',views.contact,name='contact'),
