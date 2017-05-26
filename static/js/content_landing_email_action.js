@@ -225,8 +225,10 @@ function runEmail(bioguideId){
         formDataDictionary[field] = $(this).val();
     });
     formDataDictionary['$MESSAGE'] = $('#text-input').text();
+    var programId = $('#programId').text();
     var stringJson = JSON.stringify({
         "bio_id": bioguideId,
+        "program_id": programId,
         "fields": formDataDictionary
     });
     console.log(stringJson);
