@@ -18,8 +18,6 @@ from views_get_data import *
 from views_user_forms import *
 
 
-
-
 TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
 TWITTER_CONSUMER_KEY = SocialApp.objects.filter(provider='twitter').last().client_id
 TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/accounts/twitter/login/callback/'
@@ -183,6 +181,7 @@ def verify_twitter(request):
         print "redirect url down here", redirectURL
         return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
 
+
 class SendTweetView(View):
     def post(self, request, *args, **kwargs):
         self.response = {}
@@ -209,7 +208,7 @@ class SendTweetView(View):
         self.request.session['segmentId'] = data['segment_id']
         self.request.session['lastMenuURL'] = data['last_menu_url']
         self.request.session['tweetText'] = data['tweet_text']
-        self.request.session['addressArray'] = data['address_array[]']
+        self.request.session['addressArray'] = data.getlist('address_array[]')
         self.request.session['bioguideArray'] = data['bioguide_array[]']
         self.tweet_text = data['tweet_text']
         self.program = Program.objects.get(pk=data['program_id'])
@@ -223,8 +222,8 @@ class SendTweetView(View):
         return api
 
     def get_mentions(self):
-        tweet_text = self.tweet_text
-        mentions = re.findall(r'@(\w+)', tweet_text)
+        mentionlist = self.request.session['addressArray']
+        mentions = [mention.replace('@', '') for mention in mentionlist]
         return mentions
 
     def get_clean_tweet_text(self):

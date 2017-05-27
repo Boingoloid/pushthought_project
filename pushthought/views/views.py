@@ -44,6 +44,7 @@ class BrowseView(TemplateView):
         context['webVideoList'] = query.webvideos()
         context['podcastList'] = query.podcasts()
         context['otherList'] = query.other()
+
         return context
 
 #
