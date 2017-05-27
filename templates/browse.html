@@ -69,16 +69,10 @@
                         {% endif %}
                     </div>
                     <div class="program-info-container" style="display:inline;">
-                        {% if item.counter %}
-                            <div class="sent-count">{{ item.counter }}</div>
-                            <div class="sent-count-label" style="display:block; font-size:12px; font-weight:200;">actions</div>
-                            <div class="runtime">{{ item.runtime }}</div>
-                            <div class="runtime-label">runtime</div>
-                            <!--<hr class="hr-small" style="border-color:black;"/>-->
-                            <!--<div class="user-count">{{ item.users }}</div>-->
-                            <!--<div class="user-count-label" style="display:block; font-size:12px; font-weight:200;">users</div>-->
-                        {% else %}
-                        {% endif %}
+                        <div class="sent-count">{{ item.counter }}</div>
+                        <div class="sent-count-label" style="display:block; font-size:12px; font-weight:200;">actions</div>
+                        <div class="runtime">{{ item.runtime_minutes }}</div>
+                        <div class="runtime-label">minutes</div>
                     </div>
                     <div class="program-title">
                         <p id="program-item-title{{forloop.counter}}">{{item.title}}</p>
