@@ -53,6 +53,7 @@ class SearchIMDBProgramIDView(View):
             result = imdb.get_title_by_id(q)
         except requests.HTTPError:
             raise Http404
+        print result
         return result
 
     def get_program(self, imdb_id):

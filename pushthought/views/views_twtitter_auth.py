@@ -154,7 +154,7 @@ def verify_twitter(request):
                 else:
                     otherErrorArray.append(target_address)
                 i = i + 1
-                time.sleep(2)  # delays for 2 seconds
+                time.sleep(1)  # delays for 1 seconds
 
         # redirect to last landing page if segmentId
         try:
@@ -358,7 +358,7 @@ def verify_catch(request):
         print "redirecting to content_landing: ", redirectURL
         return HttpResponse(json.dumps(
             {'send_response': successArray, 'successArray': successArray, 'duplicateArray': duplicateArray,
-             'otherErrorArray': otherErrorArray, 'overMax': overMax, 'success': success, 'duplicate': duplicate,
+             'otherErrorArray': otherErrorArray , 'overMax': overMax, 'success': success, 'duplicate': duplicate,
              'other': other}), content_type="application/json")
     else:
         redirectURL = "/browse/"
