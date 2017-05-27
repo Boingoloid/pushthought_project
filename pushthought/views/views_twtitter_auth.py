@@ -208,7 +208,7 @@ class SendTweetView(View):
         self.request.session['segmentId'] = data['segment_id']
         self.request.session['lastMenuURL'] = data['last_menu_url']
         self.request.session['tweetText'] = data['tweet_text']
-        self.request.session['addressArray'] = data['address_array[]']
+        self.request.session['addressArray'] = data.getlist('address_array[]')
         self.request.session['bioguideArray'] = data['bioguide_array[]']
         self.tweet_text = data['tweet_text']
         self.program = Program.objects.get(pk=data['program_id'])
@@ -222,8 +222,8 @@ class SendTweetView(View):
         return api
 
     def get_mentions(self):
-        tweet_text = self.tweet_text
-        mentions = re.findall(r'@(\w+)', tweet_text)
+        mentionlist = self.request.session['addressArray']
+        mentions = [mention.replace('@', '') for mention in mentionlist]
         return mentions
 
     def get_clean_tweet_text(self):
