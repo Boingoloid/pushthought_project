@@ -81,6 +81,7 @@ function get_congress(zip){
             $('.category-title').show();
 
             create_congress_HTML(congressDataArray);
+            showSuccess(alertArray[0], alertArray[1])
         },
         error: function() {
             $('#zip-loader').hide();

@@ -73,14 +73,13 @@ class ProgramDetailView(DetailView):
     model = models.Program
     template_name = 'content_landing.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(ProgramDetailView, self).get_context_data(**kwargs)
-    #
-    #     # context['congressData'] = self.get_congress_data()
-    #     # context['tweetData'] = tweet_data
-    #     # context['hashtagData'] = hashtag_data
-    #     # context['hasCongressData'] = hasCongressData
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(ProgramDetailView, self).get_context_data(**kwargs)
+
+        if self.request.session.get('alertList'):
+            context['alertList'] = self.request.session['alertList']
+            del self.request.session['alertList']
+        return context
     #
     # def get_congress_data(self):
     #     location = self.request.user.extra.location

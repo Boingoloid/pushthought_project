@@ -18,8 +18,6 @@ from views_get_data import *
 from views_user_forms import *
 
 
-
-
 TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
 TWITTER_CONSUMER_KEY = SocialApp.objects.filter(provider='twitter').last().client_id
 TWITTER_CALLBACK_ROOT_URL = 'http://127.0.0.1:8000/accounts/twitter/login/callback/'
@@ -182,6 +180,7 @@ def verify_twitter(request):
 
         print "redirect url down here", redirectURL
         return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
+
 
 class SendTweetView(View):
     def post(self, request, *args, **kwargs):

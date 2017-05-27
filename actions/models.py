@@ -44,7 +44,7 @@ class SaveEmailManager(models.Manager):
 class Action(TimeStampedModel):
     user = models.ForeignKey(User)
     program = models.ForeignKey('programs.Program', related_name='actions')
-    congress = models.ForeignKey('congress.Congress', blank=True, null=True)
+    congress = models.ForeignKey('congress.Congress')
     tweets = SaveTweetManager()
     emails = SaveEmailManager()
 
