@@ -47,7 +47,6 @@
                         <img class='program-item-image' id='program-item-image' src="{{item.property_og_image}}">
                     </div>
                     <div style="display: inline"><p>{{item.name_title}} - {{item.itemprop_duration}}</p></div>
-
                 </div>
                 {% endfor %}
              </div>
@@ -69,10 +68,13 @@
                         {% endif %}
                     </div>
                     <div class="program-info-container" style="display:inline;">
-                        <div class="sent-count">{{ item.counter }}</div>
-                        <div class="sent-count-label" style="display:block; font-size:12px; font-weight:200;">actions</div>
-                        <div class="runtime">{{ item.runtime_minutes }}</div>
-                        <div class="runtime-label">minutes</div>
+                            <div class="sent-count">{{ item.counter }}</div>
+                            <div class="sent-count-label" style="display:block; font-size:12px; font-weight:200;">actions</div>
+                            <div class="runtime">{{ item.runtime_minutes }}</div>
+                            <div class="runtime-label">minutes</div>
+                            <!--<hr class="hr-small" style="border-color:black;"/>-->
+                            <!--<div class="user-count">{{ item.users }}</div>-->
+                            <!--<div class="user-count-label" style="display:block; font-size:12px; font-weight:200;">users</div>-->
                     </div>
                     <div class="program-title">
                         <p id="program-item-title{{forloop.counter}}">{{item.title}}</p>

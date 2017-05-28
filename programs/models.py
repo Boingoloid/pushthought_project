@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+import math
 
 from django_extensions.db.models import TimeStampedModel
 from django.urls import reverse
@@ -45,6 +46,10 @@ class Program(CounterMixin, TimeStampedModel):
     def get_absolute_url(self):
         return reverse('programs:detail', args=[str(self.id)])
 
+    @property
+    def runtime_minutes(self):
+        value = self.runtime/60
+        return value
 
 class Season(TimeStampedModel):
     program = models.ForeignKey('Program')
