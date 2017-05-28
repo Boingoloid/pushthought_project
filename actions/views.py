@@ -19,9 +19,9 @@ def submit_congress_email_view(request):
     if send_response_object:
         if status == 'success':
             print "email was sent"
-            Fields.objects.update_or_create(congress=congress, defaults={'fields':request.body})
             Action.emails.create(
                 data['fields']['$MESSAGE'],
+                request.body,
                 user=request.user,
                 program_id=data['program_id'],
                 congress=congress

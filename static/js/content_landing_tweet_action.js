@@ -184,9 +184,13 @@ function runTweet(windowURL){
                     }
                 }
             },
-            error: function() {
+            error: function(xhr, textStatus, error) {
                 $('.loader').hide();
                 // Fail message
+                if (xhr.status == 404) {
+                    alert("This account doesn't have a twitter account binded to it.")
+                }
+
                 console.log('fail :)');
             }
         });

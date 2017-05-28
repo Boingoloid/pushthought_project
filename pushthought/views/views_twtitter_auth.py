@@ -7,6 +7,7 @@ import tweepy
 from allauth.socialaccount.models import SocialApp, SocialToken
 
 from django.views.generic import View
+from django.shortcuts import Http404
 from django.http import JsonResponse
 
 from actions.models import Action
@@ -184,6 +185,10 @@ def verify_twitter(request):
 
 class SendTweetView(View):
     def post(self, request, *args, **kwargs):
+        try:
+            self.token_obj = SocialToken.objects.get(account__user_id=self.request.user.id, account__provider='twitter')
+        except SocialToken.DoesNotExist:
+            raise Http404
         self.response = {}
         self.set_session()
         self.api = self.get_authed_twitter_api()
@@ -216,8 +221,8 @@ class SendTweetView(View):
 
     def get_authed_twitter_api(self):
         auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
-        token_obj = SocialToken.objects.get(account__user=self.request.user, account__provider='twitter')
-        auth.set_access_token(token_obj.token, token_obj.token_secret)
+
+        auth.set_access_token(self.token_obj.token, self.token_obj.token_secret)
         api = tweepy.API(auth)
         return api
 

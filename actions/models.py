@@ -17,6 +17,7 @@ class Tweet(TimeStampedModel):
 class Email(TimeStampedModel):
     text = models.TextField(max_length=140)
     action = models.OneToOneField('Action')
+    fields = models.TextField(null=True)
 
 
 class SaveTweetManager(models.Manager):
@@ -32,11 +33,12 @@ class SaveTweetManager(models.Manager):
 
 
 class SaveEmailManager(models.Manager):
-    def create(self, text, *args, **kwargs):
+    def create(self, text, fields, *args, **kwargs):
         action = super(SaveEmailManager, self).create(**kwargs)
         email, created = Email.objects.get_or_create(
             text=text,
             action=action,
+            fields=fields
         )
         return email
 

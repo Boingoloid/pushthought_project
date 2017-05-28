@@ -92,6 +92,6 @@ class CongressCounter(CounterMixin, TimeStampedModel):
     #     return count
 
 
-class Fields(TimeStampedModel):
+class APIEmailField(TimeStampedModel):
     congress = models.OneToOneField('Congress')
-    fields = models.TextField()
+    email_fields = models.TextField()
