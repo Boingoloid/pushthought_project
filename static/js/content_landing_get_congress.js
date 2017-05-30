@@ -109,7 +109,8 @@ function create_congress_HTML(congressDataArray){
         }
 
         // twitterId check
-        tweetIconImageAddress = $('.twitter-icon').attr('src');
+        tweetIconImageAddress = $('.twitter-icon-hide').attr('src');
+        console.log(tweetIconImageAddress);
         var twitterIdString;
         if(!item['twitter_id']){
            twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name="'+item['bioguide_id']+'">n/a</div>',
