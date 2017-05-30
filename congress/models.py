@@ -8,6 +8,7 @@ from django.core.validators import validate_comma_separated_integer_list
 
 from utils.models import CounterMixin
 
+
 class Congress(TimeStampedModel):
     first_name = models.CharField(max_length=30)
     middle_name = models.CharField(max_length=30, blank=True, null=True)
@@ -89,3 +90,8 @@ class CongressCounter(CounterMixin, TimeStampedModel):
     # def recount(self):
     #     count = Action.objects.filter(receiver=self.congress, program=self.program)
     #     return count
+
+
+class APIEmailField(TimeStampedModel):
+    congress = models.OneToOneField('Congress')
+    email_fields = models.TextField()

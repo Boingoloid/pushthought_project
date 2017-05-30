@@ -29,6 +29,7 @@ TWITTER_CONSUMER_SECRET = settings.TWITTER_CONSUMER_SECRET
 
 MONGODB_URI = settings.MONGODB_URI
 
+
 def get_congress_email_fields(bioguideArray):
     # print bioguideArray
     field_list_objects = get_congress_required_fields_parse(bioguideArray)
@@ -42,6 +43,7 @@ def get_congress_email_fields(bioguideArray):
     # print "Finally here!, all concatenated:",field_list_objects
     master_field_list = create_master_field_list(field_list_objects)
     return master_field_list
+
 
 def save_failures(missing_bioguides,phantom_required_objects):
     failures_array = []
@@ -259,6 +261,7 @@ def submit_congress_email(request):
                        })
     send_response_object = json.loads(connection.getresponse().read())
     print "printing send result, fill out form congress email to phantom congress", send_response_object
+    # send_response_object = {'status':'success'}
     return send_response_object
 
 

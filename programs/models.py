@@ -1,10 +1,12 @@
 from __future__ import unicode_literals
+import math
 
 from django_extensions.db.models import TimeStampedModel
 from django.urls import reverse
 from django.db import models
 
 from utils.models import CounterMixin
+
 
 class ProgramManager(models.Manager):
     def documentaries(self):
@@ -33,6 +35,10 @@ class Program(CounterMixin, TimeStampedModel):
     def __str__(self):
         return self.title
 
+    @property
+    def runtime_minutes(self):
+        return self.runtime / 60
+
     def congres_counter(self, bioguide_id):
         counter = self.congresscounter_set.get(congress__bioguide_id=bioguide_id).counter
         return counter
@@ -40,6 +46,10 @@ class Program(CounterMixin, TimeStampedModel):
     def get_absolute_url(self):
         return reverse('programs:detail', args=[str(self.id)])
 
+    @property
+    def runtime_minutes(self):
+        value = self.runtime/60
+        return value
 
 class Season(TimeStampedModel):
     program = models.ForeignKey('Program')

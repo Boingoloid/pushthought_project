@@ -45,7 +45,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
-                            <li>Hey, {{ request.user.first_name }}</li>
+{#                            <li>Hey, {{ request.user.first_name }}</li>#}
                             <li><a href="{% url 'account_logout' %}">Logout</a></li>
                         {% else %}
                             <li><a href="{% url 'account_login' %}">Login</a></li>

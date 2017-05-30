@@ -8,32 +8,47 @@ from django.contrib.auth.models import User
 from congress.models import CongressCounter
 from hashtag.models import Hashtag
 
+
 class Tweet(TimeStampedModel):
     text = models.TextField(max_length=140)
     action = models.OneToOneField('Action')
 
-    def save(self, **kwargs):
 
-        super(Tweet, self).save(**kwargs)
+class Email(TimeStampedModel):
+    text = models.TextField(max_length=140)
+    action = models.OneToOneField('Action')
+    fields = models.TextField(null=True)
 
 
 class SaveTweetManager(models.Manager):
     def create(self, text, *args, **kwargs):
         action = super(SaveTweetManager, self).create(**kwargs)
-        tweet, saved = Tweet.objects.get_or_create(
+        tweet, created = Tweet.objects.get_or_create(
             text=text,
             action=action,
         )
-        if saved:
+        if created:
             Hashtag.hashtags.parse_mentions(text, action.program)
             return tweet
+
+
+class SaveEmailManager(models.Manager):
+    def create(self, text, fields, *args, **kwargs):
+        action = super(SaveEmailManager, self).create(**kwargs)
+        email, created = Email.objects.get_or_create(
+            text=text,
+            action=action,
+            fields=fields
+        )
+        return email
 
 
 class Action(TimeStampedModel):
     user = models.ForeignKey(User)
     program = models.ForeignKey('programs.Program', related_name='actions')
-    congress = models.ForeignKey('congress.Congress', blank=True, null=True)
+    congress = models.ForeignKey('congress.Congress')
     tweets = SaveTweetManager()
+    emails = SaveEmailManager()
 
     def save(self, **kwargs):
         if not self.id:

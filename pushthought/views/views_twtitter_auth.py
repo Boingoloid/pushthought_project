@@ -7,6 +7,7 @@ import tweepy
 from allauth.socialaccount.models import SocialApp, SocialToken
 
 from django.views.generic import View
+from django.shortcuts import Http404
 from django.http import JsonResponse
 
 from actions.models import Action
@@ -16,8 +17,6 @@ from congress.models import Congress
 from views_alerts import *
 from views_get_data import *
 from views_user_forms import *
-
-
 
 
 TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
@@ -154,7 +153,7 @@ def verify_twitter(request):
                 else:
                     otherErrorArray.append(target_address)
                 i = i + 1
-                time.sleep(2)  # delays for 2 seconds
+                time.sleep(1)  # delays for 1 seconds
 
         # redirect to last landing page if segmentId
         try:
@@ -183,8 +182,13 @@ def verify_twitter(request):
         print "redirect url down here", redirectURL
         return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
 
+
 class SendTweetView(View):
     def post(self, request, *args, **kwargs):
+        try:
+            self.token_obj = SocialToken.objects.get(account__user_id=self.request.user.id, account__provider='twitter')
+        except SocialToken.DoesNotExist:
+            raise Http404
         self.response = {}
         self.set_session()
         self.api = self.get_authed_twitter_api()
@@ -209,7 +213,7 @@ class SendTweetView(View):
         self.request.session['segmentId'] = data['segment_id']
         self.request.session['lastMenuURL'] = data['last_menu_url']
         self.request.session['tweetText'] = data['tweet_text']
-        self.request.session['addressArray'] = data['address_array[]']
+        self.request.session['addressArray'] = data.getlist('address_array[]')
         self.request.session['bioguideArray'] = data['bioguide_array[]']
         self.tweet_text = data['tweet_text']
         self.program = Program.objects.get(pk=data['program_id'])
@@ -217,14 +221,14 @@ class SendTweetView(View):
 
     def get_authed_twitter_api(self):
         auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
-        token_obj = SocialToken.objects.get(account__user=self.request.user, account__provider='twitter')
-        auth.set_access_token(token_obj.token, token_obj.token_secret)
+
+        auth.set_access_token(self.token_obj.token, self.token_obj.token_secret)
         api = tweepy.API(auth)
         return api
 
     def get_mentions(self):
-        tweet_text = self.tweet_text
-        mentions = re.findall(r'@(\w+)', tweet_text)
+        mentionlist = self.request.session['addressArray']
+        mentions = [mention.replace('@', '') for mention in mentionlist]
         return mentions
 
     def get_clean_tweet_text(self):
@@ -358,7 +362,7 @@ def verify_catch(request):
         print "redirecting to content_landing: ", redirectURL
         return HttpResponse(json.dumps(
             {'send_response': successArray, 'successArray': successArray, 'duplicateArray': duplicateArray,
-             'otherErrorArray': otherErrorArray, 'overMax': overMax, 'success': success, 'duplicate': duplicate,
+             'otherErrorArray': otherErrorArray , 'overMax': overMax, 'success': success, 'duplicate': duplicate,
              'other': other}), content_type="application/json")
     else:
         redirectURL = "/browse/"
