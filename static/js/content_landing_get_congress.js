@@ -109,6 +109,7 @@ function create_congress_HTML(congressDataArray){
         }
 
         // twitterId check
+        tweetIconImageAddress = $('.twitter-icon').attr('src');
         var twitterIdString;
         if(!item['twitter_id']){
            twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name="'+item['bioguide_id']+'">n/a</div>',
@@ -119,7 +120,7 @@ function create_congress_HTML(congressDataArray){
             ].join("\n");
         } else {
            twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name='+ item['bioguide_id'] +'>@'+item['twitter_id']+'</div>',
-                '<img class="twitter-icon" id='+i+' src=\'/static/img/twitter-icon.png\' width="42" height="42">'
+                '<img class="twitter-icon" id='+i+' src='+tweetIconImageAddress+' width="42" height="42">'
                 ].join("\n");
         }
 
