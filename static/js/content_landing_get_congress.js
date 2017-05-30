@@ -109,31 +109,32 @@ function create_congress_HTML(congressDataArray){
         }
 
         // twitterId check
-        tweetIconImageAddress = $('.twitter-icon-hide').attr('src');
-        console.log(tweetIconImageAddress);
+        var tweetIconImage = $('.twitter-icon-hide').attr('src');
+        var tweetIconEmptyImage = $('.twitter-icon-empty-hide').attr('src');
         var twitterIdString;
         if(!item['twitter_id']){
            twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name="'+item['bioguide_id']+'">n/a</div>',
-            '<img class="twitter-icon-empty" src=\'/static/img/twitter-icon-gray.png\' width="42" height="42">',
+            '<img class="twitter-icon-empty" src='+tweetIconEmptyImage+' width="42" height="42">',
             '<div class="warning-box-tweet-icon">',
                 '<p class="warning-text">twitter address n/a</p>',
             '</div>'
             ].join("\n");
         } else {
            twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name='+ item['bioguide_id'] +'>@'+item['twitter_id']+'</div>',
-                '<img class="twitter-icon" id='+i+' src='+tweetIconImageAddress+' width="42" height="42">'
+                '<img class="twitter-icon" id='+i+' src='+tweetIconImage+' width="42" height="42">'
                 ].join("\n");
         }
 
         // contact form check
         var emailString;
+        var emailIconImage = $('.email-icon-hide').attr('src');
         //if(!item['contact_form']){
         //   emailString =  ['<div class="email-name email-name-'+ item['bioguide_id'] +'" id="'+i+'" name="'+ item['full_name'] + '">click to toggle</div>',
         //   '<img class="email-icon-gray" id="email-icon-'+i+'name="'+item['full_name']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">',
         //   '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'">'+item['last_name']+'</div>'].join("\n");
         //} else {
            emailString =  ['<div class="email-name email-name-'+ item['bioguide_id'] +'" id="'+i+'" name="'+ item['full_name'] + '">form below</div>',
-           '<img class="email-icon" id="email-icon-'+i+'" name="'+item['full_name']+'" src=\'/static/img/email-icon.png\' width="36" height="36">',
+           '<img class="email-icon" id="email-icon-'+i+'" name="'+item['full_name']+'" src='+ emailIconImage +' width="36" height="36">',
            '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'">'+item['last_name']+'</div>'].join("\n");
         //}
 
@@ -154,6 +155,7 @@ function create_congress_HTML(congressDataArray){
             indicatorString = '<img class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src=\'/static/img/check-green.png\'>';
         }
 
+        var phoneIconImage = $('.phone-icon-hide').attr('src');
         // construct HTML for contacts in category
         var text =  [
             '<div class="rep-item-container rep-item-container-' + i +'">',
@@ -179,7 +181,7 @@ function create_congress_HTML(congressDataArray){
                 '<div class="action-panel-container" id="'+i+'">',
                         '<div class="action-panel">',
                             twitterIdString,
-                            '<img class="phone-icon" id="'+item['phone']+'" name="'+item['full_name']+'" src=\'/static/img/phone-icon.png\'>',
+                            '<img class="phone-icon" id="'+item['phone']+'" name="'+item['full_name']+'" src='+phoneIconImage+'>',
                             emailString,
                         '</div>',
                 '</div>',
