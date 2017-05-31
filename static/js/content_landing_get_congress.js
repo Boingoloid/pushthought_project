@@ -149,11 +149,11 @@ function create_congress_HTML(congressDataArray){
 
         // user touched check
         var indicatorString;
-        var successIndicator = $('.success-indicator-hide').attr('src');
+        var successIndicatorPath = $('.success-indicator-hide').attr('src');
         if(!item['userTouched']){
-           indicatorString = '<img style="display:none" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src='+successIndicator+'>';
+           indicatorString = '<img style="display:none" class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src='+successIndicatorPath+'>';
         } else {
-            indicatorString = '<img class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src='+successIndicator+'>';
+            indicatorString = '<img class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src='+successIndicatorPath+'>';
         }
 
         var phoneIconImage = $('.phone-icon-hide').attr('src');
