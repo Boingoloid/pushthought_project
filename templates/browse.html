@@ -14,14 +14,14 @@
                 <!--</form>-->
 
 {% block content %}
-<form name="browse_form" action="{% url 'browse' %}" method="post">
+{#<form name="browse_form" action="{% url 'browse' %}" method="post">#}
     {% csrf_token %}
     <input type="hidden" name="search_type" id="search_type" value="">
     <div class="browse-container">
         <div class="browse-header">
             <div>
                 </br>
-                <input name="search_keyword" id="search_keyword" placeholder="paste link"/>
+                <input name="search_keyword" id="search_keyword" placeholder="paste you tube link"/>
                 <button name="search_btn" id="search_btn" class="btn-primary">Find</button>
             </div>
             <div class="browse-button-a">
@@ -136,21 +136,12 @@
 {#        <!--</div>-->#}
 {#        <!--{% endfor %}-->#}
 {#    <!--</div>  &lt;!&ndash;close PROGRAM container&ndash;&gt;-->#}
-</form>
+{#</form>#}
 {% endblock %}
 
 {% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'js/browse.js' %}"></script>
-<script type="text/javascript">
-    $(function () {
-        $("#search_btn").click(function(){
-            $("#search_type").val("scraping");
-            console.log($("#search_type").val());
-            $("form").submit();
-        });
-    });
-</script>
 {% endblock %}
 
         <!--<div style="display:inline-block;">-->

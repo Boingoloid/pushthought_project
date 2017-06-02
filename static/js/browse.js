@@ -22,7 +22,12 @@ $(document).ready(function() {
             console.log("make disappear");
         }
     });
-
+    $("#search_btn").click(function(){
+        alert("searching");
+        // $("#search_type").val("scraping");
+        // console.log($("#search_type").val());
+        // $("form").submit();
+    });
 
     // $('.program-container').on('click','.program-item',function(event) {
     //     $(this).contents('#loader').show();
