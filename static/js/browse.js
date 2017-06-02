@@ -23,7 +23,7 @@ $(document).ready(function() {
         }
     });
     $("#search_btn").click(function(){
-        alert("searching");
+        alert("search feature under development");
         // $("#search_type").val("scraping");
         // console.log($("#search_type").val());
         // $("form").submit();
