@@ -21,21 +21,22 @@
         <div class="browse-header">
             <div>
                 </br>
-                <input name="search_keyword" id="search_keyword" placeholder="paste you tube link"/>
+                <input name="search_keyword" id="search_keyword" placeholder="paste link"/>
                 <button name="search_btn" id="search_btn" class="btn-primary">Find</button>
             </div>
-            <div class="browse-button-a">
-                <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>
-                <div class="panel">
-                    <a><p>Documentaries</p></a>
-                    <a><p>Web Videos</p></a>
-                    <a><p>Podcasts</p></a>
-                </div>
-            </div>
+{#            <div class="browse-button-a">#}
+{#                <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>#}
+{#                <div class="panel">#}
+{#                    <a><p>Documentaries</p></a>#}
+{#                    <a><p>Web Videos</p></a>#}
+{#                    <a><p>Podcasts</p></a>#}
+{#                </div>#}
+{#            </div>#}
         </div><!-- /.browse-header -->
+        <div style="margin-left: 130px; font-size:80%;">-- or --</div>
         <div class="search-result-section">
             <div>
-                <p class="search-result-heading" style="display:inline;">Search Results</p>
+                <p class="search-result-heading" style="display:inline; color:green; font-weight:400;">Choose what content inspires you</p>
                 {% if searchResultList|length > 0 %}
                     <p>{{searchResultList|length}}</p>
                 {% endif %}

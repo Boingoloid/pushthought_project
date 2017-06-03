@@ -261,6 +261,7 @@ box-shadow: 2px 2px 10px black;
 .zip-label{
     position: absolute;
     top:90;
+    top:40;
     left:106;
     color:white;
     height:30px;
@@ -271,8 +272,9 @@ box-shadow: 2px 2px 10px black;
 .submit-zip{
     position: absolute;
     top: 115;
+    top:69;
     left: 213;
-    height: 30px;
+    height: 50px;
     width: 90px;
     z-index:2001;
     background: green;
@@ -312,9 +314,11 @@ box-shadow: 2px 2px 10px black;
      width:90px;
      left:213;
      top:90;
-     border:1px solid black;
-     border-radius:10px;
+     top:43;
+     border:3px solid green;
+     border-radius:5px;
      background: #ccefff;
+     background: antiquewhite;
      text-align:center;
 }
 

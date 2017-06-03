@@ -505,6 +505,7 @@ $(document).ready(function() {
         $('#text-input').text('');
         $('.letter-count').show();
         $('.email-action-container').html('');
+        $('.warning-text').hide();
         $('.address-placeholder').html('');
         $('.address-container').html(' ');
         $('.category-container').animate({'height':'220px'});
@@ -716,16 +717,21 @@ $(document).ready(function() {
 
     // TWEET/EMAIL Button
     $('#tweet-button').on('click',function(event) {
-        if($('.email-name').is(":visible")){
-            var bioguideId = $('.address-item-label:visible').attr('id');
-            console.log("printing bioguide before run email", bioguideId);
-            console.log("tweet button initializing email send");
-            //$.getScript('/static/js/content_landing_email_action.js'), function (){
-                runEmail(bioguideId);
-            //};
-        } else {
-            runTweet(windowURL);
-        }
+
+        alert("Under development");
+        // if($('.email-name').is(":visible")){
+        //     var bioguideId = $('.address-item-label:visible').attr('id');
+        //     console.log("printing bioguide before run email", bioguideId);
+        //     console.log("tweet button initializing email send");
+        //     //$.getScript('/static/js/content_landing_email_action.js'), function (){
+        //         runEmail(bioguideId);
+        //     //};
+        // } else {
+        //     runTweet(windowURL);
+        // }
+
+
+
     });
 
 
