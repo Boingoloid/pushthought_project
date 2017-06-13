@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% load static from staticfiles %}
+
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/browse.css' %}">
 {% endblock %}
@@ -56,33 +57,9 @@
             <div>
                 <p class="category-heading" style="display:inline;">Documentaries</p><p style=" margin-left:10px; display:inline; font-size:14">(see all)</p>
             </div>
-             <div class="program-container">
-                {% for item in documentaries %}
-                <div class='program-item' id="{{ item.id }}"><a href="{% url 'programs:detail' item.pk %}">
-                    <div class='loader-{{forloop.counter}}'></div>
-                    <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
-                    <div class="program-img-container">
-                        {% if item.image %}
-                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.image.url}}>
-                        {% else %}
-
-                        {% endif %}
-                    </div>
-                    <div class="program-info-container" style="display:inline;">
-                            <div class="sent-count">{{ item.counter }}</div>
-                            <div class="sent-count-label" style="display:block; font-size:12px; font-weight:200;">actions</div>
-                            <div class="runtime">{{ item.runtime_minutes }}</div>
-                            <div class="runtime-label">minutes</div>
-                            <!--<hr class="hr-small" style="border-color:black;"/>-->
-                            <!--<div class="user-count">{{ item.users }}</div>-->
-                            <!--<div class="user-count-label" style="display:block; font-size:12px; font-weight:200;">users</div>-->
-                    </div>
-                    <div class="program-title">
-                        <p id="program-item-title{{forloop.counter}}">{{item.title}}</p>
-                    </div>
-                </a>
-                </div>
-                {% endfor %}
+             <div class="row">
+{#             TODO:Change to docs only#}
+                {% include 'inserts/programs.html' with object_list=programList %}
              </div>
         </div>
 
@@ -143,6 +120,10 @@
 {% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'js/browse.js' %}"></script>
+    {{ block.super }}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
+    <script>$.endlessPaginate();</script>
 {% endblock %}
 
         <!--<div style="display:inline-block;">-->

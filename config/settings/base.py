@@ -38,6 +38,7 @@ THIRD_PARTY_APPS = [
     'snippets',
     'prime',
     'robots',
+    'el_pagination',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -340,3 +341,5 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+EL_PAGINATION_PER_PAGE = 6

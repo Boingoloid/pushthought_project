@@ -6,6 +6,7 @@ import re
 import threading
 from django.views.generic.base import TemplateView
 from django.shortcuts import render_to_response
+from el_pagination.views import AjaxListView
 
 from programs.models import Program
 
@@ -32,8 +33,10 @@ class HomeView(TemplateView):
         return context
 
 
-class BrowseView(TemplateView):
-    template_name = 'browse.html'
+class BrowseView(AjaxListView):
+    context_object_name = "object_list"
+    template_name = "browse.html"
+    page_template = 'inserts/programs.html'
 
     def get_context_data(self, **kwargs):
         context = super(BrowseView, self).get_context_data(**kwargs)
@@ -46,6 +49,30 @@ class BrowseView(TemplateView):
         context['otherList'] = query.other()
 
         return context
+
+    def get_queryset(self):
+        return Program.objects.all()
+
+# class BrowseView(TemplateView):
+#     template_name = '
+#     page_template = ''
+#
+#     def get_template_names(self):
+#         if self.request.is_ajax():
+#             self.template_name = self.page_template
+#         return super(BrowseView, self).get_template_names()
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(BrowseView, self).get_context_data(**kwargs)
+#         # dataDict['programList'] = program_list_with_stats
+#         query = Program.objects
+#         context['programList'] = query.all()
+#         context['documentaries'] = query.documentaries()
+#         context['webVideoList'] = query.webvideos()
+#         context['podcastList'] = query.podcasts()
+#         context['otherList'] = query.other()
+#
+#         return context
 
 #
 # class ContentLandingView(TemplateView):
