@@ -59,41 +59,20 @@
             </div>
              <div class="row">
 {#             TODO:Change to docs only#}
-                {% include 'inserts/programs.html' with object_list=programList %}
+                 <div class="endless_page_template">
+                {% include 'inserts/documentaries.html' %}
+                     </div>
              </div>
         </div>
 
         <div class="category-section">
         <p class="category-heading">Web Videos</p>
-            <div class="program-container">
-                 {% for item in webVideoList %}
-                <div class='program-item' id="{{ item.id }}"><a href=""></a>
-                    <div class='loader-{{forloop.counter}}'  id="loader"></div>
-                    <p hidden id="program-item-objectId{{forloop.counter}}">{{item.objectId}}</p>
-                    <div class="program-img-container">
-                        {% if item.posterURL %}
-                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}} >
-                        {% else %}
-                                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.programImage.url}}>
-                        {% endif %}
-                    </div>
-                    <div class="program-info-container" style="display:inline;">
-                        {% if item.sentMessagesCount %}
-                            <div class="count sent-count">{{ item.sentMessagesCount }}</div>
-                            <div class="count sent-count-label" style="display:block; font-size:12px; font-weight:200;">actions</div>
-                            <br/>
-                            <hr class="hr-small" style="border-color:black;"/>
-                            <div class="count user-count">{{ item.userCount }}</div>
-                            <div class="count user-count-label" style="display:block; font-size:12px; font-weight:200;">users</div>
-                        {% else %}
-                        {% endif %}
-                    </div>
-                    <!--<div class="program-title">-->
-                        <!--<p id="program-item-title{{forloop.counter}}">{{item.programTitle}}</p>-->
-                    <!--</div>-->
+            <div class="row endless_page_template">
+                <div class="endless_page_template">
+{#             TODO:Change to docs only#}
+                {% include 'inserts/webvideos.html' %}
                 </div>
-                {% endfor %}
-            </div>  <!--close PROGRAM container-->
+             </div>
         </div><!-- /.container -->
     </div>
 

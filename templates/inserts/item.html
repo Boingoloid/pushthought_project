@@ -1,8 +1,5 @@
-{% load el_pagination_tags  %}
-
-{% paginate object_list %}
-{% for item in object_list %}
-    <div class='program-item col-sm-2' id="{{ item.id }}"><a href="{% url 'programs:detail' item.pk %}">
+<div class='program-item col-sm-2' id="{{ item.id }}">
+    <a href="{% url 'programs:detail' item.pk %}">
         <div class='loader-{{forloop.counter}}'></div>
         <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
         <div class="program-img-container">
@@ -20,7 +17,4 @@
             <p id="program-item-title{{forloop.counter}}">{{item.title}}</p>
         </div>
     </a>
-    </div>
-
-{% endfor %}
- {% show_more "load mode" "loading" "col-sm-2" %}
+</div>
