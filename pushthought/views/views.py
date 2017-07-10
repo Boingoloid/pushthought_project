@@ -39,11 +39,11 @@ class BrowseView(TemplateView):
         context = super(BrowseView, self).get_context_data(**kwargs)
         # dataDict['programList'] = program_list_with_stats
         query = Program.objects
-        context['programList'] = query.all()
-        context['documentaries'] = query.documentaries()
-        context['webVideoList'] = query.webvideos()
-        context['podcastList'] = query.podcasts()
-        context['otherList'] = query.other()
+        # context['programList'] = Program.objects.all()[:3]
+        context['documentaries'] = Program.objects.documentaries()[:10]
+        context['webVideoList'] = Program.objects.webvideos()
+        context['podcastList'] = Program.objects.podcasts()
+        context['otherList'] = Program.objects.other()
 
         return context
 
