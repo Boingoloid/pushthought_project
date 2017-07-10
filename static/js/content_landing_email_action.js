@@ -20,7 +20,7 @@ function get_congress_email_fields(bioguideArray){
             console.log("yes, data to return: get congress email fields")
             console.log(data)
             var htmlText = [];
-            htmlText = '<div style="margin-left:60px; font-size:11pt; color:gray;">required fields</div>';
+            // htmlText = '<div id="required-fields-label" style="margin-left:60px; font-size:11pt; color:gray;">required fields</div>';
             data.forEach(function (dict, i) {
                 field = dict['value'];
                 var bioguideId = dict['bioguideId'];
@@ -121,13 +121,6 @@ function get_congress_email_fields(bioguideArray){
             for (var i = 0; i < showArray.length; i++) {
                 $('.'+ showArray[i]).show();
             }
-
-
-
-
-
-
-
 
 
 

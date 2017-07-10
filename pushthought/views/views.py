@@ -35,6 +35,7 @@ class HomeView(TemplateView):
         return context
 
 
+
 @page_template("inserts/documentaries.html")
 @page_template('inserts/webvideos.html', key='other_entries_page')
 def browse_view(request, template="browse.html", extra_context=None):
@@ -49,27 +50,6 @@ def browse_view(request, template="browse.html", extra_context=None):
     if extra_context is not None:
         context.update(extra_context)
     return render(request, template, context)
-
-# class BrowseView(TemplateView):
-#     template_name = '
-#     page_template = ''
-#
-#     def get_template_names(self):
-#         if self.request.is_ajax():
-#             self.template_name = self.page_template
-#         return super(BrowseView, self).get_template_names()
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(BrowseView, self).get_context_data(**kwargs)
-#         # dataDict['programList'] = program_list_with_stats
-#         query = Program.objects
-#         context['programList'] = query.all()
-#         context['documentaries'] = query.documentaries()
-#         context['webVideoList'] = query.webvideos()
-#         context['podcastList'] = query.podcasts()
-#         context['otherList'] = query.other()
-#
-#         return context
 
 #
 # class ContentLandingView(TemplateView):

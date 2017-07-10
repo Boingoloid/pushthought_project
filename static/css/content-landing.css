@@ -279,7 +279,6 @@ box-shadow: 2px 2px 10px black;
     z-index:2001;
     background: green;
     border-radius:10px;
-    display: none;
     font-size: 12pt;
     letter-spacing:1.05;
 }

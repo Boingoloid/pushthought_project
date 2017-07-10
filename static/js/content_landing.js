@@ -214,7 +214,7 @@ $(document).ready(function() {
         if ($('.zip-input').is(":focus")){
             $('.submit-zip').show();
         } else {
-            $('.submit-zip').hide();
+            // $('.submit-zip').hide();
         }
     });
 
@@ -262,7 +262,7 @@ $(document).ready(function() {
         }
 
         // show action container and it's contents
-        $('.rep-action-container').css('display','block'),200,function(){
+        $('.rep-action-container').css('display','block'),400,function(){
         };
 
         // scroll to appropriate place on screen to see action container
@@ -505,6 +505,7 @@ $(document).ready(function() {
         $('#text-input').text('');
         $('.letter-count').show();
         $('.email-action-container').html('');
+         $('#required-fields-label').hide();
         $('.warning-text').hide();
         $('.address-placeholder').html('');
         $('.address-container').html(' ');
@@ -526,6 +527,7 @@ $(document).ready(function() {
         $('#img-send-tweet-icon').show();
         $('#email-button-label').hide();
         $('#twitter-button-label').show();
+
     });
 
     // Action Panel Container
@@ -718,20 +720,18 @@ $(document).ready(function() {
     // TWEET/EMAIL Button
     $('#tweet-button').on('click',function(event) {
 
-        alert("Under development");
-        // if($('.email-name').is(":visible")){
-        //     var bioguideId = $('.address-item-label:visible').attr('id');
-        //     console.log("printing bioguide before run email", bioguideId);
-        //     console.log("tweet button initializing email send");
-        //     //$.getScript('/static/js/content_landing_email_action.js'), function (){
-        //         runEmail(bioguideId);
-        //     //};
-        // } else {
-        //     runTweet(windowURL);
-        // }
 
-
-
+        if($('.email-name').is(":visible")){
+            alert("Under development");
+            // var bioguideId = $('.address-item-label:visible').attr('id');
+            // console.log("printing bioguide before run email", bioguideId);
+            // console.log("tweet button initializing email send");
+            // //$.getScript('/static/js/content_landing_email_action.js'), function (){
+            //     runEmail(bioguideId);
+            //};
+        } else {
+            runTweet(windowURL);
+        }
     });
 
 
