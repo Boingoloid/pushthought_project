@@ -5,7 +5,10 @@ import json
 import re
 import threading
 from django.views.generic.base import TemplateView
+from django.utils.decorators import method_decorator
 from django.shortcuts import render_to_response
+from el_pagination.views import AjaxListView
+from el_pagination.decorators import page_template
 
 from programs.models import Program
 
@@ -32,20 +35,21 @@ class HomeView(TemplateView):
         return context
 
 
-class BrowseView(TemplateView):
-    template_name = 'browse.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(BrowseView, self).get_context_data(**kwargs)
-        # dataDict['programList'] = program_list_with_stats
-        query = Program.objects
-        # context['programList'] = Program.objects.all()[:3]
-        context['documentaries'] = Program.objects.documentaries()[:10]
-        context['webVideoList'] = Program.objects.webvideos()
-        context['podcastList'] = Program.objects.podcasts()
-        context['otherList'] = Program.objects.other()
+@page_template("inserts/documentaries.html")
+@page_template('inserts/webvideos.html', key='other_entries_page')
+def browse_view(request, template="browse.html", extra_context=None):
+    query = Program.objects
+    context = {}
+    context['programList'] = query.all()
+    context['documentaries'] = query.documentaries()
+    context['webVideoList'] = query.webvideos()
+    context['podcastList'] = query.podcasts()
+    context['otherList'] = query.other()
 
-        return context
+    if extra_context is not None:
+        context.update(extra_context)
+    return render(request, template, context)
 
 #
 # class ContentLandingView(TemplateView):

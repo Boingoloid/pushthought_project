@@ -51,3 +51,4 @@ https://github.com/cungnv/scrapex/archive/master.zip
 django-phonenumber-field==1.2.0
 python-memcached
 django-robots==3.0
+django-el-pagination==3.1.0

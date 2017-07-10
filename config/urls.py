@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^test/(?P<twitter_screen_name>.*)', views.get_user_by_twitter_screen_name, name='test'),
     url(r'^$', views.HomeView.as_view(), name='home',),
     url(r'^home/$', views.HomeView.as_view(), name='home',),
-    url(r'^browse/$', views.BrowseView.as_view(), name='browse'),
+    url(r'^browse/$', views.browse_view, name='browse'),
     # url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
 
     url(r'^accounts/twitter/login/callback/$', oauth_callback, name='twitter_callback'),
