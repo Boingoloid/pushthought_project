@@ -1,26 +1,69 @@
 
 
 
-function get_congress_email_fields(bioguideArray){
-    console.log("get congress email field firing.:" + bioguideArray);
+function get_congress_email_fields(bioguideArray) {
     bioguideArrayString = JSON.stringify(bioguideArray);
+    console.log('bioguide array string: ', bioguideArrayString);
 
-    //bioguide = '{"bio_ids": ["C000880", "A000360"]}
-
-    $.ajax({url: '/get_congress_email_fields/',
+    $.ajax({
+        url: '/get_congress_email_fields/',
         type: "POST",
         data: bioguideArrayString,
         contentType: 'json;charset=UTF-8',
         cache: false,
-        success: function(data) {
-            if(!data){
-                console.log("no data to return")
+        success: function (data) {
+            if (!data) {
+                console.log("no required fileds data to return");
                 return false;
             }
-            console.log("yes, data to return: get congress email fields")
-            console.log(data)
+            console.log("yes, required fields data to return");
+            console.log(data);
             var htmlText = [];
-            // htmlText = '<div id="required-fields-label" style="margin-left:60px; font-size:11pt; color:gray;">required fields</div>';
+            data.forEach(function (email_fields, i) {
+                var field_name = email_fields['field_name'];
+                console.log("printing field name", field_name);
+
+                if (field_name != "TOPIC") {
+                    htmlText = [htmlText,
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                        '   <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + field_name + '</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                            '   <input type="text" class="eform" id="eform-' + field_name + '">',
+                            '</div>',
+                        '</div>'
+                    ].join("\n");
+                } else {
+                    htmlText = [htmlText,
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                        '   <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + field_name + '</label>',
+                            '</div>',
+                                '<select class="eform" id="eform-'+ field_name +'" style="display:block;">',
+                                '<option value=0 disabled="disabled" selected="selected">select a topic</option>',
+                        '</div>'
+                    ].join("\n");
+
+                    // define optionList
+                    var optionsList = email_fields['options'];
+                        for (var i = 0; i < optionsList.length; i++) {
+                            htmlText = [htmlText,
+                                '<option value="' + optionsList[i] + '">' + optionsList[i] + '</option>'
+                            ].join("\n");
+                        }
+                }
+            });
+            $('.email-action-container').append(htmlText);
+        }
+    });
+}
+
+
+
+
+
+            /*
             data.forEach(function (dict, i) {
                 field = dict['value'];
                 var bioguideId = dict['bioguideId'];
@@ -57,7 +100,7 @@ function get_congress_email_fields(bioguideArray){
                                 if(a < b) return -1;
                                 if(a > b) return 1;
                                 return 0;
-                            })
+                            });
                             for (var i = 0; i < keys.length; i++) {
                                 htmlText = [htmlText,
                                         '<option value="' + keys[i] +'">'+keys[i]+'</option>'
@@ -113,7 +156,7 @@ function get_congress_email_fields(bioguideArray){
 
             // hide all, show those with correct bioguide.  IF multi- loop show all for each bioguide
             $('.email-form-field-container').hide();
-            var showArray = []
+            var showArray = [];
             $('.address-item-label:visible').each(function(){
                 var bioguideId = $(this).attr('id');
                 showArray.push(bioguideId);
@@ -146,7 +189,7 @@ function get_congress_email_fields(bioguideArray){
                                 console.log("key match" + fieldName);
                                 $(this).val(value);
                             }
-                    });
+                })
                 }
             });
 
@@ -157,7 +200,7 @@ function get_congress_email_fields(bioguideArray){
             console.log('failure in get email fields content_landing.js');
         }
     });
-}
+}*/
 
 function runEmail(bioguideId){
 
@@ -171,7 +214,7 @@ function runEmail(bioguideId){
     // validate no blank fields
     var validationResult = true;
     $('.eform:visible').each(function(){
-        var fieldNode = $(this)
+        var fieldNode = $(this);
         var field = $(this).val();
         var fieldName = fieldNode.attr('id').replace('eform-','');
 

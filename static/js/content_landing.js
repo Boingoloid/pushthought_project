@@ -44,9 +44,9 @@ $(document).ready(function() {
     // If alerts, scroll down and show them
     var data = $('#alertList').data('alertlist');
     if(data){
-        console.log("hello data");
+        console.log("alert list is present");
     } else {
-        console.log("no data");
+        console.log("alert list is empty");
     }
 
 //    alertArray = JSON.parse(data);
@@ -349,12 +349,14 @@ $(document).ready(function() {
         var bioguideId = $(this).next().attr('id');
 
         //get fields from db or phantom congress
-        var bioguideArray = [];
-        $('.bioguide-mule').each(function(){
-            var bioguideId = $(this).attr('id');
-            bioguideArray.push(bioguideId);
-        });
-        console.log("bioguide:"+bioguideArray);
+        var bioguideArray = bioguideId
+        // alert (bioguideArray)
+        // var bioguideArray = [];
+        // $('.bioguide-mule').each(function(){
+        //     var bioguideId = $(this).attr('id');
+        //     bioguideArray.push(bioguideId);
+        // });
+        console.log("bioguide sending to email phantom congress to get email fields: "+bioguideArray);
         $.getScript('/static/js/content_landing_email_action.js', function(){
             get_congress_email_fields(bioguideArray);
         });
@@ -401,7 +403,7 @@ $(document).ready(function() {
         });
 
         // expand containers
-        $('.rep-color-band').animate({'height':'425px'});
+        $('.rep-color-band').animate({'height':'455px'});
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
 
         // hide icons that disappear
@@ -513,6 +515,7 @@ $(document).ready(function() {
         $('.rep-action-container').animate({'opacity':'0.0','height':'0px'},500,function() {
             $('.rep-action-container').css('display','none');
         });
+        $('.rep-color-band').animate({'height':'220px'},500,function() {});
         //$('.twitter-icon').animate({'left':'42%'});
         $('.twitter-icon').show();
         $('.twitter-icon-empty').show();
@@ -521,7 +524,7 @@ $(document).ready(function() {
         $('.email-icon-gray').show();
         $('.twitter-name').hide();
         $('.email-name').hide();
-        $('.rep-color-band').animate({'height':'233px'});
+        $('.rep-color-band').animate({'height':'253px'});
         $('.selected').removeClass('selected');
         $('#img-send-email-icon').hide();
         $('#img-send-tweet-icon').show();
