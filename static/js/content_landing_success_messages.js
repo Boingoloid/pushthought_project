@@ -6,7 +6,8 @@
 
 // show duplicate method
 function showDuplicate(duplicateArray){
-    if (duplicateArray.length != 0){
+    // if (duplicateArray.length != 0){
+    if (duplicateArray){
         duplicateArray.forEach(function (value, i) {
             console.log('%d: %s', i, value);
             var tweetName = value.slice(1)
@@ -38,13 +39,14 @@ function showDuplicate(duplicateArray){
             });
         });
     } else {
-        console.log('no dpulicates');
+        console.log('no duplicates in alert array');
     }
 }
 
 
 function showSuccess(successArray, duplicateArray){
-    if (successArray.length != 0){
+    // if (successArray.length != 0){
+    if (successArray){
         successArray.forEach(function (value, i) {
             var tweetName = value.slice(1) //chop off @ at start
             var idText = '#success-box-' + tweetName;
@@ -79,8 +81,9 @@ function showSuccess(successArray, duplicateArray){
             });
         });
     } else {
+        console.log('no success messages in alert array, going to duplicate array')
         showDuplicate(duplicateArray);
-        console.log('no success, going to duplicateArray')
+
     }
 }
 

@@ -50,6 +50,8 @@ def create_master_field_list(field_list_objects):
     for item in sorted_array:
         count = count + 1
         if count != length:
+            # if previous item is equal to current item then
+            # show both but with bioguide id attached to field name
             if previous_item == "A":
                 previous_item = item
             elif previous_item['value'] == 'TOPIC':
@@ -89,7 +91,7 @@ def create_master_field_list(field_list_objects):
         "TOPIC",
     ]
 
-    # separate into those to order and those to put at end (thsoe not included in the ordered list above automatically get put at the end)
+    # separate into those to order and those to put at end (those not included in the ordered list above automatically get put at the end)
     objects_to_end = []
     objects_to_order = []
     for item in sorted_clip:
@@ -117,6 +119,6 @@ def create_master_field_list(field_list_objects):
 
     # print len(objects_to_order)
     # print len(ordered_objects)
-    print ordered_objects
+    print "printing ordered objects ", ordered_objects
     return ordered_objects
 

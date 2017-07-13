@@ -135,12 +135,12 @@ box-shadow: 2px 2px 10px black;
   margin-right: 0px;
   padding-right: 0px;
   padding-top: 3px;
-  height: 233px;
+  height: 220px;
 }
 
 @media only screen and (max-width: 515px) {
   .rep-color-band{
-    height: 275px;
+    height: 285px;
   }
 }
 
@@ -151,6 +151,12 @@ box-shadow: 2px 2px 10px black;
   margin-top: 2px;
   height: 220px;
   box-sizing: border-box;
+}
+
+@media only screen and (max-width: 515px) {
+  .category-container{
+    height: 230px;
+  }
 }
 
 .category-title-container{
@@ -272,7 +278,7 @@ box-shadow: 2px 2px 10px black;
 .submit-zip{
     position: absolute;
     top: 115;
-    top:69;
+    top:73;
     left: 213;
     height: 50px;
     width: 90px;
@@ -308,19 +314,26 @@ box-shadow: 2px 2px 10px black;
      position: absolute;
      color:black;
      z-index:2001;
-     height:25px;
+     height:30px;
      line-height:25px;
      width:90px;
      left:213;
-     top:90;
      top:43;
      border:3px solid green;
      border-radius:5px;
      background: #ccefff;
      background: antiquewhite;
      text-align:center;
+     padding: 0px 0px 0px 0px;
 }
 
+@media only screen and (max-width: 515px) {
+    .zip-input {
+        font-size: 20px;
+
+    }
+
+}
 
 .sent-messages-count{
 
@@ -349,6 +362,12 @@ box-shadow: 2px 2px 10px black;
   padding-top:5px;
   position: relative;
 }
+
+
+@media only screen and (max-width: 515px) {
+
+}
+
 
 #loader {
   position: absolute;
@@ -1098,6 +1117,7 @@ text-tweet-block{
   width: auto;
   border: 2px inset #092551;
   border: none;
+  padding-top:20px;
 }
 
 .hashtag-item{

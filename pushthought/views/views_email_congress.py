@@ -31,18 +31,66 @@ MONGODB_URI = settings.MONGODB_URI
 
 
 def get_congress_email_fields(bioguideArray):
-    # print bioguideArray
-    field_list_objects = get_congress_required_fields_parse(bioguideArray)
-    missing_bioguides = get_missing_bioguides(bioguideArray,field_list_objects)
-    if len(missing_bioguides)>0:
-        phantom_required_objects = get_congress_email_fields_phantom(missing_bioguides)
-        save_failures(missing_bioguides,phantom_required_objects)
-        for item in phantom_required_objects:
-            field_list_objects.append(item)
+    print bioguideArray
+    # field_list_objects = get_congress_required_fields_parse(bioguideArray)
+    # missing_bioguides = get_missing_bioguides(bioguideArray,field_list_objects)
+    # if len(missing_bioguides)>0:
+    phantom_required_objects = get_congress_email_fields_phantom(bioguideArray)
+    # save_failures(missing_bioguides,phantom_required_objects)
+    # for item in phantom_required_objects:
+    #     field_list_objects.append(item)
+
+        # field_list_objects = get_congress_required_fields_parse(bioguideArray)
+        # missing_bioguides = get_missing_bioguides(bioguideArray, field_list_objects)
+        # if len(missing_bioguides) > 0:
+        #     phantom_required_objects = get_congress_email_fields_phantom(missing_bioguides)
+        #     save_failures(missing_bioguides, phantom_required_objects)
+        #     for item in phantom_required_objects:
+        #         field_list_objects.append(item)
 
     # print "Finally here!, all concatenated:",field_list_objects
-    master_field_list = create_master_field_list(field_list_objects)
-    return master_field_list
+    # master_field_list = create_master_field_list(field_list_objects)
+    # master_field_list = create_master_field_list(phantom_required_objects)
+    # print "master_field_list: ", master_field_list
+    print "phantom_required_objects: ", phantom_required_objects
+    return phantom_required_objects
+
+def get_congress_email_fields_phantom(bioguideArray):
+    print "get_congress_email_fields_phantom_bioguide: ", bioguideArray
+    # bioguideArray = json.loads(bioguideArray)
+    dataString = json.dumps({"bio_ids": [bioguideArray]})
+    print "dataString of bioIDs sent to phantom", dataString
+
+    connection = httplib.HTTPSConnection('congressforms.eff.org')
+    connection.connect()
+    connection.request("POST", "/retrieve-form-elements/",
+        dataString,
+        {#headers
+           "Content-Type": "application/json"
+        })
+    required_fields_object = json.loads(connection.getresponse().read())
+    bioguide_returned_array = required_fields_object[bioguideArray]
+    # print "required fields object from phantom :", bioguide_returned_array
+    required_fields = bioguide_returned_array['required_actions']
+    # print " elements in required fields array: ", required_fields
+
+    # order the fields
+    required_fields_and_options_array = []
+    for item in required_fields:
+
+        field_dictionary = {}
+        field_dictionary['field_name'] = item['value'].replace('$','')
+        if item['options_hash']:
+            field_dictionary['options'] = item['options_hash']
+            # print "options_hash: ",item['options_hash']
+        if field_dictionary['field_name'] != "MESSAGE":
+            required_fields_and_options_array.append(field_dictionary)
+    # print "required_fileds_and_options_array: ", required_fields_and_options_array
+
+    # save_result =  save_fields(required_fields_object)
+    # return save_result
+    return required_fields_and_options_array
+
 
 
 def save_failures(missing_bioguides,phantom_required_objects):
@@ -152,21 +200,7 @@ def get_congress_required_fields_parse(bioguideArray):
     return result['results']
 
 
-def get_congress_email_fields_phantom(bioguideArray):
-    # bioguideArray = json.loads(bioguideArray)
-    dataString = json.dumps({"bio_ids": bioguideArray})
 
-    connection = httplib.HTTPSConnection('congressforms.eff.org')
-    connection.connect()
-    connection.request("POST", "/retrieve-form-elements/",
-        dataString,
-        {#headers
-           "Content-Type": "application/json"
-        })
-    required_fields_object = json.loads(connection.getresponse().read())
-    print "required fields object from phantom: :", required_fields_object
-    save_result =  save_fields(required_fields_object)
-    return save_result
 
 def save_fields(required_fields_object):
     print "fields_array before save:", required_fields_object
@@ -203,7 +237,6 @@ def save_fields(required_fields_object):
                     for item in optionsDict:
                         newItem = item.replace('.', '').replace('   ', ' ').replace('/', '').replace(',', '').replace('$','')
                         item = newItem
-
 
          # Save the entry from phantom congress
         connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
