@@ -19,39 +19,58 @@ function get_congress_email_fields(bioguideArray) {
             console.log("yes, required fields data to return");
             console.log(data);
             var htmlText = [];
+
+
+
+
             data.forEach(function (email_fields, i) {
                 var field_name = email_fields['field_name'];
                 console.log("printing field name", field_name);
 
-                if (field_name != "TOPIC") {
+                // If "TOPIC" make select box with options
+
+                if((field_name == "TOPIC") || (field_name == "ADDRESS_STATE_POSTAL_ABBREV")) {
+
+                    if(field_name == "ADDRESS_STATE_POSTAL_ABBREV"){
+                        field_name = "ADDRESS_STATE";
+                    }
+
                     htmlText = [htmlText,
                         '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                        '   <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + field_name + '</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                            '   <input type="text" class="eform" id="eform-' + field_name + '">',
-                            '</div>',
-                        '</div>'
-                    ].join("\n");
-                } else {
-                    htmlText = [htmlText,
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                        '   <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + field_name + '</label>',
-                            '</div>',
-                                '<select class="eform" id="eform-'+ field_name +'" style="display:block;">',
-                                '<option value=0 disabled="disabled" selected="selected">select a topic</option>',
-                        '</div>'
+                        '   <div class="label-div">',
+                            '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + field_name + '</label>',
+                        // '</div>',
+                        // '<div>',
+                            '<select class="eform" id="eform-' + field_name + '" style="display:block;">',
+                            '<option value=0 disabled="disabled" selected="selected">select</option>'
+                        // '</div>',
                     ].join("\n");
 
                     // define optionList
                     var optionsList = email_fields['options'];
-                        for (var i = 0; i < optionsList.length; i++) {
-                            htmlText = [htmlText,
-                                '<option value="' + optionsList[i] + '">' + optionsList[i] + '</option>'
-                            ].join("\n");
-                        }
+                    for (var i = 0; i < optionsList.length; i++) {
+                        htmlText = [htmlText,
+                            '<option value="' + optionsList[i] + '">' + optionsList[i] + '</option>'
+                        ].join("\n");
+                    }
+                    htmlText = [htmlText,
+                        '</select>',
+                        '</div>',
+                        '</div>'
+                    ].join("\n");
+
+
+                } else if (field_name != "TOPIC") {
+                    htmlText = [htmlText,
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                        ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + field_name + '</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                            '<input type="text" class="eform" id="eform-' + field_name + '">',
+                            '</div>',
+                        '</div>'
+                    ].join("\n");
                 }
             });
             $('.email-action-container').append(htmlText);
@@ -223,7 +242,7 @@ function runEmail(bioguideId){
                 alert('all fields are required.  Please enter this field: ' + fieldName);
                 validationResult = false;
                 return false;
-            }
+                   }
         } else if (fieldNode.is('select')){
             var selection =  $(this).find(":selected").text();
             if(selection == 'select a topic'){
