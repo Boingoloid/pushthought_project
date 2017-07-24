@@ -17,28 +17,30 @@ function get_congress_email_fields(bioguideArray) {
                 return false;
             }
             console.log("yes, required fields data to return");
-            console.log(data);
+            // console.log(data);
             var htmlText = [];
 
+            data = order_congress_email_fields(data);
+            // console.log(data);
 
-
-
-            data.forEach(function (email_fields, i) {
-                var field_name = email_fields['field_name'];
+            data.forEach(function (email_field, i) {
+                var field_name = email_field['field_name'];
                 console.log("printing field name", field_name);
 
                 // If "TOPIC" make select box with options
 
-                if((field_name == "TOPIC") || (field_name == "ADDRESS_STATE_POSTAL_ABBREV")) {
+                if((field_name == "TOPIC") || (field_name == "ADDRESS_STATE_POSTAL_ABBREV") || field_name == "NAME_PREFIX") {
 
                     if(field_name == "ADDRESS_STATE_POSTAL_ABBREV"){
-                        field_name = "ADDRESS_STATE";
+                        var label_name = "ADDRESS_STATE";
+                    } else {
+                        var label_name = field_name;
                     }
 
                     htmlText = [htmlText,
                         '<div class="email-form-field-container" style="display:block;">',
                         '   <div class="label-div">',
-                            '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + field_name + '</label>',
+                            '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + label_name + '</label>',
                         // '</div>',
                         // '<div>',
                             '<select class="eform" id="eform-' + field_name + '" style="display:block;">',
@@ -47,7 +49,7 @@ function get_congress_email_fields(bioguideArray) {
                     ].join("\n");
 
                     // define optionList
-                    var optionsList = email_fields['options'];
+                    var optionsList = email_field['options'];
                     for (var i = 0; i < optionsList.length; i++) {
                         htmlText = [htmlText,
                             '<option value="' + optionsList[i] + '">' + optionsList[i] + '</option>'
@@ -58,13 +60,16 @@ function get_congress_email_fields(bioguideArray) {
                         '</div>',
                         '</div>'
                     ].join("\n");
-
-
-                } else if (field_name != "TOPIC") {
+                } else {
+                    if(field_name == "ADDRESS_ZIP5"){
+                        var label_name = "ADDRESS_ZIP";
+                    } else{
+                        var label_name = field_name;
+                    }
                     htmlText = [htmlText,
                         '<div class="email-form-field-container" style="display:block;">',
                             '<div class="label-div">',
-                        ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + field_name + '</label>',
+                        ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + label_name + '</label>',
                             '</div>',
                             '<div class="field-div">',
                             '<input type="text" class="eform" id="eform-' + field_name + '">',
@@ -78,8 +83,98 @@ function get_congress_email_fields(bioguideArray) {
     });
 }
 
+function order_congress_email_fields(data) {
+    // in reverse order
+    var ordered_fields_key = [
+
+        "SUBJECT",
+        "NAME_PREFIX",
+        "NAME_FIRST",
+        "NAME_LAST",
+        "EMAIL",
+        "PHONE",
+        "ADDRESS_STREET",
+        "ADDRESS_CITY",
+        "ADDRESS_ZIP4",
+        "ADDRESS_ZIP5",
+        "ADDRESS_STATE_POSTAL_ABBREV",
+        "TOPIC"
+    ];
 
 
+    ////////////////////////////////////////
+    //put fields in order according to master list
+    ////////////////////////////////////////
+    var ordered_email_fields = [];
+    var email_field_to_add_to_array = {};
+    ordered_fields_key.forEach(function (ordered_email_field) {
+        data.forEach(function (email_field) {
+            var field_name = email_field['field_name'];
+            // if field name = field in list, then
+            if (field_name == ordered_email_field) {
+                console.log(field_name + " " + ordered_email_field);
+                email_field_to_add_to_array = email_field;
+                ordered_email_fields.push(email_field_to_add_to_array);
+            } else {
+            }
+        });
+        // console.log("printing email field object", email_field_to_add_to_array);
+        // console.log("printing field name", email_field_to_add_to_array);
+    });
+
+    ////////////////////////////////////////
+    //put extra fields not in master ordered list at the end
+    ////////////////////////////////////////
+
+    var extra_fields_array = [];
+    var match = false;
+    data.forEach(function (email_field_object) {
+        match = false;
+        ordered_fields_key.forEach(function (ordered_email_field) {
+            var field_name = email_field_object['field_name'];
+            if (field_name == ordered_email_field) {
+                match = true;
+            }
+        });
+        email_field_to_add_to_array = email_field_object;
+        if (match) {
+
+        } else {
+            console.log("extra field:" + email_field_object['field_name'])
+            extra_fields_array.push(email_field_to_add_to_array);
+        }
+    });
+    return ordered_email_fields.concat(extra_fields_array);
+
+}
+
+    /*
+    var match = false;
+    var ordered_email_fields = [];
+    var extra_fields_array = [];
+    var email_field_to_add_to_array = {};
+
+    data.forEach(function (email_field_object) {
+        match = false;
+        ordered_fields_key.forEach(function (ordered_email_field) {
+            var field_name = email_field_object['field_name'];
+            if(field_name == ordered_email_field){
+                match = true;
+            }
+        });
+        email_field_to_add_to_array = email_field_object;
+        if(match){
+            ordered_email_fields.push(email_field_to_add_to_array);
+            console.log("push:" + email_field_object['field_name']);
+        } else {
+            console.log("extra field:" + email_field_object['field_name'])
+            extra_fields_array.push(email_field_to_add_to_array);
+        }
+    });
+
+    // console.log(ordered_email_fields);
+    return ordered_email_fields.concat(extra_fields_array);
+    */
 
 
             /*
