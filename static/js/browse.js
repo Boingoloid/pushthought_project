@@ -22,12 +22,12 @@ $(document).ready(function() {
             console.log("make disappear");
         }
     });
-    $("#search_btn").click(function(){
-        alert("search feature under development");
-        // $("#search_type").val("scraping");
-        // console.log($("#search_type").val());
-        // $("form").submit();
-    });
+    // $("#search_btn").click(function(){
+    //     alert("search feature under development");
+    //     // $("#search_type").val("scraping");
+    //     // console.log($("#search_type").val());
+    //     // $("form").submit();
+    // });
 
     // $('.program-container').on('click','.program-item',function(event) {
     //     $(this).contents('#loader').show();
