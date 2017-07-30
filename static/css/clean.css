@@ -945,7 +945,7 @@ table {
   height: 550px;
   /*border-radius: 20px;*/
   background-color:#e5efe5;
-  border:10px solid green;
+  border:3px solid green;
 }
 
 .panel-default > .panel-heading{
