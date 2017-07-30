@@ -6,8 +6,8 @@ from imdbpie import Imdb
 from django.shortcuts import render
 from django.views.generic import DetailView, View
 from django.http.response import HttpResponse, HttpResponseRedirect
-from django.http import Http404
 from django.conf import settings
+from django.contrib import messages
 
 from utils.helper import url_to_model_field
 from youtube.quickstart import videos_list_by_id
@@ -34,9 +34,13 @@ class SearchIMDBProgramIDView(View):
         id = self.parse_imdb_id()
 
         if not id:
-            raise Http404
+            return self.get_redirect_to_ref()
 
         data = self.get_imdb_data(id)
+
+        if not data:
+            return self.get_redirect_to_ref()
+
         program = self.get_program(data.imdb_id)
 
         if not program:
@@ -57,8 +61,8 @@ class SearchIMDBProgramIDView(View):
         try:
             result = imdb.get_title_by_id(q)
         except requests.HTTPError:
-            raise Http404
-        print result
+            result = None
+
         return result
 
     def get_program(self, imdb_id):
@@ -75,6 +79,10 @@ class SearchIMDBProgramIDView(View):
             url_to_model_field(data.poster_url, program.image)
             return program
 
+    def get_redirect_to_ref(self):
+        url = self.request.META.get('HTTP_REFERER')
+        messages.add_message(self.request, messages.WARNING, 'Your program not found!')
+        return HttpResponseRedirect(url)
 
 class AddYoutubeProgramIDView(View):
     form = forms.ProgramForm
