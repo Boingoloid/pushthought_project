@@ -266,17 +266,19 @@ $(document).ready(function() {
         };
 
         // scroll to appropriate place on screen to see action container
-        $('.category-container').animate({'height':'350px'},200,function(){
-            var headerAllowance = $('.seen-it-container').offset().top - 20;
-            $('html, body').animate({
-                scrollTop: headerAllowance + 'px'
-            }, 'fast');
-        });
+//        $('.category-container').animate({'height':'350px'},200,function(){
+//            var headerAllowance = $('.seen-it-container').offset().top - 20;
+//            $('html, body').animate({
+//                scrollTop: headerAllowance + 'px'
+//            }, 'fast');
+//        });
 
         // expand containers
 //        $('#text-input').animate({'height':'100px','max-height':'100px'});
-        $('.rep-color-band').animate({'height':'850px'}); //220
-        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
+//        $('.rep-color-band').animate({'height':'850px'}); //220
+//        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
+        $('.rep-action-container').animate({'opacity':'1.0'});
+        $('.rep-action-container').animate({'display':'block'});
 
 
         // hide items that need to disappear
@@ -396,16 +398,18 @@ $(document).ready(function() {
         $('.rep-action-container').show();
 
         // scroll to appropriate place on screen to see action container
-        $('.category-container').animate({'height':'350px'},200,function(){
-            var headerAllowance = $('.seen-it-container').offset().top - 20;
-            $('html, body').animate({
-                scrollTop: headerAllowance + 'px'
-            }, 'fast');
-        });
+//        $('.category-container').animate({'height':'350px'},200,function(){
+//            var headerAllowance = $('.seen-it-container').offset().top - 20;
+//            $('html, body').animate({
+//                scrollTop: headerAllowance + 'px'
+//            }, 'fast');
+//        });
 
         // expand containers
-        $('.rep-color-band').animate({'height':'455px'});
-        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
+//        $('.rep-color-band').animate({'height':'455px'});
+//        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
+        $('.rep-action-container').animate({'opacity':'1.0'});
+        $('.rep-action-container').animate({'display':'block'});
 
         // hide icons that disappear
         $('.twitter-icon').hide();
@@ -512,11 +516,18 @@ $(document).ready(function() {
         $('.warning-text').hide();
         $('.address-placeholder').html('');
         $('.address-container').html(' ');
-        $('.category-container').animate({'height':'220px'});
-        $('.rep-action-container').animate({'opacity':'0.0','height':'0px'},500,function() {
+//        $('.category-container').animate({'height':'220px'});
+//        $('.rep-action-container').animate({'opacity':'0.0','height':'0px'},500,function() {
+//            $('.rep-action-container').css('display','none');
+//        });
+//        $('.rep-color-band').animate({'height':'220px'},500,function() {});
+//        $('.rep-color-band').animate({'height':'253px'});
+
+        $('.rep-action-container').animate({'opacity':'0.0'},500,function() {
             $('.rep-action-container').css('display','none');
         });
-        $('.rep-color-band').animate({'height':'220px'},500,function() {});
+
+
         //$('.twitter-icon').animate({'left':'42%'});
         $('.twitter-icon').show();
         $('.twitter-icon-empty').show();
@@ -525,7 +536,6 @@ $(document).ready(function() {
         $('.email-icon-gray').show();
         $('.twitter-name').hide();
         $('.email-name').hide();
-        $('.rep-color-band').animate({'height':'253px'});
         $('.selected').removeClass('selected');
         $('#img-send-email-icon').hide();
         $('#img-send-tweet-icon').show();

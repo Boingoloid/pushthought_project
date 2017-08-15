@@ -61,9 +61,9 @@
             {% else %}
                 <div class="zip-capture">
             {% endif %}
-{#                    <div class="location-label">Current Location:</div>#}
-{#                    <img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
-{#                    <div class="or-label">---  or  ---</div>#}
+                {#<div class="location-label">Current Location:</div>#}
+                {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
+                {#<div class="or-label">---  or  ---</div>#}
                     <div class="zip-label">Zip Code:</div>
                     <button class="submit-zip">Submit</button>
                     <div class='zip-loader'  id="zip-loader"></div>
@@ -129,6 +129,8 @@
                     {% endfor %}
                 {% endif %}
             </div> <!--close rep container-->
+                    <!--here is the container that I'm having problems with b/c it shows zero height.  removing it helps, but then I lose control-->
+                    <!--I use this container to make the messaging elements appear and disappear.-->
             <div class="rep-action-container">
                 <img id="close-button"src="{% static 'img/x-mark-gray.png' %}" width="20" height="20">
                 <div id="text-tweet-block">
@@ -152,18 +154,15 @@
                         <!--<img id="img-checked-box" src="{% static 'img/check-circle-gray2.png' %}" width="20" height="20">-->
                         <p id="link-included" >content link included automatically</p>
                         <!--<p style="font-size:12pt;" id="link-included">automatically</p>-->
-{#                        <button id="clear-button">Clear</button>#}
+                        {#<button id="clear-button">Clear</button>#}
                         <div class="warning-box">
-{#                            <p class="warning-text">link always included</p>#}
-{#                            <p class="warning-text">for context</p>#}
+                        {#<p class="warning-text">link always included</p>#}
+                        {#<p class="warning-text">for context</p>#}
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="email-action-container">
-
-
             </div>
         </div>
     </div>
