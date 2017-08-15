@@ -408,7 +408,6 @@ box-shadow: 2px 2px 10px black;
   height:0px;
   /*opacity:0;*/
   display: none;
-  display: block;
 }
 
 @media only screen and (max-width: 710px) {
