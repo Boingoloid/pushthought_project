@@ -12,6 +12,11 @@ function get_congress_email_fields(bioguideArray) {
         contentType: 'json;charset=UTF-8',
         cache: false,
         success: function (data) {
+
+            ////////////////////////////////////////
+            // returned data is congress email fields
+            ///////////////////////////////////////
+
             if (!data) {
                 console.log("no required fileds data to return");
                 return false;
@@ -20,12 +25,26 @@ function get_congress_email_fields(bioguideArray) {
             // console.log(data);
             var htmlText = [];
 
+
+            ////////////////////////////////////////
+            // order returned fields
+            // function below
+            ///////////////////////////////////////
+
             data = order_congress_email_fields(data);
             // console.log(data);
+
+
+            /////////////////////////////////////////////////////////
+            // adjust field names for display because some are long or odd
+            // creates and inserts html for email form and inserts fields in HTMLobject .email-action-container
+            /////////////////////////////////////////////////////////
+
 
             data.forEach(function (email_field, i) {
                 var field_name = email_field['field_name'];
                 console.log("printing field name", field_name);
+                console.log('print options', email_field['options']);
 
                 // If "TOPIC" make select box with options
 
@@ -50,16 +69,31 @@ function get_congress_email_fields(bioguideArray) {
 
                     // define optionList
                     var optionsList = email_field['options'];
-                    for (var i = 0; i < optionsList.length; i++) {
-                        htmlText = [htmlText,
-                            '<option value="' + optionsList[i] + '">' + optionsList[i] + '</option>'
-                        ].join("\n");
+
+                    // if dictionary
+                    if(optionsList[0]){
+                        console.log('true - array');
+                        for (var i = 0; i < optionsList.length; i++) {
+                            htmlText = [htmlText,
+                                '<option value="' + optionsList[i] + '">' + optionsList[i] + '</option>'
+                            ].join("\n");
+                        }
+                    } else {
+                        console.log('false - dict');
+                        for (var key in optionsList){
+                            htmlText = [htmlText,
+                                '<option value="' + key + '">' + key + '</option>'
+                            ].join("\n");
+                        }
                     }
+                    
                     htmlText = [htmlText,
                         '</select>',
                         '</div>',
                         '</div>'
                     ].join("\n");
+
+
                 } else {
                     if(field_name == "ADDRESS_ZIP5"){
                         var label_name = "ADDRESS_ZIP";
@@ -83,8 +117,13 @@ function get_congress_email_fields(bioguideArray) {
     });
 }
 
+
+/////////////////////////////////////////////////////////////
+// function
+// shows designated order of known fields
+// orders them according to list
+/////////////////////////////////////////////////////////////
 function order_congress_email_fields(data) {
-    // in reverse order
     var ordered_fields_key = [
 
         "SUBJECT",
@@ -316,6 +355,13 @@ function order_congress_email_fields(data) {
     });
 }*/
 
+
+//////////////////////////////////////////////////////////
+// send email to api
+//
+//////////////////////////////////////////////////////////
+
+
 function runEmail(bioguideId){
 
     // validate text input not blank
@@ -332,15 +378,24 @@ function runEmail(bioguideId){
         var field = $(this).val();
         var fieldName = fieldNode.attr('id').replace('eform-','');
 
+        //////////////////////////////////////////////////////
+        // Validate all inputs have values
+        //////////////////////////////////////////////////////
+
         if (fieldNode.is('input')){
             if(field.length == 0){
                 alert('all fields are required.  Please enter this field: ' + fieldName);
                 validationResult = false;
                 return false;
                    }
+
+        //////////////////////////////////////////////////////
+        // Validate 'select a topic' is selected
+        //////////////////////////////////////////////////////
+
         } else if (fieldNode.is('select')){
             var selection =  $(this).find(":selected").text();
-            if(selection == 'select a topic'){
+            if(selection == 'select'){
                 alert("please enter a " + fieldName);
                 validationResult = false;
                 return false;
@@ -349,7 +404,9 @@ function runEmail(bioguideId){
         }
     });
 
-    // Validate email if others pass validation first
+    //////////////////////////////////////////////////////
+    // Validate email
+    //////////////////////////////////////////////////////
     if (validationResult){
         function validateEmail(email) {
             var re = /\S+@\S+\.\S+/;
@@ -381,7 +438,9 @@ function runEmail(bioguideId){
         "program_id": programId,
         "fields": formDataDictionary
     });
-    console.log(stringJson);
+    console.log("showing json string to send to API", stringJson);
+
+    /*
 
     $.ajax({url: "/submit_congress_email/",
         type: "POST",
@@ -437,5 +496,6 @@ function runEmail(bioguideId){
         error: function() {
         }
     });
+    */
 }
 

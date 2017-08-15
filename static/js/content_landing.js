@@ -725,13 +725,13 @@ $(document).ready(function() {
 
 
         if($('.email-name').is(":visible")){
-            alert("Under development");
-            // var bioguideId = $('.address-item-label:visible').attr('id');
+            // alert("Under development");
+             var bioguideId = $('.address-item-label:visible').attr('id');
             // console.log("printing bioguide before run email", bioguideId);
-            // console.log("tweet button initializing email send");
-            // //$.getScript('/static/js/content_landing_email_action.js'), function (){
-            //     runEmail(bioguideId);
-            //};
+            console.log("email/tweet button initializing email send");
+//            $.getScript('/static/js/content_landing_email_action.js'), function (){
+                runEmail(bioguideId);
+//            };
         } else {
             runTweet(windowURL);
         }
