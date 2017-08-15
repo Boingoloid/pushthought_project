@@ -67,7 +67,7 @@
                     <div class="zip-label">Zip Code:</div>
                     <button class="submit-zip">Submit</button>
                     <div class='zip-loader'  id="zip-loader"></div>
-                    <input class="zip-input" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
+                    <input class="zip-input" id="{{ request.session.zip }}" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
                 </div>
             <div class="rep-container">
                 {% if hasCongressData %}

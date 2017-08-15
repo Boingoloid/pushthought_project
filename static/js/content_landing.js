@@ -23,6 +23,8 @@ $(document).ready(function() {
             $('#zip-loader').show();
             console.log('valid zip');
             console.log('get_congres on zip:' + zip);
+            $('.zip-input').attr('id',zip);
+            $('.zip-input').attr('value',zip);
             get_congress(zip);
         } else{
             console.log('NOT a valid zip');

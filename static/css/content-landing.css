@@ -446,14 +446,13 @@ text-tweet-block{
 .letter-count{
   position: absolute;
   z-index:2001;
-  top: 75px;
+  top: 110px;
   left: 428px;
   cursor:pointer;
   color:gray;
   font-size: 12pt;
   align:right;
   vertical-align: text-bottom;
-
 }
 
 #text-input{
@@ -467,8 +466,8 @@ text-tweet-block{
   max-width: 450px;
   height: 100px;
   max-height: 100px;
-  height: 63px;
-  max-height: 63px;
+  /*height: 63px;
+  max-height: 63px;*/
   margin-top: 1px;
   letter-spacing:1.15;
   font-weight:200;
@@ -491,7 +490,7 @@ text-tweet-block{
         font-size: 14pt;
     }
     .letter-count{
-        top: 78px;
+        top: 110px;
         left: 380px;
         font-size: 14px;
     }
