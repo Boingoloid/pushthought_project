@@ -274,6 +274,7 @@ $(document).ready(function() {
         });
 
         // expand containers
+//        $('#text-input').animate({'height':'100px','max-height':'100px'});
         $('.rep-color-band').animate({'height':'850px'}); //220
         $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
 
