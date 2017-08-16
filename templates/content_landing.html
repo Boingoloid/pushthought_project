@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/content-landing.css' %}">
+<link rel="stylesheet" href="{% static 'css/signin.css' %}">
 {% endblock %}
 {% block title %}Push Thought-Browse{% endblock %}
 
@@ -61,13 +62,13 @@
             {% else %}
                 <div class="zip-capture">
             {% endif %}
-{#                    <div class="location-label">Current Location:</div>#}
-{#                    <img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
-{#                    <div class="or-label">---  or  ---</div>#}
+                    {#<div class="location-label">Current Location:</div>#}
+                    {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
+                    {#<div class="or-label">---  or  ---</div>#}
                     <div class="zip-label">Zip Code:</div>
-                    <button class="submit-zip">Submit</button>
+                        <button class="submit-zip">Submit</button>
                     <div class='zip-loader'  id="zip-loader"></div>
-                    <input class="zip-input" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
+                    <input class="zip-input" id="{{ request.session.zip }}" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
                 </div>
             <div class="rep-container">
                 {% if hasCongressData %}
@@ -109,6 +110,7 @@
                         </div>
                         <div class="action-panel-container" id="{{forloop.counter}}">
                             <div class="action-panel">
+
                                 {% if item.twitter_id %}
                                     <div class="twitter-name" id="twitter-name-{{forloop.counter}}" name="{{ item.bioguide_id }}">@{{item.twitter_id}}</div>
                                     <img class="twitter-icon" id="{{forloop.counter}}" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
@@ -129,7 +131,17 @@
                     {% endfor %}
                 {% endif %}
             </div> <!--close rep container-->
+                    <!--here is the container that I'm having problems with b/c it shows zero height.  removing it helps, but then I lose control-->
+                    <!--I use this container to make the messaging elements appear and disappear.-->
             <div class="rep-action-container">
+                <!--{% if user.is_authenticated %}-->
+                <!--{% else %}-->
+                    <!--{% load account socialaccount %}-->
+                    <!--{% get_providers as socialaccount_providers %}-->
+                    <!--<ul class="socialaccount_providers">-->
+                        <!--{% include "socialaccount/snippets/provider_list.html" with process="login" %}-->
+                    <!--</ul>-->
+                <!--{% endif %}-->
                 <img id="close-button"src="{% static 'img/x-mark-gray.png' %}" width="20" height="20">
                 <div id="text-tweet-block">
                     <div style="display:block">
@@ -152,18 +164,15 @@
                         <!--<img id="img-checked-box" src="{% static 'img/check-circle-gray2.png' %}" width="20" height="20">-->
                         <p id="link-included" >content link included automatically</p>
                         <!--<p style="font-size:12pt;" id="link-included">automatically</p>-->
-{#                        <button id="clear-button">Clear</button>#}
+                        {#<button id="clear-button">Clear</button>#}
                         <div class="warning-box">
-{#                            <p class="warning-text">link always included</p>#}
-{#                            <p class="warning-text">for context</p>#}
+                        {#<p class="warning-text">link always included</p>#}
+                        {#<p class="warning-text">for context</p>#}
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="email-action-container">
-
-
             </div>
         </div>
     </div>

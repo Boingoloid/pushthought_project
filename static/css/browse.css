@@ -73,7 +73,13 @@
   border-radius: 5px;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
   min-width:200px;
-    min-height:250px;
+  /*min-height:240px;*/
+  height:auto;
+}
+
+.program-item p{
+  color: white;
+  font-size: 14px;
 }
 
 .program-item:hover{
@@ -104,11 +110,7 @@
 }
 
 
-.program-item p{
-  color: white;
-  font-size: 14px;
 
-}
 
 
 .program-img-container{
@@ -117,10 +119,10 @@
 
 .program-item-image{
   display: inline;
-  height: 160px;
-  min-height: 160px;
-  width: 115px;
-  min-width: 115px;
+  height: 125px;
+  min-height: 125px;
+  width: 90px;
+  min-width: 90px;
   margin:auto;
 }
 
@@ -172,7 +174,7 @@
 
 .runtime{
   position: absolute;
-  top:125px;
+  top:87px;
   left: 29px;
   font-size:16px;
   color:gray;
@@ -180,8 +182,8 @@
 
 .runtime-label{
   position: absolute;
-  top:140px;
-  left: 20px;
+  top:108px;
+  left: 16px;
   color: gray;
   font-size: 14;
 }
