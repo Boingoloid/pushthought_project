@@ -27,31 +27,31 @@
         {% include "socialaccount/snippets/provider_list.html" with process="login" %}
       </ul>
 
-      </br><div class="login-or" style="font-size:16px;">{% trans '(or)' %}</div></br>
-        <div style="margin-left:40px; font-size:18px; font-weight:300;">Don't have an account? <a style="cursor:pointer; font-weight:400; letter-spacing: 1.1;" href="{{ signup_url }}">SIGN UP </a></br></br>
-        </div>
-    </div>
-    <div class="login-or" style="font-size:16px;">{% trans '(or)' %}</div></br>
-    <div style="font-size:24px; margin-left:40px;">
-        Log In:
-        {% include "socialaccount/snippets/login_extra.html" %}
-    </div>
+      <!--</br><div class="login-or" style="font-size:16px;">{% trans '(or)' %}</div></br>-->
+        <!--<div style="margin-left:40px; font-size:18px; font-weight:300;">Don't have an account? <a style="cursor:pointer; font-weight:400; letter-spacing: 1.1;" href="{{ signup_url }}">SIGN UP </a></br></br>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="login-or" style="font-size:16px;">{% trans '(or)' %}</div></br>-->
+    <!--<div style="font-size:24px; margin-left:40px;">-->
+        <!--Log In:-->
+        <!--{% include "socialaccount/snippets/login_extra.html" %}-->
+    <!--</div>-->
 
-    {% else %}
-    <p>{% blocktrans %}If you have not created an account yet, then please
-    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-    {% endif %}
+    <!--{% else %}-->
+    <!--<p>{% blocktrans %}If you have not created an account yet, then please-->
+    <!--<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>-->
+    <!--{% endif %}-->
 
-    <form class="login" method="POST" style="font-size:14pt; margin-left:40px;" action="{% url 'account_login' %}">
-      {% csrf_token %}
-      {{ form.as_p }}
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-      {% endif %}
+    <!--<form class="login" method="POST" style="font-size:14pt; margin-left:40px;" action="{% url 'account_login' %}">-->
+      <!--{% csrf_token %}-->
+      <!--{{ form.as_p }}-->
+      <!--{% if redirect_field_value %}-->
+      <!--<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />-->
+      <!--{% endif %}-->
 
-      <button class="primaryAction btn-primary" style="width:200px;" type="submit">{% trans "Log In" %}</button></br></br>
-    <a class="button secondaryAction"  href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+      <!--<button class="primaryAction btn-primary" style="width:200px;" type="submit">{% trans "Log In" %}</button></br></br>-->
+    <!--<a class="button secondaryAction"  href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>-->
 
-    </form>
+    <!--</form>-->
 </div>
 {% endblock %}
