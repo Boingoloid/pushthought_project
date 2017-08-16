@@ -430,7 +430,7 @@ function runEmail(bioguideId){
     });
 
     //////////////////////////////////////////////////////
-    // Validate email
+    // Validate email field
     //////////////////////////////////////////////////////
     if (validationResult){
         function validateEmail(email) {
@@ -460,12 +460,12 @@ function runEmail(bioguideId){
     var programId = $('#programId').text();
     var stringJson = JSON.stringify({
         "bio_id": bioguideId,
-//        "program_id": programId,
+        "program_id": programId,
         "fields": formDataDictionary
     });
     console.log("showing json string to send to API", stringJson);
 
-    /*
+
 
     $.ajax({url: "/submit_congress_email/",
         type: "POST",
@@ -521,6 +521,6 @@ function runEmail(bioguideId){
         error: function() {
         }
     });
-    */
+
 }
 
