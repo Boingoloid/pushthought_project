@@ -298,8 +298,6 @@ def submit_congress_email(request):
     return send_response_object
 
 
-
-
 def submit_congress_captcha(request):
     print request.body
 

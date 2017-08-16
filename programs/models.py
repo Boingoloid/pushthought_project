@@ -29,8 +29,10 @@ class Program(CounterMixin, TimeStampedModel):
     imdb_id = models.CharField(max_length=10, blank=True, null=True, unique=True)
     runtime = models.IntegerField()
     type = models.CharField(max_length=100)
-    objects = ProgramManager()
+    url = models.URLField(blank=True)
     users = models.IntegerField(default=0)
+
+    objects = ProgramManager()
 
     def __str__(self):
         return self.title
@@ -64,10 +66,15 @@ class Episode(TimeStampedModel):
         return ' {} episode {}'.format(self.season, self.number)
 
 
-class Segment(models.Model):
+class Segment(TimeStampedModel):
     program = models.ForeignKey('Program')
     episode = models.ForeignKey('Episode', blank=True, null=True)
     duration = models.IntegerField()
 
     def __str__(self):
         return '{}'.format(self.program)
+
+
+class Video(TimeStampedModel):
+    title = models.CharField(max_length=100)
+    description = models.TextField()

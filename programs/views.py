@@ -1,29 +1,28 @@
 import requests
 import json
+import re
 from imdbpie import Imdb
 
 from django.shortcuts import render
 from django.views.generic import DetailView, View
-from django.http.response import HttpResponse
-from django.http import Http404
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.conf import settings
+from django.contrib import messages
 
 from utils.helper import url_to_model_field
+from youtube.quickstart import videos_list_by_id
 
 from . import models, forms
-
-# to be removed:
-from pushthought.views import views
 
 
 class SearchIMDBProgramTitleView(View):
     def get(self, request, *args, **kwargs):
-        q = kwargs.get('q', '')
+        q = request.GET.get('q', '')
         results = None
 
         if q:
             imdb = Imdb(anonymize=True)
-            results = imdb.search_for_title(q)
+            results = imdb.search_for_title(q)[:5]
 
         return HttpResponse(results)
 
@@ -32,28 +31,38 @@ class SearchIMDBProgramIDView(View):
     form = forms.ProgramForm
 
     def get(self, request, *args, **kwargs):
-        q = request.GET.get('q', '')
+        id = self.parse_imdb_id()
 
-        if not q:
-            return HttpResponse('', status=200)
+        if not id:
+            return self.get_redirect_to_ref()
 
-        data = self.get_imdb_data(q)
-        existing_program = self.get_program(data.imdb_id)
+        data = self.get_imdb_data(id)
 
-        if existing_program:
-            return HttpResponse('exists', status=200)
+        if not data:
+            return self.get_redirect_to_ref()
 
-        self.save_form(data)
+        program = self.get_program(data.imdb_id)
 
-        return HttpResponse('created', status=201)
+        if not program:
+            program = self.save_form(data)
+
+        return HttpResponseRedirect(program.get_absolute_url())
+
+    def parse_imdb_id(self):
+        q = self.request.GET.get('q', '')
+        pattern = 'www\.imdb\.com\/title\/(\w+)'
+        id = re.findall(pattern, q)
+        if len(id) == 0:
+            return False
+        return id[0]
 
     def get_imdb_data(self, q):
         imdb = Imdb(anonymize=True)
         try:
             result = imdb.get_title_by_id(q)
         except requests.HTTPError:
-            raise Http404
-        print result
+            result = None
+
         return result
 
     def get_program(self, imdb_id):
@@ -68,6 +77,56 @@ class SearchIMDBProgramIDView(View):
         if program_form.is_valid():
             program = program_form.save()
             url_to_model_field(data.poster_url, program.image)
+            return program
+
+    def get_redirect_to_ref(self):
+        url = self.request.META.get('HTTP_REFERER')
+        messages.add_message(self.request, messages.WARNING, 'Your program not found!')
+        return HttpResponseRedirect(url)
+
+class AddYoutubeProgramIDView(View):
+    form = forms.ProgramForm
+
+    def get(self, request, *args, **kwargs):
+        id = request.GET.get('id', '')
+
+        if not id:
+            return HttpResponse('', status=200)
+
+        data = videos_list_by_id(id)
+        existing_program = self.get_program(data['items'][0]['snippet']['title'])
+
+        if existing_program:
+            return HttpResponse('exists', status=200)
+
+        self.save_form(data)
+
+        return HttpResponse('created', status=201)
+
+    def get_program(self, imdb_id):
+        try:
+            program = models.Program.objects.get(imdb_id=imdb_id)
+            return program
+        except models.Program.DoesNotExist:
+            return None
+
+    def save_form(self, data):
+        program_form = self.form(data.__dict__)
+        if program_form.is_valid():
+            program = program_form.save()
+            url_to_model_field(data.poster_url, program.image)
+
+
+
+class SearchYoutubeProgramTitleView(View):
+    def get(self, request, *args, **kwargs):
+        q = request.GET.get('q', '')
+        results = None
+
+        # if q:
+        #     a = youtube_search(q, 25)
+
+        return HttpResponse(results)
 
 
 class ProgramDetailView(DetailView):

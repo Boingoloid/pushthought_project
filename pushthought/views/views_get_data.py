@@ -434,6 +434,7 @@ def save_email_congress_action(request):
 
 
 def save_congress_email_fields_to_user(request):
+
     print request
     try:
         current_user = request.session['currentUser']
@@ -466,6 +467,7 @@ def save_congress_email_fields_to_user(request):
         result = json.loads(connection.getresponse().read())
         print "result of save emailFields to user:", result
 
+        print "hijacking save_congress_email_fields_to_user"
 
 
 #helper
