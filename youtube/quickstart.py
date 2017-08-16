@@ -17,7 +17,7 @@ service = get_authenticated_service(args)
 
 def videos_list_by_id(id):
   results = service.videos().list(
-      part='snippet',
+      part='snippet,contentDetails',
       id=id
   ).execute()
 

@@ -26,9 +26,10 @@ class Program(CounterMixin, TimeStampedModel):
     title = models.CharField(max_length=100)
     plot_outline = models.TextField()
     image = models.ImageField(blank=True, null=True)
-    imdb_id = models.CharField(max_length=10, blank=True, null=True, unique=True)
+    imdb_id = models.CharField(max_length=10, blank=True, null=True)
     runtime = models.IntegerField()
     type = models.CharField(max_length=100)
+    youtube_id = models.CharField(max_length=15, blank=True, null=True)
     url = models.URLField(blank=True)
     users = models.IntegerField(default=0)
 
@@ -48,33 +49,31 @@ class Program(CounterMixin, TimeStampedModel):
     def get_absolute_url(self):
         return reverse('programs:detail', args=[str(self.id)])
 
-
-
-class Season(TimeStampedModel):
-    program = models.ForeignKey('Program')
-    number = models.PositiveSmallIntegerField()
-
-    def __str__(self):
-        return '{} season {}'.format(self.program, self.number)
-
-
-class Episode(TimeStampedModel):
-    season = models.ForeignKey('Season')
-    number = models.PositiveSmallIntegerField()
-
-    def __str__(self):
-        return ' {} episode {}'.format(self.season, self.number)
-
-
-class Segment(TimeStampedModel):
-    program = models.ForeignKey('Program')
-    episode = models.ForeignKey('Episode', blank=True, null=True)
-    duration = models.IntegerField()
-
-    def __str__(self):
-        return '{}'.format(self.program)
-
-
-class Video(TimeStampedModel):
-    title = models.CharField(max_length=100)
-    description = models.TextField()
+#
+#
+# class Season(TimeStampedModel):
+#     program = models.ForeignKey('Program')
+#     number = models.PositiveSmallIntegerField()
+#
+#     def __str__(self):
+#         return '{} season {}'.format(self.program, self.number)
+#
+#
+# class Episode(TimeStampedModel):
+#     season = models.ForeignKey('Season')
+#     number = models.PositiveSmallIntegerField()
+#
+#     def __str__(self):
+#         return ' {} episode {}'.format(self.season, self.number)
+#
+#
+# class Segment(TimeStampedModel):
+#     program = models.ForeignKey('Program', blank=True, null=True)
+#     episode = models.ForeignKey('Episode', blank=True, null=True)
+#     duration = models.IntegerField()
+#     title = models.CharField(max_length=100)
+#     description = models.TextField()
+#     url = models.URLField(blank=True, null=True)
+#
+#     def __str__(self):
+#         return '{}'.format(self.program)
