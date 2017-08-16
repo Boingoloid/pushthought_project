@@ -95,7 +95,7 @@
     <script src="{% static 'el-pagination/js/el-pagination.js' %}"></script>
     <script>$.endlessPaginate();</script>
     <script>
-        imdb_id_search_url = '{% url 'programs:add_imdb_id' %}'
+        imdb_id_search_url = '{% url 'programs:parse_program' %}'
     </script>
     <script src="{% static 'js/browse/imdb_search.js' %}"></script>
 {% endblock %}

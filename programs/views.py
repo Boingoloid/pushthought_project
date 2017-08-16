@@ -27,7 +27,7 @@ class SearchIMDBProgramTitleView(View):
         return HttpResponse(results)
 
 
-class SearchIMDBProgramIDView(View):
+class ParseProgramIDView(View):
     form = forms.ProgramForm
 
     def get(self, request, *args, **kwargs):
@@ -46,11 +46,17 @@ class SearchIMDBProgramIDView(View):
             snippet = data['items'][0]['snippet']
             title = '{} ({})'.format(snippet['title'], snippet['channelTitle'])
             runtime = self.parse_runtime(data['items'][0]['contentDetails']['duration'])
+
+            try:
+                poster_url = snippet['thumbnails']['standard']['url']
+            except KeyError:
+                poster_url = ''
+
             data = {
                 'title': title,
-                'plot_outline': snippet['description'],
+                'plot_outline': '', #snippet['description'],
                 'runtime': runtime,
-                'poster_url': snippet['thumbnails']['standard']['url'],
+                'poster_url': poster_url,
                 'type': 'webvideo',
                 'youtube_id': youtube_id,
             }
@@ -138,40 +144,6 @@ class SearchIMDBProgramIDView(View):
         url = self.request.META.get('HTTP_REFERER')
         messages.add_message(self.request, messages.WARNING, 'Your program not found!')
         return HttpResponseRedirect(url)
-
-
-class AddYoutubeProgramIDView(View):
-    form = forms.ProgramForm
-
-    def get(self, request, *args, **kwargs):
-        id = request.GET.get('id', '')
-
-        if not id:
-            return HttpResponse('', status=200)
-
-        data = videos_list_by_id(id)
-        existing_program = self.get_program(data['items'][0]['snippet']['title'])
-
-        if existing_program:
-            return HttpResponse('exists', status=200)
-
-        self.save_form(data)
-
-        return HttpResponse('created', status=201)
-
-    def get_program(self, imdb_id):
-        try:
-            program = models.Program.objects.get(imdb_id=imdb_id)
-            return program
-        except models.Program.DoesNotExist:
-            return None
-
-    def save_form(self, data):
-        program_form = self.form(data.__dict__)
-        if program_form.is_valid():
-            program = program_form.save()
-            url_to_model_field(data.poster_url, program.image)
-
 
 
 class SearchYoutubeProgramTitleView(View):

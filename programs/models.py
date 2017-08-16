@@ -23,8 +23,8 @@ class ProgramManager(models.Manager):
 
 
 class Program(CounterMixin, TimeStampedModel):
-    title = models.CharField(max_length=100)
-    plot_outline = models.TextField()
+    title = models.CharField(max_length=200)
+    plot_outline = models.TextField(blank=True)
     image = models.ImageField(blank=True, null=True)
     imdb_id = models.CharField(max_length=10, blank=True, null=True)
     runtime = models.IntegerField()
