@@ -27,21 +27,44 @@ class SearchIMDBProgramTitleView(View):
         return HttpResponse(results)
 
 
-class SearchIMDBProgramIDView(View):
+class ParseProgramIDView(View):
     form = forms.ProgramForm
 
     def get(self, request, *args, **kwargs):
-        id = self.parse_imdb_id()
+        imdb_id = self.parse_imdb_id()
+        youtube_id = self.parse_youtube_id()
 
-        if not id:
+        if not imdb_id and not youtube_id:
             return self.get_redirect_to_ref()
 
-        data = self.get_imdb_data(id)
+        if imdb_id:
+            data = self.get_imdb_data(imdb_id)
+            program_filter = dict(imdb_id=data.imdb_id)
+        else:
+            data = self.get_youtube_data(youtube_id)
+            program_filter = dict(youtube_id=youtube_id)
+            snippet = data['items'][0]['snippet']
+            title = '{} ({})'.format(snippet['title'], snippet['channelTitle'])
+            runtime = self.parse_runtime(data['items'][0]['contentDetails']['duration'])
+
+            try:
+                poster_url = snippet['thumbnails']['standard']['url']
+            except KeyError:
+                poster_url = ''
+
+            data = {
+                'title': title,
+                'plot_outline': '', #snippet['description'],
+                'runtime': runtime,
+                'poster_url': poster_url,
+                'type': 'webvideo',
+                'youtube_id': youtube_id,
+            }
 
         if not data:
             return self.get_redirect_to_ref()
 
-        program = self.get_program(data.imdb_id)
+        program = self.get_program(program_filter)
 
         if not program:
             program = self.save_form(data)
@@ -50,72 +73,77 @@ class SearchIMDBProgramIDView(View):
 
     def parse_imdb_id(self):
         q = self.request.GET.get('q', '')
-        pattern = 'www\.imdb\.com\/title\/(\w+)'
+        pattern = 'imdb\.com\/title\/(\w+)'
         id = re.findall(pattern, q)
         if len(id) == 0:
             return False
         return id[0]
 
-    def get_imdb_data(self, q):
+    def parse_youtube_id(self):
+        q = self.request.GET.get('q', '')
+        pattern = 'youtube\.com\/watch\?v=(.{11})'
+        id = re.findall(pattern, q)
+        if len(id) == 0:
+            return False
+        return id[0]
+
+    @staticmethod
+    def parse_runtime(duration):
+        pattern = '^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$'
+        match = re.findall(pattern, duration)[0]
+        minutes = match[1]
+        hours = match[0]
+        runtime = 0
+
+        if minutes:
+            runtime = int(minutes)
+
+        if hours:
+            runtime += 60 * int(hours)
+
+        return runtime
+
+    def get_imdb_data(self, id):
         imdb = Imdb(anonymize=True)
         try:
-            result = imdb.get_title_by_id(q)
+            result = imdb.get_title_by_id(id)
         except requests.HTTPError:
             result = None
 
         return result
 
-    def get_program(self, imdb_id):
+    def get_youtube_data(self, id):
         try:
-            program = models.Program.objects.get(imdb_id=imdb_id)
+            result = videos_list_by_id(id)
+        except:
+            result = None
+
+        return result
+
+    def get_program(self, filter):
+        try:
+            program = models.Program.objects.get(**filter)
             return program
         except models.Program.DoesNotExist:
             return None
 
     def save_form(self, data):
-        program_form = self.form(data.__dict__)
+        try:
+            data = data.__dict__
+            poster_url = data.poster_url
+        except AttributeError:
+            poster_url = data['poster_url']
+
+        program_form = self.form(data)
         if program_form.is_valid():
             program = program_form.save()
-            url_to_model_field(data.poster_url, program.image)
+            url_to_model_field(poster_url, program.image)
             return program
 
     def get_redirect_to_ref(self):
         url = self.request.META.get('HTTP_REFERER')
         messages.add_message(self.request, messages.WARNING, 'Your program not found!')
         return HttpResponseRedirect(url)
-
-class AddYoutubeProgramIDView(View):
-    form = forms.ProgramForm
-
-    def get(self, request, *args, **kwargs):
-        id = request.GET.get('id', '')
-
-        if not id:
-            return HttpResponse('', status=200)
-
-        data = videos_list_by_id(id)
-        existing_program = self.get_program(data['items'][0]['snippet']['title'])
-
-        if existing_program:
-            return HttpResponse('exists', status=200)
-
-        self.save_form(data)
-
-        return HttpResponse('created', status=201)
-
-    def get_program(self, imdb_id):
-        try:
-            program = models.Program.objects.get(imdb_id=imdb_id)
-            return program
-        except models.Program.DoesNotExist:
-            return None
-
-    def save_form(self, data):
-        program_form = self.form(data.__dict__)
-        if program_form.is_valid():
-            program = program_form.save()
-            url_to_model_field(data.poster_url, program.image)
-
 
 
 class SearchYoutubeProgramTitleView(View):

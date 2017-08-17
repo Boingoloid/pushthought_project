@@ -20,27 +20,27 @@
 
 
 
-<div class="intro-header intro-header-landing">
-    <div class="container container-text-white">
-        <div class="content-wrapper">
-            <div class="content-info-left">
-                <h1>{{ object.title }}</h1>
-                <p class="description">{{ object.plot_outline }}</p>
-                    <div class="seen-it-container">
-                        <h2 style="color:red; font-weight:600; font-size:20px;">Already seen it?</h2>
-                        <h3>Share with purpose below...</h3>
-                    </div>
-            </div>
-            <div class="content-info-right">
-                <div class="div-title-image">
-                    <img class='img program-item-image img-landing-title'
-                         id='program-item-image'
-                         src='{{ object.image.url }}'>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div class="intro-header intro-header-landing">-->
+    <!--<div class="container container-text-white">-->
+        <!--<div class="content-wrapper">-->
+            <!--<div class="content-info-left">-->
+                <!--<h1>{{ object.title }}</h1>-->
+                <!--<p class="description">{{ object.plot_outline }}</p>-->
+                    <!--<div class="seen-it-container">-->
+                        <!--<h2 style="color:red; font-weight:600; font-size:20px;">Already seen it?</h2>-->
+                        <!--<h3>Share with purpose below...</h3>-->
+                    <!--</div>-->
+            <!--</div>-->
+            <!--<div class="content-info-right">-->
+                <!--<div class="div-title-image">-->
+                    <!--<img class='img program-item-image img-landing-title'-->
+                         <!--id='program-item-image'-->
+                         <!--src='{{ object.image.url }}'>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 <div class="container-standard">
     <div class="rep-color-band">
         <div class="container-standard category-container">
@@ -60,7 +60,7 @@
             {% if hasCongressData %}
                 <div class="zip-capture" style="display:none">
             {% else %}
-                <div class="zip-capture">
+                <div class="zip-capture" style="margin-top:100px;">
             {% endif %}
                     {#<div class="location-label">Current Location:</div>#}
                     {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
@@ -177,39 +177,39 @@
         </div>
     </div>
 
-    <div class="container-standard">
-        <div class="hashtag-container">
-            <div class="hashtag-header">
-                    <p><span style="color:gray">#| </span></p>
-            </div>
-            {% for item in object.hashtagcounter_set.all %}
-                <div class='hashtag-item' id="hashtag-item">
-                    <div id="copied-to-clipboard">Copied to Clipboard</div>
-                    #{{item.hashtag.name}} | {{item.counter}}
-                </div>
-                <div id="copied-to-clipboard">Copied to Clipboard</div>
-            {% endfor %}
-        </div>
-    </div>
+    <!--<div class="container-standard">-->
+        <!--<div class="hashtag-container">-->
+            <!--<div class="hashtag-header">-->
+                    <!--<p><span style="color:gray">#| </span></p>-->
+            <!--</div>-->
+            <!--{% for item in object.hashtagcounter_set.all %}-->
+                <!--<div class='hashtag-item' id="hashtag-item">-->
+                    <!--<div id="copied-to-clipboard">Copied to Clipboard</div>-->
+                    <!--#{{item.hashtag.name}} | {{item.counter}}-->
+                <!--</div>-->
+                <!--<div id="copied-to-clipboard">Copied to Clipboard</div>-->
+            <!--{% endfor %}-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <div class="container-standard">
-        <div class="message-container">
-            <div class="tweet-header">
-                <p><span style="color:gray">Tweets|</span></p>
-            </div>
-            <div class="tweet-container">
-                {% for item in object.actions.all %}
-                    {% if item.tweet %}
-                        <div class="tweet-item">
-                            <div id="copied-to-clipboard">Copied to Clipboard</div>
-                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.username}}</p></div>
-                            <div class="tweet">{{item.tweet.text}}</div>
-                        </div>
-                    {% endif %}
-               {% endfor %}
-            </div> <!--close tweet container-->
-        </div>
-    </div>
+    <!--<div class="container-standard">-->
+        <!--<div class="message-container">-->
+            <!--<div class="tweet-header">-->
+                <!--<p><span style="color:gray">Tweets|</span></p>-->
+            <!--</div>-->
+            <!--<div class="tweet-container">-->
+                <!--{% for item in object.actions.all %}-->
+                    <!--{% if item.tweet %}-->
+                        <!--<div class="tweet-item">-->
+                            <!--<div id="copied-to-clipboard">Copied to Clipboard</div>-->
+                            <!--<div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.username}}</p></div>-->
+                            <!--<div class="tweet">{{item.tweet.text}}</div>-->
+                        <!--</div>-->
+                    <!--{% endif %}-->
+               <!--{% endfor %}-->
+            <!--</div> &lt;!&ndash;close tweet container&ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
 </div><!-- /.intro-header -->
 
 {% endblock %}
@@ -225,5 +225,3 @@
 
 {% csrf_token %}
 {% endblock %}
-
-

@@ -35,6 +35,17 @@ class HomeView(TemplateView):
         return context
 
 
+class ContactImmediatelyView(TemplateView):
+    template_name = 'contact_immediately.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ContactImmediatelyView, self).get_context_data(**kwargs)
+        #
+        # if self.request.session.get('alertList'):
+        #     context['alertList'] = self.request.session['alertList']
+        #     del self.request.session['alertList']
+        return context
+
 
 @page_template("inserts/documentaries.html")
 @page_template('inserts/webvideos.html', key='other_entries_page')
@@ -78,18 +89,18 @@ def submit_congress_email_view(request):
     if send_response_object:
         if status == 'success':
             print "email was sent"
-            save_congress_email_fields_to_user(request)
-            save_email_congress_action(request)
+            # save_congress_email_fields_to_user(request)
+            # save_email_congress_action(request)
         elif status == 'captcha_needed':
             # save email, needs captcha to true, then exclude them.  or save to different table
             print "captcha_needed"
-            save_congress_email_fields_to_user(request)
+            # save_congress_email_fields_to_user(request)
         elif status == 'error':
             print "ERROR submit congress failed: error message returned:" + send_response_object['message']
         return HttpResponse(json.dumps(send_response_object), content_type="application/json")
     else:
         print "ERROR: submit congress failed, no object returned from phantom congress"
-        return HttpResponse(json.dumps({"status": "error", "message": "timeout, no response from phantom congress"}),content_type="application/json")
+        return HttpResponse(json.dumps({"status": "error", "message": "timeout, no response from email server"}),content_type="application/json")
         # captcha_crush(request, send_response_object)
 
 
