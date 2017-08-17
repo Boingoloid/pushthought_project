@@ -15,6 +15,8 @@ class CongressSerializer(serializers.ModelSerializer):
         super(CongressSerializer, self).__init__(instance, data, **kwargs)
 
     def get_sent_messages_count(self, obj):
+        if not self.program_id:
+            return 0
         try:
             counter = obj.congresscounter_set.get(program=self.program_id).counter
         except models.CongressCounter.DoesNotExist:
