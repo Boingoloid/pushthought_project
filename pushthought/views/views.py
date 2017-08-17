@@ -35,6 +35,17 @@ class HomeView(TemplateView):
         return context
 
 
+class ContactImmediatelyView(TemplateView):
+    template_name = 'contact_immediately.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ContactImmediatelyView, self).get_context_data(**kwargs)
+        #
+        # if self.request.session.get('alertList'):
+        #     context['alertList'] = self.request.session['alertList']
+        #     del self.request.session['alertList']
+        return context
+
 
 @page_template("inserts/documentaries.html")
 @page_template('inserts/webvideos.html', key='other_entries_page')
