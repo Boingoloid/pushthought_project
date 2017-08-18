@@ -470,6 +470,7 @@ text-tweet-block{
   max-height: 63px;*/
   margin-top: 1px;
   letter-spacing:1.15;
+  font-size:12pt;
   font-weight:200;
   color: white;
   white-space: pre-wrap;

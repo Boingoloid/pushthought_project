@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^browse/$', views.browse_view, name='browse'),
     url(r'^contact_immediately/$', views.ContactImmediatelyView.as_view(), name='contact_immediately'),
     url(r'^create_campaign/$', views.CreateCampaignView.as_view(), name='create_campaign'),
+    url(r'^campaign_landing/$', views.CampaignLandingView.as_view(), name='campaign_landing'),
     # url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
 
     url(r'^accounts/twitter/login/callback/$', oauth_callback, name='twitter_callback'),

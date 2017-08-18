@@ -54,6 +54,14 @@ class CreateCampaignView(TemplateView):
 
         return context
 
+class CampaignLandingView(TemplateView):
+    template_name = 'campaign_landing.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CampaignLandingView, self).get_context_data(**kwargs)
+
+        return context
+
 
 @page_template("inserts/documentaries.html")
 @page_template('inserts/webvideos.html', key='other_entries_page')
