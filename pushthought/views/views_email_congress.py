@@ -93,193 +93,193 @@ def get_congress_email_fields_phantom(bioguideArray):
 
 
 
-def save_failures(missing_bioguides,phantom_required_objects):
-    failures_array = []
+# def save_failures(missing_bioguides,phantom_required_objects):
+#     failures_array = []
+#
+#     for item in missing_bioguides:
+#         found = False
+#         for phantom_object in phantom_required_objects:
+#             # print phantom_object
+#             if item == phantom_object[0]['bioguideId']:
+#                 found = True
+#         if not found:
+#             failures_array.append(item)
+#     # print "not in phantom_array", failures_array
+#
+#     for phantom_object in failures_array:
+#         connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+#         connection.connect()
+#         connection.request('POST', '/parse/classes/CongressEmailFieldsUpdateLog',
+#                            json.dumps({
+#                                "bioguideId": item
+#                            }),
+#                            {
+#                                "X-Parse-Application-Id": PARSE_APP_ID,
+#                                "X-Parse-REST-API-Key": PARSE_REST_KEY,
+#                                "Content-Type": "application/json"
+#                            })
+#         result = json.loads(connection.getresponse().read())
+#         print "save result for saving failed bioguides:", result
+#     return None
 
-    for item in missing_bioguides:
-        found = False
-        for phantom_object in phantom_required_objects:
-            # print phantom_object
-            if item == phantom_object[0]['bioguideId']:
-                found = True
-        if not found:
-            failures_array.append(item)
-    # print "not in phantom_array", failures_array
+# def failedBeforePhantomEmails(bioguide):
+#     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+#     connection.connect()
+#     params = urllib.urlencode({"where": json.dumps({
+#         "bioguideId": {"$in": bioguide}
+#     })})
+#     connection.request('GET', '/parse/classes/CongressEmailFieldsUpdateLog?%s' % params,
+#                        '',
+#                        {
+#                            "X-Parse-Application-Id": PARSE_APP_ID,
+#                            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+#                            "Content-Type": "application/json"
+#                        })
+#     result = json.loads(connection.getresponse().read())
+#     print "get required fields_parse result", result['results']
+#     return result['results']
+#     return True
 
-    for phantom_object in failures_array:
-        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-        connection.connect()
-        connection.request('POST', '/parse/classes/CongressEmailFieldsUpdateLog',
-                           json.dumps({
-                               "bioguideId": item
-                           }),
-                           {
-                               "X-Parse-Application-Id": PARSE_APP_ID,
-                               "X-Parse-REST-API-Key": PARSE_REST_KEY,
-                               "Content-Type": "application/json"
-                           })
-        result = json.loads(connection.getresponse().read())
-        print "save result for saving failed bioguides:", result
-    return None
+# def get_missing_bioguides(bioguideArray,required_fields_objects):
+#     missing_bioguide_array = []
+#
+#     for item in bioguideArray:
+#         found = False
+#         for item2 in required_fields_objects:
+#             if item == item2['bioguideId']:
+#                 found = True
+#         if not found:
+#             missing_bioguide_array.append(item)
+#     print "missing_bioguide_array", missing_bioguide_array
+#
+#
+#     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+#     connection.connect()
+#     params = urllib.urlencode({"where":json.dumps({
+#            "bioguideId": {"$in": missing_bioguide_array}
+#          })})
+#     connection.request('GET', '/parse/classes/CongressRequiredEmailFieldsPhantomFailList?%s' % params,
+#                        '',
+#                        {
+#                            "X-Parse-Application-Id": PARSE_APP_ID,
+#                            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+#                            "Content-Type": "application/json"
+#                        })
+#     failedArray = json.loads(connection.getresponse().read())
+#     failedArray = failedArray['results']
+#     print "failedArray", failedArray
+#     still_missing_bioguide_array = []
+#
+#     for item in missing_bioguide_array:
+#         found = False
+#         for item2 in failedArray:
+#             if item == item2['bioguideId']:
+#                 found = True
+#         if not found:
+#             still_missing_bioguide_array.append(item)
+#     print "still_missing_bioguide_array", still_missing_bioguide_array
+#     return still_missing_bioguide_array
 
-def failedBeforePhantomEmails(bioguide):
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection.connect()
-    params = urllib.urlencode({"where": json.dumps({
-        "bioguideId": {"$in": bioguide}
-    })})
-    connection.request('GET', '/parse/classes/CongressEmailFieldsUpdateLog?%s' % params,
-                       '',
-                       {
-                           "X-Parse-Application-Id": PARSE_APP_ID,
-                           "X-Parse-REST-API-Key": PARSE_REST_KEY,
-                           "Content-Type": "application/json"
-                       })
-    result = json.loads(connection.getresponse().read())
-    print "get required fields_parse result", result['results']
-    return result['results']
-    return True
-
-def get_missing_bioguides(bioguideArray,required_fields_objects):
-    missing_bioguide_array = []
-
-    for item in bioguideArray:
-        found = False
-        for item2 in required_fields_objects:
-            if item == item2['bioguideId']:
-                found = True
-        if not found:
-            missing_bioguide_array.append(item)
-    print "missing_bioguide_array", missing_bioguide_array
-
-
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection.connect()
-    params = urllib.urlencode({"where":json.dumps({
-           "bioguideId": {"$in": missing_bioguide_array}
-         })})
-    connection.request('GET', '/parse/classes/CongressRequiredEmailFieldsPhantomFailList?%s' % params,
-                       '',
-                       {
-                           "X-Parse-Application-Id": PARSE_APP_ID,
-                           "X-Parse-REST-API-Key": PARSE_REST_KEY,
-                           "Content-Type": "application/json"
-                       })
-    failedArray = json.loads(connection.getresponse().read())
-    failedArray = failedArray['results']
-    print "failedArray", failedArray
-    still_missing_bioguide_array = []
-
-    for item in missing_bioguide_array:
-        found = False
-        for item2 in failedArray:
-            if item == item2['bioguideId']:
-                found = True
-        if not found:
-            still_missing_bioguide_array.append(item)
-    print "still_missing_bioguide_array", still_missing_bioguide_array
-    return still_missing_bioguide_array
-
-
-def get_congress_required_fields_parse(bioguideArray):
-
-    connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-    connection.connect()
-    params = urllib.urlencode({"where":json.dumps({
-           "bioguideId": {"$in": bioguideArray}
-         })})
-    connection.request('GET', '/parse/classes/CongressRequiredEmailFields?%s' % params,
-                       '',
-                       {
-                           "X-Parse-Application-Id": PARSE_APP_ID,
-                           "X-Parse-REST-API-Key": PARSE_REST_KEY,
-                           "Content-Type": "application/json"
-                       })
-    result = json.loads(connection.getresponse().read())
-    print "get required fields_parse result", result['results']
-    return result['results']
-
-
-
-
-def save_fields(required_fields_object):
-    print "fields_array before save:", required_fields_object
-    # required_fields = required_fields_object[bioguideId]["required_actions"]
-
-    save_result_array = []
-
-    for key,value in required_fields_object.items():
-        bioguide_id = key
-        required_fields = value['required_actions']
-        for field in required_fields:
-            field['value'] = field['value'].replace('$','')
-            if field['value'] == 'NAME_PREFIX':
-                optionsDict = field['options_hash']
-                if isinstance(optionsDict,dict):
-                    # optionsDictNew = {}
-                    for keya, valuea in optionsDict.items():
-                        newKey = keya.replace('.','')
-                        optionsDict[newKey] = optionsDict.pop(keya)
-                    # field['options_hash'] = optionsDictNew
-                elif isinstance(optionsDict,list):
-                    for item in optionsDict:
-                        newItem = item.replace('.','')
-                        item = newItem
-                else:
-                    del field
-            elif field['value'] == 'TOPIC':
-                optionsDict = field['options_hash']
-                try:
-                    for key, value in optionsDict.items():
-                        newKey = key.replace('.', '').replace('   ',' ').replace('/', '').replace(',', '').replace('$','')
-                        optionsDict[newKey] = optionsDict.pop(key)
-                except:
-                    for item in optionsDict:
-                        newItem = item.replace('.', '').replace('   ', ' ').replace('/', '').replace(',', '').replace('$','')
-                        item = newItem
-
-         # Save the entry from phantom congress
-        connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-        connection.connect()
-        connection.request('POST', '/parse/classes/CongressRequiredEmailFields',
-        json.dumps({
-            "bioguideId": bioguide_id,
-            "required_fields": required_fields
-        }),
-       {
-           "X-Parse-Application-Id": PARSE_APP_ID,
-           "X-Parse-REST-API-Key": PARSE_REST_KEY,
-           "Content-Type": "application/json"
-       })
-        result = json.loads(connection.getresponse().read())
-        print "save result for required fields::::::", result
-        # save_result_array.append(result)
+#
+# def get_congress_required_fields_parse(bioguideArray):
+#
+#     connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+#     connection.connect()
+#     params = urllib.urlencode({"where":json.dumps({
+#            "bioguideId": {"$in": bioguideArray}
+#          })})
+#     connection.request('GET', '/parse/classes/CongressRequiredEmailFields?%s' % params,
+#                        '',
+#                        {
+#                            "X-Parse-Application-Id": PARSE_APP_ID,
+#                            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+#                            "Content-Type": "application/json"
+#                        })
+#     result = json.loads(connection.getresponse().read())
+#     print "get required fields_parse result", result['results']
+#     return result['results']
 
 
 
-        # get the entry that was just saved and apppend to array
-        connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
-        connection2.connect()
-        params = urllib.urlencode({"where": json.dumps({
-            "bioguideId": bioguide_id
-        })})
-        connection2.request('GET', '/parse/classes/CongressRequiredEmailFields?%s' % params,
-                            '',
-                            {
-                                "X-Parse-Application-Id": PARSE_APP_ID,
-                                "X-Parse-REST-API-Key": PARSE_REST_KEY,
-                                "Content-Type": "application/json"
-                            })
-        result2 = json.loads(connection2.getresponse().read())
-        result2 = result2['results']
-        print "get required fields_parse result", result2
 
-
-
-        # append the fetched phantom congress, but now parse required fields items.
-        save_result_array.append(result2)
-        return save_result_array
-    return save_result_array
+# def save_fields(required_fields_object):
+#     print "fields_array before save:", required_fields_object
+#     # required_fields = required_fields_object[bioguideId]["required_actions"]
+#
+#     save_result_array = []
+#
+#     for key,value in required_fields_object.items():
+#         bioguide_id = key
+#         required_fields = value['required_actions']
+#         for field in required_fields:
+#             field['value'] = field['value'].replace('$','')
+#             if field['value'] == 'NAME_PREFIX':
+#                 optionsDict = field['options_hash']
+#                 if isinstance(optionsDict,dict):
+#                     # optionsDictNew = {}
+#                     for keya, valuea in optionsDict.items():
+#                         newKey = keya.replace('.','')
+#                         optionsDict[newKey] = optionsDict.pop(keya)
+#                     # field['options_hash'] = optionsDictNew
+#                 elif isinstance(optionsDict,list):
+#                     for item in optionsDict:
+#                         newItem = item.replace('.','')
+#                         item = newItem
+#                 else:
+#                     del field
+#             elif field['value'] == 'TOPIC':
+#                 optionsDict = field['options_hash']
+#                 try:
+#                     for key, value in optionsDict.items():
+#                         newKey = key.replace('.', '').replace('   ',' ').replace('/', '').replace(',', '').replace('$','')
+#                         optionsDict[newKey] = optionsDict.pop(key)
+#                 except:
+#                     for item in optionsDict:
+#                         newItem = item.replace('.', '').replace('   ', ' ').replace('/', '').replace(',', '').replace('$','')
+#                         item = newItem
+#
+#          # Save the entry from phantom congress
+#         connection = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+#         connection.connect()
+#         connection.request('POST', '/parse/classes/CongressRequiredEmailFields',
+#         json.dumps({
+#             "bioguideId": bioguide_id,
+#             "required_fields": required_fields
+#         }),
+#        {
+#            "X-Parse-Application-Id": PARSE_APP_ID,
+#            "X-Parse-REST-API-Key": PARSE_REST_KEY,
+#            "Content-Type": "application/json"
+#        })
+#         result = json.loads(connection.getresponse().read())
+#         print "save result for required fields::::::", result
+#         # save_result_array.append(result)
+#
+#
+#
+#         # get the entry that was just saved and apppend to array
+#         connection2 = httplib.HTTPSConnection('ptparse.herokuapp.com', 443)
+#         connection2.connect()
+#         params = urllib.urlencode({"where": json.dumps({
+#             "bioguideId": bioguide_id
+#         })})
+#         connection2.request('GET', '/parse/classes/CongressRequiredEmailFields?%s' % params,
+#                             '',
+#                             {
+#                                 "X-Parse-Application-Id": PARSE_APP_ID,
+#                                 "X-Parse-REST-API-Key": PARSE_REST_KEY,
+#                                 "Content-Type": "application/json"
+#                             })
+#         result2 = json.loads(connection2.getresponse().read())
+#         result2 = result2['results']
+#         print "get required fields_parse result", result2
+#
+#
+#
+#         # append the fetched phantom congress, but now parse required fields items.
+#         save_result_array.append(result2)
+#         return save_result_array
+#     return save_result_array
 
 def submit_congress_email(request):
     print request.body

@@ -721,6 +721,12 @@ $(document).ready(function() {
         var longestAddressLength = get_longest_address();
         var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength;
 
+        console.log("addressInput:", addressInput);
+        console.log("countAddressInput:", countAddressInput);
+        console.log("countTextInput:", countTextInput);
+        console.log("longestAddressLength:", longestAddressLength);
+        console.log("countRemaining:", countRemaining);
+
         // adjust for line breaks
         numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
         countRemaining = countRemaining - numberOfLineBreaks;
@@ -731,6 +737,18 @@ $(document).ready(function() {
         } else {
             $('.letter-count').css({'color':'gray'});
         }
+    }
+
+        // loop through and find longest address
+    function get_longest_address(){
+        var longestAddressLength = 0;
+        $('.address-item-label:visible').each(function(){
+            var text = $(this).text();
+            if (text.length > longestAddressLength){
+                longestAddressLength = text.length;
+            }
+        });
+        return longestAddressLength;
     }
 
     // TWEET/EMAIL Button

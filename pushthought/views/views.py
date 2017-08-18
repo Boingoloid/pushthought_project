@@ -46,6 +46,14 @@ class ContactImmediatelyView(TemplateView):
         #     del self.request.session['alertList']
         return context
 
+class CreateCampaignView(TemplateView):
+    template_name = 'create_campaign.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateCampaignView, self).get_context_data(**kwargs)
+
+        return context
+
 
 @page_template("inserts/documentaries.html")
 @page_template('inserts/webvideos.html', key='other_entries_page')

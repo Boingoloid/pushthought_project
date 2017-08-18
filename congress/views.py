@@ -14,7 +14,10 @@ class GetCongressData(View):
 
     def get(self, request, zip_code, *args, **kwargs):
         self.zip_code = zip_code
-        program_id = re.findall(r'\/program\/(\d+)', self.request.META['HTTP_REFERER'])[0]
+        try:
+            program_id = re.findall(r'\/program\/(\d+)', self.request.META['HTTP_REFERER'])[0]
+        except IndexError:
+            program_id = None
 
         self.request.session['zip'] = zip_code
         queryset = self.get_congress_data_from_db()
