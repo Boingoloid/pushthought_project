@@ -235,14 +235,3 @@ function setEndOfContenteditable(contentEditableElement)
     }
 }
 
-// loop through and find longest address
-function get_longest_address(){
-    var longestAddressLength = 0;
-    $('.address-item-label:visible').each(function(){
-        var text = $(this).text();
-        if (text.length > longestAddressLength){
-            longestAddressLength = text.length;
-        }
-    });
-    return longestAddressLength;
-}
