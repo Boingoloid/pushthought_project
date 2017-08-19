@@ -16,7 +16,7 @@ class GetCongressData(View):
         self.zip_code = zip_code
         try:
             program_id = re.findall(r'\/program\/(\d+)', self.request.META['HTTP_REFERER'])[0]
-        except IndexError:
+        except IndexError, KeyError:
             program_id = None
 
         self.request.session['zip'] = zip_code
