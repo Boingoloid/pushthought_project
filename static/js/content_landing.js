@@ -1,12 +1,4 @@
-
-
-
-
-
 //testWindow = window.open("popup.php","interaction","resizable=0,width=800,height=600,status=0");
-
-
-
 
 $(document).ready(function() {
 
