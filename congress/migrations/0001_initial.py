@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import django_extensions.db.fields
-import phonenumber_field.modelfields
 
 
 class Migration(migrations.Migration):
@@ -28,8 +27,8 @@ class Migration(migrations.Migration):
                 ('state', models.CharField(max_length=5)),
                 ('oc_email', models.EmailField(max_length=254)),
                 ('title', models.CharField(max_length=20)),
-                ('phone', phonenumber_field.modelfields.PhoneNumberField(max_length=128)),
-                ('fax', phonenumber_field.modelfields.PhoneNumberField(max_length=128)),
+                ('phone', models.CharField(max_length=128)),
+                ('fax', models.CharField(max_length=128)),
                 ('twitter_id', models.CharField(max_length=30)),
                 ('bioguide_id', models.CharField(max_length=30)),
                 ('image', models.ImageField(blank=True, null=True, upload_to=b'')),
