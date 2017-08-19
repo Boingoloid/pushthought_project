@@ -30,7 +30,7 @@ $(document).ready(function() {
         sstring = String(sliced_string);
 
         if($('.rep-action-container').is(":visible") && $('.tweet-button-label').slice( 0, 5 ) == sstring){
-            console.log("returning false");
+            alert("Sorry, you can't paste email text into a tweet.");
             return false;
         }
 

@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/content-landing.css' %}">
+<link rel="stylesheet" href="{% static 'css/campaign-landing.css' %}">
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
 {% endblock %}
 {% block title %}Push Thought-Browse{% endblock %}
@@ -183,12 +184,12 @@
 
     <div class="suggested_message_container">
         <div class="tweet_suggested_message_container">
-            <p>Suggested tweet text <font size="2" color="white">(click to copy)</font> </p>
-            <textarea readonly class="field-input field-suggested-tweet" style="width:500px; margin-left:5px; display:inline; background-color:gray; font-size:12pt; min-height:85px;">hello text&#10;</textarea>
+            <p>Suggested tweet text <font size="2" color="white">(click text area to copy)</font> </p>
+            <textarea readonly class="field-input field-suggested-tweet" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:85px;">hello text&#10;</textarea>
         </div>
         <div class="email_suggested_message_container">
-            <p>Suggested email text <font size="2" color="white">(click to copy)</font> </p>
-            <textarea readonly class="field-input field-suggested-email" style="width:500px; margin-left:5px; display:inline; background-color:gray; font-size:12pt; min-height:200px;">hello text&#10;hellotext&#10;hello&#10;hello</textarea>
+            <p>Suggested email text <font size="2" color="white">(click text area to copy)</font> </p>
+            <textarea readonly class="field-input field-suggested-email" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:200px;">hello text&#10;hellotext&#10;hello&#10;hello</textarea>
         </div>
     </div>
 
