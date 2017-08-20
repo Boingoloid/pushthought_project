@@ -61,12 +61,13 @@
             <div>
                 <p class="field-label field-label-description" style="margin-top:20px; display:block;">URL</p>
                 <p class="field-label field-label-description" style="margin-top:20px; display:inline; font-size:12pt;">www.pushthought/campaigns/</p>
-                <input name="slug" class="field-input field-input-title" style="width:400px; margin-left:5px; display:inline;" required>
+                <input id="slug" name="slug" class="field-input field-input-title" style="width:400px; margin-left:5px; display:inline;" required>
                 <div style="margin-top:10px;">
-                    <button class="btn-md" style="color:black; background:gray;">Check URL</button>
+                    <button id="check_url" class="btn-md" style="color:black; background:gray;">Check URL</button>
+                    <div id="check_result"></div>
                 </div>
                 <div style="margin-top:40px;">
-                    <button class="btn-lg" style="color:black; background:green; font-size:20px;">CREATE CAMPAIGN</button>
+                    <button id="submit" class="btn-lg" style="color:black; background:green; font-size:20px;">CREATE CAMPAIGN</button>
                 </div>
             </div>
         </div>
@@ -79,5 +80,6 @@
 {% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'js/content_landing.js' %}"></script>
+  <script src="{% static 'js/check_campagn.js' %}"></script>
 {% csrf_token %}
 {% endblock %}

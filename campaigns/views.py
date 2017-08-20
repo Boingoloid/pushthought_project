@@ -1,4 +1,5 @@
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView, View
+from django.http import JsonResponse
 
 from . import models, forms
 
@@ -24,3 +25,10 @@ class CampaignCreateView(CreateView):
         context = super(CampaignCreateView, self).get_context_data(**kwargs)
 
         return context
+
+
+class CheckUrl(View):
+    def get(self, request):
+        slug = request.GET.get('slug')
+        exists = models.Campaign.objects.filter(slug=slug).exists()
+        return JsonResponse({'result': exists})
