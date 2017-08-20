@@ -12,6 +12,12 @@ class CampaignDetailView(DetailView):
 class CampaignCreateView(CreateView):
     template_name = 'create_campaign.html'
     model = models.Campaign
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+
+        return super(CampaignCreateView, self).form_valid(form)
+
     form_class = forms.CampaignForm
 
     def get_context_data(self, **kwargs):

@@ -46,6 +46,7 @@ class ContactImmediatelyView(TemplateView):
         #     del self.request.session['alertList']
         return context
 
+
 class CampaignLandingView(TemplateView):
     template_name = 'campaign_landing.html'
 

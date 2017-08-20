@@ -6,4 +6,4 @@ from . import models
 class CampaignForm(forms.ModelForm):
     class Meta:
         model = models.Campaign
-        fields = '__all__'
+        exclude = ('user',)
