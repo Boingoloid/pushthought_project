@@ -46,14 +46,6 @@ class ContactImmediatelyView(TemplateView):
         #     del self.request.session['alertList']
         return context
 
-class CreateCampaignView(TemplateView):
-    template_name = 'create_campaign.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(CreateCampaignView, self).get_context_data(**kwargs)
-
-        return context
-
 class CampaignLandingView(TemplateView):
     template_name = 'campaign_landing.html'
 

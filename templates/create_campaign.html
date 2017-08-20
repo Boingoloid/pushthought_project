@@ -10,7 +10,7 @@
 
 {% block content %}
 
-
+<form method="post">{% csrf_token %}
 <div class="container-standard" style="margin-top:90px; margin-left:30px; margin-bottom:100px;">
     <h2>Create custom campaign for messaging congress </h2>
     <div class="field-group" style="margin-top:40px;">
@@ -18,7 +18,7 @@
             <p class="field-label field-label-title">Campaign Title</p>
         </div>
         <div class="field-input-container">
-            <input class="field-input field-input-title" style="width:400px;">
+            <input name="title" class="field-input field-input-title" style="width:400px;">
         </div>
     </div>
     <div class="field-group">
@@ -26,7 +26,7 @@
             <p class="field-label field-label-description">Description</p>
         </div>
         <div class="field-input-container">
-            <textarea class="field-input field-input-description" style="width:400px; min-height:70px; "></textarea>
+            <textarea name="description" class="field-input field-input-description" style="width:400px; min-height:70px; "></textarea>
         </div>
     </div>
     <div class="field-group">
@@ -34,7 +34,7 @@
             <p class="field-label field-label-image">Image</p>
         </div>
         <div class="field-input-container">
-            <input class="field-input field-input-image" type="file" style="color:white; font-size:12pt;">
+            <input name="image" class="field-input field-input-image" type="file" style="color:white; font-size:12pt;">
         </div>
     </div>
     <div class="field-group">
@@ -47,12 +47,12 @@
                     <p class="field-label field-label-tweet-text">1) Suggested tweet text</p>
                     <p class="field-label field-label-tweet-note" style="font-size:12pt; margin-top:0px;">(max 102 characters)</p>
                     <p class="field-label field-label-image" style="font-size:12pt"></p>
-                    <textarea class="field-input field-input-description" style="width:400px; min-height:70px;"></textarea>
+                    <textarea name="tweet_text" class="field-input field-input-description" style="width:400px; min-height:70px;"></textarea>
                 </div>
                 <div class="suggested-email-container" style="margin-top:20px;">
                     <p class="field-label field-label-tweet-text">2) Suggested email text</p>
                     <p class="field-label field-label-image" style="font-size:12pt"></p>
-                    <textarea class="field-input field-input-description" style="width:400px; min-height:100px; "></textarea>
+                    <textarea name="email_text" class="field-input field-input-description" style="width:400px; min-height:100px; "></textarea>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
             <div>
                 <p class="field-label field-label-description" style="margin-top:20px; display:block;">URL</p>
                 <p class="field-label field-label-description" style="margin-top:20px; display:inline; font-size:12pt;">www.pushthought/campaigns/</p>
-                <input class="field-input field-input-title" style="width:400px; margin-left:5px; display:inline;">
+                <input name="slug" class="field-input field-input-title" style="width:400px; margin-left:5px; display:inline;">
                 <div style="margin-top:10px;">
                     <button class="btn-md" style="color:black; background:gray;">Check URL</button>
                 </div>
@@ -73,6 +73,7 @@
 
     </div>
 </div>
+</form>
 {% endblock %}
 
 {% block js %}
