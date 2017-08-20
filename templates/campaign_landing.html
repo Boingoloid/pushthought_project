@@ -26,15 +26,17 @@
         <div class="content-wrapper">
             <div class="content-info-left">
                 <h1>{{ object.title }}</h1>
-                <p class="description">{{ object.plot_outline }}</p>
+                <p class="description">{{ object.description }}</p>
                     <div class="seen-it-container">
                     </div>
             </div>
             <div class="content-info-right">
                 <div class="div-title-image">
+                    {% if object.image %}
                     <img class='img program-item-image img-landing-title'
                          id='program-item-image'
                          src='{{ object.image.url }}'>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -187,11 +189,11 @@
     <div class="suggested_message_container">
         <div class="tweet_suggested_message_container">
             <p>Suggested tweet text <font size="2" color="white">(click text area to copy)</font> </p>
-            <textarea readonly class="field-input field-suggested-tweet" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:85px;">hello text&#10;</textarea>
+            <textarea readonly class="field-input field-suggested-tweet" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:85px;">{{ object.tweet_text }}</textarea>
         </div>
         <div class="email_suggested_message_container">
             <p>Suggested email text <font size="2" color="white">(click text area to copy)</font> </p>
-            <textarea readonly class="field-input field-suggested-email" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:200px;">hello text&#10;hellotext&#10;hello&#10;hello</textarea>
+            <textarea readonly class="field-input field-suggested-email" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:200px;">{{ object.email_text }}</textarea>
         </div>
     </div>
 

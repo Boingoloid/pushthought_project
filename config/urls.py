@@ -11,6 +11,8 @@ from django.contrib.sitemaps.views import sitemap
 from pushthought import views
 from programs.sitemaps import ProgramSitemap
 
+from campaigns.views import CampaignDetailView
+
 from .sitemaps import StaticViewSitemap
 from .views import LoggedInView, oauth_callback, oauth_login
 
@@ -29,7 +31,6 @@ urlpatterns = [
     url(r'^home/$', views.HomeView.as_view(), name='home',),
     url(r'^browse/$', views.browse_view, name='browse'),
     url(r'^contact_immediately/$', views.ContactImmediatelyView.as_view(), name='contact_immediately'),
-    url(r'^create_campaign/$', views.CreateCampaignView.as_view(), name='create_campaign'),
     url(r'^campaign_landing/$', views.CampaignLandingView.as_view(), name='campaign_landing'),
     # url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
 
@@ -37,6 +38,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^program/', include('programs.urls', namespace='programs')),
     url(r'^congress/', include('congress.urls', namespace='congress')),
+    url(r'^campaign/', include('campaigns.urls', namespace='campaign')),
 
     url(r'^is_logged_in/$', LoggedInView.as_view(), name='user_logged_in'),
     url(r'^save_tweet_twitter_login/$', oauth_login, name='save_tweet_twitter_login'),
@@ -100,7 +102,6 @@ urlpatterns = [
     #url(r'^pushthought/', views.), # ADD THIS NEW TUPLE!
     #url(r'^programs/', include('pushthought.urls')),
     # url(r'^accounts/', include('registration.backends.default.urls')),
-
     #potentially comment out line above
 ]
 
