@@ -44,8 +44,8 @@ function get_congress_email_fields(bioguideArray) {
 
             data.forEach(function (email_field, i) {
                 var field_name = email_field['field_name'];
-                console.log("printing field name", field_name);
-                console.log('print options', email_field['options']);
+                //console.log("printing field name", field_name);
+                //console.log('print options', email_field['options']);
 
                 // If "TOPIC" make select box with options
 
@@ -75,7 +75,7 @@ function get_congress_email_fields(bioguideArray) {
                     // detect if options list is dictionary or array, first array
                     /////////////////////////////////////////////////////////////
                     if(optionsList[0]){
-                        console.log('true - array');
+                        //console.log('true - array');
                         for (var i = 0; i < optionsList.length; i++) {
                             htmlText = [htmlText,
                                 '<option value="' + optionsList[i] + '">' + optionsList[i] + '</option>'
@@ -86,7 +86,7 @@ function get_congress_email_fields(bioguideArray) {
                     // and now if dictionary
                     ////////////////////////////////////////////////////
                     } else {
-                        console.log('false - dict');
+                        //console.log('false - dict');
                         for (var key in optionsList){
                             htmlText = [htmlText,
                                 '<option value="' + key + '">' + key + '</option>'
@@ -107,7 +107,7 @@ function get_congress_email_fields(bioguideArray) {
                     if((field_name == "ADDRESS_ZIP5") || (field_name == "ADDRESS_ZIP")){
                         var label_name = "ADDRESS_ZIP";
                         var zip_code = $('input.zip-input').attr('id');
-                        console.log('zipCode:', zip_code);
+                        //console.log('zipCode:', zip_code);
 
 //            <input class="zip-input" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
 
@@ -176,7 +176,7 @@ function order_congress_email_fields(data) {
             var field_name = email_field['field_name'];
             // if field name = field in list, then
             if (field_name == ordered_email_field) {
-                console.log(field_name + " " + ordered_email_field);
+                //console.log(field_name + " " + ordered_email_field);
                 email_field_to_add_to_array = email_field;
                 ordered_email_fields.push(email_field_to_add_to_array);
             } else {
@@ -204,7 +204,7 @@ function order_congress_email_fields(data) {
         if (match) {
 
         } else {
-            console.log("extra field:" + email_field_object['field_name'])
+            //console.log("extra field:" + email_field_object['field_name'])
             extra_fields_array.push(email_field_to_add_to_array);
         }
     });
@@ -441,7 +441,7 @@ function runEmail(bioguideId){
         if (validateEmail(email)){
             console.log("email is good.");
         } else {
-            console.log("email is bad");
+            //console.log("email is bad");
             alert("Email enetered is not a valid email.  Please check and try again.");
             return false;
         }
@@ -463,7 +463,7 @@ function runEmail(bioguideId){
         "program_id": programId,
         "fields": formDataDictionary
     });
-    console.log("showing json string to send to API", stringJson);
+    //console.log("showing json string to send to API", stringJson);
 
 
 
@@ -473,9 +473,9 @@ function runEmail(bioguideId){
         contentType: 'json;charset=UTF-8',
         cache: false,
         success: function(data) {
-            console.log(data);
+            //console.log(data);
             if(data['status'] == 'success'){
-                console.log("success status from ajax submit_congress_email:" + data);
+                //console.log("success status from ajax submit_congress_email:" + data);
 
                 // Clear the email action container
                 $('.email-action-container').html('');

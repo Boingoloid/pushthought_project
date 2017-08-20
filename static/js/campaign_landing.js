@@ -1,12 +1,5 @@
 $(document).ready(function() {
 
-
-
-
-
-
-
-
     $('.tweet_suggested_message_container').on("click", ".field-suggested-tweet", function(e) {
         e.stopPropagation();
 
@@ -18,7 +11,6 @@ $(document).ready(function() {
         }
 
         pasteMessage(message);
-
 
     });
 
@@ -44,8 +36,9 @@ $(document).ready(function() {
 
         ////////// append message in input after span node
 
-        $('.address-placeholder').after(message);
-        $('.address-placeholder').remove();
+        $('.address-placeholder').after('\n'+message);
+
+        //$('.address-placeholder').remove();
     });
 
     function pasteMessage(message){

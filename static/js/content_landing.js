@@ -268,11 +268,12 @@ $(document).ready(function() {
 //        });
 
         // expand containers
-//        $('#text-input').animate({'height':'100px','max-height':'100px'});
+        $('#text-input').animate({'height':'200px','max-height':'200px'});
 //        $('.rep-color-band').animate({'height':'850px'}); //220
 //        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
         $('.rep-action-container').animate({'opacity':'1.0'});
         $('.rep-action-container').animate({'display':'block'});
+
 
 
         // hide items that need to disappear
@@ -306,17 +307,27 @@ $(document).ready(function() {
         });
 
 
+         // insert address placeholder in text-input
+        var addressPlaceholderClass = '.address-item-label-' + i;
+        var addressPlaceholder = $(addressPlaceholderClass).text();
+        addressPlaceholder = String(addressPlaceholder);
+
+        console.log("address placeholder: ", addressPlaceholder);
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +',</span>');
+        console.log($('#text-input').html());
+
+
         // select address according to button clicked
         $(".address-node-" + i).toggleClass("selected");
 
         // text-input clear and increase height
-        $('#text-input').html('');
-        $('.address-placeholder').html('');
+        //$('#text-input').html('');
+        //$('.address-placeholder').html('');
         //$('#text-input').css({"height":"100px","max-height":"100px"});
 
         // insert address placeholder in text-input
-        stringSpace = '&nbsp';
-        $('#text-input').html('<span contenteditable=false class=address-placeholder></span>');
+        //stringSpace = '&nbsp';
+        //$('#text-input').html('<span contenteditable=false class=address-placeholder></span>');
 
         // show Send button and label , hide Tweet button and label
         $('#img-send-tweet-icon').hide();
@@ -353,7 +364,7 @@ $(document).ready(function() {
         //     var bioguideId = $(this).attr('id');
         //     bioguideArray.push(bioguideId);
         // });
-        console.log("bioguide sending to email phantom congress to get email fields: "+bioguideArray);
+        //console.log("bioguide sending to email phantom congress to get email fields: "+bioguideArray);
         $.getScript('/static/js/content_landing_email_action.js', function(){
             get_congress_email_fields(bioguideArray);
         });
@@ -521,6 +532,8 @@ $(document).ready(function() {
             $('.rep-action-container').css('display','none');
         });
 
+        $('#text-input').animate({'height':'100px','max-height':'100px'});
+
 
         //$('.twitter-icon').animate({'left':'42%'});
         $('.twitter-icon').show();
@@ -536,6 +549,8 @@ $(document).ready(function() {
         $('#email-button-label').hide();
         $('#twitter-button-label').show();
 
+
+        $('#text-input').focus();
     });
 
     // Action Panel Container
@@ -550,6 +565,7 @@ $(document).ready(function() {
             var whichIconClicked = "email";
             if($(this).hasClass('selected')){
                 $('#close-button').trigger('click');
+                console.log("email should close");
             } else {
                 var elementText = $('div#'+i+'.email-name').text();
                 alert("Currently you can only email 1 representative at a time.  Autofill will help you fill out consecutive emails.");
@@ -660,6 +676,8 @@ $(document).ready(function() {
 
     // Key Up: replaces placeholder if missing, updates count, updates selected
     $('#text-input').keyup(function() {
+
+
         // count letters and update letter count
         updateTextCount();
 
@@ -669,6 +687,10 @@ $(document).ready(function() {
         searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
         if (searchBool == -1){
             //console.log("span is NOT there, adding");
+
+
+
+
             $('#text-input').html('<span contenteditable=false class=address-placeholder></span>' + value);
             $('.action-panel-container').each(function(){
                  if ($(this).hasClass( "selected" )){
@@ -690,6 +712,13 @@ $(document).ready(function() {
             });
 
             if($('.email-name').is(":visible")){
+
+                var email_name = $('.email-name:visible').attr('name');
+                 $('#text-input').html('<span contenteditable=false class=address-placeholder>Congessperson ' + email_name + ',</span>' + value);
+                 $('.email-name:visible').parent().parent().addClass('selected');
+
+
+                countSelected = countSelected + 1;
                 var labelText = 'email: ' + countSelected;
                 $('#email-button-label').text(labelText);
             } else {
@@ -697,6 +726,10 @@ $(document).ready(function() {
                 $('#tweet-button-label').text(labelText);
             }
         }
+
+
+
+
     });
 
 
@@ -713,11 +746,11 @@ $(document).ready(function() {
         var longestAddressLength = get_longest_address();
         var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength;
 
-        console.log("addressInput:", addressInput);
-        console.log("countAddressInput:", countAddressInput);
-        console.log("countTextInput:", countTextInput);
-        console.log("longestAddressLength:", longestAddressLength);
-        console.log("countRemaining:", countRemaining);
+//        console.log("addressInput:", addressInput);
+//        console.log("countAddressInput:", countAddressInput);
+//        console.log("countTextInput:", countTextInput);
+//        console.log("longestAddressLength:", longestAddressLength);
+//        console.log("countRemaining:", countRemaining);
 
         // adjust for line breaks
         numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;

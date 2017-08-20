@@ -2,7 +2,7 @@
 {% load static from staticfiles %}
 {% block css %}
 
-<link rel="stylesheet" href="{% static 'css/campaign-landing.css' %}">
+<!--<link rel="stylesheet" href="{% static 'css/campaign-landing.css' %}">-->
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
 <link rel="stylesheet" href="{% static 'css/content-landing.css' %}">
 
@@ -193,7 +193,7 @@
         </div>
         <div class="email_suggested_message_container">
             <p>Suggested email text <font size="2" color="white">(click text area to copy)</font> </p>
-            <textarea readonly class="field-input field-suggested-email" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:200px;">{{ object.email_text }}</textarea>
+            <textarea readonly class="field-input field-suggested-email" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:200px;">{{ object.email_text }}this is sample text</textarea>
         </div>
     </div>
 
