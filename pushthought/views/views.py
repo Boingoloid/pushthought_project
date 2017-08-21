@@ -48,7 +48,7 @@ class ContactImmediatelyView(TemplateView):
 
 
 class CampaignLandingView(TemplateView):
-    template_name = 'campaign_landing.html'
+    template_name = 'campaigns/detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(CampaignLandingView, self).get_context_data(**kwargs)

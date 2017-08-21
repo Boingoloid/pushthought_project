@@ -18,7 +18,7 @@
             <p class="field-label field-label-title">Campaign Title</p>
         </div>
         <div class="field-input-container">
-            <input name="title" class="field-input field-input-title" style="width:400px;">
+            <input name="title" class="field-input field-input-title" style="width:400px;" value="{% if form.instance.title %}{{ form.instance.title }}{% endif %}">
         </div>
     </div>
     <div class="field-group">
@@ -26,7 +26,7 @@
             <p class="field-label field-label-description">Description</p>
         </div>
         <div class="field-input-container">
-            <textarea name="description" class="field-input field-input-description" style="width:400px; min-height:70px; "></textarea>
+            <textarea name="description" class="field-input field-input-description" style="width:400px; min-height:70px; ">{% if form.instance.description  %}{{ form.instance.description }}{% endif %}</textarea>
         </div>
     </div>
     <div class="field-group">
@@ -34,7 +34,7 @@
             <p class="field-label field-label-image">Image</p>
         </div>
         <div class="field-input-container">
-            <input name="image" class="field-input field-input-image" type="file" style="color:white; font-size:12pt;">
+            <input name="image" class="field-input field-input-image" type="file" style="color:white; font-size:12pt;" value="{% if form.instance.image %}{{ form.instance.image }}{% endif %}">
         </div>
     </div>
     <div class="field-group">
@@ -47,12 +47,12 @@
                     <p class="field-label field-label-tweet-text">1) Suggested tweet text</p>
                     <p class="field-label field-label-tweet-note" style="font-size:12pt; margin-top:0px;">(max 102 characters, leaves room for twitter name)<br></p>
                     <p class="field-label field-label-tweet-intro" style="font-size:12pt;">@Congressperson, <span class="ten-point">(name inserted automatically)</span></p>
-                    <textarea name="tweet_text" class="field-input field-input-description" style="width:400px; min-height:70px;"></textarea>
+                    <textarea name="tweet_text" class="field-input field-input-description" style="width:400px; min-height:70px;">{% if form.instance.tweet_text %}{{ form.instance.tweet_text }}{% endif %}</textarea>
                 </div>
                 <div class="suggested-email-container" style="margin-top:20px;">
                     <p class="field-label field-label-email-text">2) Suggested email text</p>
                     <p class="field-label field-label-email-intro" style="font-size:12pt;">Congressperson, <span class="ten-point">(name inserted automatically)</span></p>
-                    <textarea name="email_text" class="field-input field-input-description" style="width:400px; min-height:100px;"></textarea>
+                    <textarea name="email_text" class="field-input field-input-description" style="width:400px; min-height:100px;">{% if form.instance.email_text %}{{ form.instance.email_text }}{% endif %}</textarea>
                 </div>
             </div>
         </div>
@@ -61,13 +61,16 @@
             <div>
                 <p class="field-label field-label-description" style="margin-top:20px; display:block;">URL</p>
                 <p class="field-label field-label-description" style="margin-top:20px; display:inline; font-size:12pt;">www.pushthought/campaigns/</p>
-                <input id="slug" name="slug" class="field-input field-input-title" style="width:400px; margin-left:5px; display:inline;" required>
+                <input id="slug" name="slug" class="field-input field-input-title" style="width:400px; margin-left:5px; display:inline;" required value="{% if form.instance.slug %}{{ form.instance.slug }}{% endif %}">
                 <div style="margin-top:10px;">
                     <button id="check_url" class="btn-md" style="color:black; background:gray;">Check URL</button>
                     <div id="check_result"></div>
                 </div>
+                <p class="field-label field-label-description" style="margin-top:20px; display:block;">Link</p>
+                <input name="link" class="field-input field-input-title" style="width:400px; margin-left:5px; display:inline;" required value="{% if form.instance.link %}{{ form.instance.link }}{% endif %}">
+
                 <div style="margin-top:40px;">
-                    <button id="submit" class="btn-lg" style="color:black; background:green; font-size:20px;">CREATE CAMPAIGN</button>
+                    <button id="submit" class="btn-lg" style="color:black; background:green; font-size:20px;">{% if form.instance %}SAVE CHANGES{% else %}CREATE CAMPAIGN{% endif %}</button>
                 </div>
             </div>
         </div>

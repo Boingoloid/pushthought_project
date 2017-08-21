@@ -14,6 +14,7 @@ class Campaign(TimeStampedModel):
     image = models.ImageField(blank=True, null=True)
     tweet_text = models.TextField(blank=True, null=True)
     email_text = models.TextField(blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
     user = models.ForeignKey(User, blank=True, null=True)
 
     def get_absolute_url(self):
