@@ -1,5 +1,6 @@
 from django.views.generic import DetailView, CreateView, DeleteView, View, ListView, UpdateView
 from django.http import JsonResponse, Http404
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import models, forms
 
@@ -8,7 +9,7 @@ class CampaignDetailView(DetailView):
     model = models.Campaign
 
 
-class CampaignUserListView(ListView):
+class CampaignUserListView(LoginRequiredMixin, ListView):
     model = models.Campaign
 
     def get_queryset(self):
@@ -28,7 +29,7 @@ class CampaignDeleteView(DeleteView):
         return obj
 
 
-class CampaignCreateView(CreateView):
+class CampaignCreateView(LoginRequiredMixin, CreateView):
     model = models.Campaign
     form_class = forms.CampaignForm
 
@@ -41,10 +42,16 @@ class CampaignCreateView(CreateView):
 class CampaignUpdateView(UpdateView):
     model = models.Campaign
     form_class = forms.CampaignForm
-    slug_field = 'slug'
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(CampaignUpdateView, self).get_object()
+        if not obj.author == self.request.user:
+            raise Http404
+        return obj
 
 
-class CheckUrl(View):
+class CheckUrl(LoginRequiredMixin, View):
     def get(self, request):
         slug = request.GET.get('slug')
         exists = models.Campaign.objects.filter(slug=slug).exists()
