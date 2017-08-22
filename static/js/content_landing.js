@@ -39,6 +39,9 @@ $(document).ready(function() {
     var data = $('#alertList').data('alertlist');
     if(data){
         console.log("alert list is present");
+        for (var i = 0; i < data.length; i++) {
+            alertArray.push(data[i]);
+        }
     } else {
         console.log("alert list is empty");
     }
@@ -46,9 +49,7 @@ $(document).ready(function() {
 //    alertArray = JSON.parse(data);
     alertArray = [];
 
-    for (var i = 0; i < data.length; i++) {
-        alertArray.push(data[i]);
-    }
+
 
 
     // Alerts if @symbols in tweet and went through verify catch redirect
