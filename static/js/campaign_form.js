@@ -17,7 +17,7 @@ $(document).ready(function() {
             // Perform validation
             var error = false;
 
-            if($('textarea[name=tweet_text]').val() || $('textarea[name=email_text]').val()) {
+            if($('textarea[name=tweet_text]').val() || $('textarea[name=email_text]').val() || slug_result === 'Taken') {
                 alert('Passed validation');
                 error = false;
             } else {
@@ -31,4 +31,4 @@ $(document).ready(function() {
 
 
 
-}
+});
