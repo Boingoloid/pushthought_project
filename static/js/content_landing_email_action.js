@@ -18,7 +18,9 @@ function get_congress_email_fields(bioguideArray) {
             ///////////////////////////////////////
 
             if (!data) {
-                console.log("no required fileds data to return");
+                console.log("no required fields data to return");
+
+
                 return false;
             }
             console.log("yes, required fields data to return");

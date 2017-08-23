@@ -455,8 +455,10 @@ img.img-free.logo-image{
 }
 footer {
   margin: 0;
-  padding: 0;
-  border-top: 0 solid #000000;
+  /*border-top: 2px solid #000000;*/
+  padding: 30px;
+  padding-top:80px;
+  background:linear-gradient(#000b1e, #092551);
 }
 
 footer .navbar{

@@ -5,6 +5,7 @@
 <!--<link rel="stylesheet" href="{% static 'css/campaign-landing.css' %}">-->
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
 <link rel="stylesheet" href="{% static 'css/content-landing.css' %}">
+<link rel="stylesheet" href="{% static 'css/campaign_list.css' %}">
 
 {% endblock %}
 {% block title %}Push Thought-Browse{% endblock %}
@@ -14,7 +15,8 @@
     <div id="content-container" class="row">
     {% if object_list %}
 
-        <div>Your campaigns</div>
+        <div class="list-page-title">Your campaigns</div>
+
         <div>
             <table id="campaign-table" border="0" width="60%" align="center">
                 <tr>
@@ -40,7 +42,7 @@
 
     {% else %}
         <div>You have no campaigns</div>
-        <button>Create Campaign</button>
+        <button class="create-campaign-button">Create Campaign</button>
     {% endif %}
     </div>
 {% endblock %}

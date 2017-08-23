@@ -122,7 +122,7 @@
                                     </div>
                                 {% endif %}
                                 <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
-                                <div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }}">form below</div>
+                                <div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }} {{ item.oc_email }}">form below</div>
                                 <img class="email-icon" id="email-icon-{{forloop.counter}}" name="{{ item.full_name }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
                                 <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}">{{ item.last_name }}</div>
                             </div>
