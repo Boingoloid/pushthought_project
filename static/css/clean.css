@@ -9,6 +9,7 @@ body {
   font-family: 'Helvetica Neue','Lora', 'Times New Roman', serif;
   font-size: 20px;
   background:linear-gradient(#092551,#000b1e);
+  background-color:#000b1e;
   color:white;
 }
 
@@ -458,6 +459,9 @@ footer {
   /*border-top: 2px solid #000000;*/
   padding: 30px;
   padding-top:80px;
+  /*background:linear-gradient(#092551, #000b1e);*/
+  background-color: #092551;
+  background:radial-gradient(#092551, #000b1e);
   background:linear-gradient(#000b1e, #092551);
 }
 

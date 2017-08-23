@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% load static from staticfiles %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/content-landing.css' %}">
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+<link rel="stylesheet" href="{% static 'css/content-landing.css' %}">
 {% endblock %}
 {% block title %}Push Thought-Browse{% endblock %}
 
@@ -122,7 +122,7 @@
                                     </div>
                                 {% endif %}
                                 <img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">
-                                <div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }} {{ item.oc_email }}">form below</div>
+                                <div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }}">form</div>
                                 <img class="email-icon" id="email-icon-{{forloop.counter}}" name="{{ item.full_name }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">
                                 <div hidden class="bioguide-mule" id="{{ item.bioguide_id }}">{{ item.last_name }}</div>
                             </div>
@@ -153,7 +153,7 @@
                     </div>
                     <div contenteditable id="text-input" tabindex="-1" placeholder="Tweet text here"></div>
                     <div id="tweet-button">
-                        <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
+                        <!--<img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">-->
                         <img id="img-send-email-icon" style="" src="{% static 'img/email-icon.png' %}" width="37" height="37">
                         <p class="tweet-button-label" id="tweet-button-label">Tweet</p>
                         <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
