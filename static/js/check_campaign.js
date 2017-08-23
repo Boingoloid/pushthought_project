@@ -1,16 +1,16 @@
-$('#check_url').on('click', function (e) {
+slug_result = 'Taken';
+$('#slug').on('change', function (e) {
     e.preventDefault();
     var slug = $('#slug').val();
     $.ajax({
         url: '/campaign/check/' + '?slug=' + slug,
         success: function (data) {
-            var result;
             if (data.result) {
-                result = 'Taken'
+                slug_result = 'Taken'
             } else {
-                result = 'Free'
+                slug_result = 'Free'
             }
-            $('#check_result').text(result)
+            $('#check_result').text(slug_result)
         }
     })
 });
