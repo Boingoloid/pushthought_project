@@ -13,11 +13,15 @@ $(document).ready(function() {
         $('form').on('submit', function(e) {
             e.preventDefault();
 
+            if (slug_result === 'Taken') {
+                alert('url taken!');
+                return false
+            }
 
             // Perform validation
             var error = false;
 
-            if($('textarea[name=tweet_text]').val() || $('textarea[name=email_text]').val() || slug_result === 'Taken') {
+            if($('textarea[name=tweet_text]').val() || $('textarea[name=email_text]').val()) {
                 alert('Passed validation');
                 error = false;
             } else {
