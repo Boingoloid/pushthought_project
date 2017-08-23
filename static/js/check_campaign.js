@@ -1,8 +1,13 @@
 slug_result = 'Taken';
 $('#slug').on('change', function (e) {
     e.preventDefault();
+    checkUrl()
+});
+
+function checkUrl() {
     var slug = $('#slug').val();
     $.ajax({
+        async: false,
         url: '/campaign/check/' + '?slug=' + slug,
         success: function (data) {
             if (data.result) {
@@ -13,4 +18,4 @@ $('#slug').on('change', function (e) {
             $('#check_result').text(slug_result)
         }
     })
-});
+}

@@ -12,7 +12,7 @@ $(document).ready(function() {
 
         $('form').on('submit', function(e) {
             e.preventDefault();
-
+            checkUrl();
             if (slug_result === 'Taken') {
                 alert('url taken!');
                 return false
