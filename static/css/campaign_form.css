@@ -119,7 +119,14 @@ display:inline;
 
 }
 
+.field-input-tweet-text{
+  width:400px;
+  min-height:70px;
+}
+
 .suggested-email-container{
+  margin-top:20px;
+
 }
 
 .footer{
