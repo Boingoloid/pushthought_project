@@ -18,7 +18,7 @@
             <p class="field-label field-label-title">Campaign Title</p>
         </div>
         <div class="field-input-container">
-            <input name="title" class="field-input field-input-title" value="{% if form.instance.title %}{{ form.instance.title }}{% endif %}">
+            <input name="title" class="field-input field-input-title" value="{% if form.instance.title %}{{ form.instance.title }}{% endif %}" required>
         </div>
     </div>
     <div class="field-group">
@@ -26,7 +26,7 @@
             <p class="field-label field-label-description">Description</p>
         </div>
         <div class="field-input-container">
-            <textarea name="description" class="field-input field-input-description" >{% if form.instance.description  %}{{ form.instance.description }}{% endif %}</textarea>
+            <textarea name="description" class="field-input field-input-description" >{% if form.instance.description  %}{{ form.instance.description }}{% endif %} required </textarea>
         </div>
     </div>
     <div class="field-group">
@@ -66,7 +66,7 @@
                     <div id="check_result">Free</div>
                 </div>
                 <p class="field-label field-label-link-to-info">Link to more information</p>
-                <input name="link" class="field-input field-input-link-to-more-info" required value="{% if form.instance.link %}{{ form.instance.link }}{% endif %}">
+                <input name="link" class="field-input field-input-link-to-more-info" value="{% if form.instance.link %}{{ form.instance.link }}{% endif %}">
 
                 <div style="margin-top:40px;">
                     <button id="submit" class="btn-lg">{% if form.instance %}SAVE CHANGES{% else %}CREATE CAMPAIGN{% endif %}</button>

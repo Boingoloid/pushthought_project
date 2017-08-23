@@ -3,7 +3,7 @@
 $(document).ready(function() {
 
     var windowURL = window.location.href;
-       alert("working");
+
 
         // Zip submission button click
     $('.submit-zip').click( function() {
