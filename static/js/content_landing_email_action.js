@@ -1,5 +1,32 @@
-
-
+//
+//$('.test-button').click( function() {
+//    console.log("no required fields data to return");
+//    if(confirm("We don't have a webform for that congress person.  We will redirect you to your email client to reach them by their opencongress.org email address.")) {
+//
+//        var bioguideArray = 'F000464';
+//        var mailto = $('#' + bioguideArray).attr('name');
+//        var title = encodeURIComponent($('.title-header').text());
+//        var description = encodeURIComponent($('.description').text());
+//        var suggestedEmailText = encodeURIComponent($('.field-suggested-email').text());
+//
+//        //console.log('name: ' + mailto);
+//        //console.log('title: ' + title);
+//        //console.log('descr: ' + description);
+//        console.log('suggestedEmailText: ' + suggestedEmailText);
+//
+//
+//        if(!suggestedEmailText == ""){
+//            location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + suggestedEmailText);
+//            console.log('true');
+//        } else {
+//            location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + description);
+//            console.log('false');
+//        }
+//
+//    } else {
+//        //do nothing
+//    }
+//});
 
 function get_congress_email_fields(bioguideArray) {
     bioguideArrayString = JSON.stringify(bioguideArray);
@@ -19,14 +46,28 @@ function get_congress_email_fields(bioguideArray) {
 
             if (!data) {
                 console.log("no required fields data to return");
-                if(confirm("We don't have a webform for that congress person.  We will redirect you to your email client to reach them by their opencongress.org email address.");) {
-                var mailto = $('#' + bioguideArray).attr('name');
-                var title = $('.title').val();
-                var suggestedEmailText =
 
-                window.open("mailto:" + user@example + "?subject=Subject&body=message%20goes%20here");
+                if(confirm("We don't have a webform for that congress person.  We will redirect you to your email client to reach them by their opencongress.org email address.")) {
+
+                    var bioguideArray = String(bioguideArray);
+                    var mailto = $('#' + bioguideArray).attr('name');
+                    var title = encodeURIComponent($('.title-header').text());
+                    var description = encodeURIComponent($('.description').text());
+                    var suggestedEmailText = encodeURIComponent($('.field-suggested-email').val());
 
 
+                    //console.log('name: ' + mailto);
+                    //console.log('title: ' + title);
+                    //console.log('descr: ' + description);
+                    //console.log('suggestedEmailText: ' + suggestedEmailText);
+
+                    if(!suggestedEmailText == ""){
+                        location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + suggestedEmailText);
+                        //console.log('true');
+                    } else {
+                        location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + description);
+                        //console.log('false');
+                    }
                 } else {
                     //do nothing
                 }
