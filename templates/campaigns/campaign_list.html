@@ -42,8 +42,8 @@
 
     {% else %}
         <div>You have no campaigns</div>
-        <button class="create-campaign-button">Create Campaign</button>
     {% endif %}
+    <button class="create-campaign-button"><a href="{% url 'campaign:create' %}">Create Campaign</a></button>
     </div>
 {% endblock %}
 

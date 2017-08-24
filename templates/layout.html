@@ -49,6 +49,7 @@
                         {% if user.is_authenticated %}
 {#                            <li>Hey, {{ request.user.first_name }}</li>#}
                             <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                            <li><a href="{% url 'campaign:list' %}">My campaigns</a></li>
                         {% else %}
                             <li><a href="{% url 'account_login' %}">Login</a></li>
                         {% endif %}

@@ -24,7 +24,7 @@ class CampaignDeleteView(DeleteView):
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
         obj = super(CampaignDeleteView, self).get_object()
-        if not obj.author == self.request.user:
+        if not obj.user == self.request.user:
             raise Http404
         return obj
 
@@ -46,7 +46,7 @@ class CampaignUpdateView(UpdateView):
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
         obj = super(CampaignUpdateView, self).get_object()
-        if not obj.author == self.request.user:
+        if not obj.user == self.request.user:
             raise Http404
         return obj
 
