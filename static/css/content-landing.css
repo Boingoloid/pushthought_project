@@ -601,6 +601,7 @@ text-tweet-block{
   position: relative;
   cursor:pointer;
   background:linear-gradient(to bottom, #054400 50%, #055100 100%);
+  z-index:4000;
 }
 
 #tweet-button:hover{
