@@ -21,7 +21,7 @@ $(document).ready(function() {
                 alert('Passed validation');
                 error = false;
             } else {
-                alert('Please fill up one field');
+                alert('Please fill in either a suggested tweet text or suggested email text.  At least one must be filled out.');
                 error = true;
             }
 

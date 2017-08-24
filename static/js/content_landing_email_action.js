@@ -19,8 +19,17 @@ function get_congress_email_fields(bioguideArray) {
 
             if (!data) {
                 console.log("no required fields data to return");
+                if(confirm("We don't have a webform for that congress person.  We will redirect you to your email client to reach them by their opencongress.org email address.");) {
+                var mailto = $('#' + bioguideArray).attr('name');
+                var title = $('.title').val();
+                var suggestedEmailText =
+
+                window.open("mailto:" + user@example + "?subject=Subject&body=message%20goes%20here");
 
 
+                } else {
+                    //do nothing
+                }
                 return false;
             }
             console.log("yes, required fields data to return");
