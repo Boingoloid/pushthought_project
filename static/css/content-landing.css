@@ -147,7 +147,7 @@ box-shadow: 2px 2px 10px black;
 
 .category-container{
   position:relative;
-  padding-bottom: 10px;
+  padding-bottom: 50px;
   margin-bottom: 0px;
   margin-top: 2px;
   height: 220px;
@@ -457,7 +457,6 @@ text-tweet-block{
 
 #text-input{
   display: inline-block;
-  /*float:left;*/
   background: rgba(0,0,0,0);
   border: 2px solid gray;
   border-radius: 10px;
@@ -602,6 +601,7 @@ text-tweet-block{
   position: relative;
   cursor:pointer;
   background:linear-gradient(to bottom, #054400 50%, #055100 100%);
+  z-index:4000;
 }
 
 #tweet-button:hover{

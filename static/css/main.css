@@ -1,0 +1,7 @@
+#content-container {
+    padding-top: 120px;
+}
+
+#campaign-table table, #campaign-table th, #campaign-table td {
+    border: 0;
+}

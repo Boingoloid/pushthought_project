@@ -9,6 +9,7 @@ body {
   font-family: 'Helvetica Neue','Lora', 'Times New Roman', serif;
   font-size: 20px;
   background:linear-gradient(#092551,#000b1e);
+  background-color:#000b1e;
   color:white;
 }
 
@@ -455,8 +456,13 @@ img.img-free.logo-image{
 }
 footer {
   margin: 0;
-  padding: 0;
-  border-top: 0 solid #000000;
+  /*border-top: 2px solid #000000;*/
+  padding: 30px;
+  padding-top:80px;
+  /*background:linear-gradient(#092551, #000b1e);*/
+  background-color: #092551;
+  background:radial-gradient(#092551, #000b1e);
+  background:linear-gradient(#000b1e, #092551);
 }
 
 footer .navbar{

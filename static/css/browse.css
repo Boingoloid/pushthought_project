@@ -73,7 +73,7 @@
   border-radius: 5px;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
   min-width:200px;
-  /*min-height:240px;*/
+  min-height:200px;
   height:auto;
 }
 

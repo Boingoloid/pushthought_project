@@ -10,9 +10,11 @@
 
         <!--icon-->
         <link rel="icon" href="{% static 'img/push_thought_logo.png' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
         <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/cards.css' %}">
         <link rel="stylesheet" href="{% static 'css/clean.css' %}">
+
 
         <!-- Custom Fonts -->
         <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
@@ -47,6 +49,7 @@
                         {% if user.is_authenticated %}
 {#                            <li>Hey, {{ request.user.first_name }}</li>#}
                             <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                            <li><a href="{% url 'campaign:list' %}">My campaigns</a></li>
                         {% else %}
                             <li><a href="{% url 'account_login' %}">Login</a></li>
                         {% endif %}
@@ -65,7 +68,7 @@
 
         {% block content %}{% endblock %}
 
-        <footer style="padding: 30px;">
+        <footer>
             <div class="navbar navbar-default">
                 <div class="">
                     <ul class="list-unstyled link-list in-line">

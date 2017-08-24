@@ -1,0 +1,138 @@
+
+.container-standard-form{
+  margin-top:90px;
+  margin-left:30px;
+  margin-bottom:100px
+}
+
+
+.field-group {
+  margin-top:20px;
+  margin-left:20px;
+  width:600px;
+}
+
+.field-group-title{
+  margin-top:40px;
+
+}
+
+
+.field-label{
+  margin-bottom:0px;
+
+}
+
+.field-label-suggestions{
+  font-size:12pt;
+  margin-top:30px;
+}
+
+.field-label-tweet-note{
+  font-size:12pt;
+  margin-top:0px;
+}
+
+.field-label-tweet-intro{
+  font-size:12pt;
+}
+
+.field-label-email-intro{
+  font-size:12pt;
+}
+
+.field-label-url{
+  margin-top:20px;
+  display:block;
+}
+
+.field-label-url-sublabel{
+  margin-top:20px;
+  display:inline;
+  font-size:12pt;
+
+}
+
+
+.field-label-link-to-info{
+  margin-top:20px;
+  display:block;
+
+}
+
+.field-input{
+  color:white;
+  font-size:16px;
+  background-color:transparent;
+}
+
+.field-input-title{
+  width: 400px;
+}
+
+.field-input-description{
+  width:400px;
+  min-height:70px;
+}
+
+.field-input-image{
+  color:white;
+  font-size:12pt;
+}
+
+.field-input-email-text{
+  width:400px;
+  min-height:100px
+}
+
+.field-input-url{
+  width:400px;
+  margin-left:5px;
+  display:inline;
+}
+
+#check_url{
+  color:black;
+  background:gray;
+}
+
+.field-input-link-to-more-info{
+width:400px;
+margin-left:5px;
+display:inline;
+
+}
+
+#submit{
+  color:black;
+  background:green;
+  font-size:20px;
+}
+
+.suggested-message-container{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding-bottom: 20px;
+}
+
+.tweet-suggested-message-container{
+
+}
+
+.field-input-tweet-text{
+  width:400px;
+  min-height:70px;
+}
+
+.suggested-email-container{
+  margin-top:20px;
+
+}
+
+.footer{
+  margin:top:100px;
+}
+
+.ten-point{
+  font-size:10pt;
+}
