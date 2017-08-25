@@ -33,13 +33,13 @@ $(document).ready(function () {
             console.log("youtube validated");
         }
 
-        var imdb_https = text_in_search.substring(0, 19);
+        var imdb_http = text_in_search.substring(0, 19);
         var imdb_www = text_in_search.substring(0, 12);
 
-        console.log("imdb_https: " + imdb_https);
+        console.log("imdb_http: " + imdb_http);
         console.log("imdb_www: " + imdb_www);
 
-        if(imdb_https == "http://www.imdb.com" ||   imdb_www == "www.imdb.com"){
+        if(imdb_http == "http://www.imdb.com" ||   imdb_www == "www.imdb.com"){
 
             validation = true;
             console.log("imdb validated");

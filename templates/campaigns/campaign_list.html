@@ -15,7 +15,7 @@
     <div id="content-container" class="row">
     {% if object_list %}
 
-        <div class="list-page-title">Your campaigns</div>
+        <div class="list-page-title">My campaigns</div>
 
         <div>
             <table id="campaign-table" border="0" width="60%" align="center">
@@ -43,7 +43,7 @@
     {% else %}
         <div>You have no campaigns</div>
     {% endif %}
-    <button class="create-campaign-button"><a href="{% url 'campaign:create' %}">Create Campaign</a></button>
+    <button class="create-campaign-button" style="margin-left:200px; margin-top:100px; margin-bottom:100px; height:55; background-color:green;"><a href="{% url 'campaign:create' %}" style="color:black;">Create Campaign</a></button>
     </div>
 {% endblock %}
 
