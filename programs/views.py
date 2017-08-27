@@ -8,6 +8,7 @@ from django.views.generic import DetailView, View
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.contrib import messages
+from django.contrib import messages
 
 from utils.helper import url_to_model_field
 from youtube.quickstart import videos_list_by_id
@@ -39,7 +40,8 @@ class ParseProgramIDView(View):
 
         if imdb_id:
             data = self.get_imdb_data(imdb_id)
-            program_filter = dict(imdb_id=data.imdb_id)
+            if data:
+                program_filter = dict(imdb_id=data.imdb_id)
         else:
             data = self.get_youtube_data(youtube_id)
             program_filter = dict(youtube_id=youtube_id)
@@ -138,6 +140,8 @@ class ParseProgramIDView(View):
         if program_form.is_valid():
             program = program_form.save()
             url_to_model_field(poster_url, program.image)
+            messages.add_message(self.request, messages.INFO,
+                                 'Congrats, you are the first person to create this page on Push Thought.')
             return program
 
     def get_redirect_to_ref(self):
