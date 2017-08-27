@@ -1,5 +1,6 @@
 from django.views.generic import DetailView, CreateView, DeleteView, View, ListView, UpdateView
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponseRedirect
+from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import models, forms
@@ -7,6 +8,10 @@ from . import models, forms
 
 class CampaignDetailView(DetailView):
     model = models.Campaign
+
+    def get_queryset(self):
+        queryset = super(CampaignDetailView, self).get_queryset()
+        return queryset.filter(active=True)
 
 
 class CampaignUserListView(LoginRequiredMixin, ListView):
@@ -28,6 +33,17 @@ class CampaignDeleteView(DeleteView):
             raise Http404
         return obj
 
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Calls the delete() method on the fetched object and then
+        redirects to the success URL.
+        """
+        self.object = self.get_object()
+        success_url = reverse(self.get_success_url())
+        self.object.active = not self.object.active
+        self.object.save()
+        return HttpResponseRedirect(success_url)
 
 class CampaignCreateView(LoginRequiredMixin, CreateView):
     model = models.Campaign
