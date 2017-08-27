@@ -3,24 +3,16 @@ $(document).ready(function() {
         e.preventDefault();
         checkUrl();
         if (slug_result === 'Taken') {
-            alert('Push Thought URL is taken!');
+            alert('url taken!');
             return false
         }
 
         var url = $('input[name=link]').val();
-        if(url == ""){
-            // do nothing, not required
-        } else {
-
-            url = validateUrl(url);
-            if (!url) {
-                alert("URL for 'Link to more information' has an error");
-                return false
-            }
-
+        var validated_url = validateUrl(url);
+        if (url.length >0 && !validated_url) {
+            alert("URL for 'Link to more information' has an error");
+            return false
         }
-
-
 
         // Perform validation
         var error = false;

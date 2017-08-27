@@ -16,6 +16,7 @@ class Campaign(TimeStampedModel):
     email_text = models.TextField(blank=True, null=True)
     link = models.URLField(blank=True, null=True)
     user = models.ForeignKey(User, blank=True, null=True)
+    active = models.BooleanField(default=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('campaign:detail', args=[str(self.slug)])

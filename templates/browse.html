@@ -28,13 +28,13 @@
                 <img id="youtube-logo" src="{% static '/img/youtube-logo-2.jpg' %}" width="80" height="auto" style="vertical-align: middle; margin-left:-20px; border-radius: 20%; " >
             </div>
             <div>
-                <!--{% if messages %}-->
-                    <!--<ul class="messages">-->
-                        <!--{% for message in messages %}-->
-                        <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
-                        <!--{% endfor %}-->
-                    <!--</ul>-->
-                <!--{% endif %}-->
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
 {#            <div class="browse-button-a">#}
 {#                <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>#}

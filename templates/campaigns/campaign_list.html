@@ -30,11 +30,16 @@
                 {% for campaign in object_list %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td align="left">{{ campaign.title }}</td>
+                        <td align="left">{{ campaign.title }}{% if not campaign.active %} | INACTIVE{% endif %}</td>
                         <td></td>
                         <td><a href="{% url 'campaign:detail' campaign.slug %}"><button>View</button></a></td>
                         <td><a href="{% url 'campaign:update' campaign.slug %}"><button>Edit</button></a></td>
-                        <td><span obj="{{ campaign.id }}">X</span></td>
+                        <td>
+                            <form method="post" action="{% url 'campaign:delete' campaign.slug %}">
+                            {% csrf_token %}
+                            <button>X</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
