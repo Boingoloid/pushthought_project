@@ -121,11 +121,14 @@
 
 .program-item-image{
   display: inline;
-  height: 90px;
-  min-height: 90px;
-  width: 64px;
-  min-width: 64px;
+  height: 100px;
+  min-height: 100px;
+  width: 71px;
+  min-width: 71px;
   margin:auto;
+  margin-top:8px;
+  margin-bottom:-15px;
+  margin-left:5px;
 }
 
 .program-item-image-crop{
@@ -138,6 +141,7 @@
   margin-top:10px;
   font-size:12pt;
   color:white;
+  max-height:111px;
 }
 
 .program-info-container{
