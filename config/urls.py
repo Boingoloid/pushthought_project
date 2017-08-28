@@ -12,6 +12,7 @@ from pushthought import views
 from programs.sitemaps import ProgramSitemap
 
 from campaigns.views import CampaignDetailView
+from actions.views import submit_congress_email_view
 
 from .sitemaps import StaticViewSitemap
 from .views import LoggedInView, oauth_callback, oauth_login
