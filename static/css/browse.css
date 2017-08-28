@@ -66,20 +66,22 @@
 
 
 .program-item{
-
   margin:5px;
   background: rgba(0,0,0,0.4);
   border: 1px solid black;
   border-radius: 5px;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
-  min-width:200px;
-  min-height:200px;
-  height:auto;
+  min-width:400px;
+  height:120;
+  max-height:120px;
 }
 
 .program-item p{
+  height:110;
+  max-height:110px;
   color: white;
   font-size: 14px;
+  overflow: scroll;
 }
 
 .program-item:hover{
@@ -119,10 +121,10 @@
 
 .program-item-image{
   display: inline;
-  height: 125px;
-  min-height: 125px;
-  width: 90px;
-  min-width: 90px;
+  height: 90px;
+  min-height: 90px;
+  width: 64px;
+  min-width: 64px;
   margin:auto;
 }
 
@@ -133,22 +135,23 @@
 
 .program-title{
   display:block;
-  margin:auto;
-  text-align:center;
+  margin-top:10px;
+  font-size:12pt;
+  color:white;
 }
 
 .program-info-container{
-  float: right;
-  height: 30px;
-  margin: 0px;
-  width: 82px;
-  text-align: center;
+  margin: auto;
+  width:400px;
+  text-align: right;
+  aligh:right;
   position: relative;
+  display: inline;
 }
 
 .count{
     color: gray;
-    display:inline-block;
+    display:inline;
     margin: auto;
     font-size: 28px;
     font-weight: 400;
@@ -156,12 +159,24 @@
 }
 
 .sent-count{
-  font-size:22px;
+  font-size:14px;
+  line-height:14px;
   color: green;
+  display:inline;
+  margin-left:290px;
+  align-content:right;
+  text-align:right;
+  width:50px;
 }
 
 .sent-count-label{
+  display:inline;
+  margin-left:0px;
   color: green;
+  font-size:12px;
+  font-weight:200;
+
+
 }
 
 .user-count{
