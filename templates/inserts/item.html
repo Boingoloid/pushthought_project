@@ -7,19 +7,19 @@
             {% if item.image %}
                 <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.image.url}} style="display:inline;">
             {% endif %}
-            <div style=" font-weight:200; color:white; font-size:10pt; line-height:12pt;  float:left; margin-left:80px; margin-top:-70px; max-height:65px; text-overflow: ellipsis; overflow: hidden !important; ">{{ item.plot_outline }}
-            </div>
-            <div class="program-title" style="display:inline; vertical-align:top;" id="program-item-title{{forloop.counter}}" style="display:inline;">{{item.title}}
-            </div>
+
+
 
         </div>
+                    <div class="program-title" id="program-item-title{{forloop.counter}}">{{item.title}}
+            </div>
+            <div class="program-description">{{ item.plot_outline }}
+            </div>
         <div class="program-info-container">
                 <div class="sent-count">{{ item.counter }}</div>
                 <div class="sent-count-label">actions</div>
                 <!--<div class="runtime">{{ item.runtime_minutes }}</div>-->
                 <!--<div class="runtime-label">minutes</div>-->
         </div>
-
-
     </div>
 </a>

@@ -117,6 +117,8 @@
 
 .program-img-container{
   display:inline;
+  height:auto;
+  length:auto;
 }
 
 .program-item-image{
@@ -137,18 +139,47 @@
 }
 
 .program-title{
-  display:block;
-  margin-top:10px;
+  display:inline;
+  float: right;
+  margin-top:5px;
   font-size:12pt;
   color:white;
-  max-height:111px;
+  height:18px;
+  min-height: 18px;
+  max-height: 18px;
+  width: 307px;
+  max-width: 307px;
+  min-width: 307px;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height:18px;
+  vertical-align:top;
+  border: 0px solid green;
+  text-overflow: clip;
+  margin-right:10px;
+  text-align:left;
+}
+
+.program-description{
+  font-weight:200;
+  color:white; font-size:10pt;
+  line-height:12pt;
+  float:left;
+  margin-left:85px;
+  margin-right:5px;
+  margin-top:-68px;
+  max-height:65px;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  border: 0px solid green;
+
 }
 
 .program-info-container{
   margin: auto;
   width:400px;
   text-align: right;
-  aligh:right;
+  align:right;
   position: relative;
   display: inline;
 }
