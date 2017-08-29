@@ -4,7 +4,7 @@ import json
 
 from django.http import JsonResponse
 
-from congress.models import Fields, Congress
+from congress.models import Congress
 from actions.models import Action
 
 from pushthought.views.views_email_congress import submit_congress_email
@@ -29,7 +29,6 @@ def submit_congress_email_view(request):
         elif status == 'captcha_needed':
             # save email, needs captcha to true, then exclude them.  or save to different table
             print "captcha_needed"
-            Fields.objects.update_or_create(congress=congress, defaults={'fields': request.body})
         elif status == 'error':
             print "ERROR submit congress failed: error message returned:" + send_response_object['message']
         return JsonResponse(send_response_object)

@@ -674,6 +674,15 @@ $(document).ready(function() {
     });
 
 
+    //////////////////////////////////////////////////
+    /// problem with below method as it fires
+    /// multiple timems when it should only fire once.
+    ///////////////////////////////////////////////
+
+    $("#text-tweet-block").on('DOMSubtreeModified', "#text-input", function() {
+        updateTextCount();
+        return false;
+    });
 
     // Key Up: replaces placeholder if missing, updates count, updates selected
     $('#text-input').keyup(function() {

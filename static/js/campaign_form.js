@@ -8,9 +8,9 @@ $(document).ready(function() {
         }
 
         var url = $('input[name=link]').val();
-        url = validateUrl(url);
-        if (!url) {
-            alert("url error");
+        var validated_url = validateUrl(url);
+        if (url.length >0 && !validated_url) {
+            alert("URL for 'Link to more information' has an error");
             return false
         }
 

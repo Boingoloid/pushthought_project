@@ -22,19 +22,19 @@
         <div class="browse-header">
             <div>
                 </br>
-                <input name="search_keyword" id="search_keyword" placeholder="paste link"/>
+                <input name="search_keyword" id="search_keyword" placeholder="paste link to content"/>
                 <button name="search_btn" id="search_btn" class="btn-primary">Find</button>
                 <img id="imdb-logo" src="{% static '/img/imdb-logo-1024x467.png' %}" width="120" height="auto" style="vertical-align: middle; padding-bottom: 21px;">
                 <img id="youtube-logo" src="{% static '/img/youtube-logo-2.jpg' %}" width="80" height="auto" style="vertical-align: middle; margin-left:-20px; border-radius: 20%; " >
             </div>
             <div>
-                <!--{% if messages %}-->
-                    <!--<ul class="messages">-->
-                        <!--{% for message in messages %}-->
-                        <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
-                        <!--{% endfor %}-->
-                    <!--</ul>-->
-                <!--{% endif %}-->
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
 {#            <div class="browse-button-a">#}
 {#                <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>#}
@@ -48,7 +48,7 @@
         <div style="margin-left: 130px; font-size:80%;">-- or --</div>
         <div class="search-result-section">
             <div>
-                <p class="search-result-heading" style="display:inline; color:green; font-weight:400;">Choose what content inspires you</p>
+                <p class="search-result-heading" style="display:inline; color:green; font-weight:400;">Choose what campaign inspires you</p>
                 {% if searchResultList|length > 0 %}
                     <p>{{searchResultList|length}}</p>
                 {% endif %}
@@ -59,7 +59,9 @@
                     <div class="program-img-container">
                         <img class='program-item-image' id='program-item-image' src="{{item.property_og_image}}">
                     </div>
-                    <div style="display: inline"><p>{{item.name_title}} - {{item.itemprop_duration}}</p></div>
+                    <div style="display: inline">
+                        <p>{{item.name_title}} - {{item.itemprop_duration}}</p>
+                    </div>
                 </div>
                 {% endfor %}
              </div>

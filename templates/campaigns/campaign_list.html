@@ -15,7 +15,7 @@
     <div id="content-container" class="row">
     {% if object_list %}
 
-        <div class="list-page-title">Your campaigns</div>
+        <div class="list-page-title">My campaigns</div>
 
         <div>
             <table id="campaign-table" border="0" width="60%" align="center">
@@ -30,11 +30,16 @@
                 {% for campaign in object_list %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td align="left">{{ campaign.title }}</td>
+                        <td align="left">{{ campaign.title }}{% if not campaign.active %} | INACTIVE{% endif %}</td>
                         <td></td>
                         <td><a href="{% url 'campaign:detail' campaign.slug %}"><button>View</button></a></td>
                         <td><a href="{% url 'campaign:update' campaign.slug %}"><button>Edit</button></a></td>
-                        <td><span obj="{{ campaign.id }}">X</span></td>
+                        <td>
+                            <form method="post" action="{% url 'campaign:delete' campaign.slug %}">
+                            {% csrf_token %}
+                            <button>X</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
@@ -43,7 +48,7 @@
     {% else %}
         <div>You have no campaigns</div>
     {% endif %}
-    <button class="create-campaign-button"><a href="{% url 'campaign:create' %}">Create Campaign</a></button>
+    <button class="create-campaign-button" style="margin-left:200px; margin-top:100px; margin-bottom:100px; height:55; background-color:green;"><a href="{% url 'campaign:create' %}" style="color:black;">Create Campaign</a></button>
     </div>
 {% endblock %}
 
