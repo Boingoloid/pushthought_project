@@ -59,8 +59,6 @@
             <div class="category-title-container">
                 <div style="display:inline;">
                     <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>
-
-
                     <div class="zip-reset-hover-boundary">
                         {% if hasCongressData %}
                             <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25">
@@ -69,7 +67,7 @@
                         {% endif %}
                         <button class="zip-reset btn-danger">reset location</button>
                     </div>
-                    <div class="total-actions" style="font-weight:200; font-size:14px;">Total Actions for this campaign:</div>
+                    <div class="total-actions">Total Actions: {{ object.counter }}</div>
                 </div>
             </div>
             {% if hasCongressData %}

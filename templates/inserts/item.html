@@ -7,14 +7,11 @@
             {% if item.image %}
                 <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.image.url}} style="display:inline;">
             {% endif %}
-
-
-
         </div>
-                    <div class="program-title" id="program-item-title{{forloop.counter}}">{{item.title}}
-            </div>
-            <div class="program-description">{{ item.plot_outline }}
-            </div>
+        <div class="program-title" id="program-item-title{{forloop.counter}}">{{item.title}}
+        </div>
+        <div class="program-description">{{ item.plot_outline }}
+        </div>
         <div class="program-info-container">
                 <div class="sent-count">{{ item.counter }}</div>
                 <div class="sent-count-label">actions</div>

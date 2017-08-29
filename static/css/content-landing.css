@@ -228,6 +228,13 @@ box-shadow: 2px 2px 10px black;
   display:inline;
 }
 
+.total-actions{
+  font-weight:200;
+  font-size:18px;
+  color:green;
+  letter-spacing:1.01;
+}
+
 
 .drop-here{
     position:relative;
