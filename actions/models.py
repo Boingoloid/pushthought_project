@@ -10,14 +10,14 @@ from hashtag.models import Hashtag
 
 
 class Tweet(TimeStampedModel):
-    text = models.TextField()
+    text = models.TextField(blank=True)
     action = models.OneToOneField('Action')
 
 
 class Email(TimeStampedModel):
-    text = models.TextField()
+    text = models.TextField(blank=True)
     action = models.OneToOneField('Action')
-    fields = models.TextField(null=True)
+    fields = models.TextField(null=True, blank=True)
 
 
 class SaveTweetManager(models.Manager):
