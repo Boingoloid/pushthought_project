@@ -6,9 +6,11 @@ from django.db import migrations, models
 import django.db.models.deletion
 
 from congress.models import Congress
-
-congress_id = Congress.objects.first().id
-
+# this check is needed for initial migrations on new environments
+try:
+    congress_id = Congress.objects.first().id
+except:
+    congress_id = 0
 
 class Migration(migrations.Migration):
 
