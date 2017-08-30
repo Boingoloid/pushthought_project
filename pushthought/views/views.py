@@ -57,6 +57,8 @@ class CampaignLandingView(TemplateView):
         return context
 
 
+
+
 @page_template("inserts/documentaries.html")
 @page_template('inserts/webvideos.html', key='other_entries_page')
 def browse_view(request, template="browse.html", extra_context=None):
@@ -84,6 +86,9 @@ def browse_view(request, template="browse.html", extra_context=None):
 #         print context['program']
 #         print program_id
 #         return context
+
+# def browse_campaigs_view(request, template="browse-.html", extra_context=None):
+
 
 
 def handler404(request):

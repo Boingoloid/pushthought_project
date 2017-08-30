@@ -42,20 +42,20 @@
         </div>
     </div>
 </div>
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-<div class="container-standard">
+    <!--{% if messages %}-->
+        <!--<ul class="messages">-->
+            <!--{% for message in messages %}-->
+            <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+            <!--{% endfor %}-->
+        <!--</ul>-->
+    <!--{% endif %}-->
+<div class="container-standard" style="margin:0;">
     <div class="rep-color-band">
         <div class="container-standard category-container">
-                        <div class="share-social-container">Share this campaign on:
-                            <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
-                            <img class="share-facebook" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
-                        </div>
+                <div class="share-social-container">Share this campaign on:
+                    <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
+                    <img class="share-facebook" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
+                </div>
             <div class="category-title-container">
                 <div style="display:inline;">
                     <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>

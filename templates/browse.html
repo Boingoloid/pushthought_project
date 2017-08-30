@@ -15,17 +15,27 @@
                 <!--</form>-->
 
 {% block content %}
+
 {#<form name="browse_form" action="{% url 'browse' %}" method="post">#}
     {% csrf_token %}
     <input type="hidden" name="search_type" id="search_type" value="">
     <div class="browse-container">
         <div class="browse-header">
             <div>
+                <div style="display:inline;">
+                    <button class="campaigns-button button-toggle">CAMPAIGNS
+                    </button>
+                    <button class="content-button button-toggle">CONTENT
+                    </button>
+                </div>
                 </br>
                 <input name="search_keyword" id="search_keyword" placeholder="paste link to content"/>
                 <button name="search_btn" id="search_btn" class="btn-primary">Find</button>
-                <img id="imdb-logo" src="{% static '/img/imdb-logo-1024x467.png' %}" width="120" height="auto" style="vertical-align: middle; padding-bottom: 21px;">
-                <img id="youtube-logo" src="{% static '/img/youtube-logo-2.jpg' %}" width="80" height="auto" style="vertical-align: middle; margin-left:-20px; border-radius: 20%; " >
+                <img id="imdb-logo" src="{% static '/img/imdb-logo-1024x467.png' %}" width="120" height="auto">
+                <img id="youtube-logo" src="{% static '/img/youtube-logo-2.jpg' %}" width="80" height="auto">
+            </div>
+            <div>
+                <p class="search-sub-text">Navigates to existing Campaign or creates new one</p>
             </div>
             <div>
                 {% if messages %}
