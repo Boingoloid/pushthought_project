@@ -11,6 +11,7 @@ from el_pagination.views import AjaxListView
 from el_pagination.decorators import page_template
 
 from programs.models import Program
+from campaigns.models import Campaign
 
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
@@ -87,9 +88,15 @@ def browse_view(request, template="browse.html", extra_context=None):
 #         print program_id
 #         return context
 
-# def browse_campaigs_view(request, template="browse-.html", extra_context=None):
+def browse_campaigns_view(request, template="browse_campaigns.html", extra_context=None):
+    query = Campaign.objects
+    print(query)
+    context = {}
+    context['campaignList'] = query.all()
 
-
+    if extra_context is not None:
+        context.update(extra_context)
+    return render(request, template, context)
 
 def handler404(request):
     response = render_to_response('404.html', {},context_instance=RequestContext(request))

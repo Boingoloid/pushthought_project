@@ -1,10 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% load static from staticfiles %}
 
-</body>
-</html>
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/browse.css' %}">
+{% endblock %}
+{% block title %}Push Thought-Browse{% endblock %}
+
+
+                <!--<form class="form-inline">-->
+                    <!--<div class="form-group">-->
+                        <!--<textarea class="form-control" rows="1" cols="60" id="comment" placeholder="Search Keyword or Paste Link" ></textarea>-->
+                        <!--<button type="button" class="btn btn-primary" style="border-radius:10px;">Search</button>-->
+                    <!--</div>-->
+                <!--</form>-->
+
+{% block content %}
+
+{#<form name="browse_form" action="{% url 'browse' %}" method="post">#}
+    {% csrf_token %}
+    <input type="hidden" name="search_type" id="search_type" value="">
+    <div class="browse-container">
+        <div class="browse-header">
+            <div>
+                <div style="display:inline;">
+                    <button class="campaigns-button button-toggle">CAMPAIGNS
+                    </button>
+                    <button class="content-button button-toggle">CONTENT
+                    </button>
+                </div>
+                </br>
+                <input name="search_keyword" id="search_keyword" placeholder="enter search terms"/>
+                <button name="search_btn" id="search_btn" class="btn-primary">Find</button>
+                <!--<img id="imdb-logo" src="{% static '/img/imdb-logo-1024x467.png' %}" width="120" height="auto">-->
+                <!--<img id="youtube-logo" src="{% static '/img/youtube-logo-2.jpg' %}" width="80" height="auto">-->
+            </div>
+            <div>
+                <p class="search-sub-text" style="margin-top:10px;">Search works for title only</p>
+            </div>
+            <div>
+                <!--{% if messages %}-->
+                    <!--<ul class="messages">-->
+                        <!--{% for message in messages %}-->
+                        <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+                        <!--{% endfor %}-->
+                    <!--</ul>-->
+                <!--{% endif %}-->
+            </div>
+        </div><!-- /.browse-header -->
+        <div style="margin-left: 130px; font-size:80%;">-- or --</div>
+        <div class="search-result-section">
+            <div>
+                <p class="search-result-heading" style="display:inline; color:green; font-weight:400;">Choose the campaign that inspires you</p>
+                {% if searchResultList|length > 0 %}
+                    <p>{{searchResultList|length}}</p>
+                {% endif %}
+            </div>
+            <div class="program-container">
+                {% for item in searchResultList %}
+                <div class='program-item' id="{{item.itemprop_videoId}}">
+                    <div class="program-img-container">
+                        <img class='program-item-image' id='program-item-image' src="{{item.property_og_image}}">
+                    </div>
+                    <div style="display: inline">
+                        <p>{{item.name_title}} - {{item.itemprop_description}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+             </div>
+        </div>
+        <div class="category-section">
+            <div>
+                <p class="category-heading" style="display:inline;">Active Campaigns</p>
+                <!--<p style=" margin-left:10px; display:inline; font-size:14">(see all)</p>-->
+            </div>
+             <div class="row">
+{#             TODO:Change to docs only#}
+                 <div class="endless_page_template">
+                {% include 'inserts/campaigns.html' %}
+                     </div>
+             </div>
+        </div>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="{% static 'js/browse.js' %}"></script>
+    {{ block.super }}
+    <script src="{% static 'el-pagination/js/el-pagination.js' %}"></script>
+    <script>$.endlessPaginate();</script>
+    <script src="{% static 'js/browse/imdb_search.js' %}"></script>
+{% endblock %}

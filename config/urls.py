@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name='home',),
     url(r'^home/$', views.HomeView.as_view(), name='home',),
     url(r'^browse/$', views.browse_view, name='browse'),
+    url(r'^browse_campaigns/$', views.browse_campaigns_view, name='browse_campaigns'),
     url(r'^contact_immediately/$', views.ContactImmediatelyView.as_view(), name='contact_immediately'),
     url(r'^campaign_landing/$', views.CampaignLandingView.as_view(), name='campaign_landing'),
     # url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),

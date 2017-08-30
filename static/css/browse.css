@@ -186,7 +186,10 @@
 .program-img-container{
   display:inline;
   height:auto;
-  length:auto;
+  width: 71px;
+  min-width: 71px;
+  height: 100px;
+  min-height: 100px;
 }
 
 .program-item-image{

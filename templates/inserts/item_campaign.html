@@ -1,0 +1,24 @@
+<a href="{% url 'programs:detail' item.pk %}" style="text-decoration:none;">
+    <div class='program-item col-sm-2' id="{{ item.id }}">
+
+        <div class='loader-{{forloop.counter}}'></div>
+        <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
+        <div class="program-img-container">
+            {% if item.image %}
+                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.image.url}} style="display:inline;">
+            <!--{% else %}-->
+            <!--<img class='program-item-image' id='program-item-image{{forloop.counter}}' src="{% static '/img/imdb-logo-1024x467.png' %}">-->
+            {% endif %}
+        </div>
+        <div class="program-title" id="program-item-title{{forloop.counter}}">{{item.title}}
+        </div>
+        <div class="program-description">{{ item.description }}
+        </div>
+        <div class="program-info-container">
+                <div class="sent-count">{{ item.counter }}</div>
+                <div class="sent-count-label">actions</div>
+                <!--<div class="runtime">{{ item.runtime_minutes }}</div>-->
+                <!--<div class="runtime-label">minutes</div>-->
+        </div>
+    </div>
+</a>
