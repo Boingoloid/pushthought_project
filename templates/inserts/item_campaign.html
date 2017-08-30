@@ -6,8 +6,6 @@
         <div class="program-img-container">
             {% if item.image %}
                 <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.image.url}} style="display:inline;">
-            <!--{% else %}-->
-            <!--<img class='program-item-image' id='program-item-image{{forloop.counter}}' src="{% static '/img/imdb-logo-1024x467.png' %}">-->
             {% endif %}
         </div>
         <div class="program-title" id="program-item-title{{forloop.counter}}">{{item.title}}

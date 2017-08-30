@@ -24,17 +24,27 @@ $(document).ready(function() {
     });
 
     /////////////////////////////////////////////
+    // set default to browse content
+    ////////////////////////////////////////////
+    $('.content-button').addClass('selected');
+    $('.content-button').css('background-color','green');
+    $('.content-button').css('color','black');
+    $('.campaigns-button').removeClass('selected');
+    $('.campaigns-button').css('background-color','#337ab7');
+    $('.campaigns-button').css('color','white');
+
+
+    /////////////////////////////////////////////
     // toggle button click on campaigns
     ////////////////////////////////////////////
     $('.campaigns-button').on('click', function(e){
-
-        $('.campaigns-button').addClass('selected');
-        $('.campaigns-button').css('background-color','green');
-        $('.campaigns-button').css('color','black');
-
-        $('.content-button').removeClass('selected');
-        $('.content-button').css('background-color','#337ab7');
-        $('.content-button').css('color','white');
+//        $('.campaigns-button').addClass('selected');
+//        $('.campaigns-button').css('background-color','green');
+//        $('.campaigns-button').css('color','black');
+//
+//        $('.content-button').removeClass('selected');
+//        $('.content-button').css('background-color','#337ab7');
+//        $('.content-button').css('color','white');
     });
 
 
@@ -43,21 +53,19 @@ $(document).ready(function() {
     ////////////////////////////////////////////
     $('.content-button').on('click', function(e){
 
-        $('.content-button').addClass('selected');
-        $('.content-button').css('background-color','green');
-        $('.content-button').css('color','black');
-
-        $('.campaigns-button').removeClass('selected');
-        $('.campaigns-button').css('background-color','#337ab7');
-        $('.campaigns-button').css('color','white');
+//        $('.content-button').addClass('selected');
+//        $('.content-button').css('background-color','green');
+//        $('.content-button').css('color','black');
+//
+//        $('.campaigns-button').removeClass('selected');
+//        $('.campaigns-button').css('background-color','#337ab7');
+//        $('.campaigns-button').css('color','white');
 
     });
 
     /////////////////////////////////////////////
     // by default, trigger campaigns toggle button
     ////////////////////////////////////////////
-    $('.campaigns-button').trigger('click');
-
 
 
 });
