@@ -15,8 +15,8 @@ $(document).ready(function() {
     $('.content-button').css('color','white');
 
 
-    $('.content-button').on('click', function(e){
-        window.location.href = "/browse/";
+//    $('.content-button').on('click', function(e){
+//        window.location.href = "/browse/";
 
 
 
@@ -27,7 +27,7 @@ $(document).ready(function() {
 //        $('.content-button').removeClass('selected');
 //        $('.content-button').css('background-color','#337ab7');
 //        $('.content-button').css('color','white');
-    });
+//    });
 
 
 });
