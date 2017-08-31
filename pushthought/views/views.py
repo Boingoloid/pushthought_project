@@ -69,34 +69,24 @@ def browse_view(request, template="browse.html", extra_context=None):
     context['documentaries'] = query.documentaries().order_by('-counter')
     context['webVideoList'] = query.webvideos().order_by('-counter')
     context['podcastList'] = query.podcasts().order_by('-counter')
-    context['otherList'] = query.other().order_by('-counter')
+    context['otherList'] = query.other().order_by('counter')
 
     if extra_context is not None:
         context.update(extra_context)
     return render(request, template, context)
 
-#
-# class ContentLandingView(TemplateView):
-#     template_name = 'content_landing.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(ContentLandingView, self).get_context_data(**kwargs)
-#         program_id = self.kwargs['program_id']
-#         query = Program.objects.filter(id=program_id)
-#         context['program'] = query[0]
-#         print context['program']
-#         print program_id
-#         return context
 
+@page_template("inserts/campaigns.html")
 def browse_campaigns_view(request, template="browse_campaigns.html", extra_context=None):
     query = Campaign.objects
     print(query)
     context = {}
-    context['campaignList'] = query.all()
+    context['campaignList'] = query.all().order_by('-counter')
 
     if extra_context is not None:
         context.update(extra_context)
     return render(request, template, context)
+
 
 def handler404(request):
     response = render_to_response('404.html', {},context_instance=RequestContext(request))
