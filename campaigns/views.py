@@ -45,6 +45,7 @@ class CampaignDeleteView(DeleteView):
         self.object.save()
         return HttpResponseRedirect(success_url)
 
+
 class CampaignCreateView(LoginRequiredMixin, CreateView):
     model = models.Campaign
     form_class = forms.CampaignForm
@@ -53,6 +54,8 @@ class CampaignCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
 
         return super(CampaignCreateView, self).form_valid(form)
+
+
 
 
 class CampaignUpdateView(UpdateView):

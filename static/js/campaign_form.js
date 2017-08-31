@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('form').on('submit', function(e) {
+    $('#submit').on('submit', function(e) {
         e.preventDefault();
         checkUrl();
         if (slug_result === 'Taken') {
@@ -18,7 +18,7 @@ $(document).ready(function() {
         var error = false;
 
         if($('textarea[name=tweet_text]').val() || $('textarea[name=email_text]').val()) {
-            alert('Passed validation');
+
             error = false;
         } else {
             alert('Please fill up one field');
@@ -26,7 +26,11 @@ $(document).ready(function() {
         }
 
         // Check error flag before submission
-        if(!error) $(this)[0].submit();
+        if(!error) {
+            return true
+        } else {
+            return false
+        }
     });
 });
 
