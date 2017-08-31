@@ -54,5 +54,8 @@ class CampaignUpdateView(UpdateView):
 class CheckUrl(LoginRequiredMixin, View):
     def get(self, request):
         slug = request.GET.get('slug')
+        current = request.GET.get('current')
         exists = models.Campaign.objects.filter(slug=slug).exists()
+        if slug == current:
+            exists = False
         return JsonResponse({'result': exists})

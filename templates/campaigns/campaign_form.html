@@ -11,6 +11,7 @@
 {% block content %}
 
 <form method="post">{% csrf_token %}
+<input type="hidden" id="current_slug" value="{{object.slug}}">
 <div class="container-standard container-standard-form">
     <h2>Create custom campaign for messaging congress</h2>
     <div class="field-group field-group-title">
