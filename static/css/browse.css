@@ -205,8 +205,15 @@
 }
 
 .program-item-image-crop{
-  float: left;
+  display: inline;
+  height: 70px;
+  min-height: 70px;
+  width: 70px;
+  min-width: 70px;
   margin:auto;
+  margin-top:15px;
+  margin-bottom:7px;
+  margin-left:5px;
 }
 
 .program-title{
@@ -232,6 +239,9 @@
   letter-spacing:1.02;
 }
 
+
+
+
 .program-description{
   font-weight:200;
   color:white; font-size:10pt;
@@ -240,6 +250,22 @@
   margin-left:85px;
   margin-right:5px;
   margin-top:-70px;
+  max-height:65px;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  border: 0px solid green;
+  letter-spacing:1.02;
+
+}
+
+.program-description-crop{
+  font-weight:200;
+  color:white; font-size:10pt;
+  line-height:12pt;
+  float:left;
+  margin-left:85px;
+  margin-right:5px;
+  margin-top:-69px;
   max-height:65px;
   text-overflow: ellipsis;
   overflow: hidden !important;

@@ -1,3 +1,4 @@
+{% load static from staticfiles %}
 <a href="{% url 'programs:detail' item.pk %}" style="text-decoration:none;">
     <div class='program-item col-sm-2' id="{{ item.id }}">
 
@@ -6,6 +7,8 @@
         <div class="program-img-container">
             {% if item.image %}
                 <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.image.url}} style="display:inline;">
+            {% else %}
+                <img class='img program-item-image-crop img-landing-title' id='program-item-image-crop' src="{% static 'img/push_thought_logo.png' %}">
             {% endif %}
         </div>
         <div class="program-title" id="program-item-title{{forloop.counter}}">{{item.title}}
