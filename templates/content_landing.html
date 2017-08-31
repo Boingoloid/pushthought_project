@@ -34,9 +34,15 @@
             </div>
             <div class="content-info-right">
                 <div class="div-title-image">
-                    <img class='img program-item-image img-landing-title'
+                    {% if object.image %}
+                        <img class='img program-item-image img-landing-title'
                          id='program-item-image'
                          src='{{ object.image.url }}'>
+                    {% else %}
+                        <img class='img program-item-image img-landing-title'
+                         id='program-item-image'
+                         src="{% static 'img/push_thought_logo.png' %}">
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -49,6 +55,7 @@
             <!--{% endfor %}-->
         <!--</ul>-->
     <!--{% endif %}-->
+
 <div class="container-standard" style="margin:0;">
     <div class="rep-color-band">
         <div class="container-standard category-container">
