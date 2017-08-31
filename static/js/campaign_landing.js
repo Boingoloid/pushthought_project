@@ -56,6 +56,20 @@ $(document).ready(function() {
 
     }
 
+    // These are for sharing the campaign page only
+    var href = "https://twitter.com/intent/tweet?";
+    params = {
+      'text': 'I just contacted my congressional reps on Push Thought',
+      'url': window.location.href
+    }
+    $("#twitter-share-button").prop('href', href+$.param(params));
 
+    var current_url = window.location.href;
+    $("a#facebook-share-button").click(function(){
+      FB.ui({
+        method: 'share',
+        href: current_url,
+        quote: 'I just contacted my congressional reps on Push Thought'
+      }, function(response){});
+    });
 });
-
