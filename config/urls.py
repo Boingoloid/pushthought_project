@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^program/', include('programs.urls', namespace='programs')),
     url(r'^congress/', include('congress.urls', namespace='congress')),
-    url(r'^campaign/', include('campaigns.urls', namespace='campaign')),
+    url(r'^c/', include('campaigns.urls', namespace='campaign')),
 
     url(r'^is_logged_in/$', LoggedInView.as_view(), name='user_logged_in'),
     url(r'^save_tweet_twitter_login/$', oauth_login, name='save_tweet_twitter_login'),
