@@ -64,7 +64,7 @@ class CampaignLandingView(TemplateView):
 @page_template('inserts/webvideos.html', key='other_entries_page')
 def browse_view(request, template="browse.html", extra_context=None):
     query = Program.objects
-    context = {}
+    context = dict()
     context['programList'] = query.all().order_by('-counter')
     context['documentaries'] = query.documentaries().order_by('-counter')
     context['webVideoList'] = query.webvideos().order_by('-counter')
@@ -80,8 +80,8 @@ def browse_view(request, template="browse.html", extra_context=None):
 def browse_campaigns_view(request, template="browse_campaigns.html", extra_context=None):
     query = Campaign.objects
     print(query)
-    context = {}
-    context['campaignList'] = query.all().order_by('-counter')
+    context = dict()
+    context['campaignList'] = query.filter(active=True).order_by('-counter')
 
     if extra_context is not None:
         context.update(extra_context)

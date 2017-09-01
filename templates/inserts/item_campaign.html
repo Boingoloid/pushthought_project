@@ -1,5 +1,5 @@
 {% load static from staticfiles %}
-<a href="{% url 'programs:detail' item.pk %}" style="text-decoration:none;">
+<a href="{% url 'campaign:detail' item.slug %}" style="text-decoration:none;">
     <div class='program-item col-sm-2' id="{{ item.id }}">
 
         <div class='loader-{{forloop.counter}}'></div>
