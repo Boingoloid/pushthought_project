@@ -46,23 +46,15 @@
     </div>
     <div style="margin-bottom: 50px;"></div>
 </div>
-<div class="container-standard container-text-white">
-  <div class="rep-color-band">
-    <div class="category-title-container" style="padding: 15px;">
-      <h2 style="display: inline-block;" class="pull-left">Share this content on: </h2>
-      <a href="https://twitter.com/intent/tweet" id="twitter-share-button" class="pull-left" style="margin-left: 10px;">
-        <i class="fa fa-twitter fa-2x"></i>
-      </a>
-      <a href="#" id="facebook-share-button" class="pull-left" style="margin-left: 10px;">
-        <i class="fa fa-facebook-official fa-2x"></i>
-      </a>
-    </div>
-    <div class="clearfix"></div>
-  </div>
-</div>
 <div class="container-standard">
     <div class="rep-color-band">
         <div class="container-standard category-container">
+          <div class="share-social-container">Share this campaign on:
+              <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
+                <img class="share-tweet" src="https://pushthought-prod.s3.amazonaws.com/img/twitter-icon.png?Signature=ndXXSeMdqMqizcD4tj2%2FVa4QQoE%3D&amp;Expires=1504367080&amp;AWSAccessKeyId=AKIAIEML3PVPB2GLH3MQ" height="40" width="40">
+              </a>
+              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="https://pushthought-prod.s3.amazonaws.com/img/facebook-icon.png?Signature=tTMDKCQzVD5bQWWapZWBdZanvpo%3D&amp;Expires=1504367080&amp;AWSAccessKeyId=AKIAIEML3PVPB2GLH3MQ" height="30" width="30">
+          </div>
             <div class="category-title-container">
                 <div style="display:inline;">
                     <p class="category-title" style="z-index:0;">Federal Representatives</p>
@@ -76,11 +68,7 @@
                     </div>
                 </div>
             </div>
-            {% if hasCongressData %}
-            <div class="zip-capture" style="display:none">
-            {% else %}
-            <div class="zip-capture">
-            {% endif %}
+            <div class="zip-capture" {% if hasCongressData %}style="display:none"{% endif %}>
                 {#<div class="location-label">Current Location:</div>#}
                     {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
                 {#<div class="or-label">---  or  ---</div>#}
@@ -89,10 +77,6 @@
                 <div class='zip-loader'  id="zip-loader"></div>
                 <input class="zip-input" id="{{ request.session.zip }}" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
             </div>
-
-
-
-
 
             <div class="rep-container">
                 {% if hasCongressData %}
@@ -201,9 +185,6 @@
         </div>
     </div>
 
-
-
-
     <div class="suggested_message_container">
         <div class="tweet_suggested_message_container">
             <p>Suggested tweet text <font size="2" color="white">(click text area to copy)</font> </p>
@@ -260,40 +241,6 @@
 <script src="{% static 'js/content_landing_email_action.js' %}"></script>
 <script src="{% static 'js/content_landing_tweet_action.js' %}"></script>
 <script src="{% static 'js/content_landing_get_congress.js' %}"></script>
-<script>window.twttr = (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0],
-    t = window.twttr || {};
-  if (d.getElementById(id)) return t;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = "https://platform.twitter.com/widgets.js";
-  fjs.parentNode.insertBefore(js, fjs);
 
-  t._e = [];
-  t.ready = function(f) {
-    t._e.push(f);
-  };
-
-  return t;
-}(document, "script", "twitter-wjs"));</script>
-
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '141188473151491',
-      xfbml      : true,
-      version    : 'v2.10'
-    });
-    FB.AppEvents.logPageView();
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
 {% csrf_token %}
 {% endblock %}

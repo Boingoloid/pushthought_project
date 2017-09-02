@@ -41,9 +41,22 @@
         <!--</div>-->
     <!--</div>-->
 <!--</div>-->
+{# Obvioulsy remove this section when there is real content #}
+<div class="intro-header intro-header-landing">
+  <div class="container container-text-white" style="min-height: 100px;">
+    <h1>Placeholder Text</h1>
+  </div>
+</div>
+
 <div class="container-standard">
     <div class="rep-color-band">
         <div class="container-standard category-container">
+          <div class="share-social-container">Share this campaign on:
+              <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
+                <img class="share-tweet" src="https://pushthought-prod.s3.amazonaws.com/img/twitter-icon.png?Signature=ndXXSeMdqMqizcD4tj2%2FVa4QQoE%3D&amp;Expires=1504367080&amp;AWSAccessKeyId=AKIAIEML3PVPB2GLH3MQ" height="40" width="40">
+              </a>
+              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="https://pushthought-prod.s3.amazonaws.com/img/facebook-icon.png?Signature=tTMDKCQzVD5bQWWapZWBdZanvpo%3D&amp;Expires=1504367080&amp;AWSAccessKeyId=AKIAIEML3PVPB2GLH3MQ" height="30" width="30">
+          </div>
             <div class="category-title-container" style="margin-top:75px;">
                 <div style="display:inline;">
                     <p class="category-title" style="z-index:0;">Federal Representatives</p>
@@ -57,11 +70,9 @@
                     </div>
                 </div>
             </div>
-            {% if hasCongressData %}
-                <div class="zip-capture" style="display:none">
-            {% else %}
-                <div class="zip-capture" style="margin-top:100px;">
-            {% endif %}
+
+                <div class="zip-capture" {% if hasCongressData %}style="display:none"{% else %}style="margin-top:100px;"{% endif %}>
+
                     {#<div class="location-label">Current Location:</div>#}
                     {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
                     {#<div class="or-label">---  or  ---</div>#}
