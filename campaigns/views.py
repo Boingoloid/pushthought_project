@@ -19,7 +19,7 @@ class CampaignUserListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super(CampaignUserListView, self).get_queryset()
-        return queryset.filter(user=self.request.user)
+        return queryset.filter(user=self.request.user).order_by('id')
 
 
 class CampaignDeleteView(DeleteView):
