@@ -198,7 +198,6 @@
   min-height: 100px;
   width: 71px;
   min-width: 71px;
-  margin:auto;
   margin-top:7px;
   margin-bottom:-15px;
   margin-left:5px;
@@ -217,18 +216,15 @@
 }
 
 .program-title{
-  display:inline;
+  display:inline-block;
   margin-bottom:-10px;
-  margin-right:10px;
+  margin-right:0px;
   margin-left: 5px;
   font-size:12pt;
   color:white;
   height:18px;
   min-height: 18px;
   max-height: 18px;
-  width: 307px;
-  max-width: 307px;
-  min-width: 307px;
   overflow: hidden;
   white-space: nowrap;
   line-height:18px;
@@ -237,8 +233,15 @@
   text-overflow: clip;
   text-align:left;
   letter-spacing:1.02;
+  width: 300px;
 }
 
+@media only screen and (max-width: 438px) {
+    .program-title {
+        width: 200px;
+        font-size:11px;
+    }
+}
 
 
 
@@ -258,14 +261,21 @@
 
 }
 
+@media only screen and (max-width: 438px) {
+    .program-description .program-description-crop {
+        font-size:11px;
+    }
+}
+
 .program-description-crop{
   font-weight:200;
-  color:white; font-size:10pt;
+  color:white;
+  font-size:10pt;
   line-height:12pt;
   float:left;
   margin-left:85px;
   margin-right:5px;
-  margin-top:-69px;
+  margin-top:-70px;
   max-height:65px;
   text-overflow: ellipsis;
   overflow: hidden !important;
