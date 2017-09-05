@@ -7,8 +7,53 @@
 .intro-header{
 }
 
+
+
+.button-toggle:hover{
+  background-color:black;
+
+}
+
+.campaigns-button{
+  margin-left:25%;
+  margin-top:20px;
+  margin-bottom: 10px;
+  margin-right:-5;
+  background-color:#337ab7;
+  border:2px solid #2e6da4;
+  border-radius:5px;
+  display:inline;
+  width:150px;
+  padding-left:0;
+  padding-right:0;
+  border-right:2px solid white;
+}
+
+@media only screen and (max-width: 470px) {
+  .campaigns-button{
+
+    margin-left:5%;
+  }
+
+}
+
+.content-button{
+
+  margin:-left:0;
+  margin-top:20px;
+  padding-left:0;
+  padding-right:0;
+  background-color:#337ab7;
+  border:2px solid #2e6da4;
+  border-radius:5px;
+  display:inline;
+  width:150px;
+  border-left:2px solid white;
+}
+
 #search_keyword{
     border-radius:5px;
+    margin-top:10px;
 }
 
 
@@ -34,6 +79,20 @@
   margin-bottom: 0px;
   width:100%;
   max-height:100%;
+}
+
+
+#imdb-logo{
+
+  vertical-align: middle;
+  padding-bottom: 21px;
+
+}
+
+#youtube-logo{
+  vertical-align: middle;
+  margin-left:-20px;
+  border-radius: 20%;
 }
 
 .category-section{
@@ -66,20 +125,31 @@
 
 
 .program-item{
-
   margin:5px;
+  padding-top:2px;
   background: rgba(0,0,0,0.4);
   border: 1px solid black;
   border-radius: 5px;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
-  min-width:200px;
-  min-height:200px;
-  height:auto;
+  min-width:400px;
+  height:120;
+  max-height:120px;
+}
+
+@media only screen and (max-width: 438px) {
+    .program-item{
+        min-width: 300px;
+        width: 300px;
+    }
+
 }
 
 .program-item p{
+  height:110;
+  max-height:110px;
   color: white;
   font-size: 14px;
+  overflow: scroll;
 }
 
 .program-item:hover{
@@ -115,40 +185,107 @@
 
 .program-img-container{
   display:inline;
+  height:auto;
+  width: 71px;
+  min-width: 71px;
+  height: 100px;
+  min-height: 100px;
 }
 
 .program-item-image{
   display: inline;
-  height: 125px;
-  min-height: 125px;
-  width: 90px;
-  min-width: 90px;
+  height: 100px;
+  min-height: 100px;
+  width: 71px;
+  min-width: 71px;
   margin:auto;
+  margin-top:7px;
+  margin-bottom:-15px;
+  margin-left:5px;
 }
 
 .program-item-image-crop{
-  float: left;
+  display: inline;
+  height: 70px;
+  min-height: 70px;
+  width: 70px;
+  min-width: 70px;
   margin:auto;
+  margin-top:15px;
+  margin-bottom:7px;
+  margin-left:5px;
 }
 
 .program-title{
-  display:block;
-  margin:auto;
-  text-align:center;
+  display:inline;
+  margin-bottom:-10px;
+  margin-right:10px;
+  margin-left: 5px;
+  font-size:12pt;
+  color:white;
+  height:18px;
+  min-height: 18px;
+  max-height: 18px;
+  width: 307px;
+  max-width: 307px;
+  min-width: 307px;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height:18px;
+  vertical-align:top;
+  border: 0px solid green;
+  text-overflow: clip;
+  text-align:left;
+  letter-spacing:1.02;
+}
+
+
+
+
+.program-description{
+  font-weight:200;
+  color:white; font-size:10pt;
+  line-height:12pt;
+  float:left;
+  margin-left:85px;
+  margin-right:5px;
+  margin-top:-70px;
+  max-height:65px;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  border: 0px solid green;
+  letter-spacing:1.02;
+
+}
+
+.program-description-crop{
+  font-weight:200;
+  color:white; font-size:10pt;
+  line-height:12pt;
+  float:left;
+  margin-left:85px;
+  margin-right:5px;
+  margin-top:-69px;
+  max-height:65px;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  border: 0px solid green;
+  letter-spacing:1.02;
+
 }
 
 .program-info-container{
-  float: right;
-  height: 30px;
-  margin: 0px;
-  width: 82px;
-  text-align: center;
+  margin: auto;
+  width:400px;
+  text-align: right;
+  align:right;
   position: relative;
+  display: inline;
 }
 
 .count{
     color: gray;
-    display:inline-block;
+    display:inline;
     margin: auto;
     font-size: 28px;
     font-weight: 400;
@@ -156,12 +293,30 @@
 }
 
 .sent-count{
-  font-size:22px;
+  font-size:14px;
+  line-height:14px;
   color: green;
+  display:inline;
+  margin-left:290px;
+  align-content:right;
+  text-align:right;
+  width:50px;
+}
+
+@media only screen and (max-width: 438px) {
+    .sent-count{
+        margin-left:200px;
+    }
+
 }
 
 .sent-count-label{
+  display:inline;
+  margin-left:0px;
   color: green;
+  font-size:12px;
+  font-weight:200;
+
 }
 
 .user-count{
@@ -292,4 +447,15 @@ div.panel p {
 
 #search_keyword{
   color:black;
+}
+
+#search_keyword::selection {
+  background: #ffb7b7;
+}
+
+.search-sub-text{
+  margin:0;
+  margin-top:-15px;
+  margin-bottom: 10px;
+  font-size: 11pt;
 }

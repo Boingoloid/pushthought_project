@@ -11,6 +11,7 @@ from el_pagination.views import AjaxListView
 from el_pagination.decorators import page_template
 
 from programs.models import Program
+from campaigns.models import Campaign
 
 PARSE_APP_ID = settings.PARSE_APP_ID
 PARSE_REST_KEY = settings.PARSE_REST_KEY
@@ -51,38 +52,40 @@ class CampaignLandingView(TemplateView):
     template_name = 'campaigns/detail.html'
 
     def get_context_data(self, **kwargs):
+
         context = super(CampaignLandingView, self).get_context_data(**kwargs)
 
         return context
+
+
 
 
 @page_template("inserts/documentaries.html")
 @page_template('inserts/webvideos.html', key='other_entries_page')
 def browse_view(request, template="browse.html", extra_context=None):
     query = Program.objects
-    context = {}
-    context['programList'] = query.all()
-    context['documentaries'] = query.documentaries()
-    context['webVideoList'] = query.webvideos()
-    context['podcastList'] = query.podcasts()
-    context['otherList'] = query.other()
+    context = dict()
+    context['programList'] = query.all().order_by('-counter')
+    context['documentaries'] = query.documentaries().order_by('-counter')
+    context['webVideoList'] = query.webvideos().order_by('-counter')
+    context['podcastList'] = query.podcasts().order_by('-counter')
+    context['otherList'] = query.other().order_by('counter')
 
     if extra_context is not None:
         context.update(extra_context)
     return render(request, template, context)
 
-#
-# class ContentLandingView(TemplateView):
-#     template_name = 'content_landing.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(ContentLandingView, self).get_context_data(**kwargs)
-#         program_id = self.kwargs['program_id']
-#         query = Program.objects.filter(id=program_id)
-#         context['program'] = query[0]
-#         print context['program']
-#         print program_id
-#         return context
+
+@page_template("inserts/campaigns.html")
+def browse_campaigns_view(request, template="browse_campaigns.html", extra_context=None):
+    query = Campaign.objects
+    print(query)
+    context = dict()
+    context['campaignList'] = query.filter(active=True).order_by('-counter')
+
+    if extra_context is not None:
+        context.update(extra_context)
+    return render(request, template, context)
 
 
 def handler404(request):

@@ -23,21 +23,21 @@
         <div class="browse-header">
             <div>
                 <div style="display:inline;">
-                    <a href="/browse_campaigns/">
-                        <button class="campaigns-button button-toggle">CAMPAIGNS
-                        </button>
-                    </a>
+                    <button class="campaigns-button button-toggle">CAMPAIGNS
+                    </button>
+                    <a href="/browse/" style="text-decoration:none;">
                         <button class="content-button button-toggle">CONTENT
                         </button>
+                    </a>
                 </div>
                 </br>
-                <input name="search_keyword" id="search_keyword" placeholder="paste link to content"/>
+                <input name="search_keyword" id="search_keyword" placeholder="enter search terms"/>
                 <button name="search_btn" id="search_btn" class="btn-primary">Find</button>
-                <img id="imdb-logo" src="{% static '/img/imdb-logo-1024x467.png' %}" width="120" height="auto">
-                <img id="youtube-logo" src="{% static '/img/youtube-logo-2.jpg' %}" width="80" height="auto">
+                <!--<img id="imdb-logo" src="{% static '/img/imdb-logo-1024x467.png' %}" width="120" height="auto">-->
+                <!--<img id="youtube-logo" src="{% static '/img/youtube-logo-2.jpg' %}" width="80" height="auto">-->
             </div>
             <div>
-                <p class="search-sub-text">Navigates to existing Campaign or creates new one</p>
+                <p class="search-sub-text" style="margin-top:10px;">Search works for title only</p>
             </div>
             <div>
                 <!--{% if messages %}-->
@@ -48,19 +48,11 @@
                     <!--</ul>-->
                 <!--{% endif %}-->
             </div>
-{#            <div class="browse-button-a">#}
-{#                <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>#}
-{#                <div class="panel">#}
-{#                    <a><p>Documentaries</p></a>#}
-{#                    <a><p>Web Videos</p></a>#}
-{#                    <a><p>Podcasts</p></a>#}
-{#                </div>#}
-{#            </div>#}
         </div><!-- /.browse-header -->
         <div style="margin-left: 130px; font-size:80%;">-- or --</div>
         <div class="search-result-section">
             <div>
-                <p class="search-result-heading" style="display:inline; color:green; font-weight:400;">Choose what campaign inspires you</p>
+                <p class="search-result-heading" style="display:inline; color:green; font-weight:400;">Choose the campaign that inspires you</p>
                 {% if searchResultList|length > 0 %}
                     <p>{{searchResultList|length}}</p>
                 {% endif %}
@@ -69,11 +61,10 @@
                 {% for item in searchResultList %}
                 <div class='program-item' id="{{item.itemprop_videoId}}">
                     <div class="program-img-container">
-
                         <img class='program-item-image' id='program-item-image' src="{{item.property_og_image}}">
                     </div>
                     <div style="display: inline">
-                        <p>{{item.name_title}} - {{item.itemprop_duration}}</p>
+                        <p>{{item.name_title}} - {{item.itemprop_description}}</p>
                     </div>
                 </div>
                 {% endfor %}
@@ -81,52 +72,27 @@
         </div>
         <div class="category-section">
             <div>
-                <p class="category-heading" style="display:inline;">Documentaries</p>
+                <p class="category-heading" style="display:inline;">Active Campaigns</p>
                 <!--<p style=" margin-left:10px; display:inline; font-size:14">(see all)</p>-->
             </div>
              <div class="row">
 {#             TODO:Change to docs only#}
                  <div class="endless_page_template">
-                {% include 'inserts/documentaries.html' %}
+                {% include 'inserts/campaigns.html' %}
                      </div>
              </div>
         </div>
 
-        <div class="category-section">
-        <p class="category-heading">Web Videos</p>
-            <div class="row endless_page_template">
-                <div class="endless_page_template">
-{#             TODO:Change to docs only#}
-                {% include 'inserts/webvideos.html' %}
-                </div>
-             </div>
-        </div><!-- /.container -->
-    </div>
+
 
 
 {% endblock %}
 
 {% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="{% static 'js/browse.js' %}"></script>
+<script src="{% static 'js/browse_campaigns.js' %}"></script>
     {{ block.super }}
     <script src="{% static 'el-pagination/js/el-pagination.js' %}"></script>
     <script>$.endlessPaginate();</script>
-    <script>
-        imdb_id_search_url = '{% url 'programs:parse_program' %}'
-    </script>
-    <script src="{% static 'js/browse/imdb_search.js' %}"></script>
+    <script src="{% static 'js/browse/find_campaign.js' %}"></script>
 {% endblock %}
-
-        <!--<div style="display:inline-block;">-->
-            <!--<button class="accordion" style="display: inline;">Section 2</button>-->
-            <!--<div class="panel">-->
-              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div style="display: inline-block;">-->
-            <!--<button class="accordion">Section 3</button>-->
-            <!--<div class="panel">-->
-              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-            <!--</div>-->
-        <!--</div>-->

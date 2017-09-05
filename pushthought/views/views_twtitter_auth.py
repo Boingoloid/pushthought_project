@@ -269,8 +269,6 @@ class SendTweetView(View):
 
 def verify_catch(request):
 
-
-
     print "verify catch starting"
     # Establish auth connection using Ap identification
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
@@ -383,6 +381,7 @@ def send_tweet_with_tweepy(request, tweet_text,access_key_token,access_key_token
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, CALLBACK_URL)
     auth.set_access_token(access_key_token, access_key_token_secret)
     api = tweepy.API(auth)
+
 
     try:
         program_id = request.session['programId']

@@ -85,6 +85,9 @@ function runTweet(windowURL){
         if(tweet_text.length < 1){
             alert ("Please type a message first");
             return false;
+        } else if ($('.letter-count').text() < 0){
+            alert ("Your tweet is too long, please edit to reduce character count");
+            return false;
         }
 
         // Show loaders

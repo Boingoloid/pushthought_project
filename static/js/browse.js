@@ -22,6 +22,54 @@ $(document).ready(function() {
             console.log("make disappear");
         }
     });
+
+    /////////////////////////////////////////////
+    // set default to browse content
+    ////////////////////////////////////////////
+    $('.content-button').addClass('selected');
+    $('.content-button').css('background-color','green');
+    $('.content-button').css('color','black');
+    $('.campaigns-button').removeClass('selected');
+    $('.campaigns-button').css('background-color','#337ab7');
+    $('.campaigns-button').css('color','white');
+
+
+    /////////////////////////////////////////////
+    // toggle button click on campaigns
+    ////////////////////////////////////////////
+    $('.campaigns-button').on('click', function(e){
+//        $('.campaigns-button').addClass('selected');
+//        $('.campaigns-button').css('background-color','green');
+//        $('.campaigns-button').css('color','black');
+//
+//        $('.content-button').removeClass('selected');
+//        $('.content-button').css('background-color','#337ab7');
+//        $('.content-button').css('color','white');
+    });
+
+
+    /////////////////////////////////////////////
+    // toggle button click on content
+    ////////////////////////////////////////////
+    $('.content-button').on('click', function(e){
+
+//        $('.content-button').addClass('selected');
+//        $('.content-button').css('background-color','green');
+//        $('.content-button').css('color','black');
+//
+//        $('.campaigns-button').removeClass('selected');
+//        $('.campaigns-button').css('background-color','#337ab7');
+//        $('.campaigns-button').css('color','white');
+
+    });
+
+    /////////////////////////////////////////////
+    // by default, trigger campaigns toggle button
+    ////////////////////////////////////////////
+
+
+});
+
     // $("#search_btn").click(function(){
     //     alert("search feature under development");
     //     // $("#search_type").val("scraping");
@@ -34,10 +82,6 @@ $(document).ready(function() {
     //     var programId = $(this).attr('id');
     //     window.location.href="/content_landing/" + programId;
     // });
-
-});
-
-
 
 //    $('.segment-item-container').on('click','.segment-item',function(event) {
 //       var programObjectId = $("#program-objectId").text();

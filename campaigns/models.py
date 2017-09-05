@@ -6,8 +6,10 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+from utils.models import CounterMixin
 
-class Campaign(TimeStampedModel):
+
+class Campaign(CounterMixin, TimeStampedModel):
     slug = models.SlugField(unique=True)
     title = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -16,6 +18,7 @@ class Campaign(TimeStampedModel):
     email_text = models.TextField(blank=True, null=True)
     link = models.URLField(blank=True, null=True)
     user = models.ForeignKey(User, blank=True, null=True)
+    active = models.BooleanField(default=True)
 
     def get_absolute_url(self):
         return reverse('campaign:detail', args=[str(self.slug)])

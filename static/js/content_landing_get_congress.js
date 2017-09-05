@@ -86,6 +86,7 @@ function get_congress(zip){
         error: function() {
             $('#zip-loader').hide();
             console.log('failure pulling congress data - in content_landing.js');
+            alert("We don't have any data for that zip code.  Please check and try again.");
         }
     });
 }
