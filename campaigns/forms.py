@@ -6,4 +6,4 @@ from . import models
 class CampaignForm(forms.ModelForm):
     class Meta:
         model = models.Campaign
-        exclude = ('user', 'active')
+        exclude = ('user', 'active', 'counter')
