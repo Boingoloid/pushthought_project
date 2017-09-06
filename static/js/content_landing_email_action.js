@@ -82,7 +82,6 @@ function get_congress_email_fields(bioguideArray) {
             // order returned fields
             // function below
             ///////////////////////////////////////
-
             data = order_congress_email_fields(data);
             // console.log(data);
 
@@ -218,9 +217,9 @@ function order_congress_email_fields(data) {
     ];
 
 
-    ////////////////////////////////////////
+    ///////////////////////////////////////////////////
     //put fields in order according to master list
-    ////////////////////////////////////////
+    ///////////////////////////////////////////////////
     var ordered_email_fields = [];
     var email_field_to_add_to_array = {};
     ordered_fields_key.forEach(function (ordered_email_field) {
@@ -238,9 +237,9 @@ function order_congress_email_fields(data) {
         // console.log("printing field name", email_field_to_add_to_array);
     });
 
-    ////////////////////////////////////////
+    ////////////////////////////////////////////////////////
     //put extra fields not in master ordered list at the end
-    ////////////////////////////////////////
+    ////////////////////////////////////////////////////////
 
     var extra_fields_array = [];
     var match = false;
@@ -250,6 +249,7 @@ function order_congress_email_fields(data) {
             var field_name = email_field_object['field_name'];
             if (field_name == ordered_email_field) {
                 match = true;
+                // do nothing, field already in list
             }
         });
         email_field_to_add_to_array = email_field_object;
@@ -263,6 +263,11 @@ function order_congress_email_fields(data) {
     return ordered_email_fields.concat(extra_fields_array);
 
 }
+
+
+
+
+
 
     /*
     var match = false;

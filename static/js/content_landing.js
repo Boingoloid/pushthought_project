@@ -4,6 +4,22 @@ $(document).ready(function() {
 
     var windowURL = window.location.href;
 
+    // Facebook and Twitter sharing buttons
+    var current_url = window.location.href;
+    var fb_text = $("p.description").text().length ? $("p.description").text() : 'I just contacted my congressional reps on Push Thought'
+    params = {
+      'text': 'I just contacted my congressional reps on Push Thought',
+      'url': current_url
+    }
+    $("#twitter-share-button").prop('href', "https://twitter.com/intent/tweet?"+$.param(params));
+
+    $("#facebook-share-button").click(function(){
+      FB.ui({
+        method: 'share',
+        href: current_url,
+        quote: fb_text,
+      }, function(response){});
+    });
 
         // Zip submission button click
     $('.submit-zip').click( function() {
@@ -442,7 +458,7 @@ $(document).ready(function() {
            index = index + 1; //add 1 because this index starts at 0 as where HTML forloop it matches starts at 1
            var address = $(this).text();
            var bioguideId = $(this).attr('name');
-           console.log(bioguideId);
+           //console.log(bioguideId);
            var text = ['<div class="address-item address-node-'+ index +'" name="'+ bioguideId +'">',
                             '<p class="address-item-label address-item-label-'+index +'">'+address+'</p>',
                       '</div>'].join("\n");
@@ -450,7 +466,7 @@ $(document).ready(function() {
         });
 
         // select address according to button clicked
-        console.log(".address-node-" + i);
+        //console.log(".address-node-" + i);
         $(".address-node-" + i).toggleClass("selected");
 
 
@@ -469,7 +485,7 @@ $(document).ready(function() {
         if($(window).width() < 525){
             console.log("no focus, width low");
         } else {
-            console.log("focus, width high");
+            //console.log("focus, width high");
             $('#text-input').focus();
             setEndOfContenteditable($('#text-input'));
         }
@@ -556,17 +572,30 @@ $(document).ready(function() {
 
     // Action Panel Container
     $('.rep-container').on("click", ".action-panel-container", function(e) {
+
+        //////////////////////////////////////
+        // get number of action panel clicked
+        //////////////////////////////////////
         var i = $(this).attr('id');
-        // get either twitter name or email value, depending on which is visible.
+
+        //////////////////////////////////////////////////////
+        // get twitter name if twitter names visible
+        //////////////////////////////////////////////////////
         if($('.twitter-name').is(":visible")){
-            var whichIconClicked = "twitter";
             var elementRef = "#email-name-"+i;
             var elementText = $('#twitter-name-'+i).text();
+            var whichIconClicked = "tweet";
+        ////////////////////////////////////////////////////////////
+        // if email visible and class 'selected' exists, then close
+        ////////////////////////////////////////////////////////////
         } else if($('.email-name').is(":visible")){
             var whichIconClicked = "email";
             if($(this).hasClass('selected')){
                 $('#close-button').trigger('click');
                 console.log("email should close");
+            ////////////////////////////////////////////////////////////
+            // if email visible and class NOT 'selected' then alert
+            ////////////////////////////////////////////////////////////  v
             } else {
                 var elementText = $('div#'+i+'.email-name').text();
                 alert("Currently you can only email 1 representative at a time.  Autofill will help you fill out consecutive emails.");
@@ -577,11 +606,18 @@ $(document).ready(function() {
             return false;
         }
 
-        // If no item, then return false
+        ///////////////////////////////////////////////////////
+        // to make it here, tweet name visible is only option,
+        // check if tweet name exists, if not, then alert
+        ///////////////////////////////////////////////////////
         if( elementText == 'n/a'){
             alert('Don\'t have this item yet.  We\'re working on it.  Thank you for your patience.');
             return false;
-        //else label container as selected
+        ///////////////////////////////////////////////////////
+        // Twitter name has value!
+        // switch status to selected or unselected based on
+        // current state.  change state of address node above input
+        ///////////////////////////////////////////////////////
         } else {
             // adjust the highlight of selected/unselected container
             if ($(this).hasClass( "selected" )){
@@ -598,22 +634,30 @@ $(document).ready(function() {
                 $(addressPath).addClass('selected');
             }
 
-            // grabbing length and value of textInput and placeholder
+            ///////////////////////////////////////////////////////////
+            // grabbing length of placeholder text and value of #textInput
+            ///////////////////////////////////////////////////////////
             var placeholderLength = $('.address-placeholder').text().length
             value = $('#text-input').html();
+            console.log("placeholder length: " + placeholderLength);
+            console.log("html value: " + value);
 
+            ///////////////////////////////////////////////////
             // add placeholder if one does not exist
+            //////////////////////////////////////////////////
             searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
             if (searchBool == -1){
+                console.log("there is no placeholder");
                 $('#text-input').html(value + '<span contenteditable=false class=address-placeholder></span>');
             }
 
             // Get count of selected items
             var numItems = $('.address-item.selected').length;
 
-            //console.log("number of items: "+numItems);
+            console.log("number of items: "+numItems);
             // Change button label
             if (whichIconClicked == "email"){
+              console.log("this code should never trigger, change button label email");
               var labelText = 'email: ' + numItems;
               $('#email-button-label').text(labelText);
             } else{
@@ -622,9 +666,9 @@ $(document).ready(function() {
             }
 
             // EMAIL - hide / show fields
-            if($('.email-name').is(":visible")){
+            //if($('.email-name').is(":visible")){
 
-                $('.email-form-field-container').hide();
+                /*$('.email-form-field-container').hide();
                 var showArray = []
                 $('.address-item-label:visible').each(function(){
                     var bioguideId = $(this).attr('id');
@@ -633,11 +677,11 @@ $(document).ready(function() {
                 console.log(showArray);
                 for (var i = 0; i < showArray.length; i++) {
                     $('.'+ showArray[i]).show();
-                }
+                }*/
 
 
             // TWEET - adjust placeholder text
-            } else{
+            //} else{
                 // update placeholderText -> based on # of addresses selected
                 if (numItems == 0){
                     placeholderText = '';
@@ -651,7 +695,7 @@ $(document).ready(function() {
                     placeholderText = placeholderText + ' '; // endspace important so @ recognized
                     $('.address-placeholder').text(placeholderText);
                 }
-            }
+            //}
         }
     });
 
@@ -687,47 +731,71 @@ $(document).ready(function() {
     // Key Up: replaces placeholder if missing, updates count, updates selected
     $('#text-input').keyup(function() {
 
-
+        /////////////////////////////////////////////////////
         // count letters and update letter count
+        /////////////////////////////////////////////////////
         updateTextCount();
 
-        // If Placeholder changed, update selections and button label
+        //////////////////////////////////////////////////////////////////
+        // Check if placeholder still exists
+        //////////////////////////////////////////////////////////////////
+
         var value = $('#text-input').html();
-        var placeholderLength = $('.address-placeholder').text().length;
+        console.log("text-input-html 1: " + value);
+        console.log("placeholder text: " + $('.address-placeholder').text());
+        //var placeholderLength = $('.address-placeholder').text().length;
         searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
         if (searchBool == -1){
-            //console.log("span is NOT there, adding");
+
+            ////////////////////////////////////////////////////////
+            // if twitter visible, then replace address placeholder
+            /////////////////////////////////////////////////////////
+
+            if($('.twitter-name').is(":visible")){
+                $('#text-input').html('<span contenteditable=false class=address-placeholder></span>' + value);
+                console.log("text-input-html 2: " + $('#text-input').html());
+
+                ////////////////////////////////////////////////////////
+                // remove all selected action containers
+                /////////////////////////////////////////////////////////
+                $('.action-panel-container').each(function(){
+                     if ($(this).hasClass( "selected" )){
+                        $(this).removeClass('selected');
+                     }
+                });
+
+                ////////////////////////////////////////////////////////
+                // remove all selected address items
+                /////////////////////////////////////////////////////////
+                $('.address-item').each(function(){
+                     if ($(this).hasClass( "selected" )){
+                        $(this).removeClass('selected');
+                     }
+                });
+
+                ////////////////////////////////////////////////////////
+                // Change button label for every address-item selected
+                /////////////////////////////////////////////////////////
+                /*countSelected = 0;
+                $('.address-item').each(function(){
+                    if($(this).hasClass('selected')){
+                        countSelected = countSelected + 1;
+                    }
+                });*/
+             }
 
 
-
-
-            $('#text-input').html('<span contenteditable=false class=address-placeholder></span>' + value);
-            $('.action-panel-container').each(function(){
-                 if ($(this).hasClass( "selected" )){
-                    $(this).removeClass('selected');
-                 }
-            });
-            $('.address-item').each(function(){
-                 if ($(this).hasClass( "selected" )){
-                    $(this).removeClass('selected');
-                 }
-            });
-
-            // set button label
+            ////////////////////////////////////////////////////////
+            // Change button label for every selected
+            // For email is 1
+            // For tweet 0
+            // Because address-placeholder just added back
+            /////////////////////////////////////////////////////////
             countSelected = 0;
-            $('.address-item').each(function(){
-                if($(this).hasClass('selected')){
-                    countSelected = countSelected + 1;
-                }
-            });
-
             if($('.email-name').is(":visible")){
-
                 var email_name = $('.email-name:visible').attr('name');
                  $('#text-input').html('<span contenteditable=false class=address-placeholder>Congessperson ' + email_name + ',</span>' + value);
                  $('.email-name:visible').parent().parent().addClass('selected');
-
-
                 countSelected = countSelected + 1;
                 var labelText = 'email: ' + countSelected;
                 $('#email-button-label').text(labelText);
@@ -736,10 +804,6 @@ $(document).ready(function() {
                 $('#tweet-button-label').text(labelText);
             }
         }
-
-
-
-
     });
 
 

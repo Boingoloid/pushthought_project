@@ -41,14 +41,22 @@
         <!--</div>-->
     <!--</div>-->
 <!--</div>-->
+{# Obvioulsy remove this section when there is real content #}
+<div class="intro-header intro-header-landing">
+</div>
+
 <div class="container-standard">
     <div class="rep-color-band">
         <div class="container-standard category-container">
-                        <div class="share-social-container" style="margin-top:75px;">Share Push Thought on:
-                            <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
-                            <img class="share-facebook" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
-                        </div>
-            <div class="category-title-container" style="margin-top:10px;">
+
+          <div class="share-social-container">Share Push Thought on:
+              <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
+                <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
+              </a>
+              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
+          </div>
+            <div class="category-title-container">
+
                 <div style="display:inline;">
                     <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>
                     <div class="zip-reset-hover-boundary">
@@ -61,11 +69,9 @@
                     </div>
                 </div>
             </div>
-            {% if hasCongressData %}
-                <div class="zip-capture" style="display:none">
-            {% else %}
-                <div class="zip-capture" style="margin-top:100px;">
-            {% endif %}
+
+                <div class="zip-capture" {% if hasCongressData %}style="display:none"{% else %}style="margin-top:100px;"{% endif %}>
+
                     {#<div class="location-label">Current Location:</div>#}
                     {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
                     {#<div class="or-label">---  or  ---</div>#}

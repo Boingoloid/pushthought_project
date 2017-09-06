@@ -30,26 +30,36 @@
                 <p class="description">{{ object.description }}</p>
                     <div class="seen-it-container">
                     </div>
+                    <h2 style="color: red; position: absolute; bottom: 0px;"><b>Share with purpose below...</b></h2>
             </div>
             <div class="content-info-right">
                 <div class="div-title-image">
                     {% if object.image %}
-                    <img class='img program-item-image img-landing-title'
+                        <img class='img program-item-image img-landing-title'
                          id='program-item-image'
                          src='{{ object.image.url }}'>
+                    {% else %}
+                        <img class='img program-item-image-crop img-landing-title'
+                         id='program-item-image'
+                         src="{% static 'img/push_thought_logo.png' %}">
                     {% endif %}
                 </div>
             </div>
+            <div class="clearfix"></div>
         </div>
     </div>
+    <!--<div style="margin-bottom: 50px;"></div>-->
 </div>
 <div class="container-standard">
     <div class="rep-color-band">
         <div class="container-standard category-container">
-                        <div class="share-social-container">Share this campaign on:
-                            <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
-                            <img class="share-facebook" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
-                        </div>
+
+          <div class="share-social-container">Share this campaign on:
+              <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
+                <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
+              </a>
+              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
+          </div>
             <div class="category-title-container">
                 <div style="display:inline;">
                     <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>
@@ -65,11 +75,7 @@
                     </div>
                 </div>
             </div>
-            {% if hasCongressData %}
-            <div class="zip-capture" style="display:none">
-            {% else %}
-            <div class="zip-capture">
-            {% endif %}
+            <div class="zip-capture" {% if hasCongressData %}style="display:none"{% endif %}>
                 {#<div class="location-label">Current Location:</div>#}
                     {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
                 {#<div class="or-label">---  or  ---</div>#}
@@ -78,10 +84,6 @@
                 <div class='zip-loader'  id="zip-loader"></div>
                 <input class="zip-input" id="{{ request.session.zip }}" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
             </div>
-
-
-
-
 
             <div class="rep-container">
                 <!--{% if hasCongressData %}-->
@@ -189,9 +191,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     <div class="suggested_message_container">
         <div class="tweet_suggested_message_container">

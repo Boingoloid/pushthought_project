@@ -34,28 +34,39 @@
             </div>
             <div class="content-info-right">
                 <div class="div-title-image">
-                    <img class='img program-item-image img-landing-title'
+                    {% if object.image %}
+                        <img class='img program-item-image img-landing-title'
                          id='program-item-image'
                          src='{{ object.image.url }}'>
+                    {% else %}
+                        <img class='img program-item-image-crop img-landing-title'
+                         id='program-item-image'
+                         src="{% static 'img/push_thought_logo.png' %}">
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </div>
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-<div class="container-standard">
+    <!--{% if messages %}-->
+        <!--<ul class="messages">-->
+            <!--{% for message in messages %}-->
+            <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+            <!--{% endfor %}-->
+        <!--</ul>-->
+    <!--{% endif %}-->
+
+<div class="container-standard" style="margin:0;">
     <div class="rep-color-band">
         <div class="container-standard category-container">
-                        <div class="share-social-container">Share this campaign on:
-                            <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
-                            <img class="share-facebook" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
-                        </div>
+
+          <div class="share-social-container">Share this campaign on:
+              <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
+                <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
+              </a>
+              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
+          </div>
+
             <div class="category-title-container">
                 <div style="display:inline;">
                     <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>
@@ -240,5 +251,3 @@
 
 {% csrf_token %}
 {% endblock %}
-
-

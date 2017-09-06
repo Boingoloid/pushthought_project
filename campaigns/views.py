@@ -19,7 +19,7 @@ class CampaignUserListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super(CampaignUserListView, self).get_queryset()
-        return queryset.filter(user=self.request.user)
+        return queryset.filter(user=self.request.user).order_by('id')
 
 
 class CampaignDeleteView(DeleteView):
@@ -45,6 +45,7 @@ class CampaignDeleteView(DeleteView):
         self.object.save()
         return HttpResponseRedirect(success_url)
 
+
 class CampaignCreateView(LoginRequiredMixin, CreateView):
     model = models.Campaign
     form_class = forms.CampaignForm
@@ -53,6 +54,8 @@ class CampaignCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
 
         return super(CampaignCreateView, self).form_valid(form)
+
+
 
 
 class CampaignUpdateView(UpdateView):
@@ -70,5 +73,8 @@ class CampaignUpdateView(UpdateView):
 class CheckUrl(LoginRequiredMixin, View):
     def get(self, request):
         slug = request.GET.get('slug')
+        current = request.GET.get('current')
         exists = models.Campaign.objects.filter(slug=slug).exists()
+        if slug == current:
+            exists = False
         return JsonResponse({'result': exists})

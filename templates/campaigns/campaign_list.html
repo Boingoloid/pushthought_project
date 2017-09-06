@@ -37,7 +37,7 @@
                         <td>
                             <form method="post" action="{% url 'campaign:delete' campaign.slug %}">
                             {% csrf_token %}
-                            <button>X</button>
+                            <button>{% if not campaign.active %}Restore{% else %}X{% endif %}</button>
                             </form>
                         </td>
                     </tr>
