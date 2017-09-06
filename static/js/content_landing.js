@@ -382,9 +382,9 @@ $(document).ready(function() {
         //     bioguideArray.push(bioguideId);
         // });
         //console.log("bioguide sending to email phantom congress to get email fields: "+bioguideArray);
-        $.getScript('/static/js/content_landing_email_action.js', function(){
+        //$.getScript('/static/js/content_landing_email_action.js', function(){
             get_congress_email_fields(bioguideArray);
-        });
+        //});
 
 //         Fill in fields with info from user
 //        var data = $('#emailFields').data('emailfields');
