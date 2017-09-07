@@ -81,7 +81,7 @@ class Congress(TimeStampedModel):
 
 
 class CongressCounter(CounterMixin, TimeStampedModel):
-    program = models.ForeignKey('programs.Program')
+    program = models.ForeignKey('programs.Program', blank=True, null=True)
     congress = models.ForeignKey('Congress')
 
     class Meta:

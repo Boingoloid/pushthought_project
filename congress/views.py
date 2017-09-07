@@ -59,7 +59,6 @@ class GetCongressData(View):
             obj = None
         return obj
 
-
     def save_object(self):
         congress_list = []
         for congress in self.data:

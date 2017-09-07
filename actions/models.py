@@ -45,7 +45,7 @@ class SaveEmailManager(models.Manager):
 
 class Action(TimeStampedModel):
     user = models.ForeignKey(User)
-    program = models.ForeignKey('programs.Program', related_name='actions')
+    program = models.ForeignKey('programs.Program', related_name='actions', blank=True, null=True)
     congress = models.ForeignKey('congress.Congress')
     tweets = SaveTweetManager()
     emails = SaveEmailManager()
@@ -57,5 +57,7 @@ class Action(TimeStampedModel):
                 congress=self.congress,
             )
             counter.increase()
-            self.program.increase()
+            if self.program:
+                self.program.increase()
+
         super(Action, self).save(**kwargs)
