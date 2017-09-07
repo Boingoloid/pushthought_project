@@ -1175,6 +1175,7 @@ text-tweet-block{
   height: 40px;
   cursor:default;
   white-space: nowrap;
+  font-size: 12pt;
 }
 
 .hashtag-item:hover, .tweet-item:hover{
@@ -1248,6 +1249,10 @@ text-tweet-block{
 
 .tweet {
   color: white;
+  overflow:hidden;
+  word-wrap: break-word;
+  white-space:normal;
+  font-size: 12pt;
 }
 
 

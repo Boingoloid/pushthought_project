@@ -2,6 +2,13 @@ $(document).ready(function() {
 
     updateLetterCount();
 
+    $('.field-input-url').on('click', function(e) {
+        if($('#submit').text() == "SAVE CHANGES"){
+            alert("Push Thought URL field cannot be changed after it is created.");
+        }
+    });
+
+
     $('#submit').on('submit', function(e) {
         e.preventDefault();
         checkUrl();
