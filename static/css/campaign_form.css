@@ -24,7 +24,7 @@
 }
 
 .field-label-title-note{
-  font-size:12pt;
+  font-size:10pt;
   margin-top:0px;
 }
 
@@ -44,6 +44,7 @@
 
 .tweet-letter-count{
   display:inline;
+  font-size:12pt;
 }
 
 .field-label-email-intro{
@@ -95,9 +96,18 @@
   font-size:12pt;
 }
 
+.field-label-image-subLabel{
+  display: block;
+  font-size:10pt;
+  margin-top: 0px;
+  margin-bottom:5px;
+
+}
+
 .field-input-email-text{
   width:400px;
-  min-height:100px
+  min-height:100px;
+  display:block;
 }
 
 .field-input-url{

@@ -4,13 +4,13 @@
   background: yellow;
 }
 
+
 .intro-header{
 }
 
 
 
 .button-toggle:hover{
-  background-color:black;
 
 }
 
@@ -27,7 +27,10 @@
   padding-left:0;
   padding-right:0;
   border-right:2px solid white;
+  color:black;
 }
+
+
 
 @media only screen and (max-width: 470px) {
   .campaigns-button{
@@ -49,6 +52,7 @@
   display:inline;
   width:150px;
   border-left:2px solid white;
+  color:black;
 }
 
 #search_keyword{
