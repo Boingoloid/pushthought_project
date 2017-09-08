@@ -39,7 +39,7 @@ function get_congress_email_fields(bioguideArray) {
         contentType: 'json;charset=UTF-8',
         cache: false,
         success: function (data) {
-
+            //console.log(data);
             ////////////////////////////////////////
             // returned data is congress email fields
             ///////////////////////////////////////
@@ -222,16 +222,22 @@ function order_congress_email_fields(data) {
     ///////////////////////////////////////////////////
     var ordered_email_fields = [];
     var email_field_to_add_to_array = {};
+    var previous_field = "";
     ordered_fields_key.forEach(function (ordered_email_field) {
         data.forEach(function (email_field) {
             var field_name = email_field['field_name'];
-            // if field name = field in list, then
-            if (field_name == ordered_email_field) {
-                //console.log(field_name + " " + ordered_email_field);
-                email_field_to_add_to_array = email_field;
-                ordered_email_fields.push(email_field_to_add_to_array);
+            if(field_name == previous_field){
             } else {
+                // if field name = field in list, then
+                if (field_name == ordered_email_field) {
+                    //console.log(field_name + " " + ordered_email_field);
+                    email_field_to_add_to_array = email_field;
+                    ordered_email_fields.push(email_field_to_add_to_array);
+
+                } else {
+                }
             }
+            previous_field = field_name
         });
         // console.log("printing email field object", email_field_to_add_to_array);
         // console.log("printing field name", email_field_to_add_to_array);
