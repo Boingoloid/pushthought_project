@@ -1,4 +1,14 @@
 $(document).ready(function() {
+
+    updateLetterCount();
+
+    $('.field-input-url').on('click', function(e) {
+        if($('#submit').text() == "SAVE CHANGES"){
+            alert("Push Thought URL field cannot be changed after it is created.");
+        }
+    });
+
+
     $('#submit').on('submit', function(e) {
         e.preventDefault();
         checkUrl();
@@ -32,6 +42,17 @@ $(document).ready(function() {
             return false
         }
     });
+
+        $('.field-input-tweet-text').keyup(function() {
+
+            updateLetterCount();
+        });
+
+
+
+
+
+
 });
 
 function validateUrl(url) {
@@ -40,4 +61,19 @@ function validateUrl(url) {
         return false;
     }
     return true
+}
+
+function updateLetterCount(){
+    console.log("here");
+    var twitterMax = 140;
+    var twitterDefaultNameLength = 20;
+    var countAfterName = twitterMax - twitterDefaultNameLength;
+    var textInput = $('.field-input-tweet-text')
+    var characterCount = textInput.val().length;
+    console.log("char count", characterCount);
+    numberOfLineBreaks = (textInput.text().match(/\n/g)||([])).length;
+    console.log("line breaks", numberOfLineBreaks);
+    var letterCount = countAfterName - characterCount - numberOfLineBreaks;
+    $('.tweet-letter-count').text(letterCount);
+    console.log("now here");
 }

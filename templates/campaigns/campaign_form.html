@@ -14,6 +14,8 @@
 <input type="hidden" id="current_slug" value="{{object.slug}}">
 <div class="container-standard container-standard-form">
     <h2>Create custom campaign for messaging congress</h2>
+    <p class="field-label field-label-sub-heading" style="font-size:12pt;">(all fields editable after creation except Push Thought URL)</p>
+
     <div class="field-group field-group-title">
         <div class="field-label-container">
             <p class="field-label field-label-title">Campaign Title</p>
@@ -34,6 +36,7 @@
     <div class="field-group">
         <div class="field-label-container">
             <p class="field-label field-label-image">Image (optional)</p>
+            <p class="field-label field-label-image-subLabel">71px width x 100px  height or equvalent ratio works best</p>
         </div>
         <div class="field-input-container">
             <input name="image" class="field-input field-input-image" type="file" value="{% if form.instance.image %}{{ form.instance.image }}{% endif %}">
@@ -41,19 +44,22 @@
     </div>
     <div class="field-group">
         <div class="field-label-container">
-            <p class="field-label field-label-suggestions">must choose at least one option</p>
+            <p class="field-label field-label-suggestions">must choose at least one suggested tweet or suggested email</p>
         </div>
         <div class="suggested-message-container">
             <div class="tweet-suggested-message-container">
                 <div class="suggested-tweet-container">
                     <p class="field-label field-label-tweet-text">1) Suggested tweet text</p>
-                    <p class="field-label field-label-tweet-note">(max 102 characters, leaves room for twitter name)<br></p>
-                    <p class="field-label field-label-tweet-intro">@Congressperson, <span class="ten-point">(name inserted automatically)</span></p>
+                    <p class="field-label field-label-tweet-note">(max 120 characters, leaves room for twitter name)<br></p>
+                    <p class="field-label-tweet-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
+                    <p class="field-label field-label-tweet-intro">@Congressperson, </p>
                     <textarea name="tweet_text" class="field-input field-input-tweet-text" name="field-input-tweet-text">{% if form.instance.tweet_text %}{{ form.instance.tweet_text }}{% endif %}</textarea>
+                    <p class="tweet-letter-count"></p>
                 </div>
                 <div class="suggested-email-container">
                     <p class="field-label field-label-email-text">2) Suggested email text</p>
-                    <p class="field-label field-label-email-intro">Congressperson, <span class="ten-point">(name inserted automatically)</span></p>
+                    <p class="field-label-email-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
+                    <p class="field-label field-label-email-intro">Congressperson,</p>
                     <textarea name="email_text" class="field-input field-input-email-text" name="field-input-email-text" >{% if form.instance.email_text %}{{ form.instance.email_text }}{% endif %}</textarea>
                 </div>
             </div>
@@ -62,19 +68,18 @@
         <div class="field-label-container">
             <div>
 
-                <p class="field-label field-label-url">URL</p>
-                <p class="field-label field-label-url-sublabel">www.pushthought/campaigns/</p>
-                <input id="slug" name="slug"
-                  class="field-input field-input-url"
-                  required value="{% if form.instance.slug %}{{ form.instance.slug }}{% endif %}"
-                  {% if form.instance.slug %}readonly{% endif %}
-                >
+                <p class="field-label field-label-url">URL on Push Thought</p>
+                <p class="field-label field-label-url-subsublabel">(shorter is better for sharing)</p>
+                <p class="field-label field-label-url-subsublabel">(cannot be changed once created)</p>
+                <p class="field-label field-label-url-sublabel">www.pushthought/c/</p>
+                <input id="slug" name="slug" class="field-input field-input-url" required value="{% if form.instance.slug %}{{ form.instance.slug }}{% endif %}" {% if form.instance.slug %}readonly{% endif %}>
                 <div style="margin-top:10px;">
-                    <div id="check_result">Free</div>
+                    <div id="check_result" style="color:green;">Free</div>
                 </div>
 
                 <p class="field-label field-label-link-to-info">Link to more information</p>
                 <input name="link" class="field-input field-input-link-to-more-info" value="{% if form.instance.link %}{{ form.instance.link }}{% endif %}">
+                <p class="field-label field-label-url-subsublabel">(link to your organization or website)</p>
 
                 <div style="margin-top:40px;">
                     <button id="submit" class="btn-lg">{% if form.instance.title %}SAVE CHANGES{% else %}CREATE CAMPAIGN{% endif %}</button>

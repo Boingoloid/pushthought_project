@@ -24,7 +24,7 @@
 }
 
 .field-label-title-note{
-  font-size:12pt;
+  font-size:10pt;
   margin-top:0px;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .field-label-tweet-note{
-  font-size:12pt;
+  font-size:10pt;
   margin-top:0px;
 }
 
@@ -42,8 +42,15 @@
   font-size:12pt;
 }
 
-.field-label-email-intro{
+.tweet-letter-count{
+  display:inline;
   font-size:12pt;
+}
+
+.field-label-email-intro{
+  display:inline;
+  font-size:12pt;
+  width:300px;
 }
 
 .field-label-url{
@@ -52,12 +59,16 @@
 }
 
 .field-label-url-sublabel{
-  margin-top:20px;
-  display:inline;
+  margin-top:8px;
+  display:block;
   font-size:12pt;
-
 }
 
+.field-label-url-subsublabel{
+  margin-top:0;
+  font-size: 10pt;
+
+}
 
 .field-label-link-to-info{
   margin-top:20px;
@@ -85,15 +96,24 @@
   font-size:12pt;
 }
 
+.field-label-image-subLabel{
+  display: block;
+  font-size:10pt;
+  margin-top: 0px;
+  margin-bottom:5px;
+
+}
+
 .field-input-email-text{
   width:400px;
-  min-height:100px
+  min-height:100px;
+  display:block;
 }
 
 .field-input-url{
   width:400px;
   margin-left:5px;
-  display:inline;
+  display:block;
 }
 
 #check_url{
@@ -124,6 +144,11 @@ display:inline;
 
 }
 
+.field-label-tweet-sublabel{
+
+    margin-top:0px;
+}
+
 .field-input-tweet-text{
   width:400px;
   min-height:70px;
@@ -132,6 +157,10 @@ display:inline;
 .suggested-email-container{
   margin-top:20px;
 
+}
+
+.field-label-email-sublabel{
+  margin-top:0px;
 }
 
 .footer{

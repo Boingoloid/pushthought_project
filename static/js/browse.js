@@ -27,11 +27,14 @@ $(document).ready(function() {
     // set default to browse content
     ////////////////////////////////////////////
     $('.content-button').addClass('selected');
-    $('.content-button').css('background-color','green');
-    $('.content-button').css('color','black');
+    $('.content-button').css('border-top','3px solid green');
+    $('.content-button').css('border-bottom','3px solid green');
+    $('.content-button').css('border-right','3px solid green');
+//    $('.content-button').css('background-color','green');
+//    $('.content-button').css('color','black');
     $('.campaigns-button').removeClass('selected');
-    $('.campaigns-button').css('background-color','#337ab7');
-    $('.campaigns-button').css('color','white');
+//    $('.campaigns-button').css('background-color','#337ab7');
+//    $('.campaigns-button').css('color','black');
 
 
     /////////////////////////////////////////////

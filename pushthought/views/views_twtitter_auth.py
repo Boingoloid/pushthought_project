@@ -216,7 +216,10 @@ class SendTweetView(View):
         self.request.session['addressArray'] = data.getlist('address_array[]')
         self.request.session['bioguideArray'] = data['bioguide_array[]']
         self.tweet_text = data['tweet_text']
-        self.program = Program.objects.get(pk=data['program_id'])
+        if data['program_id']:
+            self.program = Program.objects.get(pk=data['program_id'])
+        else:
+            self.program = None
         self.request.session.modified = True
 
     def get_authed_twitter_api(self):

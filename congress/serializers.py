@@ -8,18 +8,24 @@ class CongressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Congress
-        fields = ('title', 'twitter_id', 'phone', 'oc_email', 'full_name', 'image', 'sent_messages_count', 'bioguide_id', 'district', 'state')
+        fields = ('title', 'twitter_id', 'phone', 'oc_email', 'full_name', 'image', 'sent_messages_count',
+                  'bioguide_id', 'district', 'state')
 
     def __init__(self, instance=None, data=empty, program_id=None, **kwargs):
         self.program_id = program_id
         super(CongressSerializer, self).__init__(instance, data, **kwargs)
 
+
     def get_sent_messages_count(self, obj):
         if not self.program_id:
-            return 0
-        try:
-            counter = obj.congresscounter_set.get(program=self.program_id).counter
-        except models.CongressCounter.DoesNotExist:
-            counter = 0
+            try:
+                counter = obj.congresscounter_set.get(program__isnull=True).counter
+            except models.CongressCounter.DoesNotExist:
+                counter = 0
+        else:
+            try:
+                counter = obj.congresscounter_set.get(program=self.program_id).counter
+            except models.CongressCounter.DoesNotExist:
+                counter = 0
 
         return counter
