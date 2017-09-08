@@ -41,25 +41,25 @@
 </div><!-- /.intro-header -->
 <div style="background-color:black;">
 
-    <h2 class="how-header text-center" style="color:white; font-size:18pt; font-weight:300; margin:0px; padding-top:10px; padding-bottom:10px;">
+    <h2 class="how-header text-center" style="color:white; font-size:18pt; font-weight:300; margin-top:0px; margin-bottom:10px; padding-top:10px; padding-bottom:20px; border-bottom:1px solid white;">
         The revolution happens one <img class="img communication-icons" src="{% static 'img/communication-icons.png' %}"> at a time!</h2>
     <h2 class="how-header text-center" style="color:white; font-size:18pt; font-weight:300; margin:0px; padding-top:10px; padding-bottom:10px;"></h2>
 
 </div>
-<div class="container-banner">
-    <div class="row">
-         <div class="program-container">
-             {% for program in programs %}
-                 <div class='program-item'>
-                    {% if program.image %}
-                        <img class='program-item-image' id='program-item-image-{{ program.id }}' src='{{ program.image.url }}'>
-                    {% else %}
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div>  <!--close PROGRAM container-->
-    </div>
-</div><!-- /.container -->
+<!--<div class="container-banner">-->
+    <!--<div class="row">-->
+         <!--<div class="program-container">-->
+             <!--{% for program in programs %}-->
+                 <!--<div class='program-item'>-->
+                    <!--{% if program.image %}-->
+                        <!--<img class='program-item-image' id='program-item-image-{{ program.id }}' src='{{ program.image.url }}'>-->
+                    <!--{% else %}-->
+                    <!--{% endif %}-->
+                <!--</div>-->
+            <!--{% endfor %}-->
+        <!--</div>  &lt;!&ndash;close PROGRAM container&ndash;&gt;-->
+    <!--</div>-->
+<!--</div>&lt;!&ndash; /.container &ndash;&gt;-->
 
 
 
@@ -71,74 +71,73 @@
             <h2 class="how-header text-center">
                 How Push Thought Works
             </h2>
-            <h3>
+            <h3 class="how-label">
                 1) Select a messaging campaign
             </h3>
-            <img class="browse-sample-image" src="{% static 'img/browse_example_blue.png' %}" height=100 width=100>
-            <h3 style="margin-top:40px;">
+            <img class="browse-sample-image" src="{% static 'img/browse-sample-image-single.png' %}">
+            <h3 class="how-label" style="margin-top:40px;">
                 2) Select a messaging option
             </h3>
-            <h3 >
+            <h3 class="how-label">
                 (tweet, phone, email)
             </h3>
-            <img class="rep-item-image" src="{% static 'img/message_options_blue.png' %}" height=100 width=100 style="border:0px;">
-            <h3 style="margin-top:40px;">
+            <img class="rep-item-image" src="{% static 'img/message_options_blue.png' %}">
+            <h3 class="how-label" style="margin-top:40px;">
                 3) Send a message to multiple congresspeople at once!
             </h3>
-            <img class="rep-communication-image" src="{% static 'img/message_example.png' %}" height=100 width=100 style="border:0px;">
+            <img class="rep-communication-image" src="{% static 'img/message_example.png' %}" width="90%">
 
 
-
-            <div class="col-lg-12">
-                <h2 class="how-header text-center" style="color:white; font-weight:400;">
-                    How Push Thought Works
-                </h2>
-                <!--<h4 style="color:white;">curiousity + technology + purpose</h4>-->
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <img class="img-free" src="{% static 'img/1.png' %}" height=75 width=75>
-                        <h3 style="font-weight:400;">Watch</h3>
-                        <p style="font-weight:400;">informative content</p>
-                        <!--<br/>-->
-                    </div>
-                    <div class="panel-body">
-                        <img class="img-content-logo2" src="{% static 'img/how-it-works-1b.png' %}">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <img class="img-free" src="{% static 'img/2.png' %}" height=75 width=75>
-                        <h3 style="font-weight:400;">Share</h3>
-                        <p style="font-weight:400;">with influential people</p>
-                    </div>
-                    <div class="panel-body">
-                        <!--<img class="img" src="{% static 'img/social.png' %}" height=10 width=300>-->
-                        <div>
-                            <div><img class="img-free" style="max-width:60%; display:block; margin:auto; align:center;" src="{% static 'img/how-it-works-2b.png' %}"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <img class="img" src="{% static 'img/3.png' %}" height=75 width=75>
-                        <h3 style="font-weight:400;">Impact</h3>
-                        <p style="font-weight:400;">activity as a petition</p>
-                    </div>
-                    <div class="panel-body">
-                        <div style="text-align: center;">
-                            <img class="img panel-3-image" src="{% static 'img/rep-item.png' %}">
-                            <h4   style="margin-left:auto; margin-right:auto; font-size:16pt; text-align:center; max-width:70%; font-weight:400;">99,999 people say watch this segment</h4>
-                            <!--<p><b>Activity of all is aggregated to become newsworthy demands for-->
-                                <!--acknowledgement of, and accountability to, information</b></p>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="col-lg-12">-->
+                <!--<h2 class="how-header text-center" style="color:white; font-weight:400;">-->
+                    <!--How Push Thought Works-->
+                <!--</h2>-->
+                <!--&lt;!&ndash;<h4 style="color:white;">curiousity + technology + purpose</h4>&ndash;&gt;-->
+            <!--<div class="col-md-4">-->
+                <!--<div class="panel panel-default">-->
+                    <!--<div class="panel-heading">-->
+                        <!--<img class="img-free" src="{% static 'img/1.png' %}" height=75 width=75>-->
+                        <!--<h3 style="font-weight:400;">Watch</h3>-->
+                        <!--<p style="font-weight:400;">informative content</p>-->
+                        <!--&lt;!&ndash;<br/>&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--<div class="panel-body">-->
+                        <!--<img class="img-content-logo2" src="{% static 'img/how-it-works-1b.png' %}">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-4">-->
+                <!--<div class="panel panel-default">-->
+                    <!--<div class="panel-heading">-->
+                        <!--<img class="img-free" src="{% static 'img/2.png' %}" height=75 width=75>-->
+                        <!--<h3 style="font-weight:400;">Share</h3>-->
+                        <!--<p style="font-weight:400;">with influential people</p>-->
+                    <!--</div>-->
+                    <!--<div class="panel-body">-->
+                        <!--&lt;!&ndash;<img class="img" src="{% static 'img/social.png' %}" height=10 width=300>&ndash;&gt;-->
+                        <!--<div>-->
+                            <!--<div><img class="img-free" style="max-width:60%; display:block; margin:auto; align:center;" src="{% static 'img/how-it-works-2b.png' %}"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-4">-->
+                <!--<div class="panel panel-default">-->
+                    <!--<div class="panel-heading">-->
+                        <!--<img class="img" src="{% static 'img/3.png' %}" height=75 width=75>-->
+                        <!--<h3 style="font-weight:400;">Impact</h3>-->
+                        <!--<p style="font-weight:400;">activity as a petition</p>-->
+                    <!--</div>-->
+                    <!--<div class="panel-body">-->
+                        <!--<div style="text-align: center;">-->
+                            <!--<img class="img panel-3-image" src="{% static 'img/rep-item.png' %}">-->
+                            <!--<h4   style="margin-left:auto; margin-right:auto; font-size:16pt; text-align:center; max-width:70%; font-weight:400;">99,999 people say watch this segment</h4>-->
+                            <!--&lt;!&ndash;<p><b>Activity of all is aggregated to become newsworthy demands for&ndash;&gt;-->
+                                <!--&lt;!&ndash;acknowledgement of, and accountability to, information</b></p>&ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
     <!-- /.row -->
