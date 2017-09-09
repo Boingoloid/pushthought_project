@@ -946,6 +946,7 @@ table {
 .browse-sample-image{  
   display:block;
   width:90%;
+  max-width:460px;
   /*background-image: url('../img/browse_example_blue.png');*/
   /*height: 125px; 
   max-height: 125px;

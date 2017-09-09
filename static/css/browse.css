@@ -127,15 +127,31 @@
 }
 
 
+a.program-link {
+  display: inline-block;
+  width:400px;
+}
+
+@media only screen and (max-width: 438px) {
+    a.program-link {
+      display: block;
+      width:300px;
+    }
+
+
+}
 
 .program-item{
   margin:5px;
+  margin-right:10px;
   padding-top:2px;
   background: rgba(0,0,0,0.4);
   border: 1px solid black;
   border-radius: 5px;
-  transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
+  /*transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);*/
+  width:400px;
   min-width:400px;
+  max-width:400px;
   height:120;
   max-height:120px;
 }
@@ -144,6 +160,7 @@
     .program-item{
         min-width: 300px;
         width: 300px;
+        max-width:300px;
     }
 
 }
@@ -152,7 +169,7 @@
   height:110;
   max-height:110px;
   color: white;
-  font-size: 14px;
+  font-size: 12px;
   overflow: scroll;
 }
 
@@ -243,7 +260,7 @@
 @media only screen and (max-width: 438px) {
     .program-title {
         width: 200px;
-        font-size:11px;
+        font-size:12px;
     }
 }
 
@@ -251,41 +268,42 @@
 
 .program-description{
   font-weight:200;
-  color:white; font-size:10pt;
-  line-height:12pt;
-  float:left;
+  color:white;
+  font-size:11pt;
+  line-height:14pt;
   margin-left:85px;
   margin-right:5px;
   margin-top:-70px;
-  max-height:65px;
+  margin-bottom:-4px;
   text-overflow: ellipsis;
   overflow: hidden !important;
   border: 0px solid green;
   letter-spacing:1.02;
+  height: 73px;
 
 }
 
 @media only screen and (max-width: 438px) {
-    .program-description .program-description-crop{
-        font-size:11px;
+    .program-description, .program-description-crop{
+        font-size:12px;
     }
 }
 
 .program-description-crop{
   font-weight:200;
   color:white;
-  font-size:10pt;
-  line-height:12pt;
-  float:left;
+  font-size:11pt;
+  line-height:14pt;
+  display:block;
   margin-left:85px;
   margin-right:5px;
   margin-top:-70px;
-  max-height:65px;
+  margin-bottom:-4px;
   text-overflow: ellipsis;
   overflow: hidden !important;
   border: 0px solid green;
   letter-spacing:1.02;
-  width:200;
+  height: 73px;
 
 }
 
