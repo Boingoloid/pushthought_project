@@ -152,8 +152,8 @@ a.program-link {
   width:400px;
   min-width:400px;
   max-width:400px;
-  height:120;
-  max-height:120px;
+  height:150;
+  max-height:150px;
 }
 
 @media only screen and (max-width: 438px) {
@@ -241,7 +241,7 @@ a.program-link {
   margin-bottom:-10px;
   margin-right:0px;
   margin-left: 5px;
-  font-size:12pt;
+  font-size:11pt;
   color:white;
   height:18px;
   min-height: 18px;
@@ -253,14 +253,12 @@ a.program-link {
   border: 0px solid green;
   text-overflow: clip;
   text-align:left;
-  letter-spacing:1.02;
   width: 300px;
 }
 
 @media only screen and (max-width: 438px) {
     .program-title {
         width: 200px;
-        font-size:12px;
     }
 }
 
@@ -274,18 +272,16 @@ a.program-link {
   margin-left:85px;
   margin-right:5px;
   margin-top:-70px;
-  margin-bottom:-4px;
+  margin-bottom:-6px;
   text-overflow: ellipsis;
   overflow: hidden !important;
   border: 0px solid green;
-  letter-spacing:1.02;
-  height: 73px;
+  height: 107px;
 
 }
 
 @media only screen and (max-width: 438px) {
     .program-description, .program-description-crop{
-        font-size:12px;
     }
 }
 
@@ -298,12 +294,11 @@ a.program-link {
   margin-left:85px;
   margin-right:5px;
   margin-top:-70px;
-  margin-bottom:-4px;
+  margin-bottom:-6px;
   text-overflow: ellipsis;
   overflow: hidden !important;
   border: 0px solid green;
-  letter-spacing:1.02;
-  height: 73px;
+  height: 107px;
 
 }
 
