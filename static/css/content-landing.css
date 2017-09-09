@@ -60,6 +60,8 @@ h2{
   margin:0px;
   padding:0px;
   height:350px;
+  max-width:241px;
+  max-width:350px;
   /*max-height:100%;
   max-width:100%;*/
   width: auto;
