@@ -11,7 +11,7 @@ function checkUrl() {
     $('#slug').val(slugged);
     $.ajax({
         async: false,
-        url: '/campaign/check/' + '?slug=' + slugged + '?current=' + current,
+        url: check_url + '?slug=' + slugged + '&current=' + current,
         success: function (data) {
             if (data.result) {
                 slug_result = 'Taken'
