@@ -56,11 +56,9 @@ class CampaignCreateView(LoginRequiredMixin, CreateView):
         return super(CampaignCreateView, self).form_valid(form)
 
 
-
-
 class CampaignUpdateView(UpdateView):
     model = models.Campaign
-    form_class = forms.CampaignForm
+    form_class = forms.CampaignUpdateForm
 
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
