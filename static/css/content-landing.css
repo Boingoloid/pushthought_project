@@ -105,8 +105,8 @@ box-shadow: 2px 2px 10px black;
   font-size: 16px;
   text-overflow: ellipsis;
   overflow: hidden !important;
-  height:270px;
-  max-height: 270px;
+  height:269px;
+  max-height: 269px;
   margin-bottom:35px;
 
 }
