@@ -10,7 +10,7 @@
 
 {% block content %}
 
-<form method="post">{% csrf_token %}
+<form  enctype="multipart/form-data" method="post">{% csrf_token %}
 <input type="hidden" id="current_slug" value="{{object.slug}}">
 <div class="container-standard container-standard-form">
     <h2>Create custom campaign for messaging congress</h2>
@@ -39,7 +39,7 @@
             <p class="field-label field-label-image-subLabel">71px width x 100px  height or equvalent ratio works best</p>
         </div>
         <div class="field-input-container">
-            <input name="image" class="field-input field-input-image" type="file" value="{% if form.instance.image %}{{ form.instance.image }}{% endif %}">
+            <input name="image" accept="image/*" class="field-input field-input-image" type="file" value="{% if form.instance.image %}{{ form.instance.image }}{% endif %}">
         </div>
     </div>
     <div class="field-group">
@@ -93,6 +93,8 @@
     </div>
 </div>
 </form>
+
+
 {% endblock %}
 
 {% block js %}

@@ -6,10 +6,10 @@ from . import models
 class CampaignForm(forms.ModelForm):
     class Meta:
         model = models.Campaign
-        exclude = ('user', 'active', 'counter')
+        fields = ('slug', 'title', 'description', 'image', 'tweet_text', 'email_text', 'link', )
 
 
 class CampaignUpdateForm(forms.ModelForm):
     class Meta:
         model = models.Campaign
-        exclude = ('user', 'active', 'counter', 'slug')
+        fields = ('title', 'description', 'image', 'tweet_text', 'email_text', 'link',)
