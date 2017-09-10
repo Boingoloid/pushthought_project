@@ -21,7 +21,7 @@ $(document).ready(function() {
         var sliced_string = $('.tweet-button-label').slice( 0, 5 )
         sstring = String(sliced_string);
 
-        if($('.rep-action-container').is(":visible") && $('.tweet-button-label').slice( 0, 5 ) == sstring){
+        if($('.rep-action-container').is(":visible") && $('.tweet-button-label').is(":visible")){
             alert("Sorry, you can't paste email text into a tweet.");
             return false;
         }
@@ -30,13 +30,17 @@ $(document).ready(function() {
         var message = $(this).val();
 
         if($('.rep-action-container').is(":visible")){
+            //var address_placeholder_text = $('.address-placeholder').text();
+            //console.log(address_placeholder_text);
         }else{
             $('.email-icon').trigger('click');
+            //$('.address-placeholder').after('\n'+message);
         }
 
+        pasteMessage(message);
         ////////// append message in input after span node
 
-        $('.address-placeholder').after('\n'+message);
+
 
         //$('.address-placeholder').remove();
     });

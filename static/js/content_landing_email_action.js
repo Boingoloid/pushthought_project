@@ -39,7 +39,7 @@ function get_congress_email_fields(bioguideArray) {
         contentType: 'json;charset=UTF-8',
         cache: false,
         success: function (data) {
-            console.log(data);
+            console.log("data from phantom: " ,data);
             ////////////////////////////////////////
             // returned data is congress email fields
             ///////////////////////////////////////

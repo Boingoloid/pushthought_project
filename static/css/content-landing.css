@@ -105,8 +105,8 @@ box-shadow: 2px 2px 10px black;
   font-size: 16px;
   text-overflow: ellipsis;
   overflow: hidden !important;
-  height:270px;
-  max-height: 270px;
+  height:269px;
+  max-height: 269px;
   margin-bottom:35px;
 
 }
@@ -1001,7 +1001,7 @@ text-tweet-block{
 .email-icon{
   position:absolute;
   top: 14px;
-  right: 20px;
+  right: 24px;
   cursor: pointer;
 }
 
@@ -1257,6 +1257,29 @@ text-tweet-block{
   word-wrap: break-word;
   white-space:normal;
   font-size: 12pt;
+}
+
+
+
+
+.field-suggested-tweet{
+  width:500px;
+  margin-left:5px;
+  display:inline;
+  background-color:transparent;
+  font-size:12pt;
+  min-height:85px;
+  cursor: pointer;
+}
+
+.field-suggested-email{
+  width:500px;
+  margin-left:5px;
+  display:inline;
+  background-color:transparent;
+  font-size:12pt;
+  min-height:200px;
+  cursor: pointer;
 }
 
 

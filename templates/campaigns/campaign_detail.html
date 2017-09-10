@@ -194,12 +194,16 @@
 
     <div class="suggested_message_container">
         <div class="tweet_suggested_message_container">
-            <p>Suggested tweet text <font size="2" color="white">(click text area to copy)</font> </p>
-            <textarea readonly class="field-input field-suggested-tweet" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:85px;">{{ object.tweet_text }}</textarea>
+            {% if object.tweet_text %}
+                <p>Suggested tweet text <font size="2" color="white">(click text area to copy)</font> </p>
+                <textarea readonly class="field-input field-suggested-tweet" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:85px;">{{ object.tweet_text }}</textarea>
+            {% endif %}
         </div>
         <div class="email_suggested_message_container">
-            <p>Suggested email text <font size="2" color="white">(click text area to copy)</font> </p>
-            <textarea readonly class="field-input field-suggested-email" style="width:500px; margin-left:5px; display:inline; background-color:transparent; font-size:12pt; min-height:200px;">{{ object.email_text }}</textarea>
+            {% if object.email_text %}
+                <p>Suggested email text <font size="2" color="white">(click text area to copy)</font> </p>
+                <textarea readonly class="field-input field-suggested-email">{{ object.email_text }}</textarea>
+            {% endif %}
         </div>
     </div>
 
