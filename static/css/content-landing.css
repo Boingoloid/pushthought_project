@@ -1001,7 +1001,7 @@ text-tweet-block{
 .email-icon{
   position:absolute;
   top: 14px;
-  right: 20px;
+  right: 24px;
   cursor: pointer;
 }
 
@@ -1257,6 +1257,29 @@ text-tweet-block{
   word-wrap: break-word;
   white-space:normal;
   font-size: 12pt;
+}
+
+
+
+
+.field-suggested-tweet{
+  width:500px;
+  margin-left:5px;
+  display:inline;
+  background-color:transparent;
+  font-size:12pt;
+  min-height:85px;
+  cursor: pointer;
+}
+
+.field-suggested-email{
+  width:500px;
+  margin-left:5px;
+  display:inline;
+  background-color:transparent;
+  font-size:12pt;
+  min-height:200px;
+  cursor: pointer;
 }
 
 
