@@ -43,6 +43,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.twitter',
+    'easy_thumbnails',
 ]
 
 LOCAL_APPS = [
@@ -344,3 +345,10 @@ CACHES = {
 }
 
 EL_PAGINATION_PER_PAGE = 6
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'detail': {'size': (350, 350), 'crop': True},
+        'list': {'size': (71, 100), 'crop': True},
+    },
+}

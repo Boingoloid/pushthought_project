@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% load static from staticfiles %}
+{% load thumbnail %}
 {% block css %}
 
 <!--<link rel="stylesheet" href="{% static 'css/campaign-landing.css' %}">-->
@@ -37,7 +38,7 @@
                     {% if object.image %}
                         <img class='img program-item-image img-landing-title'
                          id='program-item-image'
-                         src='{{ object.image.url }}'>
+                         src='{{ object.image|thumbnail_url:'detail'}}'>
                     {% else %}
                         <img class='img program-item-image-crop img-landing-title'
                          id='program-item-image'
