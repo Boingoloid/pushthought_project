@@ -636,6 +636,9 @@ form .row:first-child .floating-label-form-group {
   color: white;
 }
 
+.title-words-subtext{
+  margin-left:75px;
+}
 
 
 @media only screen and (max-width: 450px) {
@@ -652,7 +655,17 @@ form .row:first-child .floating-label-form-group {
     margin-left:35px;
   }
 
+  .title-words-subtext{
+    margin-left:35px;
+  }
+
+  .message-btn{
+    margin-left:35px;
+  }
+
+
 }
+
 
 
 
