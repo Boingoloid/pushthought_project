@@ -327,7 +327,7 @@ a.program-link {
   line-height:14px;
   color: green;
   display:inline;
-  margin-left:290px;
+  margin-left:330px;
   align-content:right;
   text-align:right;
   width:50px;
@@ -477,6 +477,9 @@ div.panel p {
 
 #search_keyword{
   color:black;
+  height:34;
+  font-size:14px;
+
 }
 
 #search_keyword::selection {
