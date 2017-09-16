@@ -84,8 +84,8 @@
 .browse-container{
   background: #091525;
   background: linear-gradient(#000b1e, #092551); /* Standard syntax */
-  padding-left:20px;
-  margin-right:-20px;
+  padding-left:0px;
+  margin-right:0px;
 }
 
 .browse-header{
@@ -159,6 +159,7 @@ a.program-link {
 
 .program-item{
   margin:5px;
+  margin-left:10px;
   margin-right:10px;
   padding-top:2px;
   background: rgba(0,0,0,0.4);
@@ -523,4 +524,9 @@ div.panel p {
   margin-top:-15px;
   margin-bottom: 10px;
   font-size: 11pt;
+}
+
+.search-result-heading{
+  margin-left:15px;
+
 }
