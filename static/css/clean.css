@@ -280,13 +280,19 @@ img.img-free.logo-image{
 
 .intro-header-image {
   /*box-shadow: inset 0px 0px 125px 140px rgba(0,0,0,0.8);*/
-  background-image: url('../img/home_background.png');
-  box-shadow: inset 10px 10px 50px 40px rgba(0,0,0,1.0);
+  background-image: url('../img/blank_map.png');
+  /*box-shadow: inset 10px 10px 50px 40px rgba(0,0,0,1.0);*/
 }
 
-@media only screen and (max-width: 748px) {
+@media only screen and (max-width: 715px) {
   .intro-header-image {
-  background-image: url('../img/home_background_crop.png');
+  background-image: url('../img/blank_map_crop2.png');
+  }
+}
+
+@media only screen and (max-width: 545px) {
+  .intro-header-image {
+  background-image: url('../img/blank_map_crop.png');
   }
 }
 
@@ -549,7 +555,7 @@ form .row:first-child .floating-label-form-group {
 .btn-default:hover,
 .btn-default:focus {
   background-color: #0085A1;
-  border: 1px solid #0085A1;
+  border: 1px solid black;
   color: white;
 }
 
@@ -570,39 +576,76 @@ form .row:first-child .floating-label-form-group {
     }
 }
 
-.title-words{
-  margin-top:275px;
-  margin-left:75px;
+
+.title-container{
+  width:275px;
+  border:2px solid black;
+  height:190px;
+  margin-top:300px;
+  margin-left:50px;
+  /*box-shadow: inset 10px 10px 10px 10px rgba(0,0,0,0.0);*/
+  box-shadow: 5px 5px 10px #2F4F4F;
+  background:rgba(255, 0, 0, 1.0);
 }
 
 
-/*@media only screen and (max-width: 500px) {
-  .title-words{
-    margin-top:60px;
-    margin-left:75px;
+@media only screen and (max-width: 450px) {
+  .title-container{
+    margin-left:20px;
+
   }
 
-}*/
+}
+
+.title-words{
+  /*margin-top:275px;*/
+  margin-left:10px;
+  padding-top:0px;
+  color:white;
+  font-size:20px;
+  font-weight:600;
+
+}
+
+
+
 
 
 .title-words-body{
   margin-top:5px;
-  margin-left:75px;
+  margin-left:10px;
+  color:white;
+  font-size:20px;
+  font-weight:600;
+}
+
+@media only screen and (max-width: 450px) {
+  .title-words, .title-words-body{
+    font-size:14pt;
+
+  }
+
 }
 
 
 /* Browse button*/
 .browse-btn {
-  margin: 5px 0 0 75px;
+  display:block;
+  margin: 20px 0 0 10px;
   width: 200px;
   height: 37px;
   line-height: 3px;
   font-size: 18px;
   font-weight:300;
-  border:2px solid;
+  border:2px solid black;
   /*background-color: #004c00;*/
   background-color: green;
   color: white;
+}
+
+.browse-btn:hover, .message-btn:hover{
+  border:2px solid black;
+  background: red;
 }
 
 /*@media only screen and (max-width: 500px) {
@@ -623,45 +666,28 @@ form .row:first-child .floating-label-form-group {
 }
 
 .message-btn{
-  margin: 5px 0 0 75px;
+  display: block;
+  margin: -12px 0 0 10px;
   padding-left:17px;
   width: 250px;
   height: 37px;
   line-height: 3px;
   font-size: 14px;
   font-weight:300;
-  border:2px solid;
+  border:2px solid black;
   /*background-color: #004c00;*/
   background-color: light-blue;
   color: white;
 }
 
-.title-words-subtext{
+/*.title-words-subtext{
   margin-left:75px;
-}
+}*/
 
 
 @media only screen and (max-width: 450px) {
 
-  .title-words{
-    margin-left:35px;
-  }
 
-  .title-words-body{
-    margin-left:35px;
-  }
-
-  .browse-btn {
-    margin-left:35px;
-  }
-
-  .title-words-subtext{
-    margin-left:35px;
-  }
-
-  .message-btn{
-    margin-left:35px;
-  }
 
 
 }
@@ -932,7 +958,7 @@ table {
 .how-container h5,
 .how-container h6,
 .how-container p {
-  color:white;
+  color:black;
 }
 
 .how-container{
@@ -941,11 +967,18 @@ table {
 
 .how-header{
   display:block;
-  font-weight:400;
   line-height: 40px;
-  margin-top:40px;
-  padding-right: 20px;
-  padding-left: 20px;
+  color:black;
+  font-size:18pt;
+  font-weight:400;
+  margin:0px;
+  padding-top:10px;
+  padding-bottom: 0px;
+
+}
+
+.how-label{
+  font-weight:400pt;
 }
 
 .how-it-works-title-container{
@@ -953,6 +986,21 @@ table {
   color: white;
   width: 100%;
   margin-top: 20px;
+}
+
+
+.multiple-tweet{
+
+  width:60%;
+
+}
+
+@media only screen and (max-width: 850px) {
+
+  .multiple-tweet{
+    width:100%;
+  }
+
 }
 
 
