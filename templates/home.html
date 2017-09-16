@@ -10,12 +10,12 @@
 
 <div class="intro-header intro-header-image" style="min-height:600px;">
     <div class="container container-text-white">
-        <div class="row">
-            <h3 class="title-words" style="color:white; font-size:20px;">Custom messaging </h3>
-            <h3 class="title-words-body" style="color:white; font-size:20px;">campaigns for congress</h3>
+        <div class="title-container">
+            <h3 class="title-words">Custom messaging </h3>
+            <h3 class="title-words-body">campaigns for congress</h3>
             <a href="{% url 'browse_campaigns' %}" class="btn btn-primary browse-btn" id="browse-btn">Get Started</a>
             <br/>
-            <p class="title-words-subtext">(or)</p>
+            <!--<p class="title-words-subtext">(or)</p>-->
             <a href="{% url 'contact_immediately' %}" class="btn btn-primary message-btn" id="message-btn">Message Reps Immediately</a>
             <!--<p style="margin-left:75px;">(or)</p>-->
             <!--<a href="{% url 'campaign:create' %}" class="btn btn-primary message-btn" id="message-btn">Create a campaign</a>-->
@@ -39,11 +39,11 @@
     </div><!-- /.container -->
     <br/>
 </div><!-- /.intro-header -->
-<div style="background-color:black;">
+<div style="background-color:white; border-bottom: 2px solid black; border-top: 2px solid black;">
 
-    <h2 class="how-header text-center" style="color:white; font-size:18pt; font-weight:300; margin-top:0px; margin-bottom:10px; padding-top:10px; padding-bottom:20px; border-bottom:1px solid white;">
+    <h2 class="how-header text-center" style="color:black; font-size:18pt; font-weight:300; margin-top:0px; margin-bottom:2px; padding-top:10px; padding-bottom:0px;">
         The revolution happens one <img class="img communication-icons" src="{% static 'img/communication-icons.png' %}"> at a time!</h2>
-    <h2 class="how-header text-center" style="color:white; font-size:18pt; font-weight:300; margin:0px; padding-top:10px; padding-bottom:10px;"></h2>
+    <h2 class="how-header text-center" ></h2>
 
 </div>
 <!--<div class="container-banner">-->
@@ -63,29 +63,33 @@
 
 
 
-<div class="container text-center" style="background:black;">
+<div class="container text-center" style="background:white;">
     <div class="row" >
         <div class="how-container">
 
-
             <h2 class="how-header text-center">
-                How Push Thought Works
+                Semd a message to multiple congresspeople at once!
             </h2>
-            <h3 class="how-label">
-                1) Select a messaging campaign
-            </h3>
-            <img class="browse-sample-image" src="{% static 'img/browse-sample-image-single.png' %}">
-            <h3 class="how-label" style="margin-top:40px;">
-                2) Select a messaging option
-            </h3>
-            <h3 class="how-label">
-                (tweet, phone, email)
-            </h3>
-            <img class="rep-item-image" src="{% static 'img/message_options_blue.png' %}">
-            <h3 class="how-label" style="margin-top:40px;">
-                3) Send a message to multiple congresspeople at once!
-            </h3>
-            <img class="rep-communication-image" src="{% static 'img/message_example.png' %}" width="90%" style="max-width:700px;">
+            <img class="multiple-tweet" src="{% static 'img/multiple_tweets.png' %}">
+
+            <!--<h2 class="how-header text-center">-->
+                <!--How Push Thought Works-->
+            <!--</h2>-->
+            <!--<h3 class="how-label">-->
+                <!--1) Select a messaging campaign-->
+            <!--</h3>-->
+            <!--<img class="browse-sample-image" src="{% static 'img/browse-sample-image-single.png' %}">-->
+            <!--<h3 class="how-label" style="margin-top:40px;">-->
+                <!--2) Select a messaging option-->
+            <!--</h3>-->
+            <!--<h3 class="how-label">-->
+                <!--(tweet, phone, email)-->
+            <!--</h3>-->
+            <!--<img class="rep-item-image" src="{% static 'img/message_options_blue.png' %}">-->
+            <!--<div class="how-label" style="margin-top:40px;">-->
+                <!--3) Send a message to multiple congresspeople at once!-->
+            <!--</div>-->
+            <!--<img class="rep-communication-image" src="{% static 'img/message_example.png' %}" width="90%" style="max-width:700px;">-->
 
 
             <!--<div class="col-lg-12">-->

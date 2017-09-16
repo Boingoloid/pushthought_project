@@ -958,7 +958,7 @@ text-tweet-block{
 .twitter-name, .email-name{
   position:absolute;
   font-size: 14pt;
-  top:3px;
+  top:15px;
   left: 0px;
   color: #00aced;
   width: 100%;
