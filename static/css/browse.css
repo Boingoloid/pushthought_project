@@ -35,10 +35,12 @@
 @media only screen and (max-width: 470px) {
   .campaigns-button{
 
-    margin-left:5%;
+    margin-left:0%;
   }
 
 }
+
+
 
 .content-button{
 
@@ -55,6 +57,18 @@
   color:black;
 }
 
+
+@media only screen and (max-width: 470px) {
+  .button-toggle{
+
+    margin-left:0%;
+    font-size:12pt;
+    width:110px;
+  }
+
+}
+
+
 #search_keyword{
     border-radius:5px;
     margin-top:10px;
@@ -70,7 +84,8 @@
 .browse-container{
   background: #091525;
   background: linear-gradient(#000b1e, #092551); /* Standard syntax */
-  padding-left:20px;
+  padding-left:0px;
+  margin-right:0px;
 }
 
 .browse-header{
@@ -83,6 +98,7 @@
   margin-bottom: 0px;
   width:100%;
   max-height:100%;
+
 }
 
 
@@ -143,6 +159,7 @@ a.program-link {
 
 .program-item{
   margin:5px;
+  margin-left:10px;
   margin-right:10px;
   padding-top:2px;
   background: rgba(0,0,0,0.4);
@@ -156,7 +173,7 @@ a.program-link {
   max-height:150px;
 }
 
-@media only screen and (max-width: 505px) {
+@media only screen and (max-width: 483px) {
     .program-item{
         min-width: 390px;
         width: 390px;
@@ -165,7 +182,7 @@ a.program-link {
 
 }
 
-@media only screen and (max-width: 438px) {
+@media only screen and (max-width: 420px) {
     .program-item{
         min-width: 300px;
         width: 300px;
@@ -186,6 +203,7 @@ a.program-link {
   cursor: pointer;
   /*transform: scale(1.05);*/
 }
+
 
 /* Center the loader */
 #loader {
@@ -382,6 +400,12 @@ a.program-link {
   font-size: 14;
 }
 
+.endless_more{
+  color:green;
+
+}
+
+
 button.accordion {
     background:rgba(0,0,0,0.0);
     color: #444;
@@ -500,4 +524,9 @@ div.panel p {
   margin-top:-15px;
   margin-bottom: 10px;
   font-size: 11pt;
+}
+
+.search-result-heading{
+  margin-left:15px;
+
 }
