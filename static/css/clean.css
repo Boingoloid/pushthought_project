@@ -285,12 +285,12 @@ img.img-free.logo-image{
 }
 
 .intro-header-image {
-  background-image: url('../img/blank_map2.png');
+  background-image: url('../img/blank_map3.png');
 }
 
 @media only screen and (max-width: 1020px) {
   .intro-header-image {
-    background-image: url('../img/blank_map2a.png');
+    background-image: url('../img/blank_map3a.png');
     /*background-size:contain;*/
     /*transform: scale(0.75, 0.75);*/
   }
@@ -298,13 +298,13 @@ img.img-free.logo-image{
 
 @media only screen and (max-width: 770px) {
   .intro-header-image {
-    background-image: url('../img/blank_map2i.png');
+    background-image: url('../img/blank_map3b.png');
   }
 }
 
-@media only screen and (max-width: 560px) {
+@media only screen and (max-width: 500px) {
   .intro-header-image {
-    background-image: url('../img/blank_map2k.png');
+    background-image: url('../img/blank_map3d.png');
   }
 }
 
