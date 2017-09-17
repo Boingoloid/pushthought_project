@@ -300,12 +300,34 @@ img.img-free.logo-image{
   .intro-header-image {
     background-image: url('../img/blank_map3b.png');
   }
+  .intro-header {
+     margin-top:0px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .intro-header {
+     margin-top:-10px;
+  }
+}
+
+@media only screen and (max-width: 560px) {
+  .intro-header {
+     margin-top:-30px;
+  }
 }
 
 @media only screen and (max-width: 500px) {
+  .intro-header {
+     margin-top:50px;
+  }
+
   .intro-header-image {
     background-image: url('../img/blank_map3d.png');
   }
+
+
+    
 }
 
 /*@media only screen and (max-width: 475px) {
@@ -598,6 +620,12 @@ form .row:first-child .floating-label-form-group {
   /*box-shadow: inset 10px 10px 10px 10px rgba(0,0,0,0.0);*/
   /*box-shadow: 5px 5px 10px #2F4F4F;*/
   /*background:rgba(255, 0, 0, 1.0);*/
+}
+
+@media only screen and (max-width: 500px) {
+  .title-container{
+    margin-top:300px;
+  }
 }
 
 
