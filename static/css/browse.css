@@ -182,7 +182,7 @@ a.program-link {
 
 }
 
-@media only screen and (max-width: 395px) {
+@media only screen and (max-width: 420px) {
     .program-item{
         min-width: 300px;
         width: 300px;
