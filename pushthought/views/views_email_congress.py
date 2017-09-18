@@ -85,6 +85,8 @@ def get_congress_email_fields_phantom(bioguideArray):
             # print "options_hash: ",item['options_hash']
         if field_dictionary['field_name'] != "MESSAGE":
             required_fields_and_options_array.append(field_dictionary)
+        # else:
+        #     required_fields_and_options_array.append(field_dictionary)
     # print "required_fileds_and_options_array: ", required_fields_and_options_array
 
     # save_result =  save_fields(required_fields_object)

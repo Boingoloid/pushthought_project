@@ -475,7 +475,7 @@ function runEmail(bioguideId){
                 alert('all fields are required.  Please enter this field: ' + fieldName);
                 validationResult = false;
                 return false;
-                   }
+            }
 
         //////////////////////////////////////////////////////
         // Validate 'select a topic' is selected
@@ -511,24 +511,37 @@ function runEmail(bioguideId){
     } else {
         return false;
     }
-
+    ////////////////////////////////////////////////////////
     // Create dict for send
+    ////////////////////////////////////////////////////////
     var formDataDictionary = {};
     $('.eform:visible').each(function(i){
         var field = String($(this).attr('id'));
         field = '$' + field.replace('eform-','').replace('-','_');
-        formDataDictionary[field] = $(this).val();
+        //field = field.replace('eform-','').replace('-','_');
+        console.log(field);
+        if(field == '$ADDRESS_ZIP'){
+            field = '$ADDRESS_ZIP5';
+        }
+//        if(field == '$TOPIC'){
+//            formDataDictionary[field] = 'AGRI';
+//        } else {
+            formDataDictionary[field] = $(this).val();
+//        }
     });
+    var insertDict = {};
+    //insertDict['$EMAIL'] = 'matthew.acalin@gmail.com'
+    //formDataDictionary = $.extend({},formDataDictionary, insertDict);
+
     formDataDictionary['$MESSAGE'] = $('#text-input').text();
-    var programId = $('#programId').text();
+    //var programId = $('#programId').text();
     var stringJson = JSON.stringify({
         "bio_id": bioguideId,
-        "program_id": programId,
+        //"program_id": programId,
+        "campaign_tag": "push_thought",
         "fields": formDataDictionary
     });
-    //console.log("showing json string to send to API", stringJson);
-
-
+    console.log("showing json string to send to API", stringJson);
 
     $.ajax({url: "/submit_congress_email/",
         type: "POST",

@@ -486,7 +486,7 @@ text-tweet-block{
 
 .letter-count{
   position: absolute;
-  z-index:2001;
+  z-index:1000;
   top: 110px;
   left: 428px;
   cursor:pointer;
@@ -642,7 +642,7 @@ text-tweet-block{
   position: relative;
   cursor:pointer;
   background:linear-gradient(to bottom, #054400 50%, #055100 100%);
-  z-index:4000;
+  z-index:1000;
 }
 
 #tweet-button:hover{
