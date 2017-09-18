@@ -523,11 +523,11 @@ function runEmail(bioguideId){
         if(field == '$ADDRESS_ZIP'){
             field = '$ADDRESS_ZIP5';
         }
-//        if(field == '$TOPIC'){
-//            formDataDictionary[field] = 'AGRI';
-//        } else {
+        //if(field == '$TOPIC'){
+        //    formDataDictionary[field] = 'ARTS';
+        //} else {
             formDataDictionary[field] = $(this).val();
-//        }
+        //}
     });
     var insertDict = {};
     //insertDict['$EMAIL'] = 'matthew.acalin@gmail.com'

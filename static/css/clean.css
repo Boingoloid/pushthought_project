@@ -500,9 +500,9 @@ footer {
   padding: 30px;
   padding-top:80px;
   /*background:linear-gradient(#092551, #000b1e);*/
-  background-color: #092551;
+  /*background-color: #092551;
   background:radial-gradient(#092551, #000b1e);
-  background:linear-gradient(#000b1e, #092551);
+  background:linear-gradient(#000b1e, #092551);*/
 }
 
 footer .navbar{
