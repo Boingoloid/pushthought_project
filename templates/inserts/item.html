@@ -12,15 +12,18 @@
                 <img class='img program-item-image-crop img-landing-title' id='program-item-image-crop' src="{% static 'img/push_thought_logo.png' %}">
             {% endif %}
         </div>
-        <div class="program-title" id="program-item-title{{forloop.counter}}">{{item.title}}
-        </div>
-        {% if item.image %}
-            <div class="program-description">{{ item.plot_outline }}
+
+        
+            <div class="program-title" id="program-item-title{{forloop.counter}}">{{item.title}}
             </div>
-        {% else %}
-            <div class="program-description-crop">{{ item.plot_outline }}
-            </div>
-        {% endif %}
+            {% if item.image %}
+                <div class="program-description">{{ item.plot_outline }}
+                </div>
+            {% else %}
+                <div class="program-description-crop">{{ item.plot_outline }}
+                </div>
+            {% endif %}
+
             <div class="program-info-container">
                 <div class="sent-count">{{ item.counter }}</div>
                 <div class="sent-count-label">actions</div>

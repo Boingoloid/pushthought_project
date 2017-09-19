@@ -741,8 +741,8 @@ $(document).ready(function() {
         //////////////////////////////////////////////////////////////////
 
         var value = $('#text-input').html();
-        console.log("text-input-html 1: " + value);
-        console.log("placeholder text: " + $('.address-placeholder').text());
+        //console.log("text-input-html 1: " + value);
+        //console.log("placeholder text: " + $('.address-placeholder').text());
         //var placeholderLength = $('.address-placeholder').text().length;
         searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
         if (searchBool == -1){

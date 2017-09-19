@@ -22,8 +22,8 @@ def submit_congress_email_view(request):
             Action.emails.create(
                 data['fields']['$MESSAGE'],
                 request.body,
-                user=request.user,
-                program_id=data['program_id'],
+                # user=request.user,
+                # program_id=data['program_id'],
                 congress=congress
             )
         elif status == 'captcha_needed':

@@ -14,6 +14,24 @@
 
 }
 
+
+@media only screen and (max-width: 470px) {
+  .button-toggle{
+
+    margin-left:0px;
+    font-size:12pt;
+    width:110px;
+  }
+
+}
+
+@media only screen and (max-width: 360px) {
+  .button-toggle{
+    width:45%;
+    max-width:45%;
+  }
+}
+
 .campaigns-button{
   margin-left:25%;
   margin-top:20px;
@@ -32,7 +50,7 @@
 
 
 
-@media only screen and (max-width: 470px) {
+@media only screen and (max-width: 480px) {
   .campaigns-button{
 
     margin-left:0%;
@@ -58,26 +76,48 @@
 }
 
 
-@media only screen and (max-width: 470px) {
-  .button-toggle{
-
-    margin-left:0%;
-    font-size:12pt;
-    width:110px;
-  }
-
-}
-
-
 #search_keyword{
-    border-radius:5px;
-    margin-top:10px;
+  border-radius:5px;
+  margin-top:0px;
+  margin-bottom: 0px;
+  color:black;
+  height:34;
+  font-size:18px;
+  width: 300px;
 }
 
+@media only screen and (max-width: 470px) {
+
+
+}
+
+#search_keyword::selection {
+  background: #ffb7b7;
+}
+
+
+
+.search-sub-text{
+  margin:0;
+  margin-top:-15px;
+  margin-bottom: 10px;
+  font-size: 11pt;
+}
+
+.search-result-heading{
+  margin-left:15px;
+  display:block;
+  color:green;
+  font-weight:400;
+
+}
 
 #search_btn{
+    display:block;
     border-radius: 5px;
     width:100px;
+    margin-top:0px;
+    margin-bottom:0px;
 
 }
 
@@ -106,6 +146,7 @@
 
   vertical-align: middle;
   padding-bottom: 21px;
+  margin-bottom:15px;
 
 }
 
@@ -113,6 +154,8 @@
   vertical-align: middle;
   margin-left:-20px;
   border-radius: 20%;
+  margin-top:0px;
+  margin-bottom:15px;
 }
 
 .category-section{
@@ -151,7 +194,8 @@ a.program-link {
 @media only screen and (max-width: 438px) {
     a.program-link {
       display: block;
-      width:300px;
+      width:90%;
+      min-width:300px;
     }
 
 
@@ -184,9 +228,9 @@ a.program-link {
 
 @media only screen and (max-width: 420px) {
     .program-item{
-        min-width: 300px;
-        width: 300px;
-        max-width:300px;
+        min-width: 100%;
+        width: 100%;
+        max-width:100%;
     }
 
 }
@@ -228,9 +272,6 @@ a.program-link {
 }
 
 
-
-
-
 .program-img-container{
   display:inline;
   height:auto;
@@ -262,6 +303,9 @@ a.program-link {
   margin-bottom:7px;
   margin-left:5px;
 }
+
+
+
 
 .program-title{
   display:inline-block;
@@ -360,9 +404,16 @@ a.program-link {
   width:50px;
 }
 
+@media only screen and (max-width: 483px) {
+    .sent-count{
+        margin-left:290px;
+    }
+
+}
+
 @media only screen and (max-width: 438px) {
     .sent-count{
-        margin-left:200px;
+        margin-left:220px;
     }
 
 }
@@ -508,25 +559,3 @@ div.panel p {
 }
 */
 
-#search_keyword{
-  color:black;
-  height:34;
-  font-size:14px;
-
-}
-
-#search_keyword::selection {
-  background: #ffb7b7;
-}
-
-.search-sub-text{
-  margin:0;
-  margin-top:-15px;
-  margin-bottom: 10px;
-  font-size: 11pt;
-}
-
-.search-result-heading{
-  margin-left:15px;
-
-}
