@@ -551,6 +551,7 @@ function runEmail(bioguideId){
         success: function(data) {
             //console.log(data);
             if(data['status'] == 'success'){
+                alert("Your email has been sent ");
                 //console.log("success status from ajax submit_congress_email:" + data);
 
                 // Clear the email action container
@@ -558,13 +559,16 @@ function runEmail(bioguideId){
                 // Excute close button
                 $('#close-button').trigger('click');
 
-                var headerAllowance = $('.seen-it-container').offset().top - 20;
-                $('html, body').animate({
-                    scrollTop: headerAllowance + 'px'
-                }, 'fast');
+                if($('.seen-it-container')){
+                    var headerAllowance = $('.seen-it-container').offset().top - 20;
+                    $('html, body').animate({
+                        scrollTop: headerAllowance + 'px'
+                    }, 'fast');
+                }
+
 
                 //showEmailSuccess(bioguideArray);
-                alert("Your email has been sent ");
+
 
             } else if (data['status'] == 'captcha_needed'){
                 console.log("need captcha received in ajax submit_congress_email:" + data);
