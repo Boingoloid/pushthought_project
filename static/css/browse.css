@@ -187,7 +187,8 @@ a.program-link {
 @media only screen and (max-width: 438px) {
     a.program-link {
       display: block;
-      width:300px;
+      width:90%;
+      min-width:300px;
     }
 
 
@@ -220,8 +221,9 @@ a.program-link {
 
 @media only screen and (max-width: 420px) {
     .program-item{
-
-        width:95%
+        min-width: 100%;
+        width: 100%;
+        max-width:100%;
     }
 
 }
