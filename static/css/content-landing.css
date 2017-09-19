@@ -1,3 +1,8 @@
+
+html{
+
+}
+
 h1.title-header{
   font-size:20px;
   line-height:1.2;
@@ -16,7 +21,9 @@ p{
 }
 
 .intro-header-landing {
-  padding: 20px;
+  margin:0px;
+  margin-top:50px;
+  padding: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
   background:linear-gradient( to left, #092551,#000b1e);
@@ -394,11 +401,11 @@ box-shadow: 2px 2px 10px black;
   display:flex;
   z-index:0;
   background: rgba(0,0,0,0);/*#75776a;*/
-  margin-left: -30px;
-  margin-right: -30px;
+  margin-left: 0px;
+  margin-right: 0px;
   margin-bottom: 0px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 0px;
+  padding-right: 0px;
   border-top:0px solid black;
   border-bottom:0px solid black;
   overflow: auto;

@@ -25,6 +25,13 @@
 
 }
 
+@media only screen and (max-width: 360px) {
+  .button-toggle{
+    width:45%;
+    max-width:45%;
+  }
+}
+
 .campaigns-button{
   margin-left:25%;
   margin-top:20px;
