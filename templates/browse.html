@@ -31,10 +31,14 @@
                         </button>
                 </div>
                 </br>
-                <input name="search_keyword" id="search_keyword" placeholder="paste link to content"/>
-                <button name="search_btn" id="search_btn" class="btn-primary">Find</button>
-                <img id="imdb-logo" src="{% static '/img/imdb-logo-1024x467.png' %}" width="120" height="auto">
-                <img id="youtube-logo" src="{% static '/img/youtube-logo-2.jpg' %}" width="80" height="auto">
+                <div style="display:block;">
+                    <input name="search_keyword" id="search_keyword" placeholder="paste link to content"/>
+                    <button name="search_btn" id="search_btn" class="btn-primary">Find</button>
+                </div>
+                <div style="display:inline-block">
+                    <img id="imdb-logo" src="{% static '/img/imdb-logo-1024x467.png' %}" width="120" height="auto">
+                    <img id="youtube-logo" src="{% static '/img/youtube-logo-2.jpg' %}" width="80" height="auto">
+                </div>
             </div>
             <div>
                 <p class="search-sub-text">Navigates to existing Campaign or creates new one</p>
