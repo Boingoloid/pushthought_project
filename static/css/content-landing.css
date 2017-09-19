@@ -885,7 +885,9 @@ text-tweet-block{
   /*box-shadow: 4px 4px 5px #294f2f;*/
 }
 
+@media only screen and (max-width: 550px) {
 
+}
 
 /*.rep-item:hover{
   transform: scale(1.0);
@@ -1071,7 +1073,6 @@ text-tweet-block{
 .eform{
     float:right;
     width:300px;
-    background: #000b1e;  /*#00aced #092551,#000b1e     */
     background: #000b1e;
     border-radius:10px;
     border: 1px solid green;
@@ -1082,6 +1083,21 @@ text-tweet-block{
   background: black;
 }
 
+
+
+@media only screen and (max-width: 550px) {
+    .eform{
+      float:none;
+      display:block;
+      margin-top: 1px;
+
+    }
+    .email-action-container{
+      display:block;
+      margin-left:10px;
+      width: 400px;
+    }
+}
 
 
 
@@ -1277,7 +1293,11 @@ text-tweet-block{
   font-size:12pt;
   min-height:85px;
   cursor: pointer;
+
 }
+
+
+
 
 .field-suggested-email{
   width:500px;
@@ -1288,6 +1308,14 @@ text-tweet-block{
   min-height:200px;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 550px) {
+    .field-input {
+        width:90%;
+    }
+}
+
+
 
 
 /* scroll bar */
