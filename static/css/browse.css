@@ -113,6 +113,8 @@
   vertical-align: middle;
   margin-left:-20px;
   border-radius: 20%;
+  margin-top:15px;
+  margin-bottom:15px;
 }
 
 .category-section{
@@ -226,9 +228,6 @@ a.program-link {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-
-
 
 
 .program-img-container{
@@ -361,6 +360,13 @@ a.program-link {
   align-content:right;
   text-align:right;
   width:50px;
+}
+
+@media only screen and (max-width: 483px) {
+    .sent-count{
+        margin-left:210px;
+    }
+
 }
 
 @media only screen and (max-width: 438px) {
