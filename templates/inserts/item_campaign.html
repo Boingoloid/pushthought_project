@@ -7,7 +7,7 @@
         <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
         <div class="program-img-container">
             {% if item.image %}
-                {% thumbnail item.image "350x350" crop="center" as im %}
+                {% thumbnail item.image "71x100" crop="center" as im %}
                     <img class='program-item-image' id='program-item-image{{forloop.counter}}'
                          src={{ im.url }} style="display:inline;">
                 {% endthumbnail %}
