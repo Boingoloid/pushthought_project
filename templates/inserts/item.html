@@ -7,7 +7,10 @@
         <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
         <div class="program-img-container">
             {% if item.image %}
-                <img class='program-item-image' id='program-item-image{{forloop.counter}}' src={{item.image|thumbnail_url:'list'}} style="display:inline;">
+                {% thumbnail item.image "71x100" crop="center" as im %}
+                    <img class='program-item-image' id='program-item-image{{forloop.counter}}'
+                         src={{ im.url }} style="display:inline;">
+                {% endthumbnail %}
             {% else %}
                 <img class='img program-item-image-crop img-landing-title' id='program-item-image-crop' src="{% static 'img/push_thought_logo.png' %}">
             {% endif %}

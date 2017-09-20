@@ -54,4 +54,4 @@ python-memcached
 django-robots==3.0
 django-el-pagination==3.1.0
 google-api-python-client
-easy-thumbnails
+-e git+https://github.com/mariocesar/sorl-thumbnail.git#egg=sorl-thumbnail
