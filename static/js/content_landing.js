@@ -330,7 +330,7 @@ $(document).ready(function() {
         addressPlaceholder = String(addressPlaceholder);
 
         console.log("address placeholder: ", addressPlaceholder);
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +',</span><p> </p>');
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +',</span><p style="display:inline;"> </p>');
         console.log($('#text-input').html());
 
 
@@ -474,7 +474,7 @@ $(document).ready(function() {
         var addressPlaceholderClass = '.address-item-label-' + i;
         var addressPlaceholder = $(addressPlaceholderClass).text();
         addressPlaceholder = String(addressPlaceholder); // Space important! allows @ to be recognized
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+'</span><p> </p>');
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+'</span><p style="display:inline;"> </p>');
 
         // set button label
         var numItems = $('.address-item.selected').length;
