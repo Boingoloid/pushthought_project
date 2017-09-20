@@ -649,7 +649,7 @@ $(document).ready(function() {
             searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
             if (searchBool == -1){
                 console.log("there is no placeholder");
-                $('#text-input').html(value + '<span contenteditable=false class=address-placeholder></span><p class="space-placeholder" style="display:inline;"> </p>');
+                $('#text-input').html(value + '<span contenteditable=false class=address-placeholder></span><p> class="space-placeholder" style="display:inline;"> </p>');
             }
 
             // Get count of selected items
@@ -698,6 +698,7 @@ $(document).ready(function() {
                 }
             //}
         }
+        $('#text-input').focus();
     });
 
     // Clear button
@@ -762,7 +763,7 @@ $(document).ready(function() {
             /////////////////////////////////////////////////////////
 
             if($('.twitter-name').is(":visible")){
-                $('#text-input').html('<span contenteditable=false class=address-placeholder></span><p class="space-placeholder" style="display:inline;"></p>' + value);
+                $('#text-input').html('<span contenteditable=false class=address-placeholder></span><p class="space-placeholder" style="display:inline;"> </p>' + value);
                 console.log("text-input-html 2: " + $('#text-input').html());
 
                 ////////////////////////////////////////////////////////
@@ -804,7 +805,7 @@ $(document).ready(function() {
             countSelected = 0;
             if($('.email-name').is(":visible")){
                 var email_name = $('.email-name:visible').attr('name');
-                 $('#text-input').html('<span contenteditable=false class=address-placeholder>Congessperson ' + email_name + ',</span><p class="space-placeholder" style="display:inline;"></p>' + value);
+                 $('#text-input').html('<span contenteditable=false class=address-placeholder>Congessperson ' + email_name + ',</span><p class="space-placeholder" style="display:inline;"> </p>' + value);
                  $('.email-name:visible').parent().parent().addClass('selected');
                 countSelected = countSelected + 1;
                 var labelText = 'email: ' + countSelected;
