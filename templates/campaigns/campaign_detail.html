@@ -36,9 +36,11 @@
             <div class="content-info-right">
                 <div class="div-title-image">
                     {% if object.image %}
-                        <img class='img program-item-image img-landing-title'
-                         id='program-item-image'
-                         src='{{ object.image|thumbnail_url:'detail'}}'>
+                        {% thumbnail object.image "350x350" crop="center" as im %}
+                            <img class='img program-item-image img-landing-title'
+                             id='program-item-image'
+                             src='{{ im.url }}'>
+                        {% endthumbnail %}
                     {% else %}
                         <img class='img program-item-image-crop img-landing-title'
                          id='program-item-image'
