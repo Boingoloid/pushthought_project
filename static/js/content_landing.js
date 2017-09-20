@@ -698,7 +698,7 @@ $(document).ready(function() {
                 }
             //}
         }
-        $('#text-input').focus();
+        //$('#text-input').focus();
     });
 
     // Clear button
