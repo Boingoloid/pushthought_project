@@ -330,7 +330,7 @@ $(document).ready(function() {
         addressPlaceholder = String(addressPlaceholder);
 
         console.log("address placeholder: ", addressPlaceholder);
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +',</span><p class="space-placeholder" style="display:inline;"></p>');
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +',</span><p class="space-placeholder" style="display:inline;"> </p>');
         console.log($('#text-input').html());
 
 
@@ -474,7 +474,7 @@ $(document).ready(function() {
         var addressPlaceholderClass = '.address-item-label-' + i;
         var addressPlaceholder = $(addressPlaceholderClass).text();
         addressPlaceholder = String(addressPlaceholder); // Space important! allows @ to be recognized
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+'</span><p class="space-placeholder" style="display:inline;"></p>');
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+'</span><p class="space-placeholder" style="display:inline;"> </p>');
 
         // set button label
         var numItems = $('.address-item.selected').length;
@@ -649,7 +649,7 @@ $(document).ready(function() {
             searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
             if (searchBool == -1){
                 console.log("there is no placeholder");
-                $('#text-input').html(value + '<span contenteditable=false class=address-placeholder></span><p class="space-placeholder" style="display:inline;"></p>');
+                $('#text-input').html(value + '<span contenteditable=false class=address-placeholder></span><p class="space-placeholder" style="display:inline;"> </p>');
             }
 
             // Get count of selected items
@@ -689,11 +689,11 @@ $(document).ready(function() {
                     $('.address-placeholder').text(placeholderText);
                 } else if (numItems == 1){
                     placeholderText = $('.address-item.selected').children('p').html();
-                    placeholderText = placeholderText + ' ';
+                    placeholderText = placeholderText + '';
                     $('.address-placeholder').text(placeholderText);
                 } else {
                     placeholderText = '@multiple';
-                    placeholderText = placeholderText + ' '; // endspace important so @ recognized
+                    placeholderText = placeholderText + ''; // endspace important so @ recognized
                     $('.address-placeholder').text(placeholderText);
                 }
             //}
