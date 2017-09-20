@@ -1346,3 +1346,7 @@ input::-webkit-inner-spin-button {
 textarea{
   -webkit-user-select: auto;
 }
+
+div#text-tweet-block div#text-input {
+-webkit-user-select: auto!important;
+}
