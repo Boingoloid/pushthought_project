@@ -87,6 +87,11 @@ class CongressCounter(CounterMixin, TimeStampedModel):
     class Meta:
         unique_together = ('congress', 'program')
 
+    def __str__(self):
+        title = ''
+        if self.program:
+            title = self.program.title
+        return '{} - {}'.format(title, self.congress.full_name)
     # def recount(self):
     #     count = Action.objects.filter(receiver=self.congress, program=self.program)
     #     return count
