@@ -98,7 +98,8 @@
                         <!--{% include "socialaccount/snippets/provider_list.html" with process="login" %}-->
                     <!--</ul>-->
                 <!--{% endif %}-->
-                <img id="close-button" src="{% static 'img/x-mark-gray.png' %}" width="20" height="20">
+                <div class="copy-last btn-primary">Copy last message</div>
+                <img id="close-button" src="{% static 'img/x-mark-gray.png' %}">
                 <div id="text-tweet-block">
                     <div style="display:block">
                         <div class="address-title" style="display:inline;">
@@ -110,7 +111,7 @@
                     <div contenteditable id="text-input" tabindex="-1" placeholder="Tweet text here"></div>
                     <div id="tweet-button">
                         <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
-                        <img id="img-send-email-icon" style="" src="{% static 'img/email-icon.png' %}" width="37" height="37">
+                        <img id="img-send-email-icon" src="{% static 'img/email-icon.png' %}">
                         <p class="tweet-button-label" id="tweet-button-label">Tweet</p>
                         <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
                         <div class='tweet-loader' id="tweet-loader"></div>

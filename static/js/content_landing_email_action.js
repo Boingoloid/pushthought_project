@@ -543,6 +543,9 @@ function runEmail(bioguideId){
     });
     console.log("showing json string to send to API", stringJson);
 
+
+    //put agax call here to store values in session.
+
     $.ajax({url: "/submit_congress_email/",
         type: "POST",
         data: stringJson,
