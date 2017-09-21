@@ -902,30 +902,31 @@ $(document).ready(function() {
         }
     });
 
-    function updateEmailFieldsInSession(){
-        var fieldData = {}
-
-        $('.eform').each(function () {
-            var fieldName = $(this).attr('id');
-            fieldName = fieldName.replace('eform-','');
-            var fieldValue = $(this).val();
-            if(fieldName != 'TOPIC'){
-                fieldData[fieldName] = fieldValue;
-            }
-
-        });
-        console.log('field data: ',fieldData);
-        var fieldDataString = JSON.stringify({fieldData}});
-        //store in session
-        $.ajax({url: "/store_email_fields_in_session/",
-            type: "POST",
-            data: fieldDataString,
-            contentType: 'json;charset=UTF-8',
-            cache: false,
-            success: function(data) {
-                console.log("email fields saved to session");
-            }
-    });
+//    function updateEmailFieldsInSession(){
+//        var fieldData = {}
+//
+//        $('.eform').each(function () {
+//            var fieldName = $(this).attr('id');
+//            fieldName = fieldName.replace('eform-','');
+//            var fieldValue = $(this).val();
+//            if(fieldName != 'TOPIC'){
+//                fieldData[fieldName] = fieldValue;
+//            }
+//
+//        });
+//        console.log('field data: ',fieldData);
+//        var fieldDataString = JSON.stringify({fieldData});
+//        //store in session
+//        $.ajax({url: "/store_email_fields_in_session/",
+//            type: "POST",
+//            data: fieldDataString,
+//            contentType: 'json;charset=UTF-8',
+//            cache: false,
+//            success: function(data) {
+//                console.log("email fields saved to session");
+//            }
+//        });
+//    }
 
 
     $('.email-action-container').on("click", "#captcha-button", function(e) {
