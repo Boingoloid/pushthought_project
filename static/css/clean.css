@@ -1210,3 +1210,15 @@ img.img-content-logo2{
 .copyright{
   font-size: 10px;
 }
+
+a.socialaccount_provider.twitter{
+  background:#0084b4;
+}
+
+a.socialaccount_provider.facebook{
+  background:#3b5998;
+}
+
+a.socialaccount_provider.google{
+  background:#dd4b39;
+}

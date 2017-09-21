@@ -349,6 +349,8 @@ CACHES = {
 EL_PAGINATION_PER_PAGE = 6
 
 
+TEMPLATE_DEBUG=''
+
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
