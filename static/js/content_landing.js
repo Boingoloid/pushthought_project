@@ -887,14 +887,44 @@ $(document).ready(function() {
             // console.log("printing bioguide before run email", bioguideId);
             console.log("email/tweet button initializing email send");
 
+            // for each eform class make add to dictionary
+            // keys are id truncated
+            //values are eform .val()
+            // store dictionary in session
+            // by pinging server
 
 
-
+            //updateEmailFieldsInSession();
 
             runEmail(bioguideId);
         } else {
             runTweet(windowURL);
         }
+    });
+
+    function updateEmailFieldsInSession(){
+        var fieldData = {}
+
+        $('.eform').each(function () {
+            var fieldName = $(this).attr('id');
+            fieldName = fieldName.replace('eform-','');
+            var fieldValue = $(this).val();
+            if(fieldName != 'TOPIC'){
+                fieldData[fieldName] = fieldValue;
+            }
+
+        });
+        console.log('field data: ',fieldData);
+        var fieldDataString = JSON.stringify({fieldData}});
+        //store in session
+        $.ajax({url: "/store_email_fields_in_session/",
+            type: "POST",
+            data: fieldDataString,
+            contentType: 'json;charset=UTF-8',
+            cache: false,
+            success: function(data) {
+                console.log("email fields saved to session");
+            }
     });
 
 

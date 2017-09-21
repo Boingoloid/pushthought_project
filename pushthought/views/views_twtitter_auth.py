@@ -183,6 +183,13 @@ def verify_twitter(request):
         return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
 
 
+
+
+
+
+
+
+
 class SendTweetView(View):
     def post(self, request, *args, **kwargs):
         try:
