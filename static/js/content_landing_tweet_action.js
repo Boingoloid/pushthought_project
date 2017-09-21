@@ -132,7 +132,7 @@ function runTweet(windowURL){
                 "bioguide_array" : bioguideArray,
                 "address_array" : addressArray,
         };
-        console.log(dataSet);
+        console.log("dataset: ",dataSet);
 
         $.ajax({url: "/verify_catch/",
             type: "POST",
@@ -189,6 +189,7 @@ function runTweet(windowURL){
             },
             error: function(xhr, textStatus, error) {
                 $('.loader').hide();
+                $('.tweet-loader').hide();
                 // Fail message
                 if (xhr.status == 404) {
                     alert("This account doesn't have a twitter account binded to it.")

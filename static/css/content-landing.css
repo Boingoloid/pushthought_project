@@ -475,11 +475,38 @@ box-shadow: 2px 2px 10px black;
 }
 
 
+.copy-last{
+
+  height:40;
+  width:150px;
+  border:1px solid #00aced;
+  margin:10px;
+  margin-left:0px;
+  background:transparent;
+  font-size:14px;
+  text-align:center;
+  vertical-align: middle;
+  line-height:2.6;
+  color:#00aced;
+  cursor: pointer;
+
+}
+
+.copy-last:hover{
+  background:black;
+  border:1px solid #00aced;
+  box-shadow: 0px 0px 20px green;
+  color:#00aced;
+}
+
+
 #close-button{
   position: absolute;
-  top:15px;
-  left: -22px;
+  top:75px;
+  left: -26px;
   cursor:pointer;
+  width:25px;
+  height:25px;
 }
 
 #close-button:hover{
@@ -654,6 +681,12 @@ text-tweet-block{
 
 #tweet-button:hover{
   background:black;
+  box-shadow: 0px 0px 30px green;
+
+}
+
+#tweet-button:active{
+  background: #337ab7;
 }
 
 #tweet-loader {
@@ -681,8 +714,10 @@ text-tweet-block{
 #img-send-email-icon{
   position:absolute;
   left:39px;
-  top:3px;
+  top:5px;
   display:none;
+  height:30;
+  width:37px;
  }
 /*
 #send-count{
@@ -1012,6 +1047,8 @@ text-tweet-block{
   top: 14px;
   right: 24px;
   cursor: pointer;
+  width:37px;
+  height:30px;
 }
 
 .email-icon-gray{
@@ -1073,13 +1110,18 @@ text-tweet-block{
 .eform{
     float:right;
     width:300px;
-    background: #000b1e;
+    background: transparent;
     border-radius:10px;
     border: 1px solid green;
     font-size: 12pt;
 }
 
-.eform:focus, .email-form-input:hover{
+input.eform:hover{
+  background: black;
+}
+
+
+.eform:focus{
   background: black;
 }
 
