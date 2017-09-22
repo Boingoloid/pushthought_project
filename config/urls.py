@@ -69,7 +69,7 @@ urlpatterns = [
     # url(r'^verify_twitter/(?P<programId>\w+)/(?P<segmentId>\w+)/(?P<tweet>.*)',
     #     views.verify_twitter),
     url(r'^verify_catch', views.SendTweetView.as_view(),name='verify_catch'),
-
+    # url(r'^store_email_fields_in_session', views.StoreEmailFieldsInSessionView.as_view(),name='store_email_fields_in_session'),
 
 
     # Backburner

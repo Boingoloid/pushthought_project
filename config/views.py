@@ -17,6 +17,21 @@ from actions.models import Action
 from congress.models import Congress
 
 
+
+# def StoreEmailFieldsInSessionView(request, extra_context=None):
+#     query = Program.objects
+#     context = dict()
+#     context['programList'] = query.all().order_by('-counter')
+#     context['documentaries'] = query.documentaries().order_by('-counter')
+#     context['webVideoList'] = query.webvideos().order_by('-counter')
+#     context['podcastList'] = query.podcasts().order_by('-counter')
+#     context['otherList'] = query.other().order_by('counter')
+#
+#     if extra_context is not None:
+#         context.update(extra_context)
+#     return render(request, template, context)
+
+
 class LoggedInView(View):
     def get(self, request, *args, **kwargs):
         text = False
@@ -119,3 +134,4 @@ class TwitterCallbackView(OAuthCallbackView):
 
 oauth_login = TwitterLoginView.adapter_view(TwitterOAuthAdapter)
 oauth_callback = TwitterCallbackView.adapter_view(TwitterOAuthAdapter)
+
