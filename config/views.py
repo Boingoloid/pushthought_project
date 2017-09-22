@@ -9,14 +9,19 @@ from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from allauth.socialaccount.providers.oauth.views import OAuthCallbackView, OAuthLoginView
 from allauth.socialaccount.models import SocialApp, SocialToken
 
-from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.views.generic import View
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.shortcuts import redirect
+from django.db.utils import IntegrityError
+
 
 from actions.models import Action
 from congress.models import Congress
 
-
+from . import forms
 
 # def StoreEmailFieldsInSessionView(request, extra_context=None):
 #     query = Program.objects
@@ -135,3 +140,20 @@ class TwitterCallbackView(OAuthCallbackView):
 oauth_login = TwitterLoginView.adapter_view(TwitterOAuthAdapter)
 oauth_callback = TwitterCallbackView.adapter_view(TwitterOAuthAdapter)
 
+
+class SaveUserByEmailView(View):
+    def post(self, request):
+        form = forms.UserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('email')
+            raw_password = User.objects.make_random_password()
+            form.instance.password = raw_password
+            form.instance.username = username
+            try:
+                form.save()
+                messages.success(request, 'Subscribed!')
+            except IntegrityError:
+                messages.success(request, 'Already subscribed!')
+        else:
+            messages.success(request, 'Invalid email!')
+        return redirect('home')

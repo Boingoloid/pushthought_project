@@ -15,7 +15,7 @@ from campaigns.views import CampaignDetailView
 from actions.views import submit_congress_email_view
 
 from .sitemaps import StaticViewSitemap
-from .views import LoggedInView, oauth_callback, oauth_login
+from .views import LoggedInView, oauth_callback, oauth_login, SaveUserByEmailView
 
 
 sitemaps = {
@@ -34,6 +34,8 @@ urlpatterns = [
     url(r'^browse_campaigns/$', views.browse_campaigns_view, name='browse_campaigns'),
     url(r'^contact_immediately/$', views.ContactImmediatelyView.as_view(), name='contact_immediately'),
     url(r'^campaign_landing/$', views.CampaignLandingView.as_view(), name='campaign_landing'),
+    url(r'^email_signup/$', SaveUserByEmailView.as_view(), name='email_signup'),
+
     # url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
 
     url(r'^accounts/twitter/login/callback/$', oauth_callback, name='twitter_callback'),

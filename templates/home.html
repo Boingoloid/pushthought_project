@@ -155,10 +155,10 @@
     <br/>
     <br/>
     <p>Drop your email for info:</p>
-    <form class="form-inline">
+    <form method="POST" action="{% url 'email_signup' %}" class="form-inline">{% csrf_token %}
         <div class="form-group">
             <div>
-                <input type="email" class="form-control" id="email" placeholder="email">
+                <input type="email" class="form-control" id="email" name="email" placeholder="email">
             </div>
             <br/>
             <div>
@@ -168,6 +168,13 @@
             </div>
         </div>
     </form>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </div>
 
 
