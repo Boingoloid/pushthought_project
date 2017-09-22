@@ -50,7 +50,7 @@ $(document).ready(function() {
 
 //     auto trigger email icon
 //    setTimeout(function(){ $('.zip-reset').trigger('click'); }, 400);
-
+    alertArray = [];
     // If alerts, scroll down and show them
     var data = $('#alertList').data('alertlist');
     if(data){
@@ -63,7 +63,7 @@ $(document).ready(function() {
     }
 
 //    alertArray = JSON.parse(data);
-    alertArray = [];
+
 
 
 
