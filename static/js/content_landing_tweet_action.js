@@ -104,6 +104,7 @@ function runTweet(windowURL){
 
          // Get program and segment Id
          var programId = $('#programId').text();
+         var campaignId = $('#campaignId').text();
          var segmentId = $('#segmentId').text();
 
         // Build Address and Bioguide Array
@@ -128,6 +129,7 @@ function runTweet(windowURL){
                 "tweet_text": tweet_text,
                 "segment_id": segmentId,
                 "program_id": programId,
+                "campaign_id": campaignId,
                 "last_menu_url": windowURL,
                 "bioguide_array" : bioguideArray,
                 "address_array" : addressArray,

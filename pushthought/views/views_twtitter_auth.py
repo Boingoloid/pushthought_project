@@ -227,6 +227,11 @@ class SendTweetView(View):
             self.program = Program.objects.get(pk=data['program_id'])
         else:
             self.program = None
+
+        if data['campaign_id']:
+            self.campaign = Campaign.objects.get(pk=data['campaign_id'])
+        else:
+            self.campaign = None
         self.request.session.modified = True
 
     def get_authed_twitter_api(self):
