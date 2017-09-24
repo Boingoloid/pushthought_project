@@ -66,4 +66,7 @@ class Action(TimeStampedModel):
             if self.program:
                 self.program.increase()
 
+            if self.campaign:
+                self.campaign.increase()
+
         super(Action, self).save(**kwargs)

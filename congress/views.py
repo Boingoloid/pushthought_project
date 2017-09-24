@@ -86,7 +86,7 @@ class GetCongressCampaignData(View):
     def get(self, request, zip_code, *args, **kwargs):
         self.zip_code = zip_code
         try:
-            program_id = re.findall(r'\/c\/(\d+)', self.request.META['HTTP_REFERER'])[0]
+            program_id = re.findall(r'\/c\/(\w+)', self.request.META['HTTP_REFERER'])[0]
         except IndexError, KeyError:
             program_id = None
 
