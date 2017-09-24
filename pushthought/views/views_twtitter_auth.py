@@ -13,6 +13,7 @@ from django.http import JsonResponse
 from actions.models import Action
 from programs.models import Program
 from congress.models import Congress
+from campaigns.models import Campaign
 
 from views_alerts import *
 from views_get_data import *
@@ -266,6 +267,7 @@ class SendTweetView(View):
                 tweet_text_with_metion,
                 user=self.request.user,
                 program=self.program,
+                campaign=self.campaign,
                 congress=congress
             )
             self.successArray.append('@{}'.format(mention))

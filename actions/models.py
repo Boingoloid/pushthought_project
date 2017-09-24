@@ -46,16 +46,22 @@ class SaveEmailManager(models.Manager):
 class Action(TimeStampedModel):
     user = models.ForeignKey(User, blank=True, null=True)
     program = models.ForeignKey('programs.Program', related_name='actions', blank=True, null=True)
+    campaign = models.ForeignKey('campaigns.Campaign', related_name='actions', blank=True, null=True)
     congress = models.ForeignKey('congress.Congress')
     tweets = SaveTweetManager()
     emails = SaveEmailManager()
 
     def save(self, **kwargs):
         if not self.id:
-            counter, created = CongressCounter.objects.get_or_create(
-                program=self.program,
-                congress=self.congress,
-            )
+
+            values = dict(congress=self.congress)
+
+            if self.program:
+                values['program'] = self.program
+            if self.campaign:
+                values['campaign'] = self.campaign
+
+            counter, created = CongressCounter.objects.get_or_create(**values)
             counter.increase()
             if self.program:
                 self.program.increase()
