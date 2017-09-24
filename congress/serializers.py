@@ -19,7 +19,7 @@ class CongressSerializer(serializers.ModelSerializer):
     def get_sent_messages_count(self, obj):
         if not self.program_id:
             try:
-                counter = obj.congresscounter_set.get(program__isnull=True).counter
+                counter = obj.congresscounter_set.get(program__isnull=True, campaign__isnull=True).counter
             except models.CongressCounter.DoesNotExist:
                 counter = 0
         else:
@@ -47,7 +47,7 @@ class CongressCampaignSerializer(serializers.ModelSerializer):
     def get_sent_messages_count(self, obj):
         if not self.program_id:
             try:
-                counter = obj.congresscounter_set.get(campaign__isnull=True).counter
+                counter = obj.congresscounter_set.get(program__isnull=True, campaign__isnull=True).counter
             except models.CongressCounter.DoesNotExist:
                 counter = 0
         else:
