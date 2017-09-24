@@ -52,7 +52,7 @@ class CongressCampaignSerializer(serializers.ModelSerializer):
                 counter = 0
         else:
             try:
-                counter = obj.congresscounter_set.get(campaign=self.program_id).counter
+                counter = obj.congresscounter_set.get(campaign__slug=self.program_id).counter
             except models.CongressCounter.DoesNotExist:
                 counter = 0
 
