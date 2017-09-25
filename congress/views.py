@@ -85,10 +85,7 @@ class GetCongressCampaignData(View):
 
     def get(self, request, zip_code, *args, **kwargs):
         self.zip_code = zip_code
-        try:
-            program_id = re.findall(r'\/c\/(\w+)', self.request.META['HTTP_REFERER'])[0]
-        except IndexError, KeyError:
-            program_id = None
+        program_id = re.findall(r'\/c\/(\w+)', self.request.META['HTTP_REFERER'])[0]
 
         self.request.session['zip'] = zip_code
         queryset = self.get_congress_data_from_db()
