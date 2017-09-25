@@ -54,7 +54,11 @@ class Action(TimeStampedModel):
     def save(self, **kwargs):
         if not self.id:
 
-            values = dict(congress=self.congress)
+            values = dict(
+                congress=self.congress,
+                program=None,
+                campaign=None
+            )
 
             if self.program:
                 values['program'] = self.program
