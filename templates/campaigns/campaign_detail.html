@@ -12,7 +12,7 @@
 
 
 {% block content %}
-<p hidden id="campaignId">{{ object.id }}</p>
+<p hidden id="campaignId">{{ object.slug }}</p>
 <div hidden id="alertList" data-alertList="{{ alertList }}"></div>
 <div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
 <img hidden class="twitter-icon-hide" src="{% static 'img/twitter-icon.png' %}">

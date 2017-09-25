@@ -230,7 +230,7 @@ class SendTweetView(View):
             self.program = None
 
         if data.get('campaign_id'):
-            self.campaign = Campaign.objects.get(pk=data['campaign_id'])
+            self.campaign = Campaign.objects.get(slug=data['campaign_id'])
         else:
             self.campaign = None
         self.request.session.modified = True
