@@ -5,10 +5,10 @@ $('#slug').on('change', function (e) {
 });
 
 function checkUrl() {
-    var slug = $('#slug').val();
+    var slug = $('#id_slug').val();
     var current = $("#current_slug").val();
     var slugged = slugify(slug);
-    $('#slug').val(slugged);
+    $('#id_slug').val(slugged);
     $.ajax({
         async: false,
         url: check_url + '?slug=' + slugged + '&current=' + current,
