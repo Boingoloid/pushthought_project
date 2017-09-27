@@ -45,23 +45,27 @@ class ParseProgramIDView(View):
         else:
             data = self.get_youtube_data(youtube_id)
             program_filter = dict(youtube_id=youtube_id)
-            snippet = data['items'][0]['snippet']
-            title = '{} ({})'.format(snippet['title'], snippet['channelTitle'])
-            runtime = self.parse_runtime(data['items'][0]['contentDetails']['duration'])
 
-            try:
-                poster_url = snippet['thumbnails']['standard']['url']
-            except KeyError:
-                poster_url = ''
+            if data['items']:
+                snippet = data['items'][0]['snippet']
+                title = '{} ({})'.format(snippet['title'], snippet['channelTitle'])
+                runtime = self.parse_runtime(data['items'][0]['contentDetails']['duration'])
 
-            data = {
-                'title': title,
-                'plot_outline': '', #snippet['description'],
-                'runtime': runtime,
-                'poster_url': poster_url,
-                'type': 'webvideo',
-                'youtube_id': youtube_id,
-            }
+                try:
+                    poster_url = snippet['thumbnails']['standard']['url']
+                except KeyError:
+                    poster_url = ''
+
+                data = {
+                    'title': title,
+                    'plot_outline': '', #snippet['description'],
+                    'runtime': runtime,
+                    'poster_url': poster_url,
+                    'type': 'webvideo',
+                    'youtube_id': youtube_id,
+                }
+            else:
+                data = ''
 
         if not data:
             return self.get_redirect_to_ref()

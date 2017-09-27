@@ -31,6 +31,16 @@
                         </button>
                 </div>
                 </br>
+                <div>
+                    {#  DO NOT REMOVE THIS#}
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
                 <div style="display:block;">
                     <input name="search_keyword" id="search_keyword" placeholder="paste link to IMDB or youtube"/>
                     <button name="search_btn" id="search_btn" class="btn-primary">Find</button>
@@ -42,15 +52,6 @@
             </div>
             <div>
                 <p class="search-sub-text">Navigates to existing Campaign or creates new one</p>
-            </div>
-            <div>
-                <!--{% if messages %}-->
-                    <!--<ul class="messages">-->
-                        <!--{% for message in messages %}-->
-                        <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
-                        <!--{% endfor %}-->
-                    <!--</ul>-->
-                <!--{% endif %}-->
             </div>
 {#            <div class="browse-button-a">#}
 {#                <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>#}
