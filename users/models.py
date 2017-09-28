@@ -10,10 +10,14 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
-class Extra(TimeStampedModel):
+class Profile(TimeStampedModel):
     user = models.OneToOneField(User)
+    prefix = models.CharField(max_length=50, blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
-    zip = models.IntegerField(blank=True, null=True)
+    street = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    zip = models.CharField(max_length=10, blank=True, null=True)
 
     def __str__(self):
         return '{}'.format(self.user)
@@ -22,4 +26,4 @@ class Extra(TimeStampedModel):
 @receiver(post_save, sender=User)
 def create_extra_profile(sender, instance, created, **kwargs):
     if created:
-        Extra.objects.create(user=instance)
+        Profile.objects.create(user=instance)

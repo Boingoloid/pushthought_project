@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 from congress.models import CongressCounter
 from hashtag.models import Hashtag
-
+from users.models import Profile
 
 class Tweet(TimeStampedModel):
     text = models.TextField(blank=True)
@@ -40,6 +40,27 @@ class SaveEmailManager(models.Manager):
             action=action,
             fields=fields
         )
+
+        user, created = User.objects.update_or_create(
+            id=action.user_id,
+            defaults=dict(
+                first_name=fields['$NAME_FIRST'],
+                last_name=fields['$NAME_LAST'],
+                email=fields['$EMAIL'],
+            )
+        )
+
+        profile, created = Profile.objects.update_or_create(
+            user=user,
+            defaults=dict(
+                prefix=fields.get('$NAME_PREFIX'),
+                street=fields.get('$ADDRESS_STREET'),
+                city=fields.get('$ADDRESS_CITY'),
+                phone=fields.get('$PHONE'),
+                zip=fields.get('$ADDRESS_ZIP5'),
+            )
+        )
+
         return email
 
 
