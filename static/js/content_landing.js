@@ -33,7 +33,7 @@ $(document).ready(function() {
             console.log('get_congres on zip:' + zip);
             $('.zip-input').attr('id',zip);
             $('.zip-input').attr('value',zip);
-            get_congress(zip);
+            get_congress(zip, get_congress_url);
         } else{
             console.log('NOT a valid zip');
             alert('Not a valid zip code.  Please check and try again.')
@@ -50,7 +50,7 @@ $(document).ready(function() {
 
 //     auto trigger email icon
 //    setTimeout(function(){ $('.zip-reset').trigger('click'); }, 400);
-
+    alertArray = [];
     // If alerts, scroll down and show them
     var data = $('#alertList').data('alertlist');
     if(data){
@@ -63,7 +63,7 @@ $(document).ready(function() {
     }
 
 //    alertArray = JSON.parse(data);
-    alertArray = [];
+
 
 
 

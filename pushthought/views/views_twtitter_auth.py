@@ -13,6 +13,7 @@ from django.http import JsonResponse
 from actions.models import Action
 from programs.models import Program
 from congress.models import Congress
+from campaigns.models import Campaign
 
 from views_alerts import *
 from views_get_data import *
@@ -223,10 +224,15 @@ class SendTweetView(View):
         self.request.session['addressArray'] = data.getlist('address_array[]')
         self.request.session['bioguideArray'] = data['bioguide_array[]']
         self.tweet_text = data['tweet_text']
-        if data['program_id']:
+        if data.get('program_id'):
             self.program = Program.objects.get(pk=data['program_id'])
         else:
             self.program = None
+
+        if data.get('campaign_id'):
+            self.campaign = Campaign.objects.get(slug=data['campaign_id'])
+        else:
+            self.campaign = None
         self.request.session.modified = True
 
     def get_authed_twitter_api(self):
@@ -261,6 +267,7 @@ class SendTweetView(View):
                 tweet_text_with_metion,
                 user=self.request.user,
                 program=self.program,
+                campaign=self.campaign,
                 congress=congress
             )
             self.successArray.append('@{}'.format(mention))

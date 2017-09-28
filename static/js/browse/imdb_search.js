@@ -47,7 +47,6 @@ $(document).ready(function () {
         }
 
         if(validation){
-            alert("Success!")
             let imdb_url = $('#search_keyword').val();
             let url = `${imdb_id_search_url}?q=${imdb_url}`;
             window.location.href = url;

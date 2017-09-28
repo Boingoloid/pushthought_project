@@ -9,14 +9,19 @@ from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from allauth.socialaccount.providers.oauth.views import OAuthCallbackView, OAuthLoginView
 from allauth.socialaccount.models import SocialApp, SocialToken
 
-from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.views.generic import View
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.shortcuts import redirect
+from django.db.utils import IntegrityError
+
 
 from actions.models import Action
 from congress.models import Congress
 
-
+from . import forms
 
 # def StoreEmailFieldsInSessionView(request, extra_context=None):
 #     query = Program.objects
@@ -46,13 +51,15 @@ class TwitterLoginView(OAuthLoginView):
         resp = super(TwitterLoginView, self).dispatch(request, *args, **kwargs)
         tweet_text = request.POST.get('tweet_text')
         program_id = request.POST.get('program_id')
+        campaign_id = request.POST.get('campaign_id ')
         address_array = request.POST.get('address_array')
         bioguide_array = request.POST.get('bioguide_array')
 
         request.session['redirect_url'] = request.META['HTTP_REFERER']
         request.session['tweet_text'] = tweet_text
         request.session['sent_tweet'] = False
-        request.session['program_id'] = program_id
+        request.session['program_id '] = program_id
+        request.session['campaign_id '] = campaign_id
         request.session['address_array'] = address_array
         request.session['bioguide_array'] = bioguide_array
         return resp
@@ -65,6 +72,7 @@ class TwitterCallbackView(OAuthCallbackView):
         self.duplicateArray = []
         self.tweet_text = request.session.get('tweet_text')
         self.program = request.session.get('program_id')
+        self.campaign = request.session.get('campaign_id')
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
         if redirect_url:
@@ -113,12 +121,20 @@ class TwitterCallbackView(OAuthCallbackView):
 
         try:
             self.api.update_status(tweet_text_with_metion)
-            Action.tweets.create(
-                tweet_text_with_metion,
-                user=self.request.user,
-                program_id=self.program,
-                congress=congress
-            )
+            if self.program:
+                Action.tweets.create(
+                    tweet_text_with_metion,
+                    user=self.request.user,
+                    program_id=self.program,
+                    congress=congress
+                )
+            elif self.campaign:
+                Action.tweets.create(
+                    tweet_text_with_metion,
+                    user=self.request.user,
+                    campaign_id=self.campaign,
+                    congress=congress
+                )
             self.successArray.append('@{}'.format(mention))
             return False
         except tweepy.TweepError as e:
@@ -135,3 +151,20 @@ class TwitterCallbackView(OAuthCallbackView):
 oauth_login = TwitterLoginView.adapter_view(TwitterOAuthAdapter)
 oauth_callback = TwitterCallbackView.adapter_view(TwitterOAuthAdapter)
 
+
+class SaveUserByEmailView(View):
+    def post(self, request):
+        form = forms.UserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('email')
+            raw_password = User.objects.make_random_password()
+            form.instance.password = raw_password
+            form.instance.username = username
+            try:
+                form.save()
+                messages.success(request, 'Subscribed!')
+            except IntegrityError:
+                messages.success(request, 'Already subscribed!')
+        else:
+            messages.success(request, 'Invalid email!')
+        return redirect('home')

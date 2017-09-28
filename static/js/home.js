@@ -27,9 +27,7 @@ $(document).ready(function() {
     } else {
         alertString = "Thank you, the email " + email + " has been submitted";
         alert(alertString);
-        var redirectString = "submit-email/" + email;
-        var encodedRedirectString = encodeURI(redirectString);
-        window.location.href=encodedRedirectString;
+        $('form').submit();
     };
   });
 });

@@ -47,8 +47,12 @@ function getCongressWithLocation(lat,long){
 
 
 
-function get_congress(zip){
-    $.ajax({url: "/congress/add_zip/" + zip + '/',
+function get_congress(zip, url){
+    if (!url) {
+        url = "/congress/add_zip/"
+    }
+    $.ajax({
+        url: url + zip + '/',
         type: "GET",
         data: "",
         contentType: 'json;charset=UTF-8',
