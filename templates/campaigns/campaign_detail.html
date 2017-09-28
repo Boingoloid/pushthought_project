@@ -182,6 +182,7 @@
 {% endblock %}
 
 {% block js %}
+    {% include 'inserts/email_field_populate.html' %}
     <script src="{% static 'js/content_landing.js' %}"></script>
     <script src="{% static 'js/campaign_landing.js' %}"></script>
     <script src="{% static 'js/content_landing_success_messages.js' %}"></script>

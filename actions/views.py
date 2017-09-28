@@ -16,13 +16,15 @@ def submit_congress_email_view(request):
     status = send_response_object['status']
     data = json.loads(request.body)
     congress = Congress.objects.get(bioguide_id=data['bio_id'])
+    # send_response_object = {'success': True}
+    # status = 'success'
     if send_response_object:
         if status == 'success':
             print "email was sent"
             Action.emails.create(
                 data['fields']['$MESSAGE'],
-                request.body,
-                # user=request.user,
+                data['fields'],
+                user=request.user,
                 # program_id=data['program_id'],
                 congress=congress
             )

@@ -11,8 +11,8 @@ from utils.models import CounterMixin
 
 class Campaign(CounterMixin, TimeStampedModel):
     slug = models.SlugField(unique=True)
-    title = models.CharField(max_length=50, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    title = models.CharField(max_length=50)
+    description = models.TextField()
     image = models.ImageField(blank=True, null=True)
     tweet_text = models.TextField(blank=True, null=True)
     email_text = models.TextField(blank=True, null=True)

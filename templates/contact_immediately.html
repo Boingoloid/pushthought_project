@@ -224,7 +224,7 @@
 {% endblock %}
 
 {% block js %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+{% include 'inserts/email_field_populate.html' %}
 <script src="{% static 'js/content_landing.js' %}"></script>
 <script src="{% static 'js/content_landing_success_messages.js' %}"></script>
 <script src="{% static 'js/content_landing_email_action.js' %}"></script>

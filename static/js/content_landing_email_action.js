@@ -152,40 +152,21 @@ function get_congress_email_fields(bioguideArray) {
                         '</div>',
                         '</div>'
                     ].join("\n");
-
-
                 } else {
-                    if((field_name == "ADDRESS_ZIP5") || (field_name == "ADDRESS_ZIP")){
-                        var label_name = "ADDRESS_ZIP";
-                        var zip_code = $('input.zip-input').attr('id');
-                        //console.log('zipCode:', zip_code);
-
-//            <input class="zip-input" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
-
-                        htmlText = [htmlText,
-                            '<div class="email-form-field-container" style="display:block;">',
-                                '<div class="label-div">',
-                            ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + label_name + '</label>',
-                                '</div>',
-                                '<div class="field-div">',
-                                '<input type="text" class="eform" id="eform-' + field_name + '" value="' + zip_code + '" readonly>',
-                                '</div>',
-                            '</div>'
-                        ].join("\n");
-                    } else{
-                        var label_name = field_name;
-                        htmlText = [htmlText,
-                            '<div class="email-form-field-container" style="display:block;">',
-                                '<div class="label-div">',
-                            ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + label_name + '</label>',
-                                '</div>',
-                                '<div class="field-div">',
-                                '<input type="text" class="eform" id="eform-' + field_name + '">',
-                                '</div>',
-                            '</div>'
-                        ].join("\n");
+                    var label_name = field_name;
+                    if (field_name === 'ADDRESS_ZIP5') {
+                        label_name = 'ADDRESS_ZIP'
                     }
-
+                    htmlText = [htmlText,
+                        '<div class="email-form-field-container" style="display:block;">',
+                            '<div class="label-div">',
+                        ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + label_name + '</label>',
+                            '</div>',
+                            '<div class="field-div">',
+                            '<input type="text" class="eform" id="eform-' + field_name + '" value="'+ emailFieldData[field_name] +'">',
+                            '</div>',
+                        '</div>'
+                    ].join("\n");
                 }
             });
             $('.email-action-container').append(htmlText);
