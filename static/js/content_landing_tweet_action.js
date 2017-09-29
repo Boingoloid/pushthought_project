@@ -82,6 +82,8 @@ function runTweet(windowURL){
     } else {
         // get message length and validate length
         var tweet_text = $('#text-input').text();
+        console.log("tweet text:", tweet_text );
+        console.log("html:", $('#text-input').html());
         if(tweet_text.length < 1){
             alert ("Please type a message first");
             return false;
@@ -89,6 +91,7 @@ function runTweet(windowURL){
             alert ("Your tweet is too long, please edit to reduce character count");
             return false;
         }
+
 
         // Show loaders
         $('.action-panel-container.selected').each(function() {
@@ -135,6 +138,7 @@ function runTweet(windowURL){
                 "address_array" : addressArray,
         };
         console.log("dataset: ",dataSet);
+
 
         $.ajax({url: "/verify_catch/",
             type: "POST",
