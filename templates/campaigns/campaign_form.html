@@ -21,12 +21,12 @@
   </div>
   {% endif %}
     <h2>Create custom campaign for messaging congress</h2>
-    <p class="field-label field-label-sub-heading" style="font-size:12pt;">(all fields editable after creation except Push Thought URL)</p>
+    <p class="field-label field-label-sub-heading">(all fields editable after creation except Push Thought URL)</p>
 
     <div class="field-group field-group-title">
         <div class="field-label-container">
             <p class="field-label field-label-title">Campaign Title</p>
-            <p class="field-label field-label-title-note">(visible on Browse page)</p>
+            <p class="field-label field-label-title-note">This is the first thing people will see about your Messaging Campaign. Get their attention with a short title that focuses on the change you’d like them to support.</p>
         </div>
         {% if form.title.errors %}
         <div class="alert alert-danger">
@@ -43,6 +43,7 @@
     <div class="field-group">
         <div class="field-label-container">
             <p class="field-label field-label-description">Description</p>
+            <p class="field-label field-label-description-note">People are more likely to support your Messaging Campaign if it’s clear why you care. Explain how this change will impact you, your family, or your community.</p>
         </div>
         {% if form.description.errors %}
         <div class="alert alert-danger">
@@ -54,6 +55,7 @@
         <div class="field-input-container">
           {{form.description}}
             {# <textarea name="description" class="field-input field-input-description" required>{% if form.instance.description  %}{{ form.instance.description }}{% endif %} </textarea>#}
+
         </div>
     </div>
     <div class="field-group">

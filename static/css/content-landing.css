@@ -116,6 +116,8 @@ box-shadow: 2px 2px 10px black;
   height:269px;
   max-height: 269px;
   margin-bottom:35px;
+  overflow-x: hidden;
+  overflow-y: auto;
 
 }
 
@@ -1336,11 +1338,23 @@ input.eform:hover{
   font-size:12pt;
   min-height:85px;
   cursor: pointer;
+  color:gray;
+}
+
+.field-suggested-tweet:hover{
+
+  background-color:black;
 
 }
 
+.suggested-tweet-text-label{
+  color:gray;
+}
 
-
+.suggested-tweet-text-sublabel{
+  color:gray;
+  font-size:12px;
+}
 
 .field-suggested-email{
   width:500px;
@@ -1350,7 +1364,26 @@ input.eform:hover{
   font-size:12pt;
   min-height:200px;
   cursor: pointer;
+  color:gray;
 }
+
+.field-suggested-email:hover{
+
+  background-color:black;
+
+}
+
+.field-suggested-email-label{
+  color:gray;
+}
+
+.field-suggested-email-sublabel{
+  color:gray;
+  font-size:12px;
+
+}
+
+
 
 @media only screen and (max-width: 550px) {
     .field-input {
@@ -1369,7 +1402,7 @@ input.eform:hover{
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 7px;
     background-color: #092551;
     border-radius:5px;
     height: 7px;
@@ -1378,6 +1411,10 @@ input.eform:hover{
 ::-webkit-scrollbar-thumb {
     background-color: black;
     border-radius:5px;
+}
+
+::-webkit-scrollbar-corner{
+  background-color: black;
 }
 
 input::-webkit-outer-spin-button,
