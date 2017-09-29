@@ -330,9 +330,9 @@ $(document).ready(function() {
         addressPlaceholder = String(addressPlaceholder);
 
         console.log("address placeholder: ", addressPlaceholder);
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +',</span><p class="space-placeholder" style="display:inline;"> </p>');
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +', </span>');
         console.log($('#text-input').html());
-
+        //<p class="space-placeholder" style="display:inline;"> </p>
 
         // select address according to button clicked
         $(".address-node-" + i).toggleClass("selected");
@@ -474,7 +474,8 @@ $(document).ready(function() {
         var addressPlaceholderClass = '.address-item-label-' + i;
         var addressPlaceholder = $(addressPlaceholderClass).text();
         addressPlaceholder = String(addressPlaceholder); // Space important! allows @ to be recognized
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+'</span><p class="space-placeholder" style="display:inline;"> </p>');
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+' </span>');
+        //<p class="space-placeholder" style="display:inline;"> </p>
 
         // set button label
         var numItems = $('.address-item.selected').length;
@@ -639,7 +640,7 @@ $(document).ready(function() {
             // grabbing length of placeholder text and value of #textInput
             ///////////////////////////////////////////////////////////
             var placeholderLength = $('.address-placeholder').text().length
-            value = $('#text-input').html();
+            var value = $('#text-input').html();
             console.log("placeholder length: " + placeholderLength);
             console.log("html value: " + value);
 
@@ -649,9 +650,13 @@ $(document).ready(function() {
             searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
             if (searchBool == -1){
                 console.log("there is no placeholder");
-                $('#text-input').html(value + '<span contenteditable=false class=address-placeholder></span><p> class="space-placeholder" style="display:inline;"> </p>');
+                var value = $('#text-input').html();
+                console.log("text input text", value);
+                $('#text-input').html('<span contenteditable=false class=address-placeholder></span> ' + value);
+                console.log('after value:' , $('#text-input').html());
             }
 
+            //</span><p> class="space-placeholder" style="display:inline;"> </p>
             // Get count of selected items
             var numItems = $('.address-item.selected').length;
 
@@ -684,16 +689,18 @@ $(document).ready(function() {
             // TWEET - adjust placeholder text
             //} else{
                 // update placeholderText -> based on # of addresses selected
+                console.log("numitems");
                 if (numItems == 0){
-                    placeholderText = '';
+                    placeholderText = ' ';
                     $('.address-placeholder').text(placeholderText);
                 } else if (numItems == 1){
                     placeholderText = $('.address-item.selected').children('p').html();
-                    placeholderText = placeholderText + '';
+                    console.log('placeholder text for one:', placeholderText);
+                    placeholderText = placeholderText + ' ';
                     $('.address-placeholder').text(placeholderText);
                 } else {
                     placeholderText = '@multiple';
-                    placeholderText = placeholderText + ''; // endspace important so @ recognized
+                    placeholderText = placeholderText + ' '; // endspace important so @ recognized
                     $('.address-placeholder').text(placeholderText);
                 }
             //}
@@ -763,9 +770,10 @@ $(document).ready(function() {
             /////////////////////////////////////////////////////////
 
             if($('.twitter-name').is(":visible")){
-                $('#text-input').html('<span contenteditable=false class=address-placeholder></span><p class="space-placeholder" style="display:inline;"> </p>' + value);
+                //$('#text-input').html('<span contenteditable=false class=address-placeholder> </span>' + value);
                 console.log("text-input-html 2: " + $('#text-input').html());
 
+                //<p class="space-placeholder" style="display:inline;"> </p>
                 ////////////////////////////////////////////////////////
                 // remove all selected action containers
                 /////////////////////////////////////////////////////////
@@ -805,7 +813,8 @@ $(document).ready(function() {
             countSelected = 0;
             if($('.email-name').is(":visible")){
                 var email_name = $('.email-name:visible').attr('name');
-                 $('#text-input').html('<span contenteditable=false class=address-placeholder>Congessperson ' + email_name + ',</span><p class="space-placeholder" style="display:inline;"> </p>' + value);
+                 $('#text-input').html('<span contenteditable=false class=address-placeholder>Congessperson ' + email_name + ', </span>' + value);
+                 //<p class="space-placeholder" style="display:inline;"> </p>
                  $('.email-name:visible').parent().parent().addClass('selected');
                 countSelected = countSelected + 1;
                 var labelText = 'email: ' + countSelected;
