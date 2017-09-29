@@ -134,13 +134,17 @@
     <div class="suggested_message_container">
         <div class="tweet_suggested_message_container">
             {% if object.tweet_text %}
-                <p>Suggested tweet text <font size="2" color="white">(click text area to copy)</font> </p>
+                <p class="suggested-tweet-text-label" >Suggested tweet text  </p>
+                <p class="suggested-tweet-text-sublabel">(click text area to copy)</p>
+
+
                 <textarea readonly class="field-input field-suggested-tweet">{{ object.tweet_text }}</textarea>
             {% endif %}
         </div>
         <div class="email_suggested_message_container">
             {% if object.email_text %}
-                <p>Suggested email text <font size="2" color="white">(click text area to copy)</font> </p>
+                <p class="field-suggested-email-label">Suggested email text</p>
+                <p class="field-suggested-email-sublabel">(click text area to copy) </p>
                 <textarea readonly class="field-input field-suggested-email">{{ object.email_text }}</textarea>
             {% endif %}
         </div>
