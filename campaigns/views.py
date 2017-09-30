@@ -13,6 +13,14 @@ class CampaignDetailView(DetailView):
         queryset = super(CampaignDetailView, self).get_queryset()
         return queryset.filter(active=True)
 
+    def get_context_data(self, **kwargs):
+        context = super(CampaignDetailView, self).get_context_data(**kwargs)
+
+        if self.request.session.get('alertList'):
+            context['alertList'] = self.request.session['alertList']
+            del self.request.session['alertList']
+        return context
+
 
 class CampaignUserListView(LoginRequiredMixin, ListView):
     model = models.Campaign
