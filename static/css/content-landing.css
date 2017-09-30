@@ -118,6 +118,7 @@ box-shadow: 2px 2px 10px black;
   margin-bottom:35px;
   overflow-x: hidden;
   overflow-y: auto;
+  white-space: pre-wrap;
 
 }
 

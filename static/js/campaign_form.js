@@ -2,8 +2,8 @@ $(document).ready(function() {
 
     updateLetterCount();
 
-    $('.field-input-tweet-text').keyup(function() {
-
+    $('.field-input-tweet_text').keyup(function() {
+        console.log("keyup function");
         updateLetterCount();
     });
 

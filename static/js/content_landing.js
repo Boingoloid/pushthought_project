@@ -382,7 +382,7 @@ $(document).ready(function() {
         // });
         //console.log("bioguide sending to email phantom congress to get email fields: "+bioguideArray);
         //$.getScript('/static/js/content_landing_email_action.js', function(){
-            get_congress_email_fields(bioguideArray);
+        get_congress_email_fields(bioguideArray);
         //});
 
 //         Fill in fields with info from user
@@ -894,7 +894,7 @@ $(document).ready(function() {
             // alert("Under development");
             var bioguideId = $('.address-item-label:visible').attr('id');
             // console.log("printing bioguide before run email", bioguideId);
-            console.log("email/tweet button initializing email send");
+            console.log("email/tweet button at start of function");
 
             // for each eform class make add to dictionary
             // keys are id truncated
