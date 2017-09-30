@@ -500,7 +500,7 @@ function runEmail(bioguideId){
         var field = String($(this).attr('id'));
         field = '$' + field.replace('eform-','').replace('-','_');
         //field = field.replace('eform-','').replace('-','_');
-        console.log(field);
+        //console.log(field);
         if(field == '$ADDRESS_ZIP'){
             field = '$ADDRESS_ZIP5';
         }
@@ -522,7 +522,7 @@ function runEmail(bioguideId){
         "campaign_tag": "push_thought",
         "fields": formDataDictionary
     });
-    console.log("showing json string to send to API", stringJson);
+    console.log("showing json string prior to send email to phantom API: ", stringJson);
 
 
     //put agax call here to store values in session.
@@ -533,7 +533,7 @@ function runEmail(bioguideId){
         contentType: 'json;charset=UTF-8',
         cache: false,
         success: function(data) {
-            //console.log(data);
+            console.log("response from email send to phantom: ", data);
             if(data['status'] == 'success'){
                 alert("Your email has been sent ");
                 //console.log("success status from ajax submit_congress_email:" + data);
@@ -543,13 +543,15 @@ function runEmail(bioguideId){
                 // Excute close button
                 $('#close-button').trigger('click');
 
-                if($('.seen-it-container')){
-                    var headerAllowance = $('.seen-it-container').offset().top - 20;
-                    $('html, body').animate({
-                        scrollTop: headerAllowance + 'px'
-                    }, 'fast');
-                }
-
+                ///////////////////////////////////////////////
+                // Scroll the window up
+                ///////////////////////////////////////////////
+                //if($('.seen-it-container')){
+                //    var headerAllowance = $('.seen-it-container').offset().top - 20;
+                //    $('html, body').animate({
+                //        scrollTop: headerAllowance + 'px'
+                //    }, 'fast');
+                //}
 
                 //showEmailSuccess(bioguideArray);
 
