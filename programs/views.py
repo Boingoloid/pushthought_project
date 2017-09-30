@@ -8,7 +8,6 @@ from django.views.generic import DetailView, View
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.contrib import messages
-from django.contrib import messages
 
 from utils.helper import url_to_model_field
 from youtube.quickstart import videos_list_by_id

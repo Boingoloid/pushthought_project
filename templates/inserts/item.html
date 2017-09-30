@@ -12,7 +12,8 @@
                          src={{ im.url }} style="display:inline;">
                 {% endthumbnail %}
             {% else %}
-                <img class='img program-item-image-crop img-landing-title' id='program-item-image-crop' src="{% static 'img/push_thought_logo.png' %}">
+                <img class='img program-item-image-crop img-landing-title' id='program-item-image-crop'
+                     src="{% static 'img/push_thought_logo.png' %}">
             {% endif %}
         </div>
 
@@ -30,8 +31,8 @@
             <div class="program-info-container">
                 <div class="sent-count">{{ item.counter }}</div>
                 <div class="sent-count-label">actions</div>
-                <!--<div class="runtime">{{ item.runtime_minutes }}</div>-->
-                <!--<div class="runtime-label">minutes</div>-->
+{#                <div class="runtime">{{ item.runtime_minutes }}</div>#}
+{#                <div class="runtime-label">minutes</div>#}
             </div>
     </div>
 </a>
