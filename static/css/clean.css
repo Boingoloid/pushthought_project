@@ -615,7 +615,7 @@ form .row:first-child .floating-label-form-group {
 
 
 .title-container{
-  width:275px;
+  width:355px;
   /*border:2px solid black;*/
   height:190px;
   margin-top:385px;
@@ -628,6 +628,7 @@ form .row:first-child .floating-label-form-group {
 @media only screen and (max-width: 500px) {
   .title-container{
     margin-top:300px;
+    width:250px;
   }
 }
 
@@ -635,6 +636,7 @@ form .row:first-child .floating-label-form-group {
 @media only screen and (max-width: 450px) {
   .title-container{
     margin-left:20px;
+    width:290px;
 
   }
 

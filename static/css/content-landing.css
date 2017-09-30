@@ -525,12 +525,14 @@ text-tweet-block{
   position: absolute;
   z-index:1000;
   top: 157px;
-  left: 428px;
+  left: 432px;
   cursor:pointer;
   color:gray;
   font-size: 12pt;
   align:right;
   vertical-align: text-bottom;
+  width:auto;
+  height:auto;
 }
 
 #text-input{
@@ -565,12 +567,12 @@ text-tweet-block{
     #text-input{
         width: 400px;
         min-width: 400px;
-        font-size: 14pt;
+        font-size: 12pt;
     }
     .letter-count{
-        top: 110px;
-        left: 380px;
-        font-size: 14px;
+        top: 163px;
+        left: 385px;
+        font-size: 12px;
     }
     p#link-included{
         font-size:10pt;
@@ -585,8 +587,9 @@ text-tweet-block{
         font-size: 12pt;
     }
     .letter-count{
-        left: 303px;
-        font-size: 14px;
+        top: 163px;
+        left: 313px;
+        font-size: 12px;
     }
     p#link-included{
         font-size:10pt;

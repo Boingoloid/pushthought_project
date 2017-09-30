@@ -652,7 +652,7 @@ $(document).ready(function() {
                 console.log("there is no placeholder");
                 var value = $('#text-input').html();
                 console.log("text input text", value);
-                $('#text-input').html('<span contenteditable=false class=address-placeholder></span> ' + value);
+                $('#text-input').html('<span contenteditable=false class=address-placeholder></span>' + value);
                 console.log('after value:' , $('#text-input').html());
             }
 
@@ -691,7 +691,7 @@ $(document).ready(function() {
                 // update placeholderText -> based on # of addresses selected
                 console.log("numitems");
                 if (numItems == 0){
-                    placeholderText = ' ';
+                    placeholderText = '';
                     $('.address-placeholder').text(placeholderText);
                 } else if (numItems == 1){
                     placeholderText = $('.address-item.selected').children('p').html();
