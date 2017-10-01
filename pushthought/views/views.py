@@ -41,10 +41,10 @@ class ContactImmediatelyView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ContactImmediatelyView, self).get_context_data(**kwargs)
-        #
-        # if self.request.session.get('alertList'):
-        #     context['alertList'] = self.request.session['alertList']
-        #     del self.request.session['alertList']
+
+        if self.request.session.get('alertList'):
+            context['alertList'] = self.request.session['alertList']
+            del self.request.session['alertList']
         return context
 
 
