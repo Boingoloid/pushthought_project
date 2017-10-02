@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="{% static 'css/content-landing.css' %}">
 
 {% endblock %}
-{% block title %}Push Thought Message Campaign{% endblock %}
-
+{% block title %}{{object.title}}{% endblock %}
+{# Push Thought Message Campaign#}
 
 {% block content %}
 <p hidden id="campaignId">{{ object.slug }}</p>
