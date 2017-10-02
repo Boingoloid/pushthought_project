@@ -158,7 +158,7 @@ function get_congress_email_fields(bioguideArray) {
                     if (field_name === 'ADDRESS_ZIP5') {
                         label_name = 'ADDRESS_ZIP'
                     }
-                    if (field_name in ['EMAIL', 'ADDRESS_ZIP5']) {
+                    if (['EMAIL', 'ADDRESS_ZIP5'].indexOf(field_name) > -1) {
                         readonly = 'readonly'
                     }
                     var value = emailFieldData[field_name] || '';
@@ -170,7 +170,7 @@ function get_congress_email_fields(bioguideArray) {
                             '</div>',
                             '<div class="field-div">',
                             '<input type="text" class="eform" id="eform-' + field_name + '" value="'+
-                                    value +'" readonly="'+ readonly +'">',
+                                    value +'" '+ readonly +'>',
                             '</div>',
                         '</div>'
                     ].join("\n");
