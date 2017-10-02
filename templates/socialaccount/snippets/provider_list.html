@@ -17,4 +17,4 @@
       <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}} btn btn-block btn-social btn-twitter" style="height:45px; width:260px; line-height:0px; margin:10px; padding:12px; color:white;" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><span
               class="fa fa-{{provider.name}}"></span> SIGN IN WITH {{provider.name}}</a>
     </li>
-{% endfor %}    
+{% endfor %}
