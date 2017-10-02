@@ -39,13 +39,14 @@ urlpatterns = [
     # url(r'^content_landing/(?P<program_id>\w+)/$', views.ContentLandingView.as_view(), name='content_landing'),
 
     url(r'^accounts/twitter/login/callback/$', oauth_callback, name='twitter_callback'),
+    url(r'^accounts/twitter/login/$', oauth_login, name='twitter_login'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^program/', include('programs.urls', namespace='programs')),
     url(r'^congress/', include('congress.urls', namespace='congress')),
     url(r'^c/', include('campaigns.urls', namespace='campaign')),
 
     url(r'^is_logged_in/$', LoggedInView.as_view(), name='user_logged_in'),
-    url(r'^save_tweet_twitter_login/$', oauth_login, name='save_tweet_twitter_login'),
+
 
     url(r'^robots\.txt$', include('robots.urls')),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
