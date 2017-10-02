@@ -18,9 +18,7 @@ class CampaignForm(forms.ModelForm):
         cleaned_data = super(CampaignForm, self).clean()
         tweet = cleaned_data.get("tweet_text")
         email = cleaned_data.get("email_text")
-        print "*****CLEANING*****************"
         if not tweet and not email:
-            print "*****VALIDATION ERROR*****************"
             # Only do something if both fields are empty.
             raise forms.ValidationError(
                 "Please fill out suggested text for email, tweet, or both."
@@ -41,9 +39,7 @@ class CampaignUpdateForm(forms.ModelForm):
         cleaned_data = super(CampaignUpdateForm, self).clean()
         tweet = cleaned_data.get("tweet_text")
         email = cleaned_data.get("email_text")
-        print "*****CLEANING*****************"
         if not tweet and not email:
-            print "*****VALIDATION ERROR*****************"
             # Only do something if both fields are empty.
             raise forms.ValidationError(
                 "Please fill out suggested text for email, tweet, or both."
