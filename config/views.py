@@ -18,6 +18,8 @@ from allauth.socialaccount.models import SocialApp, SocialToken, SocialLogin
 
 from django.contrib import messages
 
+from django.contrib.auth import login, authenticate
+
 from django.contrib.auth.models import User
 from django.views.generic import View
 from django.http.response import HttpResponse, JsonResponse, HttpResponseRedirect
@@ -65,15 +67,19 @@ class TwitterLoginView(OAuthLoginView):
         resp = super(TwitterLoginView, self).dispatch(request, *args, **kwargs)
         tweet_text = request.POST.get('tweet_text')
         program_id = request.POST.get('program_id')
+
         campaign_id = request.POST.get('campaign_id')
+
         address_array = request.POST.get('address_array')
         bioguide_array = request.POST.get('bioguide_array')
 
         request.session['redirect_url'] = request.META['HTTP_REFERER']
         request.session['tweet_text'] = tweet_text
         request.session['sent_tweet'] = False
+
         request.session['program_id'] = program_id
         request.session['campaign_id'] = campaign_id
+
         request.session['address_array'] = address_array
         request.session['bioguide_array'] = bioguide_array
         return resp
@@ -190,6 +196,7 @@ class TwitterCallbackView(OAuthCallbackView):
                     congress=congress
                 )
             elif self.campaign:
+
                 campaign = Campaign.objects.get(slug=self.campaign)
                 Action.tweets.create(
                     tweet_text_with_metion,
