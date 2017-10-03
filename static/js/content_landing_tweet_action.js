@@ -1,4 +1,4 @@
-var user_logged_in;
+var login_url;
 function check_user() {
     return $.ajax({
         url: "/is_logged_in/",
@@ -6,11 +6,7 @@ function check_user() {
         success: function(data) {
             console.log('Logged in:');
             console.log(data);
-            if (data === 'True') {
-                user_logged_in = true
-            } else {
-                user_logged_in = false
-            }
+            login_url = data
         }
     });
 }
@@ -32,7 +28,7 @@ function getCookie(name) {
 }
 var csrftoken = getCookie('csrftoken');
 
-function login_user() {
+function login_user(url) {
     var addressArray = [];
      $('.address-item.selected').each(function(){
         var address = $(this).text();
@@ -44,7 +40,7 @@ function login_user() {
 
     var tweetForm = document.createElement("form");
     tweetForm.method = "POST"; // or "post" if appropriate
-    tweetForm.action = "/save_tweet_twitter_login/";
+    tweetForm.action = url
 
     var tweetInput = document.createElement("input");
     tweetInput.type = "text";
@@ -57,6 +53,12 @@ function login_user() {
     program_idInput.name = "program_id";
     program_idInput.value = $('#programId').text();
     tweetForm.appendChild(program_idInput);
+
+    var campaign_idInput = document.createElement("input");
+    campaign_idInput.type = "text";
+    campaign_idInput.name = "campaign_id";
+    campaign_idInput.value = $('#campaignId').text();
+    tweetForm.appendChild(campaign_idInput);
 
     var address_arrayInput = document.createElement("input");
     address_arrayInput.type = "text";
@@ -77,8 +79,8 @@ function login_user() {
 function runTweet(windowURL){
     var login_window;
     check_user();
-    if (!user_logged_in) {
-        login_user()
+    if (login_url) {
+        login_user(login_url)
     } else {
         // get message length and validate length
         var tweet_text = $('#text-input').text();
