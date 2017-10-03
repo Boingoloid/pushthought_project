@@ -1,5 +1,5 @@
 slug_result = 'Taken';
-$('#slug').on('change', function (e) {
+$('#id_slug').on('change', function (e) {
     e.preventDefault();
     checkUrl()
 });
