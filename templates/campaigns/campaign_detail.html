@@ -2,7 +2,13 @@
 {% load static from staticfiles %}
 {% load thumbnail %}
 {% block css %}
-
+{% block extra_meta %}
+  {# <meta property="og:url"           content="http://www.your-domain.com/your-page.html" />#}
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="{{object.title}}" />
+  {# <meta property="og:description"   content="Your description" />#}
+  <meta property="og:image"         content="{%if object.image%}{{object.image.url}}{%else%}{% static 'img/push_thought_logo.png' %}{%endif%}" />
+{% endblock %}
 <!--<link rel="stylesheet" href="{% static 'css/campaign-landing.css' %}">-->
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
 <link rel="stylesheet" href="{% static 'css/content-landing.css' %}">
