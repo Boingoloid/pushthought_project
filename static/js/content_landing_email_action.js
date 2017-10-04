@@ -28,6 +28,9 @@
 //    }
 //});
 
+
+
+
 function get_congress_email_fields(bioguideArray) {
     bioguideArrayString = JSON.stringify(bioguideArray);
     console.log('bioguide array string: ', bioguideArrayString);
@@ -151,7 +154,7 @@ function get_congress_email_fields(bioguideArray) {
                         '</select>',
                         '</div>',
                         '</div>'
-                    ].join("\n");
+                    ].join("\n" );
                 } else {
                     var label_name = field_name
                     var readonly = '';
@@ -177,6 +180,7 @@ function get_congress_email_fields(bioguideArray) {
                 }
             });
             $('.email-action-container').append(htmlText);
+            $('#text-input').val(emailFieldData['MESSAGE']);
         }
     });
 }
