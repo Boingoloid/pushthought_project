@@ -7,7 +7,7 @@
         "PHONE": "{{ request.user.profile.phone }}",
         "ADDRESS_STREET": "{{ request.user.profile.street }}",
         "ADDRESS_CITY": "{{ request.user.profile.city }}",
-        "ADDRESS_ZIP4": "{{ request.user.profile.zip }}",
-        "ADDRESS_ZIP5": "{{ request.user.profile.zip }}",
+        "ADDRESS_ZIP4": "{{ request.user.profile.zip }}" || "{{ request.session.zip }}",
+        "ADDRESS_ZIP5": "{{ request.user.profile.zip }}" || "{{ request.session.zip }}",
     }
 </script>
