@@ -10,6 +10,7 @@
 {% block content %}
 <p hidden id="segmentId">{{ object.id }}</p>
 <p hidden id="programId">{{ object.id }}</p>
+    <div hidden id="last-message">{{ request.session.last_message }}</div>
 <div hidden id="alertList" data-alertList="{{ alertList }}"></div>
 <div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
 <img hidden class="twitter-icon-hide" src="{% static 'img/twitter-icon.png' %}">
@@ -242,6 +243,7 @@
 
 {% block js %}
     {% include 'inserts/email_field_populate.html' %}
+    <script src="{% static 'js/last_message_btn.js' %}"></script>
     <script src="{% static 'js/content_landing.js' %}"></script>
     <script src="{% static 'js/content_landing_success_messages.js' %}"></script>
     <script src="{% static 'js/content_landing_email_action.js' %}"></script>

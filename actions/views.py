@@ -12,12 +12,12 @@ from pushthought.views.views_email_congress import submit_congress_email
 
 def submit_congress_email_view(request):
     print "submit_congress_email_view firing"
-    send_response_object = submit_congress_email(request)
-    status = send_response_object['status']
+    # send_response_object = submit_congress_email(request)
+    # status = send_response_object['status']
     data = json.loads(request.body)
     congress = Congress.objects.get(bioguide_id=data['bio_id'])
-    # send_response_object = {'success': True}
-    # status = 'success'
+    send_response_object = {'success': True}
+    status = 'success'
     data_dict = dict(
         congress=congress
     )
@@ -26,11 +26,12 @@ def submit_congress_email_view(request):
         data_dict['program_id'] = data.get('program_id')
 
     if request.user.is_authenticated():
-        data_dict['user'] = request.user.id,
+        data_dict['user_id'] = request.user.pk
 
     if send_response_object:
         if status == 'success':
             print "email was sent"
+            request.session['last_message'] = data['fields']['$MESSAGE']
             Action.emails.create(
                 data['fields']['$MESSAGE'],
                 data['fields'],

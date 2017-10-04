@@ -254,6 +254,7 @@ $(document).ready(function() {
 
     // Email Icon
     $('.rep-container').on("click", "img.email-icon", function(e) {
+        $('.copy-last').show();
         e.stopPropagation();
         var emailIconId = $(this).attr('id');
         var i = emailIconId.replace('email-icon-','')
@@ -532,7 +533,8 @@ $(document).ready(function() {
         alert('sorry, no email form yet for this person.  Pleaes call or tweet.');
     });
 
-    $('#close-button').on('click',function(event) {
+    $('#close-button').on('click', function(event) {
+        $('.copy-last').hide();
         $('#text-input').text('');
         $('.letter-count').show();
         $('.email-action-container').html('');
