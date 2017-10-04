@@ -18,15 +18,23 @@ def submit_congress_email_view(request):
     congress = Congress.objects.get(bioguide_id=data['bio_id'])
     # send_response_object = {'success': True}
     # status = 'success'
+    data_dict = dict(
+        congress=congress
+    )
+
+    if data.get('program_id'):
+        data_dict['program_id'] = data.get('program_id')
+
+    if request.user.is_authenticated():
+        data_dict['user'] = request.user.id,
+
     if send_response_object:
         if status == 'success':
             print "email was sent"
             Action.emails.create(
                 data['fields']['$MESSAGE'],
                 data['fields'],
-                user=request.user,
-                # program_id=data['program_id'],
-                congress=congress
+                **data_dict
             )
         elif status == 'captcha_needed':
             # save email, needs captcha to true, then exclude them.  or save to different table
