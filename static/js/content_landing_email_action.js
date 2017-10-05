@@ -28,6 +28,9 @@
 //    }
 //});
 
+
+
+
 function get_congress_email_fields(bioguideArray) {
     bioguideArrayString = JSON.stringify(bioguideArray);
     console.log('bioguide array string: ', bioguideArrayString);
@@ -151,17 +154,23 @@ function get_congress_email_fields(bioguideArray) {
                         '</select>',
                         '</div>',
                         '</div>'
-                    ].join("\n");
+                    ].join("\n" );
                 } else {
                     var label_name = field_name
                     var readonly = '';
                     if (field_name === 'ADDRESS_ZIP5') {
                         label_name = 'ADDRESS_ZIP'
                     }
-                    if (['EMAIL', 'ADDRESS_ZIP5'].indexOf(field_name) > -1) {
-                        readonly = 'readonly'
-                    }
                     var value = emailFieldData[field_name] || '';
+                    if (field_name === 'ADDRESS_ZIP5') {
+                        readonly = 'readonly'
+
+                        if (!value) {
+                            value = $('.zip-input').attr('value')
+                        }
+
+                    }
+
                     htmlText = [htmlText,
                         '<div class="email-form-field-container" style="display:block;">',
                             '<div class="label-div">',
@@ -177,6 +186,7 @@ function get_congress_email_fields(bioguideArray) {
                 }
             });
             $('.email-action-container').append(htmlText);
+            $('#text-input').val(emailFieldData['MESSAGE']);
         }
     });
 }

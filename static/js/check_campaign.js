@@ -1,5 +1,5 @@
 slug_result = 'Taken';
-$('#id_slug').on('change', function (e) {
+$('#id_slug').keyup( function (e) {
     e.preventDefault();
     checkUrl()
 });

@@ -19,6 +19,7 @@
 
 {% block content %}
 <p hidden id="campaignId">{{ object.slug }}</p>
+    <div hidden id="last-message">{{ request.session.last_message }}</div>
 <div hidden id="alertList" data-alertList="{{ alertList }}"></div>
 <div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
 <img hidden class="twitter-icon-hide" src="{% static 'img/twitter-icon.png' %}">
@@ -103,7 +104,7 @@
                         <!--{% include "socialaccount/snippets/provider_list.html" with process="login" %}-->
                     <!--</ul>-->
                 <!--{% endif %}-->
-                <div class="copy-last btn-primary">Copy last message</div>
+                <div class="copy-last btn-primary" hidden>Copy last message</div>
                 <img id="close-button" src="{% static 'img/x-mark-gray.png' %}">
                 <div id="text-tweet-block">
                     <div style="display:block">
@@ -193,6 +194,7 @@
 
 {% block js %}
     {% include 'inserts/email_field_populate.html' %}
+    <script src="{% static 'js/last_message_btn.js' %}"></script>
     <script src="{% static 'js/content_landing.js' %}"></script>
     <script src="{% static 'js/campaign_landing.js' %}"></script>
     <script src="{% static 'js/content_landing_success_messages.js' %}"></script>
