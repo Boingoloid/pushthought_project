@@ -554,10 +554,14 @@ text-tweet-block{
   font-weight:200;
   color: white;
   white-space: pre-wrap;
-  overflow: hidden;
+  overflow: scroll;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
+
 
 #text-input:hover, #text-input:focus {
   background:black;
@@ -1343,6 +1347,9 @@ input.eform:hover{
   min-height:85px;
   cursor: pointer;
   color:gray;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: pre-wrap;
 }
 
 .field-suggested-tweet:hover{
@@ -1369,6 +1376,9 @@ input.eform:hover{
   min-height:200px;
   cursor: pointer;
   color:gray;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: pre-wrap;
 }
 
 .field-suggested-email:hover{
