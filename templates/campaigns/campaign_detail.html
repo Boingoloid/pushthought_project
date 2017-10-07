@@ -180,7 +180,7 @@
                     {% if item.tweet %}
                         <div class="tweet-item">
                             <div id="copied-to-clipboard">Copied to Clipboard</div>
-                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.username}}</p></div>
+                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.profile.twitter}}</p></div>
                             <div class="tweet">{{item.tweet.text}}</div>
                         </div>
                     {% endif %}
