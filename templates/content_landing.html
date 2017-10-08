@@ -28,6 +28,10 @@
                 <h1 class="title-header">{{ object.title }}</h1>
                 <!--<button class="btn-lg  test-button" style="color:black;">test</button>-->
                 <p class="description">{{ object.plot_outline }}</p>
+                {% if object.url %}
+                    <a class="more-info-link" href="{{ object.url }}"><p class="more-info-p">{{ object.url }}</p></a>
+                {% else %}
+                {% endif %}
                     <div class="seen-it-container">
                         <h2 style="color:red; font-weight:600; font-size:24px;">Share with purpose below...</h2>
                         <!--<h3>Share with purpose below...</h3>-->
