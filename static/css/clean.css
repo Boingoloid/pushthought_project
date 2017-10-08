@@ -275,6 +275,11 @@ img.img-free.logo-image{
   color:black;
 }
 
+input#id_username, input#id_email, input#id_password1, input#id_password2{
+  color:black;
+
+}
+
 
 
 /* Intro Header -------------------------------------------------*/
