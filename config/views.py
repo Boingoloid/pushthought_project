@@ -73,7 +73,7 @@ class TwitterLoginView(OAuthLoginView):
         address_array = request.POST.get('address_array')
         bioguide_array = request.POST.get('bioguide_array')
 
-        request.session['redirect_url'] = request.META['HTTP_REFERER']
+        request.session['redirect_url'] = request.META.get('HTTP_REFERER', '/')
         request.session['tweet_text'] = tweet_text
         request.session['sent_tweet'] = False
 
@@ -155,6 +155,9 @@ class TwitterCallbackView(OAuthCallbackView):
             token_obj = SocialToken.objects.get(account__user=self.request.user, account__provider='twitter')
         except SocialToken.DoesNotExist:
             token_obj = self.token
+
+            self.request.user.profile.twitter = token_obj
+            self.request.user.profile.save()
 
         TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
         TWITTER_CONSUMER_KEY = SocialApp.objects.filter(provider='twitter').last().client_id

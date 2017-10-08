@@ -345,32 +345,12 @@ a.program-link {
   margin-top:-55px;
   margin-bottom:-8px;
   text-overflow: ellipsis;
-  /*overflow: hidden !important;*/
-  overflow: scroll;
+  overflow: hidden !important;
   border: 0px solid orange;
   border-top:1px solid #337ab7;
   height: 93px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  white-space: pre-wrap;
 
 }
-
-.description{
-  color:#b6b6b6;
-  font-size: 16px;
-  /*text-overflow: ellipsis;
-  overflow: hidden !important;*/
-  overflow: scroll;
-  height:269px;
-  max-height: 269px;
-  margin-bottom:35px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  white-space: pre-wrap;
-
-}
-
 
 @media only screen and (max-width: 438px) {
     .program-description, .program-description-crop{
