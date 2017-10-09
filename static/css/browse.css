@@ -345,7 +345,9 @@ a.program-link {
   margin-top:-55px;
   margin-bottom:-8px;
   text-overflow: ellipsis;
-  overflow: hidden !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: pre-wrap;
   border: 0px solid orange;
   border-top:1px solid #337ab7;
   height: 93px;
