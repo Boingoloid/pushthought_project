@@ -34,6 +34,7 @@ $(document).ready(function() {
             $('.zip-input').attr('id',zip);
             $('.zip-input').attr('value',zip);
             get_congress(zip, get_congress_url);
+            preload_phantom_dc_members_data();
         } else{
             console.log('NOT a valid zip');
             alert('Not a valid zip code.  Please check and try again.')
@@ -370,21 +371,11 @@ $(document).ready(function() {
         updateTextCount();
 
 
-        // grab BioguideID and reqeust congress phantom email fields from server
-        var bioguideId = $(this).next().attr('id');
-
-        //get fields from db or phantom congress
-        var bioguideArray = bioguideId
-        // alert (bioguideArray)
-        // var bioguideArray = [];
-        // $('.bioguide-mule').each(function(){
-        //     var bioguideId = $(this).attr('id');
-        //     bioguideArray.push(bioguideId);
-        // });
-        //console.log("bioguide sending to email phantom congress to get email fields: "+bioguideArray);
-        //$.getScript('/static/js/content_landing_email_action.js', function(){
-        get_congress_email_fields(bioguideArray);
-        //});
+        var form_data_list = [];
+        $('.action-panel-container.selected .bioguide-mule').each(function() {
+            form_data_list.push($(this).data('form'));
+        });
+        get_congress_email_fields(form_data_list);
 
 //         Fill in fields with info from user
 //        var data = $('#emailFields').data('emailfields');
