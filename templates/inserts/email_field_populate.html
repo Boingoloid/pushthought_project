@@ -1,13 +1,12 @@
 <script>
     emailFieldData = {
-        "NAME_PREFIX": "{{ request.user.profile.prefix }}" || '',
-        "NAME_FIRST": "{{ request.user.first_name }}" || '',
-        "NAME_LAST": "{{ request.user.last_name }}" || '',
-        "EMAIL": "{{ request.user.email }}" || '',
-        "PHONE": "{{ request.user.profile.phone }}" || '',
-        "ADDRESS_STREET": "{{ request.user.profile.street }} || ''",
-        "ADDRESS_CITY": "{{ request.user.profile.city }}" || '',
-        "ADDRESS_ZIP4": "{{ request.user.profile.zip }}" || "{{ request.session.zip }}" || '',
-        "ADDRESS_ZIP5": "{{ request.user.profile.zip }}" || "{{ request.session.zip }}" || '',
+        "NAME_FIRST": "{% if request.user.first_name %}{{ request.user.first_name }}{% endif %}",
+        "NAME_LAST": "{% if request.user.last_name %}{{ request.user.last_name }}{% endif %}",
+        "EMAIL": "{% if request.user.email %}{{ request.user.email }}{% endif %}",
+        "PHONE": "{% if request.user.profile.phone %}{{ request.user.profile.phone }}{% endif %}",
+        "ADDRESS_STREET": "{% if request.user.profile.street %}{{ request.user.profile.street }}{% endif %}",
+        "ADDRESS_CITY": "{% if request.user.profile.city %}{{ request.user.profile.city }}{% endif %}",
+        "ADDRESS_ZIP4": "{{ request.user.profile.zip }}" || "{{ request.session.zip }}",
+        "ADDRESS_ZIP5": "{{ request.user.profile.zip }}" || "{{ request.session.zip }}",
     }
 </script>
