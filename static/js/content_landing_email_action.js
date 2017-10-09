@@ -55,35 +55,76 @@ function preload_phantom_dc_members_data() {
 
 function get_congress_email_fields(form_data_list) {
     if (!form_data_list) {
-        console.log("no required fields data to return");
+        //console.log("no required fields data to return");
 
-        if(confirm("We don't have a webform for that congress person.  We will redirect you to your email client to reach them by their opencongress.org email address.")) {
+        //if(confirm("We don't have a webform for that congress person.  We will redirect you to your email client to reach them by their opencongress.org email address.")) {
 
-            var bioguideArray = String(bioguideArray);
-            var mailto = $('#' + bioguideArray).attr('name');
-            var title = encodeURIComponent($('.title-header').text());
-            var description = encodeURIComponent($('.description').text());
-            var suggestedEmailText = encodeURIComponent($('.field-suggested-email').val());
+        //    var bioguideArray = String(bioguideArray);
+        //    var mailto = $('#' + bioguideArray).attr('name');
+        //    var title = encodeURIComponent($('.title-header').text());
+        //    var description = encodeURIComponent($('.description').text());
+        //    var suggestedEmailText = encodeURIComponent($('.field-suggested-email').val());
 
 
-            //console.log('name: ' + mailto);
-            //console.log('title: ' + title);
-            //console.log('descr: ' + description);
-            //console.log('suggestedEmailText: ' + suggestedEmailText);
+        //    //console.log('name: ' + mailto);
+        //    //console.log('title: ' + title);
+        //    //console.log('descr: ' + description);
+        //    //console.log('suggestedEmailText: ' + suggestedEmailText);
 
-            if(!suggestedEmailText == ""){
-                location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + suggestedEmailText);
-                //console.log('true');
-            } else {
-                location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + description);
-                //console.log('false');
-            }
-        } else {
-            //do nothing
-        }
+        //    if(!suggestedEmailText == ""){
+        //        location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + suggestedEmailText);
+        //        //console.log('true');
+        //    } else {
+        //        location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + description);
+        //        //console.log('false');
+        //    }
+        //} else {
+        //    //do nothing
+        //}
         return false;
     }
     console.log("yes, required fields data to return");
+    // get topic list for each topic value
+    
+    // put all email fields into one large list
+//    fields_array = []
+//    for (i in data){
+//
+//        console.log(data[i]);
+//        object1 = data[i];
+//        var bioguideId = Object.keys(object1)[0];
+//        //console.log(String(bioguideId));
+//        fields = data[i][bioguideId]['required_actions'];
+//        //console.log(fields);
+//        fields_array = fields_array.concat(fields);
+//    }
+//    console.log('fields array', fields_array);
+
+    // Remove $ sign
+
+    // alphabatize
+
+//    for (j in fields_array){
+//        console.log(fields_array[j]['value'].replace('$',''));
+//        fields_array[j]['value'].replace('$','');
+
+//        fields_array[j].replace('$','');
+//    }
+
+
+    // get 3 topic fields with bioguide id and options hash
+//    var sorted = fields_array.sort(function(a, b) {
+//        return a.value - b.value;
+//    });
+
+//    var fields_sorted = Object.keys(dict).map(function(key) {
+//        return [key, dict[key]];
+//    });
+//    fields_array = fields_array.sort(function(a, b){return a-b});
+//    console.log('fields array sorted', sorted);
+    //eliminate duplicates
+    //load with all fields plus topics
+
     var htmlText = [];
 
     ////////////////////////////////////////
@@ -110,10 +151,23 @@ function get_congress_email_fields(form_data_list) {
                 var label_name = field_name;
             }
 
+            if (field_name == "TOPIC") {
+                var bioguide = email_field['bioguideId'];
+                var bioguide_name = $('.email-name-' + bioguide).text();
+                var last_name = bioguide_name.substring(
+                    bioguide_name.lastIndexOf(" ") + 1, bioguide_name.length);
+                var label_name = field_name + ' - ' + last_name;
+                var topic_class_name = 'topic-container topic-container-' +
+                    bioguide;
+            } else {
+                var topic_class_name = '';
+            }
+
             htmlText = [htmlText,
-                '<div class="email-form-field-container" style="display:block;">',
+                '<div class="email-form-field-container ' + topic_class_name +
+                '" style="display:block;">',
                 '   <div class="label-div">',
-                    '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + label_name + '</label>',
+                '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label ' + bioguide + '">' + label_name + '</label>',
                 // '</div>',
                 // '<div>',
                     '<select class="eform" id="eform-' + field_name + '" style="display:block;">',
@@ -121,26 +175,24 @@ function get_congress_email_fields(form_data_list) {
                 // '</div>',
             ].join("\n");
 
-            // define optionList
-            var optionsList = email_field['options'];
-
             /////////////////////////////////////////////////////////////
             // detect if options list is dictionary or array, first array
             /////////////////////////////////////////////////////////////
-            if(optionsList[0]){
+            if (email_field['options']) {
                 //console.log('true - array');
-                for (var i = 0; i < optionsList.length; i++) {
+                for (var i = 0; i < email_field['options'].length; i++) {
                     htmlText = [htmlText,
-                        '<option value="' + optionsList[i] + '">' + optionsList[i] + '</option>'
+                        '<option value="' + email_field['options'][i] + '">' +
+                        email_field['options'][i] + '</option>'
                     ].join("\n");
                 }
 
             ////////////////////////////////////////////////////
-            // and now if dictionary
+            // and now if option list is dictionary
             ////////////////////////////////////////////////////
             } else {
                 //console.log('false - dict');
-                for (var key in optionsList){
+                for (var key in email_field['options']){
                     htmlText = [htmlText,
                         '<option value="' + key + '">' + key + '</option>'
                     ].join("\n");
@@ -186,6 +238,16 @@ function get_congress_email_fields(form_data_list) {
     });
     $('.email-action-container').append(htmlText);
     $('#text-input').val(emailFieldData['MESSAGE']);
+
+    $('.topic-container').hide();
+    $('.action-panel-container').each(function(){
+        if($(this).hasClass('selected')){
+            var bioId = $(this).children().children('.bioguide-mule').attr('id');
+            console.log("bioId: ", bioId);
+            console.log('topic-container-'+ bioId);
+            $('.topic-container-'+ bioId).show();
+        }
+    });
 }
 
 
