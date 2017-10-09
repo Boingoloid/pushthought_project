@@ -8,6 +8,7 @@ import os
 import os.path
 import io
 import itertools
+import warnings
 from decimal import Decimal
 import json
 import requests
@@ -25,14 +26,32 @@ PHANTOM_DC_FORM_RETRIEVAL_URL = \
     'https://congressforms.eff.org/retrieve-form-elements/'
 
 
-# Taken from https://stackoverflow.com/a/8991553
 def grouper(n, iterable):
-    """Yield tuples with chuncks of `iterable` not longer than `n`."""
+    """Yield tuples with chuncks of `iterable` not longer than `n`.
+
+    Overcomplicated with a hack to prevent encoding problems with
+    Unicode characters in case the last chunk will be only one element
+    long. Problem is described in the warning in `self.handle`.
+
+    Simple and clean original taken from
+    https://stackoverflow.com/a/8991553
+
+    """
     it = iter(iterable)
+    next_chunk = None
+    get_next_chunk = lambda: tuple(itertools.islice(it, n))
     while True:
-        chunk = tuple(itertools.islice(it, n))
+        if next_chunk is None:
+            next_chunk = get_next_chunk()
+        chunk = next_chunk
+        next_chunk = get_next_chunk()
         if not chunk:
             return
+        # Protect from encoding problem described in the warning in
+        # `self.handle`.
+        if n != 1 and len(next_chunk) == 1:
+            chunk = chunk + next_chunk
+            next_chunk = ()
         yield chunk
 
 
@@ -135,8 +154,14 @@ class Command(BaseCommand):
             options: options described in `self.add_arguments`.
 
         """
+        if options['chunk_size'] == 1:
+            warnings.warn("Encoding problem spotted when the Phantom DC"
+                          " server is queried for only one bioguide ID"
+                          " at a time. Known affected members: C000542"
+                          " and W000779")
         members = self.fetch_members(options['chunk_size'], options['source'])
         self.save_members(members, options['dest'])
+
         output_bytes = os.stat(options['dest']).st_size
         self.stdout.write(
             "Written {} members ({:g} MiB) to {}".format(
