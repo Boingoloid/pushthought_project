@@ -1054,6 +1054,64 @@ $(document).ready(function() {
              }, 400);
         });
     });
+
+        $('.tweet_suggested_message_container').on("click", ".field-suggested-tweet", function(e) {
+        e.stopPropagation();
+
+        var message = $(this).val();
+
+        if($('.rep-action-container').is(":visible")){
+        }else{
+            $('.twitter-icon').trigger('click');
+        }
+
+        pasteMessage(message);
+
+    });
+
+    $('.email_suggested_message_container').on("click", ".field-suggested-email", function(e) {
+        e.stopPropagation();
+        console.log($('.tweet-button-label').text().slice( 0, 5 ));
+
+        var sliced_string = $('.tweet-button-label').slice( 0, 5 )
+        sstring = String(sliced_string);
+
+        if($('.rep-action-container').is(":visible") && $('.tweet-button-label').is(":visible")){
+            alert("Sorry, you can't paste email text into a tweet.");
+            return false;
+        }
+
+
+        var message = $(this).val();
+
+        if($('.rep-action-container').is(":visible")){
+            //var address_placeholder_text = $('.address-placeholder').text();
+            //console.log(address_placeholder_text);
+        }else{
+            $('.email-icon').trigger('click');
+            //$('.address-placeholder').after('\n'+message);
+        }
+
+        pasteMessage(message);
+        ////////// append message in input after span node
+        //$('.address-placeholder').remove();
+    });
+
+    function pasteMessage(message){
+        ////////// grab placeholder text
+        placeholder_text = $('.address-placeholder').text();
+
+        ////////// reinsert black placeholder span
+        $('#text-input').html("<span contenteditable='false' class='address-placeholder'></span>");
+
+        ////////// reinsert placeholder text in span
+        $('.address-placeholder').text(placeholder_text);
+
+        ////////// append message in input after span node
+        $('.address-placeholder').after(message);
+
+    }
+
 });
 
 

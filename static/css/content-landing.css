@@ -546,14 +546,15 @@ text-tweet-block{
 .letter-count{
   position: absolute;
   z-index:1000;
-  top: 157px;
-  left: 432px;
+  top: 158px;
+  left: 430px;
   cursor:pointer;
   color:gray;
   font-size: 12pt;
-  align:right;
+  text-align:right;
   vertical-align: text-bottom;
   width:auto;
+  min-width:26.8px;
   height:auto;
 }
 
