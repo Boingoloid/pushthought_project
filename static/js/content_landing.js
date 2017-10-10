@@ -251,6 +251,87 @@ $(document).ready(function() {
         alert("Watch function not in place yet, working on it. thanks :)");
     });
 
+    // Select All Buttons
+
+    $('.rep-container').on("click", "img.email-icon-all", function(e) {
+        $('.action-panel-container').each(function(){
+            if($(this).hasClass('selected')){
+                //do nothing
+            } else {
+                $(this).addClass('selected');
+            }
+        });
+    });
+
+    $('.rep-container').on("click", "img.twitter-icon-all", function(e) {
+        if($('twitter-name-1').is(":visible")){
+            $('.action-panel-container').each(function(){
+                if($(this).hasClass('selected')){
+                    //do nothing
+                    console.log('do nothing');
+                } else {
+                    //$(this).addClass('selected');
+                    $(this).trigger('click');
+                }
+            });
+        }else{
+            $('.twitter-icon').trigger('click');
+            $('.action-panel-container').each(function(){
+                if($(this).hasClass('selected')){
+                    //do nothing
+                } else {
+                    //$(this).addClass('selected');
+                    $(this).trigger('click');
+                }
+            });
+        }
+    });
+
+//        $('.rep-container').on("click", ".action-panel-container", function(e) {
+//
+//        //////////////////////////////////////
+//        // get number of action panel clicked
+//        //////////////////////////////////////
+//        var i = $(this).attr('id');
+//
+//        //////////////////////////////////////////////////////
+//        // get twitter name if twitter names visible
+//        //////////////////////////////////////////////////////
+//        if($('.twitter-name').is(":visible")){
+//            var elementRef = "#email-name-"+i;
+//            var elementText = $('#twitter-name-'+i).text();
+//            var whichIconClicked = "tweet";
+//        ////////////////////////////////////////////////////////////
+//        // if email visible and class 'selected' exists, then close
+//        ////////////////////////////////////////////////////////////
+//        } else if($('.email-name').is(":visible")){
+//            var whichIconClicked = "email";
+//            if($(this).hasClass('selected')){
+//                $('#close-button').trigger('click');
+//                console.log("email should close");
+//            ////////////////////////////////////////////////////////////
+//            // if email visible and class NOT 'selected' then alert
+//            ////////////////////////////////////////////////////////////  v
+//            } else {
+//                var elementText = $('div#'+i+'.email-name').text();
+//                alert("Currently you can only email 1 representative at a time.  Autofill will help you fill out consecutive emails.");
+//            }
+//
+//            return false;
+//        } else {
+//            return false;
+//        }
+
+
+
+
+
+
+
+
+
+
+
 
     // Email Icon
     $('.rep-container').on("click", "img.email-icon", function(e) {
@@ -643,26 +724,26 @@ $(document).ready(function() {
             ///////////////////////////////////////////////////////////
             var placeholderLength = $('.address-placeholder').text().length
             var value = $('#text-input').html();
-            console.log("placeholder length: " + placeholderLength);
-            console.log("html value: " + value);
+            //console.log("placeholder length: " + placeholderLength);
+            //console.log("html value: " + value);
 
             ///////////////////////////////////////////////////
             // add placeholder if one does not exist
             //////////////////////////////////////////////////
             searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
             if (searchBool == -1){
-                console.log("there is no placeholder");
+                //console.log("there is no placeholder");
                 var value = $('#text-input').html();
-                console.log("text input text", value);
+                //console.log("text input text", value);
                 $('#text-input').html('<span contenteditable=false class=address-placeholder></span>' + value);
-                console.log('after value:' , $('#text-input').html());
+                //console.log('after value:' , $('#text-input').html());
             }
 
             //</span><p> class="space-placeholder" style="display:inline;"> </p>
             // Get count of selected items
             var numItems = $('.address-item.selected').length;
 
-            console.log("number of items: "+numItems);
+            //console.log("number of items: "+numItems);
             // Change button label
             if (whichIconClicked == "email"){
               console.log("this code should never trigger, change button label email");
@@ -691,7 +772,7 @@ $(document).ready(function() {
             // TWEET - adjust placeholder text
             //} else{
                 // update placeholderText -> based on # of addresses selected
-                console.log("numitems");
+                //console.log("numitems");
                 if (numItems == 0){
                     placeholderText = '';
                     $('.address-placeholder').text(placeholderText);

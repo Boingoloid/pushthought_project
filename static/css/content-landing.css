@@ -1031,6 +1031,19 @@ text-tweet-block{
   position:relative;
 }
 
+.action-panel-container-all{
+    margin:20px;
+    margin-top:-10px;
+    height:60px;
+    border-right:1px solid #00aced;
+    border-left:1px solid #00aced;
+    border-bottom:1px solid #00aced;
+    /*border-bottom:1px solid #00aced;*/
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #294f2f;
+}
+
+
 .twitter-name, .email-name{
   position:absolute;
   font-size: 14pt;
@@ -1059,6 +1072,13 @@ text-tweet-block{
   cursor: pointer;
 }
 
+.twitter-icon-all{
+  position:absolute;
+  top: 7px;
+  left: 20px;
+  cursor: pointer;
+}
+
 /*Icons*/
 .twitter-icon-empty{
   position:absolute;
@@ -1074,7 +1094,25 @@ text-tweet-block{
   cursor: pointer;
 }
 
+.phone-icon-all{
+  position:absolute;
+  top: 13px;
+  left: 42%;
+  height: 32px;
+  cursor: pointer;
+}
+
 .email-icon{
+  position:absolute;
+  top: 14px;
+  right: 24px;
+  cursor: pointer;
+  width:37px;
+  height:30px;
+}
+
+
+.email-icon-all{
   position:absolute;
   top: 14px;
   right: 24px;
