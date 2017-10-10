@@ -264,13 +264,14 @@ $(document).ready(function() {
     });
 
     $('.rep-container').on("click", "img.twitter-icon-all", function(e) {
-        if($('twitter-name-1').is(":visible")){
+        if($('#twitter-name-1').is(":visible")){
             $('.action-panel-container').each(function(){
                 if($(this).hasClass('selected')){
                     //do nothing
                     console.log('do nothing');
                 } else {
                     //$(this).addClass('selected');
+                     console.log('do something');
                     $(this).trigger('click');
                 }
             });
@@ -278,8 +279,10 @@ $(document).ready(function() {
             $('.twitter-icon').trigger('click');
             $('.action-panel-container').each(function(){
                 if($(this).hasClass('selected')){
+                    console.log('do nothing - not visible');
                     //do nothing
                 } else {
+                    console.log('do something - not visible');
                     //$(this).addClass('selected');
                     $(this).trigger('click');
                 }

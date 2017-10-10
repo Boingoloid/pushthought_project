@@ -103,8 +103,8 @@ function create_congress_HTML(congressDataArray){
 
 
         var selectAllText = [
-        '<div class="rep-item-container">',
-            '<div class="rep-item">',
+        '<div class="rep-item-container-all">',
+            '<div class="rep-item-all">',
                 '<div style="display:inline-block;">',
                         '<img class="repPhoto repPhoto-none" src=\'/static/img/push-thought-logo.png\'>',
                     '<div class="name-title-container">',
@@ -116,7 +116,7 @@ function create_congress_HTML(congressDataArray){
             '<div class="action-panel-container-all">',
                 '<div class="action-panel">',
                     '<img class="twitter-icon-all" src=\'/static/img/twitter-icon.png\' width="42" height="42">',
-                    '<img class="phone-icon-all" src=\'/static/img/phone-icon.png\'>',
+                    //'<img class="phone-icon-all" src=\'/static/img/phone-icon.png\'>',
                     '<img class="email-icon-all" src=\'/static/img/email-icon.png\' width="36" height="36">',
                 '</div>',
             '</div>',
