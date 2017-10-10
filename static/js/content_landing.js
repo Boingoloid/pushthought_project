@@ -331,6 +331,7 @@ $(document).ready(function() {
         addressPlaceholder = String(addressPlaceholder);
 
         console.log("address placeholder: ", addressPlaceholder);
+        // TODO DRY
         $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +', </span>');
         console.log($('#text-input').html());
         //<p class="space-placeholder" style="display:inline;"> </p>
@@ -637,8 +638,7 @@ $(document).ready(function() {
         ///////////////////////////////////////////////////
         // add placeholder if one does not exist
         //////////////////////////////////////////////////
-        searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
-        if (searchBool == -1){
+        if (!$('.address-placeholder').length) {
             console.log("there is no placeholder");
             var value = $('#text-input').html();
             console.log("text input text", value);
@@ -670,20 +670,12 @@ $(document).ready(function() {
         // placeholder text all scenarios, 0,1,multi, both email and then tweet
         console.log("numitems");
         if ($('.email-name').is(':visible')) {
-            if (numItems == 0) {
-                placeholderText = '';
-                $('.address-placeholder').text(placeholderText);
-            } else if (numItems == 1) {
-                placeholderText = $(
-                    '.address-item.selected').children('p').html();
-                placeholderText = 'Congressperson ' + placeholderText + ', ';
-                $('.address-placeholder').text(placeholderText);
-            } else {
-                placeholderText = 'Congressperson, ';
-                // endspace important so @ recognized
-                placeholderText = placeholderText + ' ';
-                $('.address-placeholder').text(placeholderText);
-            }
+            var placeholder_strings = [];
+            $('.address-item.selected').each(function() {
+                placeholder_strings.push("Congressperson " +
+                    $(this).children('p').text());
+            });
+            $('.address-placeholder').text(placeholder_strings.join(", "));
         } else {
             if (numItems == 0) {
                 placeholderText = '';
@@ -701,6 +693,11 @@ $(document).ready(function() {
                 $('.address-placeholder').text(placeholderText);
             }
         }
+        var form_data_list = [];
+        $('.action-panel-container.selected .bioguide-mule').each(function() {
+            form_data_list.push($(this).data('form'));
+        });
+        get_congress_email_fields(form_data_list);
         //$('#text-input').focus();
     });
 
@@ -758,8 +755,7 @@ $(document).ready(function() {
         //console.log("text-input-html 1: " + value);
         //console.log("placeholder text: " + $('.address-placeholder').text());
         //var placeholderLength = $('.address-placeholder').text().length;
-        searchBool = value.search("<span contenteditable=\"false\" class=\"address-placeholder\">");
-        if (searchBool == -1){
+        if (!$('.address-placeholder').length) {
 
             ////////////////////////////////////////////////////////
             // if twitter visible, then replace address placeholder

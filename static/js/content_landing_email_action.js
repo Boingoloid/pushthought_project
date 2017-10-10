@@ -34,14 +34,14 @@ function preload_phantom_dc_members_data() {
         '/static/js/phantom-dc-members.min.json',
         function(data) {
             $('.bioguide-mule').each(function () {
-                form_data = data[this.id];
-                fields = [];
-                for (item of form_data['required_actions']) {
+                var fields = [];
+                for (item of data[this.id]['required_actions']) {
                     if (item['value'] != '$MESSAGE') {
-                        field_dict = [];
-                        field_dict['field_name'] = item['value'].slice(1)
+                        var field_dict = [];
+                        field_dict['field_name'] = item['value'].slice(1);
+                        field_dict['bioguideId'] = this.id;
                         if (item['options_hash']) {
-                            field_dict['options'] = item['options_hash']
+                            field_dict['options'] = item['options_hash'];
                         }
                         fields.push(field_dict);
                     }
@@ -143,25 +143,22 @@ function get_congress_email_fields(form_data_list) {
         var field_name = email_field['field_name'];
         // If "TOPIC" make select box with options
 
-        if((field_name == "TOPIC") || (field_name == "ADDRESS_STATE_POSTAL_ABBREV") || field_name == "NAME_PREFIX") {
+        if (field_name == "TOPIC" ||
+                field_name == "ADDRESS_STATE_POSTAL_ABBREV" ||
+                field_name == "NAME_PREFIX") {
 
-            if(field_name == "ADDRESS_STATE_POSTAL_ABBREV"){
+            if (field_name == "ADDRESS_STATE_POSTAL_ABBREV") {
                 var label_name = "ADDRESS_STATE";
             } else {
                 var label_name = field_name;
             }
-
-            if (field_name == "TOPIC") {
-                var bioguide = email_field['bioguideId'];
-                var bioguide_name = $('.email-name-' + bioguide).text();
-                var last_name = bioguide_name.substring(
-                    bioguide_name.lastIndexOf(" ") + 1, bioguide_name.length);
-                var label_name = field_name + ' - ' + last_name;
-                var topic_class_name = 'topic-container topic-container-' +
-                    bioguide;
-            } else {
-                var topic_class_name = '';
-            }
+            var bioguide = email_field['bioguideId'];
+            var bioguide_name = $('.email-name-' + bioguide).text();
+            var last_name = bioguide_name.substring(
+                bioguide_name.lastIndexOf(" ") + 1, bioguide_name.length);
+            var label_name = label_name + ' - ' + last_name;
+            var topic_class_name = field_name.toLowerCase() + '-container ' +
+                field_name.toLowerCase() + '-container-' + bioguide;
 
             htmlText = [htmlText,
                 '<div class="email-form-field-container ' + topic_class_name +
@@ -236,7 +233,7 @@ function get_congress_email_fields(form_data_list) {
             ].join("\n");
         }
     });
-    $('.email-action-container').append(htmlText);
+    $('.email-action-container').html(htmlText);
     $('#text-input').val(emailFieldData['MESSAGE']);
 
     $('.topic-container').hide();
@@ -276,10 +273,18 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
 
     // Collect fields from all members.
     var data = [];
+    var collected_field_names = [];
+    var names_of_fields_that_can_be_duplicated = ['NAME_PREFIX',
+        'ADDRESS_COUNTY', 'ADDRESS_STATE_POSTAL_ABBREV', 'TOPIC']
     for (member of form_data_list) {
+        // FIXME Sometimes raises "TypeError: member is undefined" until page
+        // reload.
         for (field of member) {
-            if (!(field in data)) {
+            if (collected_field_names.indexOf(field['field_name']) == -1 ||
+                    names_of_fields_that_can_be_duplicated.indexOf(
+                        field['field_name']) != -1) {
                 data.push(field);
+                collected_field_names.push(field['field_name']);
             }
         }
     }
@@ -300,8 +305,6 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
                     //console.log(field_name + " " + ordered_email_field);
                     email_field_to_add_to_array = email_field;
                     ordered_email_fields.push(email_field_to_add_to_array);
-
-                } else {
                 }
             }
             previous_field = field_name
