@@ -161,6 +161,8 @@ function create_congress_HTML(congressDataArray){
             indicatorString = '<img class="success-indicator" id="success-indicator-'+ item['twitter_id'] +'" src='+successIndicatorPath+'>';
         }
 
+        //!!!!!!!!!!!!!!!!!!!!!create if statment with string creating node or not based on if there is a district
+
         var phoneIconImage = $('.phone-icon-hide').attr('src');
         // construct HTML for contacts in category
         var text =  [
@@ -180,7 +182,7 @@ function create_congress_HTML(congressDataArray){
                    imageString,
                         '<div class="name-title-container">',
                              '<div><p class="full-name">'+ item['full_name']+'</p></div>',
-                             '<div><p class="title">'+item['title']+' '+item['state'] + ' '+ item['district'] +'</p></div>',
+                             '<div><p class="title">'+item['title']+' '+item['state'] + ' '+ item['district'] +'</p></div>', //!!!!!!replace with variable
                         '</div>',
                   '</div>',
                 '</div>',
