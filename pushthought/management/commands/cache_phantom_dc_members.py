@@ -35,7 +35,6 @@ def grouper(n, iterable):
 
     Simple and clean original taken from
     https://stackoverflow.com/a/8991553
-
     """
     it = iter(iterable)
     next_chunk = None
@@ -69,7 +68,6 @@ class Command(BaseCommand):
 
         Args:
             parser: instance of `argparse.ArgumentParser`.
-
         """
         parser.add_argument(
             '--chunk-size',
@@ -101,7 +99,6 @@ class Command(BaseCommand):
         the list itself probably doesn't change often (though more often
         then elections, as e.g. members that weren't supported yet may
         be added.
-
         """
         response = requests.get(YAML_LIST_URL)
         members_list = json.loads(response.text)
@@ -115,7 +112,6 @@ class Command(BaseCommand):
                 request.
             source: URL of Phantom DC APIs resource for retrieving form
                 elements.
-
         """
         fetched_members = {}
         for bioguides_chunk in grouper(chunk_size,
@@ -138,7 +134,6 @@ class Command(BaseCommand):
         Args:
             members: list of members data dicts.
             dest: path to file to write to.
-
         """
         dump = json.dumps(members, sort_keys=True, ensure_ascii=False,
                           separators=(',', ':'))
@@ -152,7 +147,6 @@ class Command(BaseCommand):
         Args:
             args: positional arguments.
             options: options described in `self.add_arguments`.
-
         """
         if options['chunk_size'] == 1:
             warnings.warn("Encoding problem spotted when the Phantom DC"

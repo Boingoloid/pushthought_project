@@ -308,7 +308,11 @@ LOGGING = {
         'jobs': {
             'handlers': ['console'],
             'level': 'INFO',
-        }
+        },
+        'congress_email': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
     }
 }
 
@@ -384,3 +388,8 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+PHANTOM_DC_API_BASE = 'https://congressforms.eff.org'
+PHANTOM_DC_API_RETRIEVE_FORM_ELEMENTS = '/retrieve-form-elements'
+PHANTOM_DC_API_FILL_OUT_FORM = '/fill-out-form'
+PHANTOM_DC_API_FILL_OUT_CAPTCHA = '/fill-out-captcha'

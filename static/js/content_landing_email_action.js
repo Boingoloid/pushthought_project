@@ -141,9 +141,10 @@ function get_congress_email_fields(form_data_list) {
 
     form_data_list.forEach(function (email_field, i) {
         var field_name = email_field['field_name'];
-        // If "TOPIC" make select box with options
 
+        // Select box with options.
         if (field_name == "TOPIC" ||
+                field_name == "ADDRESS_COUNTY" ||
                 field_name == "ADDRESS_STATE_POSTAL_ABBREV" ||
                 field_name == "NAME_PREFIX") {
 
@@ -165,7 +166,7 @@ function get_congress_email_fields(form_data_list) {
                 '" style="display:block;">',
                 '   <div class="label-div">',
                 '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label ' + bioguide + '">' + label_name + '</label>',
-                '<select class="eform" id="eform-' + field_name + '" style="display:block;">',
+                '<select class="eform" id="eform-' + field_name + '" data-bioguide="' + bioguide + '" style="display:block;">',
                 '<option value=0 disabled="disabled" selected="selected">select</option>'
             ].join("\n");
 
@@ -247,15 +248,18 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
         "NAME_FIRST",
         "NAME_LAST",
         "EMAIL",
+        "PHONE_PARENTHESES",
         "PHONE",
         "ADDRESS_STREET",
         "ADDRESS_STREET_2",
         "ADDRESS_CITY",
         "ADDRESS_COUNTY",
         "ADDRESS_ZIP5",
+        "ADDRESS_ZIP4",
         "ADDRESS_ZIP_PLUS_4",
         "ADDRESS_STATE_POSTAL_ABBREV",
-        "TOPIC"
+        "TOPIC",
+        "CAPTCHA_SOLUTION",
     ];
 
     // Collect fields from all members.
@@ -507,8 +511,7 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
 //////////////////////////////////////////////////////////
 
 
-function runEmail(bioguideId){
-
+function runEmail(bioguideIds){
     // validate text input not blank
     var message_text = $('#text-input').text();
     if(message_text.length < 1){
@@ -575,6 +578,9 @@ function runEmail(bioguideId){
     $('.eform:visible').each(function(i){
         var field = String($(this).attr('id'));
         field = '$' + field.replace('eform-','').replace('-','_');
+        if ($(this).data('bioguide')) {
+            field += '_' + $(this).data('bioguide')
+        }
         //field = field.replace('eform-','').replace('-','_');
         //console.log(field);
         if(field == '$ADDRESS_ZIP'){
@@ -593,7 +599,7 @@ function runEmail(bioguideId){
     formDataDictionary['$MESSAGE'] = $('#text-input').text();
     //var programId = $('#programId').text();
     var stringJson = JSON.stringify({
-        "bio_id": bioguideId,
+        "bio_ids": bioguideIds,
         //"program_id": programId,
         "campaign_tag": "push_thought",
         "fields": formDataDictionary

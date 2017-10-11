@@ -879,25 +879,11 @@ $(document).ready(function() {
     }
 
     // TWEET/EMAIL Button
-    $('#tweet-button').on('click',function(event) {
-
-
-        if($('.email-name').is(":visible")){
-            // alert("Under development");
-            var bioguideId = $('.address-item-label:visible').attr('id');
-            // console.log("printing bioguide before run email", bioguideId);
-            console.log("email/tweet button at start of function");
-
-            // for each eform class make add to dictionary
-            // keys are id truncated
-            //values are eform .val()
-            // store dictionary in session
-            // by pinging server
-
-
-            //updateEmailFieldsInSession();
-
-            runEmail(bioguideId);
+    $('#tweet-button').on('click', function(event) {
+        if ($('.email-name').is(":visible")){
+            var bioguideIds = $('.address-item-label:visible').map(
+                function() { return this.id }).get();
+            runEmail(bioguideIds);
         } else {
             runTweet(windowURL);
         }
