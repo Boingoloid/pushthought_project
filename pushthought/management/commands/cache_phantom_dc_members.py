@@ -22,8 +22,6 @@ from django.core.management.base import BaseCommand
 DEFAULT_BIOGUIDES_CHUNK_SIZE = 100
 YAML_LIST_URL = 'https://api.github.com/repos/unitedstates/' \
     'contact-congress/contents/members?ref=master'
-PHANTOM_DC_FORM_RETRIEVAL_URL = \
-    'https://congressforms.eff.org/retrieve-form-elements/'
 
 
 def grouper(n, iterable):
@@ -86,7 +84,8 @@ class Command(BaseCommand):
         parser.add_argument(
             '--source',
             dest='source',
-            default=PHANTOM_DC_FORM_RETRIEVAL_URL,
+            default=settings.PHANTOM_DC_API_BASE +
+            settings.PHANTOM_DC_API_RETRIEVE_FORM_ELEMENTS,
             help='URL of Phantom DC API\'s resource for retrieving form'
             'elements',
         )
