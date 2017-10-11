@@ -165,39 +165,26 @@ function get_congress_email_fields(form_data_list) {
                 '" style="display:block;">',
                 '   <div class="label-div">',
                 '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label ' + bioguide + '">' + label_name + '</label>',
-                // '</div>',
-                // '<div>',
-                    '<select class="eform" id="eform-' + field_name + '" style="display:block;">',
-                    '<option value=0 disabled="disabled" selected="selected">select</option>'
-                // '</div>',
+                '<select class="eform" id="eform-' + field_name + '" style="display:block;">',
+                '<option value=0 disabled="disabled" selected="selected">select</option>'
             ].join("\n");
 
-            /////////////////////////////////////////////////////////////
-            // detect if options list is dictionary or array, first array
-            /////////////////////////////////////////////////////////////
-            if (email_field['options']) {
-                //console.log('true - array');
+            if (Array.isArray(email_field['options'])) {
                 for (var i = 0; i < email_field['options'].length; i++) {
                     htmlText = [htmlText,
                         '<option value="' + email_field['options'][i] + '">' +
                         email_field['options'][i] + '</option>'
                     ].join("\n");
                 }
-
-            ////////////////////////////////////////////////////
-            // and now if option list is dictionary
-            ////////////////////////////////////////////////////
             } else {
-                //console.log('false - dict');
+                // Not an array, assume dictionary.
                 for (var key in email_field['options']){
                     htmlText = [htmlText,
                         '<option value="' + key + '">' + key + '</option>'
                     ].join("\n");
                 }
             }
-            ////////////////////////////////////////////////////
-            // close options select box and field
-            ////////////////////////////////////////////////////
+            // Close options select box and field.
             htmlText = [htmlText,
                 '</select>',
                 '</div>',
