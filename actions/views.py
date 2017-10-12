@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import json
 import logging
+from pprint import pformat
 
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
@@ -123,7 +124,10 @@ class SubmitCongressEmail(View):
             settings.PHANTOM_DC_API_FILL_OUT_FORM,
             data=json.dumps({'bio_id': bioguide, 'fields': filled_out_fields}),
             headers={'content-type': 'application/json'})
-        logger.debug("Message sending status: {}".format(response.text))
+        logger.debug(
+            "Message sending to {} status: {}\nMessage was: {}".format(
+                bioguide, pformat(json.loads(response.text)),
+                pformat(filled_out_fields)))
         return json.loads(response.text)['status'] == 'success'
 
     def post(self, request):
