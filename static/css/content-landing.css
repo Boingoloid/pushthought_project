@@ -53,8 +53,9 @@ a.more-info-link{
   overflow-y: hidden;
   width:445px;
   color:green;
-  height:31px;
+  height:18px;
   white-space: nowrap;
+  font-size:15px;
 
 }
 
@@ -64,7 +65,7 @@ a.more-info-link{
   overflow-y: hidden;
   width:445px;
   color:green;
-  height:31px;
+  height:18px;
   white-space: nowrap;
 }
 
