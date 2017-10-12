@@ -61,4 +61,6 @@ SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+LOGGING['handlers']['console']['level'] = 'DEBUG'
+
 PHANTOM_DC_API_BASE = 'http://localhost:9292'
