@@ -181,7 +181,7 @@ function get_congress_email_fields(form_data_list) {
                 // Not an array, assume dictionary.
                 for (var key in email_field['options']){
                     htmlText = [htmlText,
-                        '<option value="' + key + '">' + key + '</option>'
+                        '<option value="' + email_field['options'][key] + '">' + key + '</option>'
                     ].join("\n");
                 }
             }
