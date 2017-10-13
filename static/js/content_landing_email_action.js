@@ -270,13 +270,18 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
     for (member of form_data_list) {
         // FIXME Sometimes raises "TypeError: member is undefined" until page
         // reload.
-        for (field of member) {
-            if (collected_field_names.indexOf(field['field_name']) == -1 ||
-                    names_of_fields_that_can_be_duplicated.indexOf(
-                        field['field_name']) != -1) {
-                data.push(field);
-                collected_field_names.push(field['field_name']);
+        try {
+            for (field of member) {
+                if (collected_field_names.indexOf(field['field_name']) == -1 ||
+                        names_of_fields_that_can_be_duplicated.indexOf(
+                            field['field_name']) != -1) {
+                    data.push(field);
+                    collected_field_names.push(field['field_name']);
+                }
             }
+        } catch (e) {
+            alert("Error loading data, please refresh the page.")
+            break;
         }
     }
 
