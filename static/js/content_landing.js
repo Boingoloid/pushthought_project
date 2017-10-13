@@ -370,12 +370,15 @@ $(document).ready(function() {
         //setEndOfContenteditable($('#text-input'));
         updateTextCount();
 
-
-        var form_data_list = [];
-        $('.action-panel-container.selected .bioguide-mule').each(function() {
-            form_data_list.push($(this).data('form'));
-        });
-        get_congress_email_fields(form_data_list);
+        var form_data_list = get_form_data_list();
+        if (form_data_list[0] == undefined) {
+            preload_phantom_dc_members_data(function() {
+                form_data_list = get_form_data_list();
+                get_congress_email_fields(form_data_list);
+            });
+        } else {
+            get_congress_email_fields(form_data_list);
+        }
 
 //         Fill in fields with info from user
 //        var data = $('#emailFields').data('emailfields');

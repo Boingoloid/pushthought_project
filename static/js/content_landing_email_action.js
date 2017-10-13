@@ -29,8 +29,8 @@
 //});
 
 
-function preload_phantom_dc_members_data() {
-    $.getJSON(
+function preload_phantom_dc_members_data(callback) {
+    deferred = $.getJSON(
         '/static/js/phantom-dc-members.min.json',
         function(data) {
             $('.bioguide-mule').each(function () {
@@ -50,6 +50,18 @@ function preload_phantom_dc_members_data() {
             });
         }
     );
+    if (callback != undefined) {
+        deferred.done(callback);
+    }
+}
+
+
+function get_form_data_list() {
+    var form_data_list = [];
+    $('.action-panel-container.selected .bioguide-mule').each(function() {
+        form_data_list.push($(this).data('form'));
+    });
+    return form_data_list
 }
 
 
@@ -269,7 +281,9 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
         'ADDRESS_COUNTY', 'ADDRESS_STATE_POSTAL_ABBREV', 'TOPIC']
     for (member of form_data_list) {
         // FIXME Sometimes raises "TypeError: member is undefined" until page
-        // reload.
+        // reload. Currently as a temporary measure prevented by silently
+        // reloading the data in `content_landing.js` where function
+        // `get_form_data_list` is called.
         try {
             for (field of member) {
                 if (collected_field_names.indexOf(field['field_name']) == -1 ||
