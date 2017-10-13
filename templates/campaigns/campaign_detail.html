@@ -36,7 +36,7 @@
                 <!--<button class="btn-lg  test-button" style="color:black;">test</button>-->
                 <p class="description">{{ object.description }}</p>
                 {% if object.link %}
-                <a class="more-info-link" href="{{ object.link }}"><p class="more-info-p">{{ object.link }}</p></a>
+                <a class="more-info-link" href="{{ object.link }}"><p class="more-info-p">More info: {{ object.link }}</p></a>
                 {% else %}
                 {% endif %}
                     <div class="seen-it-container">
@@ -92,7 +92,7 @@
                 <div class="zip-label">Zip Code:</div>
                     <button class="submit-zip">Load Reps</button>
                 <div class='zip-loader'  id="zip-loader"></div>
-                <input class="zip-input" id="{{ request.session.zip }}" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
+                <input class="zip-input" id="{{ request.user.profile.zip }}" value="{{ request.user.profile.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
             </div>
 
             <div class="rep-container">

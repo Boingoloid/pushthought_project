@@ -11,10 +11,9 @@ from django.contrib.auth.models import User
 from allauth.socialaccount.models import SocialAccount
 
 
-# Create your models here.
+
 class Profile(TimeStampedModel):
     user = models.OneToOneField(User)
-    prefix = models.CharField(max_length=50, blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
     street = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
