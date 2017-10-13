@@ -101,6 +101,7 @@ def submit_congress_email_view(request):
     if send_response_object:
         if status == 'success':
             print "email was sent"
+            print "Response object: ", send_response_object
             # save_congress_email_fields_to_user(request)
             # save_email_congress_action(request)
         elif status == 'captcha_needed':

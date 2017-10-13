@@ -13,13 +13,12 @@ class GetCongressData(View):
     API_URL = "https://congress.api.sunlightfoundation.com/legislators/locate"
 
     def get(self, request, zip_code, *args, **kwargs):
-        self.zip_code = zip_code
+        self.zip_code = self.request.user.profile.zip
         try:
             program_id = re.findall(r'\/program\/(\d+)', self.request.META['HTTP_REFERER'])[0]
         except IndexError, KeyError:
             program_id = None
 
-        self.request.session['zip'] = zip_code
         queryset = self.get_congress_data_from_db()
 
         if not queryset:

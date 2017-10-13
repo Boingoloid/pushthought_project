@@ -156,9 +156,6 @@ class TwitterCallbackView(OAuthCallbackView):
         except SocialToken.DoesNotExist:
             token_obj = self.token
 
-            self.request.user.profile.twitter = token_obj
-            self.request.user.profile.save()
-
         TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
         TWITTER_CONSUMER_KEY = SocialApp.objects.filter(provider='twitter').last().client_id
 
