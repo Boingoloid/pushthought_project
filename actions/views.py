@@ -130,6 +130,20 @@ class SubmitCongressEmail(View):
                 pformat(filled_out_fields)))
         return json.loads(response.text)['status'] == 'success'
 
+    def save_email(self, bioguide, fields, is_sent):
+        """Save e-mail data to DB as `Action` and it's related objects.
+
+        Args:
+            bioguide: bioguide identifying the member to send the
+                message to.
+            fields: dict of fields with data used to fill out the
+                message form.
+            is_sent: boolean indicating if the message was sent.
+        """
+        congress = Congress.objects.get(bioguide_id=bioguide)
+        Action.emails.create(text=fields['$MESSAGE'], fields=fields,
+                             is_sent=is_sent, congress=congress)
+
     def post(self, request):
         """Send message via Phantom DC to each requested member.
 
@@ -156,5 +170,7 @@ class SubmitCongressEmail(View):
                 bioguides).items():
             filled_out_fields = self.get_filled_out_fields(bioguide,
                                                            field_names, data)
-            self.send_message_via_phantom_dc(bioguide, filled_out_fields)
+            is_send_successful = self.send_message_via_phantom_dc(
+                bioguide, filled_out_fields)
+            self.save_email(bioguide, filled_out_fields, is_send_successful)
         return JsonResponse({'status': 'success'})
