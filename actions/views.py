@@ -4,7 +4,7 @@ import json
 import logging
 from pprint import pformat
 
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.conf import settings
 from django.views.generic import View
 
@@ -141,7 +141,10 @@ class SubmitCongressEmail(View):
                     `$FIELD_NAME_bioguide` if the field can be repeated
                     for some mebers) and user-provided values for them.
         Returns:
-            Empty instance of `HttpResponse`.
+            Instance of `JsonResponse` with `{'status': 'success'}`.
+            If code was executed, it's considered to be a successful
+            send, an e-mails either were sent automatically, or will be
+            sent manually later.
         """
         request_body = json.loads(request.body)
         logger.debug("SubmitCongressEmail POST request body:\n{}".format(
@@ -154,5 +157,4 @@ class SubmitCongressEmail(View):
             filled_out_fields = self.get_filled_out_fields(bioguide,
                                                            field_names, data)
             self.send_message_via_phantom_dc(bioguide, filled_out_fields)
-        request.session['last_message'] = filled_out_fields['$MESSAGE']
-        return HttpResponse()
+        return JsonResponse({'status': 'success'})

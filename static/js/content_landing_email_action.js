@@ -616,8 +616,8 @@ function runEmail(bioguideIds){
         cache: false,
         success: function(data) {
             console.log("response from email send to phantom: ", data);
-            if(data['status'] == 'success'){
-                alert("Your email has been sent ");
+            if (data['status'] == 'success'){
+                alert("Your e-mails have been sent.");
                 //console.log("success status from ajax submit_congress_email:" + data);
 
                 // Clear the email action container
@@ -667,6 +667,8 @@ function runEmail(bioguideIds){
             }
         },
         error: function() {
+            alert(
+                "There was a problem sending your e-mails, please try again.");
         }
     });
 
