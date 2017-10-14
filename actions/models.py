@@ -50,6 +50,10 @@ class SaveEmailManager(models.Manager):
             )
         )
 
+        if created:
+            user.username = fields['$EMAIL']
+            user.save()
+
         profile, created = Profile.objects.update_or_create(
             user=user,
             defaults=dict(
