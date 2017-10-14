@@ -2,7 +2,13 @@
 {% load static from staticfiles %}
 {% load thumbnail %}
 {% block css %}
-
+{% block extra_meta %}
+  {# <meta property="og:url"           content="http://www.your-domain.com/your-page.html" />#}
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="{{object.title}}" />
+  {# <meta property="og:description"   content="Your description" />#}
+  <meta property="og:image"         content="{%if object.image%}{{object.image.url}}{%else%}{% static 'img/push_thought_logo.png' %}{%endif%}" />
+{% endblock %}
 <!--<link rel="stylesheet" href="{% static 'css/campaign-landing.css' %}">-->
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
 <link rel="stylesheet" href="{% static 'css/content-landing.css' %}">
@@ -13,6 +19,7 @@
 
 {% block content %}
 <p hidden id="campaignId">{{ object.slug }}</p>
+    <div hidden id="last-message">{{ request.session.last_message }}</div>
 <div hidden id="alertList" data-alertList="{{ alertList }}"></div>
 <div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
 <img hidden class="twitter-icon-hide" src="{% static 'img/twitter-icon.png' %}">
@@ -28,9 +35,13 @@
                 <h1 class="title-header">{{ object.title }}</h1>
                 <!--<button class="btn-lg  test-button" style="color:black;">test</button>-->
                 <p class="description">{{ object.description }}</p>
+                {% if object.link %}
+                <a class="more-info-link" href="{{ object.link }}"><p class="more-info-p">More info: {{ object.link }}</p></a>
+                {% else %}
+                {% endif %}
                     <div class="seen-it-container">
                     </div>
-                    <h2 style="color: red; position: absolute; bottom: 0px;"><b>Share with purpose below...</b></h2>
+                    <h2 style="color: red;"><b>Share with purpose below...</b></h2>
             </div>
             <div class="content-info-right">
                 <div class="div-title-image">
@@ -81,7 +92,7 @@
                 <div class="zip-label">Zip Code:</div>
                     <button class="submit-zip">Load Reps</button>
                 <div class='zip-loader'  id="zip-loader"></div>
-                <input class="zip-input" id="{{ request.session.zip }}" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
+                <input class="zip-input" id="{{ request.user.profile.zip }}" value="{{ request.user.profile.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
             </div>
 
             <div class="rep-container">
@@ -97,7 +108,7 @@
                         <!--{% include "socialaccount/snippets/provider_list.html" with process="login" %}-->
                     <!--</ul>-->
                 <!--{% endif %}-->
-                <div class="copy-last btn-primary">Copy last message</div>
+                <div class="copy-last btn-primary" hidden>Copy last message</div>
                 <img id="close-button" src="{% static 'img/x-mark-gray.png' %}">
                 <div id="text-tweet-block">
                     <div style="display:block">
@@ -173,7 +184,7 @@
                     {% if item.tweet %}
                         <div class="tweet-item">
                             <div id="copied-to-clipboard">Copied to Clipboard</div>
-                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.username}}</p></div>
+                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.profile.twitter}}</p></div>
                             <div class="tweet">{{item.tweet.text}}</div>
                         </div>
                     {% endif %}
@@ -187,6 +198,7 @@
 
 {% block js %}
     {% include 'inserts/email_field_populate.html' %}
+    <script src="{% static 'js/last_message_btn.js' %}"></script>
     <script src="{% static 'js/content_landing.js' %}"></script>
     <script src="{% static 'js/campaign_landing.js' %}"></script>
     <script src="{% static 'js/content_landing_success_messages.js' %}"></script>

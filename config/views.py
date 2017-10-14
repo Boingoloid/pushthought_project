@@ -73,7 +73,7 @@ class TwitterLoginView(OAuthLoginView):
         address_array = request.POST.get('address_array')
         bioguide_array = request.POST.get('bioguide_array')
 
-        request.session['redirect_url'] = request.META['HTTP_REFERER']
+        request.session['redirect_url'] = request.META.get('HTTP_REFERER', '/')
         request.session['tweet_text'] = tweet_text
         request.session['sent_tweet'] = False
 

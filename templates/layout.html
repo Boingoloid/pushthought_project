@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
+				{% block extra_meta %}{% endblock %}
 
         <!--icon-->
         <link rel="icon" href="{% static 'img/push_thought_logo.png' %}">
@@ -50,16 +51,11 @@
                         {% if user.is_authenticated %}
 {#                           <li>Hey, {{ request.user.first_name }}</li>#}
                             <li><a href="{% url 'campaign:list' %}" style="padding:10px; text-align: center;">My <br>Campaigns</a></li>
+                            <li><a href="{% url 'profile' %}">Settings</a></li>
                             <li><a href="{% url 'account_logout' %}">Logout</a></li>
                         {% else %}
                             <li><a href="{% url 'account_login' %}">Login</a></li>
                         {% endif %}
-                        <!--<li>-->
-                            <!--<a href="{% url 'home' %}">Home</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a href="{% url 'contact' %}">Contact</a>-->
-                        <!--</li>-->
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
