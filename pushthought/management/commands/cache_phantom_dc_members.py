@@ -9,11 +9,14 @@ import os.path
 import io
 import itertools
 import warnings
-from decimal import Decimal
 import json
-import requests
+from decimal import Decimal
+from copy import deepcopy
+
 from django.conf import settings
 from django.core.management.base import BaseCommand
+
+import requests
 
 
 # EFF's API usually responds to the request for all current 607 members
@@ -22,6 +25,66 @@ from django.core.management.base import BaseCommand
 DEFAULT_BIOGUIDES_CHUNK_SIZE = 100
 YAML_LIST_URL = 'https://api.github.com/repos/unitedstates/' \
     'contact-congress/contents/members?ref=master'
+OVERRIDEN_FIELD_OPTIONS_HASHES = {
+    '$ADDRESS_STATE_POSTAL_ABBREV': {
+        'AK': "Alaska",
+        'AL': "Alabama",
+        'AR': "Arkansas",
+        'AZ': "Arizona",
+        'CA': "California",
+        'CO': "Colorado",
+        'CT': "Connecticut",
+        'DC': "District of Columbia",
+        'DE': "Delaware",
+        'FL': "Florida",
+        'GA': "Georgia",
+        'HI': "Hawaii",
+        'IA': "Iowa",
+        'ID': "Idaho",
+        'IL': "Illinois",
+        'IN': "Indiana",
+        'KS': "Kansas",
+        'KY': "Kentucky",
+        'LA': "Louisiana",
+        'MA': "Massachusetts",
+        'MD': "Maryland",
+        'ME': "Maine",
+        'MI': "Michigan",
+        'MN': "Minnesota",
+        'MO': "Missouri",
+        'MS': "Mississippi",
+        'MT': "Montana",
+        'NC': "North Carolina",
+        'ND': "North Dakota",
+        'NE': "Nebraska",
+        'NH': "New Hampshire",
+        'NJ': "New Jersey",
+        'NM': "New Mexico",
+        'NV': "Nevada",
+        'NY': "New York",
+        'OH': "Ohio",
+        'OK': "Oklahoma",
+        'OR': "Oregon",
+        'PA': "Pennsylvania",
+        'RI': "Rhode Island",
+        'SC': "South Carolina",
+        'SD': "South Dakota",
+        'TN': "Tennessee",
+        'TX': "Texas",
+        'UT': "Utah",
+        'VA': "Virginia",
+        'VT': "Vermont",
+        'WA': "Washington",
+        'WI': "Wisconsin",
+        'WV': "West Virginia",
+        'WY': "Wyoming",
+    },
+    '$NAME_PREFIX': [
+        'Mr.',
+        'Mrs.',
+        'Ms.',
+    ],
+}
 
 
 def grouper(n, iterable):
@@ -63,6 +126,8 @@ class Command(BaseCommand):
             --dest - str, path to the cache file that will be written.
             --source - str, URL of Phantom DC API resource for
                 retrieveing form elements.
+            --non-minified - doesn't accept a value, turns on producting
+                pretty-printed non-minifield JSON.
 
         Args:
             parser: instance of `argparse.ArgumentParser`.
@@ -89,6 +154,13 @@ class Command(BaseCommand):
             help='URL of Phantom DC API\'s resource for retrieving form'
             'elements',
         )
+        parser.add_argument(
+            '--non-minified',
+            dest='minified',
+            action='store_false',
+            help='Produce pretty-printed non-minifield JSON. Those are'
+            ' more than two times bigger than minified ones.',
+        )
 
     def fetch_bioguide_ids(self):
         """Fetch bioguide IDs from remote list of YAML files.
@@ -98,6 +170,9 @@ class Command(BaseCommand):
         the list itself probably doesn't change often (though more often
         then elections, as e.g. members that weren't supported yet may
         be added.
+
+        Returns:
+            List of bioguide IDs.
         """
         response = requests.get(YAML_LIST_URL)
         members_list = json.loads(response.text)
@@ -111,6 +186,9 @@ class Command(BaseCommand):
                 request.
             source: URL of Phantom DC APIs resource for retrieving form
                 elements.
+        Returns:
+            Dict of members, with bioguide IDs as keys and data as
+                values.
         """
         fetched_members = {}
         for bioguides_chunk in grouper(chunk_size,
@@ -124,7 +202,26 @@ class Command(BaseCommand):
                 fetched_members[new_bioguide] = new_fetched_member
         return fetched_members
 
-    def save_members(self, members, dest):
+    def process_member_data(self, member_data):
+        """Change member data.
+
+        Replace values for key `options_hash` with values from
+        `OVERRIDEN_FIELD_OPTIONS_HASHES` for member data fields
+        which names are in `OVERRIDEN_FIELD_OPTIONS_HASHES`'s keys.
+
+        Args:
+            member_data: dict of data for a member. Won't be modified.
+        Returns:
+            Updated dict of data for the member.
+        """
+        processed_member_data = deepcopy(member_data)
+        for field in processed_member_data['required_actions']:
+            if field['value'] in OVERRIDEN_FIELD_OPTIONS_HASHES:
+                field['options_hash'] = \
+                    OVERRIDEN_FIELD_OPTIONS_HASHES[field['value']]
+        return processed_member_data
+
+    def save_members(self, members, dest, minify):
         """Save members in a JSON cache file.
 
         Writes in UTF-8, as (currently) two members (W000779 and
@@ -133,9 +230,16 @@ class Command(BaseCommand):
         Args:
             members: list of members data dicts.
             dest: path to file to write to.
+            minify: boolean indicating whether to minify the JSON file.
+                Minified ones are more than twice smaller than
+                pretty-printed ones.
         """
+        if minify:
+            dump_kwargs = {'separators': (',', ':')}
+        else:
+            dump_kwargs = {'indent': 4}
         dump = json.dumps(members, sort_keys=True, ensure_ascii=False,
-                          separators=(',', ':'))
+                          **dump_kwargs)
         with io.open(dest, 'w', encoding='utf8') as file_:
             file_.write(unicode(dump))
             file_.write(u'\n')
@@ -152,12 +256,16 @@ class Command(BaseCommand):
                           " server is queried for only one bioguide ID"
                           " at a time. Known affected members: C000542"
                           " and W000779")
-        members = self.fetch_members(options['chunk_size'], options['source'])
-        self.save_members(members, options['dest'])
+        members_dict = self.fetch_members(
+            options['chunk_size'], options['source'])
+        processed_members = {bioguide: self.process_member_data(data)
+                             for bioguide, data in members_dict.items()}
+        self.save_members(processed_members, options['dest'],
+                          options['minified'])
 
         output_bytes = os.stat(options['dest']).st_size
         self.stdout.write(
             "Written {} members ({:g} MiB) to {}".format(
-                len(members),
+                len(processed_members),
                 round(output_bytes / Decimal(1024)**2, 2),
                 options['dest']))
