@@ -65,7 +65,7 @@ a.more-info-link{
   overflow-y: hidden;
   width:445px;
   color:green;
-  height:18px;
+  height:26px;
   white-space: nowrap;
 }
 
@@ -547,7 +547,7 @@ text-tweet-block{
 .letter-count{
   position: absolute;
   z-index:1000;
-  top: 158px;
+  top: 109px;
   left: 430px;
   cursor:pointer;
   color:gray;
