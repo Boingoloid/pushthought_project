@@ -50,8 +50,7 @@ function preload_phantom_dc_members_data() {
                 $(this).data('form', fields);
             });
         }).done(function() {
-            form_data_list = get_form_data_list();
-            precreate_congress_email_fields(form_data_list);
+            precreate_congress_email_fields();
         });
 }
 
@@ -69,6 +68,11 @@ function show_hide_congress_email_fields() {
     var visible_fields_names = [];
     $('.action-panel-container.selected .bioguide-mule').each(function() {
         var form_data = $(this).data('form');
+        if (form_data == undefined) {
+            console.log("`show_hide_congress_email_fields` called before form" +
+                        " data is loaded, exiting.");
+            return;
+        }
         for (var field of form_data) {
             var field_name = field['field_name'];
             if (NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED.includes(field_name)) {
@@ -84,9 +88,9 @@ function show_hide_congress_email_fields() {
 }
 
 
-function precreate_congress_email_fields(form_data_list) {
+function precreate_congress_email_fields() {
     form_data_list = deduplicate_and_order_congress_email_fields(
-        form_data_list);
+        get_form_data_list());
     var htmlText = "";
     form_data_list.forEach(function (email_field, i) {
         var field_name = email_field['field_name'];
@@ -578,7 +582,7 @@ function runEmail(bioguideIds){
                 //console.log("success status from ajax submit_congress_email:" + data);
 
                 // Clear the email action container
-                $('.email-action-container').html('');
+                precreate_congress_email_fields();
                 // Excute close button
                 $('#close-button').trigger('click');
 
