@@ -155,11 +155,8 @@ function get_congress_email_fields(form_data_list) {
         var field_name = email_field['field_name'];
 
         // Select box with options.
-        if (field_name == "TOPIC" ||
-                field_name == "ADDRESS_COUNTY" ||
-                field_name == "ADDRESS_STATE_POSTAL_ABBREV" ||
-                field_name == "NAME_PREFIX") {
-
+        if (['TOPIC', 'ADDRESS_COUNTY', 'ADDRESS_STATE_POSTAL_ABBREV',
+             'NAME_PREFIX'].includes(field_name)) {
             if (field_name == "ADDRESS_STATE_POSTAL_ABBREV") {
                 var label_name = "ADDRESS_STATE";
             } else {
@@ -169,7 +166,13 @@ function get_congress_email_fields(form_data_list) {
             var bioguide_name = $('.email-name-' + bioguide).text();
             var last_name = bioguide_name.substring(
                 bioguide_name.lastIndexOf(" ") + 1, bioguide_name.length);
-            var label_name = label_name + ' - ' + last_name;
+            var class_bioguide = '';
+            var data_bioguide = '';
+            if (['TOPIC', 'ADDRESS_COUNTY'].includes(field_name)) {
+                label_name += ' - ' + last_name;
+                class_bioguide = ' ' + bioguide;
+                data_bioguide = ' data-bioguide="' + bioguide + '"';
+            }
             var topic_class_name = field_name.toLowerCase() + '-container ' +
                 field_name.toLowerCase() + '-container-' + bioguide;
 
@@ -177,8 +180,8 @@ function get_congress_email_fields(form_data_list) {
                 '<div class="email-form-field-container ' + topic_class_name +
                 '" style="display:block;">',
                 '   <div class="label-div">',
-                '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label ' + bioguide + '">' + label_name + '</label>',
-                '<select class="eform" id="eform-' + field_name + '" data-bioguide="' + bioguide + '" style="display:block;">',
+                '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label' + class_bioguide + '">' + label_name + '</label>',
+                '<select class="eform" id="eform-' + field_name + '"' + data_bioguide + ' style="display:block;">',
                 '<option value=0 disabled="disabled" selected="selected">select</option>'
             ].join("\n");
 
@@ -277,8 +280,7 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
     // Collect fields from all members.
     var data = [];
     var collected_field_names = [];
-    var names_of_fields_that_can_be_duplicated = ['NAME_PREFIX',
-        'ADDRESS_COUNTY', 'ADDRESS_STATE_POSTAL_ABBREV', 'TOPIC']
+    var names_of_fields_that_can_be_duplicated = ['ADDRESS_COUNTY', 'TOPIC']
     for (member of form_data_list) {
         // FIXME Sometimes raises "TypeError: member is undefined" until page
         // reload. Currently as a temporary measure prevented by silently
