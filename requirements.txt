@@ -1,1 +1,4 @@
 -r requirements/heroku.txt
+
+# run this to get db loaded:
+# psql --username=postgres databasename < data_base_dump.sql
