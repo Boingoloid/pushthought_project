@@ -19,7 +19,6 @@ CHAMBERS = {
 
 zipsDB = sqlite3.connect('zips.sqlite')
 cursor = zipsDB.cursor()
-cursor.execute("select * from main")
 
 output = []
 
@@ -162,6 +161,7 @@ for critter in critters:
             except:
                 pass
 
+    cursor.execute("select * from main")
     for row in cursor:
         if row[1] == newCritter['first_name'] and row[3] == newCritter['last_name'] and row[5] == newCritter['chamber']:
             zipcode = row[4]
@@ -170,7 +170,12 @@ for critter in critters:
 
     newCritter['fec_ids'] = ",".join(newCritter['fec_ids'])
     newCritter['zips'] = ",".join(newCritter['zips'])
-    output.append(newCritter)
+    outputItem = {}
+    outputItem['model'] = 'congress.congress'
+    outputItem['pk'] = newCritter['bioguide_id']
+    outputItem['fields'] = newCritter
+
+    output.append(outputItem)
 
 with open('{}/fixtures/congress.json'.format(settings.BASE_DIR), 'w') as outfile:
     json.dump(output, outfile)
