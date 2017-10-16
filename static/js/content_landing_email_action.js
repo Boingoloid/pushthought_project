@@ -156,12 +156,24 @@ function get_congress_email_fields(bioguideArray) {
                         '</div>'
                     ].join("\n" );
                 } else {
+
+                    /////////////////////////////////////////////////////
+                    // if field is ADDRESS_ZIP5
+                    // change name of label to ADDRESS_ZIP
+                    /////////////////////////////////////////////////////
                     var label_name = field_name
                     var readonly = '';
                     if (field_name === 'ADDRESS_ZIP5') {
                         label_name = 'ADDRESS_ZIP'
                     }
+
+                    ///// not sure what this line is doing
                     var value = emailFieldData[field_name] || '';
+
+                    /////////////////////////////////
+                    // If ADDRESS_ZIP% and value '' then grab zip from
+                    // zip-input elemennt on page.
+                    /////////////////////////////////
                     if (field_name === 'ADDRESS_ZIP5') {
                         readonly = 'readonly'
 
