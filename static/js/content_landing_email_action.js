@@ -27,9 +27,10 @@
 //        //do nothing
 //    }
 //});
+const NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED = ['ADDRESS_COUNTY', 'TOPIC']
 
 
-function preload_phantom_dc_members_data(callback) {
+function preload_phantom_dc_members_data() {
     deferred = $.getJSON(
         '/static/js/phantom-dc-members.min.json',
         function(data) {
@@ -48,112 +49,47 @@ function preload_phantom_dc_members_data(callback) {
                 }
                 $(this).data('form', fields);
             });
-        }
-    );
-    if (callback != undefined) {
-        deferred.done(callback);
-    }
+        }).done(function() {
+            form_data_list = get_form_data_list();
+            precreate_congress_email_fields(form_data_list);
+        });
 }
 
 
 function get_form_data_list() {
     var form_data_list = [];
-    $('.action-panel-container.selected .bioguide-mule').each(function() {
+    $('.action-panel-container .bioguide-mule').each(function() {
         form_data_list.push($(this).data('form'));
     });
     return form_data_list
 }
 
 
-function get_congress_email_fields(form_data_list) {
-    if (!form_data_list) {
-        //console.log("no required fields data to return");
-
-        //if(confirm("We don't have a webform for that congress person.  We will redirect you to your email client to reach them by their opencongress.org email address.")) {
-
-        //    var bioguideArray = String(bioguideArray);
-        //    var mailto = $('#' + bioguideArray).attr('name');
-        //    var title = encodeURIComponent($('.title-header').text());
-        //    var description = encodeURIComponent($('.description').text());
-        //    var suggestedEmailText = encodeURIComponent($('.field-suggested-email').val());
-
-
-        //    //console.log('name: ' + mailto);
-        //    //console.log('title: ' + title);
-        //    //console.log('descr: ' + description);
-        //    //console.log('suggestedEmailText: ' + suggestedEmailText);
-
-        //    if(!suggestedEmailText == ""){
-        //        location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + suggestedEmailText);
-        //        //console.log('true');
-        //    } else {
-        //        location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + description);
-        //        //console.log('false');
-        //    }
-        //} else {
-        //    //do nothing
-        //}
-        return false;
-    }
-    console.log("yes, required fields data to return");
-    // get topic list for each topic value
-    
-    // put all email fields into one large list
-//    fields_array = []
-//    for (i in data){
-//
-//        console.log(data[i]);
-//        object1 = data[i];
-//        var bioguideId = Object.keys(object1)[0];
-//        //console.log(String(bioguideId));
-//        fields = data[i][bioguideId]['required_actions'];
-//        //console.log(fields);
-//        fields_array = fields_array.concat(fields);
-//    }
-//    console.log('fields array', fields_array);
-
-    // Remove $ sign
-
-    // alphabatize
-
-//    for (j in fields_array){
-//        console.log(fields_array[j]['value'].replace('$',''));
-//        fields_array[j]['value'].replace('$','');
-
-//        fields_array[j].replace('$','');
-//    }
+function show_hide_congress_email_fields() {
+    var visible_fields_names = [];
+    $('.action-panel-container.selected .bioguide-mule').each(function() {
+        var form_data = $(this).data('form');
+        for (var field of form_data) {
+            var field_name = field['field_name'];
+            if (NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED.includes(field_name)) {
+                field_name += '-' + field['bioguideId'];
+            }
+            field_name += '-container';
+            visible_fields_names.push(field_name);
+        }
+    });
+    $('.email-form-field-container').each(function () {
+        $(this).toggle(visible_fields_names.includes(this.id));
+    });
+}
 
 
-    // get 3 topic fields with bioguide id and options hash
-//    var sorted = fields_array.sort(function(a, b) {
-//        return a.value - b.value;
-//    });
-
-//    var fields_sorted = Object.keys(dict).map(function(key) {
-//        return [key, dict[key]];
-//    });
-//    fields_array = fields_array.sort(function(a, b){return a-b});
-//    console.log('fields array sorted', sorted);
-    //eliminate duplicates
-    //load with all fields plus topics
-
-    var htmlText = [];
-
-    ////////////////////////////////////////
-    // order returned fields
-    // function below
-    ///////////////////////////////////////
+function precreate_congress_email_fields(form_data_list) {
     form_data_list = deduplicate_and_order_congress_email_fields(
         form_data_list);
-
-    /////////////////////////////////////////////////////////
-    // adjust field names for display because some are long or odd
-    // creates and inserts html for email form and inserts fields in HTMLobject .email-action-container
-    /////////////////////////////////////////////////////////
-
+    var htmlText = "";
     form_data_list.forEach(function (email_field, i) {
         var field_name = email_field['field_name'];
-
         // Select box with options.
         if (['TOPIC', 'ADDRESS_COUNTY', 'ADDRESS_STATE_POSTAL_ABBREV',
              'NAME_PREFIX'].includes(field_name)) {
@@ -167,21 +103,23 @@ function get_congress_email_fields(form_data_list) {
             var last_name = bioguide_name.substring(
                 bioguide_name.lastIndexOf(" ") + 1, bioguide_name.length);
             var class_bioguide = '';
-            var data_bioguide = '';
-            if (['TOPIC', 'ADDRESS_COUNTY'].includes(field_name)) {
+            if (NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED.includes(field_name)) {
                 label_name += ' - ' + last_name;
+                field_name += '-' + bioguide;
                 class_bioguide = ' ' + bioguide;
-                data_bioguide = ' data-bioguide="' + bioguide + '"';
             }
             var topic_class_name = field_name.toLowerCase() + '-container ' +
                 field_name.toLowerCase() + '-container-' + bioguide;
 
             htmlText = [htmlText,
                 '<div class="email-form-field-container ' + topic_class_name +
-                '" style="display:block;">',
+                '" style="display:block;" id="' + field_name + '-container">',
                 '   <div class="label-div">',
-                '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label' + class_bioguide + '">' + label_name + '</label>',
-                '<select class="eform" id="eform-' + field_name + '"' + data_bioguide + ' style="display:block;">',
+                '<label for="eform-' + field_name +
+                '" style="display:inline;" class="email-form-label' +
+                class_bioguide + '">' + label_name + '</label>',
+                '<select class="eform" id="eform-' + field_name + '"' +
+                ' style="display:block;">',
                 '<option value=0 disabled="disabled" selected="selected">select</option>'
             ].join("\n");
 
@@ -223,8 +161,9 @@ function get_congress_email_fields(form_data_list) {
             }
 
             htmlText = [htmlText,
-                '<div class="email-form-field-container" style="display:block;">',
-                    '<div class="label-div">',
+                '<div class="email-form-field-container" id="' + field_name +
+                '-container" style="display:block;">',
+                '<div class="label-div">',
                 ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' +
                             label_name + '</label>',
                     '</div>',
@@ -248,6 +187,7 @@ function get_congress_email_fields(form_data_list) {
             $('.topic-container-'+ bioId).show();
         }
     });
+    show_hide_congress_email_fields();
 }
 
 
@@ -280,7 +220,6 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
     // Collect fields from all members.
     var data = [];
     var collected_field_names = [];
-    var names_of_fields_that_can_be_duplicated = ['ADDRESS_COUNTY', 'TOPIC']
     for (member of form_data_list) {
         // FIXME Sometimes raises "TypeError: member is undefined" until page
         // reload. Currently as a temporary measure prevented by silently
@@ -289,7 +228,7 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
         try {
             for (field of member) {
                 if (collected_field_names.indexOf(field['field_name']) == -1 ||
-                        names_of_fields_that_can_be_duplicated.indexOf(
+                        NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED.indexOf(
                             field['field_name']) != -1) {
                     data.push(field);
                     collected_field_names.push(field['field_name']);
@@ -599,9 +538,6 @@ function runEmail(bioguideIds){
     $('.eform:visible').each(function(i){
         var field = String($(this).attr('id'));
         field = '$' + field.replace('eform-','').replace('-','_');
-        if ($(this).data('bioguide')) {
-            field += '_' + $(this).data('bioguide')
-        }
         //field = field.replace('eform-','').replace('-','_');
         //console.log(field);
         if(field == '$ADDRESS_ZIP'){

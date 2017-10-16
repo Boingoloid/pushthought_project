@@ -280,6 +280,7 @@ $(document).ready(function() {
         };
         $('.rep-action-container').animate({'opacity':'1.0'});
         $('.rep-action-container').animate({'display':'block'});
+        $('.email-action-container').show();
 
         // scroll to appropriate place on screen to see action container
 //        $('.category-container').animate({'height':'350px'},200,function(){
@@ -370,16 +371,6 @@ $(document).ready(function() {
         //setEndOfContenteditable($('#text-input'));
         updateTextCount();
 
-        var form_data_list = get_form_data_list();
-        if (form_data_list[0] == undefined) {
-            preload_phantom_dc_members_data(function() {
-                form_data_list = get_form_data_list();
-                get_congress_email_fields(form_data_list);
-            });
-        } else {
-            get_congress_email_fields(form_data_list);
-        }
-
 //         Fill in fields with info from user
 //        var data = $('#emailFields').data('emailfields');
 //        if(data){
@@ -396,9 +387,10 @@ $(document).ready(function() {
 //            console.log("no fields data");
 //        }
         //<div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
-    });
+        show_hide_congress_email_fields();
         // Focus on text box
         $('#text-input').focus();
+    });
 
     // Twitter Icon
     $('.rep-container').on("click", "img.twitter-icon", function(e) {
@@ -529,8 +521,8 @@ $(document).ready(function() {
         $('.copy-last').hide();
         $('#text-input').text('');
         $('.letter-count').show();
-        $('.email-action-container').html('');
-         $('#required-fields-label').hide();
+        $('.email-action-container').hide();
+        $('#required-fields-label').hide();
         $('.warning-text').hide();
         $('.address-placeholder').html('');
         $('.address-container').html(' ');
@@ -696,11 +688,7 @@ $(document).ready(function() {
                 $('.address-placeholder').text(placeholderText);
             }
         }
-        var form_data_list = [];
-        $('.action-panel-container.selected .bioguide-mule').each(function() {
-            form_data_list.push($(this).data('form'));
-        });
-        get_congress_email_fields(form_data_list);
+        show_hide_congress_email_fields();
         //$('#text-input').focus();
     });
 
