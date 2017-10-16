@@ -234,12 +234,12 @@ class Command(BaseCommand):
         # TODO We can save a lot of space in the JSON dump by moving
         # this hardcoded data to a place where it won't be reapeated
         # hundreds of times.
-        processed_member_data = deepcopy(member_data)
-        for field in processed_member_data['required_actions']:
+        preprocessed_member_data = deepcopy(member_data)
+        for field in preprocessed_member_data['required_actions']:
             if field['value'] in OVERRIDEN_FIELD_OPTIONS_HASHES:
                 field['options_hash'] = \
                     OVERRIDEN_FIELD_OPTIONS_HASHES[field['value']]
-        return processed_member_data
+        return preprocessed_member_data
 
     def save_members(self, members, dest, minify):
         """Save members in a JSON cache file.
@@ -279,7 +279,7 @@ class Command(BaseCommand):
         members_dict = self.fetch_members(
             options['chunk_size'], options['source'])
         if options['preprocess']:
-            members_dict = {bioguide: self.process_member_data(data)
+            members_dict = {bioguide: self.preprocess_member_data(data)
                             for bioguide, data in members_dict.items()}
         self.save_members(members_dict, options['dest'],
                           options['minify'])
