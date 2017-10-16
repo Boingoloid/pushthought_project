@@ -25,59 +25,66 @@ import requests
 DEFAULT_BIOGUIDES_CHUNK_SIZE = 100
 YAML_LIST_URL = 'https://api.github.com/repos/unitedstates/' \
     'contact-congress/contents/members?ref=master'
+# Note: for 5 forms EFF's API returns lists where values are not
+# shortened (two characters), but full names of states. However all
+# websites currently have forms with shortened names as option values.
+# Bioguides of those forms are B001261, M001170, C000174, M000303,
+# F000444.
+# Keys of this dict are options' text, and values are options values.
+# This is to keep compatibility with the data from Phantom DC.
 OVERRIDEN_FIELD_OPTIONS_HASHES = {
     '$ADDRESS_STATE_POSTAL_ABBREV': {
-        'AK': "Alaska",
-        'AL': "Alabama",
-        'AR': "Arkansas",
-        'AZ': "Arizona",
-        'CA': "California",
-        'CO': "Colorado",
-        'CT': "Connecticut",
-        'DC': "District of Columbia",
-        'DE': "Delaware",
-        'FL': "Florida",
-        'GA': "Georgia",
-        'HI': "Hawaii",
-        'IA': "Iowa",
-        'ID': "Idaho",
-        'IL': "Illinois",
-        'IN': "Indiana",
-        'KS': "Kansas",
-        'KY': "Kentucky",
-        'LA': "Louisiana",
-        'MA': "Massachusetts",
-        'MD': "Maryland",
-        'ME': "Maine",
-        'MI': "Michigan",
-        'MN': "Minnesota",
-        'MO': "Missouri",
-        'MS': "Mississippi",
-        'MT': "Montana",
-        'NC': "North Carolina",
-        'ND': "North Dakota",
-        'NE': "Nebraska",
-        'NH': "New Hampshire",
-        'NJ': "New Jersey",
-        'NM': "New Mexico",
-        'NV': "Nevada",
-        'NY': "New York",
-        'OH': "Ohio",
-        'OK': "Oklahoma",
-        'OR': "Oregon",
-        'PA': "Pennsylvania",
-        'RI': "Rhode Island",
-        'SC': "South Carolina",
-        'SD': "South Dakota",
-        'TN': "Tennessee",
-        'TX': "Texas",
-        'UT': "Utah",
-        'VA': "Virginia",
-        'VT': "Vermont",
-        'WA': "Washington",
-        'WI': "Wisconsin",
-        'WV': "West Virginia",
-        'WY': "Wyoming",
+        'Alaska': "AK",
+        'Alabama': "AL",
+        'Arkansas': "AR",
+        'Arizona': "AZ",
+        'California': "CA",
+        'Colorado': "CO",
+        'Connecticut': "CT",
+        'District of Columbia': "DC",
+        'Delaware': "DE",
+        'Florida': "FL",
+        'Georgia': "GA",
+        'Hawaii': "HI",
+        'Iowa': "IA",
+        'Idaho': "ID",
+        'Illinois': "IL",
+        'Indiana': "IN",
+        'Kansas': "KS",
+        'Kentucky': "KY",
+        'Louisiana': "LA",
+        'Massachusetts': "MA",
+        'Maryland': "MD",
+        'Maine': "ME",
+        'Michigan': "MI",
+        'Minnesota': "MN",
+        'Missouri': "MO",
+        'Mississippi': "MS",
+        'Montana': "MT",
+        'North Carolina': "NC",
+        'North Dakota': "ND",
+        'Nebraska': "NE",
+        'New Hampshire': "NH",
+        'New Jersey': "NJ",
+        'New Mexico': "NM",
+        'Nevada': "NV",
+        'New York': "NY",
+        'Ohio': "OH",
+        'Oklahoma': "OK",
+        'Oregon': "OR",
+        'Pennsylvania': "PA",
+        'Rhode Island': "RI",
+        'South Carolina': "SC",
+        'South Dakota': "SD",
+        'Tennessee': "TN",
+        'Texas': "TX",
+        'Utah': "UT",
+        'Virginia': "VA",
+        'Vermont': "VT",
+        'Washington': "WA",
+        'Wisconsin': "WI",
+        'West Virginia': "WV",
+        'Wyoming': "WY",
     },
     '$NAME_PREFIX': [
         'Mr.',
@@ -126,8 +133,12 @@ class Command(BaseCommand):
             --dest - str, path to the cache file that will be written.
             --source - str, URL of Phantom DC API resource for
                 retrieveing form elements.
-            --non-minified - doesn't accept a value, turns on producting
-                pretty-printed non-minifield JSON.
+            --no-preprocess - doesn't accept a value, turn off
+                preprocessing data from Phantom DC, keeping the data as
+                it was.
+            --no-minify - doesn't accept a value, turns off production
+                minified JSON, and instead produces a pretty-printed
+                one.
 
         Args:
             parser: instance of `argparse.ArgumentParser`.
@@ -155,8 +166,14 @@ class Command(BaseCommand):
             'elements',
         )
         parser.add_argument(
-            '--non-minified',
-            dest='minified',
+            '--no-preprocess',
+            dest='preprocess',
+            action='store_false',
+            help='Write non-modified data obtained from the source.',
+        )
+        parser.add_argument(
+            '--no-minify',
+            dest='minify',
             action='store_false',
             help='Produce pretty-printed non-minifield JSON. Those are'
             ' more than two times bigger than minified ones.',
@@ -202,7 +219,7 @@ class Command(BaseCommand):
                 fetched_members[new_bioguide] = new_fetched_member
         return fetched_members
 
-    def process_member_data(self, member_data):
+    def preprocess_member_data(self, member_data):
         """Change member data.
 
         Replace values for key `options_hash` with values from
@@ -214,6 +231,9 @@ class Command(BaseCommand):
         Returns:
             Updated dict of data for the member.
         """
+        # TODO We can save a lot of space in the JSON dump by moving
+        # this hardcoded data to a place where it won't be reapeated
+        # hundreds of times.
         processed_member_data = deepcopy(member_data)
         for field in processed_member_data['required_actions']:
             if field['value'] in OVERRIDEN_FIELD_OPTIONS_HASHES:
@@ -258,14 +278,15 @@ class Command(BaseCommand):
                           " and W000779")
         members_dict = self.fetch_members(
             options['chunk_size'], options['source'])
-        processed_members = {bioguide: self.process_member_data(data)
-                             for bioguide, data in members_dict.items()}
-        self.save_members(processed_members, options['dest'],
-                          options['minified'])
+        if options['preprocess']:
+            members_dict = {bioguide: self.process_member_data(data)
+                            for bioguide, data in members_dict.items()}
+        self.save_members(members_dict, options['dest'],
+                          options['minify'])
 
         output_bytes = os.stat(options['dest']).st_size
         self.stdout.write(
             "Written {} members ({:g} MiB) to {}".format(
-                len(processed_members),
+                len(members_dict),
                 round(output_bytes / Decimal(1024)**2, 2),
                 options['dest']))
