@@ -5,6 +5,8 @@ venv
 node_modules
 secret.py
 .idea
+.*.un~
+.*.swp
 staticfiles
 
 .vagrant/

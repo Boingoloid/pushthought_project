@@ -52,7 +52,6 @@ def get_congress_email_fields(bioguideArray):
     # master_field_list = create_master_field_list(field_list_objects)
     # master_field_list = create_master_field_list(phantom_required_objects)
     # print "master_field_list: ", master_field_list
-    print "phantom_required_objects: ", phantom_required_objects
     return phantom_required_objects
 
 def get_congress_email_fields_phantom(bioguideArray):

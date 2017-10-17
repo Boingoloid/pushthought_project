@@ -138,7 +138,7 @@ function create_congress_HTML(congressDataArray){
         //   '<img class="email-icon-gray" id="email-icon-'+i+'name="'+item['full_name']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">',
         //   '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'">'+item['last_name']+'</div>'].join("\n");
         //} else {
-           emailString =  ['<div class="email-name email-name-'+ item['bioguide_id'] +'" id="'+i+'" name="'+ item['full_name'] + '">click to close</div>',
+           emailString =  ['<div class="email-name email-name-'+ item['bioguide_id'] +'" id="'+i+'" name="'+ item['full_name'] + '">' + item['full_name'] + '</div>',
            '<img class="email-icon" id="email-icon-'+i+'" name="'+item['full_name']+'" src='+ emailIconImage +'>',
            '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'" name="' + item['oc_email'] + '">'+item['last_name']+'</div>'].join("\n");
         //}
