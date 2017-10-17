@@ -49,7 +49,6 @@ function preload_phantom_dc_members_data() {
                 }
                 $(this).data('form', fields);
             });
-        }).done(function() {
             precreate_congress_email_fields();
         });
 }
