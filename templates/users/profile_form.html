@@ -5,7 +5,7 @@
 {% block content %}
     <form id="profile" style="padding-top: 100px; margin-left:30px;" action="" method="post" style="margin-left:30px;" >{% csrf_token %}
         <p style="font-weight:500;" >Setting for</p> {{ form.as_p }}
-        <input type="submit" value="Change zip" />
+        <input type="submit" value="Change zip" style="color:black;" />
     </form>
 
     {% if messages %}
