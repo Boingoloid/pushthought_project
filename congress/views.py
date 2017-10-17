@@ -13,7 +13,7 @@ class GetCongressData(View):
     API_URL = "https://congress.api.sunlightfoundation.com/legislators/locate"
 
     def get(self, request, zip_code, *args, **kwargs):
-        self.zip_code = self.request.user.profile.zip
+        self.zip_code = zip_code
         try:
             program_id = re.findall(r'\/program\/(\d+)', self.request.META['HTTP_REFERER'])[0]
         except IndexError, KeyError:
