@@ -30,13 +30,19 @@ class Program(CounterMixin, TimeStampedModel):
     runtime = models.IntegerField()
     type = models.CharField(max_length=100)
     youtube_id = models.CharField(max_length=15, blank=True, null=True)
-    url = models.URLField(blank=True)
     users = models.IntegerField(default=0)
 
     objects = ProgramManager()
 
     def __str__(self):
         return self.title
+
+    @property
+    def url(self):
+        if self.imdb_id:
+            return 'http://www.imdb.com/title/{}/'.format(self.imdb_id)
+        elif self.youtube_id:
+            return 'https://www.youtube.com/watch?v={}'.format(self.youtube_id)
 
     @property
     def runtime_minutes(self):

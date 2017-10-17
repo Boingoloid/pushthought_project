@@ -12,11 +12,11 @@ from pushthought import views
 from programs.sitemaps import ProgramSitemap
 
 from campaigns.views import CampaignDetailView
-from actions.views import submit_congress_email_view
+from actions.views import SubmitCongressEmail
 from users.views import ProfileView
 
 from .sitemaps import StaticViewSitemap
-from .views import LoggedInView, oauth_callback, oauth_login, SaveUserByEmailView
+from .views import LoggedInView, oauth_callback, oauth_login, SaveUserByEmailView, login
 
 
 sitemaps = {
@@ -41,6 +41,7 @@ urlpatterns = [
 
     url(r'^accounts/twitter/login/callback/$', oauth_callback, name='twitter_callback'),
     url(r'^accounts/twitter/login/$', oauth_login, name='twitter_login'),
+    url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/', include('allauth.urls')),
 
     url(r'^program/', include('programs.urls', namespace='programs')),
@@ -55,7 +56,8 @@ urlpatterns = [
         name='django.contrib.sitemaps.views.sitemap'),
 
     # congress email
-    url(r'^submit_congress_email', submit_congress_email_view, name='submit_congress_email_view'),
+    url(r'^submit_congress_email', SubmitCongressEmail.as_view(),
+        name='submit_congress_email_view'),
     url(r'^submit_congress_captcha', views.submit_congress_captcha_view, name='submit_congress_captcha_view'),
     url(r'^submit-email/(?P<email>.*)', views.submit_email, name='submit_email'),
     url(r'^send-contact/', views.send_contact, name='send_contact'),
