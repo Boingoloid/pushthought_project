@@ -117,7 +117,8 @@ function create_congress_HTML(congressDataArray){
         var tweetIconImage = $('.twitter-icon-hide').attr('src');
         var tweetIconEmptyImage = $('.twitter-icon-empty-hide').attr('src');
         var twitterIdString;
-        if(!item['twitter_id']){
+        console.log(item);
+        if(!item['twitter']){
            twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name="'+item['bioguide_id']+'">n/a</div>',
             '<img class="twitter-icon-empty" src='+tweetIconEmptyImage+' width="42" height="42">',
             '<div class="warning-box-tweet-icon">',
@@ -125,7 +126,7 @@ function create_congress_HTML(congressDataArray){
             '</div>'
             ].join("\n");
         } else {
-           twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name='+ item['bioguide_id'] +'>@'+item['twitter_id']+'</div>',
+           twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name='+ item['bioguide_id'] +'>@'+item['twitter']+'</div>',
                 '<img class="twitter-icon" id='+i+' src='+tweetIconImage+' width="42" height="42">'
                 ].join("\n");
         }
