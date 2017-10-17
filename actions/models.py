@@ -41,31 +41,17 @@ class SaveEmailManager(models.Manager):
                 defaults={'first_name': fields['$NAME_FIRST'],
                           'last_name': fields['$NAME_LAST'],
                           'username': fields['$EMAIL']})[0]
-
-        action = super(SaveEmailManager, self).create(**kwargs)
-        email, created = Email.objects.get_or_create(
-            text=text,
-            action=action,
-            fields=fields,
-            is_sent=is_sent,
-        )
-
-        if created:
-            user.username = fields['$EMAIL']
-            user.save()
-
-        profile, created = Profile.objects.update_or_create(
+        Profile.objects.update_or_create(
             user=kwargs['user'],
             defaults=dict(
                 prefix=fields.get('$NAME_PREFIX'),
                 street=fields.get('$ADDRESS_STREET'),
                 city=fields.get('$ADDRESS_CITY'),
                 phone=fields.get('$PHONE'),
-                zip=fields.get('$ADDRESS_ZIP5'),
-            )
-        )
-
-        return email
+                zip=fields.get('$ADDRESS_ZIP5')))
+        action = super(SaveEmailManager, self).create(**kwargs)
+        return Email.objects.create(text=text, action=action, fields=fields,
+                                    is_sent=is_sent)
 
 
 class Action(TimeStampedModel):
