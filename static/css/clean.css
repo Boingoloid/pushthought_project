@@ -1242,3 +1242,11 @@ a.socialaccount_provider.google{
   color:white;
 
 }
+
+#id_zip {
+  color:black;
+}
+
+input {
+  color:black;
+}

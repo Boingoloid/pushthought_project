@@ -3,9 +3,9 @@
 
 {% block title %}Setting{% endblock %}
 {% block content %}
-    <form id="profile" style="padding-top: 100px;" action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit" />
+    <form id="profile" style="padding-top: 100px; margin-left:30px;" action="" method="post" style="margin-left:30px;" >{% csrf_token %}
+        <p style="font-weight:500;" >Setting for</p> {{ form.as_p }}
+        <input type="submit" value="Change zip" />
     </form>
 
     {% if messages %}
