@@ -7,9 +7,21 @@ $(document).ready(function() {
         updateLetterCount();
     });
 
-    $('.field-input-link').blur(function(){
-      formatURL($(this));
-    })
+    $('#campaign-form').validate({
+        rules: {
+            link: {
+                url: true,
+                normalizer: function(value) {
+                    if (!value.startsWith('http://') &&
+                            !value.startsWith('https://') &&
+                            !value.startsWith('ftp://')) {
+                        value = 'http://' + value;
+                    }
+                    return value;
+                },
+            },
+        },
+    });
 
     //***********************************************
     // This JavaScript validation section does not appear to be necessary -Ben
@@ -69,16 +81,6 @@ $(document).ready(function() {
     // });
 
 });
-
-function formatURL($input) {
-  var url = $input.val();
-  var beginning = url.substring(0,4)
-  if(beginning != 'http')
-  {
-    url = 'http://' + url
-  }
-  $input.val(url);
-}
 
 // This function appears to be unnecessary
 function validateUrl(url) {
