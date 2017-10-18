@@ -129,7 +129,7 @@ class TwitterCallbackView(OAuthCallbackView):
         self.campaign = request.session.get('campaign_id')
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
-        if redirect_url and self.tweet_text:
+        if request.user.is_authenticated and redirect_url and self.tweet_text:
             self.api = self.get_authed_twitter_api()
             self.mentions = self.get_mentions()
             self.clean_tweet_text = self.get_clean_tweet_text()
