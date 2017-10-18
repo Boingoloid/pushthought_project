@@ -148,6 +148,7 @@ class TwitterCallbackView(OAuthCallbackView):
         try:
             token_obj = SocialToken.objects.get(account__user=self.request.user, account__provider='twitter')
         except SocialToken.DoesNotExist:
+            messages.error(self.request, 'Please, log out and log in through Twitter to send a tweet.')
             return
 
         TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
