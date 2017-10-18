@@ -17,7 +17,7 @@ class GetCongressData(View):
         self.zip_code = zip_code
 
         if self.request.user.is_authenticated:
-            if not self.request.user.profile.zip:
+            if self.request.user.profile.zip != zip_code:
                 self.request.user.profile.zip = zip_code
                 self.request.user.profile.save()
         try:
