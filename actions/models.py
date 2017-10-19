@@ -42,14 +42,16 @@ class SaveEmailManager(models.Manager):
         #         defaults={'first_name': fields['$NAME_FIRST'],
         #                   'last_name': fields['$NAME_LAST'],
         #                   'username': fields['$EMAIL']})[0]
-        Profile.objects.update_or_create(
-            user=kwargs['user'],
-            defaults=dict(
-                prefix=fields.get('$NAME_PREFIX'),
-                street=fields.get('$ADDRESS_STREET'),
-                city=fields.get('$ADDRESS_CITY'),
-                phone=fields.get('$PHONE'),
-                zip=fields.get('$ADDRESS_ZIP5')))
+        user_id = kwargs.get('user_id')
+        if user_id:
+            Profile.objects.update_or_create(
+                user_id=kwargs.get('user_id'),
+                defaults=dict(
+                    prefix=fields.get('$NAME_PREFIX'),
+                    street=fields.get('$ADDRESS_STREET'),
+                    city=fields.get('$ADDRESS_CITY'),
+                    phone=fields.get('$PHONE'),
+                    zip=fields.get('$ADDRESS_ZIP5')))
         action = super(SaveEmailManager, self).create(**kwargs)
         return Email.objects.create(text=text, email=fields['$EMAIL'], action=action, fields=fields,
                                     is_sent=is_sent)
