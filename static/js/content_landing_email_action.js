@@ -31,7 +31,7 @@ const NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED = ['ADDRESS_COUNTY', 'TOPIC']
 
 
 function preload_phantom_dc_members_data() {
-    deferred = $.getJSON(
+    $.getJSON(
         '/static/js/phantom-dc-members.min.json',
         function(data) {
             $('.bioguide-mule').each(function () {
