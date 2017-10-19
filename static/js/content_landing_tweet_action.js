@@ -142,7 +142,7 @@ function runTweet(windowURL){
         console.log("dataset: ",dataSet);
 
 
-        $.ajax({url: "/verify_catch/",
+        return $.ajax({url: "/verify_catch/",
             type: "POST",
             data: dataSet,
             cache: false,

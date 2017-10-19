@@ -569,7 +569,7 @@ function runEmail(bioguideIds){
 
     //put agax call here to store values in session.
 
-    $.ajax({url: "/submit_congress_email/",
+    return $.ajax({url: "/submit_congress_email/",
         type: "POST",
         data: stringJson,
         contentType: 'json;charset=UTF-8',
