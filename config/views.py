@@ -220,6 +220,10 @@ class SaveUserByEmailView(View):
     def post(self, request):
         form = forms.UserForm(request.POST)
         if form.is_valid():
+            email_exist = User.objects.filter(email=form.cleaned_data.get('email')).exists()
+            if email_exist:
+                messages.success(request, 'Already subscribed!')
+                return redirect('home')
             username = form.cleaned_data.get('email')
             raw_password = User.objects.make_random_password()
             form.instance.password = raw_password
