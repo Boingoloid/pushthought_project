@@ -8,7 +8,7 @@ from utils.models import CounterMixin
 
 
 class HashtagCounter(CounterMixin, TimeStampedModel):
-    program = models.ForeignKey('programs.Program')
+    program = models.ForeignKey('programs.Program', blank=True, null=True)
     hashtag = models.ForeignKey('Hashtag')
 
     class Meta:
