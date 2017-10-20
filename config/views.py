@@ -17,8 +17,6 @@ from allauth.socialaccount.providers.oauth.views import OAuthLoginView, OAuthVie
 from allauth.socialaccount.models import SocialApp, SocialToken, SocialLogin
 from allauth.account.views import LoginView
 
-
-
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.generic import View
@@ -30,6 +28,7 @@ from django.db.utils import IntegrityError
 from actions.models import Action
 from congress.models import Congress
 from campaigns.models import Campaign
+from utils.mixins import TwitterSendMixin
 
 from . import forms
 
@@ -119,7 +118,10 @@ class OAuthCallbackView(OAuthView):
                 exception=e)
 
 
-class TwitterCallbackView(OAuthCallbackView):
+class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
+    """
+    Callback view for twitter login. Sends tweet after the user logs in.
+    """
     def dispatch(self, request, *args, **kwargs):
         resp = super(TwitterCallbackView, self).dispatch(request, *args, **kwargs)
         self.successArray = []
@@ -135,6 +137,7 @@ class TwitterCallbackView(OAuthCallbackView):
                 return HttpResponseRedirect(request.session.get('redirect_url'))
             self.mentions = self.get_mentions()
             self.clean_tweet_text = self.get_clean_tweet_text()
+            self.tweet_text_with_url = self.get_tweet_text_with_url()
             self.send_tweets()
             request.session['alertList'] = json.dumps([self.successArray, self.duplicateArray])
 
@@ -143,74 +146,6 @@ class TwitterCallbackView(OAuthCallbackView):
             return HttpResponseRedirect(request.session.get('redirect_url'))
         else:
             return resp
-
-    def get_authed_twitter_api(self):
-        try:
-            token_obj = SocialToken.objects.get(account__user=self.request.user, account__provider='twitter')
-        except SocialToken.DoesNotExist:
-            messages.error(self.request, 'Please, log out and log in through Twitter to send a tweet.')
-            return
-
-        TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
-        TWITTER_CONSUMER_KEY = SocialApp.objects.filter(provider='twitter').last().client_id
-
-        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
-        auth.set_access_token(token_obj.token, token_obj.token_secret)
-        api = tweepy.API(auth)
-        return api
-
-    def get_mentions(self):
-        tweet_text = self.request.session['address_array']
-        mentions = re.findall(r'@(\w+)', tweet_text)
-        return mentions
-
-    def get_clean_tweet_text(self):
-        pattern = r'@\w+,?\s'
-        replacement = ''
-        clean_text = re.sub(pattern, replacement, self.tweet_text)
-        return clean_text
-
-    def send_tweet(self, mention):
-        #TODO: create a general function
-        tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
-        try:
-            congress = Congress.objects.get(twitter=mention)
-        except Congress.DoesNotExist:
-            return 'Error'
-
-        if len(tweet_text_with_metion) > 140:
-            return JsonResponse({'status': 'overMax'})
-
-        try:
-            self.api.update_status(tweet_text_with_metion)
-            if self.program:
-                Action.tweets.create(
-                    tweet_text_with_metion,
-                    user=self.request.user,
-                    program_id=self.program,
-                    congress=congress
-                )
-            elif self.campaign:
-
-                campaign = Campaign.objects.get(slug=self.campaign)
-                Action.tweets.create(
-                    tweet_text_with_metion,
-                    user=self.request.user,
-                    campaign=campaign,
-                    congress=congress
-                )
-            self.successArray.append('@{}'.format(mention))
-            return False
-        except tweepy.TweepError as e:
-            print(e)
-            if e.api_code == 187:
-                self.duplicateArray.append('@{}'.format(mention))
-
-            return e.api_code
-
-    def send_tweets(self):
-        for mention in self.mentions:
-            self.send_tweet(mention)
 
 oauth_login = TwitterLoginView.adapter_view(TwitterOAuthAdapter)
 oauth_callback = TwitterCallbackView.adapter_view(TwitterOAuthAdapter)

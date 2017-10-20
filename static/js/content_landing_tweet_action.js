@@ -113,17 +113,17 @@ function runTweet(windowURL){
          var segmentId = $('#segmentId').text();
 
         // Build Address and Bioguide Array
-        var addressArray = [];
-        var bioguideArray = [];
+        var addressArray = '';
+        var bioguideArray = '';
         $('.address-item.selected').each(function(){
             var address = $(this).text();
             address = address.replace('\n','');
             address = address.replace('\n','');
             address = address.replace('\n','');
-            addressArray.push(address);
+            addressArray += ', ' + address;
             var bioguideId = $(this).attr('name');
             console.log(bioguideId);
-            bioguideArray.push(bioguideId);
+            bioguideArray += ', ' + bioguideId;
         });
         console.log("address array", addressArray);
         console.log("bioguide array", bioguideArray);
