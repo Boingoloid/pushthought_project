@@ -51,7 +51,7 @@ function get_congress(zip, url){
     if (!url) {
         url = "/congress/add_zip/"
     }
-    $.ajax({
+    return $.ajax({
         url: url + zip + '/',
         type: "GET",
         data: "",

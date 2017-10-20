@@ -33,8 +33,8 @@ $(document).ready(function() {
             console.log('get_congres on zip:' + zip);
             $('.zip-input').attr('id',zip);
             $('.zip-input').attr('value',zip);
-            get_congress(zip, get_congress_url);
-            preload_phantom_dc_members_data();
+            deferred = get_congress(zip, get_congress_url);
+            deferred.done(preload_phantom_dc_members_data);
         } else{
             console.log('NOT a valid zip');
             alert('Not a valid zip code.  Please check and try again.')
