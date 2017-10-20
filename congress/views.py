@@ -15,11 +15,11 @@ class GetCongressData(View):
 
     def get(self, request, zip_code, *args, **kwargs):
         self.zip_code = zip_code
-
+        request.session['zip'] = zip_code
         if self.request.user.is_authenticated:
             if self.request.user.profile.zip != zip_code:
                 self.request.user.profile.zip = zip_code
-                self.request.user.profile.save()
+                self.request.user.profile.save(update_fields=['zip'])
         try:
             program_id = re.findall(self.regex, self.request.META['HTTP_REFERER'])[0]
         except IndexError, KeyError:
