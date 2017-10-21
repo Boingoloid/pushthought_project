@@ -178,7 +178,7 @@ class SubmitCongressEmail(View):
         return JsonResponse({'status': 'success'})
 
 
-class YourActivityView(LoginRequiredMixin, AjaxListView):
+class MyActivityView(LoginRequiredMixin, AjaxListView):
     """Show list of past user activities.
 
     Renders only list elements on AJAX request use tu use of
@@ -196,7 +196,7 @@ class YourActivityView(LoginRequiredMixin, AjaxListView):
 
     def get_context_data(self, **kwargs):
         """Add total counts of emails and tweets sent by this user."""
-        context = super(YourActivityView, self).get_context_data(**kwargs)
+        context = super(MyActivityView, self).get_context_data(**kwargs)
         queryset = self.get_queryset()
         context['email_count'] = queryset.filter(email__isnull=False).count()
         context['tweet_count'] = queryset.filter(tweet__isnull=False).count()

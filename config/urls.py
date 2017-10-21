@@ -11,7 +11,7 @@ from django.contrib.sitemaps.views import sitemap
 from pushthought import views
 from programs.sitemaps import ProgramSitemap
 
-from actions.views import SubmitCongressEmail, YourActivityView
+from actions.views import SubmitCongressEmail, MyActivityView
 from users.views import ProfileView
 
 from .sitemaps import StaticViewSitemap
@@ -41,8 +41,8 @@ urlpatterns = [
     url(r'^accounts/twitter/login/callback/$', oauth_callback, name='twitter_callback'),
     url(r'^accounts/twitter/login/$', oauth_login, name='twitter_login'),
     url(r'^accounts/login/$', login, name='login'),
-    url(r'^accounts/your-activity/$', YourActivityView.as_view(),
-        name='your_activity'),
+    url(r'^accounts/my-activity/$', MyActivityView.as_view(),
+        name='my_activity'),
     url(r'^accounts/', include('allauth.urls')),
 
     url(r'^program/', include('programs.urls', namespace='programs')),
