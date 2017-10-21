@@ -10,3 +10,26 @@
     list-style: none;
     color: red;
 }
+
+body > h2 {
+    margin-top: 100px;
+    margin-left: 30px;
+}
+
+ul.nav {
+    height: 60px;
+    margin-bottom: 0;
+}
+
+ul.nav .menu-item-settings {
+    height: 100%;
+}
+
+ul.nav .menu-item-settings .dropdown-toggle {
+    display: block;
+    width: 30px;
+    height: 100%;
+    padding: 0;
+    background: url('/static/img/638.png') no-repeat center/30px;
+    border: 0;
+}
