@@ -1,0 +1,58 @@
+.content {
+    margin-left: 30px;
+}
+
+.totals {
+    margin-top: 100px;
+}
+
+ul.actions {
+    margin: 20px 0 0 0;
+    padding: 0;
+    list-style: none outside none;
+}
+
+ul.actions div.title {
+    float: left;
+    width: 100%;
+}
+
+ul.actions div.title h3 {
+    float: left;
+    width: 60%;
+}
+
+ul.actions .datetime {
+    clear: both;
+    font-size: 50%;
+}
+
+ul.actions div.title h3 .action-type {
+    font-weight: normal;
+    color: #A0A0A0;
+}
+
+ul.actions div.title h3 .title {
+    font-weight: bold;
+}
+
+ul.actions div.title .link {
+    float: right;
+    width: 35%;
+    max-height: 50px;
+}
+
+ul.actions .message {
+    clear: both;
+    max-width: 800px;
+}
+
+ul.actions .tweet-text {
+    padding-left: 50px;
+    background: url('/static/img/twitter-icon.png') no-repeat left top/30px;
+}
+
+ul.actions .email-text {
+    padding-left: 50px;
+    background: url('/static/img/email-icon.png') no-repeat left top/30px;
+}

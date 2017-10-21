@@ -62,6 +62,7 @@ class Action(TimeStampedModel):
     program = models.ForeignKey('programs.Program', related_name='actions', blank=True, null=True)
     campaign = models.ForeignKey('campaigns.Campaign', related_name='actions', blank=True, null=True)
     congress = models.ForeignKey('congress.Congress')
+    objects = models.Manager()
     tweets = SaveTweetManager()
     emails = SaveEmailManager()
 
@@ -88,3 +89,16 @@ class Action(TimeStampedModel):
                 self.campaign.increase()
 
         super(Action, self).save(**kwargs)
+
+    def __unicode__(self):
+        """Return unicode string representation of an action.
+
+        Example return value: 'Action of hwrthn@example.com (pr. The
+        Dark Knight, cam. None, con. Nancy Pelosi) - email: "Test
+        message, please ignore."'
+        """
+        texts = " ".join(
+            '{}: "{}"'.format(attr_name, getattr(self, attr_name).text[0:50])
+            for attr_name in ('tweet', 'email') if hasattr(self, attr_name))
+        return u'Action of {} (pr. {}, cam. {}, con. {}) - {}'.format(
+            self.user, self.program, self.campaign, self.congress, texts)

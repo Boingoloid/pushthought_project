@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% load static from staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/your_activity.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block title %}Your Action Activity{% endblock %}
+
+{% block content %}
+<div class="content">
+    {% if object_list %}
+    <div class="totals">
+        <h3>Total actions:</h3>
+        <div class="email-count">
+            <span class="title">Emails:</span>
+            <span class="number">{{ email_count }}</span>
+        </div>
+        <div class="tweet-count">
+            <span class="title">Tweets:</span>
+            <span class="number">{{ tweet_count }}</span>
+        </div>
+    </div>
+    <ul class="actions">
+        {% include 'actions/action_list_page.html' %}
+    </ul>
+    {% else %}
+    <div>You have no previous actions yet.</div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'el-pagination/js/el-pagination.js' %}"></script>
+    <script>$.endlessPaginate();</script>
+{% endblock %}
