@@ -35,9 +35,13 @@
                 <h1 class="title-header">{{ object.title }}</h1>
                 <!--<button class="btn-lg  test-button" style="color:black;">test</button>-->
                 <p class="description">{{ object.description }}</p>
+                {% if object.link %}
+                <a class="more-info-link" href="{{ object.link }}"><p class="more-info-p">More info: {{ object.link }}</p></a>
+                {% else %}
+                {% endif %}
                     <div class="seen-it-container">
                     </div>
-                    <h2 style="color: red; position: absolute; bottom: 0px;"><b>Share with purpose below...</b></h2>
+                    <h2 style="color: red;"><b>Share with purpose below...</b></h2>
             </div>
             <div class="content-info-right">
                 <div class="div-title-image">
@@ -88,7 +92,7 @@
                 <div class="zip-label">Zip Code:</div>
                     <button class="submit-zip">Load Reps</button>
                 <div class='zip-loader'  id="zip-loader"></div>
-                <input class="zip-input" id="{{ request.session.zip }}" value="{{ request.session.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
+                <input class="zip-input" id="{{ request.user.profile.zip }}" value="{{ request.user.profile.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
             </div>
 
             <div class="rep-container">
@@ -180,7 +184,7 @@
                     {% if item.tweet %}
                         <div class="tweet-item">
                             <div id="copied-to-clipboard">Copied to Clipboard</div>
-                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.username}}</p></div>
+                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.profile.twitter}}</p></div>
                             <div class="tweet">{{item.tweet.text}}</div>
                         </div>
                     {% endif %}

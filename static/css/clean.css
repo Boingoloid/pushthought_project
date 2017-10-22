@@ -269,6 +269,19 @@ img.img-free.logo-image{
   }
 }
 
+
+/* CSS for sign up forms */
+.email_confirm_submit_button{
+  color:black;
+}
+
+input#id_username, input#id_email, input#id_password1, input#id_password2{
+  color:black;
+
+}
+
+
+
 /* Intro Header -------------------------------------------------*/
 
 .intro-header {
@@ -1224,3 +1237,16 @@ a.socialaccount_provider.facebook{
 a.socialaccount_provider.google{
   background:#dd4b39;
 }
+
+.errorlist{
+  color:white;
+
+}
+
+#id_zip {
+  color:black;
+}
+
+/*input {
+  color:black;
+}*/

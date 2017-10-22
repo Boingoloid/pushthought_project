@@ -47,9 +47,30 @@ p{
 
 }
 
+a.more-info-link{
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width:445px;
+  color:green;
+  height:18px;
+  white-space: nowrap;
+  font-size:15px;
+
+}
+
+.more-info-p{
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width:445px;
+  color:green;
+  height:26px;
+  white-space: nowrap;
+}
+
 .seen-it-container {
-  position: absolute;
-  bottom: 5px;
+  display: block;
 }
 
 .content-info-right{
@@ -71,6 +92,7 @@ p{
 
 .img-landing-title {
   margin:0px;
+  margin-top:15px;
   padding:0px;
   height:350px;
   max-width:241px;
@@ -115,7 +137,7 @@ box-shadow: 2px 2px 10px black;
   overflow: scroll;
   height:269px;
   max-height: 269px;
-  margin-bottom:35px;
+  margin-bottom:0px;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: pre-wrap;
@@ -525,14 +547,15 @@ text-tweet-block{
 .letter-count{
   position: absolute;
   z-index:1000;
-  top: 157px;
-  left: 432px;
+  top: 109px;
+  left: 430px;
   cursor:pointer;
   color:gray;
   font-size: 12pt;
-  align:right;
+  text-align:right;
   vertical-align: text-bottom;
   width:auto;
+  min-width:26.8px;
   height:auto;
 }
 
@@ -1102,7 +1125,7 @@ text-tweet-block{
 .email-action-container{
   display:block;
   margin-left:50px;
-  width: 500px;
+  width: 600px;
 
 }
 

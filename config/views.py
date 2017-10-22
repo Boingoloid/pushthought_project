@@ -15,11 +15,11 @@ from allauth.socialaccount.providers.base import AuthError
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from allauth.socialaccount.providers.oauth.views import OAuthLoginView, OAuthView
 from allauth.socialaccount.models import SocialApp, SocialToken, SocialLogin
+from allauth.account.views import LoginView
+
+
 
 from django.contrib import messages
-
-from django.contrib.auth import login, authenticate
-
 from django.contrib.auth.models import User
 from django.views.generic import View
 from django.http.response import HttpResponse, JsonResponse, HttpResponseRedirect
@@ -33,19 +33,11 @@ from campaigns.models import Campaign
 
 from . import forms
 
-# def StoreEmailFieldsInSessionView(request, extra_context=None):
-#     query = Program.objects
-#     context = dict()
-#     context['programList'] = query.all().order_by('-counter')
-#     context['documentaries'] = query.documentaries().order_by('-counter')
-#     context['webVideoList'] = query.webvideos().order_by('-counter')
-#     context['podcastList'] = query.podcasts().order_by('-counter')
-#     context['otherList'] = query.other().order_by('counter')
-#
-#     if extra_context is not None:
-#         context.update(extra_context)
-#     return render(request, template, context)
+class LoginView(LoginView):
+    form_class = forms.Login
 
+
+login = LoginView.as_view()
 
 class LoggedInView(View):
     def get(self, request, *args, **kwargs):
@@ -73,7 +65,7 @@ class TwitterLoginView(OAuthLoginView):
         address_array = request.POST.get('address_array')
         bioguide_array = request.POST.get('bioguide_array')
 
-        request.session['redirect_url'] = request.META['HTTP_REFERER']
+        request.session['redirect_url'] = request.META.get('HTTP_REFERER', '/')
         request.session['tweet_text'] = tweet_text
         request.session['sent_tweet'] = False
 

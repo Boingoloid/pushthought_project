@@ -27,168 +27,179 @@
 //        //do nothing
 //    }
 //});
+const NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED = ['ADDRESS_COUNTY', 'TOPIC']
 
 
-
-
-function get_congress_email_fields(bioguideArray) {
-    bioguideArrayString = JSON.stringify(bioguideArray);
-    console.log('bioguide array string: ', bioguideArrayString);
-
-    $.ajax({
-        url: '/get_congress_email_fields/',
-        type: "POST",
-        data: bioguideArrayString,
-        contentType: 'json;charset=UTF-8',
-        cache: false,
-        success: function (data) {
-            console.log("data from phantom: " ,data);
-            ////////////////////////////////////////
-            // returned data is congress email fields
-            ///////////////////////////////////////
-
-            if (!data) {
-                console.log("no required fields data to return");
-
-                if(confirm("We don't have a webform for that congress person.  We will redirect you to your email client to reach them by their opencongress.org email address.")) {
-
-                    var bioguideArray = String(bioguideArray);
-                    var mailto = $('#' + bioguideArray).attr('name');
-                    var title = encodeURIComponent($('.title-header').text());
-                    var description = encodeURIComponent($('.description').text());
-                    var suggestedEmailText = encodeURIComponent($('.field-suggested-email').val());
-
-
-                    //console.log('name: ' + mailto);
-                    //console.log('title: ' + title);
-                    //console.log('descr: ' + description);
-                    //console.log('suggestedEmailText: ' + suggestedEmailText);
-
-                    if(!suggestedEmailText == ""){
-                        location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + suggestedEmailText);
-                        //console.log('true');
-                    } else {
-                        location.href = ("mailto:" + mailto + "?subject=" +title + "&body=" + description);
-                        //console.log('false');
+function preload_phantom_dc_members_data() {
+    deferred = $.getJSON(
+        '/static/js/phantom-dc-members.min.json',
+        function(data) {
+            $('.bioguide-mule').each(function () {
+                var fields = [];
+                for (item of data[this.id]['required_actions']) {
+                    if (item['value'] != '$MESSAGE') {
+                        var field_dict = [];
+                        field_dict['field_name'] = item['value'].slice(1);
+                        field_dict['bioguideId'] = this.id;
+                        if (item['options_hash']) {
+                            field_dict['options'] = item['options_hash'];
+                        }
+                        fields.push(field_dict);
                     }
-                } else {
-                    //do nothing
                 }
-                return false;
-            }
-            console.log("yes, required fields data to return");
-            // console.log(data);
-            var htmlText = [];
-
-
-            ////////////////////////////////////////
-            // order returned fields
-            // function below
-            ///////////////////////////////////////
-            data = order_congress_email_fields(data);
-            // console.log(data);
-
-
-            /////////////////////////////////////////////////////////
-            // adjust field names for display because some are long or odd
-            // creates and inserts html for email form and inserts fields in HTMLobject .email-action-container
-            /////////////////////////////////////////////////////////
-
-
-
-            data.forEach(function (email_field, i) {
-                var field_name = email_field['field_name'];
-                //console.log("printing field name", field_name);
-                //console.log('print options', email_field['options']);
-
-                // If "TOPIC" make select box with options
-
-                if((field_name == "TOPIC") || (field_name == "ADDRESS_STATE_POSTAL_ABBREV") || field_name == "NAME_PREFIX") {
-
-                    if(field_name == "ADDRESS_STATE_POSTAL_ABBREV"){
-                        var label_name = "ADDRESS_STATE";
-                    } else {
-                        var label_name = field_name;
-                    }
-
-                    htmlText = [htmlText,
-                        '<div class="email-form-field-container" style="display:block;">',
-                        '   <div class="label-div">',
-                            '<label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' + label_name + '</label>',
-                        // '</div>',
-                        // '<div>',
-                            '<select class="eform" id="eform-' + field_name + '" style="display:block;">',
-                            '<option value=0 disabled="disabled" selected="selected">select</option>'
-                        // '</div>',
-                    ].join("\n");
-
-                    // define optionList
-                    var optionsList = email_field['options'];
-
-                    /////////////////////////////////////////////////////////////
-                    // detect if options list is dictionary or array, first array
-                    /////////////////////////////////////////////////////////////
-                    if(optionsList[0]){
-                        //console.log('true - array');
-                        for (var i = 0; i < optionsList.length; i++) {
-                            htmlText = [htmlText,
-                                '<option value="' + optionsList[i] + '">' + optionsList[i] + '</option>'
-                            ].join("\n");
-                        }
-
-                    ////////////////////////////////////////////////////
-                    // and now if dictionary
-                    ////////////////////////////////////////////////////
-                    } else {
-                        //console.log('false - dict');
-                        for (var key in optionsList){
-                            htmlText = [htmlText,
-                                '<option value="' + key + '">' + key + '</option>'
-                            ].join("\n");
-                        }
-                    }
-                    ////////////////////////////////////////////////////
-                    // close options select box and field
-                    ////////////////////////////////////////////////////
-                    htmlText = [htmlText,
-                        '</select>',
-                        '</div>',
-                        '</div>'
-                    ].join("\n" );
-                } else {
-                    var label_name = field_name
-                    var readonly = '';
-                    if (field_name === 'ADDRESS_ZIP5') {
-                        label_name = 'ADDRESS_ZIP'
-                    }
-                    var value = emailFieldData[field_name] || '';
-                    if (field_name === 'ADDRESS_ZIP5') {
-                        readonly = 'readonly'
-
-                        if (!value) {
-                            value = $('.zip-input').attr('value')
-                        }
-
-                    }
-
-                    htmlText = [htmlText,
-                        '<div class="email-form-field-container" style="display:block;">',
-                            '<div class="label-div">',
-                        ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' +
-                                    label_name + '</label>',
-                            '</div>',
-                            '<div class="field-div">',
-                            '<input type="text" class="eform" id="eform-' + field_name + '" value="'+
-                                    value +'" '+ readonly +'>',
-                            '</div>',
-                        '</div>'
-                    ].join("\n");
-                }
+                $(this).data('form', fields);
             });
-            $('.email-action-container').append(htmlText);
-            $('#text-input').val(emailFieldData['MESSAGE']);
+            precreate_congress_email_fields();
+        });
+}
+
+
+function get_form_data_list() {
+    var form_data_list = [];
+    $('.action-panel-container .bioguide-mule').each(function() {
+        form_data_list.push($(this).data('form'));
+    });
+    return form_data_list
+}
+
+
+function show_hide_congress_email_fields() {
+    var visible_fields_names = [];
+    $('.action-panel-container.selected .bioguide-mule').each(function() {
+        var form_data = $(this).data('form');
+        if (form_data == undefined) {
+            console.log("`show_hide_congress_email_fields` called before form" +
+                        " data is loaded, exiting.");
+            return;
+        }
+        for (var field of form_data) {
+            var field_name = field['field_name'];
+            if (NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED.includes(field_name)) {
+                field_name += '-' + field['bioguideId'];
+            }
+            field_name += '-container';
+            visible_fields_names.push(field_name);
         }
     });
+    $('.email-form-field-container').each(function () {
+        $(this).toggle(visible_fields_names.includes(this.id));
+    });
+}
+
+
+function precreate_congress_email_fields() {
+    form_data_list = deduplicate_and_order_congress_email_fields(
+        get_form_data_list());
+    var htmlText = "";
+    form_data_list.forEach(function (email_field, i) {
+        var field_name = email_field['field_name'];
+        // Select box with options.
+        if (['TOPIC', 'ADDRESS_COUNTY', 'ADDRESS_STATE_POSTAL_ABBREV',
+             'NAME_PREFIX'].includes(field_name)) {
+            if (field_name == "ADDRESS_STATE_POSTAL_ABBREV") {
+                var label_name = "ADDRESS_STATE";
+            } else {
+                var label_name = field_name;
+            }
+            var bioguide = email_field['bioguideId'];
+            var bioguide_name = $('.email-name-' + bioguide).text();
+            var last_name = bioguide_name.substring(
+                bioguide_name.lastIndexOf(" ") + 1, bioguide_name.length);
+            var class_bioguide = '';
+            if (NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED.includes(field_name)) {
+                label_name += ' - ' + last_name;
+                field_name += '-' + bioguide;
+                class_bioguide = ' ' + bioguide;
+            }
+            var topic_class_name = field_name.toLowerCase() + '-container ' +
+                field_name.toLowerCase() + '-container-' + bioguide;
+
+            htmlText = [htmlText,
+                '<div class="email-form-field-container ' + topic_class_name +
+                '" style="display:block;" id="' + field_name + '-container">',
+                '   <div class="label-div">',
+                '<label for="eform-' + field_name +
+                '" style="display:inline;" class="email-form-label' +
+                class_bioguide + '">' + label_name + '</label>',
+                '<select class="eform" id="eform-' + field_name + '"' +
+                ' style="display:block;">',
+                '<option value=0 disabled="disabled" selected="selected">select</option>'
+            ].join("\n");
+
+            if (Array.isArray(email_field['options'])) {
+                for (var i = 0; i < email_field['options'].length; i++) {
+                    htmlText = [htmlText,
+                        '<option value="' + email_field['options'][i] + '">' +
+                        email_field['options'][i] + '</option>'
+                    ].join("\n");
+                }
+            } else {
+                // Not an array, assume dictionary.
+                for (var key in email_field['options']){
+                    htmlText = [htmlText,
+                        '<option value="' + email_field['options'][key] + '">' + key + '</option>'
+                    ].join("\n");
+                }
+            }
+            // Close options select box and field.
+            htmlText = [htmlText,
+                '</select>',
+                '</div>',
+                '</div>'
+            ].join("\n" );
+        } else {
+            /////////////////////////////////////////////////////
+            // if field is ADDRESS_ZIP5
+            // change name of label to ADDRESS_ZIP
+            /////////////////////////////////////////////////////
+            var label_name = field_name
+            var readonly = '';
+            if (field_name === 'ADDRESS_ZIP5') {
+                label_name = 'ADDRESS_ZIP'
+            }
+            ///// not sure what this line is doing
+            var value = emailFieldData[field_name] || '';
+            /////////////////////////////////
+            // If ADDRESS_ZIP% and value '' then grab zip from
+            // zip-input elemennt on page.
+            /////////////////////////////////
+            if (field_name === 'ADDRESS_ZIP5') {
+                readonly = 'readonly'
+
+                if (!value) {
+                    value = $('.zip-input').attr('value')
+                }
+
+            }
+
+            htmlText = [htmlText,
+                '<div class="email-form-field-container" id="' + field_name +
+                '-container" style="display:block;">',
+                '<div class="label-div">',
+                ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' +
+                            label_name + '</label>',
+                    '</div>',
+                    '<div class="field-div">',
+                    '<input type="text" class="eform" id="eform-' + field_name + '" value="'+
+                            value +'" '+ readonly +'>',
+                    '</div>',
+                '</div>'
+            ].join("\n");
+        }
+    });
+    $('.email-action-container').html(htmlText);
+    $('#text-input').val(emailFieldData['MESSAGE']);
+
+    $('.topic-container').hide();
+    $('.action-panel-container').each(function(){
+        if($(this).hasClass('selected')){
+            var bioId = $(this).children().children('.bioguide-mule').attr('id');
+            console.log("bioId: ", bioId);
+            console.log('topic-container-'+ bioId);
+            $('.topic-container-'+ bioId).show();
+        }
+    });
+    show_hide_congress_email_fields();
 }
 
 
@@ -197,23 +208,49 @@ function get_congress_email_fields(bioguideArray) {
 // shows designated order of known fields
 // orders them according to list
 /////////////////////////////////////////////////////////////
-function order_congress_email_fields(data) {
+function deduplicate_and_order_congress_email_fields(form_data_list) {
     var ordered_fields_key = [
-
         "SUBJECT",
         "NAME_PREFIX",
         "NAME_FIRST",
         "NAME_LAST",
         "EMAIL",
+        "PHONE_PARENTHESES",
         "PHONE",
         "ADDRESS_STREET",
+        "ADDRESS_STREET_2",
         "ADDRESS_CITY",
-        "ADDRESS_ZIP4",
+        "ADDRESS_COUNTY",
         "ADDRESS_ZIP5",
+        "ADDRESS_ZIP4",
+        "ADDRESS_ZIP_PLUS_4",
         "ADDRESS_STATE_POSTAL_ABBREV",
-        "TOPIC"
+        "TOPIC",
+        "CAPTCHA_SOLUTION",
     ];
 
+    // Collect fields from all members.
+    var data = [];
+    var collected_field_names = [];
+    for (member of form_data_list) {
+        // FIXME Sometimes raises "TypeError: member is undefined" until page
+        // reload. Currently as a temporary measure prevented by silently
+        // reloading the data in `content_landing.js` where function
+        // `get_form_data_list` is called.
+        try {
+            for (field of member) {
+                if (collected_field_names.indexOf(field['field_name']) == -1 ||
+                        NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED.indexOf(
+                            field['field_name']) != -1) {
+                    data.push(field);
+                    collected_field_names.push(field['field_name']);
+                }
+            }
+        } catch (e) {
+            alert("Error loading data, please refresh the page.")
+            break;
+        }
+    }
 
     ///////////////////////////////////////////////////
     //put fields in order according to master list
@@ -231,8 +268,6 @@ function order_congress_email_fields(data) {
                     //console.log(field_name + " " + ordered_email_field);
                     email_field_to_add_to_array = email_field;
                     ordered_email_fields.push(email_field_to_add_to_array);
-
-                } else {
                 }
             }
             previous_field = field_name
@@ -448,8 +483,7 @@ function order_congress_email_fields(data) {
 //////////////////////////////////////////////////////////
 
 
-function runEmail(bioguideId){
-
+function runEmail(bioguideIds){
     // validate text input not blank
     var message_text = $('#text-input').text();
     if(message_text.length < 1){
@@ -534,7 +568,7 @@ function runEmail(bioguideId){
     formDataDictionary['$MESSAGE'] = $('#text-input').text();
     //var programId = $('#programId').text();
     var stringJson = JSON.stringify({
-        "bio_id": bioguideId,
+        "bio_ids": bioguideIds,
         //"program_id": programId,
         "campaign_tag": "push_thought",
         "fields": formDataDictionary
@@ -551,12 +585,12 @@ function runEmail(bioguideId){
         cache: false,
         success: function(data) {
             console.log("response from email send to phantom: ", data);
-            if(data['status'] == 'success'){
-                alert("Your email has been sent ");
+            if (data['status'] == 'success'){
+                alert("Your e-mails have been sent.");
                 //console.log("success status from ajax submit_congress_email:" + data);
 
                 // Clear the email action container
-                $('.email-action-container').html('');
+                precreate_congress_email_fields();
                 // Excute close button
                 $('#close-button').trigger('click');
 
@@ -602,8 +636,9 @@ function runEmail(bioguideId){
             }
         },
         error: function() {
+            alert(
+                "There was a problem sending your e-mails, please try again.");
         }
     });
 
 }
-
