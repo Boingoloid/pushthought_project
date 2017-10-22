@@ -129,8 +129,10 @@ class TwitterCallbackView(OAuthCallbackView):
         self.campaign = request.session.get('campaign_id')
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
-        if redirect_url and self.tweet_text:
+        if request.user.is_authenticated and redirect_url and self.tweet_text:
             self.api = self.get_authed_twitter_api()
+            if not self.api:
+                return HttpResponseRedirect(request.session.get('redirect_url'))
             self.mentions = self.get_mentions()
             self.clean_tweet_text = self.get_clean_tweet_text()
             self.send_tweets()
@@ -146,7 +148,8 @@ class TwitterCallbackView(OAuthCallbackView):
         try:
             token_obj = SocialToken.objects.get(account__user=self.request.user, account__provider='twitter')
         except SocialToken.DoesNotExist:
-            token_obj = self.token
+            messages.error(self.request, 'Please, log out and log in through Twitter to send a tweet.')
+            return
 
         TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
         TWITTER_CONSUMER_KEY = SocialApp.objects.filter(provider='twitter').last().client_id
@@ -171,12 +174,12 @@ class TwitterCallbackView(OAuthCallbackView):
         #TODO: create a general function
         tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
         try:
-            congress = Congress.objects.get(twitter_id=mention)
+            congress = Congress.objects.get(twitter=mention)
         except Congress.DoesNotExist:
             return 'Error'
 
         if len(tweet_text_with_metion) > 140:
-            return JsonResponse({ 'status': 'overMax'})
+            return JsonResponse({'status': 'overMax'})
 
         try:
             self.api.update_status(tweet_text_with_metion)
@@ -217,6 +220,10 @@ class SaveUserByEmailView(View):
     def post(self, request):
         form = forms.UserForm(request.POST)
         if form.is_valid():
+            email_exist = User.objects.filter(email=form.cleaned_data.get('email')).exists()
+            if email_exist:
+                messages.success(request, 'Already subscribed!')
+                return redirect('home')
             username = form.cleaned_data.get('email')
             raw_password = User.objects.make_random_password()
             form.instance.password = raw_password

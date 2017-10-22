@@ -210,12 +210,14 @@ class SendTweetView(View):
         return JsonResponse({
             'send_response': self.successArray,
             'successArray': self.successArray,
-            'duplicateArray': self.duplicateArray
+            'duplicateArray': self.duplicateArray,
+            'errorArray': self.errorArray
         })
 
     def set_session(self):
         self.successArray = []
         self.duplicateArray = []
+        self.errorArray = []
         data = self.request.POST
         self.request.session['programId'] = data['program_id']
         self.request.session['segmentId'] = data['segment_id']
@@ -256,10 +258,14 @@ class SendTweetView(View):
     def send_tweet(self, mention):
         #TODO: create a general function
         tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
-        congress = Congress.objects.get(twitter_id=mention)
+        try:
+            congress = Congress.objects.get(twitter=mention)
+        except Congress.DoesNotExist:
+            self.errorArray.append('@{}'.format(mention))
+            return
 
         if len(tweet_text_with_metion) > 140:
-            return JsonResponse({ 'status': 'overMax'})
+            return JsonResponse({'status': 'overMax'})
 
         try:
             self.api.update_status(tweet_text_with_metion)
@@ -271,7 +277,7 @@ class SendTweetView(View):
                 congress=congress
             )
             self.successArray.append('@{}'.format(mention))
-            return False
+            return
         except tweepy.TweepError as e:
             print(e)
             if e.api_code == 187:
