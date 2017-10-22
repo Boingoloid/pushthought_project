@@ -17,7 +17,7 @@ CHAMBERS = {
     'sen': 'Senate'
 }
 
-zipsDB = sqlite3.connect('zips.sqlite')
+zipsDB = sqlite3.connect('scripts/zips.sqlite')
 cursor = zipsDB.cursor()
 
 output = []
@@ -90,7 +90,6 @@ for critter in critters:
     except:
         pass
     try:
-        newCritter['title'] = critter['leadership_roles']['title']
         newCritter['leadership_role'] = critter['leadership_roles']['title']
     except:
         pass
@@ -119,15 +118,24 @@ for critter in critters:
         newCritter['senate_class'] = term['class']
     except:
         pass
+    try:
+        newCritter['contact_form'] = term['contact_form']
+    except:
+        pass
+    try:
+        newCritter['district'] = term['district']
+    except:
+        pass
+
+    if newCritter['chamber'] == 'Senate':
+        newCritter['title'] = 'Senator'
+    if newCritter['chamber'] == 'House':
+        newCritter['title'] = 'Representative'
 
     newCritter['term_end'] = term['end']
     newCritter['party'] = term['party'][:1]
     newCritter['birthday'] = critter['bio']['birthday']
     newCritter['term_start'] = term['start']
-    try:
-        newCritter.contact_form = term['contact_form']
-    except:
-        pass
 
     for item in socialMedia:
         socialBio = item['id']['bioguide']
