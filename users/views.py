@@ -17,5 +17,7 @@ class ProfileView(SuccessMessageMixin, UpdateView):
         return self.request.user.profile
 
     def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            request.session['zip'] = form.cleaned_data['zip']
         return super(ProfileView, self).post(request, *args, **kwargs)
-

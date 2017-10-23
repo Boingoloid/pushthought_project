@@ -1,18 +1,20 @@
 {% load static from staticfiles %}
 {% load thumbnail %}
-<a class="program-link"  href="{% url 'campaign:detail' item.slug %}" style="text-decoration:none;">
+
+<a class="program-link" href="{% url 'campaign:detail' item.slug %}" style="text-decoration:none;">
     <div class='program-item col-sm-2' id="{{ item.id }}">
 
         <div class='loader-{{forloop.counter}}'></div>
         <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
         <div class="program-img-container">
             {% if item.image %}
-                {% thumbnail item.image "71x100" crop="center" as im %}
+                {% thumbnail item.image "71" as im %}
                     <img class='program-item-image' id='program-item-image{{forloop.counter}}'
-                         src={{ im.url }} style="display:inline;">
+                         src={{ im.url }}>
                 {% endthumbnail %}
             {% else %}
-                <img class='img program-item-image-crop img-landing-title' id='program-item-image-crop' src="{% static 'img/push_thought_logo.png' %}">
+                <img class='img program-item-image-crop img-landing-title' id='program-item-image-crop'
+                     src="{% static 'img/push_thought_logo.png' %}">
             {% endif %}
         </div>
         <div class="program-title" id="program-item-title{{forloop.counter}}">{{item.title}}
@@ -22,8 +24,6 @@
         <div class="program-info-container">
                 <div class="sent-count">{{ item.counter }}</div>
                 <div class="sent-count-label">actions</div>
-                <!--<div class="runtime">{{ item.runtime_minutes }}</div>-->
-                <!--<div class="runtime-label">minutes</div>-->
         </div>
     </div>
 </a>

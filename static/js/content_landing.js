@@ -22,19 +22,24 @@ $(document).ready(function() {
     });
 
         // Zip submission button click
-    $('.submit-zip').click( function() {
+    $(document).on('click', '.submit-zip:not([disabled])', function(event) {
         // validators
         var zip = $('.zip-input').val();
         var isValidZip = /(^\d{5}$)/.test(zip);
 
         if (isValidZip){
+            var submit_zip_button = $('.submit-zip');
+            submit_zip_button.prop('disabled', true);
             $('#zip-loader').show();
             console.log('valid zip');
             console.log('get_congres on zip:' + zip);
             $('.zip-input').attr('id',zip);
             $('.zip-input').attr('value',zip);
-            get_congress(zip, get_congress_url);
-            preload_phantom_dc_members_data();
+            deferred = get_congress(zip, get_congress_url);
+            deferred.done(function() {
+                submit_zip_button.prop('disabled', false);
+                preload_phantom_dc_members_data();
+            });
         } else{
             console.log('NOT a valid zip');
             alert('Not a valid zip code.  Please check and try again.')
@@ -870,13 +875,20 @@ $(document).ready(function() {
     }
 
     // TWEET/EMAIL Button
-    $('#tweet-button').on('click', function(event) {
+    $(document).on('click', '#tweet-button:not([disabled])', function(event) {
+        var tweet_button = $('#tweet-button');
+        tweet_button.prop('disabled', true);
         if ($('.email-name').is(":visible")){
             var bioguideIds = $('.address-item-label:visible').map(
                 function() { return this.id }).get();
-            runEmail(bioguideIds);
+            deferred = runEmail(bioguideIds);
         } else {
-            runTweet(windowURL);
+            deferred = runTweet(windowURL);
+        }
+        if (deferred != undefined) {
+            deferred.done(function() {
+                tweet_button.prop('disabled', false);
+            });
         }
     });
 

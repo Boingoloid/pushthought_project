@@ -939,6 +939,10 @@ table {
   padding-right: 10px;
 }
 
+.program-link {
+  text-decoration:none;
+}
+
 .program-item{
   margin: 0;
   padding: 0;
@@ -958,14 +962,6 @@ table {
   /*transform: scale(1.05);*/
 }
 
-.program-item-image {
-  height: 160px;
-  min-height: 160px;
-  width: 115px;
-  min-width: 115px;
-  display:block;
-  margin:auto;
-}
 
 .program-item-image-crop {
   display:block;
@@ -1250,3 +1246,16 @@ a.socialaccount_provider.google{
 /*input {
   color:black;
 }*/
+
+#content-container {
+  padding-top: 120px;
+}
+
+#campaign-table table, #campaign-table th, #campaign-table td {
+  border: 0;
+}
+
+.errorlist {
+  list-style: none;
+  color: red;
+}
