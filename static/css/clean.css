@@ -962,6 +962,9 @@ table {
   /*transform: scale(1.05);*/
 }
 
+.program-item-image {
+  width: 71px;
+}
 
 .program-item-image-crop {
   display:block;

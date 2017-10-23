@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-{% load thumbnail %}
 {% load static from staticfiles %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
@@ -40,11 +39,9 @@
             <div class="content-info-right">
                 <div class="div-title-image">
                     {% if object.image %}
-                        {% thumbnail object.image "x350" as im %}
-                            <img class='img program-item-image img-landing-title'
-                             id='program-item-image'
-                             src='{{ im.url }}'>
-                        {% endthumbnail %}
+                        <img class='img program-item-image img-landing-title'
+                         id='program-item-image'
+                         src='{{ object.image.url }}'>
                     {% else %}
                         <img class='img program-item-image-crop img-landing-title'
                          id='program-item-image'
