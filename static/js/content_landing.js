@@ -464,7 +464,9 @@ $(document).ready(function() {
         var addressPlaceholderClass = '.address-item-label-' + i;
         var addressPlaceholder = $(addressPlaceholderClass).text();
         addressPlaceholder = String(addressPlaceholder); // Space important! allows @ to be recognized
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+' </span>');
+        var url = 'pushthought.com/' + window.location.href.split('/').slice(3).join('/')
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+' </span>'+
+        '<span contenteditable=false class="address-placeholder"> ' + url + '</span>');
         //<p class="space-placeholder" style="display:inline;"> </p>
 
         // set button label

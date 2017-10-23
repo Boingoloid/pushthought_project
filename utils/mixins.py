@@ -44,26 +44,26 @@ class TwitterSendMixin(object):
         clean_text = re.sub(pattern, replacement, self.tweet_text)
         return clean_text
 
-    def get_url(self):
-        url = 'https://www.googl34545453e.com'
-        if self.program:
-            url += reverse('programs:detail', kwargs={'pk': self.program})
-        elif self.campaign:
-            url += reverse('campaign:detail', kwargs={'slug': self.campaign})
-        else:
-            url = ''
+    # def get_url(self):
+    #     url = 'pushthought.com'
+    #     if self.program:
+    #         url += reverse('programs:detail', kwargs={'pk': self.program})
+    #     elif self.campaign:
+    #         url += reverse('campaign:detail', kwargs={'slug': self.campaign})
+    #     else:
+    #         url = ''
+    #
+    #     return url
 
-        return url
-
-    def get_tweet_text_with_url(self):
-        url = self.get_url()
-        tweet_text_with_url = '{} {}'.format(self.get_clean_tweet_text(), url)
-
-        return tweet_text_with_url
+    # def get_tweet_text_with_url(self):
+    #     url = self.get_url()
+    #     tweet_text_with_url = '{} {}'.format(self.get_clean_tweet_text(), url)
+    #
+    #     return tweet_text_with_url
 
     def send_tweet(self, mention):
         #TODO: create a general function
-        tweet_text_with_metion = '@{} {}'.format(mention, self.get_tweet_text_with_url())
+        tweet_text_with_metion = '@{} {}'.format(mention, self.get_clean_tweet_text())
         try:
             congress = Congress.objects.get(twitter=mention)
         except Congress.DoesNotExist:
@@ -78,7 +78,7 @@ class TwitterSendMixin(object):
                 Action.tweets.create(
                     tweet_text_with_metion,
                     user=self.request.user,
-                    program_id=self.program,
+                    program=self.program,
                     congress=congress
                 )
             elif self.campaign:
