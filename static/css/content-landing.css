@@ -91,17 +91,12 @@ a.more-info-link{
 }
 
 .img-landing-title {
-  margin:0px;
-  margin-top:15px;
-  padding:0px;
-  height:350px;
-  max-width:241px;
-  max-width:350px;
-  /*max-height:100%;
-  max-width:100%;*/
-  width: auto;
-box-shadow: 2px 2px 10px black;
-
+    margin:0;
+    margin-top: 15px;
+    padding:0;
+    max-height:350px;
+    width: auto;
+    box-shadow: 2px 2px 10px black;
 }
 
 .watch-button{
