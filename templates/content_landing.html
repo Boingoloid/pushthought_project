@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load thumbnail %}
 {% load static from staticfiles %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
@@ -20,7 +21,6 @@
 <img hidden class="success-indicator-hide" src="{% static 'img/check-green.png' %}">
 
 
-
 <div class="intro-header intro-header-landing">
     <div class="container container-text-white">
         <div class="content-wrapper">
@@ -40,9 +40,11 @@
             <div class="content-info-right">
                 <div class="div-title-image">
                     {% if object.image %}
-                        <img class='img program-item-image img-landing-title'
-                         id='program-item-image'
-                         src='{{ object.image.url }}'>
+                        {% thumbnail object.image "x350" as im %}
+                            <img class='img program-item-image img-landing-title'
+                             id='program-item-image'
+                             src='{{ im.url }}'>
+                        {% endthumbnail %}
                     {% else %}
                         <img class='img program-item-image-crop img-landing-title'
                          id='program-item-image'
@@ -68,7 +70,8 @@
               <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
                 <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
               </a>
-              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
+              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer"
+                   src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
           </div>
             {% if messages %}
             <ul class="messages">
