@@ -67,7 +67,8 @@ class TwitterSendMixin(object):
         try:
             congress = Congress.objects.get(twitter=mention)
         except Congress.DoesNotExist:
-            return 'Error'
+            self.errorArray.append('@{}'.format(mention))
+            return
 
         # if len(tweet_text_with_metion) > 140:
         #     return JsonResponse({'status': 'overMax'})

@@ -1,13 +1,19 @@
 
 
 
-
-
+function showError(errorArray) {
+    if (errorArray){
+        alert('errors: ' + errorArray);
+    }
+};
 
 // show duplicate method
-function showDuplicate(duplicateArray){
+function showDuplicate(duplicateArray, errorArray){
     // if (duplicateArray.length != 0){
     if (duplicateArray){
+        alert('dublicates: ' + duplicateArray);
+        showError(errorArray);
+        return true;
         duplicateArray.forEach(function (value, i) {
             console.log('%d: %s', i, value);
             var tweetName = value.slice(1)
@@ -44,9 +50,12 @@ function showDuplicate(duplicateArray){
 }
 
 
-function showSuccess(successArray, duplicateArray){
+function showSuccess(successArray, duplicateArray, errorArray){
     // if (successArray.length != 0){
     if (successArray){
+        alert('success: ' + successArray);
+        showDuplicate(duplicateArray, errorArray);
+        return true;
         successArray.forEach(function (value, i) {
             var tweetName = value.slice(1) //chop off @ at start
             var idText = '#success-box-' + tweetName;
@@ -71,7 +80,7 @@ function showSuccess(successArray, duplicateArray){
                                     $(this).css({'display':'none'});
                                     $(this).animate({'opacity':'0.0'},0,function(){
                                         $(idSuccessIndicator).show();
-                                        showDuplicate(duplicateArray);
+                                        showDuplicate(duplicateArray, errorArray);
                                     });
                                 });
                             });
@@ -82,7 +91,7 @@ function showSuccess(successArray, duplicateArray){
         });
     } else {
         console.log('no success messages in alert array, going to duplicate array')
-        showDuplicate(duplicateArray);
+        showDuplicate(duplicateArray, errorArray);
 
     }
 }
