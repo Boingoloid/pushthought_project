@@ -5,3 +5,8 @@
 #campaign-table table, #campaign-table th, #campaign-table td {
     border: 0;
 }
+
+.errorlist {
+    list-style: none;
+    color: red;
+}

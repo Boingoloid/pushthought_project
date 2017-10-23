@@ -16,8 +16,10 @@ class Tweet(TimeStampedModel):
 
 class Email(TimeStampedModel):
     text = models.TextField(blank=True)
+    email = models.EmailField(blank=True)
     action = models.OneToOneField('Action')
     fields = models.TextField(null=True, blank=True)
+    is_sent = models.NullBooleanField()
 
 
 class SaveTweetManager(models.Manager):
@@ -33,39 +35,26 @@ class SaveTweetManager(models.Manager):
 
 
 class SaveEmailManager(models.Manager):
-    def create(self, text, fields, *args, **kwargs):
+    def create(self, text, fields, is_sent, *args, **kwargs):
+        # if 'user' not in kwargs:
+        #     kwargs['user'] = User.objects.update_or_create(
+        #         email=fields['$EMAIL'],
+        #         defaults={'first_name': fields['$NAME_FIRST'],
+        #                   'last_name': fields['$NAME_LAST'],
+        #                   'username': fields['$EMAIL']})[0]
+        user_id = kwargs.get('user_id')
+        if user_id:
+            Profile.objects.update_or_create(
+                user_id=kwargs.get('user_id'),
+                defaults=dict(
+                    prefix=fields.get('$NAME_PREFIX'),
+                    street=fields.get('$ADDRESS_STREET'),
+                    city=fields.get('$ADDRESS_CITY'),
+                    phone=fields.get('$PHONE'),
+                    zip=fields.get('$ADDRESS_ZIP5')))
         action = super(SaveEmailManager, self).create(**kwargs)
-        email, created = Email.objects.get_or_create(
-            text=text,
-            action=action,
-            fields=fields
-        )
-
-        user, created = User.objects.update_or_create(
-            id=action.user_id,
-            defaults=dict(
-                first_name=fields['$NAME_FIRST'],
-                last_name=fields['$NAME_LAST'],
-                email=fields['$EMAIL'],
-            )
-        )
-
-        if created:
-            user.username = fields['$EMAIL']
-            user.save()
-
-        profile, created = Profile.objects.update_or_create(
-            user=user,
-            defaults=dict(
-                prefix=fields.get('$NAME_PREFIX'),
-                street=fields.get('$ADDRESS_STREET'),
-                city=fields.get('$ADDRESS_CITY'),
-                phone=fields.get('$PHONE'),
-                zip=fields.get('$ADDRESS_ZIP5'),
-            )
-        )
-
-        return email
+        return Email.objects.create(text=text, email=fields['$EMAIL'], action=action, fields=fields,
+                                    is_sent=is_sent)
 
 
 class Action(TimeStampedModel):

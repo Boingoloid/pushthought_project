@@ -15,11 +15,11 @@ from allauth.socialaccount.providers.base import AuthError
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from allauth.socialaccount.providers.oauth.views import OAuthLoginView, OAuthView
 from allauth.socialaccount.models import SocialApp, SocialToken, SocialLogin
+from allauth.account.views import LoginView
+
+
 
 from django.contrib import messages
-
-from django.contrib.auth import login, authenticate
-
 from django.contrib.auth.models import User
 from django.views.generic import View
 from django.http.response import HttpResponse, JsonResponse, HttpResponseRedirect
@@ -33,19 +33,11 @@ from campaigns.models import Campaign
 
 from . import forms
 
-# def StoreEmailFieldsInSessionView(request, extra_context=None):
-#     query = Program.objects
-#     context = dict()
-#     context['programList'] = query.all().order_by('-counter')
-#     context['documentaries'] = query.documentaries().order_by('-counter')
-#     context['webVideoList'] = query.webvideos().order_by('-counter')
-#     context['podcastList'] = query.podcasts().order_by('-counter')
-#     context['otherList'] = query.other().order_by('counter')
-#
-#     if extra_context is not None:
-#         context.update(extra_context)
-#     return render(request, template, context)
+class LoginView(LoginView):
+    form_class = forms.Login
 
+
+login = LoginView.as_view()
 
 class LoggedInView(View):
     def get(self, request, *args, **kwargs):
@@ -137,8 +129,10 @@ class TwitterCallbackView(OAuthCallbackView):
         self.campaign = request.session.get('campaign_id')
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
-        if redirect_url and self.tweet_text:
+        if request.user.is_authenticated and redirect_url and self.tweet_text:
             self.api = self.get_authed_twitter_api()
+            if not self.api:
+                return HttpResponseRedirect(request.session.get('redirect_url'))
             self.mentions = self.get_mentions()
             self.clean_tweet_text = self.get_clean_tweet_text()
             self.send_tweets()
@@ -154,7 +148,8 @@ class TwitterCallbackView(OAuthCallbackView):
         try:
             token_obj = SocialToken.objects.get(account__user=self.request.user, account__provider='twitter')
         except SocialToken.DoesNotExist:
-            token_obj = self.token
+            messages.error(self.request, 'Please, log out and log in through Twitter to send a tweet.')
+            return
 
         TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
         TWITTER_CONSUMER_KEY = SocialApp.objects.filter(provider='twitter').last().client_id
@@ -179,12 +174,12 @@ class TwitterCallbackView(OAuthCallbackView):
         #TODO: create a general function
         tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
         try:
-            congress = Congress.objects.get(twitter_id=mention)
+            congress = Congress.objects.get(twitter=mention)
         except Congress.DoesNotExist:
             return 'Error'
 
         if len(tweet_text_with_metion) > 140:
-            return JsonResponse({ 'status': 'overMax'})
+            return JsonResponse({'status': 'overMax'})
 
         try:
             self.api.update_status(tweet_text_with_metion)
@@ -225,6 +220,10 @@ class SaveUserByEmailView(View):
     def post(self, request):
         form = forms.UserForm(request.POST)
         if form.is_valid():
+            email_exist = User.objects.filter(email=form.cleaned_data.get('email')).exists()
+            if email_exist:
+                messages.success(request, 'Already subscribed!')
+                return redirect('home')
             username = form.cleaned_data.get('email')
             raw_password = User.objects.make_random_password()
             form.instance.password = raw_password
