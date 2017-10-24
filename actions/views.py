@@ -60,6 +60,8 @@ def submit_congress_email_view(request):
 class SubmitCongressEmail(View):
     """View for sending messages via Phantom DC."""
 
+    NAME_PLACEHOLDER = '[name will be inserted]'
+
     def get_fields_for_bioguides(self, bioguides):
         """Return list of required fields for each bioguide.
 
@@ -107,6 +109,27 @@ class SubmitCongressEmail(View):
                 raise KeyError(field_name)
         return fields
 
+    def preprocess_fields(self, bioguide, filled_out_fields):
+        """Change values of fields.
+
+        Currently replaces all occurences of value of `NAME_PLACEHOLDER`
+        in field `$MESSAGE` with full name of a Congress member with the
+        provided `bioguide`.
+
+        Args:
+            `bioguide`: int, bioguide of the member for whom
+                `filled_out_fields` are filled.
+            `filled_out_fields`: dict, field names and values.
+        Returns:
+            dict, modified field names and values.
+        """
+        fields = dict(filled_out_fields)
+        if self.NAME_PLACEHOLDER in fields['$MESSAGE']:
+            fields['$MESSAGE'] = fields['$MESSAGE'].replace(
+                self.NAME_PLACEHOLDER,
+                Congress.objects.get(bioguide_id=bioguide).full_name)
+        return fields
+
     def send_message_via_phantom_dc(self, bioguide, filled_out_fields):
         """Request Phantom DC to send message to a member.
 
@@ -119,6 +142,7 @@ class SubmitCongressEmail(View):
             Boolean indicating whether Phantom DC reported a successful
             sending.
         """
+        filled_out_fields = self.preprocess_fields(bioguide, filled_out_fields)
         response = requests.post(
             settings.PHANTOM_DC_API_BASE +
             settings.PHANTOM_DC_API_FILL_OUT_FORM,

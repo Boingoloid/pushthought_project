@@ -1,5 +1,19 @@
 //testWindow = window.open("popup.php","interaction","resizable=0,width=800,height=600,status=0");
 
+
+function set_email_message_addressing_prefix() {
+    selected_members = $('.address-item.selected');
+    if (selected_members.length == 0) {
+        html = '';
+    } else if (selected_members.length == 1) {
+        html = 'Congressperson ' + selected_members.children('p').text() + ', ';
+    } else {
+        html = 'Congressperson [name will be inserted], ';
+    }
+    $('#text-input .address-placeholder').html(html);
+}
+
+
 $(document).ready(function() {
 
     var windowURL = window.location.href;
@@ -22,7 +36,10 @@ $(document).ready(function() {
     });
 
         // Zip submission button click
-    $(document).on('click', '.submit-zip:not([disabled])', function(event) {
+    $('.submit-zip').click(function() {
+        if ($(this).attr('disabled')) {
+            return false;
+        }
         // validators
         var zip = $('.zip-input').val();
         var isValidZip = /(^\d{5}$)/.test(zip);
@@ -330,20 +347,12 @@ $(document).ready(function() {
            $(".address-container").append(text);
         });
 
-
-         // insert address placeholder in text-input
-        var addressPlaceholderClass = '.address-item-label-' + i;
-        var addressPlaceholder = $(addressPlaceholderClass).text();
-        addressPlaceholder = String(addressPlaceholder);
-
-        console.log("address placeholder: ", addressPlaceholder);
-        // TODO DRY
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson, </span>');
-        console.log($('#text-input').html());
-        //<p class="space-placeholder" style="display:inline;"> </p>
-
         // select address according to button clicked
         $(".address-node-" + i).toggleClass("selected");
+
+        $('#text-input').html(
+            '<span contenteditable=false class="address-placeholder"></span>')
+        set_email_message_addressing_prefix();
 
         // text-input clear and increase height
         //$('#text-input').html('');
@@ -672,7 +681,7 @@ $(document).ready(function() {
         // placeholder text all scenarios, 0,1,multi, both email and then tweet
         console.log("numitems");
         if ($('.email-name').is(':visible')) {
-            $('.address-placeholder').text("Congressperson, ");
+            set_email_message_addressing_prefix();
         } else {
             if (numItems == 0) {
                 placeholderText = '';
@@ -872,7 +881,10 @@ $(document).ready(function() {
     }
 
     // TWEET/EMAIL Button
-    $(document).on('click', '#tweet-button:not([disabled])', function(event) {
+    $('#tweet-button').click(function() {
+        if ($(this).attr('disabled')) {
+            return false;
+        }
         if ($('.address-item.selected').length == 0) {
             alert("You much choose a congressperson.");
             return false;
