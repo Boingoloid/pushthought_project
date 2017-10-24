@@ -1,5 +1,4 @@
 {% load static from staticfiles %}
-{% load thumbnail %}
 
 <a class="program-link" href="{% url 'campaign:detail' item.slug %}" style="text-decoration:none;">
     <div class='program-item col-sm-2' id="{{ item.id }}">
@@ -8,10 +7,8 @@
         <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
         <div class="program-img-container">
             {% if item.image %}
-                {% thumbnail item.image "71" as im %}
-                    <img class='program-item-image' id='program-item-image{{forloop.counter}}'
-                         src={{ im.url }}>
-                {% endthumbnail %}
+                <img class='program-item-image' id='program-item-image{{forloop.counter}}'
+                     src={{ item.image.url }}>
             {% else %}
                 <img class='img program-item-image-crop img-landing-title' id='program-item-image-crop'
                      src="{% static 'img/push_thought_logo.png' %}">

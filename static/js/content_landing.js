@@ -338,7 +338,7 @@ $(document).ready(function() {
 
         console.log("address placeholder: ", addressPlaceholder);
         // TODO DRY
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +', </span>');
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson, </span>');
         console.log($('#text-input').html());
         //<p class="space-placeholder" style="display:inline;"> </p>
 
@@ -672,12 +672,7 @@ $(document).ready(function() {
         // placeholder text all scenarios, 0,1,multi, both email and then tweet
         console.log("numitems");
         if ($('.email-name').is(':visible')) {
-            var placeholder_strings = [];
-            $('.address-item.selected').each(function() {
-                placeholder_strings.push("Congressperson " +
-                    $(this).children('p').text());
-            });
-            $('.address-placeholder').text(placeholder_strings.join(", "));
+            $('.address-placeholder').text("Congressperson, ");
         } else {
             if (numItems == 0) {
                 placeholderText = '';
@@ -878,6 +873,10 @@ $(document).ready(function() {
 
     // TWEET/EMAIL Button
     $(document).on('click', '#tweet-button:not([disabled])', function(event) {
+        if ($('.address-item.selected').length == 0) {
+            alert("You much choose a congressperson.");
+            return false;
+        }
         var tweet_button = $('#tweet-button');
         tweet_button.prop('disabled', true);
         if ($('.email-name').is(":visible")){
@@ -887,7 +886,9 @@ $(document).ready(function() {
         } else {
             deferred = runTweet(windowURL);
         }
-        if (deferred != undefined) {
+        if (!deferred) {
+            tweet_button.prop('disabled', false);
+        } else if (deferred != undefined) {
             deferred.done(function() {
                 tweet_button.prop('disabled', false);
             });
