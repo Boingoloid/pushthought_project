@@ -466,7 +466,7 @@ $(document).ready(function() {
         addressPlaceholder = String(addressPlaceholder); // Space important! allows @ to be recognized
         var url = 'pushthought.com/' + window.location.href.split('/').slice(3).join('/')
         $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+' </span>'+
-        '<span contenteditable=false class="address-placeholder"> ' + url + '</span>');
+        '<span id="text-input-url" contenteditable=false class="address-placeholder"> ' + url + '</span>');
         //<p class="space-placeholder" style="display:inline;"> </p>
 
         // set button label
@@ -837,10 +837,10 @@ $(document).ready(function() {
     function updateTextCount(){
         var textInput = $('#text-input').text();
         var twitterMax = 140;
-        var twitterDefaultLinkLength = 22;
+        var twitterDefaultLinkLength = 0; //22;
         var countAfterLink = twitterMax - twitterDefaultLinkLength;
 
-        var addressInput = $('.address-placeholder').text();
+        var addressInput = $('.address-placeholder').eq(0).text();
         var countAddressInput =  addressInput.length;
         var countTextInput =  textInput.length;
         var longestAddressLength = get_longest_address();
