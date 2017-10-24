@@ -464,9 +464,7 @@ $(document).ready(function() {
         var addressPlaceholderClass = '.address-item-label-' + i;
         var addressPlaceholder = $(addressPlaceholderClass).text();
         addressPlaceholder = String(addressPlaceholder); // Space important! allows @ to be recognized
-        var url = 'pushthought.com/' + window.location.href.split('/').slice(3).join('/')
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+' </span>'+
-        '<span id="text-input-url" contenteditable=false class="address-placeholder"> ' + url + '</span>');
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">'+addressPlaceholder+' </span>');
         //<p class="space-placeholder" style="display:inline;"> </p>
 
         // set button label
@@ -829,48 +827,6 @@ $(document).ready(function() {
 
 
 
-    function updateTextCount(){
-        var textInput = $('#text-input').text();
-        var twitterMax = 140;
-        var twitterDefaultLinkLength = 0; //22;
-        var countAfterLink = twitterMax - twitterDefaultLinkLength;
-
-        var addressInput = $('.address-placeholder').eq(0).text();
-        var countAddressInput =  addressInput.length;
-        var countTextInput =  textInput.length;
-        var longestAddressLength = get_longest_address();
-        var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength;
-
-//        console.log("addressInput:", addressInput);
-//        console.log("countAddressInput:", countAddressInput);
-//        console.log("countTextInput:", countTextInput);
-//        console.log("longestAddressLength:", longestAddressLength);
-//        console.log("countRemaining:", countRemaining);
-
-        // adjust for line breaks
-        numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
-        countRemaining = countRemaining - numberOfLineBreaks;
-
-        $('.letter-count').text(countRemaining);
-        if (countRemaining < 0){
-            $('.letter-count').css({'color':'red'});
-        } else {
-            $('.letter-count').css({'color':'gray'});
-        }
-    }
-
-        // loop through and find longest address
-    function get_longest_address(){
-        var longestAddressLength = 0;
-        $('.address-item-label:visible').each(function(){
-            var text = $(this).text();
-            if (text.length > longestAddressLength){
-                longestAddressLength = text.length;
-            }
-        });
-        return longestAddressLength;
-    }
-
     // TWEET/EMAIL Button
     $(document).on('click', '#tweet-button:not([disabled])', function(event) {
         if ($('.address-item.selected').length == 0) {
@@ -1135,3 +1091,46 @@ $(document).ready(function() {
 //        range.select();//Select the range (make it the visible selection
 //    }
 //}
+
+function updateTextCount(){
+    var textInput = $('#text-input').text();
+    var twitterMax = 140;
+    var twitterDefaultLinkLength = 0; //22;
+    var countAfterLink = twitterMax - twitterDefaultLinkLength;
+    var twitter_url_length = twitter_url.length;
+
+    var addressInput = $('.address-placeholder').eq(0).text();
+    var countAddressInput =  addressInput.length;
+    var countTextInput =  textInput.length;
+    var longestAddressLength = get_longest_address();
+    var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength - twitter_url_length;
+
+//        console.log("addressInput:", addressInput);
+//        console.log("countAddressInput:", countAddressInput);
+//        console.log("countTextInput:", countTextInput);
+//        console.log("longestAddressLength:", longestAddressLength);
+//        console.log("countRemaining:", countRemaining);
+
+    // adjust for line breaks
+    numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
+    countRemaining = countRemaining - numberOfLineBreaks;
+
+    $('.letter-count').text(countRemaining);
+    if (countRemaining < 0){
+        $('.letter-count').css({'color':'red'});
+    } else {
+        $('.letter-count').css({'color':'gray'});
+    }
+}
+
+    // loop through and find longest address
+function get_longest_address(){
+    var longestAddressLength = 0;
+    $('.address-item-label:visible').each(function(){
+        var text = $(this).text();
+        if (text.length > longestAddressLength){
+            longestAddressLength = text.length;
+        }
+    });
+    return longestAddressLength;
+}
