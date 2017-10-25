@@ -297,10 +297,12 @@ a.program-link {
 .program-title{
   float: left;
   margin-right:0px;
-  margin-bottom: 15px;
+  /*margin-bottom: 15px;*/
+  margin-bottom:0px;
   font-size:11pt;
   color:white;
-  min-height: 18px;
+  /*min-height: 18px;*/
+  min-height: 36px;
   max-height: 36px;
   overflow: hidden;
   white-space: wrap;
@@ -333,7 +335,8 @@ a.program-link {
   border: 0px solid orange;
   border-top:1px solid #337ab7;
   width: 360px;
-  height: 73px;
+  /*height: 73px;*/
+  height:89px;
 }
 
 @media only screen and (max-width: 438px) {
@@ -355,7 +358,8 @@ a.program-link {
   overflow: hidden !important;
   border: 0px solid green;
   border-top:1px solid #337ab7;
-  height: 73px;
+  /*height: 73px;*/
+  height:89px;
 
 }
 
