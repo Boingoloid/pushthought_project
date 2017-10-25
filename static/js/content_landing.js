@@ -36,10 +36,17 @@ $(document).ready(function() {
             $('.zip-input').attr('id',zip);
             $('.zip-input').attr('value',zip);
             deferred = get_congress(zip, get_congress_url);
-            deferred.done(function() {
+            if (!deferred) {
                 submit_zip_button.prop('disabled', false);
-                preload_phantom_dc_members_data();
-            });
+            } else if (deferred != undefined) {
+                deferred.done(function() {
+                    submit_zip_button.prop('disabled', false);
+                    preload_phantom_dc_members_data();
+                });
+                deferred.fail(function() {
+                    submit_zip_button.prop('disabled', false);
+                });
+            }
         } else{
             console.log('NOT a valid zip');
             alert('Not a valid zip code.  Please check and try again.')
@@ -846,6 +853,9 @@ $(document).ready(function() {
             tweet_button.prop('disabled', false);
         } else if (deferred != undefined) {
             deferred.done(function() {
+                tweet_button.prop('disabled', false);
+            });
+            deferred.fail(function() {
                 tweet_button.prop('disabled', false);
             });
         }
