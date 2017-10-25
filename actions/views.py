@@ -85,6 +85,7 @@ class SubmitCongressEmail(View):
         return forms
 
     def get_filled_out_fields(self, bioguide, field_names, data):
+
         """Fill out requested fields from the dict of all fields.
 
         Args:
@@ -100,13 +101,13 @@ class SubmitCongressEmail(View):
             KeyError: Specified field not found in data.
         """
         fields = {}
-        for field_name in field_names:
-            field_value = data.get(
-                field_name, data.get("{}_{}".format(field_name, bioguide)))
-            if field_value is not None:
-                fields[field_name] = field_value
+        for k, v in data.items():
+            if '_' in k:
+                bioguide_suffix = "_{}".format(bioguide)
+                if k.endswith(bioguide_suffix):
+                    fields[k[:-len(bioguide_suffix)]] = v
             else:
-                raise KeyError(field_name)
+                fields[k] = v
         return fields
 
     def preprocess_fields(self, bioguide, filled_out_fields):
@@ -190,10 +191,8 @@ class SubmitCongressEmail(View):
         # TODO Potentially insecure. Process with Django Forms.
         bioguides = request_body['bio_ids']
         data = request_body['fields']
-        for bioguide, field_names in self.get_fields_for_bioguides(
-                bioguides).items():
-            filled_out_fields = self.get_filled_out_fields(bioguide,
-                                                           field_names, data)
+        for bioguide in bioguides:
+            filled_out_fields = self.get_filled_out_fields(bioguide, data)
             is_send_successful = self.send_message_via_phantom_dc(
                 bioguide, filled_out_fields)
             self.save_email(bioguide, filled_out_fields, is_send_successful)

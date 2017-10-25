@@ -6,9 +6,7 @@
         "PHONE": "{% if request.user.profile.phone %}{{ request.user.profile.phone }}{% endif %}",
         "ADDRESS_STREET": "{% if request.user.profile.street %}{{ request.user.profile.street }}{% endif %}",
         "ADDRESS_CITY": "{% if request.user.profile.city %}{{ request.user.profile.city }}{% endif %}",
-        "ADDRESS_ZIP4": "{{ request.user.profile.zip }}" || "{{ request.session.zip }}",
-
+        "ADDRESS_ZIP5": "{{ request.user.profile.zip }}" || "{{ request.session.zip }}" ||
+            $('.zip-input').attr('value'),
     }
 </script>
-
-<!--"ADDRESS_ZIP5": "{{ request.user.profile.zip }}" || "{{ request.session.zip }}",-->
