@@ -7,6 +7,9 @@ class CampaignForm(forms.ModelForm):
     class Meta:
         model = models.Campaign
         fields = ('slug', 'title', 'description', 'image', 'tweet_text', 'email_text', 'link', )
+        widgets = {
+            'link': forms.widgets.TextInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(CampaignForm, self).__init__(*args, **kwargs)
@@ -28,6 +31,9 @@ class CampaignUpdateForm(forms.ModelForm):
     class Meta:
         model = models.Campaign
         fields = ('title', 'description', 'image', 'tweet_text', 'email_text', 'link',)
+        widgets = {
+            'link': forms.widgets.TextInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(CampaignUpdateForm, self).__init__(*args, **kwargs)

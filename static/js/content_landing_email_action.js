@@ -31,7 +31,7 @@ const NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED = ['ADDRESS_COUNTY', 'TOPIC']
 
 
 function preload_phantom_dc_members_data() {
-    deferred = $.getJSON(
+    $.getJSON(
         '/static/js/phantom-dc-members.min.json',
         function(data) {
             $('.bioguide-mule').each(function () {
@@ -239,9 +239,9 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
         // `get_form_data_list` is called.
         try {
             for (field of member) {
-                if (collected_field_names.indexOf(field['field_name']) == -1 ||
-                        NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED.indexOf(
-                            field['field_name']) != -1) {
+                if (!collected_field_names.includes(field['field_name']) ||
+                        NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED.includes(
+                            field['field_name'])) {
                     data.push(field);
                     collected_field_names.push(field['field_name']);
                 }
@@ -260,20 +260,11 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
     var previous_field = "";
     ordered_fields_key.forEach(function (ordered_email_field) {
         data.forEach(function (email_field) {
-            var field_name = email_field['field_name'];
-            if(field_name == previous_field){
-            } else {
-                // if field name = field in list, then
-                if (field_name == ordered_email_field) {
-                    //console.log(field_name + " " + ordered_email_field);
-                    email_field_to_add_to_array = email_field;
-                    ordered_email_fields.push(email_field_to_add_to_array);
-                }
+            if (email_field['field_name'] == ordered_email_field) {
+                email_field_to_add_to_array = email_field;
+                ordered_email_fields.push(email_field_to_add_to_array);
             }
-            previous_field = field_name
         });
-        // console.log("printing email field object", email_field_to_add_to_array);
-        // console.log("printing field name", email_field_to_add_to_array);
     });
 
     ////////////////////////////////////////////////////////
@@ -578,7 +569,7 @@ function runEmail(bioguideIds){
 
     //put agax call here to store values in session.
 
-    $.ajax({url: "/submit_congress_email/",
+    return $.ajax({url: "/submit_congress_email/",
         type: "POST",
         data: stringJson,
         contentType: 'json;charset=UTF-8',

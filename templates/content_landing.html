@@ -20,7 +20,6 @@
 <img hidden class="success-indicator-hide" src="{% static 'img/check-green.png' %}">
 
 
-
 <div class="intro-header intro-header-landing">
     <div class="container container-text-white">
         <div class="content-wrapper">
@@ -53,13 +52,6 @@
         </div>
     </div>
 </div>
-    <!--{% if messages %}-->
-        <!--<ul class="messages">-->
-            <!--{% for message in messages %}-->
-            <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
-            <!--{% endfor %}-->
-        <!--</ul>-->
-    <!--{% endif %}-->
 
 <div class="container-standard" style="margin:0;">
     <div class="rep-color-band">
@@ -68,9 +60,16 @@
               <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
                 <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
               </a>
-              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
+              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer"
+                   src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
           </div>
-
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
             <div class="category-title-container">
                 <div style="display:inline;">
                     <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>
@@ -189,6 +188,11 @@
                         <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
                         <div class='tweet-loader' id="tweet-loader"></div>
                     </div>
+                    <div>
+                        <label style=" margin-top:5px; font-size: 14pt;"><input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300;"> Add site url
+                        </label>
+                    </div>
+
                     <div class="letter-count"></div>
                     <div class="img-checked-box-container">
                         <!--<img id="img-checked-box" src="{% static 'img/check-circle-gray2.png' %}" width="20" height="20">-->
@@ -211,7 +215,7 @@
                     {% if object.title %}
                         <p class="suggested-tweet-text-label" >Suggested tweet text </p>
                         <p class="suggested-tweet-text-sublabel">(click text area to copy)</p>
-                        <textarea readonly class="field-input field-suggested-tweet">Please watch {{ object.title }}, I found it informative {{ object.url }}</textarea>
+                        <textarea readonly class="field-input field-suggested-tweet">Please watch {{ object.title }}, I found it informative </textarea>
                     {% endif %}
                 </div>
                 <div class="email_suggested_message_container">
@@ -270,4 +274,5 @@
     <script src="{% static 'js/content_landing_email_action.js' %}"></script>
     <script src="{% static 'js/content_landing_tweet_action.js' %}"></script>
     <script src="{% static 'js/content_landing_get_congress.js' %}"></script>
+    <script src="{% static 'js/twitter_add_url.js' %}"></script>
 {% endblock %}

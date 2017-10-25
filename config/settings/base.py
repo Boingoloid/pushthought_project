@@ -45,7 +45,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount.providers.twitter',
     # 'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.google',
-    'sorl.thumbnail',
+    # 'sorl.thumbnail',
 ]
 
 LOCAL_APPS = [

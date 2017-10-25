@@ -22,19 +22,24 @@ $(document).ready(function() {
     });
 
         // Zip submission button click
-    $('.submit-zip').click( function() {
+    $(document).on('click', '.submit-zip:not([disabled])', function(event) {
         // validators
         var zip = $('.zip-input').val();
         var isValidZip = /(^\d{5}$)/.test(zip);
 
         if (isValidZip){
+            var submit_zip_button = $('.submit-zip');
+            submit_zip_button.prop('disabled', true);
             $('#zip-loader').show();
             console.log('valid zip');
             console.log('get_congres on zip:' + zip);
             $('.zip-input').attr('id',zip);
             $('.zip-input').attr('value',zip);
-            get_congress(zip, get_congress_url);
-            preload_phantom_dc_members_data();
+            deferred = get_congress(zip, get_congress_url);
+            deferred.done(function() {
+                submit_zip_button.prop('disabled', false);
+                preload_phantom_dc_members_data();
+            });
         } else{
             console.log('NOT a valid zip');
             alert('Not a valid zip code.  Please check and try again.')
@@ -333,7 +338,7 @@ $(document).ready(function() {
 
         console.log("address placeholder: ", addressPlaceholder);
         // TODO DRY
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +', </span>');
+        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson, </span>');
         console.log($('#text-input').html());
         //<p class="space-placeholder" style="display:inline;"> </p>
 
@@ -665,12 +670,8 @@ $(document).ready(function() {
         // placeholder text all scenarios, 0,1,multi, both email and then tweet
         console.log("numitems");
         if ($('.email-name').is(':visible')) {
-            var placeholder_strings = [];
-            $('.address-item.selected').each(function() {
-                placeholder_strings.push("Congressperson " +
-                    $(this).children('p').text());
-            });
-            $('.address-placeholder').text(placeholder_strings.join(", "));
+            $('.address-placeholder').text("Congressperson, ");
+            show_hide_congress_email_fields();
         } else {
             if (numItems == 0) {
                 placeholderText = '';
@@ -688,7 +689,6 @@ $(document).ready(function() {
                 $('.address-placeholder').text(placeholderText);
             }
         }
-        show_hide_congress_email_fields();
         //$('#text-input').focus();
     });
 
@@ -827,56 +827,27 @@ $(document).ready(function() {
 
 
 
-    function updateTextCount(){
-        var textInput = $('#text-input').text();
-        var twitterMax = 140;
-        var twitterDefaultLinkLength = 22;
-        var countAfterLink = twitterMax - twitterDefaultLinkLength;
-
-        var addressInput = $('.address-placeholder').text();
-        var countAddressInput =  addressInput.length;
-        var countTextInput =  textInput.length;
-        var longestAddressLength = get_longest_address();
-        var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength;
-
-//        console.log("addressInput:", addressInput);
-//        console.log("countAddressInput:", countAddressInput);
-//        console.log("countTextInput:", countTextInput);
-//        console.log("longestAddressLength:", longestAddressLength);
-//        console.log("countRemaining:", countRemaining);
-
-        // adjust for line breaks
-        numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
-        countRemaining = countRemaining - numberOfLineBreaks;
-
-        $('.letter-count').text(countRemaining);
-        if (countRemaining < 0){
-            $('.letter-count').css({'color':'red'});
-        } else {
-            $('.letter-count').css({'color':'gray'});
-        }
-    }
-
-        // loop through and find longest address
-    function get_longest_address(){
-        var longestAddressLength = 0;
-        $('.address-item-label:visible').each(function(){
-            var text = $(this).text();
-            if (text.length > longestAddressLength){
-                longestAddressLength = text.length;
-            }
-        });
-        return longestAddressLength;
-    }
-
     // TWEET/EMAIL Button
-    $('#tweet-button').on('click', function(event) {
+    $(document).on('click', '#tweet-button:not([disabled])', function(event) {
+        if ($('.address-item.selected').length == 0) {
+            alert("You much choose a congressperson.");
+            return false;
+        }
+        var tweet_button = $('#tweet-button');
+        tweet_button.prop('disabled', true);
         if ($('.email-name').is(":visible")){
             var bioguideIds = $('.address-item-label:visible').map(
                 function() { return this.id }).get();
-            runEmail(bioguideIds);
+            deferred = runEmail(bioguideIds);
         } else {
-            runTweet(windowURL);
+            deferred = runTweet(windowURL);
+        }
+        if (!deferred) {
+            tweet_button.prop('disabled', false);
+        } else if (deferred != undefined) {
+            deferred.done(function() {
+                tweet_button.prop('disabled', false);
+            });
         }
     });
 
@@ -1120,3 +1091,46 @@ $(document).ready(function() {
 //        range.select();//Select the range (make it the visible selection
 //    }
 //}
+
+function updateTextCount(){
+    var textInput = $('#text-input').text();
+    var twitterMax = 140;
+    var twitterDefaultLinkLength = 0; //22;
+    var countAfterLink = twitterMax - twitterDefaultLinkLength;
+    var twitter_url_length = twitter_url.length;
+
+    var addressInput = $('.address-placeholder').eq(0).text();
+    var countAddressInput =  addressInput.length;
+    var countTextInput =  textInput.length;
+    var longestAddressLength = get_longest_address();
+    var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength - twitter_url_length;
+
+//        console.log("addressInput:", addressInput);
+//        console.log("countAddressInput:", countAddressInput);
+//        console.log("countTextInput:", countTextInput);
+//        console.log("longestAddressLength:", longestAddressLength);
+//        console.log("countRemaining:", countRemaining);
+
+    // adjust for line breaks
+    numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
+    countRemaining = countRemaining - numberOfLineBreaks;
+
+    $('.letter-count').text(countRemaining);
+    if (countRemaining < 0){
+        $('.letter-count').css({'color':'red'});
+    } else {
+        $('.letter-count').css({'color':'gray'});
+    }
+}
+
+    // loop through and find longest address
+function get_longest_address(){
+    var longestAddressLength = 0;
+    $('.address-item-label:visible').each(function(){
+        var text = $(this).text();
+        if (text.length > longestAddressLength){
+            longestAddressLength = text.length;
+        }
+    });
+    return longestAddressLength;
+}
