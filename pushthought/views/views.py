@@ -101,6 +101,7 @@ def submit_congress_email_view(request):
     if send_response_object:
         if status == 'success':
             print "email was sent"
+            print "Response object: ", send_response_object
             # save_congress_email_fields_to_user(request)
             # save_email_congress_action(request)
         elif status == 'captcha_needed':
@@ -368,7 +369,6 @@ def get_congress_with_location_view(request):
 def get_congress_email_fields_view(request):
     bioguideArray = json.loads(request.body)
     field_list = get_congress_email_fields(bioguideArray)
-    print "field_list_returned_from_get_congress_email_fields_in_json: ", json.dumps(field_list)
     return HttpResponse(json.dumps(field_list), content_type="application/json")
 
 # OLD ----------------------------

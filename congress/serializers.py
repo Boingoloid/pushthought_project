@@ -8,8 +8,7 @@ class CongressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Congress
-        fields = ('title', 'twitter_id', 'phone', 'oc_email', 'full_name', 'image', 'sent_messages_count',
-                  'bioguide_id', 'district', 'state')
+        fields = ('title', 'twitter_id', 'twitter', 'phone', 'oc_email', 'full_name', 'image', 'sent_messages_count','bioguide_id', 'district', 'state')
 
     def __init__(self, instance=None, data=empty, program_id=None, **kwargs):
         self.program_id = program_id
@@ -36,7 +35,7 @@ class CongressCampaignSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Congress
-        fields = ('title', 'twitter_id', 'phone', 'oc_email', 'full_name', 'image', 'sent_messages_count',
+        fields = ('title', 'twitter_id','twitter', 'phone', 'oc_email', 'full_name', 'image', 'sent_messages_count',
                   'bioguide_id', 'district', 'state')
 
     def __init__(self, instance=None, data=empty, program_id=None, **kwargs):

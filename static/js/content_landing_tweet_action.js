@@ -83,7 +83,7 @@ function runTweet(windowURL){
         login_user(login_url)
     } else {
         // get message length and validate length
-        var tweet_text = $('#text-input').text();
+        var tweet_text = $('#text-input').text() + twitter_url;
         console.log("tweet text:", tweet_text );
         console.log("html:", $('#text-input').html());
         if(tweet_text.length < 1){
@@ -113,17 +113,17 @@ function runTweet(windowURL){
          var segmentId = $('#segmentId').text();
 
         // Build Address and Bioguide Array
-        var addressArray = [];
-        var bioguideArray = [];
+        var addressArray = '';
+        var bioguideArray = '';
         $('.address-item.selected').each(function(){
             var address = $(this).text();
             address = address.replace('\n','');
             address = address.replace('\n','');
             address = address.replace('\n','');
-            addressArray.push(address);
+            addressArray += ', ' + address;
             var bioguideId = $(this).attr('name');
             console.log(bioguideId);
-            bioguideArray.push(bioguideId);
+            bioguideArray += ', ' + bioguideId;
         });
         console.log("address array", addressArray);
         console.log("bioguide array", bioguideArray);
@@ -142,7 +142,7 @@ function runTweet(windowURL){
         console.log("dataset: ",dataSet);
 
 
-        $.ajax({url: "/verify_catch/",
+        return $.ajax({url: "/verify_catch/",
             type: "POST",
             data: dataSet,
             cache: false,

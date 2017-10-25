@@ -939,6 +939,10 @@ table {
   padding-right: 10px;
 }
 
+.program-link {
+  text-decoration:none;
+}
+
 .program-item{
   margin: 0;
   padding: 0;
@@ -959,12 +963,7 @@ table {
 }
 
 .program-item-image {
-  height: 160px;
-  min-height: 160px;
-  width: 115px;
-  min-width: 115px;
-  display:block;
-  margin:auto;
+  width: 71px;
 }
 
 .program-item-image-crop {
@@ -1238,3 +1237,28 @@ a.socialaccount_provider.google{
   background:#dd4b39;
 }
 
+.errorlist{
+  color:white;
+
+}
+
+#id_zip {
+  color:black;
+}
+
+/*input {
+  color:black;
+}*/
+
+#content-container {
+  padding-top: 120px;
+}
+
+#campaign-table table, #campaign-table th, #campaign-table td {
+  border: 0;
+}
+
+.errorlist {
+  list-style: none;
+  color: red;
+}

@@ -15,11 +15,9 @@ from allauth.socialaccount.providers.base import AuthError
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from allauth.socialaccount.providers.oauth.views import OAuthLoginView, OAuthView
 from allauth.socialaccount.models import SocialApp, SocialToken, SocialLogin
+from allauth.account.views import LoginView
 
 from django.contrib import messages
-
-from django.contrib.auth import login, authenticate
-
 from django.contrib.auth.models import User
 from django.views.generic import View
 from django.http.response import HttpResponse, JsonResponse, HttpResponseRedirect
@@ -30,22 +28,15 @@ from django.db.utils import IntegrityError
 from actions.models import Action
 from congress.models import Congress
 from campaigns.models import Campaign
+from utils.mixins import TwitterSendMixin
 
 from . import forms
 
-# def StoreEmailFieldsInSessionView(request, extra_context=None):
-#     query = Program.objects
-#     context = dict()
-#     context['programList'] = query.all().order_by('-counter')
-#     context['documentaries'] = query.documentaries().order_by('-counter')
-#     context['webVideoList'] = query.webvideos().order_by('-counter')
-#     context['podcastList'] = query.podcasts().order_by('-counter')
-#     context['otherList'] = query.other().order_by('counter')
-#
-#     if extra_context is not None:
-#         context.update(extra_context)
-#     return render(request, template, context)
+class LoginView(LoginView):
+    form_class = forms.Login
 
+
+login = LoginView.as_view()
 
 class LoggedInView(View):
     def get(self, request, *args, **kwargs):
@@ -127,7 +118,10 @@ class OAuthCallbackView(OAuthView):
                 exception=e)
 
 
-class TwitterCallbackView(OAuthCallbackView):
+class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
+    """
+    Callback view for twitter login. Sends tweet after the user logs in.
+    """
     def dispatch(self, request, *args, **kwargs):
         resp = super(TwitterCallbackView, self).dispatch(request, *args, **kwargs)
         self.successArray = []
@@ -137,10 +131,13 @@ class TwitterCallbackView(OAuthCallbackView):
         self.campaign = request.session.get('campaign_id')
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
-        if redirect_url and self.tweet_text:
+        if request.user.is_authenticated and redirect_url and self.tweet_text:
             self.api = self.get_authed_twitter_api()
+            if not self.api:
+                return HttpResponseRedirect(request.session.get('redirect_url'))
             self.mentions = self.get_mentions()
             self.clean_tweet_text = self.get_clean_tweet_text()
+            self.tweet_text_with_url = self.get_tweet_text_with_url()
             self.send_tweets()
             request.session['alertList'] = json.dumps([self.successArray, self.duplicateArray])
 
@@ -150,76 +147,6 @@ class TwitterCallbackView(OAuthCallbackView):
         else:
             return resp
 
-    def get_authed_twitter_api(self):
-        try:
-            token_obj = SocialToken.objects.get(account__user=self.request.user, account__provider='twitter')
-        except SocialToken.DoesNotExist:
-            token_obj = self.token
-
-            self.request.user.profile.twitter = token_obj
-            self.request.user.profile.save()
-
-        TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
-        TWITTER_CONSUMER_KEY = SocialApp.objects.filter(provider='twitter').last().client_id
-
-        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
-        auth.set_access_token(token_obj.token, token_obj.token_secret)
-        api = tweepy.API(auth)
-        return api
-
-    def get_mentions(self):
-        tweet_text = self.request.session['address_array']
-        mentions = re.findall(r'@(\w+)', tweet_text)
-        return mentions
-
-    def get_clean_tweet_text(self):
-        pattern = r'@\w+,?\s'
-        replacement = ''
-        clean_text = re.sub(pattern, replacement, self.tweet_text)
-        return clean_text
-
-    def send_tweet(self, mention):
-        #TODO: create a general function
-        tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
-        try:
-            congress = Congress.objects.get(twitter_id=mention)
-        except Congress.DoesNotExist:
-            return 'Error'
-
-        if len(tweet_text_with_metion) > 140:
-            return JsonResponse({ 'status': 'overMax'})
-
-        try:
-            self.api.update_status(tweet_text_with_metion)
-            if self.program:
-                Action.tweets.create(
-                    tweet_text_with_metion,
-                    user=self.request.user,
-                    program_id=self.program,
-                    congress=congress
-                )
-            elif self.campaign:
-
-                campaign = Campaign.objects.get(slug=self.campaign)
-                Action.tweets.create(
-                    tweet_text_with_metion,
-                    user=self.request.user,
-                    campaign=campaign,
-                    congress=congress
-                )
-            self.successArray.append('@{}'.format(mention))
-            return False
-        except tweepy.TweepError as e:
-            print(e)
-            if e.api_code == 187:
-                self.duplicateArray.append('@{}'.format(mention))
-
-            return e.api_code
-
-    def send_tweets(self):
-        for mention in self.mentions:
-            self.send_tweet(mention)
-
 oauth_login = TwitterLoginView.adapter_view(TwitterOAuthAdapter)
 oauth_callback = TwitterCallbackView.adapter_view(TwitterOAuthAdapter)
 
@@ -228,6 +155,10 @@ class SaveUserByEmailView(View):
     def post(self, request):
         form = forms.UserForm(request.POST)
         if form.is_valid():
+            email_exist = User.objects.filter(email=form.cleaned_data.get('email')).exists()
+            if email_exist:
+                messages.success(request, 'Already subscribed!')
+                return redirect('home')
             username = form.cleaned_data.get('email')
             raw_password = User.objects.make_random_password()
             form.instance.password = raw_password

@@ -28,6 +28,9 @@ class SearchIMDBProgramTitleView(View):
 
 
 class ParseProgramIDView(View):
+    '''
+    Parses youtube and imdb links and saves them into the DB as programs.
+    '''
     form = forms.ProgramForm
 
     def get(self, request, *args, **kwargs):
@@ -53,7 +56,7 @@ class ParseProgramIDView(View):
                 try:
                     poster_url = snippet['thumbnails']['standard']['url']
                 except KeyError:
-                    poster_url = ''
+                    poster_url = snippet['thumbnails']['high']['url']
 
                 data = {
                     'title': title,

@@ -283,10 +283,6 @@ a.program-link {
 
 .program-item-image{
   display: inline;
-  height: 100px;
-  min-height: 100px;
-  width: 71px;
-  min-width: 71px;
   margin-top:7px;
   margin-bottom:-15px;
   margin-left:5px;
@@ -323,10 +319,10 @@ a.program-link {
   border: 0px solid green;
   text-overflow: ellipsis;
   text-align:left;
-  width: 300px;
+  width: 360px;
 }
 
-@media only screen and (max-width: 438px) {
+@media only screen and (max-width: 490px) {
     .program-title {
         width: 200px;
     }
