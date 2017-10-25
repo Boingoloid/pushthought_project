@@ -510,6 +510,7 @@ a.more-info-link{
   line-height:2.6;
   color:#00aced;
   cursor: pointer;
+  display:none;
 
 }
 
@@ -523,7 +524,7 @@ a.more-info-link{
 
 #close-button{
   position: absolute;
-  top:75px;
+  top:30px;
   left: -26px;
   cursor:pointer;
   width:25px;
@@ -542,7 +543,7 @@ text-tweet-block{
 .letter-count{
   position: absolute;
   z-index:1000;
-  top: 109px;
+  top: 108px;
   left: 430px;
   cursor:pointer;
   color:gray;

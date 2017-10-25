@@ -284,7 +284,8 @@ $(document).ready(function() {
 
     // Email Icon
     $('.rep-container').on("click", "img.email-icon", function(e) {
-        $('.copy-last').show();
+        //$('.copy-last').show();
+        $('.copy-last').hide();
         e.stopPropagation();
         var emailIconId = $(this).attr('id');
         var i = emailIconId.replace('email-icon-','')
@@ -415,6 +416,7 @@ $(document).ready(function() {
 
     // Twitter Icon
     $('.rep-container').on("click", "img.twitter-icon", function(e) {
+        $('.copy-last').hide();
         e.stopPropagation();
         var i = $(this).attr('id');
 
