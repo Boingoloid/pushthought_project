@@ -581,12 +581,7 @@ function precreate_congress_email_fields() {
             // zip-input elemennt on page.
             /////////////////////////////////
             if (field_name === 'ADDRESS_ZIP5') {
-                readonly = 'readonly'
-
-                if (!value) {
-                    value = $('.zip-input').attr('value')
-                }
-
+                readonly = 'readonly';
             }
 
             htmlText = [htmlText,
