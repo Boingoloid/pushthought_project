@@ -60,29 +60,7 @@ def submit_congress_email_view(request):
 class SubmitCongressEmail(View):
     """View for sending messages via Phantom DC."""
 
-    def get_fields_for_bioguides(self, bioguides):
-        """Return list of required fields for each bioguide.
-
-        Args:
-            bioguides: list of bioguides.
-
-        Returns:
-            Dict with bioguide as keys and list of names of required
-            fields as values.
-        """
-        # TODO Make sure Phantom DC ignores spare fields and get rid of
-        # requests to `settings.PHANTOM_DC_API_RETRIEVE_FORM_ELEMENTS`.
-        response = requests.post(
-            settings.PHANTOM_DC_API_BASE +
-            settings.PHANTOM_DC_API_RETRIEVE_FORM_ELEMENTS,
-            data=json.dumps({'bio_ids': bioguides}),
-            headers={'content-type': 'application/json'})
-        forms = {}
-        for bioguide, form in json.loads(response.text).items():
-            forms[bioguide] = [a['value'] for a in form['required_actions']]
-        return forms
-
-    def get_filled_out_fields(self, bioguide, field_names, data):
+    def get_filled_out_fields(self, bioguide, data):
         """Fill out requested fields from the dict of all fields.
 
         Args:
@@ -98,13 +76,13 @@ class SubmitCongressEmail(View):
             KeyError: Specified field not found in data.
         """
         fields = {}
-        for field_name in field_names:
-            field_value = data.get(
-                field_name, data.get("{}_{}".format(field_name, bioguide)))
-            if field_value is not None:
-                fields[field_name] = field_value
+        for k, v in data.items():
+            if '_' in k:
+                bioguide_suffix = "_{}".format(bioguide)
+                if k.endswith(bioguide_suffix):
+                    fields[k[:-len(bioguide_suffix)]] = v
             else:
-                raise KeyError(field_name)
+                fields[k] = v
         return fields
 
     def send_message_via_phantom_dc(self, bioguide, filled_out_fields):
@@ -166,10 +144,8 @@ class SubmitCongressEmail(View):
         # TODO Potentially insecure. Process with Django Forms.
         bioguides = request_body['bio_ids']
         data = request_body['fields']
-        for bioguide, field_names in self.get_fields_for_bioguides(
-                bioguides).items():
-            filled_out_fields = self.get_filled_out_fields(bioguide,
-                                                           field_names, data)
+        for bioguide in bioguides:
+            filled_out_fields = self.get_filled_out_fields(bioguide, data)
             is_send_successful = self.send_message_via_phantom_dc(
                 bioguide, filled_out_fields)
             self.save_email(bioguide, filled_out_fields, is_send_successful)
