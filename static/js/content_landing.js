@@ -671,6 +671,7 @@ $(document).ready(function() {
         console.log("numitems");
         if ($('.email-name').is(':visible')) {
             $('.address-placeholder').text("Congressperson, ");
+            show_hide_congress_email_fields();
         } else {
             if (numItems == 0) {
                 placeholderText = '';
@@ -688,7 +689,6 @@ $(document).ready(function() {
                 $('.address-placeholder').text(placeholderText);
             }
         }
-        show_hide_congress_email_fields();
         //$('#text-input').focus();
     });
 
