@@ -14,6 +14,13 @@ function set_email_message_addressing_prefix() {
 }
 
 
+function focus_on_text_input() {
+    text_input = $('#text-input')
+    text_input.focus();
+    setEndOfContenteditable(text_input);
+}
+
+
 $(document).ready(function() {
 
     var windowURL = window.location.href;
@@ -411,7 +418,6 @@ $(document).ready(function() {
         $('#email-button-label').text(labelText);
 
 
-        //setEndOfContenteditable($('#text-input'));
         updateTextCount();
 
 //         Fill in fields with info from user
@@ -431,8 +437,7 @@ $(document).ready(function() {
 //        }
         //<div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
         show_hide_congress_email_fields();
-        // Focus on text box
-        $('#text-input').focus();
+        focus_on_text_input();
     });
 
     // Twitter Icon
@@ -511,16 +516,8 @@ $(document).ready(function() {
         var labelText = 'tweet: ' + numItems;
         $('#tweet-button-label').text(labelText);
 
-        // Focus on text box
-        if($(window).width() < 525){
-            console.log("no focus, width low");
-        } else {
-            //console.log("focus, width high");
-            $('#text-input').focus();
-            //setEndOfContenteditable($('#text-input'));
-        }
         updateTextCount();
-        $('#text-input').focus();
+        focus_on_text_input();
     });
 
     // Empty Twitter Icon
@@ -599,7 +596,7 @@ $(document).ready(function() {
         $('#twitter-button-label').show();
 
 
-        $('#text-input').focus();
+        focus_on_text_input();
     });
 
     // Action Panel Container
@@ -704,7 +701,7 @@ $(document).ready(function() {
                 $('.address-placeholder').text(placeholderText);
             }
         }
-        //$('#text-input').focus();
+        focus_on_text_input();
     });
 
     // Clear button
@@ -839,8 +836,6 @@ $(document).ready(function() {
 
 
     });
-
-
 
     // TWEET/EMAIL Button
     $('#tweet-button').click(function() {
@@ -1092,26 +1087,26 @@ $(document).ready(function() {
 
 
 
-//function setEndOfContenteditable(contentEditableElement)
-//{
-//    var range,selection;
-//    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
-//    {
-//        range = document.createRange();//Create a range (a range is a like the selection but invisible)
-//        range.selectNodeContents(contentEditableElement[0]);//Select the entire contents of the element with the range
-//        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-//        selection = window.getSelection();//get the selection object (allows you to change selection)
-//        selection.removeAllRanges();//remove any selections already made
-//        selection.addRange(range);//make the range you have just created the visible selection
-//    }
-//    else if(document.selection)//IE 8 and lower
-//    {
-//        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
-//        range.moveToElementText(contentEditableElement[0]);//Select the entire contents of the element with the range
-//        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-//        range.select();//Select the range (make it the visible selection
-//    }
-//}
+function setEndOfContenteditable(contentEditableElement)
+{
+    var range,selection;
+    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
+    {
+        range = document.createRange();//Create a range (a range is a like the selection but invisible)
+        range.selectNodeContents(contentEditableElement[0]);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        selection = window.getSelection();//get the selection object (allows you to change selection)
+        selection.removeAllRanges();//remove any selections already made
+        selection.addRange(range);//make the range you have just created the visible selection
+    }
+    else if(document.selection)//IE 8 and lower
+    {
+        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
+        range.moveToElementText(contentEditableElement[0]);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        range.select();//Select the range (make it the visible selection
+    }
+}
 
 function updateTextCount(){
     var textInput = $('#text-input').text();
