@@ -202,6 +202,7 @@ a.program-link {
 }
 
 .program-item{
+  overflow: hidden;
   margin:5px;
   margin-left:10px;
   margin-right:10px;
@@ -273,44 +274,35 @@ a.program-link {
 
 
 .program-img-container{
-  display:inline;
-  height:auto;
-  width: 71px;
-  min-width: 71px;
-  height: 100px;
-  min-height: 100px;
-}
-
-.program-item-image{
-  display: inline;
-  margin-top:7px;
-  margin-bottom:-15px;
-  margin-left:5px;
-}
-
-.program-item-image-crop{
-  display: inline;
-  height: 70px;
-  min-height: 70px;
+  float: left;
   width: 70px;
-  min-width: 70px;
-  margin:auto;
-  margin-top:15px;
-  margin-bottom:7px;
-  margin-left:5px;
+  height: 70px;
+  margin: 5px 15px 20px 5px;
+  background-color: black;
+  /* Centering. */
+  display: -webkit-flex; /* Safari */
+  -webkit-align-items: center; /* Safari 7.0+ */
+  display: flex;
+  align-items: center;
 }
 
-
-
+.program-img-container img {
+  width: auto;
+  height: auto;
+  max-width: 70px;
+  max-height: 70px;
+  margin: auto;
+}
 
 .program-title{
-  display:inline-block;
-  margin-bottom:-10px;
+  float: left;
   margin-right:0px;
-  margin-left: 5px;
+  /*margin-bottom: 15px;*/
+  margin-bottom:0px;
   font-size:11pt;
   color:white;
-  min-height: 18px;
+  /*min-height: 18px;*/
+  min-height: 36px;
   max-height: 36px;
   overflow: hidden;
   white-space: wrap;
@@ -331,23 +323,20 @@ a.program-link {
 
 
 .program-description{
-  display:block;
+  float: left;
   font-weight:200;
   color:white;
   font-size:11pt;
   line-height:14pt;
-  margin-left:85px;
-  margin-right:5px;
-  margin-top:-55px;
-  margin-bottom:-8px;
   text-overflow: ellipsis;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: pre-wrap;
   border: 0px solid orange;
   border-top:1px solid #337ab7;
-  height: 93px;
-
+  width: 360px;
+  /*height: 73px;*/
+  height:89px;
 }
 
 @media only screen and (max-width: 438px) {
@@ -369,17 +358,21 @@ a.program-link {
   overflow: hidden !important;
   border: 0px solid green;
   border-top:1px solid #337ab7;
-  height: 93px;
+  /*height: 73px;*/
+  height:89px;
 
 }
 
 .program-info-container{
-  margin: auto;
-  width:400px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0px;
+  right: 80px;
+  display: inline;
+  width: 100px;
+  height: 25px;
   text-align: right;
   align:right;
-  position: relative;
-  display: inline;
 }
 
 .count{
@@ -391,12 +384,11 @@ a.program-link {
     position: absolute;
 }
 
-.sent-count{
+.program-info-container .sent-count{
   font-size:14px;
   line-height:14px;
   color: green;
   display:inline;
-  margin-left:330px;
   align-content:right;
   text-align:right;
   width:50px;
@@ -416,7 +408,7 @@ a.program-link {
 
 }
 
-.sent-count-label{
+.program-info-container .sent-count-label{
   display:inline;
   margin-left:0px;
   color: green;
