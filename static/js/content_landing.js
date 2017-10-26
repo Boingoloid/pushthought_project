@@ -284,87 +284,24 @@ $(document).ready(function() {
     // Select All Buttons
 
     $('.rep-container').on("click", "img.email-icon-all", function(e) {
-        $('.action-panel-container').each(function(){
-            if($(this).hasClass('selected')){
-                //do nothing
-            } else {
-                $(this).addClass('selected');
-            }
-        });
+        if ($('.twitter-name:visible').length) {
+            return false;
+        }
+        if (!$('.email-name:visible').length) {
+            $('.email-icon').first().click();
+        }
+        $('.action-panel-container').not('.selected').click();
     });
 
     $('.rep-container').on("click", "img.twitter-icon-all", function(e) {
-        if($('#twitter-name-1').is(":visible")){
-            $('.action-panel-container').each(function(){
-                if($(this).hasClass('selected')){
-                    //do nothing
-                    console.log('do nothing');
-                } else {
-                    //$(this).addClass('selected');
-                     console.log('do something');
-                    $(this).trigger('click');
-                }
-            });
-        }else{
-            $('.twitter-icon').trigger('click');
-            $('.action-panel-container').each(function(){
-                if($(this).hasClass('selected')){
-                    console.log('do nothing - not visible');
-                    //do nothing
-                } else {
-                    console.log('do something - not visible');
-                    //$(this).addClass('selected');
-                    $(this).trigger('click');
-                }
-            });
+        if ($('.email-name:visible').length) {
+            return false;
         }
+        if (!$('.twitter-name:visible').length) {
+            $('.twitter-icon').first().click();
+        }
+        $('.action-panel-container').not('.selected').click();
     });
-
-//        $('.rep-container').on("click", ".action-panel-container", function(e) {
-//
-//        //////////////////////////////////////
-//        // get number of action panel clicked
-//        //////////////////////////////////////
-//        var i = $(this).attr('id');
-//
-//        //////////////////////////////////////////////////////
-//        // get twitter name if twitter names visible
-//        //////////////////////////////////////////////////////
-//        if($('.twitter-name').is(":visible")){
-//            var elementRef = "#email-name-"+i;
-//            var elementText = $('#twitter-name-'+i).text();
-//            var whichIconClicked = "tweet";
-//        ////////////////////////////////////////////////////////////
-//        // if email visible and class 'selected' exists, then close
-//        ////////////////////////////////////////////////////////////
-//        } else if($('.email-name').is(":visible")){
-//            var whichIconClicked = "email";
-//            if($(this).hasClass('selected')){
-//                $('#close-button').trigger('click');
-//                console.log("email should close");
-//            ////////////////////////////////////////////////////////////
-//            // if email visible and class NOT 'selected' then alert
-//            ////////////////////////////////////////////////////////////  v
-//            } else {
-//                var elementText = $('div#'+i+'.email-name').text();
-//                alert("Currently you can only email 1 representative at a time.  Autofill will help you fill out consecutive emails.");
-//            }
-//
-//            return false;
-//        } else {
-//            return false;
-//        }
-
-
-
-
-
-
-
-
-
-
-
 
     // Email Icon
     $('.rep-container').on("click", "img.email-icon", function(e) {
