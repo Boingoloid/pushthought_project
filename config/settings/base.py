@@ -313,6 +313,10 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
+        'twitter': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
     }
 }
 

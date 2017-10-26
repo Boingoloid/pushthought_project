@@ -113,17 +113,15 @@ function runTweet(windowURL){
          var segmentId = $('#segmentId').text();
 
         // Build Address and Bioguide Array
-        var addressArray = '';
-        var bioguideArray = '';
+        var addressArray = [];
+        var bioguideArray = [];
         $('.address-item.selected').each(function(){
             var address = $(this).text();
-            address = address.replace('\n','');
-            address = address.replace('\n','');
-            address = address.replace('\n','');
-            addressArray += ', ' + address;
+            address = address.replace(/\n/g,'').slice(1);
+            addressArray.push(address);
             var bioguideId = $(this).attr('name');
             console.log(bioguideId);
-            bioguideArray += ', ' + bioguideId;
+            bioguideArray.push(bioguideId);
         });
         console.log("address array", addressArray);
         console.log("bioguide array", bioguideArray);
@@ -146,6 +144,7 @@ function runTweet(windowURL){
             type: "POST",
             data: dataSet,
             cache: false,
+            traditional: true,
             success: function(data) {
 
                 // Success message
@@ -173,25 +172,19 @@ function runTweet(windowURL){
                     hideLoading();
                     alert("There has been an error with twitter.  Please check message and try again.  If it persists, notify Push Thought");
                 } else {
-                    var len = data['successArray'].length;
-                    if(data.successArray.length !=0){
-                        successArray = data['successArray'];
+                    if (data['successArray'].length > 0){
+                        $.when(hideLoading()
+                        ).then(showTwitterStatus(
+                            data['successArray'],
+                            data['duplicateArray'],
+                            data['errorArray'])
+                        ).then($('#close-button').trigger('click'));
                     } else {
-                        successArray = [];
-                    }
-
-                    if(data.duplicateArray.length !=0){
-                        duplicateArray = data['duplicateArray'];
-                    } else {
-                        duplicateArray = [];
-                    }
-
-
-                    if (successArray.length > 0){
-                        $.when(hideLoading()).then(showSuccess(successArray, duplicateArray)).then($('#close-button').trigger('click'));
-                        //showSuccess(successArray, duplicateArray);
-                    } else {
-                        $.when(hideLoading()).then(showSuccess(successArray, duplicateArray));
+                        $.when(hideLoading()
+                        ).then(showTwitterStatus(
+                            data['successArray'],
+                            data['duplicateArray'],
+                            data['errorArray']));
                     }
                 }
             },

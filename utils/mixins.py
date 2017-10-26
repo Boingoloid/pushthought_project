@@ -35,8 +35,7 @@ class TwitterSendMixin(object):
         return api
 
     def get_mentions(self):
-        mentions = re.findall(r'@(\w+)', self.tweet_text)
-        return mentions
+        return self.request.session['addressArray']
 
     def get_clean_tweet_text(self):
         pattern = r'@\w+,?\s'

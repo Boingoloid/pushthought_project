@@ -105,7 +105,7 @@ $(document).ready(function() {
         $('html, body').animate({
                 scrollTop: headerAllowance + 'px'
             }, 'fast');
-        showSuccess(alertArray[0], alertArray[1]);
+        showTwitterStatus(alertArray[0], alertArray[1]);
     }
 
     // Alerts if no @ message and went through verify-catch redirect
