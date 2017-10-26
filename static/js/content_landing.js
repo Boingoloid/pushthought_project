@@ -689,6 +689,7 @@ $(document).ready(function() {
         console.log("numitems");
         if ($('.email-name').is(':visible')) {
             set_email_message_addressing_prefix();
+            show_hide_congress_email_fields();
         } else {
             if (numItems == 0) {
                 placeholderText = '';
