@@ -8,4 +8,5 @@ $(document).ready(function () {
         }
         updateTextCount()
     })
+    $('#twitter_input_add_url').change();
 });
