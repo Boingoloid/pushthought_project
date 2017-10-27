@@ -84,28 +84,24 @@ class SubmitCongressEmail(View):
             forms[bioguide] = [a['value'] for a in form['required_actions']]
         return forms
 
-    def get_filled_out_fields(self, bioguide, field_names, data):
+    def get_filled_out_fields(self, bioguide, data):
 
         """Fill out requested fields from the dict of all fields.
 
         Args:
             bioguide: bioguide of member for whom `field_names` are
                 being filled.
-            field_names: list of names of fields to fill.
             data: dict of all received fields and their values.
         Returns:
-            Dict of only requested fields with data. As a rule isn't a
-            subdict of `data`, as field "$TOPIC" and some others are
-            named in `data` like "$TOPIC_`bioguide`".
-        Raises:
-            KeyError: Specified field not found in data.
+            Dict of all available fields with data. It isn't supposed to
+            be a subdict of `data`, as field "$TOPIC" and some others
+            are named in `data` like "$TOPIC_`bioguide`".
         """
         fields = {}
         for k, v in data.items():
-            if '_' in k:
-                bioguide_suffix = "_{}".format(bioguide)
-                if k.endswith(bioguide_suffix):
-                    fields[k[:-len(bioguide_suffix)]] = v
+            bioguide_suffix = "_{}".format(bioguide)
+            if k.endswith(bioguide_suffix):
+                fields[k[:-len(bioguide_suffix)]] = v
             else:
                 fields[k] = v
         return fields
