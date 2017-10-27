@@ -2,6 +2,7 @@ import re
 import time
 import json
 import httplib
+import logging
 import tweepy
 
 from allauth.socialaccount.models import SocialApp, SocialToken
@@ -20,6 +21,9 @@ from views_get_data import *
 from views_user_forms import *
 
 from utils.mixins import TwitterSendMixin
+
+
+logger = logging.getLogger('twitter')
 
 
 TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
@@ -196,6 +200,7 @@ class SendTweetView(TwitterSendMixin, View):
         self.set_session()
         self.api = self.get_authed_twitter_api()
         self.mentions = self.get_mentions()
+        logger.debug('Mentions: %s', self.mentions)
         if not len(self.mentions):
             return JsonResponse({'status': 'noMention'})
 
@@ -218,8 +223,8 @@ class SendTweetView(TwitterSendMixin, View):
         self.request.session['segmentId'] = data['segment_id']
         self.request.session['lastMenuURL'] = data['last_menu_url']
         self.request.session['tweetText'] = data['tweet_text']
-        self.request.session['addressArray'] = data['address_array']
-        self.request.session['bioguideArray'] = data['bioguide_array']
+        self.request.session['addressArray'] = data.getlist('address_array')
+        self.request.session['bioguideArray'] = data.getlist('bioguide_array')
         self.tweet_text = data['tweet_text']
 
         if data.get('program_id'):
