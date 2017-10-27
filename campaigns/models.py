@@ -16,7 +16,7 @@ class Campaign(CounterMixin, TimeStampedModel):
     image = models.ImageField(blank=True, null=True)
     tweet_text = models.TextField(blank=True, null=True)
     email_text = models.TextField(blank=True, null=True)
-    link = models.URLField(blank=True, null=True)
+    link = models.URLField(blank=True, null=True, max_length=10000)
     user = models.ForeignKey(User, blank=True, null=True)
     active = models.BooleanField(default=True)
 

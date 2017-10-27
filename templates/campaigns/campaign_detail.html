@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% load static from staticfiles %}
-{% load thumbnail %}
 {% block css %}
 {% block extra_meta %}
   {# <meta property="og:url"           content="http://www.your-domain.com/your-page.html" />#}
@@ -46,11 +45,9 @@
             <div class="content-info-right">
                 <div class="div-title-image">
                     {% if object.image %}
-                        {% thumbnail object.image "350x350" crop="center" as im %}
                             <img class='img program-item-image img-landing-title'
                              id='program-item-image'
-                             src='{{ im.url }}'>
-                        {% endthumbnail %}
+                             src='{{ object.image.url }}'>
                     {% else %}
                         <img class='img program-item-image-crop img-landing-title'
                          id='program-item-image'
@@ -70,6 +67,13 @@
               </a>
               <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
           </div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
             <div class="category-title-container">
                 <div style="display:inline;">
                     <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>
@@ -126,6 +130,11 @@
                         <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
                         <div class='tweet-loader' id="tweet-loader"></div>
                     </div>
+                    <div >
+                        <label style=" margin-top:5px; font-size: 14pt;"><input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300;"> Add site url at end
+                        </label>
+                    </div>
+
                     <div class="letter-count"></div>
                     <div class="img-checked-box-container">
                         <!--<img id="img-checked-box" src="{% static 'img/check-circle-gray2.png' %}" width="20" height="20">-->
@@ -205,6 +214,7 @@
     <script src="{% static 'js/content_landing_email_action.js' %}"></script>
     <script src="{% static 'js/content_landing_tweet_action.js' %}"></script>
     <script src="{% static 'js/content_landing_get_congress.js' %}"></script>
+    <script src="{% static 'js/twitter_add_url.js' %}"></script>
     <script>
         get_congress_url = '/congress/campaign/add_zip/'
     </script>

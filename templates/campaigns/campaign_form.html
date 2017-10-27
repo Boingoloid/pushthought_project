@@ -43,7 +43,7 @@
     <div class="field-group">
         <div class="field-label-container">
             <p class="field-label field-label-description">Description</p>
-            <p class="field-label field-label-description-note">People are more likely to support your Messaging Campaign if it’s clear why you care. Explain how this change will impact you, your family, or your community.</p>
+            <p class="field-label field-label-description-note">People are more likely to support your Messaging Campaign if it’s clear why you care. Explain how this change will impact you, your family, or your community. We recommend putting an empty line between paragraphs for readability.</p>
         </div>
         {% if form.description.errors %}
         <div class="alert alert-danger">
@@ -106,6 +106,7 @@
                   </div>
                   {% endif %}
                     <p class="field-label field-label-email-text">2) Suggested email text</p>
+                    <p class="field-label-email-sublabel" style="margin-bottom:0px;"><span class="ten-point">(hint: borrow text from description)</span></p>
                     <p class="field-label-email-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
                     <p class="field-label field-label-email-intro">Congressperson,</p>
                     {{form.email_text}}
@@ -159,6 +160,7 @@
 {% endblock %}
 
 {% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <script>
         check_url = '{% url 'campaign:check' %}'
     </script>

@@ -60,13 +60,17 @@ class Congress(TimeStampedModel):
     name_suffix = models.CharField(max_length=100, blank=True, null=True)
     chamber = models.CharField(max_length=100, blank=True, null=True)
     state_rank = models.CharField(max_length=100, blank=True, null=True)
-    fec_ids = models.TextField(validators=[validate_comma_separated_integer_list], blank=True, null=True)
+    fec_ids = models.TextField(blank=True, null=True)
     zips = models.TextField(validators=[validate_comma_separated_integer_list], blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     modified = models.DateTimeField(auto_now=True, blank=True, null=True)
 
-    def __str__(self):
-        return '{} {}'.format(self.first_name, self.last_name)
+    def __unicode__(self):
+        """Return unicode string representation of a congressman.
+
+        Example return value: 'Nancy Pelosi'.
+        """
+        return u'{} {}'.format(self.first_name, self.last_name)
 
     @property
     def full_name(self):
@@ -113,6 +117,7 @@ class Congress(TimeStampedModel):
         self.fec_ids = self.fec_ids.replace(',{}'.format(fec_id), '')
         self.save()
         return self.zips
+
 
 class CongressCounter(CounterMixin, TimeStampedModel):
     campaign = models.ForeignKey('campaigns.Campaign', blank=True, null=True)

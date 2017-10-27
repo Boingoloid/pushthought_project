@@ -91,17 +91,12 @@ a.more-info-link{
 }
 
 .img-landing-title {
-  margin:0px;
-  margin-top:15px;
-  padding:0px;
-  height:350px;
-  max-width:241px;
-  max-width:350px;
-  /*max-height:100%;
-  max-width:100%;*/
-  width: auto;
-box-shadow: 2px 2px 10px black;
-
+    margin:0;
+    margin-top: 15px;
+    padding:0;
+    max-height:350px;
+    width: auto;
+    box-shadow: 2px 2px 10px black;
 }
 
 .watch-button{
@@ -515,6 +510,7 @@ box-shadow: 2px 2px 10px black;
   line-height:2.6;
   color:#00aced;
   cursor: pointer;
+  display:none;
 
 }
 
@@ -528,7 +524,7 @@ box-shadow: 2px 2px 10px black;
 
 #close-button{
   position: absolute;
-  top:75px;
+  top:30px;
   left: -26px;
   cursor:pointer;
   width:25px;
@@ -547,7 +543,7 @@ text-tweet-block{
 .letter-count{
   position: absolute;
   z-index:1000;
-  top: 109px;
+  top: 108px;
   left: 430px;
   cursor:pointer;
   color:gray;
@@ -938,6 +934,11 @@ text-tweet-block{
   display:block;
 }
 
+.rep-item-container-all{
+  display:block;
+  width:200px;
+}
+
 .rep-item{
   position:relative;
   margin: 7px;
@@ -949,6 +950,21 @@ text-tweet-block{
   background:linear-gradient( to left, #092551,#000b1e);
   font-size:18px;
   width:auto;
+  height: 100px;
+  display:inline-block;
+  /*box-shadow: 4px 4px 5px #294f2f;*/
+}
+
+.rep-item-all{
+  position:relative;
+  margin: 7px;
+  padding: 7px;
+  border: 5px solid #092551;
+  border-radius: 5px;
+  transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
+  background:linear-gradient( to left, #092551,#000b1e);
+  font-size:18px;
+  max-width:200px;
   height: 100px;
   display:inline-block;
   /*box-shadow: 4px 4px 5px #294f2f;*/
@@ -1033,6 +1049,20 @@ text-tweet-block{
   position:relative;
 }
 
+.action-panel-container-all{
+    margin:20px;
+    margin-top:-10px;
+    height:60px;
+    border-right:1px solid #00aced;
+    border-left:1px solid #00aced;
+    border-bottom:1px solid #00aced;
+    /*border-bottom:1px solid #00aced;*/
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #294f2f;
+    width:160px;
+}
+
+
 .twitter-name, .email-name{
   position:absolute;
   font-size: 14pt;
@@ -1061,6 +1091,13 @@ text-tweet-block{
   cursor: pointer;
 }
 
+.twitter-icon-all{
+  position:absolute;
+  top: 7px;
+  left: 20px;
+  cursor: pointer;
+}
+
 /*Icons*/
 .twitter-icon-empty{
   position:absolute;
@@ -1076,7 +1113,25 @@ text-tweet-block{
   cursor: pointer;
 }
 
+.phone-icon-all{
+  position:absolute;
+  top: 13px;
+  left: 42%;
+  height: 32px;
+  cursor: pointer;
+}
+
 .email-icon{
+  position:absolute;
+  top: 14px;
+  right: 24px;
+  cursor: pointer;
+  width:37px;
+  height:30px;
+}
+
+
+.email-icon-all{
   position:absolute;
   top: 14px;
   right: 24px;

@@ -60,16 +60,17 @@ class CampaignLandingView(TemplateView):
 
 
 
-@page_template("inserts/documentaries.html")
-@page_template('inserts/webvideos.html', key='other_entries_page')
+@page_template('inserts/all_programs.html', key='all_programs')
+@page_template('inserts/documentaries.html', key='documentaries')
+@page_template('inserts/webvideos.html', key='webvideos')
 def browse_view(request, template="browse.html", extra_context=None):
     query = Program.objects
     context = dict()
-    context['programList'] = query.all().order_by('-counter')
+    context['all_programs'] = query.all().order_by('-counter')
     context['documentaries'] = query.documentaries().order_by('-counter')
-    context['webVideoList'] = query.webvideos().order_by('-counter')
-    context['podcastList'] = query.podcasts().order_by('-counter')
-    context['otherList'] = query.other().order_by('counter')
+    context['webvideos'] = query.webvideos().order_by('-counter')
+    context['podcasts'] = query.podcasts().order_by('-counter')
+    context['other'] = query.other().order_by('counter')
 
     if extra_context is not None:
         context.update(extra_context)

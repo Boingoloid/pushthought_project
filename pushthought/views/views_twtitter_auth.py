@@ -2,6 +2,7 @@ import re
 import time
 import json
 import httplib
+import logging
 import tweepy
 
 from allauth.socialaccount.models import SocialApp, SocialToken
@@ -18,6 +19,11 @@ from campaigns.models import Campaign
 from views_alerts import *
 from views_get_data import *
 from views_user_forms import *
+
+from utils.mixins import TwitterSendMixin
+
+
+logger = logging.getLogger('twitter')
 
 
 TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
@@ -184,14 +190,7 @@ def verify_twitter(request):
         return HttpResponse(json.dumps({'redirectURL': redirectURL}), content_type="application/json")
 
 
-
-
-
-
-
-
-
-class SendTweetView(View):
+class SendTweetView(TwitterSendMixin, View):
     def post(self, request, *args, **kwargs):
         try:
             self.token_obj = SocialToken.objects.get(account__user_id=self.request.user.id, account__provider='twitter')
@@ -201,6 +200,7 @@ class SendTweetView(View):
         self.set_session()
         self.api = self.get_authed_twitter_api()
         self.mentions = self.get_mentions()
+        logger.debug('Mentions: %s', self.mentions)
         if not len(self.mentions):
             return JsonResponse({'status': 'noMention'})
 
@@ -210,20 +210,23 @@ class SendTweetView(View):
         return JsonResponse({
             'send_response': self.successArray,
             'successArray': self.successArray,
-            'duplicateArray': self.duplicateArray
+            'duplicateArray': self.duplicateArray,
+            'errorArray': self.errorArray
         })
 
     def set_session(self):
         self.successArray = []
         self.duplicateArray = []
+        self.errorArray = []
         data = self.request.POST
         self.request.session['programId'] = data['program_id']
         self.request.session['segmentId'] = data['segment_id']
         self.request.session['lastMenuURL'] = data['last_menu_url']
         self.request.session['tweetText'] = data['tweet_text']
-        self.request.session['addressArray'] = data.getlist('address_array[]')
-        self.request.session['bioguideArray'] = data['bioguide_array[]']
+        self.request.session['addressArray'] = data.getlist('address_array')
+        self.request.session['bioguideArray'] = data.getlist('bioguide_array')
         self.tweet_text = data['tweet_text']
+
         if data.get('program_id'):
             self.program = Program.objects.get(pk=data['program_id'])
         else:
@@ -235,54 +238,57 @@ class SendTweetView(View):
             self.campaign = None
         self.request.session.modified = True
 
-    def get_authed_twitter_api(self):
-        auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
-
-        auth.set_access_token(self.token_obj.token, self.token_obj.token_secret)
-        api = tweepy.API(auth)
-        return api
-
-    def get_mentions(self):
-        mentionlist = self.request.session['addressArray']
-        mentions = [mention.replace('@', '') for mention in mentionlist]
-        return mentions
-
-    def get_clean_tweet_text(self):
-        pattern = r'@\w+,?\s'
-        replacement = ''
-        clean_text = re.sub(pattern, replacement, self.tweet_text)
-        return clean_text
-
-    def send_tweet(self, mention):
-        #TODO: create a general function
-        tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
-        congress = Congress.objects.get(twitter_id=mention)
-
-        if len(tweet_text_with_metion) > 140:
-            return JsonResponse({ 'status': 'overMax'})
-
-        try:
-            self.api.update_status(tweet_text_with_metion)
-            Action.tweets.create(
-                tweet_text_with_metion,
-                user=self.request.user,
-                program=self.program,
-                campaign=self.campaign,
-                congress=congress
-            )
-            self.successArray.append('@{}'.format(mention))
-            return False
-        except tweepy.TweepError as e:
-            print(e)
-            if e.api_code == 187:
-                self.duplicateArray.append('@{}'.format(mention))
-
-            return e.api_code
-
-    def send_tweets(self):
-        for mention in self.mentions:
-            self.send_tweet(mention)
-
+    # def get_authed_twitter_api(self):
+    #     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
+    #
+    #     auth.set_access_token(self.token_obj.token, self.token_obj.token_secret)
+    #     api = tweepy.API(auth)
+    #     return api
+    #
+    # def get_mentions(self):
+    #     mentionlist = self.request.session['addressArray']
+    #     mentions = [mention.replace('@', '') for mention in mentionlist]
+    #     return mentions
+    #
+    # def get_clean_tweet_text(self):
+    #     pattern = r'@\w+,?\s'
+    #     replacement = ''
+    #     clean_text = re.sub(pattern, replacement, self.tweet_text)
+    #     return clean_text
+    #
+    # def send_tweet(self, mention):
+    #     #TODO: create a general function
+    #     tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
+    #     try:
+    #         congress = Congress.objects.get(twitter=mention)
+    #     except Congress.DoesNotExist:
+    #         self.errorArray.append('@{}'.format(mention))
+    #         return
+    #
+    #     if len(tweet_text_with_metion) > 140:
+    #         return JsonResponse({'status': 'overMax'})
+    #
+    #     try:
+    #         self.api.update_status(tweet_text_with_metion)
+    #         Action.tweets.create(
+    #             tweet_text_with_metion,
+    #             user=self.request.user,
+    #             program=self.program,
+    #             campaign=self.campaign,
+    #             congress=congress
+    #         )
+    #         self.successArray.append('@{}'.format(mention))
+    #         return
+    #     except tweepy.TweepError as e:
+    #         print(e)
+    #         if e.api_code == 187:
+    #             self.duplicateArray.append('@{}'.format(mention))
+    #
+    #         return e.api_code
+    #
+    # def send_tweets(self):
+    #     for mention in self.mentions:
+    #         self.send_tweet(mention)
 
 def verify_catch(request):
 

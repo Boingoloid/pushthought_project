@@ -20,7 +20,6 @@
 <img hidden class="success-indicator-hide" src="{% static 'img/check-green.png' %}">
 
 
-
 <div class="intro-header intro-header-landing">
     <div class="container container-text-white">
         <div class="content-wrapper">
@@ -53,13 +52,6 @@
         </div>
     </div>
 </div>
-    <!--{% if messages %}-->
-        <!--<ul class="messages">-->
-            <!--{% for message in messages %}-->
-            <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
-            <!--{% endfor %}-->
-        <!--</ul>-->
-    <!--{% endif %}-->
 
 <div class="container-standard" style="margin:0;">
     <div class="rep-color-band">
@@ -68,9 +60,16 @@
               <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
                 <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
               </a>
-              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
+              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer"
+                   src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
           </div>
-
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
             <div class="category-title-container">
                 <div style="display:inline;">
                     <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>
@@ -100,77 +99,32 @@
                     <input class="zip-input" id="{{ request.user.profile.zip }}" value="{{ request.user.profile.zip }}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
                 </div>
             <div class="rep-container">
-                <!--{% if hasCongressData %}-->
-                    <!--{% for item in congressData %}-->
-                    <!--<div class="rep-item-container rep-item-container-{{forloop.counter}}">-->
-                        <!--<div class='rep-item' id="rep-item{{forloop.counter}}">-->
-                            <!--<div class='loader loader-{{forloop.counter}}'  id="loader"></div>-->
-                            <!--{% if item.sent_messages_count %}-->
-                                <!--<div class='sent-messages-count'>{{ item.sent_messages_count }}</div>-->
-                            <!--{% endif %}-->
-                            <!--{% if item.userTouched %}-->
-                                <!--<img class="success-indicator" id="success-indicator-{{item.twitter_id}}" src="{% static 'img/check-green.png' %}">-->
-                            <!--{% else %}-->
-                                <!--<img style="display:none;" class="success-indicator" id="success-indicator-{{item.twitter_id}} success-indicator-{{item.bioguide_id}}" src="{% static 'img/check-green.png' %}">-->
-                            <!--{% endif %}-->
-                                <!--<div class="warning-box-indicator" id="warning-box-indicator-{{item.twitter_id}}">-->
-                                    <!--<p class="indicator-text" id="indicator-text-{{item.twitter_id}}">you've already contacted this person</p>-->
-                                <!--</div>-->
-                            <!--<div class="success-box" id="success-box-{{item.twitter_id}}">-->
-                                <!--<p class="success-text" style="padding-top:4px;">tweet sent to:</p>-->
-                                <!--<p class="success-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>-->
-                                <!--<p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>-->
-                                <!--<p class="duplicate-text" style="font-size:14pt; color:#00aced;">@{{item.twitter_id}}</p>-->
-                                <!--&lt;!&ndash;<img class="img-logo-success" src="{% static 'img/push_thought_logo3.png' %}" width="70" height="70">&ndash;&gt;-->
-                            <!--</div>-->
-                            <!--<div class="success-box" id="success-box-{{item.bioguide_id}}" name="{{item.full_name}}">-->
-                            <!--</div>-->
-                            <!--<div style="display:inline-block;">-->
-                                <!--{% if item.image %}-->
-                                    <!--<img class='repPhoto' id='repPhoto{{forloop.counter}}' src='{{ item.image.url }}'>-->
-                                <!--{% else %}-->
-                                    <!--<img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">-->
-                                <!--{% endif %}-->
-                                <!--<div class="name-title-container" >-->
-                                    <!--<div><p class="full-name">{{item.full_name}}</p></div>-->
-                                    <!--<div><p class="title">{{item.title}}</p></div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="action-panel-container" id="{{forloop.counter}}">-->
-                            <!--<div class="action-panel">-->
-
-                                <!--{% if item.twitter_id %}-->
-                                    <!--<div class="twitter-name" id="twitter-name-{{forloop.counter}}" name="{{ item.bioguide_id }}">@{{item.twitter_id}}</div>-->
-                                    <!--<img class="twitter-icon" id="{{forloop.counter}}" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">-->
-                                <!--{% else %}-->
-                                    <!--<div class="twitter-name" id="twitter-name-{{forloop.counter}}" name="{{ item.bioguide_id }}">n/a</div>-->
-                                    <!--<img class="twitter-icon-empty" src="{% static 'img/twitter-icon-gray.png' %}" width="42" height="42">-->
-                                    <!--<div class="warning-box-tweet-icon">-->
-                                        <!--<p class="warning-text">twitter address n/a</p>-->
-                                    <!--</div>-->
-                                <!--{% endif %}-->
-                                <!--<img class="phone-icon" id="{{ item.phone }}" name="{{ item.full_name }}" src="{% static 'img/phone-icon.png' %}">-->
-                                <!--<div class="email-name email-name-{{ item.bioguide_id }}" id="{{forloop.counter}}" name="{{ item.full_name }}">form</div>-->
-                                <!--<img class="email-icon" id="email-icon-{{forloop.counter}}" name="{{ item.full_name }}" src="{% static 'img/email-icon.png' %}" width="36" height="36">-->
-                                <!--<div hidden class="bioguide-mule" id="{{ item.bioguide_id }}">{{ item.last_name }}</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--{% endfor %}-->
-                <!--{% endif %}-->
+                {% if hasCongressData %}
+                    <div class="rep-item-container">
+                        <div class="rep-item">
+                            <div style="display:inline-block;">
+                                {% if item.image %}
+                                    <img class='repPhoto' id='repPhoto{{forloop.counter}}' src='{{ item.image.url }}'>
+                                {% else %}
+                                    <img class="repPhoto repPhoto-none" src="{% static 'img/push-thought-logo.png' %}">
+                                {% endif %}
+                                <div class="name-title-container" >
+                                    <div><p class="full-name">Select</p></div>
+                                    <div><p class="title">All Reps</p></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-panel-container" id="{{forloop.counter}}">
+                            <div class="action-panel">
+                                <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
+                                <img class="phone-icon" src="{% static 'img/phone-icon.png' %}">
+                                <img class="email-icon" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div> <!--close rep container-->
-                    <!--here is the container that I'm having problems with b/c it shows zero height.  removing it helps, but then I lose control-->
-                    <!--I use this container to make the messaging elements appear and disappear.-->
             <div class="rep-action-container">
-                <!--{% if user.is_authenticated %}-->
-                <!--{% else %}-->
-                    <!--{% load account socialaccount %}-->
-                    <!--{% get_providers as socialaccount_providers %}-->
-                    <!--<ul class="socialaccount_providers">-->
-                        <!--{% include "socialaccount/snippets/provider_list.html" with process="login" %}-->
-                    <!--</ul>-->
-                <!--{% endif %}-->
                 <div class="copy-last btn-primary">Copy last message</div>
                 <img id="close-button"src="{% static 'img/x-mark-gray.png' %}" width="20" height="20">
                 <div id="text-tweet-block">
@@ -189,6 +143,11 @@
                         <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
                         <div class='tweet-loader' id="tweet-loader"></div>
                     </div>
+                    <div>
+                        <label style=" margin-top:5px; font-size: 14pt;"><input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300;"> Add site url at end
+                        </label>
+                    </div>
+
                     <div class="letter-count"></div>
                     <div class="img-checked-box-container">
                         <!--<img id="img-checked-box" src="{% static 'img/check-circle-gray2.png' %}" width="20" height="20">-->
@@ -211,7 +170,7 @@
                     {% if object.title %}
                         <p class="suggested-tweet-text-label" >Suggested tweet text </p>
                         <p class="suggested-tweet-text-sublabel">(click text area to copy)</p>
-                        <textarea readonly class="field-input field-suggested-tweet">Please watch {{ object.title }}, I found it informative {{ object.url }}</textarea>
+                        <textarea readonly class="field-input field-suggested-tweet">Please watch {{ object.title }}, I found it informative </textarea>
                     {% endif %}
                 </div>
                 <div class="email_suggested_message_container">
@@ -270,4 +229,5 @@
     <script src="{% static 'js/content_landing_email_action.js' %}"></script>
     <script src="{% static 'js/content_landing_tweet_action.js' %}"></script>
     <script src="{% static 'js/content_landing_get_congress.js' %}"></script>
+    <script src="{% static 'js/twitter_add_url.js' %}"></script>
 {% endblock %}

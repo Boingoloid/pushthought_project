@@ -45,7 +45,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount.providers.twitter',
     # 'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.google',
-    'sorl.thumbnail',
+    # 'sorl.thumbnail',
 ]
 
 LOCAL_APPS = [
@@ -310,6 +310,10 @@ LOGGING = {
             'level': 'INFO',
         },
         'congress_email': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'twitter': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },

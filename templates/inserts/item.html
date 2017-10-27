@@ -1,23 +1,20 @@
 {% load static from staticfiles %}
-{% load thumbnail %}
-<a class="program-link" href="{% url 'programs:detail' item.pk %}" style="text-decoration:none;">
+
+<a class="program-link" href="{% url 'programs:detail' item.pk %}">
     <div class='program-item col-sm-2' id="{{ item.id }}">
 
         <div class='loader-{{forloop.counter}}'></div>
         <p hidden id="program-item-objectId{{forloop.counter}}">{{item.id}}</p>
         <div class="program-img-container">
             {% if item.image %}
-                {% thumbnail item.image "71x100" crop="center" as im %}
                     <img class='program-item-image' id='program-item-image{{forloop.counter}}'
-                         src={{ im.url }} style="display:inline;">
-                {% endthumbnail %}
+                         src={{ item.image.url }}>
             {% else %}
                 <img class='img program-item-image-crop img-landing-title' id='program-item-image-crop'
                      src="{% static 'img/push_thought_logo.png' %}">
             {% endif %}
         </div>
 
-        
             <div class="program-title" id="program-item-title{{forloop.counter}}">{{item.title}}
             </div>
             {% if item.image %}
@@ -31,8 +28,6 @@
             <div class="program-info-container">
                 <div class="sent-count">{{ item.counter }}</div>
                 <div class="sent-count-label">actions</div>
-{#                <div class="runtime">{{ item.runtime_minutes }}</div>#}
-{#                <div class="runtime-label">minutes</div>#}
             </div>
     </div>
 </a>
