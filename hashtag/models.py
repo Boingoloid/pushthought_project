@@ -9,6 +9,7 @@ from utils.models import CounterMixin
 
 class HashtagCounter(CounterMixin, TimeStampedModel):
     program = models.ForeignKey('programs.Program', blank=True, null=True)
+    campaign = models.ForeignKey('campaigns.Campaign', blank=True, null=True)
     hashtag = models.ForeignKey('Hashtag')
 
     class Meta:
@@ -22,15 +23,12 @@ class HashtagCounter(CounterMixin, TimeStampedModel):
 
 
 class HashtagManager(models.Manager):
-    def parse_mentions(self, text, program):
+    def parse_mentions(self, text, program, campaign):
         hashtags = re.findall(r'#(\w+)', text)
         for hashtag_name in hashtags:
             hashtag, created = self.get_or_create(name=hashtag_name)
             counter, created = HashtagCounter.objects.get_or_create(
-                hashtag=hashtag,
-                program=program
-            )
-
+                hashtag=hashtag, program=program, campaign=campaign)
             counter.increase()
 
 
