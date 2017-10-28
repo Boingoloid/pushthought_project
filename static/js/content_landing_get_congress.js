@@ -101,12 +101,13 @@ function create_congress_HTML(congressDataArray){
     var s;
     var len = congressDataArray.length;
 
-
+    var tweetIconImage = $('.twitter-icon-hide').attr('src');
+    var emailIconImage = $('.email-icon-hide').attr('src');
         var selectAllText = [
         '<div class="rep-item-container-all">',
             '<div class="rep-item-all">',
                 '<div style="display:inline-block;">',
-                        '<img class="repPhoto repPhoto-none" src=\'/static/img/push-thought-logo.png\'>',
+                        '<img class="repPhoto repPhoto-none" src="/static/img/push-thought-logo.png">',
                     '<div class="name-title-container">',
                         '<div><p class="full-name">Select</p></div>',
                         '<div><p class="title">All Reps</p></div>',
@@ -115,9 +116,9 @@ function create_congress_HTML(congressDataArray){
             '</div>',
             '<div class="action-panel-container-all">',
                 '<div class="action-panel">',
-                    '<img class="twitter-icon-all" src=\'/static/img/twitter-icon.png\' width="42" height="42">',
+                    '<img class="twitter-icon-all" src='+ tweetIconImage +' width="42" height="42">',
                     //'<img class="phone-icon-all" src=\'/static/img/phone-icon.png\'>',
-                    '<img class="email-icon-all" src=\'/static/img/email-icon.png\' width="36" height="36">',
+                    '<img class="email-icon-all" src='+ emailIconImage +' width="36" height="36">',
                 '</div>',
             '</div>',
         '</div>'
