@@ -14,6 +14,12 @@ class HashtagCounter(CounterMixin, TimeStampedModel):
     class Meta:
         unique_together = ('hashtag', 'program')
 
+    def __unicode__(self):
+        s = u"{} ({})".format(self.hashtag, self.counter)
+        if self.program:
+            s += ' (program "{}")'.format(self.program)
+        return s
+
 
 class HashtagManager(models.Manager):
     def parse_mentions(self, text, program):
@@ -31,3 +37,6 @@ class HashtagManager(models.Manager):
 class Hashtag(TimeStampedModel):
     name = models.CharField(max_length=100)
     hashtags = HashtagManager()
+
+    def __unicode__(self):
+        return self.name
