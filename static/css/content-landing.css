@@ -556,7 +556,6 @@ text-tweet-block{
 }
 
 #text-input{
-  display: inline-block;
   background: rgba(0,0,0,0);
   border: 2px solid gray;
   border-radius: 10px;
