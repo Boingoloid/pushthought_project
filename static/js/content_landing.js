@@ -1113,13 +1113,13 @@ function updateTextCount(){
     var twitterMax = 140;
     var twitterDefaultLinkLength = 0; //22;
     var countAfterLink = twitterMax - twitterDefaultLinkLength;
-    var twitter_url_length = twitter_url.length;
 
     var addressInput = $('.address-placeholder').eq(0).text();
     var countAddressInput =  addressInput.length;
     var countTextInput =  textInput.length;
     var longestAddressLength = get_longest_address();
-    var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength - twitter_url_length;
+    var countRemaining = countAfterLink - countTextInput + countAddressInput -
+        longestAddressLength - site_url_to_append.length;
 
 //        console.log("addressInput:", addressInput);
 //        console.log("countAddressInput:", countAddressInput);
@@ -1150,3 +1150,17 @@ function get_longest_address(){
     });
     return longestAddressLength;
 }
+
+site_url_to_append = '';
+$(document).ready(function () {
+    $(document).on('change', '#twitter_input_add_url', function () {
+        if ($(this).prop('checked')) {
+            site_url_to_append = ' pushthought.com/' +
+                window.location.href.split('/').slice(3).join('/');
+        } else {
+            site_url_to_append = '';
+        }
+        updateTextCount();
+    })
+    $('#twitter_input_add_url').change();
+});

@@ -83,7 +83,7 @@ function runTweet(windowURL){
         login_user(login_url)
     } else {
         // get message length and validate length
-        var tweet_text = $('#text-input').text() + twitter_url;
+        var tweet_text = $('#text-input').text() + site_url_to_append;
         console.log("tweet text:", tweet_text );
         console.log("html:", $('#text-input').html());
         if(tweet_text.length < 1){
