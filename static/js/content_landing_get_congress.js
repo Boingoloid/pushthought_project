@@ -85,7 +85,7 @@ function get_congress(zip, url){
             $('.category-title').show();
 
             create_congress_HTML(congressDataArray);
-            showSuccess(alertArray[0], alertArray[1])
+            showTwitterStatus(alertArray[0], alertArray[1])
         },
         error: function() {
             $('#zip-loader').hide();
@@ -100,6 +100,35 @@ function create_congress_HTML(congressDataArray){
     var i;
     var s;
     var len = congressDataArray.length;
+
+    var tweetIconImage = $('.twitter-icon-hide').attr('src');
+    var emailIconImage = $('.email-icon-hide').attr('src');
+        var selectAllText = [
+        '<div class="rep-item-container-all">',
+            '<div class="rep-item-all">',
+                '<div style="display:inline-block;">',
+                        '<img class="repPhoto repPhoto-none" src="/static/img/push-thought-logo.png">',
+                    '<div class="name-title-container">',
+                        '<div><p class="full-name">Select</p></div>',
+                        '<div><p class="title">All Reps</p></div>',
+                    '</div>',
+                '</div>',
+            '</div>',
+            '<div class="action-panel-container-all">',
+                '<div class="action-panel">',
+                    '<img class="twitter-icon-all" src='+ tweetIconImage +' width="42" height="42">',
+                    //'<img class="phone-icon-all" src=\'/static/img/phone-icon.png\'>',
+                    '<img class="email-icon-all" src='+ emailIconImage +' width="36" height="36">',
+                '</div>',
+            '</div>',
+        '</div>'
+        ].join("\n");
+        $('.rep-container').append(selectAllText);
+
+
+
+
+
     for (x=0; x<len; ++x) {
       //console.log('i in the loop:'+i);  // this loop starts at 0
         var item = congressDataArray[x];
@@ -165,9 +194,19 @@ function create_congress_HTML(congressDataArray){
         //!!!!!!!!!!!!!!!!!!!!!create if statment with string creating node or not based on if there is a district
 
         var phoneIconImage = $('.phone-icon-hide').attr('src');
-        var title = [item['title'], item['state'], item['district']].filter(
-            val => val).join(" ");
+        var title = item['title']+ ', ' + item['state'];
+        if(item['district'])
+        {
+          title += '<br/>' + "District " + item['district']
+        }
+
         // construct HTML for contacts in category
+
+
+
+
+
+
         var text =  [
             '<div class="rep-item-container rep-item-container-' + i +'">',
                 '<div class="rep-item" id="rep-item'+i+'">',
@@ -201,4 +240,3 @@ function create_congress_HTML(congressDataArray){
         $('.rep-container').append(text);
     }
 }
-

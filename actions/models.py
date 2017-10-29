@@ -30,7 +30,8 @@ class SaveTweetManager(models.Manager):
             action=action,
         )
         if created:
-            Hashtag.hashtags.parse_mentions(text, action.program)
+            Hashtag.hashtags.parse_mentions(text, action.program,
+                                            action.campaign)
             return tweet
 
 

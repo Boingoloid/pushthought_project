@@ -60,7 +60,7 @@ class Congress(TimeStampedModel):
     name_suffix = models.CharField(max_length=100, blank=True, null=True)
     chamber = models.CharField(max_length=100, blank=True, null=True)
     state_rank = models.CharField(max_length=100, blank=True, null=True)
-    fec_ids = models.TextField(validators=[validate_comma_separated_integer_list], blank=True, null=True)
+    fec_ids = models.TextField(blank=True, null=True)
     zips = models.TextField(validators=[validate_comma_separated_integer_list], blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     modified = models.DateTimeField(auto_now=True, blank=True, null=True)

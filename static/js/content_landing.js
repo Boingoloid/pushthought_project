@@ -1,5 +1,26 @@
 //testWindow = window.open("popup.php","interaction","resizable=0,width=800,height=600,status=0");
 
+
+function set_email_message_addressing_prefix() {
+    selected_members = $('.address-item.selected');
+    if (selected_members.length == 0) {
+        html = '';
+    } else if (selected_members.length == 1) {
+        html = 'Congressperson ' + selected_members.children('p').text() + ', ';
+    } else {
+        html = 'Congressperson [name will be inserted], ';
+    }
+    $('#text-input .address-placeholder').html(html);
+}
+
+
+function focus_on_text_input() {
+    text_input = $('#text-input')
+    text_input.focus();
+    setEndOfContenteditable(text_input);
+}
+
+
 $(document).ready(function() {
 
     var windowURL = window.location.href;
@@ -22,7 +43,10 @@ $(document).ready(function() {
     });
 
         // Zip submission button click
-    $(document).on('click', '.submit-zip:not([disabled])', function(event) {
+    $('.submit-zip').click(function() {
+        if ($(this).attr('disabled')) {
+            return false;
+        }
         // validators
         var zip = $('.zip-input').val();
         var isValidZip = /(^\d{5}$)/.test(zip);
@@ -36,10 +60,17 @@ $(document).ready(function() {
             $('.zip-input').attr('id',zip);
             $('.zip-input').attr('value',zip);
             deferred = get_congress(zip, get_congress_url);
-            deferred.done(function() {
+            if (!deferred) {
                 submit_zip_button.prop('disabled', false);
-                preload_phantom_dc_members_data();
-            });
+            } else if (deferred != undefined) {
+                deferred.done(function() {
+                    submit_zip_button.prop('disabled', false);
+                    preload_phantom_dc_members_data();
+                });
+                deferred.fail(function() {
+                    submit_zip_button.prop('disabled', false);
+                });
+            }
         } else{
             console.log('NOT a valid zip');
             alert('Not a valid zip code.  Please check and try again.')
@@ -81,7 +112,7 @@ $(document).ready(function() {
         $('html, body').animate({
                 scrollTop: headerAllowance + 'px'
             }, 'fast');
-        showSuccess(alertArray[0], alertArray[1]);
+        showTwitterStatus(alertArray[0], alertArray[1]);
     }
 
     // Alerts if no @ message and went through verify-catch redirect
@@ -257,10 +288,32 @@ $(document).ready(function() {
         alert("Watch function not in place yet, working on it. thanks :)");
     });
 
+    // Select All Buttons
+
+    $('.rep-container').on("click", "img.email-icon-all", function(e) {
+        if ($('.twitter-name:visible').length) {
+            return false;
+        }
+        if (!$('.email-name:visible').length) {
+            $('.email-icon').first().click();
+        }
+        $('.action-panel-container').not('.selected').click();
+    });
+
+    $('.rep-container').on("click", "img.twitter-icon-all", function(e) {
+        if ($('.email-name:visible').length) {
+            return false;
+        }
+        if (!$('.twitter-name:visible').length) {
+            $('.twitter-icon').first().click();
+        }
+        $('.action-panel-container').not('.selected').click();
+    });
 
     // Email Icon
     $('.rep-container').on("click", "img.email-icon", function(e) {
-        $('.copy-last').show();
+        //$('.copy-last').show();
+        $('.copy-last').hide();
         e.stopPropagation();
         var emailIconId = $(this).attr('id');
         var i = emailIconId.replace('email-icon-','')
@@ -330,20 +383,12 @@ $(document).ready(function() {
            $(".address-container").append(text);
         });
 
-
-         // insert address placeholder in text-input
-        var addressPlaceholderClass = '.address-item-label-' + i;
-        var addressPlaceholder = $(addressPlaceholderClass).text();
-        addressPlaceholder = String(addressPlaceholder);
-
-        console.log("address placeholder: ", addressPlaceholder);
-        // TODO DRY
-        $('#text-input').html('<span contenteditable=false class="address-placeholder">Congressperson '+  addressPlaceholder +', </span>');
-        console.log($('#text-input').html());
-        //<p class="space-placeholder" style="display:inline;"> </p>
-
         // select address according to button clicked
         $(".address-node-" + i).toggleClass("selected");
+
+        $('#text-input').html(
+            '<span contenteditable=false class="address-placeholder"></span>')
+        set_email_message_addressing_prefix();
 
         // text-input clear and increase height
         //$('#text-input').html('');
@@ -373,7 +418,6 @@ $(document).ready(function() {
         $('#email-button-label').text(labelText);
 
 
-        //setEndOfContenteditable($('#text-input'));
         updateTextCount();
 
 //         Fill in fields with info from user
@@ -393,12 +437,12 @@ $(document).ready(function() {
 //        }
         //<div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
         show_hide_congress_email_fields();
-        // Focus on text box
-        $('#text-input').focus();
+        focus_on_text_input();
     });
 
     // Twitter Icon
     $('.rep-container').on("click", "img.twitter-icon", function(e) {
+        $('.copy-last').hide();
         e.stopPropagation();
         var i = $(this).attr('id');
 
@@ -472,16 +516,8 @@ $(document).ready(function() {
         var labelText = 'tweet: ' + numItems;
         $('#tweet-button-label').text(labelText);
 
-        // Focus on text box
-        if($(window).width() < 525){
-            console.log("no focus, width low");
-        } else {
-            //console.log("focus, width high");
-            $('#text-input').focus();
-            //setEndOfContenteditable($('#text-input'));
-        }
         updateTextCount();
-        $('#text-input').focus();
+        focus_on_text_input();
     });
 
     // Empty Twitter Icon
@@ -560,7 +596,7 @@ $(document).ready(function() {
         $('#twitter-button-label').show();
 
 
-        $('#text-input').focus();
+        focus_on_text_input();
     });
 
     // Action Panel Container
@@ -641,41 +677,13 @@ $(document).ready(function() {
         if (!$('.address-placeholder').length) {
             console.log("there is no placeholder");
             var value = $('#text-input').html();
-            console.log("text input text", value);
             $('#text-input').html('<span contenteditable=false class=address-placeholder></span>' + value);
-            console.log('after value:' , $('#text-input').html());
         }
 
-        //</span><p> class="space-placeholder" style="display:inline;"> </p>
-
-        // EMAIL - hide / show fields
-        //if($('.email-name').is(":visible")){
-
-        /*$('.email-form-field-container').hide();
-                var showArray = []
-                $('.address-item-label:visible').each(function(){
-                    var bioguideId = $(this).attr('id');
-                    showArray.push(bioguideId);
-                });
-                console.log(showArray);
-                for (var i = 0; i < showArray.length; i++) {
-                    $('.'+ showArray[i]).show();
-                }*/
-
-
-        // TWEET - adjust placeholder text
-        //} else{
-        // update placeholderText -> based on # of addresses selected
-
-        // placeholder text all scenarios, 0,1,multi, both email and then tweet
-        console.log("numitems");
+        // Adjust placeholder text.
         if ($('.email-name').is(':visible')) {
-            var placeholder_strings = [];
-            $('.address-item.selected').each(function() {
-                placeholder_strings.push("Congressperson " +
-                    $(this).children('p').text());
-            });
-            $('.address-placeholder').text(placeholder_strings.join(", "));
+            set_email_message_addressing_prefix();
+            show_hide_congress_email_fields();
         } else {
             if (numItems == 0) {
                 placeholderText = '';
@@ -693,8 +701,7 @@ $(document).ready(function() {
                 $('.address-placeholder').text(placeholderText);
             }
         }
-        show_hide_congress_email_fields();
-        //$('#text-input').focus();
+        focus_on_text_input();
     });
 
     // Clear button
@@ -830,52 +837,15 @@ $(document).ready(function() {
 
     });
 
-
-
-    function updateTextCount(){
-        var textInput = $('#text-input').text();
-        var twitterMax = 140;
-        var twitterDefaultLinkLength = 22;
-        var countAfterLink = twitterMax - twitterDefaultLinkLength;
-
-        var addressInput = $('.address-placeholder').text();
-        var countAddressInput =  addressInput.length;
-        var countTextInput =  textInput.length;
-        var longestAddressLength = get_longest_address();
-        var countRemaining = countAfterLink - countTextInput + countAddressInput - longestAddressLength;
-
-//        console.log("addressInput:", addressInput);
-//        console.log("countAddressInput:", countAddressInput);
-//        console.log("countTextInput:", countTextInput);
-//        console.log("longestAddressLength:", longestAddressLength);
-//        console.log("countRemaining:", countRemaining);
-
-        // adjust for line breaks
-        numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
-        countRemaining = countRemaining - numberOfLineBreaks;
-
-        $('.letter-count').text(countRemaining);
-        if (countRemaining < 0){
-            $('.letter-count').css({'color':'red'});
-        } else {
-            $('.letter-count').css({'color':'gray'});
-        }
-    }
-
-        // loop through and find longest address
-    function get_longest_address(){
-        var longestAddressLength = 0;
-        $('.address-item-label:visible').each(function(){
-            var text = $(this).text();
-            if (text.length > longestAddressLength){
-                longestAddressLength = text.length;
-            }
-        });
-        return longestAddressLength;
-    }
-
     // TWEET/EMAIL Button
-    $(document).on('click', '#tweet-button:not([disabled])', function(event) {
+    $('#tweet-button').click(function() {
+        if ($(this).attr('disabled')) {
+            return false;
+        }
+        if ($('.address-item.selected').length == 0) {
+            alert("You much choose a congressperson.");
+            return false;
+        }
         var tweet_button = $('#tweet-button');
         tweet_button.prop('disabled', true);
         if ($('.email-name').is(":visible")){
@@ -885,8 +855,13 @@ $(document).ready(function() {
         } else {
             deferred = runTweet(windowURL);
         }
-        if (deferred != undefined) {
+        if (!deferred) {
+            tweet_button.prop('disabled', false);
+        } else if (deferred != undefined) {
             deferred.done(function() {
+                tweet_button.prop('disabled', false);
+            });
+            deferred.fail(function() {
                 tweet_button.prop('disabled', false);
             });
         }
@@ -1112,23 +1087,80 @@ $(document).ready(function() {
 
 
 
-//function setEndOfContenteditable(contentEditableElement)
-//{
-//    var range,selection;
-//    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
-//    {
-//        range = document.createRange();//Create a range (a range is a like the selection but invisible)
-//        range.selectNodeContents(contentEditableElement[0]);//Select the entire contents of the element with the range
-//        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-//        selection = window.getSelection();//get the selection object (allows you to change selection)
-//        selection.removeAllRanges();//remove any selections already made
-//        selection.addRange(range);//make the range you have just created the visible selection
-//    }
-//    else if(document.selection)//IE 8 and lower
-//    {
-//        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
-//        range.moveToElementText(contentEditableElement[0]);//Select the entire contents of the element with the range
-//        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-//        range.select();//Select the range (make it the visible selection
-//    }
-//}
+function setEndOfContenteditable(contentEditableElement)
+{
+    var range,selection;
+    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
+    {
+        range = document.createRange();//Create a range (a range is a like the selection but invisible)
+        range.selectNodeContents(contentEditableElement[0]);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        selection = window.getSelection();//get the selection object (allows you to change selection)
+        selection.removeAllRanges();//remove any selections already made
+        selection.addRange(range);//make the range you have just created the visible selection
+    }
+    else if(document.selection)//IE 8 and lower
+    {
+        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
+        range.moveToElementText(contentEditableElement[0]);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        range.select();//Select the range (make it the visible selection
+    }
+}
+
+function updateTextCount(){
+    var textInput = $('#text-input').text();
+    var twitterMax = 140;
+    var twitterDefaultLinkLength = 0; //22;
+    var countAfterLink = twitterMax - twitterDefaultLinkLength;
+
+    var addressInput = $('.address-placeholder').eq(0).text();
+    var countAddressInput =  addressInput.length;
+    var countTextInput =  textInput.length;
+    var longestAddressLength = get_longest_address();
+    var countRemaining = countAfterLink - countTextInput + countAddressInput -
+        longestAddressLength - site_url_to_append.length;
+
+//        console.log("addressInput:", addressInput);
+//        console.log("countAddressInput:", countAddressInput);
+//        console.log("countTextInput:", countTextInput);
+//        console.log("longestAddressLength:", longestAddressLength);
+//        console.log("countRemaining:", countRemaining);
+
+    // adjust for line breaks
+    numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
+    countRemaining = countRemaining - numberOfLineBreaks;
+
+    $('.letter-count').text(countRemaining);
+    if (countRemaining < 0){
+        $('.letter-count').css({'color':'red'});
+    } else {
+        $('.letter-count').css({'color':'gray'});
+    }
+}
+
+    // loop through and find longest address
+function get_longest_address(){
+    var longestAddressLength = 0;
+    $('.address-item-label:visible').each(function(){
+        var text = $(this).text();
+        if (text.length > longestAddressLength){
+            longestAddressLength = text.length;
+        }
+    });
+    return longestAddressLength;
+}
+
+site_url_to_append = '';
+$(document).ready(function () {
+    $(document).on('change', '#twitter_input_add_url', function () {
+        if ($(this).prop('checked')) {
+            site_url_to_append = ' pushthought.com/' +
+                window.location.href.split('/').slice(3).join('/');
+        } else {
+            site_url_to_append = '';
+        }
+        updateTextCount();
+    })
+    $('#twitter_input_add_url').change();
+});

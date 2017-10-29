@@ -29,6 +29,417 @@
 //});
 const NAMES_OF_FIELDS_THAT_CAN_BE_DUPLICATED = ['ADDRESS_COUNTY', 'TOPIC']
 
+const FIELDS_DATA_FOR_MEMBERS_UNSUPPORTED_BY_PHANTOM_DC = [
+    {
+        "maxlength": null, 
+        "options_hash": null, 
+        "value": "$MESSAGE"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": null, 
+        "value": "$SUBJECT"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": [
+            "Mr.", 
+            "Mrs.", 
+            "Ms.", 
+        ], 
+        "value": "$NAME_PREFIX"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": null, 
+        "value": "$NAME_FIRST"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": null, 
+        "value": "$NAME_LAST"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": null, 
+        "value": "$EMAIL"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": null, 
+        "value": "$PHONE"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": null, 
+        "value": "$ADDRESS_STREET"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": null, 
+        "value": "$ADDRESS_CITY"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": null, 
+        "value": "$ADDRESS_ZIP5"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": null, 
+        "value": "$ADDRESS_ZIP4"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": [
+            "AL", 
+            "AK", 
+            "AZ", 
+            "AR", 
+            "CA", 
+            "CO", 
+            "CT", 
+            "DE", 
+            "DC", 
+            "FL", 
+            "GA", 
+            "HI", 
+            "ID", 
+            "IL", 
+            "IN", 
+            "IA", 
+            "KS", 
+            "KY", 
+            "LA", 
+            "ME", 
+            "MD", 
+            "MA", 
+            "MI", 
+            "MN", 
+            "MS", 
+            "MO", 
+            "MT", 
+            "NE", 
+            "NV", 
+            "NH", 
+            "NJ", 
+            "NM", 
+            "NY", 
+            "NC", 
+            "ND", 
+            "OH", 
+            "OK", 
+            "OR", 
+            "PA", 
+            "RI", 
+            "SC", 
+            "SD", 
+            "TN", 
+            "TX", 
+            "UT", 
+            "VT", 
+            "VA", 
+            "WA", 
+            "WV", 
+            "WI", 
+            "WY"
+        ], 
+        "value": "$ADDRESS_STATE_POSTAL_ABBREV"
+    }, 
+    {
+        "maxlength": null, 
+        "options_hash": [
+            "Abortion",
+            "Academy Nominations",
+            "Adoption",
+            "Affordable Care Act",
+            "Afghanistan",
+            "Aging",
+            "Agriculture",
+            "Animals",
+            "Antitrust",
+            "Appalachian Regional Commission",
+            "Appropriations",
+            "Arctic National Wildlife Refuge",
+            "Armed Forces",
+            "Armed Services",
+            "Arts",
+            "Assistance with a Federal Agency",
+            "Autographed Photo",
+            "Aviation",
+            "Banking",
+            "Behavioral Health",
+            "Border Issues",
+            "Border Security Caucus",
+            "Border Security",
+            "Broadband",
+            "Budget (Defense)",
+            "Budget (Federal)",
+            "Budget",
+            "Business",
+            "Campaign Finance",
+            "Campaign",
+            "Children",
+            "Civil Liberties",
+            "Civil Rights",
+            "Civil Service",
+            "Clean Energy",
+            "Climate",
+            "Coastal Restoration",
+            "Commerce",
+            "Communications",
+            "Congratulations Letter Request",
+            "Congratulations",
+            "Congress",
+            "Congressional Issues",
+            "Congressional Procedures",
+            "Constituent Services",
+            "Constitution",
+            "Constitutional Amendment",
+            "Consumer Affairs",
+            "Consumer Protection",
+            "Consumer Safety",
+            "Corruption",
+            "County Payments",
+            "Courts",
+            "Crime",
+            "Culture",
+            "Cybersecurity",
+            "Death Penalty",
+            "Debt Ceiling",
+            "Defense",
+            "Deficit Reduction",
+            "Disability",
+            "Disaster Relief",
+            "Domestic Violence",
+            "Drugs",
+            "Eagle Scouts",
+            "Economic Development",
+            "Economics",
+            "Education Higher",
+            "Education K through 12",
+            "Education",
+            "Election Reform",
+            "Elections",
+            "Emergency Management",
+            "Employment",
+            "Endangered Species",
+            "Energy",
+            "Entitlements",
+            "Environment (Clean Air, Clean Water, Waste)",
+            "Environment Conservation",
+            "Environment",
+            "Ethics",
+            "Export-Import Bank",
+            "FDA",
+            "FEMA",
+            "Family Planning",
+            "Family Values",
+            "Family",
+            "Federal Agency Assistance",
+            "Federal Budget",
+            "Federal Debt",
+            "Federal Emergency Management",
+            "Federal Employees Issues",
+            "Federal Employees",
+            "Federal Government Agencies",
+            "Federal Spending",
+            "Federal Survelliance",
+            "Filibuster",
+            "Finance",
+            "Financial Crisis",
+            "Financial Reform",
+            "Financial Sector",
+            "Financial Services",
+            "First Amendment Rights",
+            "Fish",
+            "Fisheries",
+            "Flags",
+            "Flood Insurance",
+            "Food Safety",
+            "Food Stamps",
+            "Food",
+            "Foreclosures",
+            "Foreign Affairs",
+            "Foreign Aid",
+            "Foreign Policy",
+            "Foreign Relations",
+            "Foreign Trade",
+            "Forestry",
+            "Gaming",
+            "Gas Prices",
+            "Global Warming",
+            "Government Operations",
+            "Government Politics",
+            "Government Reform",
+            "Government Shutdown",
+            "Government Spending",
+            "Government",
+            "Grants",
+            "Guns",
+            "Hate Crimes",
+            "Health Insurance",
+            "Healthcare",
+            "Historical Preservation",
+            "History",
+            "Homeland Security",
+            "Housing",
+            "Human Rights",
+            "Human Trafficking",
+            "Humanities",
+            "Hunger",
+            "Hurricane Preparedness",
+            "Illegal Drugs",
+            "Immigration",
+            "Inauguration",
+            "Indian Affairs",
+            "Indian Country",
+            "Infrastructure",
+            "Insurance",
+            "Intellectual Property",
+            "Intelligence Issues",
+            "Intelligence",
+            "Interior",
+            "Internal Revenue Service (IRS)",
+            "International Affairs",
+            "International Finance",
+            "Internet",
+            "Internship",
+            "Iran",
+            "Iraq",
+            "Israel",
+            "Job Creation",
+            "Job Training",
+            "Jobs",
+            "Judicial Nominations",
+            "Judiciary",
+            "Justice",
+            "LGBT issue",
+            "LIHEAP",
+            "Labor",
+            "Law Enforcement",
+            "Law",
+            "Life",
+            "Livestock",
+            "Manufacturing",
+            "Medicaid",
+            "Medicare",
+            "Meeting Request",
+            "Mental Health",
+            "Middle East",
+            "Military Operations",
+            "Military",
+            "Mining",
+            "Minority Issues",
+            "Miscellaneous",
+            "Monetary Policy",
+            "Montana Values",
+            "Municipal Government",
+            "NASA",
+            "National Labs",
+            "National Parks",
+            "National Security",
+            "Native Americans",
+            "Native Hawaiians",
+            "Natural Disasters",
+            "Natural Resources",
+            "Newsletter",
+            "Nominations",
+            "North Africa",
+            "Nuclear Proliferation",
+            "Nuclear Weapons",
+            "Nutrition",
+            "Oil Prices",
+            "Online Privacy",
+            "Other",
+            "Parks",
+            "Passports",
+            "Patents",
+            "Peanuts",
+            "Pension (Federal)",
+            "Pension (Military)",
+            "Pension",
+            "Phone Call",
+            "Postal Service",
+            "Poultry",
+            "Prescription Drugs",
+            "President",
+            "Press Request",
+            "Privacy",
+            "Public Assistance Programs",
+            "Public Finance",
+            "Public Lands",
+            "Public Welfare",
+            "Public Works",
+            "Radio",
+            "Recreation",
+            "Regulatory Reform",
+            "Religion",
+            "Renewables",
+            "Reproductive Health",
+            "Reproductive Rights",
+            "Retirement",
+            "Rivers",
+            "SNAP",
+            "Scheduling Request",
+            "Science",
+            "Seafood",
+            "Second Amendment Rights",
+            "Securities",
+            "Senate Procedure",
+            "Seniors",
+            "Service Academies",
+            "Small Business",
+            "Social Issues",
+            "Social Sciences",
+            "Social Security",
+            "Social Welfare",
+            "Solar",
+            "Space",
+            "Sports",
+            "State Appropriations",
+            "State Issues",
+            "Surveillance",
+            "TSA",
+            "TV",
+            "Taxes",
+            "Technology",
+            "Telecommunications",
+            "Terrorism",
+            "Terrorism",
+            "Timber",
+            "Tobacco",
+            "Tort Reform",
+            "Tourism",
+            "Tours",
+            "Trade",
+            "Traditional Values",
+            "Transportation",
+            "U.S. Military Academies",
+            "Unemployment",
+            "Unions",
+            "Urban Affairs",
+            "Values",
+            "Veterans",
+            "Violence",
+            "Visas",
+            "WIC",
+            "War in Iraq",
+            "War on Terror",
+            "Water Resources Development",
+            "Water",
+            "Waterfront",
+            "Welfare",
+            "Wild Horses",
+            "Wildlife Protection",
+            "Women",
+            "Workforce",
+            "Yucca Mountain"
+        ], 
+        "value": "$TOPIC"
+    }
+]
+
 
 function preload_phantom_dc_members_data() {
     $.getJSON(
@@ -36,7 +447,13 @@ function preload_phantom_dc_members_data() {
         function(data) {
             $('.bioguide-mule').each(function () {
                 var fields = [];
-                for (item of data[this.id]['required_actions']) {
+                if (this.id in data) {
+                    fields_data = data[this.id]['required_actions'];
+                } else {
+                    fields_data =
+                        FIELDS_DATA_FOR_MEMBERS_UNSUPPORTED_BY_PHANTOM_DC;
+                }
+                for (item of fields_data) {
                     if (item['value'] != '$MESSAGE') {
                         var field_dict = [];
                         field_dict['field_name'] = item['value'].slice(1);
@@ -164,12 +581,7 @@ function precreate_congress_email_fields() {
             // zip-input elemennt on page.
             /////////////////////////////////
             if (field_name === 'ADDRESS_ZIP5') {
-                readonly = 'readonly'
-
-                if (!value) {
-                    value = $('.zip-input').attr('value')
-                }
-
+                readonly = 'readonly';
             }
 
             htmlText = [htmlText,
@@ -233,10 +645,6 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
     var data = [];
     var collected_field_names = [];
     for (member of form_data_list) {
-        // FIXME Sometimes raises "TypeError: member is undefined" until page
-        // reload. Currently as a temporary measure prevented by silently
-        // reloading the data in `content_landing.js` where function
-        // `get_form_data_list` is called.
         try {
             for (field of member) {
                 if (!collected_field_names.includes(field['field_name']) ||
@@ -247,6 +655,7 @@ function deduplicate_and_order_congress_email_fields(form_data_list) {
                 }
             }
         } catch (e) {
+            // Probably won't reproduce anymore.
             alert("Error loading data, please refresh the page.")
             break;
         }
@@ -556,7 +965,8 @@ function runEmail(bioguideIds){
     //insertDict['$EMAIL'] = 'matthew.acalin@gmail.com'
     //formDataDictionary = $.extend({},formDataDictionary, insertDict);
 
-    formDataDictionary['$MESSAGE'] = $('#text-input').text();
+    formDataDictionary['$MESSAGE'] = $('#text-input').text() +
+        "\nSent from https://" + site_url_to_append.slice(1);
     //var programId = $('#programId').text();
     var stringJson = JSON.stringify({
         "bio_ids": bioguideIds,
