@@ -166,15 +166,15 @@ CORS_ORIGIN_WHITELIST = (
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-DEFAULT_FROM_EMAIL = 'django-test@mail.ru'
+DEFAULT_FROM_EMAIL = 'noreply@pushthought.com'
 
-EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 2525
-EMAIL_HOST_USER = 'django-test@mail.ru'
-EMAIL_HOST_PASSWORD = 'Qwertyasdfgh'
-EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail.pushthought.com'
+EMAIL_PORT = 26
+EMAIL_HOST_USER = 'noreply@pushthought.com'
+EMAIL_HOST_PASSWORD = 'Ma99723tt!'
 
-SERVER_EMAIL = 'server@example.com'
+
+SERVER_EMAIL = 'noreply@pushthought.com'
 
 ADMINS = [
     ('Viacheslav', 'slava.khromyak@gmail.com'),
