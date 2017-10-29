@@ -36,6 +36,7 @@ ul.actions div.title .link {
     float: right;
     width: 35%;
     max-height: 50px;
+    overflow-y: auto;
 }
 
 ul.actions .message {
