@@ -7,8 +7,10 @@ from pprint import pformat
 from django.http import JsonResponse
 from django.conf import settings
 from django.views.generic import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 import requests
+from el_pagination.views import AjaxListView
 
 from congress.models import Congress
 from actions.models import Action
@@ -197,3 +199,28 @@ class SubmitCongressEmail(View):
                 bioguide, filled_out_fields)
             self.save_email(bioguide, filled_out_fields, is_send_successful)
         return JsonResponse({'status': 'success'})
+
+
+class YourActivityView(LoginRequiredMixin, AjaxListView):
+    """Show list of past user activities.
+
+    Renders only list elements on AJAX request use tu use of
+    `el_pagination`'s AjaxListView.
+
+    Template name for non-AJAX is the default:
+    `actions/action_list.html`. Template name for AJAX is the default:
+    `actions/action_list_page.html`.
+    """
+
+    def get_queryset(self):
+        """Return actions of requesting user, newest first."""
+        return Action.objects.filter(user=self.request.user).order_by(
+            '-created')
+
+    def get_context_data(self, **kwargs):
+        """Add total counts of emails and tweets sent by this user."""
+        context = super(YourActivityView, self).get_context_data(**kwargs)
+        queryset = self.get_queryset()
+        context['email_count'] = queryset.filter(email__isnull=False).count()
+        context['tweet_count'] = queryset.filter(tweet__isnull=False).count()
+        return context
