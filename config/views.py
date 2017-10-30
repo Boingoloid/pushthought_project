@@ -71,8 +71,8 @@ class TwitterLoginView(OAuthLoginView):
         request.session['program_id'] = program_id
         request.session['campaign_id'] = campaign_id
 
-        request.session['address_array'] = address_array
-        request.session['bioguide_array'] = bioguide_array
+        request.session['addressArray'] = address_array
+        request.session['bioguiderray'] = bioguide_array
         return resp
 
 

@@ -32,6 +32,7 @@ function login_user(url) {
     var addressArray = [];
      $('.address-item.selected').each(function(){
         var address = $(this).text();
+        address = address.replace('@','');
         address = address.replace('\n','');
         address = address.replace('\n','');
         address = address.replace('\n','');
