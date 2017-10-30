@@ -238,57 +238,6 @@ class SendTweetView(TwitterSendMixin, View):
             self.campaign = None
         self.request.session.modified = True
 
-    # def get_authed_twitter_api(self):
-    #     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
-    #
-    #     auth.set_access_token(self.token_obj.token, self.token_obj.token_secret)
-    #     api = tweepy.API(auth)
-    #     return api
-    #
-    # def get_mentions(self):
-    #     mentionlist = self.request.session['addressArray']
-    #     mentions = [mention.replace('@', '') for mention in mentionlist]
-    #     return mentions
-    #
-    # def get_clean_tweet_text(self):
-    #     pattern = r'@\w+,?\s'
-    #     replacement = ''
-    #     clean_text = re.sub(pattern, replacement, self.tweet_text)
-    #     return clean_text
-    #
-    # def send_tweet(self, mention):
-    #     #TODO: create a general function
-    #     tweet_text_with_metion = '@{} {}'.format(mention, self.clean_tweet_text)
-    #     try:
-    #         congress = Congress.objects.get(twitter=mention)
-    #     except Congress.DoesNotExist:
-    #         self.errorArray.append('@{}'.format(mention))
-    #         return
-    #
-    #     if len(tweet_text_with_metion) > 140:
-    #         return JsonResponse({'status': 'overMax'})
-    #
-    #     try:
-    #         self.api.update_status(tweet_text_with_metion)
-    #         Action.tweets.create(
-    #             tweet_text_with_metion,
-    #             user=self.request.user,
-    #             program=self.program,
-    #             campaign=self.campaign,
-    #             congress=congress
-    #         )
-    #         self.successArray.append('@{}'.format(mention))
-    #         return
-    #     except tweepy.TweepError as e:
-    #         print(e)
-    #         if e.api_code == 187:
-    #             self.duplicateArray.append('@{}'.format(mention))
-    #
-    #         return e.api_code
-    #
-    # def send_tweets(self):
-    #     for mention in self.mentions:
-    #         self.send_tweet(mention)
 
 def verify_catch(request):
 

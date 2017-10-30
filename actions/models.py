@@ -30,7 +30,8 @@ class SaveTweetManager(models.Manager):
             action=action,
         )
         if created:
-            Hashtag.hashtags.parse_mentions(text, action.program)
+            Hashtag.hashtags.parse_mentions(text, action.program,
+                                            action.campaign)
             return tweet
 
 
@@ -62,6 +63,7 @@ class Action(TimeStampedModel):
     program = models.ForeignKey('programs.Program', related_name='actions', blank=True, null=True)
     campaign = models.ForeignKey('campaigns.Campaign', related_name='actions', blank=True, null=True)
     congress = models.ForeignKey('congress.Congress')
+    objects = models.Manager()
     tweets = SaveTweetManager()
     emails = SaveEmailManager()
 

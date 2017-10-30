@@ -103,11 +103,12 @@ function create_congress_HTML(congressDataArray){
 
     var tweetIconImage = $('.twitter-icon-hide').attr('src');
     var emailIconImage = $('.email-icon-hide').attr('src');
+    var allRepsImage = $('#allRepsImage').attr('src');
         var selectAllText = [
         '<div class="rep-item-container-all">',
             '<div class="rep-item-all">',
                 '<div style="display:inline-block;">',
-                        '<img class="repPhoto repPhoto-none" src="/static/img/push-thought-logo.png">',
+                        '<img class="repPhoto repPhoto-none" src="'+allRepsImage+'">',
                     '<div class="name-title-container">',
                         '<div><p class="full-name">Select</p></div>',
                         '<div><p class="title">All Reps</p></div>',

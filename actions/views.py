@@ -7,8 +7,10 @@ from pprint import pformat
 from django.http import JsonResponse
 from django.conf import settings
 from django.views.generic import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 import requests
+from el_pagination.views import AjaxListView
 
 from congress.models import Congress
 from actions.models import Action
@@ -84,28 +86,24 @@ class SubmitCongressEmail(View):
             forms[bioguide] = [a['value'] for a in form['required_actions']]
         return forms
 
-    def get_filled_out_fields(self, bioguide, field_names, data):
+    def get_filled_out_fields(self, bioguide, data):
 
         """Fill out requested fields from the dict of all fields.
 
         Args:
             bioguide: bioguide of member for whom `field_names` are
                 being filled.
-            field_names: list of names of fields to fill.
             data: dict of all received fields and their values.
         Returns:
-            Dict of only requested fields with data. As a rule isn't a
-            subdict of `data`, as field "$TOPIC" and some others are
-            named in `data` like "$TOPIC_`bioguide`".
-        Raises:
-            KeyError: Specified field not found in data.
+            Dict of all available fields with data. It isn't supposed to
+            be a subdict of `data`, as field "$TOPIC" and some others
+            are named in `data` like "$TOPIC_`bioguide`".
         """
         fields = {}
         for k, v in data.items():
-            if '_' in k:
-                bioguide_suffix = "_{}".format(bioguide)
-                if k.endswith(bioguide_suffix):
-                    fields[k[:-len(bioguide_suffix)]] = v
+            bioguide_suffix = "_{}".format(bioguide)
+            if k.endswith(bioguide_suffix):
+                fields[k[:-len(bioguide_suffix)]] = v
             else:
                 fields[k] = v
         return fields
@@ -197,3 +195,28 @@ class SubmitCongressEmail(View):
                 bioguide, filled_out_fields)
             self.save_email(bioguide, filled_out_fields, is_send_successful)
         return JsonResponse({'status': 'success'})
+
+
+class MyActivityView(LoginRequiredMixin, AjaxListView):
+    """Show list of past user activities.
+
+    Renders only list elements on AJAX request use tu use of
+    `el_pagination`'s AjaxListView.
+
+    Template name for non-AJAX is the default:
+    `actions/action_list.html`. Template name for AJAX is the default:
+    `actions/action_list_page.html`.
+    """
+
+    def get_queryset(self):
+        """Return actions of requesting user, newest first."""
+        return Action.objects.filter(user=self.request.user).order_by(
+            '-created')
+
+    def get_context_data(self, **kwargs):
+        """Add total counts of emails and tweets sent by this user."""
+        context = super(MyActivityView, self).get_context_data(**kwargs)
+        queryset = self.get_queryset()
+        context['email_count'] = queryset.filter(email__isnull=False).count()
+        context['tweet_count'] = queryset.filter(tweet__isnull=False).count()
+        return context

@@ -1,0 +1,37 @@
+{% load el_pagination_tags  %}
+
+{% paginate 10 object_list %}
+{% for action in object_list %}
+<li>
+    <div class="title">
+        {% if action.campaign %}
+        <h3>
+            <span class="action-type">Campaign:</span>
+            <span class="title">
+                <a href="{{ action.campaign.get_absolute_url }}">{{ action.campaign.title }}</a>
+            </span>
+        </h3>
+        <div class="link"><a href="{{ action.campaign.link }}">{{ action.campaign.link }}</a></div>
+        {% elif action.program %}
+        <h3>
+            <span class="action-type">Program:</span>
+            <span class="title">
+                <a href="{{ action.program.get_absolute_url }}">{{ action.program.title }}</a>
+            </span>
+        </h3>
+        {% else %}
+        <h3><span class="action-type">Contacted immidiately</span></h3>
+        {% endif %}
+        <div class="datetime">{{ action.created }}</div>
+    </div>
+    <div class="message">
+        {% if action.tweet.text %}
+        <div class="tweet-text">{{ action.tweet.text }}</div>
+        {% endif %}
+        {% if action.email.text %}
+        <div class="email-text">{{ action.email.text }}</div>
+        {% endif %}
+    </div>
+</li>
+{% endfor %}
+{% show_more "load more" " " "col-sm-2" %}

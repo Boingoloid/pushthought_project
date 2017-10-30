@@ -35,7 +35,7 @@ class TwitterSendMixin(object):
         return api
 
     def get_mentions(self):
-        return self.request.session['addressArray']
+        return self.request.session.get('addressArray')
 
     def get_clean_tweet_text(self):
         pattern = r'@\w+,?\s'
@@ -61,7 +61,6 @@ class TwitterSendMixin(object):
     #     return tweet_text_with_url
 
     def send_tweet(self, mention):
-        #TODO: create a general function
         tweet_text_with_metion = '@{} {}'.format(mention, self.get_clean_tweet_text())
         try:
             congress = Congress.objects.get(twitter=mention)
@@ -69,8 +68,8 @@ class TwitterSendMixin(object):
             self.errorArray.append('@{}'.format(mention))
             return
 
-        # if len(tweet_text_with_metion) > 140:
-        #     return JsonResponse({'status': 'overMax'})
+        if len(tweet_text_with_metion) > 140:
+            return JsonResponse({'status': 'overMax'})
 
         try:
             self.api.update_status(tweet_text_with_metion)

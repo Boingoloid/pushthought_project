@@ -126,6 +126,7 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
         resp = super(TwitterCallbackView, self).dispatch(request, *args, **kwargs)
         self.successArray = []
         self.duplicateArray = []
+        self.errorArray = []
         self.tweet_text = request.session.get('tweet_text')
         self.program = request.session.get('program_id')
         self.campaign = request.session.get('campaign_id')
@@ -136,10 +137,11 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
             if not self.api:
                 return HttpResponseRedirect(request.session.get('redirect_url'))
             self.mentions = self.get_mentions()
+            if not self.mentions:
+                request.session['alertList'] = json.dumps({'status': 'noMention'})
             self.clean_tweet_text = self.get_clean_tweet_text()
-            self.tweet_text_with_url = self.get_tweet_text_with_url()
             self.send_tweets()
-            request.session['alertList'] = json.dumps([self.successArray, self.duplicateArray])
+            request.session['alertList'] = json.dumps([self.successArray, self.duplicateArray, self.errorArray])
 
             return HttpResponseRedirect(request.session.get('redirect_url'))
         elif redirect_url and not self.tweet_text:
