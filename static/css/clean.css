@@ -1284,6 +1284,7 @@ ul.nav .menu-item-settings .dropdown-toggle {
     width: 30px;
     height: 100%;
     padding: 0;
-    background: url('/static/img/settings-17-xxl.png') no-repeat center/30px;
+    background: url('../img/settings-17-xxl.png') no-repeat center/30px;
     border: 0;
+    /*../img/blank_map3a.png*/
 }
