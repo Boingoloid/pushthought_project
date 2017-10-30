@@ -965,8 +965,11 @@ function runEmail(bioguideIds){
     //insertDict['$EMAIL'] = 'matthew.acalin@gmail.com'
     //formDataDictionary = $.extend({},formDataDictionary, insertDict);
 
-    formDataDictionary['$MESSAGE'] = $('#text-input').text() +
-        "\nSent from https://" + site_url_to_append.slice(1);
+    formDataDictionary['$MESSAGE'] = $('#text-input').text();
+    if (site_url_to_append.length) {
+        formDataDictionary['$MESSAGE'] += "\nSent from https://" +
+            site_url_to_append.slice(1);
+    }
     //var programId = $('#programId').text();
     var stringJson = JSON.stringify({
         "bio_ids": bioguideIds,
