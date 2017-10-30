@@ -127,7 +127,7 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
 
         if not request.user.is_authenticated():
             messages.error(request, 'Your twitter email address is already taken. Please login into your old account.')
-            return HttpResponseRedirect(request.session.get('redirect_url'))
+            return HttpResponseRedirect('/accounts/login/')
 
         self.successArray = []
         self.duplicateArray = []
