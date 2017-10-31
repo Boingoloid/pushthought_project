@@ -44,6 +44,7 @@ class ParseProgramIDView(View):
             data = self.get_imdb_data(imdb_id)
             if data:
                 program_filter = dict(imdb_id=data.imdb_id)
+            data.type = 'documentary'
         else:
             data = self.get_youtube_data(youtube_id)
             program_filter = dict(youtube_id=youtube_id)
