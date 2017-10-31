@@ -6,15 +6,17 @@
     <div class="title">
         {% if action.campaign %}
         <h3>
-            <span class="action-type">Campaign:</span>
+            <!--<span class="action-type">Campaign:</span>-->
+            <span class="action-type"></span>
             <span class="title">
                 <a href="{{ action.campaign.get_absolute_url }}">{{ action.campaign.title }}</a>
             </span>
         </h3>
-        <div class="link"><a href="{{ action.campaign.link }}">{{ action.campaign.link }}</a></div>
+        <!--<div class="link"><a href="{{ action.campaign.link }}">{{ action.campaign.link }}</a></div>-->
         {% elif action.program %}
         <h3>
-            <span class="action-type">Program:</span>
+            <!--<span class="action-type">Program:</span>-->
+            <span class="action-type"></span>
             <span class="title">
                 <a href="{{ action.program.get_absolute_url }}">{{ action.program.title }}</a>
             </span>

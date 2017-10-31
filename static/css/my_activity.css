@@ -16,6 +16,7 @@ ul.actions div.title {
 ul.actions div.title h3 {
     float: left;
     width: 60%;
+    color: white;
 }
 
 ul.actions .datetime {
@@ -30,10 +31,11 @@ ul.actions div.title h3 .action-type {
 
 ul.actions div.title h3 .title {
     font-weight: bold;
+
 }
 
 ul.actions div.title .link {
-    float: right;
+    float: left;
     width: 35%;
     max-height: 50px;
     overflow-y: auto;
@@ -47,9 +49,20 @@ ul.actions .message {
 ul.actions .tweet-text {
     padding-left: 50px;
     background: url('/static/img/twitter-icon.png') no-repeat left top/30px;
+    font-size: 16px;
+    border-bottom:1px solid #00aced;;
 }
 
 ul.actions .email-text {
     padding-left: 50px;
     background: url('/static/img/email-icon.png') no-repeat left top/30px;
+}
+
+a{
+  color: green;
+  font-size: 18px;
+}
+
+.total-actions{
+  color:green;
 }
