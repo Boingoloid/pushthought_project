@@ -176,11 +176,11 @@
                     <p><span style="color:gray">#| </span></p>
             </div>
             {% for item in object.hashtagcounter_set.all %}
-                <div class='hashtag-item' id="hashtag-item">
-                    <div id="copied-to-clipboard">Copied to Clipboard</div>
-                    #{{item.hashtag.name}} | {{item.counter}}
+                <div class='hashtag-item'>
+                    <div class="copied-to-clipboard">Copied to Clipboard</div>
+                    <span class="hashtag">#{{item.hashtag.name}}</span> |
+                    <span class="counter">{{item.counter}}</span>
                 </div>
-                <div id="copied-to-clipboard">Copied to Clipboard</div>
             {% endfor %}
         </div>
 
@@ -193,7 +193,7 @@
                 {% for item in object.actions.all %}
                     {% if item.tweet %}
                         <div class="tweet-item">
-                            <div id="copied-to-clipboard">Copied to Clipboard</div>
+                            <div class="copied-to-clipboard">Copied to Clipboard</div>
                             <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.profile.twitter}}</p></div>
                             <div class="tweet">{{item.tweet.text}}</div>
                         </div>
