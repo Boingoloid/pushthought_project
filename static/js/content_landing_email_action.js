@@ -965,13 +965,15 @@ function runEmail(bioguideIds){
     //insertDict['$EMAIL'] = 'matthew.acalin@gmail.com'
     //formDataDictionary = $.extend({},formDataDictionary, insertDict);
 
-    formDataDictionary['$MESSAGE'] = $('#text-input').text() +
-        "\nSent from https://" + site_url_to_append.slice(1);
-    //var programId = $('#programId').text();
+    formDataDictionary['$MESSAGE'] = $('#text-input').text();
+    if (site_url_to_append.length) {
+        formDataDictionary['$MESSAGE'] += "\nSent from https://" +
+            site_url_to_append.slice(1);
+    }
     var stringJson = JSON.stringify({
         "bio_ids": bioguideIds,
-        //"program_id": programId,
-        "campaign_tag": "push_thought",
+        "campaign_id": $('#campaignId').text(),
+        "program_id": $('#programId').text(),
         "fields": formDataDictionary
     });
     console.log("showing json string prior to send email to phantom API: ", stringJson);
