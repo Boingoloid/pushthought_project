@@ -12,7 +12,7 @@
     <h2>My Action Activity</h2>
     {% if object_list %}
     <div class="totals">
-        <h3 class="total-actions">Total actions:</h3>
+        <h3 class="total-actions">Total actions: {{ actions_count }}</h3>
         <div class="email-count">
             <span class="title">Emails:</span>
             <span class="number">{{ email_count }}</span>

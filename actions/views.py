@@ -237,4 +237,6 @@ class MyActivityView(LoginRequiredMixin, AjaxListView):
         queryset = self.get_queryset()
         context['email_count'] = queryset.filter(email__isnull=False).count()
         context['tweet_count'] = queryset.filter(tweet__isnull=False).count()
+        context['actions_count'] = context['email_count'] + \
+            context['tweet_count']
         return context
