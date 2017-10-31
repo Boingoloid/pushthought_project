@@ -565,16 +565,16 @@ function precreate_congress_email_fields() {
                 '</div>'
             ].join("\n" );
         } else {
+            var value = emailFieldData[field_name] || '';
             /////////////////////////////////////////////////////
             // if field is ADDRESS_ZIP5
             // change name of label to ADDRESS_ZIP
             /////////////////////////////////////////////////////
-            var label_name = field_name
+            var label_name = field_name;
             if (field_name === 'ADDRESS_ZIP5') {
-                label_name = 'ADDRESS_ZIP'
+                label_name = 'ADDRESS_ZIP';
+                value = $('.zip-input').attr('value') || value;
             }
-            ///// not sure what this line is doing
-            var value = emailFieldData[field_name] || '';
 
             htmlText = [htmlText,
                 '<div class="email-form-field-container" id="' + field_name +
