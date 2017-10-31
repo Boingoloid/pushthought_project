@@ -11,3 +11,12 @@
   color:red;
  margin-top:5px;
 }
+
+.email-count, .tweet-count, .action-count {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.email-count .title, .tweet-count .title, .action-count .title {
+    margin-right: 5px;
+}
