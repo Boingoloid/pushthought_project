@@ -1383,11 +1383,11 @@ input.eform:hover{
   transform-origin: 0% 50%;
 }
 
-#copied-to-clipboard{
+.copied-to-clipboard{
     position: absolute;
     top:-2;
-    right:0;
-    width:100px;
+    left:0;
+    width:200px;
     height:0px;
     background:green;
     color: black;

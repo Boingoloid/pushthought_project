@@ -931,35 +931,33 @@ $(document).ready(function() {
         });
     });
 
+    function SelectText(element) {
+        var doc = document;
+        var text = element[0];
+        var range;
+        var selection;
+
+        if (doc.body.createTextRange) {
+            range = document.body.createTextRange();
+            range.moveToElementText(text);
+            range.select();
+        } else if (window.getSelection) {
+            selection = window.getSelection();
+            range = document.createRange();
+            range.selectNodeContents(text);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
 
     $('.hashtag-container').on("click", ".hashtag-item", function(e) {
-        // Function: Select text of tweet
-        function SelectText(element) {
-            var doc = document;
-            var text = element;
-            var range;
-            var selection;
-
-            if (doc.body.createTextRange) {
-                range = document.body.createTextRange();
-                range.moveToElementText(text);
-                range.select();
-            } else if (window.getSelection) {
-                selection = window.getSelection();
-                range = document.createRange();
-                range.selectNodeContents(text);
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
-        }
-
         // Copy hashtag text to Clipboard
-        var element = $(this).contents('.hashtag-item').contents().filter(function () { return this.nodeType === 3; });
+        var element = $(this).children('.hashtag').contents();
         SelectText(element);
         document.execCommand("copy");
 
         // Show Copy to Clipboard indicator
-        var element = $(this).contents('#copied-to-clipboard')
+        var element = $(this).children('.copied-to-clipboard')
         element.show();
         element.animate({"height":"47"},400,function(){
             setTimeout(function(){
@@ -971,34 +969,13 @@ $(document).ready(function() {
     });
 
     $('.tweet-container').on("click", ".tweet-item", function(e) {
-
-        // Function: Select text of tweet
-        function SelectText(element) {
-            var doc = document;
-            var text = element[0];
-            var range;
-            var selection;
-
-            if (doc.body.createTextRange) {
-                range = document.body.createTextRange();
-                range.moveToElementText(text);
-                range.select();
-            } else if (window.getSelection) {
-                selection = window.getSelection();
-                range = document.createRange();
-                range.selectNodeContents(text);
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
-        }
-
         // Copy tweet text to Clipboard
-        var element = $(this).contents('.tweet').contents().filter(function () { return this.nodeType === 3; });
+        var element = $(this).children('.tweet').contents();
         SelectText(element);
         document.execCommand("copy");
 
         // Show Copy to Clipboard indicator
-        var element = $(this).contents('#copied-to-clipboard')
+        var element = $(this).children('.copied-to-clipboard')
         element.show();
         element.animate({"height":"47"},400,function(){
             setTimeout(function(){
