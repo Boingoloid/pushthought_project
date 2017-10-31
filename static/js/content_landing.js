@@ -44,6 +44,10 @@ $(document).ready(function() {
 
         // Zip submission button click
     $('.submit-zip').click(function() {
+        function request_finished() {
+            $('.submit-zip').prop('disabled', false);
+        }
+
         if ($(this).prop('disabled')) {
             return false;
         }
@@ -59,16 +63,12 @@ $(document).ready(function() {
             $('.zip-input').attr('id',zip);
             $('.zip-input').attr('value',zip);
             deferred = get_congress(zip, get_congress_url);
-            if (!deferred) {
-                $(this).prop('disabled', false);
-            } else if (deferred != undefined) {
-                deferred.done(function() {
-                    $(this).prop('disabled', false);
-                    preload_phantom_dc_members_data();
-                });
-                deferred.fail(function() {
-                    $(this).prop('disabled', false);
-                });
+            if (deferred) {
+                deferred.done(request_finished);
+                deferred.done(preload_phantom_dc_members_data);
+                deferred.fail(request_finished);
+            } else {
+                request_finished();
             }
         } else{
             console.log('NOT a valid zip');
@@ -838,6 +838,11 @@ $(document).ready(function() {
 
     // TWEET/EMAIL Button
     $('#tweet-button').click(function() {
+        function request_finished() {
+            $('#tweet-button').prop('disabled', false);
+            hideLoading();
+        }
+
         if ($(this).prop('disabled')) {
             return false;
         }
@@ -853,15 +858,12 @@ $(document).ready(function() {
         } else {
             deferred = runTweet(windowURL);
         }
-        if (!deferred) {
-            $(this).prop('disabled', false);
-        } else if (deferred != undefined) {
-            deferred.done(function() {
-                $(this).prop('disabled', false);
-            });
-            deferred.fail(function() {
-                $(this).prop('disabled', false);
-            });
+        if (deferred) {
+            showLoadingForSelectedMembers();
+            deferred.done(request_finished);
+            deferred.fail(request_finished);
+        } else {
+            request_finished();
         }
     });
 
@@ -1162,3 +1164,17 @@ $(document).ready(function () {
     })
     $('#twitter_input_add_url').change();
 });
+
+
+function showLoadingForSelectedMembers() {
+    $('.action-panel-container.selected').each(function() {
+        $('.loader-' + this.id).show();
+    });
+    $('.tweet-loader').show();
+}
+
+
+function hideLoading() {
+    $('.loader').hide();
+    $('.tweet-loader').hide();
+}
