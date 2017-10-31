@@ -44,7 +44,7 @@ $(document).ready(function() {
 
         // Zip submission button click
     $('.submit-zip').click(function() {
-        if ($(this).attr('disabled')) {
+        if ($(this).prop('disabled')) {
             return false;
         }
         // validators
@@ -52,8 +52,7 @@ $(document).ready(function() {
         var isValidZip = /(^\d{5}$)/.test(zip);
 
         if (isValidZip){
-            var submit_zip_button = $('.submit-zip');
-            submit_zip_button.prop('disabled', true);
+            $(this).prop('disabled', true);
             $('#zip-loader').show();
             console.log('valid zip');
             console.log('get_congres on zip:' + zip);
@@ -61,14 +60,14 @@ $(document).ready(function() {
             $('.zip-input').attr('value',zip);
             deferred = get_congress(zip, get_congress_url);
             if (!deferred) {
-                submit_zip_button.prop('disabled', false);
+                $(this).prop('disabled', false);
             } else if (deferred != undefined) {
                 deferred.done(function() {
-                    submit_zip_button.prop('disabled', false);
+                    $(this).prop('disabled', false);
                     preload_phantom_dc_members_data();
                 });
                 deferred.fail(function() {
-                    submit_zip_button.prop('disabled', false);
+                    $(this).prop('disabled', false);
                 });
             }
         } else{
@@ -839,15 +838,14 @@ $(document).ready(function() {
 
     // TWEET/EMAIL Button
     $('#tweet-button').click(function() {
-        if ($(this).attr('disabled')) {
+        if ($(this).prop('disabled')) {
             return false;
         }
         if ($('.address-item.selected').length == 0) {
             alert("You much choose a congressperson.");
             return false;
         }
-        var tweet_button = $('#tweet-button');
-        tweet_button.prop('disabled', true);
+        $(this).prop('disabled', true);
         if ($('.email-name').is(":visible")){
             var bioguideIds = $('.address-item-label:visible').map(
                 function() { return this.id }).get();
@@ -856,13 +854,13 @@ $(document).ready(function() {
             deferred = runTweet(windowURL);
         }
         if (!deferred) {
-            tweet_button.prop('disabled', false);
+            $(this).prop('disabled', false);
         } else if (deferred != undefined) {
             deferred.done(function() {
-                tweet_button.prop('disabled', false);
+                $(this).prop('disabled', false);
             });
             deferred.fail(function() {
-                tweet_button.prop('disabled', false);
+                $(this).prop('disabled', false);
             });
         }
     });
