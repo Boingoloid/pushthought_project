@@ -40,6 +40,24 @@
                             <button class="button-toggle-active">{% if not campaign.active %}Restore{% else %}X{% endif %}</button>
                             </form>
                         </td>
+                    <tr>
+                    </tr>
+                        <td></td>
+                        <td>
+                            <div class="email-count">
+                                <span class="title">Emails</span>
+                                <span class="value">{{ campaign.email_count }}</span>
+                            </div>
+                            <div class="tweet-count">
+                                <span class="title">Tweets</span>
+                                <span class="value">{{ campaign.tweet_count }}</span>
+                            </div>
+                            <div class="action-count">
+                                <span class="title">Actions</span>
+                                <span class="value">{{ campaign.action_count }}</span>
+                            </div>
+                        </td>
+                        <td colspan="4"></td>
                     </tr>
                 {% endfor %}
             </table>

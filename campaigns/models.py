@@ -25,3 +25,15 @@ class Campaign(CounterMixin, TimeStampedModel):
 
     def __str__(self):
         return self.slug
+
+    @property
+    def email_count(self):
+        return self.actions.filter(email__isnull=False).count()
+
+    @property
+    def tweet_count(self):
+        return self.actions.filter(tweet__isnull=False).count()
+
+    @property
+    def action_count(self):
+        return self.actions.count()
