@@ -49,12 +49,12 @@
                         {% if user.is_authenticated %}
                             <!--<li>Welcome, {{ request.user.email }}.</li>-->
                         {% endif %}
-                        <li><a href="{% url 'campaign:create' %}" style="padding:10px; text-align: center;">Create a<br>Campaign</a></li>
+                        <li class="create-campaign"><a href="{% url 'campaign:create' %}">Create a<br>Campaign</a></li>
                         {% if user.is_authenticated %}
                             <li class="menu-item-settings dropdown">
-                                <button class="dropdown-toggle" data-toggle="dropdown"></button>
+                                <button class="dropdown-toggle" data-toggle="dropdown">Settings</button>
                                 <ul class="dropdown-menu">
-                                    <li style="color:black; padding:20px; padding-bottom:0px;text-align:center;">Welcome, {{ request.user.email }}</li>
+                                    <li class="welcome">Welcome, {{ request.user.email }}</li>
                                     <li><a href="{% url 'profile' %}">Reset Zip</a></li>
                                     <li><a href="{% url 'my_activity' %}">My Actions</a></li>
                                     <li><a href="{% url 'campaign:list' %}">My Campaigns</a></li>
