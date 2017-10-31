@@ -570,19 +570,11 @@ function precreate_congress_email_fields() {
             // change name of label to ADDRESS_ZIP
             /////////////////////////////////////////////////////
             var label_name = field_name
-            var readonly = '';
             if (field_name === 'ADDRESS_ZIP5') {
                 label_name = 'ADDRESS_ZIP'
             }
             ///// not sure what this line is doing
             var value = emailFieldData[field_name] || '';
-            /////////////////////////////////
-            // If ADDRESS_ZIP% and value '' then grab zip from
-            // zip-input elemennt on page.
-            /////////////////////////////////
-            if (field_name === 'ADDRESS_ZIP5') {
-                readonly = 'readonly';
-            }
 
             htmlText = [htmlText,
                 '<div class="email-form-field-container" id="' + field_name +
@@ -593,7 +585,7 @@ function precreate_congress_email_fields() {
                     '</div>',
                     '<div class="field-div">',
                     '<input type="text" class="eform" id="eform-' + field_name + '" value="'+
-                            value +'" '+ readonly +'>',
+                            value +'">',
                     '</div>',
                 '</div>'
             ].join("\n");
