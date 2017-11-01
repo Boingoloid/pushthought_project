@@ -1,8 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-import tweepy
-import re
 import json
 
 from allauth.compat import reverse
@@ -14,13 +12,14 @@ from allauth.socialaccount.providers.oauth.client import OAuthError
 from allauth.socialaccount.providers.base import AuthError
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from allauth.socialaccount.providers.oauth.views import OAuthLoginView, OAuthView
-from allauth.socialaccount.models import SocialApp, SocialToken, SocialLogin
+from allauth.socialaccount.models import SocialToken, SocialLogin
 from allauth.account.views import LoginView
 
+from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.generic import View
-from django.http.response import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.db.utils import IntegrityError
 
@@ -104,13 +103,13 @@ class OAuthCallbackView(OAuthView):
                 # .get() -- e.g. Evernote does not feature a secret
                 token_secret=access_token.get('oauth_token_secret', ''))
             self.token = token
-            login = self.adapter.complete_login(request,
+            self.login = self.adapter.complete_login(request,
                                                 app,
                                                 token,
                                                 response=access_token)
-            login.token = token
-            login.state = SocialLogin.unstash_state(request)
-            return complete_social_login(request, login)
+            self.login.token = token
+            self.login.state = SocialLogin.unstash_state(request)
+            return complete_social_login(request, self.login)
         except OAuthError as e:
             return render_authentication_error(
                 request,
@@ -126,8 +125,9 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
         resp = super(TwitterCallbackView, self).dispatch(request, *args, **kwargs)
 
         if not request.user.is_authenticated():
-            messages.error(request, 'Your twitter email address is already taken. Please login into your old account.')
-            return HttpResponseRedirect('/accounts/login/')
+            user = authenticate(username=self.login.user.email, password='')
+            login(request, user)
+
 
         self.successArray = []
         self.duplicateArray = []
@@ -137,9 +137,8 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
         self.campaign = request.session.get('campaign_id')
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
-        if not request.user.is_authenticated:
-            return resp
-        if redirect_url and self.tweet_text:
+
+        if request.user.is_authenticated() and redirect_url and self.tweet_text:
             self.api = self.get_authed_twitter_api()
             if not self.api:
                 return HttpResponseRedirect(request.session.get('redirect_url'))
