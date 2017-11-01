@@ -60,7 +60,6 @@ class CampaignLandingView(TemplateView):
 
 
 
-@page_template('inserts/all_programs.html', key='all_programs')
 @page_template('inserts/documentaries.html', key='documentaries')
 @page_template('inserts/webvideos.html', key='webvideos')
 def browse_view(request, template="browse.html", extra_context=None):

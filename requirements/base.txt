@@ -43,6 +43,7 @@ static3==0.6.1
 tweepy==3.5.0
 virtualenv==15.0.0
 whitenoise==3.2.2
+django-annoying==0.10.3
 django-braces
 django-extensions
 django-allauth
@@ -54,4 +55,3 @@ python-memcached
 django-robots==3.0
 django-el-pagination==3.1.0
 google-api-python-client
--e git+https://github.com/mariocesar/sorl-thumbnail.git#egg=sorl-thumbnail

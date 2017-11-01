@@ -124,16 +124,16 @@
                         </div>
                     </div>
                     <div contenteditable id="text-input" tabindex="-1" placeholder="Tweet text here"></div>
+                    <div >
+                        <label style=" margin-top:5px; font-size: 14pt;"><input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300;"> Add campaign url at end
+                        </label>
+                    </div>
                     <div id="tweet-button">
                         <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
                         <img id="img-send-email-icon" src="{% static 'img/email-icon.png' %}">
                         <p class="tweet-button-label" id="tweet-button-label">Tweet</p>
                         <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
                         <div class='tweet-loader' id="tweet-loader"></div>
-                    </div>
-                    <div >
-                        <label style=" margin-top:5px; font-size: 14pt;"><input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300;"> Add site url at end
-                        </label>
                     </div>
 
                     <div class="letter-count"></div>
@@ -176,11 +176,11 @@
                     <p><span style="color:gray">#| </span></p>
             </div>
             {% for item in object.hashtagcounter_set.all %}
-                <div class='hashtag-item' id="hashtag-item">
-                    <div id="copied-to-clipboard">Copied to Clipboard</div>
-                    #{{item.hashtag.name}} | {{item.counter}}
+                <div class='hashtag-item'>
+                    <div class="copied-to-clipboard">Copied to Clipboard</div>
+                    <span class="hashtag">#{{item.hashtag.name}}</span> |
+                    <span class="counter">{{item.counter}}</span>
                 </div>
-                <div id="copied-to-clipboard">Copied to Clipboard</div>
             {% endfor %}
         </div>
 
@@ -193,7 +193,7 @@
                 {% for item in object.actions.all %}
                     {% if item.tweet %}
                         <div class="tweet-item">
-                            <div id="copied-to-clipboard">Copied to Clipboard</div>
+                            <div class="copied-to-clipboard">Copied to Clipboard</div>
                             <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.profile.twitter}}</p></div>
                             <div class="tweet">{{item.tweet.text}}</div>
                         </div>
@@ -215,7 +215,6 @@
     <script src="{% static 'js/content_landing_email_action.js' %}"></script>
     <script src="{% static 'js/content_landing_tweet_action.js' %}"></script>
     <script src="{% static 'js/content_landing_get_congress.js' %}"></script>
-    <script src="{% static 'js/twitter_add_url.js' %}"></script>
     <script>
         get_congress_url = '/congress/campaign/add_zip/'
     </script>

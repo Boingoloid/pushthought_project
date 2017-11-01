@@ -565,23 +565,15 @@ function precreate_congress_email_fields() {
                 '</div>'
             ].join("\n" );
         } else {
+            var value = emailFieldData[field_name] || '';
             /////////////////////////////////////////////////////
             // if field is ADDRESS_ZIP5
             // change name of label to ADDRESS_ZIP
             /////////////////////////////////////////////////////
-            var label_name = field_name
-            var readonly = '';
+            var label_name = field_name;
             if (field_name === 'ADDRESS_ZIP5') {
-                label_name = 'ADDRESS_ZIP'
-            }
-            ///// not sure what this line is doing
-            var value = emailFieldData[field_name] || '';
-            /////////////////////////////////
-            // If ADDRESS_ZIP% and value '' then grab zip from
-            // zip-input elemennt on page.
-            /////////////////////////////////
-            if (field_name === 'ADDRESS_ZIP5') {
-                readonly = 'readonly';
+                label_name = 'ADDRESS_ZIP';
+                value = $('.zip-input').attr('value') || value;
             }
 
             htmlText = [htmlText,
@@ -593,7 +585,7 @@ function precreate_congress_email_fields() {
                     '</div>',
                     '<div class="field-div">',
                     '<input type="text" class="eform" id="eform-' + field_name + '" value="'+
-                            value +'" '+ readonly +'>',
+                            value +'">',
                     '</div>',
                 '</div>'
             ].join("\n");
@@ -965,13 +957,15 @@ function runEmail(bioguideIds){
     //insertDict['$EMAIL'] = 'matthew.acalin@gmail.com'
     //formDataDictionary = $.extend({},formDataDictionary, insertDict);
 
-    formDataDictionary['$MESSAGE'] = $('#text-input').text() +
-        "\nSent from https://" + site_url_to_append.slice(1);
-    //var programId = $('#programId').text();
+    formDataDictionary['$MESSAGE'] = $('#text-input').text();
+    if (site_url_to_append.length) {
+        formDataDictionary['$MESSAGE'] += "\nSent from https://" +
+            site_url_to_append.slice(1);
+    }
     var stringJson = JSON.stringify({
         "bio_ids": bioguideIds,
-        //"program_id": programId,
-        "campaign_tag": "push_thought",
+        "campaign_id": $('#campaignId').text(),
+        "program_id": $('#programId').text(),
         "fields": formDataDictionary
     });
     console.log("showing json string prior to send email to phantom API: ", stringJson);

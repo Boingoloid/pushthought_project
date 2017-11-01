@@ -44,7 +44,11 @@ $(document).ready(function() {
 
         // Zip submission button click
     $('.submit-zip').click(function() {
-        if ($(this).attr('disabled')) {
+        function request_finished() {
+            $('.submit-zip').prop('disabled', false);
+        }
+
+        if ($(this).prop('disabled')) {
             return false;
         }
         // validators
@@ -52,24 +56,19 @@ $(document).ready(function() {
         var isValidZip = /(^\d{5}$)/.test(zip);
 
         if (isValidZip){
-            var submit_zip_button = $('.submit-zip');
-            submit_zip_button.prop('disabled', true);
+            $(this).prop('disabled', true);
             $('#zip-loader').show();
             console.log('valid zip');
             console.log('get_congres on zip:' + zip);
             $('.zip-input').attr('id',zip);
             $('.zip-input').attr('value',zip);
             deferred = get_congress(zip, get_congress_url);
-            if (!deferred) {
-                submit_zip_button.prop('disabled', false);
-            } else if (deferred != undefined) {
-                deferred.done(function() {
-                    submit_zip_button.prop('disabled', false);
-                    preload_phantom_dc_members_data();
-                });
-                deferred.fail(function() {
-                    submit_zip_button.prop('disabled', false);
-                });
+            if (deferred) {
+                deferred.done(request_finished);
+                deferred.done(preload_phantom_dc_members_data);
+                deferred.fail(request_finished);
+            } else {
+                request_finished();
             }
         } else{
             console.log('NOT a valid zip');
@@ -839,15 +838,19 @@ $(document).ready(function() {
 
     // TWEET/EMAIL Button
     $('#tweet-button').click(function() {
-        if ($(this).attr('disabled')) {
+        function request_finished() {
+            $('#tweet-button').prop('disabled', false);
+            hideLoading();
+        }
+
+        if ($(this).prop('disabled')) {
             return false;
         }
         if ($('.address-item.selected').length == 0) {
             alert("You much choose a congressperson.");
             return false;
         }
-        var tweet_button = $('#tweet-button');
-        tweet_button.prop('disabled', true);
+        $(this).prop('disabled', true);
         if ($('.email-name').is(":visible")){
             var bioguideIds = $('.address-item-label:visible').map(
                 function() { return this.id }).get();
@@ -855,15 +858,12 @@ $(document).ready(function() {
         } else {
             deferred = runTweet(windowURL);
         }
-        if (!deferred) {
-            tweet_button.prop('disabled', false);
-        } else if (deferred != undefined) {
-            deferred.done(function() {
-                tweet_button.prop('disabled', false);
-            });
-            deferred.fail(function() {
-                tweet_button.prop('disabled', false);
-            });
+        if (deferred) {
+            showLoadingForSelectedMembers();
+            deferred.done(request_finished);
+            deferred.fail(request_finished);
+        } else {
+            request_finished();
         }
     });
 
@@ -931,35 +931,33 @@ $(document).ready(function() {
         });
     });
 
+    function SelectText(element) {
+        var doc = document;
+        var text = element[0];
+        var range;
+        var selection;
+
+        if (doc.body.createTextRange) {
+            range = document.body.createTextRange();
+            range.moveToElementText(text);
+            range.select();
+        } else if (window.getSelection) {
+            selection = window.getSelection();
+            range = document.createRange();
+            range.selectNodeContents(text);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
 
     $('.hashtag-container').on("click", ".hashtag-item", function(e) {
-        // Function: Select text of tweet
-        function SelectText(element) {
-            var doc = document;
-            var text = element;
-            var range;
-            var selection;
-
-            if (doc.body.createTextRange) {
-                range = document.body.createTextRange();
-                range.moveToElementText(text);
-                range.select();
-            } else if (window.getSelection) {
-                selection = window.getSelection();
-                range = document.createRange();
-                range.selectNodeContents(text);
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
-        }
-
         // Copy hashtag text to Clipboard
-        var element = $(this).contents('.hashtag-item').contents().filter(function () { return this.nodeType === 3; });
+        var element = $(this).children('.hashtag').contents();
         SelectText(element);
         document.execCommand("copy");
 
         // Show Copy to Clipboard indicator
-        var element = $(this).contents('#copied-to-clipboard')
+        var element = $(this).children('.copied-to-clipboard')
         element.show();
         element.animate({"height":"47"},400,function(){
             setTimeout(function(){
@@ -971,34 +969,13 @@ $(document).ready(function() {
     });
 
     $('.tweet-container').on("click", ".tweet-item", function(e) {
-
-        // Function: Select text of tweet
-        function SelectText(element) {
-            var doc = document;
-            var text = element[0];
-            var range;
-            var selection;
-
-            if (doc.body.createTextRange) {
-                range = document.body.createTextRange();
-                range.moveToElementText(text);
-                range.select();
-            } else if (window.getSelection) {
-                selection = window.getSelection();
-                range = document.createRange();
-                range.selectNodeContents(text);
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
-        }
-
         // Copy tweet text to Clipboard
-        var element = $(this).contents('.tweet').contents().filter(function () { return this.nodeType === 3; });
+        var element = $(this).children('.tweet').contents();
         SelectText(element);
         document.execCommand("copy");
 
         // Show Copy to Clipboard indicator
-        var element = $(this).contents('#copied-to-clipboard')
+        var element = $(this).children('.copied-to-clipboard')
         element.show();
         element.animate({"height":"47"},400,function(){
             setTimeout(function(){
@@ -1164,3 +1141,17 @@ $(document).ready(function () {
     })
     $('#twitter_input_add_url').change();
 });
+
+
+function showLoadingForSelectedMembers() {
+    $('.action-panel-container.selected').each(function() {
+        $('.loader-' + this.id).show();
+    });
+    $('.tweet-loader').show();
+}
+
+
+function hideLoading() {
+    $('.loader').hide();
+    $('.tweet-loader').hide();
+}

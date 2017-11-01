@@ -32,6 +32,7 @@ function login_user(url) {
     var addressArray = [];
      $('.address-item.selected').each(function(){
         var address = $(this).text();
+        address = address.replace('@','');
         address = address.replace('\n','');
         address = address.replace('\n','');
         address = address.replace('\n','');
@@ -94,18 +95,7 @@ function runTweet(windowURL){
             return false;
         }
 
-
-        // Show loaders
-        $('.action-panel-container.selected').each(function() {
-            index = $(this).attr('id');
-            function showLoading(index){
-                var loaderDiv = '.loader-' + index;
-                $(loaderDiv).show();
-                $('.tweet-loader').show();
-            }
-            showLoading(index);
-         });
-
+        showLoadingForSelectedMembers();
 
          // Get program and segment Id
          var programId = $('#programId').text();
@@ -187,8 +177,7 @@ function runTweet(windowURL){
                 }
             },
             error: function(xhr, textStatus, error) {
-                $('.loader').hide();
-                $('.tweet-loader').hide();
+                hideLoading();
                 // Fail message
                 if (xhr.status == 404) {
                     alert("This account doesn't have a twitter account binded to it.")
@@ -198,10 +187,4 @@ function runTweet(windowURL){
             }
         });
     }
-}
-
-
-function hideLoading(){
-    $('.loader').hide();
-    $('.tweet-loader').hide();
 }

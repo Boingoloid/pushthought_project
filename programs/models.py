@@ -34,8 +34,14 @@ class Program(CounterMixin, TimeStampedModel):
 
     objects = ProgramManager()
 
-    def __str__(self):
-        return self.title
+    def __unicode__(self):
+        if self.imdb_id:
+            source = u"IMDB {}".format(self.imdb_id)
+        elif self.youtube_id:
+            source = u"Youtube {}".format(self.youtube_id)
+        else:
+            source = u"(no source)"
+        return u"{} ({}) {}".format(self.title, self.type, source)
 
     @property
     def url(self):

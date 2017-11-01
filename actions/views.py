@@ -11,8 +11,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 import requests
 from el_pagination.views import AjaxListView
+from annoying.functions import get_object_or_None
 
 from congress.models import Congress
+from campaigns.models import Campaign
+from programs.models import Program
 from actions.models import Action
 
 from pushthought.views.views_email_congress import submit_congress_email
@@ -153,7 +156,7 @@ class SubmitCongressEmail(View):
                 pformat(filled_out_fields)))
         return json.loads(response.text)['status'] == 'success'
 
-    def save_email(self, bioguide, fields, is_sent):
+    def save_email(self, bioguide, fields, is_sent, campaign_slug, program_id):
         """Save e-mail data to DB as `Action` and it's related objects.
 
         Args:
@@ -164,8 +167,21 @@ class SubmitCongressEmail(View):
             is_sent: boolean indicating if the message was sent.
         """
         congress = Congress.objects.get(bioguide_id=bioguide)
-        Action.emails.create(text=fields['$MESSAGE'], fields=fields,
-                             is_sent=is_sent, congress=congress)
+        campaign = get_object_or_None(Campaign, slug=campaign_slug) \
+            if campaign_slug else None
+        program = get_object_or_None(Program, id=program_id) \
+            if program_id else None
+        action = Action.emails.create(text=fields['$MESSAGE'], fields=fields,
+                                      is_sent=is_sent, congress=congress,
+                                      campaign=campaign, program=program)
+        if campaign_slug and not campaign:
+            logger.error("Campaign with slug %s not found, action with"
+                         " pk %s saved as unrelated to a campaign",
+                         campaign_slug, action.pk)
+        if program_id and not program:
+            logger.error("Program with id %s not found, action with"
+                         " pk %s saved as unrelated to a campaign",
+                         program_id, action.pk)
 
     def post(self, request):
         """Send message via Phantom DC to each requested member.
@@ -193,7 +209,9 @@ class SubmitCongressEmail(View):
             filled_out_fields = self.get_filled_out_fields(bioguide, data)
             is_send_successful = self.send_message_via_phantom_dc(
                 bioguide, filled_out_fields)
-            self.save_email(bioguide, filled_out_fields, is_send_successful)
+            self.save_email(bioguide, filled_out_fields, is_send_successful,
+                            request_body.get('campaign_id'),
+                            request_body.get('program_id'))
         return JsonResponse({'status': 'success'})
 
 
@@ -219,4 +237,6 @@ class MyActivityView(LoginRequiredMixin, AjaxListView):
         queryset = self.get_queryset()
         context['email_count'] = queryset.filter(email__isnull=False).count()
         context['tweet_count'] = queryset.filter(tweet__isnull=False).count()
+        context['actions_count'] = context['email_count'] + \
+            context['tweet_count']
         return context

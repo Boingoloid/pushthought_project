@@ -71,8 +71,8 @@ class TwitterLoginView(OAuthLoginView):
         request.session['program_id'] = program_id
         request.session['campaign_id'] = campaign_id
 
-        request.session['address_array'] = address_array
-        request.session['bioguide_array'] = bioguide_array
+        request.session['addressArray'] = address_array
+        request.session['bioguiderray'] = bioguide_array
         return resp
 
 
@@ -124,6 +124,11 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
     """
     def dispatch(self, request, *args, **kwargs):
         resp = super(TwitterCallbackView, self).dispatch(request, *args, **kwargs)
+
+        if not request.user.is_authenticated():
+            messages.error(request, 'Your twitter email address is already taken. Please login into your old account.')
+            return HttpResponseRedirect('/accounts/login/')
+
         self.successArray = []
         self.duplicateArray = []
         self.errorArray = []
@@ -132,7 +137,9 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
         self.campaign = request.session.get('campaign_id')
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
-        if request.user.is_authenticated and redirect_url and self.tweet_text:
+        if not request.user.is_authenticated:
+            return resp
+        if redirect_url and self.tweet_text:
             self.api = self.get_authed_twitter_api()
             if not self.api:
                 return HttpResponseRedirect(request.session.get('redirect_url'))
