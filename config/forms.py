@@ -1,5 +1,6 @@
 from allauth.account.forms import LoginForm, get_adapter, app_settings
 
+from django.utils.translation import pgettext, ugettext, ugettext_lazy as _
 from django import forms
 from django.contrib.auth.models import User
 
@@ -11,6 +12,16 @@ class UserForm(forms.ModelForm):
 
 
 class Login(LoginForm):
+    def __init__(self, *args, **kwargs):
+        super(Login, self).__init__(*args, **kwargs)
+        login_widget = forms.TextInput(attrs={'type': 'email',
+                                              'placeholder':
+                                                  _('E-mail address'),
+                                              'autofocus': 'autofocus'})
+        login_field = forms.EmailField(label=_("E-mail"),
+                                       widget=login_widget)
+        self.fields["login"] = login_field
+
     def clean(self):
         super(LoginForm, self).clean()
         if self._errors:
