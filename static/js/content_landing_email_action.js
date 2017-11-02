@@ -443,7 +443,7 @@ const FIELDS_DATA_FOR_MEMBERS_UNSUPPORTED_BY_PHANTOM_DC = [
 
 function preload_phantom_dc_members_data() {
     $.getJSON(
-        '/static/js/phantom-dc-members.min.json',
+        phantom_js_members_url,
         function(data) {
             $('.bioguide-mule').each(function () {
                 var fields = [];
