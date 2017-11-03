@@ -158,7 +158,8 @@ hr.small {
 
 
 .navbar-brand{
-
+  padding: 20px;
+  padding-top:10px;
 }
 
 .navbar-brand a{
