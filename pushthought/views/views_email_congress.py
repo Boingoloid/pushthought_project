@@ -282,23 +282,6 @@ def get_congress_email_fields_phantom(bioguideArray):
 #         return save_result_array
 #     return save_result_array
 
-def submit_congress_email(request):
-    print request.body
-    bodyString = request.body
-
-    print "submitting email to congressperson"
-    connection = httplib.HTTPSConnection('congressforms.eff.org')
-    connection.connect()
-    connection.request('POST', '/fill-out-form/',bodyString,
-                       {  # headers
-                           "Content-Type": "application/json"
-                       })
-    send_response_object = json.loads(connection.getresponse().read())
-    print "printing send result, fill out form congress email to phantom congress", send_response_object
-    # send_response_object = {'status':'success'}
-    return send_response_object
-
-
 def submit_congress_captcha(request):
     print request.body
 

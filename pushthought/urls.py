@@ -42,8 +42,6 @@ urlpatterns = [
 
     url(r'^$', views.home,name='home'),
     # congress email
-    url(r'^submit_congress_email/$', SubmitCongressEmail.as_view(),
-        name='submit_congress_email'),
     url(r'^submit_congress_captcha', views.submit_congress_captcha_view,name='submit_congress_captcha_view'),
     url(r'^submit-email/(?P<email>.*)', views.submit_email,name='submit_email'),
     url(r'^send-contact/', views.send_contact,name='send_contact'),
