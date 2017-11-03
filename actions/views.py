@@ -109,7 +109,7 @@ class SubmitCongressEmail(View):
                 fields[k[:-len(bioguide_suffix)]] = v
             else:
                 fields[k] = v
-        return fields
+        return self.preprocess_fields(bioguide, fields)
 
     def preprocess_fields(self, bioguide, filled_out_fields):
         """Change values of fields.
@@ -144,7 +144,6 @@ class SubmitCongressEmail(View):
             Boolean indicating whether Phantom DC reported a successful
             sending.
         """
-        filled_out_fields = self.preprocess_fields(bioguide, filled_out_fields)
         response = requests.post(
             settings.PHANTOM_DC_API_BASE +
             settings.PHANTOM_DC_API_FILL_OUT_FORM,
