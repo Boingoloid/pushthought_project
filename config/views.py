@@ -108,6 +108,10 @@ class OAuthCallbackView(OAuthView):
                                                 app,
                                                 token,
                                                 response=access_token)
+
+            if not login.user.is_staff and login.user.email != login.user.username:
+                login.user.username = login.user.email
+
             login.token = token
             login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
