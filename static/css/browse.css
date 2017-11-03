@@ -175,7 +175,7 @@
 
 .program-container{
   display:flex;
-    flex-wrap: wrap;
+  flex-wrap: wrap;
   flex-direction: row;
   /*overflow: auto;*/
   border: 0px solid black;
@@ -189,36 +189,45 @@
 a.program-link {
   display: inline-block;
   width:460px;
+  height:162px;
 }
 
-@media only screen and (max-width: 438px) {
+@media only screen and (max-width: 480px) {
     a.program-link {
-      display: block;
-      width:90%;
-      min-width:300px;
+      width:400px;
+      min-width:400px;
+      max-width:400px;
     }
+}
 
+@media only screen and (max-width: 415px) {
+    a.program-link{
+        min-width: 370px;
+        width: 370px;
+        max-width:370px;
+    }
 
 }
 
 .program-item{
   overflow: hidden;
   margin:5px;
-  margin-left:10px;
+  margin-left:5px;
   margin-right:10px;
   padding-top:2px;
   background: rgba(0,0,0,0.4);
   border: 1px solid black;
   border-radius: 5px;
   /*transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);*/
-  width:460px;
-  min-width:460px;
-  max-width:460px;
+  width:455px;
+  min-width:455px;
+  max-width:455px;
   height:150;
   max-height:150px;
 }
 
-@media only screen and (max-width: 483px) {
+
+@media only screen and (max-width: 480px) {
     .program-item{
         min-width: 390px;
         width: 390px;
@@ -227,14 +236,16 @@ a.program-link {
 
 }
 
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 415px) {
     .program-item{
-        min-width: 100%;
-        width: 100%;
-        max-width:100%;
+        min-width: 365px;
+        width: 365px;
+        max-width:365px;
     }
 
 }
+
+
 
 .program-item p{
   height:110;
@@ -314,9 +325,9 @@ a.program-link {
   width: 360px;
 }
 
-@media only screen and (max-width: 490px) {
+@media only screen and (max-width: 480px) {
     .program-title {
-        width: 200px;
+        width: 285px;
     }
 }
 
@@ -339,10 +350,19 @@ a.program-link {
   height:89px;
 }
 
-@media only screen and (max-width: 438px) {
+@media only screen and (max-width: 480px) {
     .program-description, .program-description-crop{
+      width: 285px;
     }
 }
+
+@media only screen and (max-width: 415px) {
+    .program-title, .program-description, .program-description-crop{
+      width: 270px;
+    }
+}
+
+
 
 .program-description-crop{
   font-weight:200;
@@ -384,16 +404,29 @@ a.program-link {
     position: absolute;
 }
 
-.program-info-container .sent-count{
+.program-info-container {
+  font-size:14px;
+  line-height:14px;
+  height:16px;
+  color: green;
+  position: absolute;
+  top:130px;
+  align-content:right;
+  text-align:right;
+  width:130px;
+}
+
+.sent-count{
   font-size:14px;
   line-height:14px;
   color: green;
-  display:inline;
+  position: absolute;
+  right: 42px;
   align-content:right;
   text-align:right;
-  width:50px;
+  width:70px;
 }
-
+/*
 @media only screen and (max-width: 483px) {
     .sent-count{
         margin-left:290px;
@@ -407,14 +440,15 @@ a.program-link {
     }
 
 }
-
-.program-info-container .sent-count-label{
-  display:inline;
+*/
+.sent-count-label{
+  position: absolute;
+  right: 0px;
+  font-size:14px;
   margin-left:0px;
   color: green;
   font-size:12px;
   font-weight:200;
-
 }
 
 .user-count{
