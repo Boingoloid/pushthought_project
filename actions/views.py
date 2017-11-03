@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import re
 import json
 import logging
 from pprint import pformat
@@ -102,11 +103,14 @@ class SubmitCongressEmail(View):
             be a subdict of `data`, as field "$TOPIC" and some others
             are named in `data` like "$TOPIC_`bioguide`".
         """
+        ENDS_WITH_BIOGUIDE_PATTERN = r"_\w\d{6}$"
         fields = {}
         for k, v in data.items():
             bioguide_suffix = "_{}".format(bioguide)
             if k.endswith(bioguide_suffix):
                 fields[k[:-len(bioguide_suffix)]] = v
+            elif re.search(ENDS_WITH_BIOGUIDE_PATTERN, k):
+                continue
             else:
                 fields[k] = v
         return self.preprocess_fields(bioguide, fields)
