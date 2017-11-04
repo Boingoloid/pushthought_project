@@ -510,14 +510,18 @@ function precreate_congress_email_fields() {
     var htmlText = "";
     form_data_list.forEach(function (email_field, i) {
         var field_name = email_field['field_name'];
+        var label_name = field_name;
+        if (field_name == "ADDRESS_STATE_POSTAL_ABBREV") {
+            label_name = "ADDRESS_STATE";
+        } else if (field_name === 'ADDRESS_ZIP5') {
+            label_name = 'ADDRESS_ZIP';
+        }
+        label_name = label_name.replace('_', ' ');
+        label_name = label_name.charAt(0).toUpperCase() +
+            label_name.slice(1).toLowerCase();
         // Select box with options.
         if (['TOPIC', 'ADDRESS_COUNTY', 'ADDRESS_STATE_POSTAL_ABBREV',
              'NAME_PREFIX'].includes(field_name)) {
-            if (field_name == "ADDRESS_STATE_POSTAL_ABBREV") {
-                var label_name = "ADDRESS_STATE";
-            } else {
-                var label_name = field_name;
-            }
             var bioguide = email_field['bioguideId'];
             var bioguide_name = $('.email-name-' + bioguide).text();
             var last_name = bioguide_name.substring(
@@ -570,9 +574,7 @@ function precreate_congress_email_fields() {
             // if field is ADDRESS_ZIP5
             // change name of label to ADDRESS_ZIP
             /////////////////////////////////////////////////////
-            var label_name = field_name;
             if (field_name === 'ADDRESS_ZIP5') {
-                label_name = 'ADDRESS_ZIP';
                 value = $('.zip-input').attr('value') || value;
             }
 
