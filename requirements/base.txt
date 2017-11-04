@@ -45,8 +45,8 @@ virtualenv==15.0.0
 whitenoise==3.2.2
 django-annoying==0.10.3
 django-braces
-django-extensions==0.34.0
-django-allauth
+django-extensions
+django-allauth==0.34.0
 django-environ
 django-suit==0.2.25
 
