@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import re
 import json
 import logging
 from pprint import pformat
@@ -18,79 +19,17 @@ from campaigns.models import Campaign
 from programs.models import Program
 from actions.models import Action
 
-from pushthought.views.views_email_congress import submit_congress_email
-
 
 logger = logging.getLogger('congress_email')
 
 
-def submit_congress_email_view(request):
-    print "submit_congress_email_view firing"
-    # send_response_object = submit_congress_email(request)
-    # status = send_response_object['status']
-    data = json.loads(request.body)
-    congresses = Congress.objects.filter(bioguide_id__in=data['bio_ids'])
-    send_response_object = {'success': True}
-    status = 'success'
-    data_dict = dict(
-        congresses=congresses
-    )
-
-    if data.get('program_id'):
-        data_dict['program_id'] = data.get('program_id')
-
-    if request.user.is_authenticated():
-        data_dict['user_id'] = request.user.pk
-
-    if send_response_object:
-        if status == 'success':
-            print "email was sent"
-            request.session['last_message'] = data['fields']['$MESSAGE']
-            Action.emails.create(
-                data['fields']['$MESSAGE'],
-                data['fields'],
-                **data_dict
-            )
-        elif status == 'captcha_needed':
-            # save email, needs captcha to true, then exclude them.  or save to different table
-            print "captcha_needed"
-        elif status == 'error':
-            print "ERROR submit congress failed: error message returned:" + send_response_object['message']
-        return JsonResponse(send_response_object)
-    else:
-        print "ERROR: submit congress failed, no object returned from phantom congress"
-        return JsonResponse({"status": "error", "message": "timeout, no response from phantom congress"})
-
-
 class SubmitCongressEmail(View):
+
     """View for sending messages via Phantom DC."""
 
     NAME_PLACEHOLDER = '[name will be inserted]'
 
-    def get_fields_for_bioguides(self, bioguides):
-        """Return list of required fields for each bioguide.
-
-        Args:
-            bioguides: list of bioguides.
-
-        Returns:
-            Dict with bioguide as keys and list of names of required
-            fields as values.
-        """
-        # TODO Make sure Phantom DC ignores spare fields and get rid of
-        # requests to `settings.PHANTOM_DC_API_RETRIEVE_FORM_ELEMENTS`.
-        response = requests.post(
-            settings.PHANTOM_DC_API_BASE +
-            settings.PHANTOM_DC_API_RETRIEVE_FORM_ELEMENTS,
-            data=json.dumps({'bio_ids': bioguides}),
-            headers={'content-type': 'application/json'})
-        forms = {}
-        for bioguide, form in json.loads(response.text).items():
-            forms[bioguide] = [a['value'] for a in form['required_actions']]
-        return forms
-
     def get_filled_out_fields(self, bioguide, data):
-
         """Fill out requested fields from the dict of all fields.
 
         Args:
@@ -102,14 +41,17 @@ class SubmitCongressEmail(View):
             be a subdict of `data`, as field "$TOPIC" and some others
             are named in `data` like "$TOPIC_`bioguide`".
         """
+        ENDS_WITH_BIOGUIDE_PATTERN = r"_\w\d{6}$"
         fields = {}
         for k, v in data.items():
             bioguide_suffix = "_{}".format(bioguide)
             if k.endswith(bioguide_suffix):
                 fields[k[:-len(bioguide_suffix)]] = v
+            elif re.search(ENDS_WITH_BIOGUIDE_PATTERN, k):
+                continue
             else:
                 fields[k] = v
-        return fields
+        return self.preprocess_fields(bioguide, fields)
 
     def preprocess_fields(self, bioguide, filled_out_fields):
         """Change values of fields.
@@ -144,7 +86,6 @@ class SubmitCongressEmail(View):
             Boolean indicating whether Phantom DC reported a successful
             sending.
         """
-        filled_out_fields = self.preprocess_fields(bioguide, filled_out_fields)
         response = requests.post(
             settings.PHANTOM_DC_API_BASE +
             settings.PHANTOM_DC_API_FILL_OUT_FORM,
@@ -173,7 +114,8 @@ class SubmitCongressEmail(View):
             if program_id else None
         action = Action.emails.create(text=fields['$MESSAGE'], fields=fields,
                                       is_sent=is_sent, congress=congress,
-                                      campaign=campaign, program=program)
+                                      campaign=campaign, program=program,
+                                      user=self.request.user)
         if campaign_slug and not campaign:
             logger.error("Campaign with slug %s not found, action with"
                          " pk %s saved as unrelated to a campaign",
@@ -202,20 +144,20 @@ class SubmitCongressEmail(View):
         request_body = json.loads(request.body)
         logger.debug("SubmitCongressEmail POST request body:\n{}".format(
             pformat(request_body)))
-        # TODO Potentially insecure. Process with Django Forms.
         bioguides = request_body['bio_ids']
         data = request_body['fields']
         for bioguide in bioguides:
-            filled_out_fields = self.get_filled_out_fields(bioguide, data)
+            fields = self.get_filled_out_fields(bioguide, data)
             is_send_successful = self.send_message_via_phantom_dc(
-                bioguide, filled_out_fields)
-            self.save_email(bioguide, filled_out_fields, is_send_successful,
+                bioguide, fields)
+            self.save_email(bioguide, fields, is_send_successful,
                             request_body.get('campaign_id'),
                             request_body.get('program_id'))
         return JsonResponse({'status': 'success'})
 
 
 class MyActivityView(LoginRequiredMixin, AjaxListView):
+
     """Show list of past user activities.
 
     Renders only list elements on AJAX request use tu use of

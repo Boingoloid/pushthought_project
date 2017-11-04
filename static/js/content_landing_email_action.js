@@ -924,7 +924,7 @@ function runEmail(bioguideIds){
     //////////////////////////////////////////////////////
     if (validationResult){
         function validateEmail(email) {
-            var re = /\S+@\S+\.\S+/;
+            var re = /^\S+@\S+\.\S+$/;
             return re.test(email);
         }
         var email = $('.eform#eform-EMAIL').val();
@@ -938,6 +938,24 @@ function runEmail(bioguideIds){
     } else {
         return false;
     }
+
+    //////////////////////////////////////////////////////
+    // Validate zip field
+    //////////////////////////////////////////////////////
+    if (!/^\d{5}$/.test($('.eform#eform-ADDRESS_ZIP5').val())) {
+        alert("Zip must have exatly 5 digits. Please check and try again.");
+        return false;
+    }
+
+    //////////////////////////////////////////////////////
+    // Validate zip+4 field
+    //////////////////////////////////////////////////////
+    if (!/^\d{5}-\d{4}$/.test($('.eform#eform-ADDRESS_ZIP_PLUS_4').val())) {
+        alert("Zip+4 must have 5 digits, a minus, and 4 digits." +
+            " Please check and try again.");
+        return false;
+    }
+
     ////////////////////////////////////////////////////////
     // Create dict for send
     ////////////////////////////////////////////////////////

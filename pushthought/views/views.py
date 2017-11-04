@@ -94,29 +94,6 @@ def handler404(request):
     return response
 
 
-def submit_congress_email_view(request):
-    print "submit_congress_email_view firing"
-    send_response_object = submit_congress_email(request)
-    status = send_response_object['status']
-    if send_response_object:
-        if status == 'success':
-            print "email was sent"
-            print "Response object: ", send_response_object
-            # save_congress_email_fields_to_user(request)
-            # save_email_congress_action(request)
-        elif status == 'captcha_needed':
-            # save email, needs captcha to true, then exclude them.  or save to different table
-            print "captcha_needed"
-            # save_congress_email_fields_to_user(request)
-        elif status == 'error':
-            print "ERROR submit congress failed: error message returned:" + send_response_object['message']
-        return HttpResponse(json.dumps(send_response_object), content_type="application/json")
-    else:
-        print "ERROR: submit congress failed, no object returned from phantom congress"
-        return HttpResponse(json.dumps({"status": "error", "message": "timeout, no response from email server"}),content_type="application/json")
-        # captcha_crush(request, send_response_object)
-
-
 def submit_congress_captcha_view(request):
     print "submit_congress_captcha_view firing"
     captcha_response_object = submit_congress_captcha(request)
@@ -131,7 +108,6 @@ def submit_congress_captcha_view(request):
 def data_loop(request):
     print request.body
     result = request.body
-    # submit_congress_email(request)
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 def data_throw(request):
