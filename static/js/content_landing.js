@@ -107,11 +107,13 @@ $(document).ready(function() {
     // Alerts if @symbols in tweet and went through verify catch redirect
     if (alertArray[0]){
         // scroll down
-        var headerAllowance = $('.seen-it-container').offset().top - 20;
-        $('html, body').animate({
-                scrollTop: headerAllowance + 'px'
-            }, 'fast');
-        showTwitterStatus(alertArray[0], alertArray[1]);
+        if ($('.seen-it-container').length) {
+            var headerAllowance = $('.seen-it-container').offset().top - 20;
+            $('html, body').animate({
+                    scrollTop: headerAllowance + 'px'
+                }, 'fast');
+            showTwitterStatus(alertArray[0], alertArray[1]);
+        }
     }
 
     // Alerts if no @ message and went through verify-catch redirect
