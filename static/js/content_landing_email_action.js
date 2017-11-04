@@ -888,7 +888,7 @@ function runEmail(bioguideIds){
     $('.eform:visible').each(function(){
         var fieldNode = $(this);
         var field = $(this).val();
-        var fieldName = fieldNode.attr('id').replace('eform-','');
+        var fieldName = $("label[for='" + this.id + "']").text();
 
         //////////////////////////////////////////////////////
         // Validate all inputs have values
@@ -896,7 +896,8 @@ function runEmail(bioguideIds){
 
         if (fieldNode.is('input')){
             if(field.length == 0){
-                alert('all fields are required.  Please enter this field: ' + fieldName);
+                alert('All fields are required. Please enter value for field ' +
+                    fieldName);
                 validationResult = false;
                 return false;
             }
@@ -908,7 +909,7 @@ function runEmail(bioguideIds){
         } else if (fieldNode.is('select')){
             var selection =  $(this).find(":selected").text();
             if(selection == 'select'){
-                alert("please enter a " + fieldName);
+                alert("All fields are required. Please select " + fieldName);
                 validationResult = false;
                 return false;
             } else {
