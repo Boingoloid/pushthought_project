@@ -481,6 +481,9 @@ function get_form_data_list() {
 
 
 function show_hide_congress_email_fields() {
+    if (!$('.email-name').is(':visible')) {
+        return false;
+    }
     var visible_fields_names = [];
     $('.action-panel-container.selected .bioguide-mule').each(function() {
         var form_data = $(this).data('form');
@@ -537,7 +540,7 @@ function precreate_congress_email_fields() {
 
             htmlText = [htmlText,
                 '<div class="email-form-field-container ' + topic_class_name +
-                '" style="display:block;" id="' + field_name + '-container">',
+                '" style="display: none;" id="' + field_name + '-container">',
                 '   <div class="label-div">',
                 '<label for="eform-' + field_name +
                 '" style="display:inline;" class="email-form-label' +
@@ -580,7 +583,7 @@ function precreate_congress_email_fields() {
 
             htmlText = [htmlText,
                 '<div class="email-form-field-container" id="' + field_name +
-                '-container" style="display:block;">',
+                '-container" style="display: none;">',
                 '<div class="label-div">',
                 ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' +
                             label_name + '</label>',
