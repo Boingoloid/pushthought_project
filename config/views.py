@@ -110,6 +110,7 @@ class OAuthCallbackView(OAuthView):
                                                 response=access_token)
 
             if not login.user.is_staff and login.user.email != login.user.username:
+                #make user's username same as email
                 login.user.username = login.user.email
 
             login.token = token
