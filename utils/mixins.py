@@ -77,7 +77,7 @@ class TwitterSendMixin(object):
                 Action.tweets.create(
                     tweet_text_with_metion,
                     user=self.request.user,
-                    program=self.program,
+                    program_id=self.program,
                     congress=congress
                 )
             elif self.campaign:
