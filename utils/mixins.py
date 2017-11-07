@@ -41,7 +41,7 @@ class TwitterSendMixin(object):
         pattern = r'@\w+,?\s'
         replacement = ''
         clean_text = re.sub(pattern, replacement, self.tweet_text)
-        return clean_text
+        return clean_text.encode('utf-8')
 
     # def get_url(self):
     #     url = 'pushthought.com'
