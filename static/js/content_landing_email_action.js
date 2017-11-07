@@ -892,14 +892,34 @@ function runEmail(bioguideIds){
         var field = $(this).val();
         var fieldName = $("label[for='" + this.id + "']").text();
 
-        //////////////////////////////////////////////////////
-        // Validate all inputs have values
-        //////////////////////////////////////////////////////
-
         if (fieldNode.is('input')){
+            //////////////////////////////////////////////////////
+            // Validate all inputs have values
+            //////////////////////////////////////////////////////
             if(field.length == 0){
                 alert('All fields are required. Please enter value for field ' +
                     fieldName);
+                validationResult = false;
+                return false;
+            }
+
+            //////////////////////////////////////////////////////
+            // Validate zip field
+            //////////////////////////////////////////////////////
+            else if (fieldNode.attr('id') == 'eform-ADDRESS_ZIP5' &&
+                    !/^\d{5}$/.test(fieldNode.val())) {
+                alert("Zip must have exatly 5 digits. Please check and try again.");
+                validationResult = false;
+                return false;
+            }
+
+            //////////////////////////////////////////////////////
+            // Validate zip+4 field
+            //////////////////////////////////////////////////////
+            if (fieldNode.attr('id') == 'eform-ADDRESS_ZIP_PLUS_4' &&
+                    !/^\d{5}-\d{4}$/.test(fieldNode.val())) {
+                alert("Zip+4 must have 5 digits, a minus, and 4 digits" +
+                    " (xxxxx-xxxx). Please check and try again.");
                 validationResult = false;
                 return false;
             }
@@ -936,23 +956,6 @@ function runEmail(bioguideIds){
             return false;
         }
     } else {
-        return false;
-    }
-
-    //////////////////////////////////////////////////////
-    // Validate zip field
-    //////////////////////////////////////////////////////
-    if (!/^\d{5}$/.test($('.eform#eform-ADDRESS_ZIP5').val())) {
-        alert("Zip must have exatly 5 digits. Please check and try again.");
-        return false;
-    }
-
-    //////////////////////////////////////////////////////
-    // Validate zip+4 field
-    //////////////////////////////////////////////////////
-    if (!/^\d{5}-\d{4}$/.test($('.eform#eform-ADDRESS_ZIP_PLUS_4').val())) {
-        alert("Zip+4 must have 5 digits, a minus, and 4 digits." +
-            " Please check and try again.");
         return false;
     }
 
