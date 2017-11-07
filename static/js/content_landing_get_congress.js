@@ -195,10 +195,15 @@ function create_congress_HTML(congressDataArray){
         //!!!!!!!!!!!!!!!!!!!!!create if statment with string creating node or not based on if there is a district
 
         var phoneIconImage = $('.phone-icon-hide').attr('src');
-        var title = item['title']+ ', ' + item['state'];
-        if(item['district'])
-        {
-          title += '<br/>' + "District " + item['district']
+        var title = item['title'];
+        if (title == 'Senator') {
+            title = "Sen"
+        } else if (title == 'Representative') {
+            title = "Rep"
+        }
+        title += ", " + item['state'];
+        if (item['district']) {
+            title += ", D: " + item['district']
         }
 
         // construct HTML for contacts in category
