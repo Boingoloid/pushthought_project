@@ -1,33 +1,23 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-import tweepy
-import re
 import json
 
-from allauth.compat import reverse
-from allauth.socialaccount.helpers import (
-    complete_social_login,
-    render_authentication_error,
-)
-from allauth.socialaccount.providers.oauth.client import OAuthError
-from allauth.socialaccount.providers.base import AuthError
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
-from allauth.socialaccount.providers.oauth.views import OAuthLoginView, OAuthView
-from allauth.socialaccount.models import SocialApp, SocialToken, SocialLogin
+from allauth.socialaccount.providers.oauth.views import (
+    OAuthLoginView,
+    OAuthCallbackView,
+)
+from allauth.socialaccount.models import SocialToken
 from allauth.account.views import LoginView
 
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.generic import View
-from django.http.response import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.db.utils import IntegrityError
 
-
-from actions.models import Action
-from congress.models import Congress
-from campaigns.models import Campaign
 from utils.mixins import TwitterSendMixin
 
 from . import forms
@@ -74,53 +64,6 @@ class TwitterLoginView(OAuthLoginView):
         request.session['addressArray'] = address_array
         request.session['bioguiderray'] = bioguide_array
         return resp
-
-
-class OAuthCallbackView(OAuthView):
-    def dispatch(self, request):
-        """
-        View to handle final steps of OAuth based authentication where the user
-        gets redirected back to from the service provider
-        """
-        login_done_url = reverse(self.adapter.provider_id + "_callback")
-        client = self._get_client(request, login_done_url)
-        if not client.is_valid():
-            if 'denied' in request.GET:
-                error = AuthError.CANCELLED
-            else:
-                error = AuthError.UNKNOWN
-            extra_context = dict(oauth_client=client)
-            return render_authentication_error(
-                request,
-                self.adapter.provider_id,
-                error=error,
-                extra_context=extra_context)
-        app = self.adapter.get_provider().get_app(request)
-        try:
-            access_token = client.get_access_token()
-            token = SocialToken(
-                app=app,
-                token=access_token['oauth_token'],
-                # .get() -- e.g. Evernote does not feature a secret
-                token_secret=access_token.get('oauth_token_secret', ''))
-            self.token = token
-            login = self.adapter.complete_login(request,
-                                                app,
-                                                token,
-                                                response=access_token)
-
-            if not login.user.is_staff and login.user.email != login.user.username:
-                #make user's username same as email
-                login.user.username = login.user.email
-
-            login.token = token
-            login.state = SocialLogin.unstash_state(request)
-            return complete_social_login(request, login)
-        except OAuthError as e:
-            return render_authentication_error(
-                request,
-                self.adapter.provider_id,
-                exception=e)
 
 
 class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
