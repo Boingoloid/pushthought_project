@@ -153,19 +153,16 @@
      <h1>Push Thought</h1>
      <p>is currently being built</p>
     <br/>
-    <br/>
     <p>Drop your email for info:</p>
     <form method="POST" action="{% url 'email_signup' %}" class="form-inline">{% csrf_token %}
         <div class="form-group">
             <div>
-                <input type="email" class="form-control" id="email" name="email" placeholder="email">
-            </div>
-            <br/>
-            <div>
-                <button type="button" class="btn btn-primary" id="submit-email-btn" style="border-radius:10px;">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                <button type="button" class="btn btn-primary btn-sm" id="submit-email-btn" style="border-radius:10px;">
                     Submit
                 </button>
             </div>
+
         </div>
     </form>
     {% if messages %}

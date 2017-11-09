@@ -29,26 +29,19 @@
 	<body>
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-custom navbar-fixed-top nav-container">
-            <div class="top-logo-container">
-                <a class="logo-link" href="/">
-                    <img class="img-free logo-image" src="{% static 'img/push-thought-logo.png' %}" height="40" width="40">
-                </a>
-            </div>
+
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>Menu <li class="fa fa-bars"></li>
-                    </button>
-                    <a class="navbar-brand" href="/">Push Thought</a>
+                    <a class="logo-link" href="/">
+                    <img class="logo-image" src="{% static 'img/push-thought-logo.png' %}" height="50" width="50">
+                    </a>
+                    <a id="title" href="/">Push Thought</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        {% if user.is_authenticated %}
-                            <!--<li>Welcome, {{ request.user.email }}.</li>-->
-                        {% endif %}
                         <li class="create-campaign"><a href="{% url 'campaign:create' %}">Create a<br>Campaign</a></li>
                         {% if user.is_authenticated %}
                             <li class="menu-item-settings dropdown">

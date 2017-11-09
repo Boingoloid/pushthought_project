@@ -48,7 +48,7 @@ p {
 }
 
 a {
-  color: blue;
+  color: #88c0d2;
   text-decoration: none;
 }
 
@@ -56,11 +56,6 @@ a:hover {
   text-decoration: none;
 }
 
-
-.img-free{
-  display: block;
-  margin: auto;
-}
 
 
 
@@ -127,7 +122,7 @@ hr.small {
 
 }
 
-.navbar-custom .navbar-brand .navbar-default{
+.navbar-custom .navbar-default{
   font-weight: 500;
   color: white;
 }
@@ -158,14 +153,13 @@ hr.small {
   margin-bottom: 15px;
 }
 
-
-.navbar-brand{
-  padding: 20px;
-  padding-top:10px;
+#title {
+  font-size: 35px;
+  vertical-align: middle;
 }
 
-.navbar-brand a{
-  color: #88c0d2;
+.nav.navbar-nav.navbar-right {
+  padding-top: 13px;
 }
 
 .top-logo-container{
@@ -181,10 +175,7 @@ hr.small {
 }
 
 .logo-image{
-  vertical-align:middle;
-  margin: auto;
-  max-width:50px;
-  cursor: pointer;
+  margin: 10px;
 }
 
 img.img-free.logo-image{
@@ -520,8 +511,8 @@ input#id_username, input#id_email, input#id_password1, input#id_password2{
 footer {
   margin: 0;
   /*border-top: 2px solid #000000;*/
-  padding: 30px;
-  padding-top:80px;
+  padding: 10px;
+
   /*background:linear-gradient(#092551, #000b1e);*/
   /*background-color: #092551;
   background:radial-gradient(#092551, #000b1e);
@@ -598,7 +589,6 @@ form .row:first-child .floating-label-form-group {
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 1px;
-  padding: 15px 25px;
 }
 
 .btn-primary{
@@ -706,6 +696,7 @@ form .row:first-child .floating-label-form-group {
   /*background-color: #004c00;*/
   background-color: green;
   color: white;
+    padding: 15px 25px;
 }
 
 .browse-btn:hover, .message-btn:hover{
@@ -733,7 +724,6 @@ form .row:first-child .floating-label-form-group {
 .message-btn{
   display: block;
   margin: -12px 0 0 10px;
-  padding-left:17px;
   width: 250px;
   height: 37px;
   line-height: 3px;
@@ -742,6 +732,7 @@ form .row:first-child .floating-label-form-group {
   border:2px solid black;
   /*background-color: #004c00;*/
   background-color: light-blue;
+  padding: 15px 20px;
   color: white;
 }
 
@@ -909,17 +900,15 @@ table {
   margin-right:0;
 }
 
-.container-fluid {
-  margin-top: 0;
-  height:50px;
-}
 
 .container-fluid-logo{
   text-align: center;
-  margin-top: -50x;
+  margin-top: -50px;
 }
 
 .navbar-default .navbar-brand {
+  font-size: 25px;
+  float: none;
     color: #88c0d2;
     margin-top: 0;
 }
@@ -1008,6 +997,7 @@ table {
 }
 
 #email {
+  margin: 12px;
   width: 200px;
 }
 
