@@ -14,7 +14,7 @@ html{
 }
 
 body {
-  font-family: 'Helvetica Neue','Lora', 'Times New Roman', serif;
+  font-family: 'Open Sans', 'Times New Roman', serif;
   font-size: 20px;
   background:linear-gradient(#092551,#000b1e);
   background-color:#000b1e;
@@ -30,7 +30,7 @@ body h4,
 body h5,
 body h6,
 body p {
-  font-family: 'Helvetica Neue', 'Open Sans', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: white;
   margin-top: 10px;
@@ -47,13 +47,15 @@ p {
   color: white;
 }
 
-p a {
-  text-decoration: underline;
-}
-
 a {
   color: blue;
+  text-decoration: none;
 }
+
+a:hover {
+  text-decoration: none;
+}
+
 
 .img-free{
   display: block;
@@ -987,7 +989,6 @@ table {
 
 /* landing page are asking for email*/
 .landing-container {
-  height: 450px;
   background:linear-gradient(black,#000b1e) #092551;
 }
 

@@ -74,23 +74,9 @@
         {% block content %}{% endblock %}
 
         <footer>
-            <div class="navbar navbar-default">
-                <div class="">
-                    <ul class="list-unstyled link-list in-line">
-                        <li><a class="footer-link" href="{% url 'home'%}"> Home </a></li>
-{#                            <li><a href="{% url 'about'%}"> About </a></li>#}
-                        <li><a class="footer-link" href="{% url 'contact'%}"> Contact </a></li>
-                    </ul>
-                </div>
-            </div>
             <div>
-                <!--<a href="http://twitter.com/mattacalin">-->
-                    <!--<img src="{% static 'img/twitter-wrap.png' %}" alt="Twitter Logo" width="30px">-->
-                <!--</a>-->
-                <!--<a href="https://www.facebook.com/matthew.acalin">-->
-                    <!--<img src="{% static 'img/facebook-wrap.png' %}" alt="Facebook Logo" width="30px">-->
-                <!--</a>-->
-                <p class="copyright">&copy; {% now "Y" %} Push Thought</p>
+                <p class="copyright">&copy; {% now "Y" %} Push Thought •
+                    <a class="footer-link" href="{% url 'contact'%}">Contact</a></p>
             </div>
         </footer>
 
