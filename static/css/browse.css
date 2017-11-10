@@ -33,17 +33,12 @@
 }
 
 .campaigns-button{
-  margin-left:25%;
-  margin-top:20px;
-  margin-bottom: 10px;
-  margin-right:-5;
+  margin-right:-5px;
   background-color:#337ab7;
   border:2px solid #2e6da4;
   border-radius:5px;
   display:inline;
   width:150px;
-  padding-left:0;
-  padding-right:0;
   border-right:2px solid white;
   color:black;
 }
@@ -109,15 +104,6 @@
   display:block;
   color:green;
   font-weight:400;
-
-}
-
-#search_btn{
-    display:block;
-    border-radius: 5px;
-    width:100px;
-    margin-top:0px;
-    margin-bottom:0px;
 
 }
 

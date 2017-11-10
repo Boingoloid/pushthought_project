@@ -57,6 +57,14 @@ a:hover {
 }
 
 
+#content {
+  padding-top: 10px;
+  min-height: 700px;
+}
+
+.browse-container {
+  min-height: 650px;
+}
 
 
 footer a{
@@ -156,6 +164,13 @@ hr.small {
 #title {
   font-size: 20px;
   vertical-align: middle;
+}
+
+#search_btn{
+    border-radius: 5px;
+    width:100px;
+    margin-top:0px;
+    margin-bottom:0px;
 }
 
 .nav.navbar-nav.navbar-right {
