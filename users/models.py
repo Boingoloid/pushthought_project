@@ -37,6 +37,7 @@ def create_extra_profile(sender, instance, created, **kwargs):
 
 class SubscriberEmail(TimeStampedModel):
     email = models.EmailField(unique=True)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.email
