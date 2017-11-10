@@ -11,7 +11,6 @@ from django.contrib.auth.models import User
 from allauth.socialaccount.models import SocialAccount
 
 
-
 class Profile(TimeStampedModel):
     user = models.OneToOneField(User)
     location = models.CharField(max_length=100, blank=True, null=True)
@@ -34,3 +33,10 @@ class Profile(TimeStampedModel):
 def create_extra_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
+
+class SubscriberEmail(TimeStampedModel):
+    email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return self.email

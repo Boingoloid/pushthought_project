@@ -4,10 +4,12 @@ from django.utils.translation import pgettext, ugettext, ugettext_lazy as _
 from django import forms
 from django.contrib.auth.models import User
 
+from users.models import SubscriberEmail
 
-class UserForm(forms.ModelForm):
+
+class SubscriberEmailForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = SubscriberEmail
         fields = ['email']
 
 

@@ -7,4 +7,3 @@ class CongressInline(admin.StackedInline):
 
 
 admin.site.register(models.Congress)
-admin.site.register(models.CongressCounter)
