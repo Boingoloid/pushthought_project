@@ -883,6 +883,10 @@ table {
   text-align: center;
 }
 
+.messages ul {
+  list-style-type: none;
+}
+
 /* Containers -----------------------------------------------*/
 
 .container {
