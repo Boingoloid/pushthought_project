@@ -83,50 +83,6 @@ $(document).ready(function() {
         $('.submit-zip').trigger('click');
     }
 
-
-//     auto trigger email icon
-//    setTimeout(function(){ $('.zip-reset').trigger('click'); }, 400);
-    alertArray = [];
-    // If alerts, scroll down and show them
-    var data = $('#alertList').data('alertlist');
-    if(data){
-        console.log("alert list is present");
-        for (var i = 0; i < data.length; i++) {
-            alertArray.push(data[i]);
-        }
-    } else {
-        console.log("alert list is empty");
-    }
-
-//    alertArray = JSON.parse(data);
-
-
-
-
-
-    // Alerts if @symbols in tweet and went through verify catch redirect
-    if (alertArray[0]){
-        // scroll down
-        if ($('.seen-it-container').length) {
-            var headerAllowance = $('.seen-it-container').offset().top - 20;
-            $('html, body').animate({
-                    scrollTop: headerAllowance + 'px'
-                }, 'fast');
-            showTwitterStatus(alertArray[0], alertArray[1]);
-        }
-    }
-
-    // Alerts if no @ message and went through verify-catch redirect
-    if(alertArray[3] == true){
-        alert("Tweet is over 140 characters. Shorten a few characters and try again.");
-    } else if(alertArray[4] == true){
-        alert("Your tweet has been sent.");
-    } else if(alertArray[5] == true){
-        alert("Message is duplicate on your twitter account.  Please alter your message and try again.");
-    } else if(alertArray[6]){
-        alert("There has been an error with twitter.  Please check message and try again.  If it persists, notify Push Thought");
-    }
-
     // CSRF settings
     function csrfSafeMethod(method) {
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -311,8 +267,13 @@ $(document).ready(function() {
         $('.action-panel-container').not('.selected').click();
     });
 
+    $('.rep-container').on(
+        "click", ".rep-item-container-all .status-panel", hide_status);
+
     // Email Icon
     $('.rep-container').on("click", "img.email-icon", function(e) {
+        set_active_mode('selection');
+        set_active_channel('email');
         //$('.copy-last').show();
         $('.copy-last').hide();
         e.stopPropagation();
@@ -353,13 +314,6 @@ $(document).ready(function() {
         $('#text-input').animate({'height':'200px','max-height':'200px'});
 
 
-
-        // hide icon that needs to disappear
-        $('.twitter-icon').hide();
-        $('.twitter-icon-empty').hide();
-        $('.phone-icon').hide();
-        $('.email-icon').hide();
-        $('.email-icon-gray').hide();
 
         // show email names
         $('.email-name').show();
@@ -443,6 +397,8 @@ $(document).ready(function() {
 
     // Twitter Icon
     $('.rep-container').on("click", "img.twitter-icon", function(e) {
+        set_active_mode('selection');
+        set_active_channel('twitter');
         $('.copy-last').hide();
         e.stopPropagation();
         var i = $(this).attr('id');
@@ -470,16 +426,6 @@ $(document).ready(function() {
         // expand containers
 //        $('.rep-color-band').animate({'height':'455px'});
 //        $('.rep-action-container').animate({'opacity':'1.0','height':'135px'});
-
-        // hide icons that disappear
-        $('.twitter-icon').hide();
-        $('.twitter-icon-empty').hide();
-        $('.phone-icon').hide();
-        $('.email-icon').hide();
-        $('.email-icon-gray').hide();
-
-        // show twitter names
-        $('.twitter-name').show();
 
         // show Send button and label , hide Email button and label
         $('.img-send-tweet-icon').show();
@@ -559,45 +505,11 @@ $(document).ready(function() {
         alert('sorry, no email form yet for this person.  Pleaes call or tweet.');
     });
 
-    $('#close-button').on('click', function(event) {
-        $('.copy-last').hide();
-        $('#text-input').text('');
-        $('.letter-count').show();
-        $('.email-action-container').hide();
-        $('#required-fields-label').hide();
-        $('.warning-text').hide();
-        $('.address-placeholder').html('');
-        $('.address-container').html(' ');
-//        $('.category-container').animate({'height':'220px'});
-//        $('.rep-action-container').animate({'opacity':'0.0','height':'0px'},500,function() {
-//            $('.rep-action-container').css('display','none');
-//        });
-//        $('.rep-color-band').animate({'height':'220px'},500,function() {});
-//        $('.rep-color-band').animate({'height':'253px'});
-
-        $('.rep-action-container').animate({'opacity':'0.0'},500,function() {
-            $('.rep-action-container').css('display','none');
-        });
-
-        $('#text-input').animate({'height':'100px','max-height':'100px'});
-
-
-        //$('.twitter-icon').animate({'left':'42%'});
-        $('.twitter-icon').show();
-        $('.twitter-icon-empty').show();
-        $('.phone-icon').show();
-        $('.email-icon').show();
-        $('.email-icon-gray').show();
-        $('.twitter-name').hide();
-        $('.email-name').hide();
-        $('.selected').removeClass('selected');
-        $('#img-send-email-icon').hide();
-        $('#img-send-tweet-icon').show();
-        $('#email-button-label').hide();
-        $('#twitter-button-label').show();
-
-
-        focus_on_text_input();
+    $('#close-button').on('click', function() {
+        close_form();
+        if ($('.rep-container').hasClass('active-mode-selection')) {
+            set_active_mode('action');
+        }
     });
 
     // Action Panel Container
@@ -841,7 +753,6 @@ $(document).ready(function() {
     // TWEET/EMAIL Button
     $('#tweet-button').click(function() {
         function request_finished() {
-            $('#tweet-button').prop('disabled', false);
             hideLoading();
         }
 
@@ -1156,4 +1067,43 @@ function showLoadingForSelectedMembers() {
 function hideLoading() {
     $('.loader').hide();
     $('.tweet-loader').hide();
+}
+
+
+function close_form() {
+    $('.copy-last').hide();
+    $('#text-input').text('');
+    $('.letter-count').show();
+    $('.email-action-container').hide();
+    $('#required-fields-label').hide();
+    $('.warning-text').hide();
+    $('.address-placeholder').html('');
+    $('.address-container').html(' ');
+//    $('.category-container').animate({'height':'220px'});
+//    $('.rep-action-container').animate({'opacity':'0.0','height':'0px'},500,function() {
+//        $('.rep-action-container').css('display','none');
+//    });
+//    $('.rep-color-band').animate({'height':'220px'},500,function() {});
+//    $('.rep-color-band').animate({'height':'253px'});
+
+    $('.rep-action-container')
+        .addClass('hiding')
+        .animate({'opacity':'0.0'},500,function() {
+            $('.rep-action-container')
+                .css('display','none')
+                .removeClass('hiding');
+        });
+
+    $('#text-input').animate({'height':'100px','max-height':'100px'});
+
+
+    //$('.twitter-icon').animate({'left':'42%'});
+    $('.selected').removeClass('selected');
+    $('#img-send-email-icon').hide();
+    $('#img-send-tweet-icon').show();
+    $('#email-button-label').hide();
+    $('#twitter-button-label').show();
+
+
+    focus_on_text_input();
 }

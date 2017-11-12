@@ -833,39 +833,6 @@ text-tweet-block{
   font-size:12px;
 }
 
-.success-box{
-  margin-top: 4px;
-  position:absolute;
-  background: green;
-  border:2px solid #001900;
-  border-radius:5px;
-  height: 0px;
-  opacity: 0;
-  display:none;
-}
-
-.success-text{
-  margin: 0px;
-  padding:0px;
-  padding-left:10px;
-  padding-right:10px;
-  font-size:14px;
-  font-weight:400;
-  display:none;
-}
-
-
-
-.duplicate-text{
-  margin: 0px;
-  padding:0px;
-  padding-left:10px;
-  padding-right:10px;
-  font-size:14px;
-  font-weight:400;
-  display:none;
-}
-
 .img-logo-success{
   position: absolute;
   left: 5px;
@@ -951,6 +918,7 @@ text-tweet-block{
   width:auto;
   height: 100px;
   display:inline-block;
+  z-index: 1;
   /*box-shadow: 4px 4px 5px #294f2f;*/
 }
 
@@ -966,6 +934,7 @@ text-tweet-block{
   max-width:200px;
   height: 100px;
   display:inline-block;
+  z-index: 1;
   /*box-shadow: 4px 4px 5px #294f2f;*/
 }
 
@@ -1015,6 +984,7 @@ text-tweet-block{
 }
 
 .action-panel-container{
+    position: relative;
     margin:20px;
     margin-top:-10px;
     height:60px;
@@ -1024,31 +994,91 @@ text-tweet-block{
     /*border-bottom:1px solid #00aced;*/
     border-radius: 5px;
     box-shadow: 2px 2px 5px #294f2f;
+    z-index: 0;
 }
 
-.action-panel-container:hover{
+.rep-container.active-mode-selection .action-panel-container:hover,
+.rep-container.active-mode-status .action-panel-container-all:hover {
     box-shadow: 0px 0px 20px #00aced;
 }
 
-.action-panel-container.selected{
+.rep-container.active-mode-selection .action-panel-container.selected {
     box-shadow: 0px 3px 30px green;
     border-right: 3px solid green;
     border-left: 3px solid green;
     border-bottom: 3px solid green;
 }
 
-.action-panel-container.selected:hover{
+.rep-container.active-mode-selection .action-panel-container.selected:hover {
     box-shadow: 0px 1px 30px green;
     border-right: 1px solid green;
     border-left: 1px solid green;
     border-bottom: 1px solid green;
 }
 
-.action-panel{
-  position:relative;
+.action-panel {
+    z-index: 0;
+}
+
+.selection-panel {
+    z-index: 1;
+}
+
+.status-panel {
+    z-index: 2;
+}
+
+.action-panel, .selection-panel, .status-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.action-panel, .selection-panel, .status-panel, .twitter-name, .email-name {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.rep-container.active-mode-action .action-panel,
+.rep-container.active-mode-selection .selection-panel,
+.rep-container.active-mode-status .status-panel,
+.rep-container.active-mode-status .action-panel,
+.rep-container.active-channel-twitter .twitter-name,
+.rep-container.active-channel-email .email-name {
+    display: flex;
+}
+
+.status-panel {
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    opacity: 0.8;
+    color: black;
+    font-weight: bold;
+    background-color: black;
+}
+
+.status-panel.success {
+    background-color: #86DD5A;
+}
+
+.status-panel.unknown_congressman,
+.status-panel.too_long,
+.status-panel.duplicate,
+.status-panel.error {
+    background-color: #E23D22;
+}
+
+.action-panel-container-all .status-panel {
+    background-color: #47ABFF;
 }
 
 .action-panel-container-all{
+    position: relative;
     margin:20px;
     margin-top:-10px;
     height:60px;
@@ -1059,19 +1089,16 @@ text-tweet-block{
     border-radius: 5px;
     box-shadow: 2px 2px 5px #294f2f;
     width:160px;
+    z-index: 0;
 }
 
 
 .twitter-name, .email-name{
-  position:absolute;
   font-size: 14pt;
-  top:15px;
-  left: 0px;
   color: #00aced;
   width: 100%;
   text-align: center;
   height: 100%;
-  vertical-align: text-middle;
   display:none;
   cursor: pointer;
 }
