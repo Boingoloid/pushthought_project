@@ -32,8 +32,6 @@ class AutoconnectSocialAccountAdapter(DefaultSocialAccountAdapter):
         the DB if one with any of the `sociallogin.email_addresses`
         if such exists.
         """
-        # FIXME Currently invoked both during signup and login, which
-        # doesn't look right, though no bugs were spotted.
         if not self.should_allow_autoconnect_by_email(sociallogin):
             return super(AutoconnectSocialAccountAdapter,
                          self).new_user(request, sociallogin)
