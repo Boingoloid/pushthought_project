@@ -72,9 +72,8 @@ function hide_status() {
     function change_active_mode() {
         if ($('.rep-action-container').not('.hiding').is(":visible")) {
             set_active_mode('selection');
-            $('.status-panel.success')
-                .parents('.action-panel-container.selected')
-                .click();
+            // Deselect congressmen to whom messages were sent successfully.
+            $('.status-panel.success').siblings('.selection-panel').click();
             focus_on_text_input();
         } else {
             set_active_mode('action');

@@ -254,7 +254,8 @@ $(document).ready(function() {
         if (!$('.email-name:visible').length) {
             $('.email-icon').first().click();
         }
-        $('.action-panel-container').not('.selected').click();
+        $('.action-panel-container').not('.selected').children(
+            '.selection-panel').click();
     });
 
     $('.rep-container').on("click", "img.twitter-icon-all", function(e) {
@@ -264,7 +265,8 @@ $(document).ready(function() {
         if (!$('.twitter-name:visible').length) {
             $('.twitter-icon').first().click();
         }
-        $('.action-panel-container').not('.selected').click();
+        $('.action-panel-container').not('.selected').children(
+            '.selection-panel').click();
     });
 
     $('.rep-container').on(
@@ -512,20 +514,19 @@ $(document).ready(function() {
         }
     });
 
-    // Action Panel Container
-    $('.rep-container').on("click", ".action-panel-container", function(e) {
-
+    $('.rep-container').on('click', '.selection-panel', function() {
+        container = $(this).parent();
         //////////////////////////////////////
         // get number of action panel clicked
         //////////////////////////////////////
-        var i = $(this).attr('id');
+        var index = container.attr('id');
 
         //////////////////////////////////////////////////////
         // get twitter name if twitter names visible
         //////////////////////////////////////////////////////
         if($('.twitter-name').is(":visible")){
-            var elementRef = "#email-name-"+i;
-            var elementText = $('#twitter-name-'+i).text();
+            var elementRef = "#email-name-" + index;
+            var elementText = $('#twitter-name-' + index).text();
             var whichIconClicked = "tweet";
             ////////////////////////////////////////////////////////////
             // if email visible
@@ -536,17 +537,14 @@ $(document).ready(function() {
             return false;
         }
 
-        // adjust the highlight of selected/unselected container
-        if ($(this).hasClass( "selected" )){
-            $(this).removeClass('selected');
-            // add or remove twitter name above textarea
-            var index = $(this).attr('id');
+        // Adjust the highlight of selected/unselected container and add/remove
+        // twitter handle above the input box.
+        if (container.hasClass( "selected" )){
+            container.removeClass('selected');
             var addressPath = ".address-node-" + index;
             $(addressPath).removeClass('selected');
         } else {
-            $(this).addClass('selected');
-            // add or remove twitter name above textarea
-            var index = $(this).attr('id');
+            container.addClass('selected');
             var addressPath = ".address-node-" + index;
             $(addressPath).addClass('selected');
         }
@@ -554,8 +552,8 @@ $(document).ready(function() {
         // show and hide topic fields
         $('.topic-container').hide();
         $('.action-panel-container').each(function(){
-            if($(this).hasClass('selected')){
-                var bioId = $(this).children().children(
+            if(container.hasClass('selected')){
+                var bioId = container.children().children(
                     '.bioguide-mule').attr('id');
                 console.log("bioId: ", bioId);
                 console.log('topic-container-'+ bioId);
@@ -682,23 +680,8 @@ $(document).ready(function() {
                 console.log("text-input-html 2: " + $('#text-input').html());
 
                 //<p class="space-placeholder" style="display:inline;"> </p>
-                ////////////////////////////////////////////////////////
-                // remove all selected action containers
-                /////////////////////////////////////////////////////////
-                $('.action-panel-container').each(function(){
-                     if ($(this).hasClass( "selected" )){
-                        $(this).removeClass('selected');
-                     }
-                });
-
-                ////////////////////////////////////////////////////////
-                // remove all selected address items
-                /////////////////////////////////////////////////////////
-                $('.address-item').each(function(){
-                     if ($(this).hasClass( "selected" )){
-                        $(this).removeClass('selected');
-                     }
-                });
+                $('.action-panel-container').removeClass('selected');
+                $('.address-item').removeClass('selected');
 
                 ////////////////////////////////////////////////////////
                 // Change button label for every address-item selected
