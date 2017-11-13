@@ -61,8 +61,8 @@ class TwitterLoginView(OAuthLoginView):
 
         campaign_id = request.POST.get('campaign_id')
 
-        address_array = request.POST.getlist('address_array')
-        bioguide_array = request.POST.getlist('bioguide_array')
+        address_array = request.POST.get('address_array', '').split(',')
+        bioguide_array = request.POST.get('bioguide_array', '').split(',')
 
         request.session['redirect_url'] = request.META.get('HTTP_REFERER', '/')
         request.session['tweet_text'] = tweet_text
@@ -166,21 +166,13 @@ oauth_callback = TwitterCallbackView.adapter_view(TwitterOAuthAdapter)
 
 class SaveUserByEmailView(View):
     def post(self, request):
-        form = forms.UserForm(request.POST)
+        form = forms.SubscriberEmailForm(request.POST)
         if form.is_valid():
-            email_exist = User.objects.filter(email=form.cleaned_data.get('email')).exists()
-            if email_exist:
-                messages.success(request, 'Already subscribed!')
-                return redirect('home')
-            username = form.cleaned_data.get('email')
-            raw_password = User.objects.make_random_password()
-            form.instance.password = raw_password
-            form.instance.username = username
-            try:
-                form.save()
-                messages.success(request, 'Subscribed!')
-            except IntegrityError:
-                messages.success(request, 'Already subscribed!')
+            form.save()
+            messages.success(request, 'Subscribed!')
         else:
-            messages.success(request, 'Invalid email!')
-        return redirect('home')
+            if form.errors.get('email'):
+                messages.success(request, 'Already subscribed!')
+            else:
+                messages.success(request, 'Invalid email!')
+        return redirect('/#email')

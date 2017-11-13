@@ -135,8 +135,3 @@ class CongressCounter(CounterMixin, TimeStampedModel):
     # def recount(self):
     #     count = Action.objects.filter(receiver=self.congress, program=self.program)
     #     return count
-
-
-class APIEmailField(TimeStampedModel):
-    congress = models.OneToOneField('Congress')
-    email_fields = models.TextField()

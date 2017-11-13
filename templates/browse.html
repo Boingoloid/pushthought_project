@@ -6,23 +6,14 @@
 {% endblock %}
 {% block title %}Push Thought-Browse{% endblock %}
 
-
-                <!--<form class="form-inline">-->
-                    <!--<div class="form-group">-->
-                        <!--<textarea class="form-control" rows="1" cols="60" id="comment" placeholder="Search Keyword or Paste Link" ></textarea>-->
-                        <!--<button type="button" class="btn btn-primary" style="border-radius:10px;">Search</button>-->
-                    <!--</div>-->
-                <!--</form>-->
-
 {% block content %}
 
-{#<form name="browse_form" action="{% url 'browse' %}" method="post">#}
     {% csrf_token %}
     <input type="hidden" name="search_type" id="search_type" value="">
     <div class="browse-container">
         <div class="browse-header">
             <div>
-                <div style="display:inline;">
+                <div class="row text-center">
                     <a href="/browse_campaigns/" style="text-decoration:none;">
                         <button class="campaigns-button button-toggle">CAMPAIGNS
                         </button>
@@ -30,8 +21,7 @@
                         <button class="content-button button-toggle">CONTENT
                         </button>
                 </div>
-                </br>
-                <div>
+                <div class="messages">
                     {#  DO NOT REMOVE THIS#}
                     {% if messages %}
                         <ul class="messages">
@@ -41,8 +31,8 @@
                         </ul>
                     {% endif %}
                 </div>
-                <div style="display:block;">
-                    <input name="search_keyword" id="search_keyword" placeholder="paste link to IMDB or youtube"/>
+                <div>
+                    <input name="search_keyword" id="search_keyword" placeholder="IMDB or Youtube link"/>
                     <button name="search_btn" id="search_btn" class="btn-primary">Find</button>
                 </div>
                 <div style="display:inline-block">
@@ -53,14 +43,6 @@
             <div>
                 <p class="search-sub-text">Navigates to existing Campaign or creates new one</p>
             </div>
-{#            <div class="browse-button-a">#}
-{#                <button class="accordion" style="display:inline; color:red; font-size:18px;">Browse</button>#}
-{#                <div class="panel">#}
-{#                    <a><p>Documentaries</p></a>#}
-{#                    <a><p>Web Videos</p></a>#}
-{#                    <a><p>Podcasts</p></a>#}
-{#                </div>#}
-{#            </div>#}
         </div><!-- /.browse-header -->
         <div style="margin-left: 130px; font-size:80%;">-- or --
         </div>
@@ -88,7 +70,7 @@
         <div class="category-section">
             <div>
                 <p class="category-heading" style="display:inline;">Documentaries</p>
-                <!--<p style=" margin-left:10px; display:inline; font-size:14">(see all)</p>-->
+
             </div>
              <div class="row">
 {#             TODO:Change to docs only#}
@@ -123,16 +105,3 @@
     </script>
     <script src="{% static 'js/browse/imdb_search.js' %}"></script>
 {% endblock %}
-
-        <!--<div style="display:inline-block;">-->
-            <!--<button class="accordion" style="display: inline;">Section 2</button>-->
-            <!--<div class="panel">-->
-              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div style="display: inline-block;">-->
-            <!--<button class="accordion">Section 3</button>-->
-            <!--<div class="panel">-->
-              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-            <!--</div>-->
-        <!--</div>-->
