@@ -115,7 +115,7 @@ function create_congress_HTML(congressDataArray){
                 '</div>',
             '</div>',
             '<div class="action-panel-container-all">',
-                '<div class="action-panel selection-panel">',
+                '<div class="action-panel">',
                     '<img class="twitter-icon-all" src='+ tweetIconImage +' width="42" height="42">',
                     //'<img class="phone-icon-all" src=\'/static/img/phone-icon.png\'>',
                     '<img class="email-icon-all" src='+ emailIconImage +' width="36" height="36">',

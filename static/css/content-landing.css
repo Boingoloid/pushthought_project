@@ -1016,12 +1016,13 @@ text-tweet-block{
     border-bottom: 1px solid green;
 }
 
-.action-panel {
+.selection-panel {
     z-index: 0;
 }
 
-.selection-panel {
+.action-panel {
     z-index: 1;
+    background-color: #041229;
 }
 
 .status-panel {
@@ -1047,8 +1048,10 @@ text-tweet-block{
 .rep-container.active-mode-selection .selection-panel,
 .rep-container.active-mode-status .status-panel,
 .rep-container.active-mode-status .action-panel,
+.rep-container.active-mode-status .selection-panel,
 .rep-container.active-channel-twitter .twitter-name,
-.rep-container.active-channel-email .email-name {
+.rep-container.active-channel-email .email-name,
+.action-panel-container-all .action-panel {
     display: flex;
 }
 
