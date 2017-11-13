@@ -22,7 +22,6 @@ p{
 
 .intro-header-landing {
   margin:0px;
-  margin-top:50px;
   padding: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -37,7 +36,6 @@ p{
     float: left;
     margin-left:-30px;
     margin-right:0;
-    margin-top:10px;
     padding-left: 40px;
     padding-right: 15px;
     background:black;
@@ -92,7 +90,6 @@ a.more-info-link{
 
 .img-landing-title {
     margin:0;
-    margin-top: 15px;
     padding:0;
     max-height:350px;
     width: auto;
