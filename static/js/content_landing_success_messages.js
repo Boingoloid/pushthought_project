@@ -58,10 +58,11 @@ function show_status(data) {
         }
         set_active_mode('status');
 
-        $('.status-panel, .action-panel').each(function() {
-            full_height = $(this).css('height');
-            $(this).css('height', 0).animate({'height': full_height}, 500);
-        });
+        $('.status-panel, .action-panel-container .action-panel').each(
+            function() {
+                full_height = $(this).css('height');
+                $(this).css('height', 0).animate({'height': full_height}, 500);
+            });
     }
     $('#tweet-button').prop('disabled', true);
 }
@@ -81,13 +82,14 @@ function hide_status() {
     }
 
     if ($('.rep-container').hasClass('active-mode-status')) {
-        $('.status-panel, .action-panel').each(function() {
-            full_height = $(this).css('height');
-            $(this).animate({'height': 0}, 500, complete=function() {
-                $(this).css('height', full_height);
-                change_active_mode();
+        $('.status-panel, .action-panel-container .action-panel').each(
+            function() {
+                full_height = $(this).css('height');
+                $(this).animate({'height': 0}, 500, complete=function() {
+                    $(this).css('height', full_height);
+                    change_active_mode();
+                });
             });
-        });
     } else {
         change_active_mode();
     }
