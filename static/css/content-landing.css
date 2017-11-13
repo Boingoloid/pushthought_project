@@ -1027,6 +1027,11 @@ text-tweet-block{
 
 .status-panel {
     z-index: 2;
+    cursor: default;
+}
+
+.action-panel-container-all .status-panel {
+    cursor: pointer;
 }
 
 .action-panel, .selection-panel, .status-panel {
