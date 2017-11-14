@@ -27,6 +27,7 @@ from django.db.utils import IntegrityError
 
 from actions.models import Action
 from congress.models import Congress
+from programs.models import Program
 from campaigns.models import Campaign
 from utils.mixins import TwitterSendMixin
 
@@ -138,8 +139,11 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
         self.duplicateArray = []
         self.errorArray = []
         self.tweet_text = request.session.get('tweet_text')
-        self.program = request.session.get('program_id')
-        self.campaign = request.session.get('campaign_id')
+        program = request.session.get('program_id')
+        self.program = Program.objects.get(pk=program) if program else None
+        campaign = request.session.get('campaign_id')
+        self.campaign = Campaign.objects.get(slug=campaign) \
+            if campaign else None
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
 

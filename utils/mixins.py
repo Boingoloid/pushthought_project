@@ -73,12 +73,10 @@ class TwitterSendMixin(object):
 
         try:
             self.api.update_status(tweet_text_with_metion)
-            campaign = Campaign.objects.get(slug=self.campaign) \
-                if self.campaign else None
             Action.tweets.create(text=tweet_text_with_metion,
                                  user=self.request.user,
-                                 program_id=self.program,
-                                 campaign=campaign,
+                                 program=self.program,
+                                 campaign=self.campaign,
                                  congress=congress)
             self.successArray.append('@{}'.format(mention))
             return False
