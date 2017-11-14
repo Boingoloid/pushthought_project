@@ -73,22 +73,13 @@ class TwitterSendMixin(object):
 
         try:
             self.api.update_status(tweet_text_with_metion)
-            if self.program:
-                Action.tweets.create(
-                    tweet_text_with_metion,
-                    user=self.request.user,
-                    program_id=self.program,
-                    congress=congress
-                )
-            elif self.campaign:
-
-                campaign = Campaign.objects.get(slug=self.campaign)
-                Action.tweets.create(
-                    tweet_text_with_metion,
-                    user=self.request.user,
-                    campaign=campaign,
-                    congress=congress
-                )
+            campaign = Campaign.objects.get(slug=self.campaign) \
+                if self.campaign else None
+            Action.tweets.create(text=tweet_text_with_metion,
+                                 user=self.request.user,
+                                 program_id=self.program,
+                                 campaign=campaign,
+                                 congress=congress)
             self.successArray.append('@{}'.format(mention))
             return False
         except tweepy.TweepError as e:
