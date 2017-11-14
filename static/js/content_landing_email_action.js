@@ -1004,59 +1004,14 @@ function runEmail(bioguideIds){
         cache: false,
         success: function(data) {
             console.log("response from email send to phantom: ", data);
-            if (data['status'] == 'success'){
-                alert("Your e-mails have been sent.");
-                //console.log("success status from ajax submit_congress_email:" + data);
-
+            show_status(data);
+            if (data['status'] == 'success') {
                 // Clear the email action container
                 precreate_congress_email_fields();
-                // Excute close button
-                $('#close-button').trigger('click');
-
-                ///////////////////////////////////////////////
-                // Scroll the window up
-                ///////////////////////////////////////////////
-                //if($('.seen-it-container')){
-                //    var headerAllowance = $('.seen-it-container').offset().top - 20;
-                //    $('html, body').animate({
-                //        scrollTop: headerAllowance + 'px'
-                //    }, 'fast');
-                //}
-
-                //showEmailSuccess(bioguideArray);
-
-
-            } else if (data['status'] == 'captcha_needed'){
-                console.log("need captcha received in ajax submit_congress_email:" + data);
-                // show captcha
-                var captchahtml = ['<div><p>Copy the text</p></div>',
-                '<div><p>from the image</p></div>',
-                '<div><img class="captcha-img" src="'+data['url']+'"></div>',
-                '<div><input type="text" class="captcha-input"></div>',
-                '<div><button id="captcha-button">submit</button></div>',
-                '<div class="captcha-alert"></div>',
-                '<div hidden id="emailData" data-emailData="'+stringJson+'"></div>',
-                '<div hidden class="captcha-uid">'+ data['uid'] +'</div>'
-                ].join("\n");
-
-
-                //HERE'S' HOW
-                //var data = $('#alertList').data('alertlist');
-                //go to main content landing?  and make action for captcha submit button, include email data.
-
-
-                $('captcha-container').append(captchahtml);
-            } else if (data['status'] == 'error'){
-                console.log('error message, email submit:' + data['message']);
-                var errorMessageHTML = ['<div class="email-error"><p style="color:red;">'+ data['message'] +' Please try again.</p></div>'].join("\n");
-                $('.email-action-container').append(errorMessageHTML);
-                //setTimeout(function(){ $('.email-error').remove(); }, 5000); // how long message shows
-                    // info sits without changing, since likely resubmit.
             }
         },
         error: function() {
-            alert(
-                "There was a problem sending your e-mails, please try again.");
+            show_status(data);
         }
     });
 

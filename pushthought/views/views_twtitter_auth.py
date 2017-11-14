@@ -2,13 +2,11 @@ import re
 import time
 import json
 import httplib
-import logging
 import tweepy
 
 from allauth.socialaccount.models import SocialApp, SocialToken
 
 from django.views.generic import View
-from django.shortcuts import Http404
 from django.http import JsonResponse
 
 from actions.models import Action
@@ -21,9 +19,6 @@ from views_get_data import *
 from views_user_forms import *
 
 from utils.mixins import TwitterSendMixin
-
-
-logger = logging.getLogger('twitter')
 
 
 TWITTER_CONSUMER_SECRET = SocialApp.objects.filter(provider='twitter').last().secret
@@ -192,39 +187,16 @@ def verify_twitter(request):
 
 class SendTweetView(TwitterSendMixin, View):
     def post(self, request, *args, **kwargs):
-        try:
-            self.token_obj = SocialToken.objects.get(account__user_id=self.request.user.id, account__provider='twitter')
-        except SocialToken.DoesNotExist:
-            raise Http404
-        self.response = {}
         self.set_session()
-        self.api = self.get_authed_twitter_api()
-        self.mentions = self.get_mentions()
-        logger.debug('Mentions: %s', self.mentions)
-        if not len(self.mentions):
-            return JsonResponse({'status': 'noMention'})
-
-        self.clean_tweet_text = self.get_clean_tweet_text()
-        self.send_tweets()
-
-        return JsonResponse({
-            'send_response': self.successArray,
-            'successArray': self.successArray,
-            'duplicateArray': self.duplicateArray,
-            'errorArray': self.errorArray
-        })
+        return JsonResponse(self.send_tweets_and_generate_response())
 
     def set_session(self):
-        self.successArray = []
-        self.duplicateArray = []
-        self.errorArray = []
         data = self.request.POST
         self.request.session['programId'] = data['program_id']
         self.request.session['segmentId'] = data['segment_id']
         self.request.session['lastMenuURL'] = data['last_menu_url']
         self.request.session['tweetText'] = data['tweet_text']
         self.request.session['addressArray'] = data.getlist('address_array')
-        self.request.session['bioguideArray'] = data.getlist('bioguide_array')
         self.tweet_text = data['tweet_text']
 
         if data.get('program_id'):
@@ -237,112 +209,6 @@ class SendTweetView(TwitterSendMixin, View):
         else:
             self.campaign = None
         self.request.session.modified = True
-
-
-def verify_catch(request):
-
-    print "verify catch starting"
-    # Establish auth connection using Ap identification
-    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
-    # Get Access Key
-    token_obj = SocialToken.objects.get(account__user=request.user, account__provider='twitter')
-
-    access_key_token = token_obj.token
-    access_key_token_secret = token_obj.token_secret
-
-    # Establish API connection
-    auth.set_access_token(token_obj.token, token_obj.token_secret)
-
-    successArray = []
-    duplicateArray = []
-    otherErrorArray = []
-    overMax = False
-    success = False
-    duplicate = False
-    other = False
-    address_array = request.session['addressArray']
-    bioguide_array = request.session['bioguideArray']
-    tweet_text = request.session['tweetText']
-
-    if (len(address_array) == 0):
-        target_address = None
-        target_bioguide = None
-        result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret, current_user, twitter_user, target_address, target_bioguide)
-        if result == True:
-            success = True
-        elif result == 187:
-            duplicate = True
-        elif result == 186:
-            overMax = True
-        else:
-            other = True
-
-    elif len(address_array) == 1:
-        a_array = [x.encode('UTF8') for x in address_array]
-        target_address = address_array[0]
-        target_bioguide = bioguide_array[0]
-        result = send_tweet_and_save_action(request, tweet_text, access_key_token, access_key_token_secret,current_user, twitter_user, target_address, target_bioguide)
-        if result == True:
-            successArray.append(target_address)
-        elif result == 187:
-            duplicateArray.append(str(target_address))
-        elif result == 186:
-            overMax = True
-        else:
-            otherErrorArray.append(target_address)
-
-    else:
-        i = 0
-        a_array = [x.encode('UTF8') for x in address_array]
-        b_array = []
-        for item in a_array:
-            new_item = item.replace('\n', '')
-            b_array.append(new_item)
-        for itemb in b_array:
-            target_address = itemb
-            target_bioguide = bioguide_array[i]
-            if (len(address_array) > 1):
-                tweet_replace = tweet_text.replace('@multiple', target_address)
-            result = send_tweet_and_save_action(request, tweet_replace, access_key_token, access_key_token_secret,current_user, twitter_user, target_address, target_bioguide)
-            print "Result of send tweet attempt:", result
-            if result == True:
-                successArray.append(item)
-            elif result == 187:
-                duplicateArray.append(str(item))
-            elif result == 186:
-                overMax = True
-            else:
-                otherErrorArray.append(item)
-            i = i + 1
-            time.sleep(2)  # delays for 2 seconds
-    try:
-        segmentId = request.session['programId']
-    except:
-        programId = None
-    if segmentId:
-        alertList = [successArray, duplicateArray, otherErrorArray, overMax, success, duplicate, other]
-        alertList = json.dumps(alertList)
-        print "ALERT LIST:", alertList
-        # print type(alertList)
-
-        # AlertList into session
-        request.session['alertList'] = alertList
-        request.session.modified = True
-        redirectURL = "/content_landing/" + segmentId
-        print "redirecting to content_landing: ", redirectURL
-        return HttpResponse(json.dumps(
-            {'send_response': successArray, 'successArray': successArray, 'duplicateArray': duplicateArray,
-             'otherErrorArray': otherErrorArray , 'overMax': overMax, 'success': success, 'duplicate': duplicate,
-             'other': other}), content_type="application/json")
-    else:
-        redirectURL = "/browse/"
-        print "no programId redirecting to Browse:", redirectURL
-        return HttpResponseRedirect(redirectURL)
-
-
-
-
-
 
 
 from PIL import Image, ImageFilter

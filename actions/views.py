@@ -153,7 +153,8 @@ class SubmitCongressEmail(View):
             self.save_email(bioguide, fields, is_send_successful,
                             request_body.get('campaign_id'),
                             request_body.get('program_id'))
-        return JsonResponse({'status': 'success'})
+        return JsonResponse({'status': 'success',
+                             'statuses': {b: 'success' for b in bioguides}})
 
 
 class MyActivityView(LoginRequiredMixin, AjaxListView):
