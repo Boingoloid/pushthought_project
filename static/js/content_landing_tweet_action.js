@@ -28,7 +28,7 @@ function getCookie(name) {
 }
 var csrftoken = getCookie('csrftoken');
 
-function login_user(url) {
+function login_user_via_twitter_and_post_tweet(url, tweet_text) {
     var addressArray = [];
      $('.address-item.selected').each(function(){
         var address = $(this).text();
@@ -46,7 +46,7 @@ function login_user(url) {
     var tweetInput = document.createElement("input");
     tweetInput.type = "text";
     tweetInput.name = "tweet_text";
-    tweetInput.value = $('#text-input').text();
+    tweetInput.value = tweet_text;
     tweetForm.appendChild(tweetInput);
 
     var program_idInput = document.createElement("input");
@@ -79,12 +79,12 @@ function login_user(url) {
 
 function runTweet(windowURL){
     var login_window;
+    var tweet_text = $('#text-input').text() + site_url_to_append;
     check_user();
     if (login_url) {
-        login_user(login_url)
+        login_user_via_twitter_and_post_tweet(login_url, tweet_text)
     } else {
         // get message length and validate length
-        var tweet_text = $('#text-input').text() + site_url_to_append;
         console.log("tweet text:", tweet_text );
         console.log("html:", $('#text-input').html());
         if(tweet_text.length < 1){
