@@ -60,44 +60,51 @@ class TwitterSendMixin(object):
     #
     #     return tweet_text_with_url
 
-    def send_tweet(self, mention):
-        tweet_text_with_metion = '@{} {}'.format(mention, self.get_clean_tweet_text())
+    def send_tweet(self, mention, text):
         try:
             congress = Congress.objects.get(twitter=mention)
         except Congress.DoesNotExist:
-            self.errorArray.append('@{}'.format(mention))
-            return
+            return 'unknown_congressman'
+        tweet_text_with_metion = '@{} {}'.format(mention, text)
 
         if len(tweet_text_with_metion) > 140:
-            return JsonResponse({'status': 'overMax'})
+            return 'too_long'
 
         try:
             self.api.update_status(tweet_text_with_metion)
             if self.program:
-                Action.tweets.create(
-                    tweet_text_with_metion,
-                    user=self.request.user,
-                    program_id=self.program,
-                    congress=congress
-                )
+                Action.tweets.create(tweet_text_with_metion,
+                                     user=self.request.user,
+                                     program_id=self.program,
+                                     congress=congress)
             elif self.campaign:
-
                 campaign = Campaign.objects.get(slug=self.campaign)
-                Action.tweets.create(
-                    tweet_text_with_metion,
-                    user=self.request.user,
-                    campaign=campaign,
-                    congress=congress
-                )
-            self.successArray.append('@{}'.format(mention))
-            return False
+                Action.tweets.create(tweet_text_with_metion,
+                                     user=self.request.user,
+                                     campaign=campaign,
+                                     congress=congress)
+            return 'success'
         except tweepy.TweepError as e:
-            print(e)
             if e.api_code == 187:
-                self.duplicateArray.append('@{}'.format(mention))
+                return 'duplicate'
+            return 'error'
 
-            return e.api_code
+    def send_tweets(self, mentions, text):
+        return {mention: self.send_tweet(mention, text)
+                for mention in mentions}
 
-    def send_tweets(self):
-        for mention in self.mentions:
-            self.send_tweet(mention)
+    def send_tweets_and_generate_response(self):
+        self.api = self.get_authed_twitter_api()
+        mentions = self.get_mentions()
+        if not mentions:
+            return {'status': 'no_mentions'}
+        statuses = self.send_tweets(mentions, self.get_clean_tweet_text())
+
+        successes = [s for s in statuses.values() if s == 'success']
+        if len(successes) == len(statuses):
+            status = 'success'
+        elif successes:
+            status = 'partial_success'
+        else:
+            status = 'error'
+        return {'status': status, 'statuses': statuses}
