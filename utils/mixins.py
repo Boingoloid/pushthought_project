@@ -77,7 +77,6 @@ class TwitterSendMixin(object):
                                  program=self.program,
                                  campaign=self.campaign,
                                  congress=congress)
-            self.successArray.append('@{}'.format(mention))
             return 'success'
         except tweepy.TweepError as e:
             if e.api_code == 187:
