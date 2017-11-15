@@ -131,12 +131,15 @@ function runTweet(windowURL){
             traditional: true,
             success: function(data) {
                 hideLoading();
-                show_status(data);
+                show_statuses(data, 'twitter');
             },
             error: function(xhr, textStatus, error) {
                 hideLoading();
                 if (xhr.status == 404) {
-                    alert("This account doesn't have a twitter account binded to it.")
+                    alert("This account doesn't have a twitter account binded" +
+                          " to it.");
+                } else {
+                    alert("Unknown Twitter error");
                 }
             }
         });

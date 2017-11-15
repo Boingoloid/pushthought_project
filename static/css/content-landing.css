@@ -1069,14 +1069,14 @@ text-tweet-block{
     background-color: black;
 }
 
-.status-panel.success {
+.status-panel.status_success {
     background-color: #86DD5A;
 }
 
-.status-panel.unknown_congressman,
-.status-panel.too_long,
-.status-panel.duplicate,
-.status-panel.error {
+.status-panel.status_unknown_congressman,
+.status-panel.status_too_long,
+.status-panel.status_duplicate,
+.status-panel.status_error {
     background-color: #E23D22;
 }
 
