@@ -120,6 +120,7 @@ function create_congress_HTML(congressDataArray){
                     //'<img class="phone-icon-all" src=\'/static/img/phone-icon.png\'>',
                     '<img class="email-icon-all" src='+ emailIconImage +' width="36" height="36">',
                 '</div>',
+                '<div class="status-panel">X<br>Dismiss All</div>',
             '</div>',
         '</div>'
         ].join("\n");
@@ -145,33 +146,42 @@ function create_congress_HTML(congressDataArray){
         // twitterId check
         var tweetIconImage = $('.twitter-icon-hide').attr('src');
         var tweetIconEmptyImage = $('.twitter-icon-empty-hide').attr('src');
-        var twitterIdString;
+        var twitter_id_html;
+        var twitter_action_html;
         console.log(item);
-        if(!item['twitter']){
-           twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name="'+item['bioguide_id']+'">n/a</div>',
-            '<img class="twitter-icon-empty" src='+tweetIconEmptyImage+' width="42" height="42">',
-            '<div class="warning-box-tweet-icon">',
-                '<p class="warning-text">twitter address n/a</p>',
-            '</div>'
+        if (!item['twitter']) {
+            twitter_id_html = [
+                '<div class="twitter-name" id="twitter-name-' + i + '" name="' +
+                item['bioguide_id'] + '">n/a</div>',
+                '<div class="twitter warning-box-tweet-icon">',
+                    '<p class="warning-text">twitter address n/a</p>',
+                '</div>'
             ].join("\n");
+            twitter_action_html = '<img class="twitter-icon-empty"' +
+                ' src=' + tweetIconEmptyImage + ' width="42" height="42">';
         } else {
-           twitterIdString = ['<div class="twitter-name" id="twitter-name-'+i+'" name='+ item['bioguide_id'] +'>@'+item['twitter']+'</div>',
-                '<img class="twitter-icon" id='+i+' src='+tweetIconImage+' width="42" height="42">'
-                ].join("\n");
+            twitter_id_html = '<span class="twitter-name" id="twitter-name-' +
+                i + '" name=' + item['bioguide_id'] + '>@' + item['twitter'] +
+                '</span>';
+            twitter_action_html = '<img class="twitter-icon" id="' + i +
+                '" src=' + tweetIconImage + ' width="42" height="42">';
         }
 
         // contact form check
-        var emailString;
+        var email_id_html;
+        var email_action_html;
         var emailIconImage = $('.email-icon-hide').attr('src');
-        //if(!item['contact_form']){
-        //   emailString =  ['<div class="email-name email-name-'+ item['bioguide_id'] +'" id="'+i+'" name="'+ item['full_name'] + '">click to toggle</div>',
-        //   '<img class="email-icon-gray" id="email-icon-'+i+'name="'+item['full_name']+'" src=\'/static/img/email-icon-gray.png\' width="36" height="36">',
-        //   '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'">'+item['last_name']+'</div>'].join("\n");
-        //} else {
-           emailString =  ['<div class="email-name email-name-'+ item['bioguide_id'] +'" id="'+i+'" name="'+ item['full_name'] + '">' + item['full_name'] + '</div>',
-           '<img class="email-icon" id="email-icon-'+i+'" name="'+item['full_name']+'" src='+ emailIconImage +'>',
-           '<div hidden class="bioguide-mule" id="'+item['bioguide_id']+'" name="' + item['oc_email'] + '">'+item['last_name']+'</div>'].join("\n");
-        //}
+        email_id_html = '<span class="email-name email-name-' +
+            item['bioguide_id'] + '" id="' + i + '" name="' +
+            item['full_name'] + '" data-bioguide="' + item['bioguide_id'] + '">' + item['full_name'] + '</span>';
+        email_action_html = [
+            '<img class="email-icon" id="email-icon-' + i + '" name="' +
+            item['full_name'] + '" src="' + emailIconImage + '">',
+            '<div hidden class="bioguide-mule" id="' + item['bioguide_id'] +
+            '" name="' + item['oc_email'] + '">',
+            item['last_name'],
+            '</div>'
+        ].join("\n");
 
         // sent user count
         var sentCountDiv
@@ -219,12 +229,6 @@ function create_congress_HTML(congressDataArray){
                     sentCountDiv,
                    indicatorString,
                   '<p hidden id="tweet-address-item'+i+'">@'+item['twitter_id']+'</p>',
-                  '<div class="success-box" id="success-box-'+item['twitter_id']+'">',
-                          '<p class="success-text" style="padding-top:4px;">tweet sent to:</p>',
-                          '<p class="success-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
-                          '<p class="duplicate-text" style="padding-top:4px;">duplicate, not sent:</p>',
-                          '<p class="duplicate-text" style="font-size:14pt; color:#00aced;">@'+item['twitter_id']+'</p>',
-                  '</div>',
                   '<div style="display:inline-block;">',
                    imageString,
                         '<div class="name-title-container">',
@@ -234,14 +238,27 @@ function create_congress_HTML(congressDataArray){
                   '</div>',
                 '</div>',
                 '<div class="action-panel-container" id="'+i+'">',
-                        '<div class="action-panel">',
-                            twitterIdString,
-                            '<img class="phone-icon" id="'+item['phone']+'" name="'+item['full_name']+'" src='+phoneIconImage+'>',
-                            emailString,
-                        '</div>',
+                    '<div class="action-panel">',
+                        twitter_action_html,
+                        '<img class="phone-icon" id="' + item['phone'],
+                        '" name="' + item['full_name'] + '" src=',
+                        phoneIconImage + '>',
+                        email_action_html,
+                    '</div>',
+                    '<div class="selection-panel">',
+                        twitter_id_html,
+                        email_id_html,
+                    '</div>',
+                    '<div class="status-panel"></div>',
                 '</div>',
             '</div>'
         ].join("\n");
         $('.rep-container').append(text);
+    }
+
+    set_active_mode('action');
+    var data = $('#alertList').data('alertlist');
+    if (data) {
+        show_status(data);
     }
 }
