@@ -19,6 +19,8 @@ from django.shortcuts import redirect
 from django.db.utils import IntegrityError
 
 from utils.mixins import TwitterSendMixin
+from programs.models import Program
+from campaigns.models import Campaign
 
 from . import forms
 
@@ -81,8 +83,10 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
         self.duplicateArray = []
         self.errorArray = []
         self.tweet_text = request.session.get('tweet_text')
-        self.program = request.session.get('program_id')
-        self.campaign = request.session.get('campaign_id')
+        program = request.session.get('program_id')
+        self.program = Program.objects.get(pk=program) if program else None
+        campaign = request.session.get('campaign_id')
+        self.campaign = Campaign.objects.get(slug=campaign) if campaign else None
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
 
@@ -94,7 +98,7 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
             if not self.mentions:
                 request.session['alertList'] = json.dumps({'status': 'noMention'})
             self.clean_tweet_text = self.get_clean_tweet_text()
-            self.send_tweets()
+            self.send_tweets(self.mentions, self.clean_tweet_text)
             request.session['alertList'] = json.dumps([self.successArray, self.duplicateArray, self.errorArray])
 
             return HttpResponseRedirect(request.session.get('redirect_url'))
