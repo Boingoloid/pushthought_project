@@ -1,34 +1,23 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-import tweepy
-import re
 import json
 
-from allauth.compat import reverse
-from allauth.socialaccount.helpers import (
-    complete_social_login,
-    render_authentication_error,
-)
-from allauth.socialaccount.providers.oauth.client import OAuthError
-from allauth.socialaccount.providers.base import AuthError
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
-from allauth.socialaccount.providers.oauth.views import OAuthLoginView, OAuthView
-from allauth.socialaccount.models import SocialApp, SocialToken, SocialLogin
+from allauth.socialaccount.providers.oauth.views import (
+    OAuthLoginView,
+    OAuthCallbackView,
+)
+from allauth.socialaccount.models import SocialToken
 from allauth.account.views import LoginView
 
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.generic import View
-from django.http.response import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.db.utils import IntegrityError
 
-
-from actions.models import Action
-from congress.models import Congress
-from programs.models import Program
-from campaigns.models import Campaign
 from utils.mixins import TwitterSendMixin
 
 from . import forms
@@ -77,53 +66,6 @@ class TwitterLoginView(OAuthLoginView):
         return resp
 
 
-class OAuthCallbackView(OAuthView):
-    def dispatch(self, request):
-        """
-        View to handle final steps of OAuth based authentication where the user
-        gets redirected back to from the service provider
-        """
-        login_done_url = reverse(self.adapter.provider_id + "_callback")
-        client = self._get_client(request, login_done_url)
-        if not client.is_valid():
-            if 'denied' in request.GET:
-                error = AuthError.CANCELLED
-            else:
-                error = AuthError.UNKNOWN
-            extra_context = dict(oauth_client=client)
-            return render_authentication_error(
-                request,
-                self.adapter.provider_id,
-                error=error,
-                extra_context=extra_context)
-        app = self.adapter.get_provider().get_app(request)
-        try:
-            access_token = client.get_access_token()
-            token = SocialToken(
-                app=app,
-                token=access_token['oauth_token'],
-                # .get() -- e.g. Evernote does not feature a secret
-                token_secret=access_token.get('oauth_token_secret', ''))
-            self.token = token
-            login = self.adapter.complete_login(request,
-                                                app,
-                                                token,
-                                                response=access_token)
-
-            if not login.user.is_staff and login.user.email != login.user.username:
-                #make user's username same as email
-                login.user.username = login.user.email
-
-            login.token = token
-            login.state = SocialLogin.unstash_state(request)
-            return complete_social_login(request, login)
-        except OAuthError as e:
-            return render_authentication_error(
-                request,
-                self.adapter.provider_id,
-                exception=e)
-
-
 class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
     """
     Callback view for twitter login. Sends tweet after the user logs in.
@@ -135,12 +77,12 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
             messages.error(request, 'Your twitter email address is already taken. Please login into your old account.')
             return HttpResponseRedirect('/accounts/login/')
 
+        self.successArray = []
+        self.duplicateArray = []
+        self.errorArray = []
         self.tweet_text = request.session.get('tweet_text')
-        program = request.session.get('program_id')
-        self.program = Program.objects.get(pk=program) if program else None
-        campaign = request.session.get('campaign_id')
-        self.campaign = Campaign.objects.get(slug=campaign) \
-            if campaign else None
+        self.program = request.session.get('program_id')
+        self.campaign = request.session.get('campaign_id')
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
 
@@ -148,8 +90,12 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
             self.api = self.get_authed_twitter_api()
             if not self.api:
                 return HttpResponseRedirect(request.session.get('redirect_url'))
-            request.session['alertList'] = json.dumps(
-                self.send_tweets_and_generate_response())
+            self.mentions = self.get_mentions()
+            if not self.mentions:
+                request.session['alertList'] = json.dumps({'status': 'noMention'})
+            self.clean_tweet_text = self.get_clean_tweet_text()
+            self.send_tweets()
+            request.session['alertList'] = json.dumps([self.successArray, self.duplicateArray, self.errorArray])
 
             return HttpResponseRedirect(request.session.get('redirect_url'))
         elif redirect_url and not self.tweet_text:

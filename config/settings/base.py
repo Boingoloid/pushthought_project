@@ -368,6 +368,8 @@ ACCOUNT_USERNAME_REQUIRED = False
 SOCIALACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_ADAPTER = \
+    'config.allauth_adapters.AutoconnectSocialAccountAdapter'
 # SOCIALACCOUNT_PROVIDERS = {
 #     'facebook': {
 #         'METHOD': 'oauth2',
