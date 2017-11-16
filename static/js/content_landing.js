@@ -882,18 +882,14 @@ $(document).ready(function() {
         });
     });
 
-        $('.tweet_suggested_message_container').on("click", ".field-suggested-tweet", function(e) {
-        e.stopPropagation();
-
-        var message = $(this).val();
-
-        if($('.rep-action-container').is(":visible")){
-        }else{
-            $('.twitter-icon').trigger('click');
-        }
-
-        pasteMessage(message);
-
+    $('.tweet_suggested_message_container').on(
+        "click", ".field-suggested-tweet", function(e) {
+            e.stopPropagation();
+            var message = $(this).val();
+            if ($('.rep-action-container').is(":hidden")) {
+                $('.twitter-icon').click();
+            }
+            pasteMessage(message);
     });
 
     $('.email_suggested_message_container').on("click", ".field-suggested-email", function(e) {

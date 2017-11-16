@@ -256,9 +256,10 @@ function create_congress_HTML(congressDataArray){
         $('.rep-container').append(text);
     }
 
-    set_active_mode('action');
     var data = $('#alertList').data('alertlist');
     if (data) {
-        show_status(data);
+        show_statuses(data, 'twitter', sent_via_ajax=false);
+    } else {
+        set_active_mode('action');
     }
 }

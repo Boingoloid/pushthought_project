@@ -1004,14 +1004,14 @@ function runEmail(bioguideIds){
         cache: false,
         success: function(data) {
             console.log("response from email send to phantom: ", data);
-            show_status(data);
+            show_statuses(data, 'email');
             if (data['status'] == 'success') {
                 // Clear the email action container
                 precreate_congress_email_fields();
             }
         },
         error: function() {
-            show_status(data);
+            show_statuses(data, 'email');
         }
     });
 
