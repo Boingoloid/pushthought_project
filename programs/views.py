@@ -8,6 +8,7 @@ from django.views.generic import DetailView, View
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from utils.helper import url_to_model_field
 from youtube.quickstart import videos_list_by_id
@@ -27,7 +28,7 @@ class SearchIMDBProgramTitleView(View):
         return HttpResponse(results)
 
 
-class ParseProgramIDView(View):
+class ParseProgramIDView(LoginRequiredMixin, View):
     '''
     Parses youtube and imdb links and saves them into the DB as programs.
     '''
