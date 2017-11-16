@@ -181,6 +181,7 @@ SERVER_EMAIL = 'noreply@pushthought.com'
 
 ADMINS = [
     ('Viacheslav', 'slava.khromyak@gmail.com'),
+    ('Eugeniusz', 'egilewski.dev@gmail.com'),
 ]
 
 # Internationalization
