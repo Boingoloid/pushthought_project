@@ -17,17 +17,19 @@ function set_status(element, status_name) {
     var status2text = {
         null: "",
         'success': "Success!",
-        'unknown_congressman': "Unknown congressman",
         'too_long': "Too many characters",
         'duplicate': "Duplicate Tweet",
-        'error': "Error",
+        'unknown_error': "Error",
     }
     var status_text = status2text.hasOwnProperty(status_name) ?
-        status2text[status_name] : "Status unknown";
+        status2text[status_name] : status_name;
     element
         .prop('class', function(i, c) {
             var classes = [c.replace(/(^|\s)status_\S+/g, '')];
             if (status_name !== null) {
+                if (status_name != 'success') {
+                    classes.push('status_error');
+                }
                 classes.push('status_' + status_name);
             }
             return classes.join(' ');

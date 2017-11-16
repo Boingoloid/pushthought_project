@@ -1073,9 +1073,6 @@ text-tweet-block{
     background-color: #86DD5A;
 }
 
-.status-panel.status_unknown_congressman,
-.status-panel.status_too_long,
-.status-panel.status_duplicate,
 .status-panel.status_error {
     background-color: #E23D22;
 }
