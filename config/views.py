@@ -79,27 +79,23 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
             messages.error(request, 'Your twitter email address is already taken. Please login into your old account.')
             return HttpResponseRedirect('/accounts/login/')
 
-        self.successArray = []
-        self.duplicateArray = []
-        self.errorArray = []
         self.tweet_text = request.session.get('tweet_text')
         program = request.session.get('program_id')
         self.program = Program.objects.get(pk=program) if program else None
         campaign = request.session.get('campaign_id')
-        self.campaign = Campaign.objects.get(slug=campaign) if campaign else None
+        self.campaign = Campaign.objects.get(slug=campaign) if campaign \
+            else None
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
 
-        if request.user.is_authenticated() and redirect_url and self.tweet_text:
+        if request.user.is_authenticated() and redirect_url and \
+                self.tweet_text:
             self.api = self.get_authed_twitter_api()
             if not self.api:
-                return HttpResponseRedirect(request.session.get('redirect_url'))
-            self.mentions = self.get_mentions()
-            if not self.mentions:
-                request.session['alertList'] = json.dumps({'status': 'noMention'})
-            self.clean_tweet_text = self.get_clean_tweet_text()
-            self.send_tweets(self.mentions, self.clean_tweet_text)
-            request.session['alertList'] = json.dumps([self.successArray, self.duplicateArray, self.errorArray])
+                return HttpResponseRedirect(
+                    request.session.get('redirect_url'))
+            request.session['alertList'] = json.dumps(
+                self.send_tweets_and_generate_response())
 
             return HttpResponseRedirect(request.session.get('redirect_url'))
         elif redirect_url and not self.tweet_text:
