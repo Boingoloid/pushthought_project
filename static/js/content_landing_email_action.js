@@ -986,8 +986,7 @@ function runEmail(bioguideIds){
 
     formDataDictionary['$MESSAGE'] = $('#text-input').text();
     if (site_url_to_append.length) {
-        formDataDictionary['$MESSAGE'] += "\nSent from https://" +
-            site_url_to_append.slice(1);
+        formDataDictionary['$MESSAGE'] += "\n\nSent from" + site_url_to_append;
     }
     var stringJson = JSON.stringify({
         "bio_ids": bioguideIds,
