@@ -1006,7 +1006,7 @@ site_url_to_append = '';
 $(document).ready(function () {
     $(document).on('change', '#twitter_input_add_url', function () {
         if ($(this).prop('checked')) {
-            site_url_to_append = ' pushthought.com/' +
+            site_url_to_append = ' https://www.pushthought.com/' +
                 window.location.href.split('/').slice(3).join('/');
         } else {
             site_url_to_append = '';
