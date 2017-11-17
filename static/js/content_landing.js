@@ -27,18 +27,18 @@ $(document).ready(function() {
 
     // Facebook and Twitter sharing buttons
     var current_url = window.location.href;
-    var share_text = "I just used a Messaging Campaign on Push Thought to" +
-        " contact my congressional representatives.";
-    $("#twitter-share-button").prop(
+    twitter_share_button = $("#twitter-share-button")
+    twitter_share_button.prop(
         'href', "https://twitter.com/intent/tweet?" + $.param({
             'url': current_url,
-            'text': share_text,
+            'text': twitter_share_button.data('text'),
         }));
-    $("#facebook-share-button").click(function(){
+    facebook_share_button = $("#facebook-share-button")
+    facebook_share_button.click(function(){
       FB.ui({
         method: 'share',
         href: current_url,
-        quote: share_text,
+        quote: facebook_share_button.data('text'),
       }, function(response){});
     });
 
