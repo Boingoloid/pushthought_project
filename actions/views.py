@@ -112,10 +112,11 @@ class SubmitCongressEmail(View):
             if campaign_slug else None
         program = get_object_or_None(Program, id=program_id) \
             if program_id else None
-        action = Action.emails.create(text=fields['$MESSAGE'], fields=fields,
-                                      is_sent=is_sent, congress=congress,
-                                      campaign=campaign, program=program,
-                                      user=self.request.user)
+        action = Action.emails.create(
+            text=fields['$MESSAGE'], fields=fields, is_sent=is_sent,
+            congress=congress, campaign=campaign, program=program,
+            user=self.request.user if self.request.user.is_authenticated()
+            else None)
         if campaign_slug and not campaign:
             logger.error("Campaign with slug %s not found, action with"
                          " pk %s saved as unrelated to a campaign",

@@ -181,6 +181,7 @@ SERVER_EMAIL = 'noreply@pushthought.com'
 
 ADMINS = [
     ('Viacheslav', 'slava.khromyak@gmail.com'),
+    ('Eugeniusz', 'egilewski.dev@gmail.com'),
 ]
 
 # Internationalization
@@ -364,10 +365,13 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_DISPLAY = lambda user: user.email
 
 SOCIALACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_ADAPTER = \
+    'config.allauth_adapters.AutoconnectSocialAccountAdapter'
 # SOCIALACCOUNT_PROVIDERS = {
 #     'facebook': {
 #         'METHOD': 'oauth2',

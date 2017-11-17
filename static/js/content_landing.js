@@ -416,6 +416,7 @@ $(document).ready(function() {
         $('.rep-action-container').show();
         $('.rep-action-container').animate({'opacity':'1.0'});
         $('.rep-action-container').animate({'display':'block'});
+        $('#text-input').animate({'height':'200px','max-height':'200px'});
 
         // scroll to appropriate place on screen to see action container
 //        $('.category-container').animate({'height':'350px'},200,function(){
@@ -737,6 +738,9 @@ $(document).ready(function() {
     $('#tweet-button').click(function() {
         function request_finished() {
             hideLoading();
+            if (get_active_mode() != 'status') {
+                $('#tweet-button').prop('disabled', false);
+            }
         }
 
         if ($(this).prop('disabled')) {
@@ -882,18 +886,14 @@ $(document).ready(function() {
         });
     });
 
-        $('.tweet_suggested_message_container').on("click", ".field-suggested-tweet", function(e) {
-        e.stopPropagation();
-
-        var message = $(this).val();
-
-        if($('.rep-action-container').is(":visible")){
-        }else{
-            $('.twitter-icon').trigger('click');
-        }
-
-        pasteMessage(message);
-
+    $('.tweet_suggested_message_container').on(
+        "click", ".field-suggested-tweet", function(e) {
+            e.stopPropagation();
+            var message = $(this).val();
+            if ($('.rep-action-container').is(":hidden")) {
+                $('.twitter-icon').click();
+            }
+            pasteMessage(message);
     });
 
     $('.email_suggested_message_container').on("click", ".field-suggested-email", function(e) {
@@ -981,54 +981,35 @@ function setEndOfContenteditable(contentEditableElement)
     }
 }
 
-function updateTextCount(){
-    var textInput = $('#text-input').text();
-    var twitterMax = 140;
-    var twitterDefaultLinkLength = 0; //22;
-    var countAfterLink = twitterMax - twitterDefaultLinkLength;
-
-    var addressInput = $('.address-placeholder').eq(0).text();
-    var countAddressInput =  addressInput.length;
-    var countTextInput =  textInput.length;
-    var longestAddressLength = get_longest_address();
-    var countRemaining = countAfterLink - countTextInput + countAddressInput -
-        longestAddressLength - site_url_to_append.length;
-
-//        console.log("addressInput:", addressInput);
-//        console.log("countAddressInput:", countAddressInput);
-//        console.log("countTextInput:", countTextInput);
-//        console.log("longestAddressLength:", longestAddressLength);
-//        console.log("countRemaining:", countRemaining);
-
-    // adjust for line breaks
-    numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
-    countRemaining = countRemaining - numberOfLineBreaks;
-
-    $('.letter-count').text(countRemaining);
-    if (countRemaining < 0){
-        $('.letter-count').css({'color':'red'});
-    } else {
-        $('.letter-count').css({'color':'gray'});
-    }
+function updateTextCount() {
+    var user_entered_text = $('#text-input').text().slice(
+        $('.address-placeholder').eq(0).text().length);
+    count_remaining = 280 - twttr.txt.getTweetLength(
+        get_longest_address() + " " + user_entered_text + site_url_to_append);
+    $('.letter-count').text(count_remaining);
+    $('.letter-count').css({'color': count_remaining < 0 ? 'red' : 'gray'});
 }
 
-    // loop through and find longest address
+
 function get_longest_address(){
     var longestAddressLength = 0;
+    var longest_address = "";
     $('.address-item-label:visible').each(function(){
         var text = $(this).text();
         if (text.length > longestAddressLength){
             longestAddressLength = text.length;
+            longest_address = text;
         }
     });
-    return longestAddressLength;
+    return longest_address;
 }
+
 
 site_url_to_append = '';
 $(document).ready(function () {
     $(document).on('change', '#twitter_input_add_url', function () {
         if ($(this).prop('checked')) {
-            site_url_to_append = ' pushthought.com/' +
+            site_url_to_append = ' https://www.pushthought.com/' +
                 window.location.href.split('/').slice(3).join('/');
         } else {
             site_url_to_append = '';

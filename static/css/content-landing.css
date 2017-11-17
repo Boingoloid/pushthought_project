@@ -540,7 +540,7 @@ text-tweet-block{
 .letter-count{
   position: absolute;
   z-index:1000;
-  top: 108px;
+  top: 205px;
   left: 430px;
   cursor:pointer;
   color:gray;
@@ -1069,14 +1069,11 @@ text-tweet-block{
     background-color: black;
 }
 
-.status-panel.success {
+.status-panel.status_success {
     background-color: #86DD5A;
 }
 
-.status-panel.unknown_congressman,
-.status-panel.too_long,
-.status-panel.duplicate,
-.status-panel.error {
+.status-panel.status_error {
     background-color: #E23D22;
 }
 

@@ -481,6 +481,9 @@ function get_form_data_list() {
 
 
 function show_hide_congress_email_fields() {
+    if (!$('.email-name').is(':visible')) {
+        return false;
+    }
     var visible_fields_names = [];
     $('.action-panel-container.selected .bioguide-mule').each(function() {
         var form_data = $(this).data('form');
@@ -537,7 +540,7 @@ function precreate_congress_email_fields() {
 
             htmlText = [htmlText,
                 '<div class="email-form-field-container ' + topic_class_name +
-                '" style="display:block;" id="' + field_name + '-container">',
+                '" style="display: none;" id="' + field_name + '-container">',
                 '   <div class="label-div">',
                 '<label for="eform-' + field_name +
                 '" style="display:inline;" class="email-form-label' +
@@ -580,7 +583,7 @@ function precreate_congress_email_fields() {
 
             htmlText = [htmlText,
                 '<div class="email-form-field-container" id="' + field_name +
-                '-container" style="display:block;">',
+                '-container" style="display: none;">',
                 '<div class="label-div">',
                 ' <label for="eform-' + field_name + '" style="display:inline;" class="email-form-label">' +
                             label_name + '</label>',
@@ -983,8 +986,7 @@ function runEmail(bioguideIds){
 
     formDataDictionary['$MESSAGE'] = $('#text-input').text();
     if (site_url_to_append.length) {
-        formDataDictionary['$MESSAGE'] += "\nSent from https://" +
-            site_url_to_append.slice(1);
+        formDataDictionary['$MESSAGE'] += "\n\nSent from" + site_url_to_append;
     }
     var stringJson = JSON.stringify({
         "bio_ids": bioguideIds,
@@ -1004,14 +1006,14 @@ function runEmail(bioguideIds){
         cache: false,
         success: function(data) {
             console.log("response from email send to phantom: ", data);
-            show_status(data);
+            show_statuses(data, 'email');
             if (data['status'] == 'success') {
                 // Clear the email action container
                 precreate_congress_email_fields();
             }
         },
         error: function() {
-            show_status(data);
+            show_statuses(data, 'email');
         }
     });
 

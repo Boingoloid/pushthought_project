@@ -4,7 +4,7 @@ import re
 from allauth.compat import reverse
 from allauth.socialaccount.models import SocialApp, SocialToken
 
-
+from django.conf import settings
 from django.contrib import messages
 from django.http.response import JsonResponse
 from django.contrib.sites.shortcuts import get_current_site
@@ -64,30 +64,30 @@ class TwitterSendMixin(object):
         try:
             congress = Congress.objects.get(twitter=mention)
         except Congress.DoesNotExist:
-            return 'unknown_congressman'
+            return 'unknown_congressman' if settings.DEBUG \
+                else 'unknown_error'
         tweet_text_with_metion = '@{} {}'.format(mention, text)
-
-        if len(tweet_text_with_metion) > 140:
-            return 'too_long'
 
         try:
             self.api.update_status(tweet_text_with_metion)
-            if self.program:
-                Action.tweets.create(tweet_text_with_metion,
-                                     user=self.request.user,
-                                     program_id=self.program,
-                                     congress=congress)
-            elif self.campaign:
-                campaign = Campaign.objects.get(slug=self.campaign)
-                Action.tweets.create(tweet_text_with_metion,
-                                     user=self.request.user,
-                                     campaign=campaign,
-                                     congress=congress)
+            Action.tweets.create(text=tweet_text_with_metion,
+                                 user=self.request.user,
+                                 program=self.program,
+                                 campaign=self.campaign,
+                                 congress=congress)
             return 'success'
         except tweepy.TweepError as e:
             if e.api_code == 187:
                 return 'duplicate'
-            return 'error'
+            if e.api_code == 120:
+                return 'too_long'
+            if settings.DEBUG:
+                if e.api_code == 261:
+                    return 'cannot_write'
+                if e.api_code == 32:
+                    return 'cannot_authenticate'
+                return e.api_code
+            return 'unknown_error'
 
     def send_tweets(self, mentions, text):
         return {mention: self.send_tweet(mention, text)
