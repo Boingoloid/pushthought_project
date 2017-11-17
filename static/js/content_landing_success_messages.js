@@ -13,6 +13,12 @@ function set_active_mode(mode) {
 }
 
 
+function get_active_mode() {
+    return $('.rep-container').prop('class').match(
+        /(?:^|\s)active-mode-(\S+)/)[1]
+}
+
+
 function set_status(element, status_name) {
     var status2text = {
         null: "",

@@ -737,6 +737,9 @@ $(document).ready(function() {
     $('#tweet-button').click(function() {
         function request_finished() {
             hideLoading();
+            if (get_active_mode() != 'status') {
+                $('#tweet-button').prop('disabled', false);
+            }
         }
 
         if ($(this).prop('disabled')) {
