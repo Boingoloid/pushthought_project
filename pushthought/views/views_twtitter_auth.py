@@ -276,7 +276,7 @@ def send_tweet_and_save_action(request, tweet_replaced, access_key_token, access
         print "duplicate:", result
         return result
     elif result == 186:
-        print "over max characters (140):", result
+        print "over max characters (280):", result
         return result
     else:
         print "send tweet returning false, some other error"

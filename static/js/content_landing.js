@@ -416,6 +416,7 @@ $(document).ready(function() {
         $('.rep-action-container').show();
         $('.rep-action-container').animate({'opacity':'1.0'});
         $('.rep-action-container').animate({'display':'block'});
+        $('#text-input').animate({'height':'200px','max-height':'200px'});
 
         // scroll to appropriate place on screen to see action container
 //        $('.category-container').animate({'height':'350px'},200,function(){
@@ -977,48 +978,29 @@ function setEndOfContenteditable(contentEditableElement)
     }
 }
 
-function updateTextCount(){
-    var textInput = $('#text-input').text();
-    var twitterMax = 140;
-    var twitterDefaultLinkLength = 0; //22;
-    var countAfterLink = twitterMax - twitterDefaultLinkLength;
-
-    var addressInput = $('.address-placeholder').eq(0).text();
-    var countAddressInput =  addressInput.length;
-    var countTextInput =  textInput.length;
-    var longestAddressLength = get_longest_address();
-    var countRemaining = countAfterLink - countTextInput + countAddressInput -
-        longestAddressLength - site_url_to_append.length;
-
-//        console.log("addressInput:", addressInput);
-//        console.log("countAddressInput:", countAddressInput);
-//        console.log("countTextInput:", countTextInput);
-//        console.log("longestAddressLength:", longestAddressLength);
-//        console.log("countRemaining:", countRemaining);
-
-    // adjust for line breaks
-    numberOfLineBreaks = (textInput.match(/\n/g)||[]).length;
-    countRemaining = countRemaining - numberOfLineBreaks;
-
-    $('.letter-count').text(countRemaining);
-    if (countRemaining < 0){
-        $('.letter-count').css({'color':'red'});
-    } else {
-        $('.letter-count').css({'color':'gray'});
-    }
+function updateTextCount() {
+    var user_entered_text = $('#text-input').text().slice(
+        $('.address-placeholder').eq(0).text().length);
+    count_remaining = 280 - twttr.txt.getTweetLength(
+        get_longest_address() + " " + user_entered_text + site_url_to_append);
+    $('.letter-count').text(count_remaining);
+    $('.letter-count').css({'color': count_remaining < 0 ? 'red' : 'gray'});
 }
 
-    // loop through and find longest address
+
 function get_longest_address(){
     var longestAddressLength = 0;
+    var longest_address = "";
     $('.address-item-label:visible').each(function(){
         var text = $(this).text();
         if (text.length > longestAddressLength){
             longestAddressLength = text.length;
+            longest_address = text;
         }
     });
-    return longestAddressLength;
+    return longest_address;
 }
+
 
 site_url_to_append = '';
 $(document).ready(function () {

@@ -68,9 +68,6 @@ class TwitterSendMixin(object):
                 else 'unknown_error'
         tweet_text_with_metion = '@{} {}'.format(mention, text)
 
-        if len(tweet_text_with_metion) > 140:
-            return 'too_long'
-
         try:
             self.api.update_status(tweet_text_with_metion)
             Action.tweets.create(text=tweet_text_with_metion,
@@ -82,6 +79,8 @@ class TwitterSendMixin(object):
         except tweepy.TweepError as e:
             if e.api_code == 187:
                 return 'duplicate'
+            if e.api_code == 120:
+                return 'too_long'
             if settings.DEBUG:
                 if e.api_code == 261:
                     return 'cannot_write'

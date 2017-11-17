@@ -93,7 +93,7 @@ function validateUrl(url) {
 
 function updateLetterCount(){
     console.log("here");
-    var twitterMax = 140;
+    var twitterMax = 280;
     var twitterDefaultNameLength = 20;
     var countAfterName = twitterMax - twitterDefaultNameLength;
     var textInput = $('.field-input-tweet_text')
