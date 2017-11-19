@@ -47,25 +47,16 @@ class LoggedInView(View):
 
 class TwitterLoginView(OAuthLoginView):
     def dispatch(self, request, *args, **kwargs):
-        resp = super(TwitterLoginView, self).dispatch(request, *args, **kwargs)
-        tweet_text = request.POST.get('tweet_text')
-        program_id = request.POST.get('program_id')
-
-        campaign_id = request.POST.get('campaign_id')
-
-        address_array = request.POST.get('address_array', '').split(',')
-        bioguide_array = request.POST.get('bioguide_array', '').split(',')
-
         request.session['redirect_url'] = request.META.get('HTTP_REFERER', '/')
-        request.session['tweet_text'] = tweet_text
+        request.session['tweet_text'] = request.POST.get('tweet_text')
         request.session['sent_tweet'] = False
-
-        request.session['program_id'] = program_id
-        request.session['campaign_id'] = campaign_id
-
-        request.session['addressArray'] = address_array
-        request.session['bioguiderray'] = bioguide_array
-        return resp
+        request.session['program_id'] = request.POST.get('program_id')
+        request.session['campaign_id'] = request.POST.get('campaign_id')
+        request.session['addressArray'] = request.POST.get(
+            'address_array', '').split(',')
+        request.session['bioguiderray'] = request.POST.get(
+            'bioguide_array', '').split(',')
+        return super(TwitterLoginView, self).dispatch(request, *args, **kwargs)
 
 
 class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):

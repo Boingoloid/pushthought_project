@@ -1038,9 +1038,9 @@ text-tweet-block{
     top: 3px;
     left: 2px;
     right: 2px;
-    bottom: 2px;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
+    bottom: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     border: none;
 }
 

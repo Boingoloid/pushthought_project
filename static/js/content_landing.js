@@ -172,7 +172,6 @@ $(document).ready(function() {
         //Show title warning
         $('.category-title').hide();
         $('.category-warning').show();
-
     });
 
 

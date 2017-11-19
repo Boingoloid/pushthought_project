@@ -257,6 +257,7 @@ function create_congress_HTML(congressDataArray){
     }
 
     var data = $('#alertList').data('alertlist');
+    $('#alertList').data('alertlist', '');
     if (data) {
         show_statuses(data, 'twitter', sent_via_ajax=false);
     } else {
