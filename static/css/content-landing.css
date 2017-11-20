@@ -1437,14 +1437,15 @@ input.eform:hover{
 
 
 .field-suggested-tweet{
-  width:500px;
-  margin-left:5px;
-  display:inline;
-  background-color:transparent;
-  font-size:12pt;
-  min-height:85px;
+  width: 500px;
+  margin-left: 5px;
+  display: inline;
+  background-color: transparent;
+  font-size: 12pt;
+  min-height: 85px;
+  height: 120px;
   cursor: pointer;
-  color:gray;
+  color: gray;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: pre-wrap;
