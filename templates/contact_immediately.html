@@ -177,12 +177,15 @@
                         <label style=" margin-top:5px; font-size: 14pt;"><input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300;"> Add campaign url at end
                         </label>
                     </div>
-                    <div id="tweet-button">
-                        <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
-                        <img id="img-send-email-icon" style="" src="{% static 'img/email-icon.png' %}" width="37" height="37">
-                        <p class="tweet-button-label" id="tweet-button-label">Tweet</p>
-                        <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
-                        <div class='tweet-loader' id="tweet-loader"></div>
+                    <div class="send-button-container">
+                        <div id="tweet-button">
+                            <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
+                            <img id="img-send-email-icon" style="" src="{% static 'img/email-icon.png' %}" width="37" height="37">
+                            <p class="tweet-button-label" id="tweet-button-label">Tweet</p>
+                            <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
+                            <div class='tweet-loader' id="tweet-loader"></div>
+                        </div>
+                        <div id="email-sending-progress"></div>
                     </div>
                     <div class="letter-count"></div>
                     <div class="img-checked-box-container">
