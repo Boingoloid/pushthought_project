@@ -1036,8 +1036,8 @@ text-tweet-block{
 .action-panel, .selection-panel, .status-panel {
     position: absolute;
     top: 3px;
-    left: 2px;
-    right: 2px;
+    left: 0;
+    right: 0;
     bottom: 0;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
