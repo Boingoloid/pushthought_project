@@ -93,12 +93,6 @@ body h2{
   color:gray;
 }
 
-.tweet-letter-count{
-  display:inline;
-  font-size:12pt;
-  color:gray;
-}
-
 .field-label-email-intro{
   font-size:12pt;
   width:300px;
@@ -155,8 +149,7 @@ body h2{
   width:400px;
   max-width:578px;
   min-height:100px;
-  height: 100px;
-  max-height: 450px;
+  height: 300px;
   display:block;
 }
 
@@ -211,10 +204,9 @@ display:inline;
 
 
 #id_tweet_text{
-  width:400px;
-  min-height:70px;
-  height:70px;
-  max-height:170px;
+  width: 400px;
+  min-height: 70px;
+  height: 150px;
 }
 
 .suggested-email-container{
