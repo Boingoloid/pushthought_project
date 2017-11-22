@@ -612,6 +612,13 @@ function precreate_congress_email_fields() {
 }
 
 
+function clear_email_fields() {
+    $('#text-input').val(emailFieldData['MESSAGE']);
+    $('#eform-SUBJECT').val("");
+    $('[id^="TOPIC-"][id$="-container"] select').prop('selectedIndex', 0);
+}
+
+
 /////////////////////////////////////////////////////////////
 // function
 // shows designated order of known fields
@@ -1008,8 +1015,7 @@ function runEmail(bioguideIds){
             console.log("response from email send to phantom: ", data);
             show_statuses(data, 'email');
             if (data['status'] == 'success') {
-                // Clear the email action container
-                precreate_congress_email_fields();
+                clear_email_fields();
             }
         },
         error: function() {
