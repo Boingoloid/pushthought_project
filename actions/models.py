@@ -37,10 +37,10 @@ class SaveTweetManager(models.Manager):
 
 class SaveEmailManager(models.Manager):
     def create(self, text, fields, is_sent, *args, **kwargs):
-        user_id = kwargs.get('user_id')
-        if user_id:
+        user = kwargs.get('user')
+        if user:
             Profile.objects.update_or_create(
-                user_id=user_id,
+                user=user,
                 defaults=dict(
                     prefix=fields.get('$NAME_PREFIX'),
                     street=fields.get('$ADDRESS_STREET'),
