@@ -91,11 +91,17 @@ class SubmitCongressEmail(View):
             settings.PHANTOM_DC_API_FILL_OUT_FORM,
             data=json.dumps({'bio_id': bioguide, 'fields': filled_out_fields}),
             headers={'content-type': 'application/json'})
+        try:
+            response_obj = json.loads(response.text)
+        except ValueError:
+            logger.error(
+                "Received status %s from Phantom DC with non-JSON content: %s",
+                response.status_code, response.text)
+            return False
         logger.debug(
-            "Message sending to {} status: {}\nMessage was: {}".format(
-                bioguide, pformat(json.loads(response.text)),
-                pformat(filled_out_fields)))
-        return json.loads(response.text)['status'] == 'success'
+            "Message sending to %s status: %s\nMessage was: %s",
+            bioguide, pformat(response_obj), pformat(filled_out_fields))
+        return response_obj['status'] == 'success'
 
     def save_email(self, bioguide, fields, is_sent, campaign_slug, program_id):
         """Save e-mail data to DB as `Action` and it's related objects.
