@@ -613,7 +613,6 @@ function precreate_congress_email_fields() {
 
 
 function clear_email_fields() {
-    $('#text-input').val(emailFieldData['MESSAGE']);
     $('#eform-SUBJECT').val("");
     $('[id^="TOPIC-"][id$="-container"] select').prop('selectedIndex', 0);
 }
