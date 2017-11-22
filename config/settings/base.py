@@ -275,50 +275,30 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'verbose': {
+        'simple': {
             'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
         },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
-    },
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
+        'verbose': {
+            'format': '%(asctime)s [%(levelname)s]'
+            ' (%(pathname)s:%(lineno)s %(funcName)s %(process)d)'
+            ' %(name)s: %(message)s'
         },
     },
     'handlers': {
         'console': {
-            'level': 'INFO',
-            'filters': ['require_debug_true'],
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
+            'formatter': 'simple'
         },
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'verbose'
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'propagate': True,
-        },
-        # 'django.request': {
-        #     'handlers': ['mail_admins'],
-        #     'level': 'ERROR',
-        #     'propagate': False,
-        # },
-        'jobs': {
-            'handlers': ['console'],
-            'level': 'INFO',
-        },
-        'congress_email': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-        'twitter': {
-            'handlers': ['console'],
+        '': {
+            'handlers': ['console', 'mail_admins'],
             'level': 'DEBUG',
         },
     }

@@ -20,7 +20,7 @@ from programs.models import Program
 from actions.models import Action
 
 
-logger = logging.getLogger('congress_email')
+logger = logging.getLogger(__name__)
 
 
 class SubmitCongressEmail(View):
