@@ -1018,7 +1018,11 @@ function runEmail(bioguideIds){
             }
         },
         error: function() {
-            show_statuses(data, 'email');
+            statuses = {};
+            for (bioguide of bioguideIds) {
+                statuses[bioguide] = 'unknown_error';
+            }
+            show_statuses({'status': 'error', 'statuses': statuses}, 'email');
         }
     });
 
