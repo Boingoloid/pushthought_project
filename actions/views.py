@@ -5,7 +5,7 @@ import json
 import logging
 from pprint import pformat
 
-from django.http import JsonResponse
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.conf import settings
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -148,7 +148,10 @@ class SubmitCongressEmail(View):
             send, an e-mails either were sent automatically, or will be
             sent manually later.
         """
-        request_body = json.loads(request.body)
+        try:
+            request_body = json.loads(request.body)
+        except ValueError:
+            return HttpResponseBadRequest()
         logger.debug("SubmitCongressEmail POST request body:\n{}".format(
             pformat(request_body)))
         bioguides = request_body['bio_ids']
