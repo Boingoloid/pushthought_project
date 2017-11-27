@@ -556,8 +556,8 @@ text-tweet-block{
 .letter-count{
   position: absolute;
   z-index:1000;
-  top: 205px;
-  left: 430px;
+  top: 212px;
+  left: 428px;
   cursor:pointer;
   color:gray;
   font-size: 12pt;
@@ -591,11 +591,23 @@ text-tweet-block{
   overflow: scroll;
   overflow-x: hidden;
   overflow-y: auto;
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
+  font-weight:400;
 }
 
 
-#text-input:hover, #text-input:focus {
+#text-input:hover{
   background:white;
+  outline:none;
+  box-shadow: 4px 4px 1px 1px rgba(0, 0, 0, 0.2);
+
+}
+
+#text-input:focus{
+  background:white;
+  outline:none;
+  box-shadow: 2px 2px 1px 1px green;
+  border: 2px solid green;
 }
 
 
@@ -647,9 +659,11 @@ text-tweet-block{
   flex-wrap;nowrap;
   flex-direction: row;
   margin: 0px;
+  margin-top:1px;
+  margin-bottom:2px;
   padding: 0px;
   overflow:auto;
-  min-height:13px;
+  min-height:15px;
 }
 
 
@@ -727,12 +741,12 @@ text-tweet-block{
   position: relative;
   cursor:pointer;
   background:linear-gradient(to bottom, #054400 50%, #055100 100%);
+  background:green;
   z-index:1000;
 }
 
 #tweet-button:hover{
-  background:black;
-  box-shadow: 0px 0px 30px green;
+  box-shadow: 2px 2px 30px green;
 
 }
 
@@ -784,6 +798,7 @@ text-tweet-block{
   left: 22px;
   bottom: -9px;
   cursor:pointer;
+  font-weight: 400;
 }
 
 .img-checked-box-container{
@@ -871,11 +886,12 @@ text-tweet-block{
   right: 0px;
   color: black;
   font-size: 14pt;
-  border:2px solid gray;
+  font-weight: 400;
+  border:3px solid gray;
   border-radius: 10px;
   text-align: center;
   vertical-align: middle;
-  line-height: 22px; /* same as height*/
+  line-height: 20px; /* same as height*/
   background:white;
   cursor:default;
   box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
@@ -1027,6 +1043,7 @@ text-tweet-block{
     border-bottom-right-radius: 5px;
     box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
     z-index: 0;
+    background: white;
 }
 
 .rep-container.active-mode-selection .action-panel-container:hover,
@@ -1043,9 +1060,9 @@ text-tweet-block{
 
 .rep-container.active-mode-selection .action-panel-container.selected:hover {
     box-shadow: 0px 1px 30px green;
-    border-right: 1px solid green;
-    border-left: 1px solid green;
-    border-bottom: 1px solid green;
+    border-right: 4px solid green;
+    border-left: 4px solid green;
+    border-bottom: 4px solid green;
 }
 
 .selection-panel {
@@ -1158,9 +1175,9 @@ text-tweet-block{
 
 .phone-icon{
   position:absolute;
-  top: 13px;
-  left: 42%;
-  height: 32px;
+  top: 8px;
+  left: 39%;
+  height: 43px;
   cursor: pointer;
 }
 
@@ -1177,7 +1194,7 @@ text-tweet-block{
   top: 14px;
   right: 24px;
   cursor: pointer;
-  width:37px;
+  width:40px;
   height:30px;
 }
 
@@ -1187,7 +1204,7 @@ text-tweet-block{
   top: 14px;
   right: 24px;
   cursor: pointer;
-  width:37px;
+  width:40px;
   height:30px;
 }
 
@@ -1491,6 +1508,7 @@ input.eform:hover{
   white-space: pre-wrap;
   color:black;
   border:1px solid gray;
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .field-suggested-tweet:hover{
@@ -1522,6 +1540,7 @@ input.eform:hover{
   overflow-x: hidden;
   overflow-y: auto;
   white-space: pre-wrap;
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .field-suggested-email:hover{
