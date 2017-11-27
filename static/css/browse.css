@@ -109,8 +109,6 @@
 }
 
 .browse-container{
-  background: #091525;
-  background: linear-gradient(#000b1e, #092551); /* Standard syntax */
   background: #e5e5e5;
   padding-left:0px;
   margin-right:0px;
@@ -149,6 +147,7 @@
   background: rgba(0,0,0,0.0);
   margin-right: 0px;
   display: block;
+  border-bottom:1px solid black;
 }
 
 .category-heading{

@@ -33,7 +33,7 @@
                 {% else %}
                 {% endif %}
                     <div class="seen-it-container">
-                        <h2 style="color:red; font-weight:600; font-size:24px;">Share with purpose below...</h2>
+
                         <!--<h3>Share with purpose below...</h3>-->
                     </div>
             </div>
@@ -54,9 +54,8 @@
     </div>
 </div>
 
-<div class="container-standard" style="margin:0;">
     <div class="rep-color-band">
-
+          <h2 class="share-with-purpose">Share with purpose below...</h2>
           <div class="share-social-container">Share this campaign on:
               <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
                 <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
@@ -73,7 +72,7 @@
             {% endif %}
             <div class="category-title-container">
                 <div style="display:inline;">
-                    <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>
+                    <p class="category-title" style="z-index:0;">Share directly with Federal Representatives</p>
                     <div class="zip-reset-hover-boundary">
                         {% if hasCongressData %}
                             <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25">
@@ -98,11 +97,7 @@
                         <button class="submit-zip">Load Reps</button>
                     <div class='zip-loader'  id="zip-loader"></div>
 
-                    <input class="zip-input" value="{% if request.session.zip %}{{ request.session.zip }}{% else %}{{ request.user.profile.zip }}{% endif %}"
-
-                           type="number"
-                           maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength)
-                               this.value = this.value.slice(0, this.maxLength);"></input>
+                    <input class="zip-input" value="{% if request.session.zip %}{{ request.session.zip }}{% else %}{{ request.user.profile.zip }}{% endif %}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
                 </div>
             <div class="rep-container">
                 {% if hasCongressData %}
@@ -124,7 +119,7 @@
                             <div class="action-panel">
                                 <img class="twitter-icon" src="{% static 'img/twitter-icon.png' %}" width="42" height="42">
                                 <img class="phone-icon" src="{% static 'img/phone-icon.png' %}">
-                                <img class="email-icon" src="{% static 'img/email-icon.png' %}" width="36" height="36">
+                                <img class="email-icon" src="{% static 'img/email-icon-black.png' %}" width="36" height="36">
                             </div>
                         </div>
                     </div>
@@ -143,7 +138,8 @@
                     </div>
                     <div contenteditable id="text-input" tabindex="-1" placeholder="Tweet text here"></div>
                     <div>
-                        <label style=" margin-top:5px; font-size: 14pt;"><input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300;"> Add campaign url at end
+                        <input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300; margin-right: 10px;">
+                        <label class="include-link-label"> Add campaign url at end
                         </label>
                     </div>
                     <div id="tweet-button">
@@ -170,6 +166,9 @@
 
             <div class="email-action-container">
             </div>
+        </div>
+    </div>
+    <div class="suggested-box-container">
             <div class="suggested_message_container">
                 <div class="tweet_suggested_message_container">
                     {% if object.title %}
@@ -187,42 +186,41 @@
                 </div>
             </div>
 
-    </div>
 
-    <div class="container-standard">
-        <div class="hashtag-container">
-            <div class="hashtag-header">
-                    <p><span style="color:gray">#| </span></p>
-            </div>
-            {% for item in object.hashtagcounter_set.all %}
-                <div class='hashtag-item' id="hashtag-item">
-                    <div id="copied-to-clipboard">Copied to Clipboard</div>
-                    #{{item.hashtag.name}} | {{item.counter}}
+        <div class="container-standard">
+            <div class="hashtag-container">
+                <div class="hashtag-header">
+                        <p><span style="color:black">#| </span></p>
                 </div>
-                <div id="copied-to-clipboard">Copied to Clipboard</div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div class="container-standard">
-        <div class="message-container">
-            <div class="tweet-header">
-                <p><span style="color:gray">Tweets|</span></p>
+                {% for item in object.hashtagcounter_set.all %}
+                    <div class='hashtag-item' id="hashtag-item">
+                        <div id="copied-to-clipboard">Copied to Clipboard</div>
+                        #{{item.hashtag.name}} | {{item.counter}}
+                    </div>
+                    <div id="copied-to-clipboard">Copied to Clipboard</div>
+                {% endfor %}
             </div>
-            <div class="tweet-container">
-                {% for item in object.actions.all %}
-                    {% if item.tweet %}
-                        <div class="tweet-item">
-                            <div id="copied-to-clipboard">Copied to Clipboard</div>
-                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.username}}</p></div>
-                            <div class="tweet">{{item.tweet.text}}</div>
-                        </div>
-                    {% endif %}
-               {% endfor %}
-            </div> <!--close tweet container-->
+        </div>
+
+        <div class="container-standard">
+            <div class="message-container">
+                <div class="tweet-header">
+                    <p><span style="color:black">Tweets|</span></p>
+                </div>
+                <div class="tweet-container">
+                    {% for item in object.actions.all %}
+                        {% if item.tweet %}
+                            <div class="tweet-item">
+                                <div id="copied-to-clipboard">Copied to Clipboard</div>
+                                <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.username}}</p></div>
+                                <div class="tweet">{{item.tweet.text}}</div>
+                            </div>
+                        {% endif %}
+                   {% endfor %}
+                </div> <!--close tweet container-->
+            </div>
         </div>
     </div>
-</div><!-- /.intro-header -->
 
 {% endblock %}
 

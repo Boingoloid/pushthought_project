@@ -41,7 +41,6 @@
                 {% endif %}
                     <div class="seen-it-container">
                     </div>
-                    <h2 style="color: red;"><b>Share with purpose below...</b></h2>
             </div>
             <div class="content-info-right">
                 <div class="div-title-image">
@@ -62,6 +61,7 @@
     <!--<div style="margin-bottom: 50px;"></div>-->
 </div>
     <div class="rep-color-band">
+        <h2 class="share-with-purpose">Share with purpose below...</h2>
           <div class="share-social-container">Share this campaign on:
               <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
                 <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
@@ -77,7 +77,7 @@
         {% endif %}
             <div class="category-title-container">
                 <div style="display:inline;">
-                    <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>
+                    <p class="category-title" style="z-index:0;">Share directly with Federal Representatives</p>
                     <div class="zip-reset-hover-boundary">
                         {% if hasCongressData %}
                             <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25">
@@ -126,13 +126,14 @@
                         </div>
                     </div>
                     <div contenteditable id="text-input" tabindex="-1" placeholder="Tweet text here"></div>
-                    <div >
-                        <label style=" margin-top:5px; font-size: 14pt;"><input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300;"> Add campaign url at end
+                    <div>
+                        <input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300; margin-right:10px;">
+                        <label class="include-link-label"> Add campaign url at end
                         </label>
                     </div>
                     <div id="tweet-button">
                         <img id="img-send-tweet-icon" style="" src="{% static 'img/twitter-icon.png' %}" width="40" height="40">
-                        <img id="img-send-email-icon" src="{% static 'img/email-icon.png' %}">
+                        <img id="img-send-email-icon" src="{% static 'img/email-icon-black.png' %}">
                         <p class="tweet-button-label" id="tweet-button-label">Tweet</p>
                         <p class="email-button-label" id="email-button-label" style="display:none;">Email</p>
                         <div class='tweet-loader' id="tweet-loader"></div>
@@ -153,29 +154,32 @@
             </div>
             <div class="email-action-container">
             </div>
-
-    <div class="suggested_message_container">
-        <div class="tweet_suggested_message_container">
-            {% if object.tweet_text %}
-                <p class="suggested-tweet-text-label" >Suggested tweet text  </p>
-                <p class="suggested-tweet-text-sublabel">(click text area to copy)</p>
-
-
-                <textarea readonly class="field-input field-suggested-tweet">{{ object.tweet_text }}</textarea>
-            {% endif %}
-        </div>
-        <div class="email_suggested_message_container">
-            {% if object.email_text %}
-                <p class="field-suggested-email-label">Suggested email text</p>
-                <p class="field-suggested-email-sublabel">(click text area to copy) </p>
-                <textarea readonly class="field-input field-suggested-email">{{ object.email_text }}</textarea>
-            {% endif %}
-        </div>
     </div>
 
+    <div class="suggested-box-container">
+        <div class="suggested_message_container">
+            <div class="tweet_suggested_message_container">
+                {% if object.tweet_text %}
+                    <p class="suggested-tweet-text-label" >Suggested tweet text  </p>
+                    <p class="suggested-tweet-text-sublabel">(click text area to copy)</p>
+
+
+                    <textarea readonly class="field-input field-suggested-tweet">{{ object.tweet_text }}</textarea>
+                {% endif %}
+            </div>
+            <div class="email_suggested_message_container">
+                {% if object.email_text %}
+                    <p class="field-suggested-email-label">Suggested email text</p>
+                    <p class="field-suggested-email-sublabel">(click text area to copy) </p>
+                    <textarea readonly class="field-input field-suggested-email">{{ object.email_text }}</textarea>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="social-messages-container">
         <div class="hashtag-container">
             <div class="hashtag-header">
-                    <p><span style="color:gray">#| </span></p>
+                    <p><span style="color:black">#| </span></p>
             </div>
             {% for item in object.hashtagcounter_set.all %}
                 <div class='hashtag-item'>
@@ -186,23 +190,23 @@
             {% endfor %}
         </div>
 
-    <div class="container-standard">
-        <div class="message-container">
-            <div class="tweet-header">
-                <p><span style="color:gray">Tweets|</span></p>
+        <div class="container-standard">
+            <div class="message-container">
+                <div class="tweet-header">
+                    <p><span style="color:black">Tweets|</span></p>
+                </div>
+                <div class="tweet-container">
+                    {% for item in object.actions.all %}
+                        {% if item.tweet %}
+                            <div class="tweet-item">
+                                <div class="copied-to-clipboard">Copied to Clipboard</div>
+                                <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.profile.twitter}}</p></div>
+                                <div class="tweet">{{item.tweet.text}}</div>
+                            </div>
+                        {% endif %}
+                   {% endfor %}
+                </div> <!--close tweet container-->
             </div>
-            <div class="tweet-container">
-                {% for item in object.actions.all %}
-                    {% if item.tweet %}
-                        <div class="tweet-item">
-                            <div class="copied-to-clipboard">Copied to Clipboard</div>
-                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.profile.twitter}}</p></div>
-                            <div class="tweet">{{item.tweet.text}}</div>
-                        </div>
-                    {% endif %}
-               {% endfor %}
-            </div> <!--close tweet container-->
-        </div>
     </div>
 </div><!-- /.intro-header -->
 

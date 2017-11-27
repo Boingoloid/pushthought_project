@@ -3,10 +3,21 @@ html{
 
 }
 
+body{
+  background-color:white;
+  background:white;
+}
+
+#content{
+  background: #e5e5e5;
+}
+
 h1.title-header{
-  font-size:20px;
+  font-size:22px;
   line-height:1.2;
   word-spacing:2px;
+  color:black;
+  font-weight:700;
 }
 
 h2{
@@ -25,7 +36,8 @@ p{
   padding: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
-  background:linear-gradient( to left, #092551,#000b1e);
+  /*background:linear-gradient( to left, #092551,#000b1e);*/
+  background:#e5e5e5;
   height:auto;
 }
 
@@ -38,8 +50,8 @@ p{
     margin-right:0;
     padding-left: 40px;
     padding-right: 15px;
-    background:black;
-    background: linear-gradient(to right, black, #191919 70% ,rgba(255,0,0,0));
+    /*background:black;
+    background: linear-gradient(to right, black, #191919 70% ,rgba(255,0,0,0));*/
     min-height:350px;
     position: relative;
 
@@ -50,7 +62,6 @@ a.more-info-link{
   overflow-x: auto;
   overflow-y: hidden;
   width:445px;
-  color:green;
   height:18px;
   white-space: nowrap;
   font-size:15px;
@@ -62,8 +73,7 @@ a.more-info-link{
   overflow-x: auto;
   overflow-y: hidden;
   width:445px;
-  color:green;
-  height:26px;
+  color:blue;
   white-space: nowrap;
 }
 
@@ -122,8 +132,9 @@ a.more-info-link{
 }*/
 
 .description{
-  color:#b6b6b6;
+  color:black;
   font-size: 16px;
+  font-weight:400;
   /*text-overflow: ellipsis;
   overflow: hidden !important;*/
   overflow: scroll;
@@ -135,6 +146,14 @@ a.more-info-link{
   white-space: pre-wrap;
 
 }
+
+.share-with-purpose{
+  color:black;
+  font-weight:700;
+  font-size:22px;
+
+}
+
 
 
 /* fed rep menu ---------------------------------------------------------*/
@@ -167,7 +186,7 @@ a.more-info-link{
 
 
 .rep-color-band{
-  background:rgba(0,0,0,0.25);
+  background:#e5e5e5;
   margin:0px;
   margin-left: 0px;
   padding-left: 15px;
@@ -175,6 +194,8 @@ a.more-info-link{
   padding-right: 0px;
   padding-top: 3px;
   height: auto;
+  border-top:2px solid black;
+  border-bottom:2px solid black;
   /*height: 220px;*/
 }
 
@@ -205,7 +226,9 @@ a.more-info-link{
 .share-social-container {
   margin-top:10px;
   margin-bottom:10px;
-  font-weight:200;
+  font-weight:400;
+  color: black;
+  font-size:18px;
 }
 
 
@@ -231,6 +254,9 @@ a.more-info-link{
 .category-title{
   display: inline;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: black;
+  font-size: 14pt;
+  font-weight:600;
 }
 
 @media only screen and (max-width: 515px) {
@@ -266,8 +292,8 @@ a.more-info-link{
 }
 
 .total-actions{
-  font-weight:200;
-  font-size:18px;
+  font-weight:600;
+  font-size:16px;
   color:green;
 }
 
@@ -401,16 +427,6 @@ a.more-info-link{
         font-size: 20px;
 
     }
-
-}
-
-.sent-messages-count{
-
-
-}
-
-.sent-messages-count:hover{
-
 
 }
 
@@ -567,7 +583,7 @@ text-tweet-block{
   letter-spacing:1.15;
   font-size:12pt;
   font-weight:200;
-  color: white;
+  color: black;
   white-space: pre-wrap;
   overflow: scroll;
   overflow-wrap: break-word;
@@ -579,7 +595,7 @@ text-tweet-block{
 
 
 #text-input:hover, #text-input:focus {
-  background:black;
+  background:white;
 }
 
 
@@ -623,6 +639,7 @@ text-tweet-block{
   padding-left: 5px;
   background: rgba(0,0,0,0);
   white-space: pre-wrap;
+  font-weight:400;
 }
 
 .address-container, .email-address-container{
@@ -647,6 +664,7 @@ text-tweet-block{
   font-size: 10pt;
   line-height: 1.0;
   display:none;
+
 }
 
 .address-item-label, .email-address-item-label{
@@ -658,6 +676,7 @@ text-tweet-block{
   padding-right: 5px;
   padding-left: 5px;
   color: #00aced;
+  font-weight:400;
 }
 
 
@@ -682,6 +701,12 @@ text-tweet-block{
 
 .address-item.selected{
   display:inline;
+}
+
+.include-link-label{
+  margin-top:5px;
+  font-size: 14pt;
+  color:black;
 }
 
 #tweet-button{
@@ -844,15 +869,16 @@ text-tweet-block{
   min-width:40px;
   top: -15px;
   right: 0px;
-  color: #00aced;
+  color: black;
   font-size: 14pt;
-  border:2px solid black;
+  border:2px solid gray;
   border-radius: 10px;
   text-align: center;
   vertical-align: middle;
-  line-height: 25px; /* same as height*/
-  background:linear-gradient( to right, #092551,#000b1e);
+  line-height: 22px; /* same as height*/
+  background:white;
   cursor:default;
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .sent-messages-count:hover{
@@ -906,33 +932,36 @@ text-tweet-block{
   position:relative;
   margin: 7px;
   padding: 7px;
-  border: 5px solid #092551;
+  border: 2px solid gray;
   border-radius: 5px;
   min-width: 270px;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
-  background:linear-gradient( to left, #092551,#000b1e);
+  /*background:linear-gradient( to left, #092551,#000b1e);*/
+  background:white;
   font-size:18px;
   width:auto;
   height: 100px;
   display:inline-block;
   z-index: 1;
-  /*box-shadow: 4px 4px 5px #294f2f;*/
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .rep-item-all{
   position:relative;
   margin: 7px;
   padding: 7px;
-  border: 5px solid #092551;
+  border: 2px solid gray;
   border-radius: 5px;
   transition: transform .2s cubic-bezier(.7,-0.39,.31,1.38);
-  background:linear-gradient( to left, #092551,#000b1e);
+  /*background:linear-gradient( to left, #092551,#000b1e);*/
+  background:white;
   font-size:18px;
-  max-width:200px;
+  max-width:187px;
+  width:187px;
   height: 100px;
   display:inline-block;
   z-index: 1;
-  /*box-shadow: 4px 4px 5px #294f2f;*/
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 @media only screen and (max-width: 550px) {
@@ -975,9 +1004,13 @@ text-tweet-block{
 
 .full-name{
   margin-top:5px;
+  color: black;
+  font-weight:400;
 }
 
 .title{
+  color: black;
+  font-weight:400;
 }
 
 .action-panel-container,
@@ -986,13 +1019,13 @@ text-tweet-block{
     margin:20px;
     margin-top:-10px;
     height:60px;
-    border-right:1px solid #00aced;
-    border-left:1px solid #00aced;
-    border-bottom:1px solid #00aced;
+    border-right:2px solid gray;
+    border-left:2px solid gray;
+    border-bottom:2px solid gray;
     /*border-bottom:1px solid #00aced;*/
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    box-shadow: 2px 2px 5px #294f2f;
+    box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
     z-index: 0;
 }
 
@@ -1021,7 +1054,7 @@ text-tweet-block{
 
 .action-panel {
     z-index: 1;
-    background-color: #041229;
+    background-color: white;
 }
 
 .status-panel {
@@ -1356,9 +1389,10 @@ input.eform:hover{
 }
 
 .hashtag-item:hover, .tweet-item:hover{
-  transform: scale(1.01);
+  /*transform: scale(1.01);*/
   margin-top:2px;
   margin-bottom:2px;
+  background: #d3d3d3;
 }
 
 .message-container{
@@ -1422,10 +1456,11 @@ input.eform:hover{
   margin: 0px;
   color: #00aced;
   cursor: pointer;
+  font-weight:400;
 }
 
 .tweet {
-  color: white;
+  color: black;
   overflow:hidden;
   word-wrap: break-word;
   white-space:normal;
@@ -1433,8 +1468,14 @@ input.eform:hover{
   cursor: pointer;
 }
 
+.suggested-box-container{
+ margin-left:20px;
+ background:#e5e5e5;
+}
 
-
+.social-messages-container{
+  margin-left:20px;
+}
 
 .field-suggested-tweet{
   width:500px;
@@ -1444,25 +1485,29 @@ input.eform:hover{
   font-size:12pt;
   min-height:85px;
   cursor: pointer;
-  color:gray;
+  color:black;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: pre-wrap;
+  color:black;
+  border:1px solid gray;
 }
 
 .field-suggested-tweet:hover{
 
-  background-color:black;
+  background-color:#d3d3d3;
 
 }
 
 .suggested-tweet-text-label{
-  color:gray;
+  color:black;
+  font-weight:400;
 }
 
 .suggested-tweet-text-sublabel{
-  color:gray;
+  color:black;
   font-size:12px;
+  font-weight:400;
 }
 
 .field-suggested-email{
@@ -1481,16 +1526,16 @@ input.eform:hover{
 
 .field-suggested-email:hover{
 
-  background-color:black;
+  background-color:#d3d3d3;
 
 }
 
 .field-suggested-email-label{
-  color:gray;
+  color:black;
 }
 
 .field-suggested-email-sublabel{
-  color:gray;
+  color:black;
   font-size:12px;
 
 }
@@ -1507,6 +1552,7 @@ input.eform:hover{
 
 
 /* scroll bar */
+/*
 ::-webkit-scrollbar-track
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
@@ -1529,6 +1575,7 @@ input.eform:hover{
   background-color: black;
 }
 
+*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */

@@ -68,7 +68,7 @@ a:hover {
 
 
 footer a{
-  color: #eeeeee;
+  color: black;
 }
 
 h1{
@@ -525,7 +525,8 @@ input#id_username, input#id_email, input#id_password1, input#id_password2{
 footer {
   margin: 0;
   /*border-top: 2px solid #000000;*/
-  padding: 10px;
+  padding: 20px;
+  background: #e5e5e5;
 
   /*background:linear-gradient(#092551, #000b1e);*/
   /*background-color: #092551;
@@ -545,6 +546,7 @@ footer .copyright {
   font-size: 14px;
   text-align: center;
   margin-bottom: 0;
+  color:black;
 }
 
 
@@ -1241,7 +1243,8 @@ img.img-content-logo2{
 
 
 .footer-link{
-  font-size: 12pt;
+  font-size:11pt;
+  font-family: 'Open Sans', 'Times New Roman', serif;
 
 }
 
