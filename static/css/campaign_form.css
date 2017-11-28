@@ -98,6 +98,7 @@ body{
 .field-label-tweet-sublabel{
 
     margin-top:0px;
+    margin-bottom:0;
     color:black;
     font-weight:400;
 }
@@ -189,13 +190,13 @@ body{
 }
 
 .field-input-slug{
-  border: 1px solid gray;
+  border: 1px solid black;
   width:300px;
 
 }
 
 .field-input-link{
-  border: 1px solid gray;
+  border: 1px solid black;
   width:300px;
 
 }
@@ -216,10 +217,11 @@ display:inline;
 .suggested-message-container{
     border-top: 1px solid white;
     border-bottom: 1px solid white;
-    border: 1px solid gray;
+    border: 1px solid black;
     padding-bottom: 20px;
     padding-left:20px;
     min-width:300px;
+    box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .tweet-suggested-message-container{
