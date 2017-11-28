@@ -30,6 +30,7 @@ $(document).ready(function() {
     $('.content-button').css('border-top','3px solid green');
     $('.content-button').css('border-bottom','3px solid green');
     $('.content-button').css('border-right','3px solid green');
+    $('.content-button').css('border-left','3px solid green');
 //    $('.content-button').css('background-color','green');
 //    $('.content-button').css('color','black');
     $('.campaigns-button').removeClass('selected');

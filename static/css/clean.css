@@ -16,8 +16,7 @@ html{
 body {
   font-family: 'Open Sans', 'Times New Roman', serif;
   font-size: 20px;
-  background:linear-gradient(#092551,#000b1e);
-  background-color:#000b1e;
+  background:#e5e5e5;
   color:white;
 }
 
@@ -68,7 +67,7 @@ a:hover {
 
 
 footer a{
-  color: #eeeeee;
+  color: black;
 }
 
 h1{
@@ -525,7 +524,8 @@ input#id_username, input#id_email, input#id_password1, input#id_password2{
 footer {
   margin: 0;
   /*border-top: 2px solid #000000;*/
-  padding: 10px;
+  padding: 20px;
+  background: #e5e5e5;
 
   /*background:linear-gradient(#092551, #000b1e);*/
   /*background-color: #092551;
@@ -545,6 +545,7 @@ footer .copyright {
   font-size: 14px;
   text-align: center;
   margin-bottom: 0;
+  color:black;
 }
 
 
@@ -659,7 +660,7 @@ form .row:first-child .floating-label-form-group {
 
 @media only screen and (max-width: 450px) {
   .title-container{
-    margin-left:20px;
+    margin-left:0px;
     width:290px;
 
   }
@@ -691,7 +692,8 @@ form .row:first-child .floating-label-form-group {
 @media only screen and (max-width: 450px) {
   .title-words, .title-words-body{
     font-size:14pt;
-
+    display:block;
+    width:100%;
   }
 
 }
@@ -701,29 +703,34 @@ form .row:first-child .floating-label-form-group {
 .browse-btn {
   display:block;
   margin: 20px 0 0 10px;
-  width: 200px;
+  width: 270px;
   height: 37px;
   line-height: 3px;
-  font-size: 18px;
+  font-size: 14px;
   font-weight:300;
   border:2px solid black;
   /*background-color: #004c00;*/
-  background-color: green;
+  background-color: #007f00;
   color: white;
-    padding: 15px 25px;
+  padding: 15px 5px;
 }
 
-.browse-btn:hover, .message-btn:hover{
+.browse-btn:hover {
   border:2px solid black;
-  background: red;
+  background: #006600;
 }
 
-/*@media only screen and (max-width: 500px) {
+.message-btn:hover{
+  border:2px solid black;
+  background: #4169E1;
+}
+
+@media only screen and (max-width: 500px) {
 
   .browse-btn {
-    margin-top:375px;
+      margin: 20px 0 0 0px;
   }
-}*/
+}
 
 
 @media only screen and (min-width: 600px) {
@@ -731,7 +738,7 @@ form .row:first-child .floating-label-form-group {
     width:250px;
     height:42px;
     line-height:7px;
-    font-size: 20px;
+    font-size: 14px;
   }
 }
 
@@ -756,7 +763,10 @@ form .row:first-child .floating-label-form-group {
 
 
 @media only screen and (max-width: 450px) {
+    .message-btn{
+      margin: -12px 0 0 0px;
 
+    }
 
 
 
@@ -1232,7 +1242,8 @@ img.img-content-logo2{
 
 
 .footer-link{
-  font-size: 12pt;
+  font-size:11pt;
+  font-family: 'Open Sans', 'Times New Roman', serif;
 
 }
 
@@ -1325,3 +1336,30 @@ ul.nav .welcome {
         background: url('../img/settings-17-xxl.png') no-repeat center/30px;
     }
 }
+
+.list-page-title{
+  color: black;
+  margin-top:20px;
+  font-weight:600;
+}
+
+.list-campaign-counter{
+  color: black;
+  font-weight:500;
+}
+
+.list-campaign-title{
+  color:black;
+  font-weight:500;
+}
+
+.list-value{
+  color:green;
+  font-weight:500;
+}
+
+.list-value-total-actions{
+  font-weight:500;
+  color:green;
+}
+

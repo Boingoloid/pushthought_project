@@ -737,6 +737,7 @@ $(document).ready(function() {
     $('#tweet-button').click(function() {
         function request_finished() {
             hideLoading();
+            hide_email_sending_progress();
             if (get_active_mode() != 'status') {
                 $('#tweet-button').prop('disabled', false);
             }
@@ -754,6 +755,7 @@ $(document).ready(function() {
             var bioguideIds = $('.address-item-label:visible').map(
                 function() { return this.id }).get();
             deferred = runEmail(bioguideIds);
+            show_email_sending_progress(bioguideIds.length);
         } else {
             deferred = runTweet(windowURL);
         }
@@ -1036,6 +1038,48 @@ function showLoadingForSelectedMembers() {
 function hideLoading() {
     $('.loader').hide();
     $('.tweet-loader').hide();
+}
+
+
+// Taken from https://stackoverflow.com/a/39914235
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+/**
+ * Returns a random integer between min (inclusive) and max (inclusive)
+ * Using Math.round() will give you a non-uniform distribution!
+ * Taken from https://stackoverflow.com/a/1527820
+ */
+function get_random_int(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+async function show_email_sending_progress(email_count) {
+    var element = $('#email-sending-progress');
+    element.show();
+    element.html("<span><span></span></span>");
+    element = element.children().children();
+    for (i = 1; i <= email_count; i++) {
+        element.text("Sending email " + i);
+        number_of_dots = get_random_int(5, 7);
+        for (j = 0; j < number_of_dots; j++) {
+            await sleep(1000);
+            element.text(element.text() + ".");
+        }
+    }
+    element.text("Finishing");
+    for (i = 0; i < 20; i++) {
+        await sleep(1000);
+        element.text(element.text() + ".");
+    }
+}
+
+
+function hide_email_sending_progress() {
+    $('#email-sending-progress').hide().html();
 }
 
 

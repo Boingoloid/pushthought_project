@@ -64,11 +64,10 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
     Callback view for twitter login. Sends tweet after the user logs in.
     """
     def dispatch(self, request, *args, **kwargs):
-        resp = super(TwitterCallbackView, self).dispatch(request, *args, **kwargs)
-
+        resp = super(TwitterCallbackView, self).dispatch(
+            request, *args, **kwargs)
         if not request.user.is_authenticated():
-            messages.error(request, 'Your twitter email address is already taken. Please login into your old account.')
-            return HttpResponseRedirect('/accounts/login/')
+            return resp
 
         self.tweet_text = request.session.get('tweet_text')
         program = request.session.get('program_id')
@@ -79,8 +78,7 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
         request.session['sent_tweet'] = True
         redirect_url = request.session.get('redirect_url')
 
-        if request.user.is_authenticated() and redirect_url and \
-                self.tweet_text:
+        if redirect_url and self.tweet_text:
             self.api = self.get_authed_twitter_api()
             if not self.api:
                 return HttpResponseRedirect(
@@ -89,7 +87,7 @@ class TwitterCallbackView(TwitterSendMixin, OAuthCallbackView):
                 self.send_tweets_and_generate_response())
 
             return HttpResponseRedirect(request.session.get('redirect_url'))
-        elif redirect_url and not self.tweet_text:
+        elif redirect_url:
             return HttpResponseRedirect(request.session.get('redirect_url'))
         else:
             return resp
