@@ -2,11 +2,11 @@
 {% load static from staticfiles %}
 {% block css %}
 {% block extra_meta %}
-  {# <meta property="og:url"           content="http://www.your-domain.com/your-page.html" />#}
-  <meta property="og:type"          content="website" />
-  <meta property="og:title"         content="{{object.title}}" />
-  {# <meta property="og:description"   content="Your description" />#}
-  <meta property="og:image"         content="{%if object.image%}{{object.image.url}}{%else%}{% static 'img/push_thought_logo.png' %}{%endif%}" />
+  {# <meta property="og:url" content="http://www.your-domain.com/your-page.html" />#}
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{object.title}}" />
+  {# <meta property="og:description" content="Your description" />#}
+  <meta property="og:image" content="{%if object.image%}{{object.image.url}}{%else%}{% static 'img/push_thought_logo.png' %}{%endif%}" />
 {% endblock %}
 <!--<link rel="stylesheet" href="{% static 'css/campaign-landing.css' %}">-->
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
@@ -64,7 +64,7 @@
         <h2 class="share-with-purpose">Take meaningful action below...</h2>
           <div class="share-social-container">Share this campaign on:
               <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
-                <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
+                <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="42" width="42">
               </a>
               <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
           </div>

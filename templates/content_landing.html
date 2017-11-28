@@ -10,7 +10,7 @@
 {% block content %}
 <p hidden id="segmentId">{{ object.id }}</p>
 <p hidden id="programId">{{ object.id }}</p>
-    <div hidden id="last-message">{{ request.session.last_message }}</div>
+<div hidden id="last-message">{{ request.session.last_message }}</div>
 <div hidden id="alertList" data-alertList="{{ alertList }}"></div>
 <div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
 <img hidden class="twitter-icon-hide" src="{% static 'img/twitter-icon.png' %}">
@@ -33,8 +33,6 @@
                 {% else %}
                 {% endif %}
                     <div class="seen-it-container">
-
-                        <!--<h3>Share with purpose below...</h3>-->
                     </div>
             </div>
             <div class="content-info-right">
@@ -53,7 +51,6 @@
         </div>
     </div>
 </div>
-
     <div class="rep-color-band">
           <h2 class="share-with-purpose">Share with purpose below...</h2>
           <div class="share-social-container">Share this campaign on:
