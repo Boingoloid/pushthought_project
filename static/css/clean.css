@@ -1337,3 +1337,30 @@ ul.nav .welcome {
         background: url('../img/settings-17-xxl.png') no-repeat center/30px;
     }
 }
+
+.list-page-title{
+  color: black;
+  margin-top:20px;
+  font-weight:600;
+}
+
+.list-campaign-counter{
+  color: black;
+  font-weight:500;
+}
+
+.list-campaign-title{
+  color:black;
+  font-weight:500;
+}
+
+.list-value{
+  color:green;
+  font-weight:500;
+}
+
+.list-value-total-actions{
+  font-weight:500;
+  color:green;
+}
+
