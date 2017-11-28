@@ -718,6 +718,12 @@ text-tweet-block{
   display:inline;
 }
 
+
+.send-button-container {
+    height: 66px;
+}
+
+
 .include-link-label{
   margin-top:5px;
   font-size: 14pt;
@@ -744,6 +750,7 @@ text-tweet-block{
   background:linear-gradient(to bottom, #054400 50%, #055100 100%);
   background:green;
   z-index:1000;
+
 }
 
 #tweet-button:hover{
@@ -800,6 +807,18 @@ text-tweet-block{
   bottom: -9px;
   cursor:pointer;
   font-weight: 400;
+}
+
+#email-sending-progress {
+    display: inline-block;
+    height: 100%;
+    margin-left: 10px;
+}
+
+#email-sending-progress > span {
+    display: flex;
+    height: 100%;
+    align-items: center;
 }
 
 .img-checked-box-container{
