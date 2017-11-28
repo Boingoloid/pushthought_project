@@ -1,9 +1,24 @@
 from django import forms
 
+from twitter_text.validation import Validation as TweetValidation
+
 from . import models
 
 
-class CampaignForm(forms.ModelForm):
+class CampaignEditingBaseForm(forms.ModelForm):
+    TWEET_MAX_LENGTH = 280
+    # Max username length is 15, plus "@" before and a space after.
+    TWEET_MENTION_PLACEHOLDER_LENGTH = 17
+
+    def clean_tweet_text(self):
+        value = self.cleaned_data['tweet_text']
+        if TweetValidation(value).tweet_length() + \
+                self.TWEET_MENTION_PLACEHOLDER_LENGTH > self.TWEET_MAX_LENGTH:
+            raise forms.ValidationError("Too long.")
+        return value
+
+
+class CampaignForm(CampaignEditingBaseForm):
     class Meta:
         model = models.Campaign
         fields = ('slug', 'title', 'description', 'image', 'tweet_text', 'email_text', 'link', )
@@ -15,7 +30,8 @@ class CampaignForm(forms.ModelForm):
         super(CampaignForm, self).__init__(*args, **kwargs)
         for name in self.fields:
             self.fields[name].widget.attrs['class'] = '{0} {1}'.format('field-input', 'field-input-'+name)
-        self.fields['slug'].error_messages = {'unique': 'That url is already taken.'}
+        self.fields['slug'].error_messages['unique'] = \
+            'That url is already taken.'
 
     def clean(self):
         cleaned_data = super(CampaignForm, self).clean()
@@ -27,7 +43,7 @@ class CampaignForm(forms.ModelForm):
                 "Please fill out suggested text for email, tweet, or both."
             )
 
-class CampaignUpdateForm(forms.ModelForm):
+class CampaignUpdateForm(CampaignEditingBaseForm):
     class Meta:
         model = models.Campaign
         fields = ('title', 'description', 'image', 'tweet_text', 'email_text', 'link',)
@@ -39,7 +55,6 @@ class CampaignUpdateForm(forms.ModelForm):
         super(CampaignUpdateForm, self).__init__(*args, **kwargs)
         for name in self.fields:
             self.fields[name].widget.attrs['class'] = '{0} {1}'.format('field-input', 'field-input-'+name)
-        # self.fields['slug'].error_messages = {'unique': 'That url is already taken.'}
 
     def clean(self):
         cleaned_data = super(CampaignUpdateForm, self).clean()

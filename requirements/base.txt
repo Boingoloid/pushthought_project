@@ -41,6 +41,7 @@ simplejson==3.8.2
 six==1.10.0
 static3==0.6.1
 tweepy==3.5.0
+twitter-text==3.0
 virtualenv==15.0.0
 whitenoise==3.2.2
 django-annoying==0.10.3
