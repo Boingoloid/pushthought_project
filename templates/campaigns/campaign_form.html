@@ -20,7 +20,7 @@
     {% endfor %}
   </div>
   {% endif %}
-    <h2>Create custom campaign for messaging congress</h2>
+    <h2 class="form-title">Create custom campaign for messaging congress</h2>
     <p class="field-label field-label-sub-heading">(all fields editable after creation except Push Thought URL)</p>
 
     <div class="field-group field-group-title">
@@ -92,7 +92,7 @@
                     <p class="field-label field-label-tweet-text">1) Suggested tweet text</p>
                     <p class="field-label field-label-tweet-note">(max 120 characters, leaves room for twitter name)<br></p>
                     <p class="field-label-tweet-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
-                    <p class="field-label field-label-tweet-intro">@Congressperson, </p>
+                    <p class="field-label field-label-tweet-intro">@[twitter name will be inserted], </p>
                     {{form.tweet_text}}
                     {# <textarea name="tweet_text" class="field-input field-input-tweet-text" name="field-input-tweet-text">{% if form.instance.tweet_text %}{{ form.instance.tweet_text }}{% endif %}</textarea>#}
                     <p class="tweet-letter-count"></p>
@@ -108,7 +108,7 @@
                     <p class="field-label field-label-email-text">2) Suggested email text</p>
                     <p class="field-label-email-sublabel" style="margin-bottom:0px;"><span class="ten-point">(hint: borrow text from description)</span></p>
                     <p class="field-label-email-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
-                    <p class="field-label field-label-email-intro">Congressperson,</p>
+                    <p class="field-label field-label-email-intro">Congressperson [name will be inserted],</p>
                     {{form.email_text}}
                     {# <textarea name="email_text" class="field-input field-input-email-text" name="field-input-email-text" >{% if form.instance.email_text %}{{ form.instance.email_text }}{% endif %}</textarea>#}
                 </div>
