@@ -40,6 +40,7 @@ ul.actions div.title h3 {
 ul.actions .datetime {
     clear: both;
     font-size: 50%;
+    color: gray;
 }
 
 ul.actions div.title h3 .action-type {
@@ -69,7 +70,7 @@ ul.actions .tweet-text {
     background: url('/static/img/twitter-icon.png') no-repeat left top/30px;
     font-size: 16px;
     font-weight:400;
-    color: gray;
+    color: black;
     border-bottom:1px solid #00aced;;
 }
 
@@ -81,6 +82,10 @@ ul.actions .email-text {
 a{
   color: black;
   font-size: 18px;
+}
+
+a#title{
+  color: #88c0d2;
 }
 
 .total-actions{
