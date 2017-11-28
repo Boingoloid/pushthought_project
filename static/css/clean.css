@@ -16,8 +16,7 @@ html{
 body {
   font-family: 'Open Sans', 'Times New Roman', serif;
   font-size: 20px;
-  background:linear-gradient(#092551,#000b1e);
-  background-color:#000b1e;
+  background:#e5e5e5;
   color:white;
 }
 
