@@ -2,6 +2,24 @@
     margin: 0 0 0 30px;
 }
 
+#content{
+  background:#e5e5e5;
+}
+
+.page-title{
+  display:block;
+  color:black;
+  font-weight:600;
+}
+
+.title{
+  color: black;
+}
+
+.number{
+ color: black;
+}
+
 ul.actions {
     margin: 20px 0 0 0;
     padding: 0;
@@ -22,6 +40,7 @@ ul.actions div.title h3 {
 ul.actions .datetime {
     clear: both;
     font-size: 50%;
+    color: gray;
 }
 
 ul.actions div.title h3 .action-type {
@@ -50,6 +69,8 @@ ul.actions .tweet-text {
     padding-left: 50px;
     background: url('/static/img/twitter-icon.png') no-repeat left top/30px;
     font-size: 16px;
+    font-weight:400;
+    color: black;
     border-bottom:1px solid #00aced;;
 }
 
@@ -59,10 +80,15 @@ ul.actions .email-text {
 }
 
 a{
-  color: green;
+  color: black;
   font-size: 18px;
+}
+
+a#title{
+  color: #88c0d2;
 }
 
 .total-actions{
   color:green;
+  font-weight: 400;
 }
