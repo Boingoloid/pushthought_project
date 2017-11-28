@@ -1,10 +1,17 @@
-$(document).ready(function() {
+function get_tweet_text_with_mention_placeholder() {
+    // Add placeholder for Twitter username. Max Twitter username length is 15.
+    // Add "@" before and space after.
+    return " ".repeat(17) + $('#id_tweet_text').val();
+}
 
-    update_remaining_characters_counter($('#id_tweet_text').val());
+$(document).ready(function() {
+    update_remaining_characters_counter(
+        get_tweet_text_with_mention_placeholder());
 
     $('.field-input-tweet_text').keyup(function() {
         console.log("keyup function");
-        update_remaining_characters_counter($('#id_tweet_text').val());
+        update_remaining_characters_counter(
+            get_tweet_text_with_mention_placeholder());
     });
 
     $('#campaign-form').validate({
