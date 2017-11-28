@@ -25,20 +25,21 @@ body{
 }
 
 .container-standard-form{
-  margin-left:30px;
   margin-bottom:100px
 }
 
 
 .field-group {
   margin-top:20px;
-  margin-left:20px;
-  width:600px;
 }
 
 .field-group-title{
   margin-top:40px;
 
+}
+
+.field-label-container {
+  margin-bottom: 20px;
 }
 
 
@@ -57,7 +58,7 @@ body{
 .field-label-title-note{
   font-size:10pt;
   margin-top:0px;
-  max-width: 400px;
+  width: 100%;
   color:black;
 }
 
@@ -70,7 +71,7 @@ body{
 .field-label-description-note{
   font-size:10pt;
   margin-top:0px;
-  max-width: 400px;
+  width: 100%;
   color:black;
 }
 
@@ -158,12 +159,12 @@ body{
 
 
 .field-input-title{
-  width: 400px;
+  width: 100%;
   border: 1px solid black;
 }
 
 .field-input-description{
-  width:400px;
+  width: 100%;
   min-height:70px;
 }
 
@@ -176,8 +177,7 @@ body{
 
 
 #id_email_text{
-  width:400px;
-  max-width:578px;
+  width: 90%;
   min-height:100px;
   height: 100px;
   max-height: 450px;
@@ -197,13 +197,13 @@ body{
 
 .field-input-slug{
   border: 1px solid gray;
-  width:300px;
+  width: 100%;
 
 }
 
 .field-input-link{
   border: 1px solid gray;
-  width:300px;
+  width: 100%;
 
 }
 
@@ -235,7 +235,7 @@ display:inline;
 
 
 #id_tweet_text{
-  width:400px;
+  width: 90%;
   min-height:70px;
   height:70px;
   max-height:170px;
