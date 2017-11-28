@@ -92,14 +92,12 @@
             </div>
             <div class="zip-capture" {% if hasCongressData %}style="display:none"{% endif %}>
                 {#<div class="location-label">Current Location:</div>#}
-                    {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
+                {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
                 {#<div class="or-label">---  or  ---</div>#}
                 <div class="zip-label">Zip Code:</div>
-                    <button class="submit-zip">Load Reps</button>
+                <button class="submit-zip">Load Reps</button>
                 <div class='zip-loader'  id="zip-loader"></div>
-                <input class="zip-input" value="{% if request.session.zip %}{{ request.session.zip }}{% else %}{{ request.user.profile.zip }}{% endif %}"
-                       type="number" maxlength = "5" oninput="javascript: if
-                       (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
+                <input class="zip-input" value="{% if request.session.zip %}{{ request.session.zip }}{% else %}{{ request.user.profile.zip }}{% endif %}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
             </div>
 
             <div class="rep-container">
@@ -155,15 +153,12 @@
             <div class="email-action-container">
             </div>
     </div>
-
     <div class="suggested-box-container">
         <div class="suggested_message_container">
             <div class="tweet_suggested_message_container">
                 {% if object.tweet_text %}
                     <p class="suggested-tweet-text-label" >Suggested tweet text  </p>
                     <p class="suggested-tweet-text-sublabel">(click text area to copy)</p>
-
-
                     <textarea readonly class="field-input field-suggested-tweet">{{ object.tweet_text }}</textarea>
                 {% endif %}
             </div>
@@ -182,10 +177,9 @@
                     <p><span style="color:black">#| </span></p>
             </div>
             {% for item in object.hashtagcounter_set.all %}
-                <div class='hashtag-item'>
+                <div class='hashtag-item' id='hashtag-item'>
                     <div class="copied-to-clipboard">Copied to Clipboard</div>
-                    <span class="hashtag">#{{item.hashtag.name}}</span> |
-                    <span class="counter">{{item.counter}}</span>
+                    #{{item.hashtag.name}} | {{item.counter}}
                 </div>
             {% endfor %}
         </div>
@@ -207,8 +201,8 @@
                    {% endfor %}
                 </div> <!--close tweet container-->
             </div>
-    </div>
-</div><!-- /.intro-header -->
+        </div>
+    </div><!-- /.intro-header -->
 
 {% endblock %}
 

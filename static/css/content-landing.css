@@ -1000,14 +1000,18 @@ text-tweet-block{
 .repPhoto{
   height: 75px;
   width: 60px;
-  padding: 5px;
+  padding: 0px;
   display:inline;
   float: left;
   margin-right:10px;
+  border: 2px solid black;
+  border-radius: 5px;
 }
 
 .repPhoto-none{
   width:76px;
+  border: 0px solid black;
+  padding: 5px;
 }
 
 .name-title-container{
