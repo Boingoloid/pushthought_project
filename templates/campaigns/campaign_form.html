@@ -95,7 +95,7 @@
                     <p class="field-label field-label-tweet-intro">@[twitter name will be inserted], </p>
                     {{form.tweet_text}}
                     {# <textarea name="tweet_text" class="field-input field-input-tweet-text" name="field-input-tweet-text">{% if form.instance.tweet_text %}{{ form.instance.tweet_text }}{% endif %}</textarea>#}
-                    <p class="tweet-letter-count"></p>
+                    <div class="letter-count"></div>
                 </div>
                 <div class="suggested-email-container">
                   {% if form.email_text.errors %}
@@ -165,6 +165,7 @@
         check_url = '{% url 'campaign:check' %}'
     </script>
     <script src="{% static 'js/twitter-text-1.14.7.min.js' %}"></script>
+    <script src="{% static 'js/content_landing_success_messages.js' %}"></script>
     <script src="{% static 'js/content_landing.js' %}"></script>
     <script src="{% static 'js/check_campaign.js' %}"></script>
     <script src="{% static 'js/campaign_form.js' %}"></script>

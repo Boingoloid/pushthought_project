@@ -374,7 +374,7 @@ $(document).ready(function() {
         $('#email-button-label').text(labelText);
 
 
-        updateTextCount();
+        update_remaining_characters_counter(get_final_tweet_text());
 
 //         Fill in fields with info from user
 //        var data = $('#emailFields').data('emailfields');
@@ -465,7 +465,7 @@ $(document).ready(function() {
         var labelText = 'tweet: ' + numItems;
         $('#tweet-button-label').text(labelText);
 
-        updateTextCount();
+        update_remaining_characters_counter(get_final_tweet_text());
         focus_on_text_input();
     });
 
@@ -640,7 +640,7 @@ $(document).ready(function() {
     ///////////////////////////////////////////////
 
     $("#text-tweet-block").on('DOMSubtreeModified', "#text-input", function() {
-        updateTextCount();
+        update_remaining_characters_counter(get_final_tweet_text());
         return false;
     });
 
@@ -650,7 +650,7 @@ $(document).ready(function() {
         /////////////////////////////////////////////////////
         // count letters and update letter count
         /////////////////////////////////////////////////////
-        updateTextCount();
+        update_remaining_characters_counter(get_final_tweet_text());
 
         //////////////////////////////////////////////////////////////////
         // Check if placeholder still exists
@@ -982,13 +982,19 @@ function setEndOfContenteditable(contentEditableElement)
     }
 }
 
-function updateTextCount() {
-    var user_entered_text = $('#text-input').text().slice(
+
+function get_final_tweet_text() {
+    user_entered_text = $('#text-input').text().slice(
         $('.address-placeholder').eq(0).text().length);
-    count_remaining = 280 - twttr.txt.getTweetLength(
-        get_longest_address() + " " + user_entered_text + site_url_to_append);
-    $('.letter-count').text(count_remaining);
-    $('.letter-count').css({'color': count_remaining < 0 ? 'red' : 'gray'});
+    return get_longest_address() + " " + user_entered_text + site_url_to_append;
+}
+
+
+function update_remaining_characters_counter(text) {
+    remaining_characters_count = 280 - twttr.txt.getTweetLength(text);
+    $('.letter-count').text(remaining_characters_count);
+    $('.letter-count').css({
+        'color': remaining_characters_count < 0 ? 'red' : 'gray'});
 }
 
 
@@ -1015,7 +1021,7 @@ $(document).ready(function () {
         } else {
             site_url_to_append = '';
         }
-        updateTextCount();
+        update_remaining_characters_counter(get_final_tweet_text());
     })
     $('#twitter_input_add_url').change();
 });
