@@ -537,6 +537,7 @@ function precreate_congress_email_fields() {
             }
             var topic_class_name = field_name.toLowerCase() + '-container ' +
                 field_name.toLowerCase() + '-container-' + bioguide;
+            var value = emailFieldData[field_name];
 
             htmlText = [htmlText,
                 '<div class="email-form-field-container ' + topic_class_name +
@@ -547,36 +548,42 @@ function precreate_congress_email_fields() {
                 class_bioguide + '">' + label_name + '</label>',
                 '<select class="eform" id="eform-' + field_name + '"' +
                 ' style="display:block;">',
-                '<option value=0 disabled="disabled" selected="selected">select</option>'
             ].join("\n");
 
+            var options = [];
+            var has_selected = false;
             if (Array.isArray(email_field['options'])) {
                 for (var i = 0; i < email_field['options'].length; i++) {
-                    htmlText = [htmlText,
-                        '<option value="' + email_field['options'][i] + '">' +
-                        email_field['options'][i] + '</option>'
-                    ].join("\n");
+                    var is_selected = email_field['options'][i] === value;
+                    if (is_selected) {
+                        has_selected = true;
+                    }
+                    options.push(
+                        '<option value="' + email_field['options'][i] + '"' +
+                        (is_selected ? ' selected' : '') +
+                        '>' + email_field['options'][i] + '</option>');
                 }
             } else {
                 // Not an array, assume dictionary.
                 for (var key in email_field['options']){
-                    htmlText = [htmlText,
-                        '<option value="' + email_field['options'][key] + '">' + key + '</option>'
-                    ].join("\n");
+                    var is_selected = email_field['options'][key] === value;
+                    if (is_selected) {
+                        has_selected = true;
+                    }
+                    options.push(
+                        '<option value="' + email_field['options'][key] + '"' +
+                        (is_selected ? ' selected' : '') +
+                        '>' + key + '</option>');
                 }
             }
-            // Close options select box and field.
             htmlText = [htmlText,
-                '</select>',
-                '</div>',
-                '</div>'
-            ].join("\n" );
+                '<option value=0 disabled' + (has_selected ? '' : ' selected') +
+                '>select</option>'].concat(
+                    options,
+                    ['</select></div></div>']).join("\n");
+
         } else {
             var value = emailFieldData[field_name] || '';
-            /////////////////////////////////////////////////////
-            // if field is ADDRESS_ZIP5
-            // change name of label to ADDRESS_ZIP
-            /////////////////////////////////////////////////////
             if (field_name === 'ADDRESS_ZIP5') {
                 value = $('.zip-input').attr('value') || value;
             }
