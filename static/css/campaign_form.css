@@ -190,24 +190,13 @@ body{
 }
 
 .field-input-slug{
-<<<<<<< HEAD
   border: 1px solid black;
-  width:300px;
-=======
-  border: 1px solid gray;
   width: 100%;
->>>>>>> c5b4af0bca08f33b85125df2abb503bb1492c2ce
-
 }
 
 .field-input-link{
-<<<<<<< HEAD
   border: 1px solid black;
-  width:300px;
-=======
-  border: 1px solid gray;
   width: 100%;
->>>>>>> c5b4af0bca08f33b85125df2abb503bb1492c2ce
 
 }
 
@@ -240,16 +229,10 @@ display:inline;
 
 
 #id_tweet_text{
-<<<<<<< HEAD
-  width: 400px;
-  min-height: 70px;
-  height: 150px;
-=======
   width: 90%;
   min-height:70px;
   height:70px;
   max-height:170px;
->>>>>>> c5b4af0bca08f33b85125df2abb503bb1492c2ce
 }
 
 .suggested-email-container{

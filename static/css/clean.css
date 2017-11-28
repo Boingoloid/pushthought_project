@@ -1348,14 +1348,9 @@ ul.nav .welcome {
     }
 
     ul.nav .create-campaign a {
-<<<<<<< HEAD
-        padding: 0px;
-        margin-right: 10px;
-=======
       line-height: 45px;
       padding: 0 10px;
       margin-right: 5px;
->>>>>>> c5b4af0bca08f33b85125df2abb503bb1492c2ce
     }
 
     ul.nav .welcome {
@@ -1395,6 +1390,3 @@ ul.nav .welcome {
   color:green;
 }
 
-#content{
-  margin-left:10px;
-}
