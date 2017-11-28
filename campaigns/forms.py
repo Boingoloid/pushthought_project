@@ -15,7 +15,8 @@ class CampaignForm(forms.ModelForm):
         super(CampaignForm, self).__init__(*args, **kwargs)
         for name in self.fields:
             self.fields[name].widget.attrs['class'] = '{0} {1}'.format('field-input', 'field-input-'+name)
-        self.fields['slug'].error_messages = {'unique': 'That url is already taken.'}
+        self.fields['slug'].error_messages['unique'] = \
+            'That url is already taken.'
 
     def clean(self):
         cleaned_data = super(CampaignForm, self).clean()
@@ -39,7 +40,6 @@ class CampaignUpdateForm(forms.ModelForm):
         super(CampaignUpdateForm, self).__init__(*args, **kwargs)
         for name in self.fields:
             self.fields[name].widget.attrs['class'] = '{0} {1}'.format('field-input', 'field-input-'+name)
-        # self.fields['slug'].error_messages = {'unique': 'That url is already taken.'}
 
     def clean(self):
         cleaned_data = super(CampaignUpdateForm, self).clean()
