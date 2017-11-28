@@ -14,6 +14,14 @@ $(document).ready(function() {
             get_tweet_text_with_mention_placeholder());
     });
 
+    $.validator.addMethod(
+        'length_indicator',
+        function(value, element, params) {
+            return Number($(element).siblings('.letter-count').text()) >= 0;
+        },
+        "Too long.",
+    );
+
     $('#campaign-form').validate({
         rules: {
             link: {
@@ -26,6 +34,9 @@ $(document).ready(function() {
                     }
                     return value;
                 },
+            },
+            tweet_text: {
+                length_indicator: true,
             },
         },
     });
