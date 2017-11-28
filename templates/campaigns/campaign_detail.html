@@ -2,11 +2,11 @@
 {% load static from staticfiles %}
 {% block css %}
 {% block extra_meta %}
-  {# <meta property="og:url"           content="http://www.your-domain.com/your-page.html" />#}
-  <meta property="og:type"          content="website" />
-  <meta property="og:title"         content="{{object.title}}" />
-  {# <meta property="og:description"   content="Your description" />#}
-  <meta property="og:image"         content="{%if object.image%}{{object.image.url}}{%else%}{% static 'img/push_thought_logo.png' %}{%endif%}" />
+  {# <meta property="og:url" content="http://www.your-domain.com/your-page.html" />#}
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{object.title}}" />
+  {# <meta property="og:description" content="Your description" />#}
+  <meta property="og:image" content="{%if object.image%}{{object.image.url}}{%else%}{% static 'img/push_thought_logo.png' %}{%endif%}" />
 {% endblock %}
 <!--<link rel="stylesheet" href="{% static 'css/campaign-landing.css' %}">-->
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
@@ -23,8 +23,8 @@
 <div hidden id="emailFields" data-emailFields="{{ currentUser.congressEmailFields }}"></div>
 <img hidden class="twitter-icon-hide" src="{% static 'img/twitter-icon.png' %}">
 <img hidden class="twitter-icon-empty-hide" src="{% static 'img/twitter-icon-gray.png' %}">
-<img hidden class="email-icon-hide" src="{% static 'img/email-icon.png' %}">
-<img hidden class="phone-icon-hide" src="{% static 'img/phone-icon.png' %}">
+<img hidden class="email-icon-hide" src="{% static 'img/email-icon-black.png' %}">
+<img hidden class="phone-icon-hide" src="{% static 'img/phone-icon-black.png' %}">
 <img hidden class="success-indicator-hide" src="{% static 'img/check-green.png' %}">
 <img hidden id="allRepsImage" src="{% static 'img/push-thought-logo.png' %}">
 
@@ -41,7 +41,6 @@
                 {% endif %}
                     <div class="seen-it-container">
                     </div>
-                    <h2 style="color: red;"><b>Share with purpose below...</b></h2>
             </div>
             <div class="content-info-right">
                 <div class="div-title-image">
@@ -62,9 +61,10 @@
     <!--<div style="margin-bottom: 50px;"></div>-->
 </div>
     <div class="rep-color-band">
+        <h2 class="share-with-purpose">Take meaningful action below...</h2>
           <div class="share-social-container">Share this campaign on:
               <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
-                <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="40" width="40">
+                <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="42" width="42">
               </a>
               <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
           </div>
@@ -77,7 +77,7 @@
         {% endif %}
             <div class="category-title-container">
                 <div style="display:inline;">
-                    <p class="category-title" style="z-index:0;">Share with Federal Representatives</p>
+                    <p class="category-title" style="z-index:0;">Share directly with Federal Representatives</p>
                     <div class="zip-reset-hover-boundary">
                         {% if hasCongressData %}
                             <img class="zip-indicator" src="{% static 'img/location-icon-bold.png' %}" width="25" height="25">
@@ -92,14 +92,12 @@
             </div>
             <div class="zip-capture" {% if hasCongressData %}style="display:none"{% endif %}>
                 {#<div class="location-label">Current Location:</div>#}
-                    {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
+                {#<img class='location-icon' src="{% static 'img/location-icon-bold.png' %}">#}
                 {#<div class="or-label">---  or  ---</div>#}
                 <div class="zip-label">Zip Code:</div>
-                    <button class="submit-zip">Load Reps</button>
+                <button class="submit-zip">Load Reps</button>
                 <div class='zip-loader'  id="zip-loader"></div>
-                <input class="zip-input" value="{% if request.session.zip %}{{ request.session.zip }}{% else %}{{ request.user.profile.zip }}{% endif %}"
-                       type="number" maxlength = "5" oninput="javascript: if
-                       (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
+                <input class="zip-input" value="{% if request.session.zip %}{{ request.session.zip }}{% else %}{{ request.user.profile.zip }}{% endif %}" type="number" maxlength = "5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></input>
             </div>
 
             <div class="rep-container">
@@ -126,8 +124,9 @@
                         </div>
                     </div>
                     <div contenteditable id="text-input" tabindex="-1" placeholder="Tweet text here"></div>
-                    <div >
-                        <label style=" margin-top:5px; font-size: 14pt;"><input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300;"> Add campaign url at end
+                    <div>
+                        <input id="twitter_input_add_url" type="checkbox" checked  style=" transform: scale(2.0); font-weight:300; margin-right:10px;">
+                        <label class="include-link-label"> Add campaign url at end
                         </label>
                     </div>
                     <div id="tweet-button">
@@ -153,58 +152,57 @@
             </div>
             <div class="email-action-container">
             </div>
-
-    <div class="suggested_message_container">
-        <div class="tweet_suggested_message_container">
-            {% if object.tweet_text %}
-                <p class="suggested-tweet-text-label" >Suggested tweet text  </p>
-                <p class="suggested-tweet-text-sublabel">(click text area to copy)</p>
-
-
-                <textarea readonly class="field-input field-suggested-tweet">{{ object.tweet_text }}</textarea>
-            {% endif %}
-        </div>
-        <div class="email_suggested_message_container">
-            {% if object.email_text %}
-                <p class="field-suggested-email-label">Suggested email text</p>
-                <p class="field-suggested-email-sublabel">(click text area to copy) </p>
-                <textarea readonly class="field-input field-suggested-email">{{ object.email_text }}</textarea>
-            {% endif %}
+    </div>
+    <div class="suggested-box-container">
+        <div class="suggested_message_container">
+            <div class="tweet_suggested_message_container">
+                {% if object.tweet_text %}
+                    <p class="suggested-tweet-text-label" >Suggested tweet text  </p>
+                    <p class="suggested-tweet-text-sublabel">(click text area to copy)</p>
+                    <textarea readonly class="field-input field-suggested-tweet">{{ object.tweet_text }}</textarea>
+                {% endif %}
+            </div>
+            <div class="email_suggested_message_container">
+                {% if object.email_text %}
+                    <p class="field-suggested-email-label">Suggested email text</p>
+                    <p class="field-suggested-email-sublabel">(click text area to copy) </p>
+                    <textarea readonly class="field-input field-suggested-email">{{ object.email_text }}</textarea>
+                {% endif %}
+            </div>
         </div>
     </div>
-
+    <div class="social-messages-container">
         <div class="hashtag-container">
             <div class="hashtag-header">
-                    <p><span style="color:gray">#| </span></p>
+                    <p><span style="color:black">#| </span></p>
             </div>
             {% for item in object.hashtagcounter_set.all %}
-                <div class='hashtag-item'>
+                <div class='hashtag-item' id='hashtag-item'>
                     <div class="copied-to-clipboard">Copied to Clipboard</div>
-                    <span class="hashtag">#{{item.hashtag.name}}</span> |
-                    <span class="counter">{{item.counter}}</span>
+                    #{{item.hashtag.name}} | {{item.counter}}
                 </div>
             {% endfor %}
         </div>
 
-    <div class="container-standard">
-        <div class="message-container">
-            <div class="tweet-header">
-                <p><span style="color:gray">Tweets|</span></p>
+        <div class="container-standard">
+            <div class="message-container">
+                <div class="tweet-header">
+                    <p><span style="color:black">Tweets|</span></p>
+                </div>
+                <div class="tweet-container">
+                    {% for item in object.actions.all %}
+                        {% if item.tweet %}
+                            <div class="tweet-item">
+                                <div class="copied-to-clipboard">Copied to Clipboard</div>
+                                <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.profile.twitter}}</p></div>
+                                <div class="tweet">{{item.tweet.text}}</div>
+                            </div>
+                        {% endif %}
+                   {% endfor %}
+                </div> <!--close tweet container-->
             </div>
-            <div class="tweet-container">
-                {% for item in object.actions.all %}
-                    {% if item.tweet %}
-                        <div class="tweet-item">
-                            <div class="copied-to-clipboard">Copied to Clipboard</div>
-                            <div><p class="tweet-name" style="color:#00aced; font-size:12pt;">@{{item.user.profile.twitter}}</p></div>
-                            <div class="tweet">{{item.tweet.text}}</div>
-                        </div>
-                    {% endif %}
-               {% endfor %}
-            </div> <!--close tweet container-->
         </div>
-    </div>
-</div><!-- /.intro-header -->
+    </div><!-- /.intro-header -->
 
 {% endblock %}
 

@@ -21,7 +21,7 @@
             <table id="campaign-table" border="0" width="60%" align="center">
                 <tr>
                     <th></th>
-                    <th width="50%">Title</th>
+                    <!--<th width="50%">Title</th>-->
                     <!--<th>Actions</th>-->
                     <th></th>
                     <th></th>
@@ -29,8 +29,8 @@
                 </tr>
                 {% for campaign in object_list %}
                     <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td align="left">{{ campaign.title }}{% if not campaign.active %} | INACTIVE{% endif %}</td>
+                        <td class="list-campaign-counter">{{ forloop.counter }}</td>
+                        <td class="list-campaign-title" align="left">{{ campaign.title }}{% if not campaign.active %} | INACTIVE{% endif %}</td>
                         <td></td>
                         <td><a href="{% url 'campaign:detail' campaign.slug %}"><button>View</button></a></td>
                         <td><a href="{% url 'campaign:update' campaign.slug %}"><button>Edit</button></a></td>
@@ -46,15 +46,15 @@
                         <td>
                             <div class="email-count">
                                 <span class="title">Emails</span>
-                                <span class="value">{{ campaign.email_count }}</span>
+                                <span class="list-value">{{ campaign.email_count }}</span>
                             </div>
                             <div class="tweet-count">
                                 <span class="title">Tweets</span>
-                                <span class="value">{{ campaign.tweet_count }}</span>
+                                <span class="list-value">{{ campaign.tweet_count }}</span>
                             </div>
                             <div class="action-count">
                                 <span class="title">Actions</span>
-                                <span class="value">{{ campaign.action_count }}</span>
+                                <span class="list-value-total-actions">{{ campaign.action_count }}</span>
                             </div>
                         </td>
                         <td colspan="4"></td>

@@ -1,12 +1,18 @@
 {% extends 'layout.html' %}
 {% load i18n %}
+{% load static from staticfiles %}
 
 {% block title %}Reset Zip{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile_form.css' %}">
+{% endblock %}
+
 {% block content %}
-    <h2>Reset Zip</h2>
+    <h2 style="margin-left:20px; color:black;">Reset Zip</h2>
     <form id="profile" style="margin-left:30px;" action="" method="post" style="margin-left:30px;" >{% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Change zip" style="color:black;" />
+        <input type="submit" value="Change zip" style="color:black; " maxlength="5" />
     </form>
 
     {% if messages %}

@@ -2,8 +2,7 @@
 {% load static %}
 
 {% block css %}
-
-<link rel="stylesheet" href="{% static 'css/signin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/signin.css' %}">
 {% endblock %}
 
 {% load i18n %}
@@ -13,7 +12,7 @@
 
 {% block content %}
 <div class="signout-container">
-    <h1>{% trans "Sign In" %}</h1>
+    <h1 style="color:black;">{% trans "Sign In" %}</h1>
 
     {% get_providers as socialaccount_providers %}
     {% if messages %}
@@ -25,7 +24,7 @@
     {% endif %}
 
     {% if socialaccount_providers %}
-        <p style="font-size:16px;">{% blocktrans with site.name as site_name %}Please sign in with one
+        <p style="font-size:16px; color:black;">{% blocktrans with site.name as site_name %}Please sign in with one
         of your existing third party accounts. {% endblocktrans %}</p>
 
         <div class="socialaccount_ballot">
@@ -37,8 +36,8 @@
         </div>
     {% endif %}
 
-    <p>{% blocktrans %}If you have not created an account yet, then please
-    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+    <p style="color:black;">{% blocktrans %}If you have not created an account yet, then please
+    <a style="color:blue;" href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 
     <form class="login" method="POST" action="{% url 'account_login' %}">
       {% csrf_token %}
