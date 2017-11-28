@@ -25,20 +25,21 @@ body{
 }
 
 .container-standard-form{
-  margin-left:30px;
   margin-bottom:100px
 }
 
 
 .field-group {
   margin-top:20px;
-  margin-left:20px;
-  width:600px;
 }
 
 .field-group-title{
   margin-top:40px;
 
+}
+
+.field-label-container {
+  margin-bottom: 20px;
 }
 
 
@@ -57,7 +58,7 @@ body{
 .field-label-title-note{
   font-size:10pt;
   margin-top:0px;
-  max-width: 400px;
+  width: 100%;
   color:black;
 }
 
@@ -70,7 +71,7 @@ body{
 .field-label-description-note{
   font-size:10pt;
   margin-top:0px;
-  max-width: 400px;
+  width: 100%;
   color:black;
 }
 
@@ -153,12 +154,12 @@ body{
 
 
 .field-input-title{
-  width: 400px;
+  width: 100%;
   border: 1px solid black;
 }
 
 .field-input-description{
-  width:400px;
+  width: 100%;
   min-height:70px;
 }
 
@@ -171,8 +172,7 @@ body{
 
 
 #id_email_text{
-  width:400px;
-  max-width:578px;
+  width: 90%;
   min-height:100px;
   height: 300px;
   display:block;
@@ -190,14 +190,24 @@ body{
 }
 
 .field-input-slug{
+<<<<<<< HEAD
   border: 1px solid black;
   width:300px;
+=======
+  border: 1px solid gray;
+  width: 100%;
+>>>>>>> c5b4af0bca08f33b85125df2abb503bb1492c2ce
 
 }
 
 .field-input-link{
+<<<<<<< HEAD
   border: 1px solid black;
   width:300px;
+=======
+  border: 1px solid gray;
+  width: 100%;
+>>>>>>> c5b4af0bca08f33b85125df2abb503bb1492c2ce
 
 }
 
@@ -230,9 +240,16 @@ display:inline;
 
 
 #id_tweet_text{
+<<<<<<< HEAD
   width: 400px;
   min-height: 70px;
   height: 150px;
+=======
+  width: 90%;
+  min-height:70px;
+  height:70px;
+  max-height:170px;
+>>>>>>> c5b4af0bca08f33b85125df2abb503bb1492c2ce
 }
 
 .suggested-email-container{

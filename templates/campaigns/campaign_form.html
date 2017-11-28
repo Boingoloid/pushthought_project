@@ -10,85 +10,89 @@
 
 {% block content %}
 
-<form  enctype="multipart/form-data" method="post" id="campaign-form">{% csrf_token %}
-<input type="hidden" id="current_slug" value="{{object.slug}}">
-<div class="container-standard container-standard-form">
-  {% if form.non_field_errors %}
-  <div class="alert alert-danger">
-    {% for error in form.non_field_errors %}
-      {{error}}
-    {% endfor %}
-  </div>
-  {% endif %}
-    <h2 class="form-title">Create custom campaign for messaging congress</h2>
-    <p class="field-label field-label-sub-heading">(all fields editable after creation except Push Thought URL)</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2 ">
+      <form  enctype="multipart/form-data" method="post" id="campaign-form">{% csrf_token %}
+        <input type="hidden" id="current_slug" value="{{object.slug}}">
+        <div class="container-standard container-standard-form">
+          {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+            {{error}}
+            {% endfor %}
+          </div>
+          {% endif %}
+          <h2 class="form-title">Create custom campaign for messaging congress</h2>
+          <p class="field-label field-label-sub-heading">(all fields editable after creation except Push Thought URL)</p>
 
-    <div class="field-group field-group-title">
-        <div class="field-label-container">
-            <p class="field-label field-label-title">Campaign Title</p>
-            <p class="field-label field-label-title-note">This is the first thing people will see about your Messaging Campaign. Get their attention with a short title that focuses on the change you’d like them to support.</p>
-        </div>
-        {% if form.title.errors %}
-        <div class="alert alert-danger">
-          {% for error in form.title.errors %}
-            {{error}}
-          {% endfor %}
-        </div>
-        {% endif %}
-        <div class="field-input-container">
-          {{form.title}}
-            {# <input name="title" class="field-input field-input-title" value="{% if form.instance.title %}{{ form.instance.title }}{% endif %}" required>#}
-        </div>
-    </div>
-    <div class="field-group">
-        <div class="field-label-container">
-            <p class="field-label field-label-description">Description</p>
-            <p class="field-label field-label-description-note">People are more likely to support your Messaging Campaign if it’s clear why you care. Explain how this change will impact you, your family, or your community. We recommend putting an empty line between paragraphs for readability.</p>
-        </div>
-        {% if form.description.errors %}
-        <div class="alert alert-danger">
-          {% for error in form.description.errors %}
-            {{error}}
-          {% endfor %}
-        </div>
-        {% endif %}
-        <div class="field-input-container">
-          {{form.description}}
-            {# <textarea name="description" class="field-input field-input-description" required>{% if form.instance.description  %}{{ form.instance.description }}{% endif %} </textarea>#}
+          <div class="field-group field-group-title">
+            <div class="field-label-container">
+              <p class="field-label field-label-title">Campaign Title</p>
+              <p class="field-label field-label-title-note">This is the first thing people will see about your Messaging Campaign. Get their attention with a short title that focuses on the change you’d like them to support.</p>
+            </div>
+            {% if form.title.errors %}
+            <div class="alert alert-danger">
+              {% for error in form.title.errors %}
+              {{error}}
+              {% endfor %}
+            </div>
+            {% endif %}
+            <div class="field-input-container">
+              {{form.title}}
+              {# <input name="title" class="field-input field-input-title" value="{% if form.instance.title %}{{ form.instance.title }}{% endif %}" required>#}
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-label-container">
+              <p class="field-label field-label-description">Description</p>
+              <p class="field-label field-label-description-note">People are more likely to support your Messaging Campaign if it’s clear why you care. Explain how this change will impact you, your family, or your community. We recommend putting an empty line between paragraphs for readability.</p>
+            </div>
+            {% if form.description.errors %}
+            <div class="alert alert-danger">
+              {% for error in form.description.errors %}
+              {{error}}
+              {% endfor %}
+            </div>
+            {% endif %}
+            <div class="field-input-container">
+              {{form.description}}
+              {# <textarea name="description" class="field-input field-input-description" required>{% if form.instance.description  %}{{ form.instance.description }}{% endif %} </textarea>#}
 
-        </div>
-    </div>
-    <div class="field-group">
-        <div class="field-label-container">
-            <p class="field-label field-label-image">Image (optional)</p>
-            <p class="field-label field-label-image-subLabel">71px width x 100px  height or equvalent ratio works best</p>
-        </div>
-        {% if form.image.errors %}
-        <div class="alert alert-danger">
-          {% for error in form.image.errors %}
-            {{error}}
-          {% endfor %}
-        </div>
-        {% endif %}
-        <div class="field-input-container">
-          {{form.image}}
-            {# <input name="image" accept="image/*" class="field-input field-input-image" type="file" value="{% if form.instance.image %}{{ form.instance.image }}{% endif %}">#}
-        </div>
-    </div>
-    <div class="field-group">
-        <div class="field-label-container">
-            <p class="field-label field-label-suggestions">must complete at least one: suggested tweet or suggested email</p>
-        </div>
-        <div class="suggested-message-container">
-            <div class="tweet-suggested-message-container">
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-label-container">
+              <p class="field-label field-label-image">Image (optional)</p>
+              <p class="field-label field-label-image-subLabel">71px width x 100px  height or equvalent ratio works best</p>
+            </div>
+            {% if form.image.errors %}
+            <div class="alert alert-danger">
+              {% for error in form.image.errors %}
+              {{error}}
+              {% endfor %}
+            </div>
+            {% endif %}
+            <div class="field-input-container">
+              {{form.image}}
+              {# <input name="image" accept="image/*" class="field-input field-input-image" type="file" value="{% if form.instance.image %}{{ form.instance.image }}{% endif %}">#}
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-label-container">
+              <p class="field-label field-label-suggestions">must complete at least one: suggested tweet or suggested email</p>
+            </div>
+            <div class="suggested-message-container">
+              <div class="tweet-suggested-message-container">
                 <div class="suggested-tweet-container">
                   {% if form.tweet_text.errors %}
                   <div class="alert alert-danger">
                     {% for error in form.tweet_text.errors %}
-                      {{error}}
+                    {{error}}
                     {% endfor %}
                   </div>
                   {% endif %}
+<<<<<<< HEAD
                     <p class="field-label field-label-tweet-text">1) Suggested tweet text</p>
                     <p class="field-label-tweet-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
                     <p class="field-label field-label-tweet-note">(max 280 characters, count already includes twitter name)<br></p>
@@ -97,27 +101,45 @@
                     {{form.tweet_text}}
                     {# <textarea name="tweet_text" class="field-input field-input-tweet-text" name="field-input-tweet-text">{% if form.instance.tweet_text %}{{ form.instance.tweet_text }}{% endif %}</textarea>#}
                     <div class="letter-count"></div>
+=======
+                  <p class="field-label field-label-tweet-text">1) Suggested tweet text</p>
+                  <p class="field-label field-label-tweet-note">(max 120 characters, leaves room for twitter name)<br></p>
+                  <p class="field-label-tweet-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
+                  <p class="field-label field-label-tweet-intro">@[twitter name will be inserted], </p>
+                  {{form.tweet_text}}
+                  {# <textarea name="tweet_text" class="field-input field-input-tweet-text" name="field-input-tweet-text">{% if form.instance.tweet_text %}{{ form.instance.tweet_text }}{% endif %}</textarea>#}
+                  <p class="tweet-letter-count"></p>
+>>>>>>> c5b4af0bca08f33b85125df2abb503bb1492c2ce
                 </div>
                 <div class="suggested-email-container">
                   {% if form.email_text.errors %}
                   <div class="alert alert-danger">
                     {% for error in form.email_text.errors %}
-                      {{error}}
+                    {{error}}
                     {% endfor %}
                   </div>
                   {% endif %}
+<<<<<<< HEAD
                     <p class="field-label field-label-email-text">2) Suggested email text</p>
                     <p class="field-label-email-sublabel" style="margin-bottom:0px;"><span class="ten-point">(tip: borrow text from description)</span></p>
                     <p class="field-label-email-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
                     <p class="field-label field-label-email-intro">Congressperson [name will be inserted],</p>
                     {{form.email_text}}
                     {# <textarea name="email_text" class="field-input field-input-email-text" name="field-input-email-text" >{% if form.instance.email_text %}{{ form.instance.email_text }}{% endif %}</textarea>#}
+=======
+                  <p class="field-label field-label-email-text">2) Suggested email text</p>
+                  <p class="field-label-email-sublabel" style="margin-bottom:0px;"><span class="ten-point">(hint: borrow text from description)</span></p>
+                  <p class="field-label-email-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
+                  <p class="field-label field-label-email-intro">Congressperson [name will be inserted],</p>
+                  {{form.email_text}}
+                  {# <textarea name="email_text" class="field-input field-input-email-text" name="field-input-email-text" >{% if form.instance.email_text %}{{ form.instance.email_text }}{% endif %}</textarea>#}
+>>>>>>> c5b4af0bca08f33b85125df2abb503bb1492c2ce
                 </div>
+              </div>
             </div>
-        </div>
 
-        <div class="field-label-container">
-            <div>
+            <div class="field-label-container">
+              <div>
 
                 <p class="field-label field-label-url">URL on Push Thought</p>
                 <p class="field-label field-label-url-subsublabel">(shorter is better for sharing)</p>
@@ -126,19 +148,19 @@
                 {% if form.slug.errors %}
                 <div class="alert alert-danger">
                   {% for error in form.slug.errors %}
-                    {{error}}
+                  {{error}}
                   {% endfor %}
                 </div>
                 {% endif %}
                 {{form.slug}}
                 {# <input id="slug" name="slug" class="field-input field-input-url" value="{{form.instance.slug}}" {% if object %}readonly{% endif %}>#}
                 <div style="margin-top:10px;">
-                    <div id="check_result" style="color:green;">Free</div>
+                  <div id="check_result" style="color:green;">Free</div>
                 </div>
                 {% if form.link.errors %}
                 <div class="alert alert-danger">
                   {% for error in form.link.errors %}
-                    {{error}}
+                  {{error}}
                   {% endfor %}
                 </div>
                 {% endif %}
@@ -148,14 +170,17 @@
                 <p class="field-label field-label-url-subsublabel">(link to your organization or website)</p>
 
                 <div style="margin-top:40px;">
-                    <button id="submit" class="btn-lg">{% if object %}SAVE CHANGES{% else %}CREATE CAMPAIGN{% endif %}</button>
+                  <button id="submit" class="btn-lg">{% if object %}SAVE CHANGES{% else %}CREATE CAMPAIGN{% endif %}</button>
                 </div>
+              </div>
             </div>
-        </div>
 
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
-</form>
 
 
 {% endblock %}
