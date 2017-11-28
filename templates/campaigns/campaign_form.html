@@ -92,9 +92,9 @@
                     {% endfor %}
                   </div>
                   {% endif %}
-                  <p class="field-label field-label-tweet-text">1) Suggested tweet text</p>
-                  <p class="field-label field-label-tweet-note">(max 120 characters, leaves room for twitter name)<br></p>
-                  <p class="field-label-tweet-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
+                   <p class="field-label field-label-tweet-text">1) Suggested tweet text</p>
+                   <p class="field-label-tweet-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
+                   <p class="field-label field-label-tweet-note">(max 280 characters, count already includes twitter name)<br></p>
                   <p class="field-label field-label-tweet-intro">@[twitter name will be inserted], </p>
                   {{form.tweet_text}}
                   {# <textarea name="tweet_text" class="field-input field-input-tweet-text" name="field-input-tweet-text">{% if form.instance.tweet_text %}{{ form.instance.tweet_text }}{% endif %}</textarea>#}
@@ -109,7 +109,7 @@
                   </div>
                   {% endif %}
                   <p class="field-label field-label-email-text">2) Suggested email text</p>
-                  <p class="field-label-email-sublabel" style="margin-bottom:0px;"><span class="ten-point">(hint: borrow text from description)</span></p>
+                  <p class="field-label-email-sublabel" style="margin-bottom:0px;"><span class="ten-point">(tip: borrow text from description)</span></p>
                   <p class="field-label-email-sublabel"><span class="ten-point">(name inserted automatically at beginning)</span></p>
                   <p class="field-label field-label-email-intro">Congressperson [name will be inserted],</p>
                   {{form.email_text}}
@@ -171,6 +171,7 @@
         check_url = '{% url 'campaign:check' %}'
     </script>
     <script src="{% static 'js/twitter-text-1.14.7.min.js' %}"></script>
+    <script src="{% static 'js/content_landing_success_messages.js' %}"></script>
     <script src="{% static 'js/content_landing.js' %}"></script>
     <script src="{% static 'js/check_campaign.js' %}"></script>
     <script src="{% static 'js/campaign_form.js' %}"></script>

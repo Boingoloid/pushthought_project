@@ -13,10 +13,11 @@ from allauth.socialaccount.models import SocialAccount
 
 class Profile(TimeStampedModel):
     user = models.OneToOneField(User)
+    name_prefix = models.CharField(max_length=100, blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
-    street = models.CharField(max_length=100, blank=True, null=True)
-    city = models.CharField(max_length=50, blank=True, null=True)
-    phone = models.CharField(max_length=20, blank=True, null=True)
+    street = models.CharField(max_length=1024, blank=True, null=True)
+    city = models.CharField(max_length=1024, blank=True, null=True)
+    phone = models.CharField(max_length=64, blank=True, null=True)
     zip = models.CharField(max_length=10, blank=True, null=True)
 
     @property

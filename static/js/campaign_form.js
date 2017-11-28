@@ -1,10 +1,17 @@
-$(document).ready(function() {
+function get_tweet_text_with_mention_placeholder() {
+    // Add placeholder for Twitter username. Max Twitter username length is 15.
+    // Add "@" before and space after.
+    return " ".repeat(17) + $('#id_tweet_text').val();
+}
 
-    updateLetterCount();
+$(document).ready(function() {
+    update_remaining_characters_counter(
+        get_tweet_text_with_mention_placeholder());
 
     $('.field-input-tweet_text').keyup(function() {
         console.log("keyup function");
-        updateLetterCount();
+        update_remaining_characters_counter(
+            get_tweet_text_with_mention_placeholder());
     });
 
     $('#campaign-form').validate({
@@ -89,19 +96,4 @@ function validateUrl(url) {
         return false;
     }
     return true
-}
-
-function updateLetterCount(){
-    console.log("here");
-    var twitterMax = 280;
-    var twitterDefaultNameLength = 20;
-    var countAfterName = twitterMax - twitterDefaultNameLength;
-    var textInput = $('.field-input-tweet_text')
-    var characterCount = textInput.val().length;
-    console.log("char count", characterCount);
-    numberOfLineBreaks = (textInput.text().match(/\n/g)||([])).length;
-    console.log("line breaks", numberOfLineBreaks);
-    var letterCount = countAfterName - characterCount - numberOfLineBreaks;
-    $('.tweet-letter-count').text(letterCount);
-    console.log("now here");
 }
