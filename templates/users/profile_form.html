@@ -12,13 +12,13 @@
     <h2 style="margin-left:20px; color:black;">Reset Zip</h2>
     <form id="profile" style="margin-left:30px;" action="" method="post" style="margin-left:30px;" >{% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Change zip" style="color:black; " maxlength="5" />
+        <button class="btn btn-success" type="submit"/>Change zip</button>
     </form>
 
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            <li style="color: black" {% if message.tags %} class="{{ message.tags }}"{% endif %}>
                 {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
                 {{ message }}
             </li>
