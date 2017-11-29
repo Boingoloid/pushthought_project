@@ -61,4 +61,4 @@ SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-LOGGING['handlers']['console']['level'] = 'DEBUG'
+LOGGING['handlers']['mail_admins']['class'] = 'logging.NullHandler'

@@ -1,35 +1,6 @@
 from .heroku import *
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'regular': {
-            'format': '[%(asctime)s %(levelname)s %(module)s %(funcName)s %(lineno)s]: %(message)s',
-            'datefmt': '%H:%M:%S'
-        }
-    },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': True,
-        }
-
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['mail_admins', 'console'],
-            'propagate': True,
-            'level': 'ERROR',
-        },
-    }
-}
-
-# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
 # parse-server
 PARSE_APP_ID = os.environ.get('PARSE_APP_ID')
