@@ -18,7 +18,7 @@
         <div class="list-page-title">My campaigns</div>
 
         <div>
-            <table id="campaign-table" border="0" width="60%" align="center">
+            <table id="campaign-table" border="0" align="center">
                 <tr>
                     <th></th>
                     <!--<th width="50%">Title</th>-->
@@ -32,13 +32,18 @@
                         <td class="list-campaign-counter">{{ forloop.counter }}</td>
                         <td class="list-campaign-title" align="left">{{ campaign.title }}{% if not campaign.active %} | INACTIVE{% endif %}</td>
                         <td></td>
-                        <td><a href="{% url 'campaign:detail' campaign.slug %}"><button>View</button></a></td>
-                        <td><a href="{% url 'campaign:update' campaign.slug %}"><button>Edit</button></a></td>
-                        <td>
-                            <form method="post" action="{% url 'campaign:delete' campaign.slug %}">
-                            {% csrf_token %}
-                            <button class="button-toggle-active">{% if not campaign.active %}Restore{% else %}X{% endif %}</button>
+                        <td class="button-block" rowspan="3">
+                            <a class="btn btn-primary" href="{% url 'campaign:detail' campaign.slug %}">View</a>
+                            <a class="btn btn-primary" href="{% url 'campaign:update' campaign.slug %}">Edit</a>
+                            <form class="detele-form" method="post" action="{% url 'campaign:delete' campaign.slug %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger">{% if not campaign.active %}Restore{% else %}X{% endif %}</button>
                             </form>
+
+                        </td>
+                        <td></td>
+                        <td>
+
                         </td>
                     <tr>
                     </tr>
@@ -66,7 +71,9 @@
     {% else %}
         <div>You have no campaigns</div>
     {% endif %}
-    <button class="create-campaign-button" style="margin-left:200px; margin-top:100px; margin-bottom:100px; height:55; background-color:green;"><a href="{% url 'campaign:create' %}" style="color:black;">Create Campaign</a></button>
+        <div style="text-align: center">
+            <a class="btn btn-success create-campaign-button" href="{% url 'campaign:create' %}">Create Campaign</a>
+        </div>
     </div>
 {% endblock %}
 
