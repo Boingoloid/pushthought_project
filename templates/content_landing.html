@@ -56,9 +56,9 @@
           <div class="share-social-container">Share this campaign on:
               <a href="https://twitter.com/intent/tweet" id="twitter-share-button" style="text-decoration: none">
                 <img class="share-tweet" src="{% static 'img/twitter-icon.png' %}" height="42" width="42">
+
               </a>
-              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer"
-                   src="{% static 'img/facebook-icon.png' %}" height="30" width="30">
+              <img class="share-facebook" id="facebook-share-button" style="cursor: pointer" src="{% static 'img/facebook-icon.png' %}" height="30" width="30" data-text="I just contacted my congressional representatives on Push Thought and told them to watch {{ object.title }}.">
           </div>
             {% if messages %}
             <ul class="messages">
