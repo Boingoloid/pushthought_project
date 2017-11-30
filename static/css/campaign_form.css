@@ -153,10 +153,20 @@ body{
 }
 
 .field-input-container.input-file {
-  width: 260px;
+  position: relative;
+  width: 215px;
   border: 2px solid #444;
   border-radius: 4px;
   overflow: hidden;
+}
+
+.field-input-container .btn-input {
+  margin-left: 122px;
+  padding: 6px 20px;
+  text-transform: none;
+  font-weight: 400;
+  border-radius: 4px;
+  border-width: 0;
 }
 .field-input-title{
   width: 100%;
@@ -168,10 +178,16 @@ body{
   min-height:70px;
 }
 
-.field-input-image{
+.field-input.field-input-image{
+  position: absolute;
+  top: 0;
+  left: -100px;
+  height: 34px;
+  padding-top: 6px;
   color:black;
   font-size:12pt;
   box-shadow: none;
+  background-color: transparent;
 }
 
 
