@@ -13,7 +13,7 @@
     {% csrf_token %}
     <input type="hidden" name="search_type" id="search_type" value="">
     <div class="browse-container">
-        <div class="browse-header">
+        <div class="browse-header container">
             <div class="row text-center">
                 <div style="display:inline;">
                     <button class="campaigns-button button-toggle">CAMPAIGNS
@@ -27,7 +27,7 @@
             </div>
         </div><!-- /.browse-header -->
 
-        <div class="search-result-section">
+        <div class="search-result-section container">
             <div>
                 <p class="search-result-heading">Choose the campaign that inspires you</p>
                 {% if searchResultList|length > 0 %}
@@ -47,14 +47,14 @@
                 {% endfor %}
              </div>
         </div>
-        <div class="category-section">
+        <div class="category-section container">
             <div>
                 <p class="category-heading" style="display:inline;">Active Campaigns</p>
 
             </div>
              <div class="row">
 {#             TODO:Change to docs only#}
-                 <div class="endless_page_template">
+                 <div class="endless_page_template row">
                 {% include 'inserts/campaigns.html' %}
                      </div>
              </div>
