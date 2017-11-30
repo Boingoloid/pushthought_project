@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Start Bootstrap - Clean Blog v3.3.7+1 (http://startbootstrap.com/template-overviews/clean-blog)
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
@@ -16,13 +16,11 @@ html{
 body {
   font-family: 'Open Sans', 'Times New Roman', serif;
   font-size: 20px;
-  background:linear-gradient(#092551,#000b1e);
-  background-color:#000b1e;
   color:white;
 }
 
 body h1{
-  color:white;
+  color:black;
 }
 body h2,
 body h3,
@@ -32,7 +30,7 @@ body h6,
 body p {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-weight: 300;
-  color: white;
+  color: black;
   margin-top: 10px;
   margin-bottom: 10px;
   letter-spacing: 1px;
@@ -59,6 +57,7 @@ a:hover {
 
 #content {
   min-height: 700px;
+  min-width: 320px;
   padding-top: 71px;
 }
 
@@ -68,7 +67,7 @@ a:hover {
 
 
 footer a{
-  color: #eeeeee;
+  color: black;
 }
 
 h1{
@@ -146,6 +145,11 @@ hr.small {
   z-index:3000;
 }
 
+.navbar-custom .navbar-header .navbar-toggle.navbar-mobile {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 .navbar-custom .nav li a {
   /*text-transform: uppercase;*/
   font-size: 16px;
@@ -153,10 +157,16 @@ hr.small {
   letter-spacing: 1px;
   vertical-align:middle;
   height: 45px;
-  padding: 10px; 10px; 10px; 10px;
+  padding: 10px;
   color: white;
-  margin-bottom:0px;
+  margin-bottom: 0;
 }
+
+.navbar-custom .nav li a:hover {
+  color: lightblue;
+}
+
+
 .nav{
   margin-bottom: 15px;
 }
@@ -335,7 +345,7 @@ input#id_username, input#id_email, input#id_password1, input#id_password2{
 
 @media only screen and (max-width: 600px) {
   .intro-header {
-     margin-top:-10px;
+     margin-top:-60px;
   }
 }
 
@@ -347,7 +357,7 @@ input#id_username, input#id_email, input#id_password1, input#id_password2{
 
 @media only screen and (max-width: 500px) {
   .intro-header {
-     margin-top:50px;
+     margin-top:-10px;
   }
 
   .intro-header-image {
@@ -356,6 +366,12 @@ input#id_username, input#id_email, input#id_password1, input#id_password2{
 
 
 
+}
+
+@media only screen and (max-width: 460px) {
+  .intro-header {
+     margin-top:-30px;
+  }
 }
 
 /*@media only screen and (max-width: 475px) {
@@ -525,7 +541,8 @@ input#id_username, input#id_email, input#id_password1, input#id_password2{
 footer {
   margin: 0;
   /*border-top: 2px solid #000000;*/
-  padding: 10px;
+  padding: 20px;
+  background: #e5e5e5;
 
   /*background:linear-gradient(#092551, #000b1e);*/
   /*background-color: #092551;
@@ -545,6 +562,7 @@ footer .copyright {
   font-size: 14px;
   text-align: center;
   margin-bottom: 0;
+  color:black;
 }
 
 
@@ -659,7 +677,7 @@ form .row:first-child .floating-label-form-group {
 
 @media only screen and (max-width: 450px) {
   .title-container{
-    margin-left:20px;
+    margin-left:0px;
     width:290px;
 
   }
@@ -691,7 +709,8 @@ form .row:first-child .floating-label-form-group {
 @media only screen and (max-width: 450px) {
   .title-words, .title-words-body{
     font-size:14pt;
-
+    display:block;
+    width:100%;
   }
 
 }
@@ -701,29 +720,34 @@ form .row:first-child .floating-label-form-group {
 .browse-btn {
   display:block;
   margin: 20px 0 0 10px;
-  width: 200px;
+  width: 270px;
   height: 37px;
   line-height: 3px;
-  font-size: 18px;
+  font-size: 14px;
   font-weight:300;
   border:2px solid black;
   /*background-color: #004c00;*/
-  background-color: green;
+  background-color: #007f00;
   color: white;
-    padding: 15px 25px;
+  padding: 15px 5px;
 }
 
-.browse-btn:hover, .message-btn:hover{
+.browse-btn:hover {
   border:2px solid black;
-  background: red;
+  background: #006600;
 }
 
-/*@media only screen and (max-width: 500px) {
+.message-btn:hover{
+  border:2px solid black;
+  background: #4169E1;
+}
+
+@media only screen and (max-width: 500px) {
 
   .browse-btn {
-    margin-top:375px;
+      margin: 20px 0 0 0px;
   }
-}*/
+}
 
 
 @media only screen and (min-width: 600px) {
@@ -731,7 +755,7 @@ form .row:first-child .floating-label-form-group {
     width:250px;
     height:42px;
     line-height:7px;
-    font-size: 20px;
+    font-size: 14px;
   }
 }
 
@@ -745,7 +769,7 @@ form .row:first-child .floating-label-form-group {
   font-weight:300;
   border:2px solid black;
   /*background-color: #004c00;*/
-  background-color: light-blue;
+  /*background-color: lightblue;*/
   padding: 15px 20px;
   color: white;
 }
@@ -756,7 +780,10 @@ form .row:first-child .floating-label-form-group {
 
 
 @media only screen and (max-width: 450px) {
+    .message-btn{
+      margin: -12px 0 0 0px;
 
+    }
 
 
 
@@ -889,29 +916,29 @@ table {
 
 /* Containers -----------------------------------------------*/
 
-.container {
-    padding-right: 15px;
-    padding-left: 15px;
-    width:100%;
-}
+/*.container {*/
+    /*padding-right: 15px;*/
+    /*padding-left: 15px;*/
+    /*width:100%;*/
+/*}*/
 
-@media (min-width: 1200px) {
-    .container {
-        width: 100%;
-    }
-}
+/*@media (min-width: 1200px) {*/
+    /*.container {*/
+        /*width: 100%;*/
+    /*}*/
+/*}*/
 
-@media (min-width: 992px){
-    .container {
-        width: 100%;
-    }
-}
+/*@media (min-width: 992px){*/
+    /*.container {*/
+        /*width: 100%;*/
+    /*}*/
+/*}*/
 
-@media (min-width: 768px){
-    .container {
-        width: 100%;
-    }
-}
+/*@media (min-width: 768px){*/
+    /*.container {*/
+        /*width: 100%;*/
+    /*}*/
+/*}*/
 
 .container-banner {
   background: black;
@@ -996,12 +1023,12 @@ table {
 
 /* landing page are asking for email*/
 .landing-container {
-  background:linear-gradient(black,#000b1e) #092551;
+  background:white;
 }
 
 .landing-container p {
   margin: auto;
-  color: white;
+  color: black;
 }
 
 .landing-container h1,
@@ -1011,12 +1038,15 @@ table {
 .landing-container h5,
 .landing-container h6,
 .landing-container p {
-  color: white;
+  color: black;
 }
 
 #email {
   margin: 12px;
   width: 200px;
+  border: 1px solid black;
+  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.25);
+
 }
 
 
@@ -1050,7 +1080,7 @@ table {
 }
 
 .how-label{
-  font-weight:400pt;
+  font-weight:400;
 }
 
 .how-it-works-title-container{
@@ -1076,8 +1106,8 @@ table {
 }
 
 
-.browse-sample-image{  
-  display:block;
+.browse-sample-image {  
+  display: block;
   width:90%;
   max-width:460px;
   /*background-image: url('../img/browse_example_blue.png');*/
@@ -1088,7 +1118,7 @@ table {
 }
 
 @media only screen and (max-width: 600px) {
-  .browse-sample-image{ 
+  .browse-sample-image { 
     display: none;
     width:90%;
     /*background-image: url('../img/browse-sample-image-single.png');*/
@@ -1232,7 +1262,8 @@ img.img-content-logo2{
 
 
 .footer-link{
-  font-size: 12pt;
+  font-size:11pt;
+  font-family: 'Open Sans', 'Times New Roman', serif;
 
 }
 
@@ -1288,17 +1319,25 @@ ul.nav {
 }
 
 ul.nav .menu-item-settings .dropdown-toggle {
-    display: block;
-    margin-right:20px;
-    margin-left:10px;
-    margin-top:0px;
-    width: 30px;
-    height: 46px;
-    padding: 0;
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  vertical-align:middle;
+  height: 45px;
+  padding: 10px;
+  color: white;
+  margin-bottom: 0;
+  margin-right: 20px;
+  cursor: pointer;
+}
 
-    background: none;
-    border: 0;
-    /*../img/blank_map3a.png*/
+ul.nav .menu-item-settings .dropdown-toggle:hover {
+  color: lightblue;
+}
+ul.nav .menu-item-settings.open > a,
+ul.nav .menu-item-settings.open > a:hover {
+  background-color: transparent;
 }
 
 ul.nav .welcome {
@@ -1311,8 +1350,9 @@ ul.nav .welcome {
     }
 
     ul.nav .create-campaign a {
-        padding: 0px;
-        margin-right: 5px;
+      line-height: 45px;
+      padding: 0 10px;
+      margin-right: 5px;
     }
 
     ul.nav .welcome {
@@ -1325,3 +1365,30 @@ ul.nav .welcome {
         background: url('../img/settings-17-xxl.png') no-repeat center/30px;
     }
 }
+
+.list-page-title{
+  color: black;
+  margin-top:20px;
+  font-weight:600;
+}
+
+.list-campaign-counter{
+  color: black;
+  font-weight:500;
+}
+
+.list-campaign-title{
+  color:black;
+  font-weight:500;
+}
+
+.list-value{
+  color:green;
+  font-weight:500;
+}
+
+.list-value-total-actions{
+  font-weight:500;
+  color:green;
+}
+

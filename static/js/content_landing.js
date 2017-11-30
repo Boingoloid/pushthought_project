@@ -374,7 +374,7 @@ $(document).ready(function() {
         $('#email-button-label').text(labelText);
 
 
-        updateTextCount();
+        update_remaining_characters_counter(get_final_tweet_text());
 
 //         Fill in fields with info from user
 //        var data = $('#emailFields').data('emailfields');
@@ -465,7 +465,7 @@ $(document).ready(function() {
         var labelText = 'tweet: ' + numItems;
         $('#tweet-button-label').text(labelText);
 
-        updateTextCount();
+        update_remaining_characters_counter(get_final_tweet_text());
         focus_on_text_input();
     });
 
@@ -640,7 +640,7 @@ $(document).ready(function() {
     ///////////////////////////////////////////////
 
     $("#text-tweet-block").on('DOMSubtreeModified', "#text-input", function() {
-        updateTextCount();
+        update_remaining_characters_counter(get_final_tweet_text());
         return false;
     });
 
@@ -650,7 +650,7 @@ $(document).ready(function() {
         /////////////////////////////////////////////////////
         // count letters and update letter count
         /////////////////////////////////////////////////////
-        updateTextCount();
+        update_remaining_characters_counter(get_final_tweet_text());
 
         //////////////////////////////////////////////////////////////////
         // Check if placeholder still exists
@@ -737,6 +737,7 @@ $(document).ready(function() {
     $('#tweet-button').click(function() {
         function request_finished() {
             hideLoading();
+            hide_email_sending_progress();
             if (get_active_mode() != 'status') {
                 $('#tweet-button').prop('disabled', false);
             }
@@ -754,6 +755,7 @@ $(document).ready(function() {
             var bioguideIds = $('.address-item-label:visible').map(
                 function() { return this.id }).get();
             deferred = runEmail(bioguideIds);
+            show_email_sending_progress(bioguideIds.length);
         } else {
             deferred = runTweet(windowURL);
         }
@@ -980,13 +982,19 @@ function setEndOfContenteditable(contentEditableElement)
     }
 }
 
-function updateTextCount() {
-    var user_entered_text = $('#text-input').text().slice(
+
+function get_final_tweet_text() {
+    user_entered_text = $('#text-input').text().slice(
         $('.address-placeholder').eq(0).text().length);
-    count_remaining = 280 - twttr.txt.getTweetLength(
-        get_longest_address() + " " + user_entered_text + site_url_to_append);
-    $('.letter-count').text(count_remaining);
-    $('.letter-count').css({'color': count_remaining < 0 ? 'red' : 'gray'});
+    return get_longest_address() + " " + user_entered_text + site_url_to_append;
+}
+
+
+function update_remaining_characters_counter(text) {
+    remaining_characters_count = 280 - twttr.txt.getTweetLength(text);
+    $('.letter-count').text(remaining_characters_count);
+    $('.letter-count').css({
+        'color': remaining_characters_count < 0 ? 'red' : 'gray'});
 }
 
 
@@ -1013,7 +1021,7 @@ $(document).ready(function () {
         } else {
             site_url_to_append = '';
         }
-        updateTextCount();
+        update_remaining_characters_counter(get_final_tweet_text());
     })
     $('#twitter_input_add_url').change();
 });
@@ -1030,6 +1038,48 @@ function showLoadingForSelectedMembers() {
 function hideLoading() {
     $('.loader').hide();
     $('.tweet-loader').hide();
+}
+
+
+// Taken from https://stackoverflow.com/a/39914235
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+/**
+ * Returns a random integer between min (inclusive) and max (inclusive)
+ * Using Math.round() will give you a non-uniform distribution!
+ * Taken from https://stackoverflow.com/a/1527820
+ */
+function get_random_int(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+async function show_email_sending_progress(email_count) {
+    var element = $('#email-sending-progress');
+    element.show();
+    element.html("<span><span></span></span>");
+    element = element.children().children();
+    for (i = 1; i <= email_count; i++) {
+        element.text("Sending email " + i);
+        number_of_dots = get_random_int(5, 7);
+        for (j = 0; j < number_of_dots; j++) {
+            await sleep(1000);
+            element.text(element.text() + ".");
+        }
+    }
+    element.text("Finishing");
+    for (i = 0; i < 20; i++) {
+        await sleep(1000);
+        element.text(element.text() + ".");
+    }
+}
+
+
+function hide_email_sending_progress() {
+    $('#email-sending-progress').hide().html();
 }
 
 

@@ -1,6 +1,7 @@
 from django.views.generic import DetailView, CreateView, DeleteView, View, ListView, UpdateView
 from django.http import JsonResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import models, forms
@@ -62,6 +63,11 @@ class CampaignCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
 
         return super(CampaignCreateView, self).form_valid(form)
+
+    def handle_no_permission(self):
+        messages.info(self.request,
+                      "You must log in to create a campaign.")
+        return super(CampaignCreateView, self).handle_no_permission()
 
 
 class CampaignUpdateView(UpdateView):

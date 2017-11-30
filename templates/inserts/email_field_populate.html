@@ -7,5 +7,6 @@
         "ADDRESS_STREET": "{% if request.user.profile.street %}{{ request.user.profile.street }}{% endif %}",
         "ADDRESS_CITY": "{% if request.user.profile.city %}{{ request.user.profile.city }}{% endif %}",
         "ADDRESS_ZIP5": "{{ request.session.zip }}" || "{{ request.user.profile.zip }}",
+        "NAME_PREFIX": "{% if request.user.profile.name_prefix %}{{ request.user.profile.name_prefix }}{% endif %}",
     }
 </script>

@@ -1,3 +1,7 @@
+#content{
+  background: #e5e5e5;
+}
+
 .signout-container{
   margin:30px;
   margin-top:70px;
@@ -8,14 +12,15 @@ a{
 
 }
 
-#id_login{
+p{
   color:black;
-
 }
 
-#id_password{
-    color:black;
+label{
+  color:black;
 }
+
+
 
 .socialaccount_providers{
 
@@ -28,3 +33,22 @@ a{
 .btn-twitter:active,.btn-twitter.active,.open>.dropdown-toggle.btn-twitter{background-image:none}
 .btn-twitter.disabled:hover,.btn-twitter[disabled]:hover,fieldset[disabled] .btn-twitter:hover,.btn-twitter.disabled:focus,.btn-twitter[disabled]:focus,fieldset[disabled] .btn-twitter:focus,.btn-twitter.disabled.focus,.btn-twitter[disabled].focus,fieldset[disabled] .btn-twitter.focus{background-color:#55acee;border-color:rgba(0,0,0,0.2)}
 .btn-twitter .badge{color:#55acee;background-color:#fff}
+
+#id_login{
+  color:black;
+  background: white;
+
+}
+
+#id_password{
+    color:black;
+    background: white;
+}
+
+#title{
+ color:#88c0d2;
+}
+
+.info{
+  color:black;
+}
