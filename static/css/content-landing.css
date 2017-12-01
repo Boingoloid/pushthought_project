@@ -596,8 +596,8 @@ text-tweet-block{
 .letter-count{
   position: absolute;
   z-index:1000;
-  top: 212px;
-  left: 428px;
+    bottom: 10px;
+    right: 20px;
   cursor:pointer;
   color:gray;
   font-size: 12pt;
@@ -609,12 +609,11 @@ text-tweet-block{
 }
 
 #text-input{
+    position: relative;
   background: rgba(0,0,0,0);
   border: 2px solid gray;
   border-radius: 10px;
   width: 450px;
-  min-width: 350px;
-  max-width: 450px;
   height: 100px;
   max-height: 100px;
   /*height: 63px;
@@ -653,13 +652,13 @@ text-tweet-block{
 
 @media only screen and (max-width: 515px) {
     #text-input{
-        width: 400px;
-        min-width: 400px;
+        /*width: 400px;*/
+        /*min-width: 400px;*/
         font-size: 12pt;
     }
     .letter-count{
-        top: 163px;
-        left: 385px;
+        /*top: 163px;*/
+        /*left: 385px;*/
         font-size: 12px;
     }
     p#link-included{
@@ -670,13 +669,13 @@ text-tweet-block{
 }
 @media only screen and (max-width: 462px) {
     #text-input{
-        width: 325px;
-        min-width: 325px;
+        width: 95%;
+        /*min-width: 325px;*/
         font-size: 12pt;
     }
     .letter-count{
-        top: 163px;
-        left: 313px;
+        /*top: 163px;*/
+        /*left: 313px;*/
         font-size: 12px;
     }
     p#link-included{
