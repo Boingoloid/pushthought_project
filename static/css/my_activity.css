@@ -71,12 +71,19 @@ ul.actions .tweet-text {
     font-size: 16px;
     font-weight:400;
     color: black;
-    border-bottom:1px solid #00aced;;
+    border-bottom:1px solid #00aced;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 ul.actions .email-text {
     padding-left: 50px;
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
     background: url('/static/img/email-icon.png') no-repeat left top/30px;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 a{
