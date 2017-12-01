@@ -76,7 +76,7 @@ ul.actions .tweet-text {
 
 ul.actions .email-text {
     padding-left: 50px;
-    background: url('/static/img/email-icon.png') no-repeat left top/30px;
+    background: url('/static/img/email-icon-black.png') no-repeat left top/30px;
 }
 
 a{
