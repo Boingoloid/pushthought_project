@@ -747,7 +747,7 @@ $(document).ready(function() {
             return false;
         }
         if ($('.address-item.selected').length == 0) {
-            alert("You much choose a congressperson.");
+            alert("You must choose a congressperson.");
             return false;
         }
         $(this).prop('disabled', true);
