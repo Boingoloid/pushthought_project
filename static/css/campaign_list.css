@@ -4,12 +4,39 @@
 }
 
 .create-campaign-button{
-  color:black;
+    display: inline-block;
+    margin: 40px auto;
+    min-width: 10px;
+    padding: 15px 20px;
+    color:black;
+    white-space: nowrap;
 }
 
-.button-toggle-active{
-  color:red;
- margin-top:5px;
+/*.button-toggle-active{*/
+  /*color:red;*/
+ /*margin-top:5px;*/
+/*}*/
+#campaign-table {
+    margin: 0 auto;
+}
+
+#campaign-table .button-block {
+    width: 220px;
+}
+@media screen and (max-width: 550px) {
+    #campaign-table .button-block {
+        width: 100px;
+    }
+}
+#campaign-table .button-block a,
+#campaign-table .button-block button {
+    margin: 5px;
+    border-radius: 4px;
+}
+
+#campaign-table .button-block .detele-form {
+    display: inline-block;
+    margin-bottom: 0;
 }
 
 .email-count, .tweet-count, .action-count {
@@ -20,3 +47,4 @@
 .email-count .title, .tweet-count .title, .action-count .title {
     margin-right: 5px;
 }
+

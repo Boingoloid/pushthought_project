@@ -86,18 +86,19 @@ a.more-info-link{
     }
 }
 .more-info-p{
-  overflow: auto;
-  overflow-x: auto;
-  overflow-y: hidden;
-  width:445px;
-  color:blue;
-  white-space: nowrap;
+    display: block;
+    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width:445px;
+    color:blue;
+    white-space: nowrap;
 }
 
 @media screen and (max-width: 500px) {
     a.more-info-link .more-info-p {
-        display: block;
-        height: 90px;
+        height: auto;
+        width: 100%;
         padding-top: 10px;
         padding-bottom: 10px;
         white-space: normal;
