@@ -12,7 +12,7 @@
     <input type="hidden" name="search_type" id="search_type" value="">
     <div class="browse-container">
         <div class="browse-header">
-            <div>
+            <div class="container">
                 <div class="row text-center">
                     <a href="/browse_campaigns/" style="text-decoration:none;">
                         <button class="campaigns-button button-toggle">CAMPAIGNS
@@ -40,13 +40,13 @@
                     <img id="youtube-logo" src="{% static '/img/youtube-logo-2.jpg' %}" width="80" height="auto">
                 </div>
             </div>
-            <div>
+            <div class="container">
                 <p class="search-sub-text">Navigates to existing Campaign or creates new one</p>
             </div>
         </div><!-- /.browse-header -->
-        <div style="margin-left: 130px; font-size:80%; color:black;">-- or --
+        <div class="container" style="margin-left: 130px; font-size:80%; color:black;">-- or --
         </div>
-        <div class="search-result-section">
+        <div class="search-result-section container">
             <div>
                 <p class="search-result-heading">Choose what campaign inspires you</p>
                 {% if searchResultList|length > 0 %}
@@ -67,20 +67,20 @@
                 {% endfor %}
              </div>
         </div>
-        <div class="category-section">
+        <div class="category-section container">
             <div>
                 <p class="category-heading" style="display:inline;">Documentaries</p>
 
             </div>
              <div class="row">
 {#             TODO:Change to docs only#}
-                 <div class="endless_page_template">
+                 <div class="endless_page_template row">
                 {% include 'inserts/documentaries.html' %}
                      </div>
              </div>
         </div>
 
-        <div class="category-section">
+        <div class="category-section container">
         <p class="category-heading">Web Videos</p>
             <div class="row endless_page_template">
                 <div class="endless_page_template">
