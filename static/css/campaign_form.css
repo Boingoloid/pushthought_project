@@ -154,8 +154,7 @@ body{
 
 .field-input-container.input-file {
   position: relative;
-  width: 215px;
-  border: 2px solid #444;
+  width: 211px;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -181,7 +180,7 @@ body{
 .field-input.field-input-image{
   position: absolute;
   top: 0;
-  left: -100px;
+  left: -101px;
   height: 34px;
   padding-top: 6px;
   color:black;
