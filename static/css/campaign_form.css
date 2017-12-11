@@ -154,13 +154,11 @@ body{
 
 .field-input-container.input-file {
   position: relative;
-  width: 211px;
-  border-radius: 4px;
   overflow: hidden;
 }
 
 .field-input-container .btn-input {
-  margin-left: 122px;
+  margin: 0 10px 0 0;
   padding: 6px 20px;
   text-transform: none;
   font-weight: 400;
@@ -180,16 +178,19 @@ body{
 .field-input.field-input-image{
   position: absolute;
   top: 0;
-  left: -101px;
-  height: 34px;
-  padding-top: 6px;
-  color:black;
-  font-size:12pt;
-  box-shadow: none;
-  background-color: transparent;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  margin-left: -100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
 }
 
-
+.input-file #file-text {
+  display: inline-block;
+  color: black;
+}
 
 #id_email_text{
   width: 90%;

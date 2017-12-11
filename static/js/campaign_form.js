@@ -108,3 +108,16 @@ function validateUrl(url) {
     }
     return true
 }
+
+
+$(document).ready(function() {
+
+  var input = $('#id_image');
+
+  input.on('change', function(e) {
+    var files = e.target.files;
+    if (files.length) {
+      $('#file-text')[0].innerHTML = files[0].name;
+    }
+  });
+});
